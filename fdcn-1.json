@@ -463,6 +463,8 @@
     ]
   },
   "96": {
+    "ending": "bad",
+    "success": "ROI-LICHE",
     "goto": 608
   },
   "97": {
@@ -1056,6 +1058,8 @@
     ]
   },
   "224": {
+    "ending": "good",
+    "success": "ESCALADED-QUICKLY",
     "goto": 608
   },
   "225": {
@@ -1285,6 +1289,8 @@
     ]
   },
   "278": {
+    "ending": "bad",
+    "success": "CERCLE-VICIEUX",
     "goto": 608
   },
   "279": {
@@ -1507,6 +1513,8 @@
     "goto": 475
   },
   "329": {
+    "ending": "bad",
+    "success": "INNOCENT",
     "goto": 608
   },
   "330": {
@@ -1707,6 +1715,7 @@
     "goto": 383
   },
   "375": {
+    "ending": "bad",
     "goto": 608
   },
   "376": {
@@ -2145,6 +2154,7 @@
     "goto": 468
   },
   "465": {
+    "ending": "bad",
     "goto": 608
   },
   "466": {
@@ -2644,6 +2654,8 @@
     "goto": 475
   },
   "559": {
+    "ending": "good",
+    "success": "VIVANT",
     "goto": 608
   },
   "560": {
@@ -2743,6 +2755,8 @@
     ]
   },
   "579": {
+    "ending": "good",
+    "success": "BULIAAA",
     "goto": 608
   },
   "580": {
@@ -2777,9 +2791,13 @@
     ]
   },
   "585": {
+    "ending": "good",
+    "success": "TRAVAIL-TERMINE",
     "goto": 608
   },
   "586": {
+    "ending": "good",
+    "success": "FLEURS",
     "goto": 608
   },
   "587": {
@@ -2793,9 +2811,13 @@
     "goto": 367
   },
   "589": {
+    "ending": "good",
+    "success": "HONNEUR",
     "goto": 608
   },
   "590": {
+    "ending": "good",
+    "success": "PERSONNEL",
     "goto": 608
   },
   "591": {
@@ -2808,9 +2830,13 @@
     "goto": 400
   },
   "594": {
+    "ending": "good",
+    "success": "ARSENE",
     "goto": 608
   },
   "595": {
+    "ending": "good",
+    "success": "METAAAL",
     "goto": 608
   },
   "596": {
@@ -2836,6 +2862,8 @@
     "goto": 480
   },
   "601": {
+    "ending": "good",
+    "success": "SABOT",
     "goto": 608
   },
   "602": {
@@ -2850,6 +2878,8 @@
     "goto": 475
   },
   "604": {
+    "ending": "good",
+    "success": "TU-QUOQUE-BILLY",
     "goto": 608
   },
   "605": {
