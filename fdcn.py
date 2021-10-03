@@ -3,10 +3,11 @@
 import graphviz
 import json
 import sys
+import codecs
 
 display_graph = graphviz.Digraph('G', filename='graph/fdcn', format='png')
 
-with open('fdcn-1.json', 'r') as f:
+with codecs.open('fdcn-1.json', 'r', 'utf8') as f:
     book_data = json.loads(f.read())
 
 # print(book_data)
@@ -61,9 +62,18 @@ class Node(object):
         
         self._sons = []
         
-        self._is_chapter_start = False
-        
         self._arc = None
+        
+        self._label = '%s' % self._id
+    
+    
+    def get_label(self):
+        return self._label
+    
+    
+    def set_label(self, label):
+        print(' [%s] Set label= %s' % (self._id, label))
+        self._label = '%s-%s' % (self._id, label)
     
     
     def get_id(self):
@@ -91,6 +101,7 @@ class Node(object):
             return 'gold'
         return 'black'
     
+    
     def _get_penwidth(self):
         if self._success is not None:
             return '3.0'
@@ -104,23 +115,20 @@ class Node(object):
     def add_node_to_display_graph(self, display_graph):
         graph = display_graph
         
-        border_color= self._get_border_color()
+        border_color = self._get_border_color()
         penwidth = self._get_penwidth()
         
-        if self._is_chapter_start:
-            node_id_string = '%s' % self._id
-            graph.node(node_id_string, shape='doubleoctagon', style='filled', color=border_color, penwidth=penwidth, fillcolor='green', label='%s' % (node_id_string))
-        elif self._ending is not None:
+        if self._ending is not None:
             # First myself
             node_id_string = '%s' % self._id
-            graph.node(node_id_string, shape='ellipse', style='solid', color=border_color, penwidth=penwidth, fillcolor='white', label='%s' % (node_id_string))
+            graph.node(node_id_string, shape='ellipse', style='solid', color=border_color, penwidth=penwidth, fillcolor='white', label=self.get_label())
             
             # And also add the visual ending node
             node_id_string = "end-from-%s" % self._id
             graph.node(node_id_string, shape='doubleoctagon', style='filled', color=border_color, penwidth=penwidth, fillcolor=self._get_ending_color(), label='End (%s)' % self._id)
         else:  # classic node
             node_id_string = '%s' % self._id
-            graph.node(node_id_string, label='%s' % (node_id_string), color=border_color, penwidth=penwidth, shape='ellipse', style='solid', fillcolor='white')
+            graph.node(node_id_string, color=border_color, penwidth=penwidth, shape='ellipse', style='solid', fillcolor='white', label=self.get_label())
     
     
     def _get_graph_from_nodes(self, other, arc_graphs):
@@ -159,7 +167,7 @@ class Node(object):
         self._arc = arc_name
         # print('   [%s] Set in arc=%s' % (self._id, self._arc))
         for son in self._sons:
-            #if son in not_allowed_nodes:
+            # if son in not_allowed_nodes:
             #    print('  [%s] Skipping breaking son: %s ' % (self._id, son.get_id()))
             #    continue
             son.set_in_arc(arc_name)
@@ -173,10 +181,16 @@ for idx, n in book_data.items():
     idx = int(idx)
     
     node = node_graph.get_node(idx)
-
+    
+    # Get the success entry if any
     success = n.get('success', None)
     if success:
         node.set_sucess(success)
+    
+    # Get the label if any
+    label = n.get('label', None)
+    if label:
+        node.set_label(label)
     
     goto = n['goto']
     
@@ -218,8 +232,8 @@ arcs = [(1, 'start'),
         (500, 'Virilus')
         ]
 
-#stopping_arc_ids = []  # some nodes are breaking the arc tagging, tag them
-#not_allowed_nodes = [node_graph.get_node(stopping_id) for stopping_id in stopping_arc_ids]
+# stopping_arc_ids = []  # some nodes are breaking the arc tagging, tag them
+# not_allowed_nodes = [node_graph.get_node(stopping_id) for stopping_id in stopping_arc_ids]
 
 for arc_start, arc_name in reversed(arcs):
     print('Tagging arc: %s (%s)' % (arc_start, arc_name))

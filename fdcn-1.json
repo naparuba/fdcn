@@ -48,6 +48,7 @@
     ]
   },
   "10": {
+    "label": "Tour nord",
     "goto": [
       461,
       184,
@@ -170,6 +171,7 @@
   },
   "37": {
     "goto": [
+      60,
       366,
       248,
       461
@@ -217,6 +219,7 @@
     "goto": 22
   },
   "48": {
+    "label": "Boui-boui",
     "goto": [
       57,
       135,
@@ -239,12 +242,14 @@
   },
   "52": {
     "goto": [
+      152,
       190,
       359,
       318
     ]
   },
   "53": {
+    "label": "Ecuries",
     "goto": [
       180,
       267,
@@ -294,6 +299,7 @@
     "goto": 100
   },
   "64": {
+    "label": "Tour des mages",
     "goto": [
       183,
       283,
@@ -329,6 +335,7 @@
     "goto": 100
   },
   "70": {
+    "label": "Massacre",
     "goto": [
       213,
       291
@@ -375,6 +382,7 @@
     ]
   },
   "79": {
+    "label": "Temple Ytia",
     "goto": [
       279,
       26,
@@ -384,6 +392,7 @@
     ]
   },
   "80": {
+    "label": "Croisement ouest",
     "goto": [
       447,
       400,
@@ -467,6 +476,7 @@
     ]
   },
   "95": {
+    "label": "Quartier commerçant",
     "goto": [
       512,
       157,
@@ -482,6 +492,7 @@
     "goto": 194
   },
   "98": {
+    "label": "Caserne",
     "goto": [
       231,
       297
@@ -494,6 +505,7 @@
     ]
   },
   "100": {
+    "label": "Acte I, Lennonia",
     "goto": [
       158,
       187,
@@ -509,6 +521,7 @@
     ]
   },
   "101": {
+    "label": "Atelier",
     "goto": [
       287,
       393
@@ -578,6 +591,7 @@
     ]
   },
   "117": {
+    "label": "Rue",
     "goto": [
       92,
       399,
@@ -601,6 +615,7 @@
     "goto": 22
   },
   "122": {
+    "label": "Commanderie",
     "goto": [
       356,
       63,
@@ -700,6 +715,7 @@
     "goto": 22
   },
   "148": {
+    "label": "Quartier boulanger",
     "goto": [
       455,
       196,
@@ -735,6 +751,7 @@
     "goto": 200
   },
   "154": {
+    "label": "Latrines",
     "goto": [
       447,
       551,
@@ -750,6 +767,7 @@
     "goto": 608
   },
   "157": {
+    "label": "Quartier insalubre",
     "goto": [
       490,
       564,
@@ -758,6 +776,7 @@
     ]
   },
   "158": {
+    "label": "Voyante",
     "goto": [
       42,
       38,
@@ -791,6 +810,7 @@
     ]
   },
   "165": {
+    "label": "Marché aux marchands",
     "goto": 100
   },
   "166": {
@@ -822,6 +842,7 @@
     "goto": 100
   },
   "171": {
+    "label": "Apothicaire",
     "goto": [
       215,
       368
@@ -859,6 +880,7 @@
     "goto": 100
   },
   "181": {
+    "label": "Forgeron",
     "goto": [
       70,
       322
@@ -877,6 +899,7 @@
     ]
   },
   "184": {
+    "label": "Plateforme d'atterrissage",
     "goto": [
       340,
       10,
@@ -887,12 +910,14 @@
     "goto": 70
   },
   "186": {
+    "label": "Salle trésor",
     "goto": [
       151,
       313
     ]
   },
   "187": {
+    "label": "Bibliothèque",
     "goto": [
       108,
       269,
@@ -936,6 +961,7 @@
     ]
   },
   "193": {
+    "label": "Acte II, La Cathédrale",
     "goto": [
       87,
       167,
@@ -1030,6 +1056,7 @@
     ]
   },
   "214": {
+    "label": "Registre du commerce",
     "goto": [
       34,
       33
@@ -1039,6 +1066,7 @@
     "goto": 100
   },
   "216": {
+    "label": "Acte II, La tour des Mages",
     "goto": 311
   },
   "217": {
@@ -1054,6 +1082,7 @@
     ]
   },
   "219": {
+    "label": "Moulin à grains",
     "goto": 378
   },
   "220": {
@@ -1089,6 +1118,7 @@
     "goto": 339
   },
   "226": {
+    "label": "Salle des tortures",
     "goto": [
       251,
       236,
@@ -1110,6 +1140,7 @@
     "goto": 70
   },
   "230": {
+    "label": "Clerc",
     "goto": [
       174,
       241
@@ -1208,6 +1239,7 @@
     ]
   },
   "254": {
+    "label": "Lavandières",
     "goto": [
       166,
       284,
@@ -1239,6 +1271,7 @@
     "goto": 386
   },
   "261": {
+    "label": "Domaine de la souricière",
     "goto": [
       312,
       161
@@ -1260,6 +1293,7 @@
     "goto": 360
   },
   "266": {
+    "label": "Laboratoire",
     "goto": [
       536,
       176
@@ -1339,9 +1373,11 @@
     ]
   },
   "283": {
+    "label": "Tour des mages",
     "goto": [
       317,
       382,
+      324,
       243,
       198,
       95,
@@ -1352,6 +1388,7 @@
     "goto": 254
   },
   "285": {
+    "label": "Grand place",
     "goto": [
       489,
       413,
@@ -1427,6 +1464,7 @@
     "goto": 407
   },
   "300": {
+    "label": "Acte III, L'Invation",
     "goto": 188
   },
   "301": {
@@ -1659,6 +1697,7 @@
     "goto": 402
   },
   "354": {
+    "label": "Taverne",
     "goto": [
       306,
       493,
@@ -1841,6 +1880,7 @@
     ]
   },
   "394": {
+    "label": "Crypte",
     "goto": [
       511,
       299,
@@ -1864,6 +1904,7 @@
     "goto": 70
   },
   "400": {
+    "label": "Acte IV, La Forteresse",
     "goto": [
       250,
       363,
@@ -1890,6 +1931,7 @@
     "goto": 25
   },
   "407": {
+    "label": "La vampire",
     "goto": [
       348,
       491,
@@ -1984,6 +2026,7 @@
     ]
   },
   "425": {
+    "label": "Catacombes",
     "goto": [
       25,
       477
@@ -2010,7 +2053,11 @@
     "goto": 475
   },
   "430": {
-    "goto": 88
+    "label": "Jardin",
+    "goto": [
+      88,
+      119
+    ]
   },
   "431": {
     "goto": 457
@@ -2064,6 +2111,7 @@
     ]
   },
   "440": {
+    "label": "Vieillard",
     "goto": [
       72,
       483,
@@ -2090,6 +2138,7 @@
     "goto": 84
   },
   "447": {
+    "label": "Couloir Est",
     "goto": [
       400,
       569,
@@ -2149,6 +2198,7 @@
     "goto": 480
   },
   "457": {
+    "label": "Salle de repas",
     "goto": [
       462,
       376,
@@ -2157,6 +2207,7 @@
     ]
   },
   "458": {
+    "label": "Chambre du sorcier",
     "goto": [
       296,
       474,
@@ -2174,6 +2225,7 @@
     ]
   },
   "461": {
+    "label": "Couloir Nord",
     "goto": [
       447,
       583,
@@ -2243,6 +2295,7 @@
     ]
   },
   "475": {
+    "label": "Combat Virilus",
     "goto": [
       290,
       328,
@@ -2289,6 +2342,7 @@
     "goto": 405
   },
   "480": {
+    "label": "Combat Chaudron noir",
     "goto": [
       302,
       305,
@@ -2389,6 +2443,7 @@
     "goto": 536
   },
   "496": {
+    "label": "Cathédrale",
     "goto": [
       531,
       537,
@@ -2406,6 +2461,7 @@
     "goto": 100
   },
   "500": {
+    "label": "Acte Virilus",
     "goto": [
       572,
       343
@@ -2493,12 +2549,14 @@
     "goto": 420
   },
   "519": {
+    "label": "Pied de la tour",
     "goto": [
       260,
       380
     ]
   },
   "520": {
+    "label": "Salle statues",
     "goto": [
       503,
       340
@@ -2658,13 +2716,17 @@
     "goto": 168
   },
   "550": {
+    "label": "Salle du trône",
     "goto": [
       461,
       281
     ]
   },
   "551": {
+    "label": "Dortoir",
     "goto": [
+      575,
+      232,
       154,
       447,
       553
@@ -2677,6 +2739,7 @@
     ]
   },
   "553": {
+    "label": "Thermes",
     "goto": [
       292,
       486
@@ -2746,6 +2809,7 @@
     "goto": 475
   },
   "569": {
+    "label": "Petite alcôve",
     "goto": [
       307,
       560,
@@ -2816,6 +2880,7 @@
     ]
   },
   "581": {
+    "label": "Tour sud",
     "goto": [
       400,
       184,
@@ -2826,6 +2891,7 @@
     "goto": 475
   },
   "583": {
+    "label": "Cachots",
     "goto": [
       461,
       366,
