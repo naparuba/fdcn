@@ -153,16 +153,16 @@ class Node(object):
                 # print('%s -> %s' % (node_string, son_string))
     
     
-    def set_in_arc(self, arc_name, not_allowed_nodes):
+    def set_in_arc(self, arc_name):
         if self._arc is not None:
             return
         self._arc = arc_name
         # print('   [%s] Set in arc=%s' % (self._id, self._arc))
         for son in self._sons:
-            if son in not_allowed_nodes:
-                print('  [%s] Skipping breaking son: %s ' % (self._id, son.get_id()))
-                continue
-            son.set_in_arc(arc_name, not_allowed_nodes)
+            #if son in not_allowed_nodes:
+            #    print('  [%s] Skipping breaking son: %s ' % (self._id, son.get_id()))
+            #    continue
+            son.set_in_arc(arc_name)
 
 
 node_graph = Graph()
@@ -218,13 +218,13 @@ arcs = [(1, 'start'),
         (500, 'Virilus')
         ]
 
-stopping_arc_ids = [200]  # some nodes are breaking the arc tagging, tag them
-not_allowed_nodes = [node_graph.get_node(stopping_id) for stopping_id in stopping_arc_ids]
+#stopping_arc_ids = []  # some nodes are breaking the arc tagging, tag them
+#not_allowed_nodes = [node_graph.get_node(stopping_id) for stopping_id in stopping_arc_ids]
 
 for arc_start, arc_name in reversed(arcs):
     print('Tagging arc: %s (%s)' % (arc_start, arc_name))
     arc_node_start = node_graph.get_node(arc_start)  # type: Node
-    arc_node_start.set_in_arc(arc_name, not_allowed_nodes)
+    arc_node_start.set_in_arc(arc_name)
 
 arc_graphs = {None: []}
 for _, arc_name in arcs:
