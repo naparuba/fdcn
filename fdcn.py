@@ -63,17 +63,22 @@ class Node(object):
         self._sons = []
         
         self._arc = None
+        self._combat = None
         
-        self._label = '%s' % self._id
+        self._label = None
     
     
     def get_label(self):
-        return self._label
+        if self._label:
+            return '<%s-<FONT COLOR="blue" POINT-SIZE="20">%s</FONT> >' % (self._id, self._label)
+        if self._combat:
+            return '<<B><FONT COLOR="red" POINT-SIZE="20">%s</FONT></B>>' % (self._id)
+        return '%s' % self._id
     
     
     def set_label(self, label):
         print(' [%s] Set label= %s' % (self._id, label))
-        self._label = '%s-%s' % (self._id, label)
+        self._label = label  # '<%s-<FONT COLOR="blue" POINT-SIZE="20">%s</FONT> >' % (self._id, label)
     
     
     def get_id(self):
@@ -90,6 +95,10 @@ class Node(object):
     
     def set_sucess(self, success):
         self._success = success
+    
+    
+    def set_combat(self, combat):
+        self._combat = True
     
     
     def _get_ending_color(self):
@@ -187,6 +196,11 @@ for idx, n in book_data.items():
     if success:
         node.set_sucess(success)
     
+    # Get the combat entry if any
+    combat = n.get('combat', None)
+    if combat is not None:
+        node.set_combat(combat)
+    
     # Get the label if any
     label = n.get('label', None)
     if label:
@@ -232,9 +246,6 @@ arcs = [(1, 'start'),
         (500, 'Virilus')
         ]
 
-# stopping_arc_ids = []  # some nodes are breaking the arc tagging, tag them
-# not_allowed_nodes = [node_graph.get_node(stopping_id) for stopping_id in stopping_arc_ids]
-
 for arc_start, arc_name in reversed(arcs):
     print('Tagging arc: %s (%s)' % (arc_start, arc_name))
     arc_node_start = node_graph.get_node(arc_start)  # type: Node
@@ -249,6 +260,7 @@ node_graph.add_nodes_to_display_graph(display_graph)
 print('Adding edges to display graph:')
 node_graph.add_edges_to_display_graph(arc_graphs)
 
+# Now put nodes into graphs and clusters
 for arc_name, arc_edges in arc_graphs.items():
     print('Arc %s => size=%s' % (arc_name, len(arc_edges)))
     if arc_name is None:
@@ -262,5 +274,5 @@ for arc_name, arc_edges in arc_graphs.items():
             cluster.attr(fontsize="72", fontcolor='red')
 
 print('Rendering')
-display_graph.render(renderer='gdiplus', formatter='gdiplus')
+display_graph.render()  # renderer='gdiplus', formatter='gdiplus')
 # g.view()
