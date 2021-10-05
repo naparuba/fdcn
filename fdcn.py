@@ -39,6 +39,7 @@ class Graph(object):
     
     
     def get_node(self, node_id):
+        # type: (int) -> Node
         return self._nodes[node_id]
     
     
@@ -63,6 +64,7 @@ class Node(object):
         self._sons = []
         
         self._arc = None
+        self._sub_arc = None
         self._combat = None
         
         self._label = None
@@ -158,28 +160,40 @@ class Node(object):
             # And also add the visual ending node
             end_node_string = "end-from-%s" % self._id
             _graph = self._get_graph_from_nodes(self, arc_graphs)  # Lie: it's us, so we will be in our arc
-            # _graph.edges([(node_string, end_node_string)])
             _graph.append((node_string, end_node_string))
-            # print('%s -> %s' % (node_string, end_node_string))
         else:  # classic node
             for son in self._sons:
                 son_string = '%s' % son.get_id()
                 _graph = self._get_graph_from_nodes(son, arc_graphs)
-                # _graph.edges([(node_string, son_string)])
                 _graph.append((node_string, son_string))
-                # print('%s -> %s' % (node_string, son_string))
     
     
     def set_in_arc(self, arc_name):
+        # Already set, drop recursive loop
         if self._arc is not None:
             return
         self._arc = arc_name
-        # print('   [%s] Set in arc=%s' % (self._id, self._arc))
         for son in self._sons:
-            # if son in not_allowed_nodes:
-            #    print('  [%s] Skipping breaking son: %s ' % (self._id, son.get_id()))
-            #    continue
             son.set_in_arc(arc_name)
+    
+    
+    def set_in_sub_arc(self, sub_arc, sub_arc_stops):
+        # Loop stop
+        if self._sub_arc is not None:
+            return
+        # Maybe we did reach the stop point, then... stop! ^^
+        if self._id in sub_arc_stops:
+            print('[%s] SUB-ARC: Stopping propagation at %s' % (sub_arc, self._id))
+            return
+        print('[%s] tagging %s' % (sub_arc, self._id))
+        self._sub_arc = sub_arc
+        
+        for son in self._sons:  # type: Node
+            son.set_in_sub_arc(sub_arc, sub_arc_stops)
+    
+    
+    def get_sub_arc(self):
+        return self._sub_arc
 
 
 node_graph = Graph()
@@ -245,11 +259,29 @@ arcs = [(1, 'start'),
         (400, 'Forteresse'),
         (500, 'Virilus')
         ]
+# (arc_name, Start of sub, name, stops)
+sub_arcs = [
+    ('Invasion', 148, 'Quartier boulanger', [496, 285]),
+    ('Invasion', 283, 'Tour des mages', [183, 95, 285]),
+    
+    ('Forteresse', 553, 'Thermes', [551]),
+    ('Forteresse', 462, 'Bagarre', [457]),
+    ('Forteresse', 376, 'Cuisine', [457, 340]),
+    ('Forteresse', 583, 'Cachots', [461]),
+    ('Forteresse', 425, 'Catacombes', [80]),
+    ('Forteresse', 266, 'Laboratoire', [80]),
+    ('Forteresse', 569, 'Mortelle', [447, 186]),
+]
 
+# Tag nodes with arc, from lower to higher so we don't rewrite them
 for arc_start, arc_name in reversed(arcs):
     print('Tagging arc: %s (%s)' % (arc_start, arc_name))
     arc_node_start = node_graph.get_node(arc_start)  # type: Node
     arc_node_start.set_in_arc(arc_name)
+
+for arc_name, sub_arc_start, sub_arc_name, sub_arc_stops in sub_arcs:
+    node_start = node_graph.get_node(sub_arc_start)
+    node_start.set_in_sub_arc(sub_arc_name, sub_arc_stops)
 
 arc_graphs = {None: []}
 for _, arc_name in arcs:
@@ -268,6 +300,36 @@ for arc_name, arc_edges in arc_graphs.items():
             display_graph.edge(start, end)
     else:
         with display_graph.subgraph(name='cluster_%s' % arc_name) as cluster:
+            sub_arc_edges = {}
+            for edges in arc_edges[:]:
+                edge_start_node = node_graph.get_node(int(edges[0]))  # type: Node
+                edge_start_sub_arc = edge_start_node.get_sub_arc()
+                try:
+                    end_id = int(edges[1])
+                except ValueError:  # not a classic node, skip this
+                    continue
+                edge_end_node = node_graph.get_node(end_id)  # type: None
+                
+                # Maybe the two nodes are not in the same sub_arc, so don't link them here
+                if edge_end_node.get_sub_arc() != edge_start_sub_arc:
+                    print('%s => skipping not related edge: %s' % (sub_arc_name, edges))
+                    continue
+                if edge_start_sub_arc is not None:
+                    if edge_start_sub_arc not in sub_arc_edges:
+                        sub_arc_edges[edge_start_sub_arc] = []
+                    sub_arc_edges[edge_start_sub_arc].append(edges)
+                    arc_edges.remove(edges)
+            print('%s => sub arcs= %s' % (arc_name, sub_arc_edges))
+            for sub_arc_name, sub_arc_edges in sub_arc_edges.items():
+                with cluster.subgraph(name='cluster_%s' % sub_arc_name) as sub_cluster:
+                    print('SUB-ARC=[%s] nb jumps:%s' % (sub_arc_name, len(sub_arc_edges)))
+                    # Now put the edges in the global cluster, not in a sub arcs
+                    sub_cluster.attr(style='filled', color='grey')
+                    sub_cluster.edges(sub_arc_edges)
+                    sub_cluster.attr(label=sub_arc_name)
+                    sub_cluster.attr(fontsize="72", fontcolor='red')
+            
+            # Now put the edges in the global cluster, not in a sub arcs
             cluster.attr(style='filled', color='lightgrey')
             cluster.edges(arc_edges)
             cluster.attr(label=arc_name)
