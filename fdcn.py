@@ -177,19 +177,31 @@ class Node(object):
             son.set_in_arc(arc_name)
     
     
-    def set_in_sub_arc(self, sub_arc, sub_arc_stops):
+    def set_in_sub_arc(self, sub_arc, sub_arc_stops, nb):
         # Loop stop
         if self._sub_arc is not None:
-            return
+            return nb
+        if nb > 50:
+            err = '[%s] The sub arc is too big, seems NOT normal (%s)' % (sub_arc, nb)
+            raise Exception(err)
         # Maybe we did reach the stop point, then... stop! ^^
         if self._id in sub_arc_stops:
             print('[%s] SUB-ARC: Stopping propagation at %s' % (sub_arc, self._id))
-            return
+            return nb
         print('[%s] tagging %s' % (sub_arc, self._id))
         self._sub_arc = sub_arc
-        
+        nb += 1
         for son in self._sons:  # type: Node
-            son.set_in_sub_arc(sub_arc, sub_arc_stops)
+            nb = son.set_in_sub_arc(sub_arc, sub_arc_stops, nb)
+        return nb
+    
+    
+    def set_in_sub_arc_not_recursive(self, sub_arc):
+        # Loop stop
+        if self._sub_arc is not None:
+            return
+        print('[%s] Manually tagging %s' % (sub_arc, self._id))
+        self._sub_arc = sub_arc
     
     
     def get_sub_arc(self):
@@ -264,14 +276,20 @@ sub_arcs = [
     ('Invasion', 148, 'Quartier boulanger', [496, 285]),
     ('Invasion', 283, 'Tour des mages', [183, 95, 285]),
     
-    ('Forteresse', 553, 'Thermes', [551]),
+    ('Forteresse', 553, 'Thermes', [551, 80, 561]),
     ('Forteresse', 462, 'Bagarre', [457]),
     ('Forteresse', 376, 'Cuisine', [457, 340]),
     ('Forteresse', 583, 'Cachots', [461]),
     ('Forteresse', 425, 'Catacombes', [80]),
     ('Forteresse', 266, 'Laboratoire', [80]),
     ('Forteresse', 569, 'Mortelle', [447, 186]),
+    ('Forteresse', 226, 'Funeste', [461]),
+    ('Forteresse', 340, 'Entrepôt', [184, 520, 218, 400]),
 ]
+
+manual_sub_arcs = {
+    'Couloirs': [184, 10, 447, 581, 461, 520, 80, 400, 457],
+}
 
 # Tag nodes with arc, from lower to higher so we don't rewrite them
 for arc_start, arc_name in reversed(arcs):
@@ -281,7 +299,13 @@ for arc_start, arc_name in reversed(arcs):
 
 for arc_name, sub_arc_start, sub_arc_name, sub_arc_stops in sub_arcs:
     node_start = node_graph.get_node(sub_arc_start)
-    node_start.set_in_sub_arc(sub_arc_name, sub_arc_stops)
+    node_start.set_in_sub_arc(sub_arc_name, sub_arc_stops, 0)
+
+for sub_arc_name, node_ids in manual_sub_arcs.items():
+    print('Sub arc (manual): %s => %s' % (sub_arc_name, node_ids))
+    for node_id in node_ids:
+        node = node_graph.get_node(node_id)
+        node.set_in_sub_arc_not_recursive(sub_arc_name)
 
 arc_graphs = {None: []}
 for _, arc_name in arcs:
