@@ -70,6 +70,33 @@ class Node(object):
         self._label = None
     
     
+    def have_combat(self):
+        return self._combat is not None
+    
+    
+    def have_ending(self):
+        return self._ending is not None
+    
+    
+    def get_computed(self):
+        son_ids = [son.get_id() for son in self._sons]
+        son_ids.sort()  # try to always have the same result
+        
+        ending = False
+        if self._ending == ENDINGS.GOOD:
+            ending = True
+        
+        return {
+            'ending'   : ending,
+            'success'  : self._success,
+            'sons'     : son_ids,
+            'chapter'  : self._arc,
+            'arc'      : self._sub_arc,
+            'is_combat': self._combat is not None,
+            'label'    : self._label,
+        }
+    
+    
     def get_label(self):
         if self._label:
             return '<%s-<FONT COLOR="blue" POINT-SIZE="20">%s</FONT> >' % (self._id, self._label)
@@ -332,7 +359,7 @@ for arc_name, arc_edges in arc_graphs.items():
                     end_id = int(edges[1])
                 except ValueError:  # not a classic node, skip this
                     continue
-                edge_end_node = node_graph.get_node(end_id)  # type: None
+                edge_end_node = node_graph.get_node(end_id)  # type: Node
                 
                 # Maybe the two nodes are not in the same sub_arc, so don't link them here
                 if edge_end_node.get_sub_arc() != edge_start_sub_arc:
@@ -358,6 +385,32 @@ for arc_name, arc_edges in arc_graphs.items():
             cluster.edges(arc_edges)
             cluster.attr(label=arc_name)
             cluster.attr(fontsize="72", fontcolor='red')
+
+print('Writing compilated data')
+# Modify the book data with what we did compute
+
+for node_id_str, node_data in book_data.items():
+    node = node_graph.get_node(int(node_id_str))
+    node_data['computed'] = node.get_computed()
+
+new_book_data_string = json.dumps(book_data, indent=4, ensure_ascii=False)  # allow utf8
+with codecs.open('fdcn-1-compilated-data.json', 'w', 'utf8') as f:
+    f.write(new_book_data_string)
+
+all_combats = []
+all_endings = []
+for node_id_str in book_data.keys():
+    node = node_graph.get_node(int(node_id_str))
+    if node.have_combat():
+        all_combats.append(node.get_id())
+    if node.have_ending():
+        all_endings.append(node.get_id())
+
+with codecs.open('fdcn-1-compilated-combats.json', 'w', 'utf8') as f:
+    f.write(json.dumps(all_combats, indent=4, ensure_ascii=False))
+
+with codecs.open('fdcn-1-compilated-endings.json', 'w', 'utf8') as f:
+    f.write(json.dumps(all_endings, indent=4, ensure_ascii=False))
 
 print('Rendering')
 display_graph.render()  # renderer='gdiplus', formatter='gdiplus')
