@@ -83,7 +83,7 @@ class Node(object):
         son_ids.sort()  # try to always have the same result
         
         ending = False
-        if self._ending == ENDINGS.GOOD:
+        if self._ending is not None:
             ending = True
         
         return {
