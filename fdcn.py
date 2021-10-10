@@ -87,6 +87,7 @@ class Node(object):
             ending = True
         
         return {
+            'id'       : self._id,
             'ending'   : ending,
             'success'  : self._success,
             'sons'     : son_ids,

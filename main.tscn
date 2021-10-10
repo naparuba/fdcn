@@ -1,0 +1,94 @@
+[gd_scene load_steps=3 format=2]
+
+[ext_resource path="res://main.gd" type="Script" id=1]
+[ext_resource path="res://fonts/amon_font.tres" type="DynamicFont" id=2]
+
+[node name="main" type="Node2D"]
+position = Vector2( 2.82843, 29.6985 )
+script = ExtResource( 1 )
+
+[node name="MarginContainer" type="MarginContainer" parent="."]
+margin_right = 1014.0
+margin_bottom = 599.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer"]
+margin_right = 1014.0
+margin_bottom = 599.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="HBoxBilly" type="HBoxContainer" parent="MarginContainer/VBoxContainer"]
+margin_right = 1014.0
+margin_bottom = 50.0
+
+[node name="Billy" type="Label" parent="MarginContainer/VBoxContainer/HBoxBilly"]
+margin_right = 120.0
+margin_bottom = 50.0
+custom_fonts/font = ExtResource( 2 )
+text = "Billy"
+
+[node name="Type" type="Label" parent="MarginContainer/VBoxContainer/HBoxBilly"]
+margin_left = 124.0
+margin_right = 464.0
+margin_bottom = 50.0
+custom_fonts/font = ExtResource( 2 )
+text = "Type de billy"
+
+[node name="HBoxTotalSummary" type="HBoxContainer" parent="MarginContainer/VBoxContainer"]
+margin_top = 54.0
+margin_right = 1014.0
+margin_bottom = 104.0
+
+[node name="FDCN" type="Label" parent="MarginContainer/VBoxContainer/HBoxTotalSummary"]
+margin_right = 165.0
+margin_bottom = 50.0
+custom_fonts/font = ExtResource( 2 )
+text = "FDCN%"
+
+[node name="FDCNCompletion" type="Label" parent="MarginContainer/VBoxContainer/HBoxTotalSummary"]
+margin_left = 169.0
+margin_right = 395.0
+margin_bottom = 50.0
+custom_fonts/font = ExtResource( 2 )
+text = " X% (X/Y)"
+
+[node name="Success" type="Label" parent="MarginContainer/VBoxContainer/HBoxTotalSummary"]
+margin_left = 399.0
+margin_right = 612.0
+margin_bottom = 50.0
+custom_fonts/font = ExtResource( 2 )
+text = "Success"
+
+[node name="SuccessCompletion" type="Label" parent="MarginContainer/VBoxContainer/HBoxTotalSummary"]
+margin_left = 616.0
+margin_right = 842.0
+margin_bottom = 50.0
+custom_fonts/font = ExtResource( 2 )
+text = " X% (X/Y)"
+
+[node name="HBoxActe" type="HBoxContainer" parent="MarginContainer/VBoxContainer"]
+margin_top = 108.0
+margin_right = 1014.0
+margin_bottom = 158.0
+
+[node name="Acte" type="Label" parent="MarginContainer/VBoxContainer/HBoxActe"]
+margin_right = 120.0
+margin_bottom = 50.0
+custom_fonts/font = ExtResource( 2 )
+text = "Acte"
+
+[node name="ActeEnCours" type="Label" parent="MarginContainer/VBoxContainer/HBoxActe"]
+margin_left = 124.0
+margin_right = 272.0
+margin_bottom = 50.0
+custom_fonts/font = ExtResource( 2 )
+text = "XXXX"
+
+[node name="Progress" type="VBoxContainer" parent="MarginContainer/VBoxContainer"]
+margin_top = 162.0
+margin_right = 1014.0
+margin_bottom = 162.0
