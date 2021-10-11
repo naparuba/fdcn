@@ -32,6 +32,7 @@ custom_fonts/font = ExtResource( 2 )
 text = "Billy"
 
 [node name="Type" type="Label" parent="MarginContainer/VBoxContainer/HBoxBilly"]
+visible = false
 margin_left = 124.0
 margin_right = 464.0
 margin_bottom = 50.0
@@ -44,28 +45,30 @@ margin_right = 1014.0
 margin_bottom = 104.0
 
 [node name="FDCN" type="Label" parent="MarginContainer/VBoxContainer/HBoxTotalSummary"]
-margin_right = 165.0
+margin_right = 155.0
 margin_bottom = 50.0
 custom_fonts/font = ExtResource( 2 )
-text = "FDCN%"
+text = "FDCN: "
 
 [node name="FDCNCompletion" type="Label" parent="MarginContainer/VBoxContainer/HBoxTotalSummary"]
-margin_left = 169.0
-margin_right = 395.0
+margin_left = 159.0
+margin_right = 385.0
 margin_bottom = 50.0
 custom_fonts/font = ExtResource( 2 )
 text = " X% (X/Y)"
 
 [node name="Success" type="Label" parent="MarginContainer/VBoxContainer/HBoxTotalSummary"]
-margin_left = 399.0
-margin_right = 612.0
+visible = false
+margin_left = 389.0
+margin_right = 602.0
 margin_bottom = 50.0
 custom_fonts/font = ExtResource( 2 )
 text = "Success"
 
 [node name="SuccessCompletion" type="Label" parent="MarginContainer/VBoxContainer/HBoxTotalSummary"]
-margin_left = 616.0
-margin_right = 842.0
+visible = false
+margin_left = 389.0
+margin_right = 615.0
 margin_bottom = 50.0
 custom_fonts/font = ExtResource( 2 )
 text = " X% (X/Y)"
@@ -76,22 +79,40 @@ margin_right = 1014.0
 margin_bottom = 158.0
 
 [node name="Acte" type="Label" parent="MarginContainer/VBoxContainer/HBoxActe"]
-margin_right = 120.0
+margin_right = 144.0
 margin_bottom = 50.0
 custom_fonts/font = ExtResource( 2 )
-text = "Acte"
+text = "Acte: "
 
 [node name="ActeEnCours" type="Label" parent="MarginContainer/VBoxContainer/HBoxActe"]
-margin_left = 124.0
-margin_right = 272.0
+margin_left = 148.0
+margin_right = 296.0
+margin_bottom = 50.0
+custom_fonts/font = ExtResource( 2 )
+text = "XXXX"
+
+[node name="HBoxChapitre" type="HBoxContainer" parent="MarginContainer/VBoxContainer"]
+margin_top = 162.0
+margin_right = 1014.0
+margin_bottom = 212.0
+
+[node name="Chapitre" type="Label" parent="MarginContainer/VBoxContainer/HBoxChapitre"]
+margin_right = 266.0
+margin_bottom = 50.0
+custom_fonts/font = ExtResource( 2 )
+text = "Chapitre: "
+
+[node name="ChapitreEnCours" type="Label" parent="MarginContainer/VBoxContainer/HBoxChapitre"]
+margin_left = 270.0
+margin_right = 418.0
 margin_bottom = 50.0
 custom_fonts/font = ExtResource( 2 )
 text = "XXXX"
 
 [node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer/VBoxContainer"]
-margin_top = 162.0
+margin_top = 216.0
 margin_right = 1014.0
-margin_bottom = 182.0
+margin_bottom = 236.0
 
 [node name="back" type="Button" parent="MarginContainer/VBoxContainer/HBoxContainer"]
 margin_right = 66.0

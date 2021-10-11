@@ -17,7 +17,7 @@ _global_script_class_icons={
 config/name="fdcn"
 config/description="Application de suivi de progression dans le livre La Forteresse du Chaudron Noir"
 run/main_scene="res://main.tscn"
-config/icon="res://icon.png"
+config/icon="res://images/fdcn_icon.png"
 
 [global]
 

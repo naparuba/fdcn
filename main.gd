@@ -11,6 +11,7 @@ var current_lines = []
 
 onready var hbox_next_jumps = $MarginContainer/VBoxContainer/HBoxContainer/Progress
 
+
 onready var Going_to_line = preload('res://going_to_line.tscn')
 
 
@@ -138,9 +139,26 @@ func refresh():
 		var prev_id = self.session_visited_nodes[len(self.session_visited_nodes) - 2]  # we already stack us
 		_back.text = '<= oups (%s)' % prev_id
 	
+	# Update the % completion
+	var fdcn_completion = $MarginContainer/VBoxContainer/HBoxTotalSummary/FDCNCompletion
+	var _nb_all_nodes = len(self.all_nodes)
+	var _nb_visited = len(self.visited_nodes_all_times)
+	var _s = '%.1f %%' % (100 * _nb_visited / float(_nb_all_nodes)) + (' (%d /' % _nb_visited) + (' %d )' % _nb_all_nodes)
+	fdcn_completion.text = _s
+	
+	# Now print my current node
 	print('Loaded object:', self.all_nodes['%s' % self.current_node_id])
 	var my_node = self._get_node(self.current_node_id)
 	
+	# The act in progress
+	var _acte_label = $MarginContainer/VBoxContainer/HBoxActe/ActeEnCours
+	_acte_label.text = '%s' % my_node['computed']['chapter']
+	
+	# The number
+	var _chapitre_label = $MarginContainer/VBoxContainer/HBoxChapitre/ChapitreEnCours
+	_chapitre_label.text = '%s' % my_node['computed']['id']
+	
+	# And my sons
 	var sons_ids = my_node['computed']['sons']
 	for son_id in sons_ids:
 		print('My son: %s' % son_id)
