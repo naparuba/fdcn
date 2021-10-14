@@ -1,0 +1,110 @@
+[gd_scene load_steps=4 format=2]
+
+[ext_resource path="res://ChapterChoice.gd" type="Script" id=1]
+
+[sub_resource type="StyleBoxFlat" id=1]
+bg_color = Color( 1, 1, 1, 1 )
+border_width_bottom = 2
+
+[sub_resource type="StyleBoxFlat" id=2]
+bg_color = Color( 0.92549, 0.929412, 0.94902, 1 )
+corner_radius_top_left = 2
+corner_radius_top_right = 2
+corner_radius_bottom_right = 2
+corner_radius_bottom_left = 2
+
+[node name="ChapterChoice" type="Panel"]
+margin_right = 446.0
+margin_bottom = 50.0
+rect_min_size = Vector2( 0, 50 )
+custom_styles/panel = SubResource( 1 )
+script = ExtResource( 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="NBChapitre" type="Label" parent="."]
+margin_left = 338.0
+margin_top = 15.0
+margin_right = 378.0
+margin_bottom = 46.0
+custom_colors/font_color = Color( 0, 0, 0, 1 )
+text = "XXX
+"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="click" type="Panel" parent="."]
+margin_left = 387.249
+margin_top = 3.36737
+margin_right = 427.249
+margin_bottom = 43.3674
+custom_styles/panel = SubResource( 2 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Label" type="Label" parent="click"]
+margin_left = 15.1533
+margin_top = 12.3471
+margin_right = 55.1533
+margin_bottom = 26.3471
+custom_colors/font_color = Color( 0, 0, 0, 1 )
+text = ">"
+
+[node name="Button" type="TextureButton" parent="click"]
+margin_right = 40.0
+margin_bottom = 39.0
+
+[node name="AlreadySeenPolygon" type="Polygon2D" parent="."]
+color = Color( 0.619608, 0.658824, 0.705882, 1 )
+polygon = PoolVector2Array( 28.1169, 47.9916, 41.6251, -0.0815163, 58.0468, -0.0815163, 44.2124, 48.0062 )
+
+[node name="Label" type="Label" parent="AlreadySeenPolygon"]
+margin_left = 29.217
+margin_top = 45.6984
+margin_right = 78.217
+margin_bottom = 59.6984
+rect_rotation = -73.2716
+custom_colors/font_color = Color( 0, 0, 0, 1 )
+text = "Déjà Vu"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="SessionSeenPolygon" type="Polygon2D" parent="."]
+position = Vector2( 24.5896, 0.0488701 )
+color = Color( 0.619608, 0.658824, 0.705882, 1 )
+polygon = PoolVector2Array( 28.1169, 47.9916, 41.6251, -0.0815163, 58.0468, -0.0815163, 44.2124, 48.0062 )
+
+[node name="Label" type="Label" parent="SessionSeenPolygon"]
+margin_left = 29.217
+margin_top = 45.6984
+margin_right = 78.217
+margin_bottom = 59.6984
+rect_rotation = -73.2716
+custom_colors/font_color = Color( 0, 0, 0, 1 )
+text = "Ce Billy"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="CombatPolygon" type="Polygon2D" parent="."]
+position = Vector2( 48.0924, 0.0143127 )
+color = Color( 0.619608, 0.658824, 0.705882, 1 )
+polygon = PoolVector2Array( 28.1169, 47.9916, 41.6251, -0.0815163, 58.0468, -0.0815163, 44.2124, 48.0062 )
+
+[node name="Label" type="Label" parent="CombatPolygon"]
+margin_left = 29.217
+margin_top = 45.6984
+margin_right = 78.217
+margin_bottom = 59.6984
+rect_rotation = -73.2716
+custom_colors/font_color = Color( 0, 0, 0, 1 )
+text = "Combat"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[connection signal="pressed" from="click/Button" to="." method="_on_Button_pressed"]

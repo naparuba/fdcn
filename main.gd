@@ -14,7 +14,7 @@ onready var hbox_next_jumps = $Progress
 
 onready var Going_to_line = preload('res://going_to_line.tscn')
 onready var Bread = preload('res://bread.tscn')
-
+onready var Choice = preload('res://ChapterChoice.tscn')
 
 onready var gauge = $Background/GlobalCompletion/Gauge
 
@@ -144,25 +144,11 @@ func _ready():
 	
 	
 func refresh():
-	# First unload all current lines
-	for line in self.current_lines:
-		line.queue_free()
-	self.current_lines = []
-	
-	# Refresh the back button
-	var _back = $back
-	
-	if len(self.session_visited_nodes) == 1:
-		_back.text = '...'
-	else:
-		var prev_id = self.session_visited_nodes[len(self.session_visited_nodes) - 2]  # we already stack us
-		_back.text = '<= oups (%s)' % prev_id
-	
 	# Update the % completion
 	#var fdcn_completion = $MarginContainer/VBoxContainer/HBoxTotalSummary/FDCNCompletion
 	var _nb_all_nodes = len(self.all_nodes)
 	var _nb_visited = len(self.visited_nodes_all_times)
-	var _s = '%.1f %%' % (100 * _nb_visited / float(_nb_all_nodes)) + (' (%d /' % _nb_visited) + (' %d )' % _nb_all_nodes)
+	#var _s = '%.1f %%' % (100 * _nb_visited / float(_nb_all_nodes)) + (' (%d /' % _nb_visited) + (' %d )' % _nb_all_nodes)
 	#fdcn_completion.text = _s
 	var completion_foot_note = $Background/GlobalCompletion/footnode
 	completion_foot_note.text = (' %d /' % _nb_visited) + (' %d' % _nb_all_nodes)
@@ -170,7 +156,7 @@ func refresh():
 	gauge.set_value(_nb_visited / float(_nb_all_nodes))
 	
 	# Now print my current node
-	print('Loaded object:', self.all_nodes['%s' % self.current_node_id])
+	#print('Loaded object:', self.all_nodes['%s' % self.current_node_id])
 	var my_node = self._get_node(self.current_node_id)
 	
 	# The act in progress
@@ -188,33 +174,33 @@ func refresh():
 	var breads = $Background/Dreadcumb/breads
 	delete_children(breads)
 	var nb_previous = len(self.session_visited_nodes)
-	print('ORIGINAL prevs: %s' % str(self.session_visited_nodes))
+	#print('ORIGINAL prevs: %s' % str(self.session_visited_nodes))
 	
 	var last_previous = self.session_visited_nodes
 	if len(self.session_visited_nodes) > 5:
 		last_previous = self.session_visited_nodes.slice(nb_previous - 5, nb_previous)
-	print('LAST 5: %s' % str(last_previous))
+	#print('LAST 5: %s' % str(last_previous))
 	var _nb_lasts = len(last_previous)
 	var _i = 0
 	for previous in last_previous:
 		var bread = Bread.instance()
 		bread.set_chap_number(previous)
 		bread.set_main(self)
-		print('COMPARING BREAD: %s' % _i, ' ', _nb_lasts)
+		#print('COMPARING BREAD: %s' % _i, ' ', _nb_lasts)
 		#bread.set_position(Vector2(_i*200, 0))
 		if _i == 0:
-			print('COMPARING BREAD: FIRST %s' % _i,' ',  _nb_lasts)
+			#print('COMPARING BREAD: FIRST %s' % _i,' ',  _nb_lasts)
 			bread.set_first()
 		# If previous
 		
 		if _i == _nb_lasts - 2:
 			bread.set_previous()
-			print('COMPARING BREAD: PREVIOUS %s' % _i, ' ', _nb_lasts)
+			#print('COMPARING BREAD: PREVIOUS %s' % _i, ' ', _nb_lasts)
 		elif _i == _nb_lasts - 1:
-			print('COMPARING BREAD: CURRENT %s' % _i, ' ', _nb_lasts)
+			#print('COMPARING BREAD: CURRENT %s' % _i, ' ', _nb_lasts)
 			bread.set_current()
 		else:
-			print('COMPARING BREAD: NORMAL %s' % _i, ' ', _nb_lasts)
+			#print('COMPARING BREAD: NORMAL %s' % _i, ' ', _nb_lasts)
 			bread.set_normal_color()
 		breads.add_child(bread)
 		_i = _i + 1
@@ -223,36 +209,28 @@ func refresh():
 	# And my sons
 	var sons_ids = my_node['computed']['sons']
 	
+	# Clean choices
+	var choices = $Background/Next/Choices
+	delete_children(choices)
 	for son_id in sons_ids:
 		print('My son: %s' % son_id)
 		
 		var son = self._get_node(son_id)
 		
-		var line = Going_to_line.instance()
-		print('LINE BUTTON: %s' % line.my_button)
-		line.set_father(self)
-		line.set_node(son)
-		
+		var choice = Choice.instance()
+		choice.set_main(self)
+		print('NODE: %s' % son)
+		choice.set_chapitre(son['computed']['id'])
+		if son['computed']['is_combat']:
+			choice.set_combat()
 		if son_id in self.session_visited_nodes:
-			line.set_session_already_visited()
+			choice.set_session_seen()
 		if son_id in self.visited_nodes_all_times:
-			line.set_all_times_already_visited()
-		
-		self.current_lines.append(line)
-		hbox_next_jumps.add_child(line)
-		
+			choice.set_already_seen()
+		choices.add_child(choice)
+				
 
 
-func _on_button_back_pressed():
-	print('Boutton back')
-	print('SESSION visited nodes: %s' % str(self.session_visited_nodes))
-	if len(self.session_visited_nodes) == 1:
-		print('CANNOT GO BACK')
-		return
-	var current_id = self.session_visited_nodes.pop_back()  # drop as we did stack it
-	var previous_id = self.session_visited_nodes.pop_back()
-	print('BACK: geck back at %s' % previous_id)
-	self.go_to_node(previous_id)
 
 
 # We are jumping back until we found the good chapter number

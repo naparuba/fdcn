@@ -290,7 +290,7 @@ for idx, n in book_data.items():
 # g.edge('Hello', 'World')
 
 
-arcs = [(1, 'start'),
+arcs = [(1, 'Plante-Citrouille'),
         (100, 'Lenonia'),
         (193, 'Cathedrale'),
         (216, 'Tour des mages'),
