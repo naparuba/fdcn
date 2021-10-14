@@ -1,35 +1,298 @@
-[gd_scene load_steps=3 format=2]
+[gd_scene load_steps=15 format=2]
 
 [ext_resource path="res://main.gd" type="Script" id=1]
 [ext_resource path="res://fonts/amon_font.tres" type="DynamicFont" id=2]
+[ext_resource path="res://images/fond_livre.jpg" type="Texture" id=3]
+[ext_resource path="res://images/header.png" type="Texture" id=4]
+[ext_resource path="res://images/white.png" type="Texture" id=5]
+[ext_resource path="res://gauge.tscn" type="PackedScene" id=6]
+[ext_resource path="res://images/bar_fill.png" type="Texture" id=7]
+[ext_resource path="res://images/bar_background.png" type="Texture" id=8]
+[ext_resource path="res://bread.tscn" type="PackedScene" id=9]
+
+[sub_resource type="StyleBoxFlat" id=1]
+bg_color = Color( 0.92549, 0.929412, 0.94902, 1 )
+
+[sub_resource type="StyleBoxFlat" id=2]
+bg_color = Color( 1, 1, 1, 1 )
+
+[sub_resource type="StyleBoxFlat" id=3]
+bg_color = Color( 0.192157, 0.231373, 0.278431, 1 )
+
+[sub_resource type="StyleBoxFlat" id=4]
+bg_color = Color( 0.109804, 0.737255, 0.611765, 1 )
+
+[sub_resource type="StyleBoxFlat" id=5]
+bg_color = Color( 0.929412, 0.937255, 0.945098, 1 )
 
 [node name="main" type="Node2D"]
-position = Vector2( 2.82843, 29.6985 )
 script = ExtResource( 1 )
 
+[node name="header" type="Sprite" parent="."]
+visible = false
+modulate = Color( 0.423529, 0.639216, 0.741176, 1 )
+position = Vector2( 249.746, 100.907 )
+scale = Vector2( 2, 1 )
+texture = ExtResource( 4 )
+
+[node name="background" type="Sprite" parent="."]
+visible = false
+position = Vector2( 161.452, 492.764 )
+scale = Vector2( 0.85, 0.85 )
+texture = ExtResource( 3 )
+
+[node name="background2" type="Sprite" parent="."]
+visible = false
+position = Vector2( 250.488, 525.169 )
+scale = Vector2( 7.76227, 16.4212 )
+texture = ExtResource( 5 )
+
+[node name="Background" type="Panel" parent="."]
+margin_left = 0.944916
+margin_right = 503.945
+margin_bottom = 1046.0
+custom_styles/panel = SubResource( 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="GlobalCompletion" type="Panel" parent="Background"]
+margin_left = 28.954
+margin_top = 32.3133
+margin_right = 217.954
+margin_bottom = 214.314
+custom_styles/panel = SubResource( 2 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Header" type="Panel" parent="Background/GlobalCompletion"]
+margin_right = 188.0
+margin_bottom = 42.0
+custom_styles/panel = SubResource( 3 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Label" type="Label" parent="Background/GlobalCompletion/Header"]
+margin_left = 47.877
+margin_top = 12.5992
+margin_right = 117.877
+margin_bottom = 26.5992
+text = "Completed"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Gauge" parent="Background/GlobalCompletion" instance=ExtResource( 6 )]
+position = Vector2( 88.3884, 97.9343 )
+
+[node name="footnode" type="Label" parent="Background/GlobalCompletion"]
+margin_left = 115.052
+margin_top = 159.324
+margin_right = 185.052
+margin_bottom = 173.324
+custom_colors/font_color = Color( 0, 0, 0, 1 )
+custom_constants/shadow_offset_x = 0
+custom_constants/shadow_offset_y = 0
+custom_constants/shadow_as_outline = 0
+text = "X/606"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Position" type="Panel" parent="Background"]
+margin_left = 231.0
+margin_top = 32.0
+margin_right = 472.0
+margin_bottom = 148.0
+custom_styles/panel = SubResource( 2 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Header" type="Panel" parent="Background/Position"]
+margin_right = 241.0
+margin_bottom = 42.0
+custom_styles/panel = SubResource( 3 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Label" type="Label" parent="Background/Position/Header"]
+margin_left = 88.24
+margin_top = 12.5992
+margin_right = 158.24
+margin_bottom = 26.5992
+text = "Position"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="LabelActe" type="Label" parent="Background/Position"]
+margin_left = 45.2576
+margin_top = 48.7458
+margin_right = 115.258
+margin_bottom = 62.7458
+custom_colors/font_color = Color( 0, 0, 0, 1 )
+custom_constants/shadow_offset_x = 0
+custom_constants/shadow_offset_y = 0
+custom_constants/shadow_as_outline = 0
+text = "Acte"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Acte" type="Label" parent="Background/Position"]
+margin_left = 45.0
+margin_top = 69.0
+margin_right = 207.0
+margin_bottom = 83.0
+custom_colors/font_color = Color( 0, 0.760784, 0.666667, 1 )
+custom_constants/shadow_offset_x = 0
+custom_constants/shadow_offset_y = 0
+custom_constants/shadow_as_outline = 0
+text = "XXX"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="fill_bar" type="TextureProgress" parent="Background/Position"]
+margin_left = 28.7206
+margin_top = 47.0676
+margin_right = 38.7206
+margin_bottom = 87.0676
+rect_scale = Vector2( 1, 0.839999 )
+texture_under = ExtResource( 8 )
+texture_progress = ExtResource( 7 )
+fill_mode = 3
+
+[node name="Dreadcumb" type="Panel" parent="Background"]
+margin_left = 30.0
+margin_top = 234.0
+margin_right = 475.0
+margin_bottom = 316.0
+custom_styles/panel = SubResource( 2 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Header" type="Panel" parent="Background/Dreadcumb"]
+margin_right = 445.0
+margin_bottom = 42.0
+custom_styles/panel = SubResource( 3 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="ChapitreEnCours" type="Label" parent="Background/Dreadcumb/Header"]
+margin_left = 380.192
+margin_top = 5.40005
+margin_right = 436.192
+margin_bottom = 36.4001
+custom_fonts/font = ExtResource( 2 )
+text = "XXXX"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Label" type="Label" parent="Background/Dreadcumb/Header"]
+margin_left = 189.04
+margin_top = 10.6149
+margin_right = 259.04
+margin_bottom = 24.6149
+text = "Avancé"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="breads" type="HBoxContainer" parent="Background/Dreadcumb"]
+margin_left = 0.530327
+margin_top = 42.0728
+margin_right = 144.53
+margin_bottom = 42.0728
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="bread" parent="Background/Dreadcumb/breads" instance=ExtResource( 9 )]
+margin_right = 70.0
+margin_bottom = 0.0
+
+[node name="bread2" parent="Background/Dreadcumb/breads" instance=ExtResource( 9 )]
+margin_left = 74.0
+margin_right = 144.0
+margin_bottom = 0.0
+
+[node name="Next" type="Panel" parent="Background"]
+margin_left = 31.6837
+margin_top = 351.297
+margin_right = 476.684
+margin_bottom = 438.297
+custom_styles/panel = SubResource( 2 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Header" type="Panel" parent="Background/Next"]
+margin_right = 445.0
+margin_bottom = 42.0
+custom_styles/panel = SubResource( 3 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Label" type="Label" parent="Background/Next/Header"]
+margin_left = 189.04
+margin_top = 10.6149
+margin_right = 259.04
+margin_bottom = 24.6149
+text = "Choix"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="BackgroundClair" type="Panel" parent="."]
+visible = false
+margin_left = 24.0
+margin_top = 20.0
+margin_right = 482.0
+margin_bottom = 1028.0
+custom_styles/panel = SubResource( 4 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="BlockHeader" type="Panel" parent="."]
+visible = false
+margin_left = 44.0
+margin_top = 38.0
+margin_right = 464.0
+margin_bottom = 200.0
+custom_styles/panel = SubResource( 5 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
 [node name="MarginContainer" type="MarginContainer" parent="."]
-margin_right = 1014.0
-margin_bottom = 599.0
+margin_top = 305.0
+margin_right = 500.0
+margin_bottom = 750.0
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
 [node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer"]
-margin_right = 1014.0
-margin_bottom = 599.0
+margin_right = 500.0
+margin_bottom = 445.0
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
 [node name="HBoxBilly" type="HBoxContainer" parent="MarginContainer/VBoxContainer"]
-margin_right = 1014.0
-margin_bottom = 50.0
-
-[node name="Billy" type="Label" parent="MarginContainer/VBoxContainer/HBoxBilly"]
-margin_right = 120.0
-margin_bottom = 50.0
-custom_fonts/font = ExtResource( 2 )
-text = "Billy"
+margin_right = 500.0
+margin_bottom = 40.0
+rect_min_size = Vector2( 0, 40 )
 
 [node name="Type" type="Label" parent="MarginContainer/VBoxContainer/HBoxBilly"]
 visible = false
@@ -40,22 +303,10 @@ custom_fonts/font = ExtResource( 2 )
 text = "Type de billy"
 
 [node name="HBoxTotalSummary" type="HBoxContainer" parent="MarginContainer/VBoxContainer"]
-margin_top = 54.0
-margin_right = 1014.0
-margin_bottom = 104.0
-
-[node name="FDCN" type="Label" parent="MarginContainer/VBoxContainer/HBoxTotalSummary"]
-margin_right = 155.0
-margin_bottom = 50.0
-custom_fonts/font = ExtResource( 2 )
-text = "FDCN: "
-
-[node name="FDCNCompletion" type="Label" parent="MarginContainer/VBoxContainer/HBoxTotalSummary"]
-margin_left = 159.0
-margin_right = 385.0
-margin_bottom = 50.0
-custom_fonts/font = ExtResource( 2 )
-text = " X% (X/Y)"
+margin_top = 44.0
+margin_right = 500.0
+margin_bottom = 84.0
+rect_min_size = Vector2( 0, 40 )
 
 [node name="Success" type="Label" parent="MarginContainer/VBoxContainer/HBoxTotalSummary"]
 visible = false
@@ -74,54 +325,48 @@ custom_fonts/font = ExtResource( 2 )
 text = " X% (X/Y)"
 
 [node name="HBoxActe" type="HBoxContainer" parent="MarginContainer/VBoxContainer"]
-margin_top = 108.0
-margin_right = 1014.0
-margin_bottom = 158.0
-
-[node name="Acte" type="Label" parent="MarginContainer/VBoxContainer/HBoxActe"]
-margin_right = 144.0
-margin_bottom = 50.0
-custom_fonts/font = ExtResource( 2 )
-text = "Acte: "
-
-[node name="ActeEnCours" type="Label" parent="MarginContainer/VBoxContainer/HBoxActe"]
-margin_left = 148.0
-margin_right = 296.0
-margin_bottom = 50.0
-custom_fonts/font = ExtResource( 2 )
-text = "XXXX"
+margin_top = 88.0
+margin_right = 500.0
+margin_bottom = 128.0
+rect_min_size = Vector2( 0, 40 )
 
 [node name="HBoxChapitre" type="HBoxContainer" parent="MarginContainer/VBoxContainer"]
-margin_top = 162.0
-margin_right = 1014.0
-margin_bottom = 212.0
+margin_top = 132.0
+margin_right = 500.0
+margin_bottom = 172.0
+rect_min_size = Vector2( 0, 40 )
 
-[node name="Chapitre" type="Label" parent="MarginContainer/VBoxContainer/HBoxChapitre"]
-margin_right = 266.0
-margin_bottom = 50.0
-custom_fonts/font = ExtResource( 2 )
-text = "Chapitre: "
-
-[node name="ChapitreEnCours" type="Label" parent="MarginContainer/VBoxContainer/HBoxChapitre"]
-margin_left = 270.0
-margin_right = 418.0
-margin_bottom = 50.0
-custom_fonts/font = ExtResource( 2 )
-text = "XXXX"
+[node name="HBoxPadding" type="HBoxContainer" parent="MarginContainer/VBoxContainer"]
+margin_top = 176.0
+margin_right = 500.0
+margin_bottom = 256.0
+rect_min_size = Vector2( 0, 80 )
 
 [node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer/VBoxContainer"]
-margin_top = 216.0
-margin_right = 1014.0
-margin_bottom = 236.0
+margin_top = 260.0
+margin_right = 500.0
+margin_bottom = 260.0
 
-[node name="back" type="Button" parent="MarginContainer/VBoxContainer/HBoxContainer"]
-margin_right = 66.0
-margin_bottom = 20.0
+[node name="Progress" type="VBoxContainer" parent="."]
+margin_left = 290.314
+margin_top = 204.239
+margin_right = 290.314
+margin_bottom = 224.239
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="back" type="Button" parent="."]
+margin_left = 20.75
+margin_top = 527.516
+margin_right = 111.75
+margin_bottom = 564.516
+rect_min_size = Vector2( 80, 30 )
+rect_clip_content = true
+custom_fonts/font = ExtResource( 2 )
 text = "<= Oups"
+__meta__ = {
+"_edit_use_anchors_": false
+}
 
-[node name="Progress" type="VBoxContainer" parent="MarginContainer/VBoxContainer/HBoxContainer"]
-margin_left = 70.0
-margin_right = 70.0
-margin_bottom = 20.0
-
-[connection signal="pressed" from="MarginContainer/VBoxContainer/HBoxContainer/back" to="." method="_on_button_back_pressed"]
+[connection signal="pressed" from="back" to="." method="_on_button_back_pressed"]

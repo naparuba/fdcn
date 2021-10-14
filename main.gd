@@ -9,10 +9,14 @@ var visited_nodes_all_times = []
 
 var current_lines = []
 
-onready var hbox_next_jumps = $MarginContainer/VBoxContainer/HBoxContainer/Progress
+onready var hbox_next_jumps = $Progress
 
 
 onready var Going_to_line = preload('res://going_to_line.tscn')
+onready var Bread = preload('res://bread.tscn')
+
+
+onready var gauge = $Background/GlobalCompletion/Gauge
 
 
 # Give something like C:\Users\j.gabes\AppData\Roaming\Godot\app_userdata\fdcn for windows
@@ -91,8 +95,16 @@ func load_json_file(path):
 func go_to_node(node_id):
 	self.current_node_id = node_id
 	self.save_current_node_id()
-	self.session_visited_nodes.append(self.current_node_id)
-	self.save_session_visited_nodes()
+	
+	# Update session, but maybe it's just a app reload
+	if len(self.session_visited_nodes) == 0 or self.session_visited_nodes[len(self.session_visited_nodes) -1] != node_id:
+		self.session_visited_nodes.append(self.current_node_id)
+		self.save_session_visited_nodes()
+	else:
+		print('Already on the visited session update: %s' % str(self.session_visited_nodes))
+	print('Visited session: %s' % str(self.session_visited_nodes))
+	
+	# Update id if not already visited
 	if !(self.current_node_id in visited_nodes_all_times):
 		self.visited_nodes_all_times.append(self.current_node_id)
 		self.save_all_times_already_visited()
@@ -106,7 +118,13 @@ func go_to_node(node_id):
 func _get_node(node_id):
 	return self.all_nodes['%s' % node_id]
 
-	
+
+
+static func delete_children(node):
+	for n in node.get_children():
+		node.remove_child(n)
+		n.queue_free()
+		
 
 
 func _ready():
@@ -122,7 +140,7 @@ func _ready():
 	self.load_session_visited_nodes()
 	
 	self.go_to_node(self.current_node_id)
-	self.refresh()
+
 	
 	
 func refresh():
@@ -132,7 +150,8 @@ func refresh():
 	self.current_lines = []
 	
 	# Refresh the back button
-	var _back = $MarginContainer/VBoxContainer/HBoxContainer/back
+	var _back = $back
+	
 	if len(self.session_visited_nodes) == 1:
 		_back.text = '...'
 	else:
@@ -140,26 +159,70 @@ func refresh():
 		_back.text = '<= oups (%s)' % prev_id
 	
 	# Update the % completion
-	var fdcn_completion = $MarginContainer/VBoxContainer/HBoxTotalSummary/FDCNCompletion
+	#var fdcn_completion = $MarginContainer/VBoxContainer/HBoxTotalSummary/FDCNCompletion
 	var _nb_all_nodes = len(self.all_nodes)
 	var _nb_visited = len(self.visited_nodes_all_times)
 	var _s = '%.1f %%' % (100 * _nb_visited / float(_nb_all_nodes)) + (' (%d /' % _nb_visited) + (' %d )' % _nb_all_nodes)
-	fdcn_completion.text = _s
+	#fdcn_completion.text = _s
+	var completion_foot_note = $Background/GlobalCompletion/footnode
+	completion_foot_note.text = (' %d /' % _nb_visited) + (' %d' % _nb_all_nodes)
+	
+	gauge.set_value(_nb_visited / float(_nb_all_nodes))
 	
 	# Now print my current node
 	print('Loaded object:', self.all_nodes['%s' % self.current_node_id])
 	var my_node = self._get_node(self.current_node_id)
 	
 	# The act in progress
-	var _acte_label = $MarginContainer/VBoxContainer/HBoxActe/ActeEnCours
+	var _acte_label = $Background/Position/Acte
 	_acte_label.text = '%s' % my_node['computed']['chapter']
 	
+	var fill_bar = $Background/Position/fill_bar
+	fill_bar.value = 40  # 40% of the act is done
+	
 	# The number
-	var _chapitre_label = $MarginContainer/VBoxContainer/HBoxChapitre/ChapitreEnCours
+	var _chapitre_label = $Background/Dreadcumb/Header/ChapitreEnCours
 	_chapitre_label.text = '%s' % my_node['computed']['id']
+	
+	#Breads
+	var breads = $Background/Dreadcumb/breads
+	delete_children(breads)
+	var nb_previous = len(self.session_visited_nodes)
+	print('ORIGINAL prevs: %s' % str(self.session_visited_nodes))
+	
+	var last_previous = self.session_visited_nodes
+	if len(self.session_visited_nodes) > 5:
+		last_previous = self.session_visited_nodes.slice(nb_previous - 5, nb_previous)
+	print('LAST 5: %s' % str(last_previous))
+	var _nb_lasts = len(last_previous)
+	var _i = 0
+	for previous in last_previous:
+		var bread = Bread.instance()
+		bread.set_chap_number(previous)
+		bread.set_main(self)
+		print('COMPARING BREAD: %s' % _i, ' ', _nb_lasts)
+		#bread.set_position(Vector2(_i*200, 0))
+		if _i == 0:
+			print('COMPARING BREAD: FIRST %s' % _i,' ',  _nb_lasts)
+			bread.set_first()
+		# If previous
+		
+		if _i == _nb_lasts - 2:
+			bread.set_previous()
+			print('COMPARING BREAD: PREVIOUS %s' % _i, ' ', _nb_lasts)
+		elif _i == _nb_lasts - 1:
+			print('COMPARING BREAD: CURRENT %s' % _i, ' ', _nb_lasts)
+			bread.set_current()
+		else:
+			print('COMPARING BREAD: NORMAL %s' % _i, ' ', _nb_lasts)
+			bread.set_normal_color()
+		breads.add_child(bread)
+		_i = _i + 1
+		
 	
 	# And my sons
 	var sons_ids = my_node['computed']['sons']
+	
 	for son_id in sons_ids:
 		print('My son: %s' % son_id)
 		
@@ -190,6 +253,25 @@ func _on_button_back_pressed():
 	var previous_id = self.session_visited_nodes.pop_back()
 	print('BACK: geck back at %s' % previous_id)
 	self.go_to_node(previous_id)
-	self.refresh()
+
+
+# We are jumping back until we found the good chapter number
+func jump_back(previous_id):
+	print('jump_back::Jumping back to %s' % previous_id)
+	print('jump_back::SESSION visited nodes: %s' % str(self.session_visited_nodes))
+	if len(self.session_visited_nodes) == 1:
+		print('jump_back::CANNOT GO BACK')
+		return
+		
+	while true:
+		if len(self.session_visited_nodes) == 0:
+			print('jump_back::CRITICAL: cannot find the jump back node %s' % previous_id)
+			return
+		var ptn_id = self.session_visited_nodes.pop_back()  # drop as we did stack it
+		print('jump_back::BACK: Look at %s' % ptn_id, ' asked %s' % previous_id)
+		if ptn_id == previous_id:
+			print('jump_back::BACK: geck back at %s' % previous_id)
+			break
 	
+	self.go_to_node(previous_id)
 	

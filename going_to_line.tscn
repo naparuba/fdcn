@@ -1,9 +1,22 @@
-[gd_scene load_steps=5 format=2]
+[gd_scene load_steps=7 format=2]
 
 [ext_resource path="res://images/fight.png" type="Texture" id=1]
 [ext_resource path="res://going_to_line.gd" type="Script" id=2]
 [ext_resource path="res://images/stop.png" type="Texture" id=3]
 [ext_resource path="res://images/tick.png" type="Texture" id=4]
+[ext_resource path="res://fonts/amon_font.tres" type="DynamicFont" id=5]
+
+[sub_resource type="StyleBoxFlat" id=1]
+bg_color = Color( 1, 1, 1, 1 )
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color( 0, 0, 0, 1 )
+corner_radius_top_left = 5
+corner_radius_top_right = 5
+corner_radius_bottom_right = 5
+corner_radius_bottom_left = 5
 
 [node name="Control" type="Control"]
 margin_right = 40.0
@@ -27,8 +40,10 @@ __meta__ = {
 
 [node name="my_button" type="Button" parent="MarginContainer"]
 margin_right = 100.0
-margin_bottom = 40.0
+margin_bottom = 57.0
 rect_min_size = Vector2( 100, 40 )
+custom_styles/normal = SubResource( 1 )
+custom_fonts/font = ExtResource( 5 )
 __meta__ = {
 "_edit_use_anchors_": false
 }

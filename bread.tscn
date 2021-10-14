@@ -1,0 +1,41 @@
+[gd_scene load_steps=2 format=2]
+
+[ext_resource path="res://bread.gd" type="Script" id=1]
+
+[node name="bread" type="Control"]
+margin_right = 93.0
+margin_bottom = 40.0
+rect_min_size = Vector2( 70, 0 )
+script = ExtResource( 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="poly_for_first" type="Polygon2D" parent="."]
+visible = false
+position = Vector2( -1.4876, 0.0931025 )
+color = Color( 0.00392157, 0.737255, 0.858824, 1 )
+polygon = PoolVector2Array( 1.51661, 0.0921001, 21.6091, 19.7454, 1.50799, 39.8082 )
+
+[node name="Polygon2D" type="Polygon2D" parent="."]
+position = Vector2( -1.48651, 0.0743256 )
+color = Color( 0.00392157, 0.737255, 0.858824, 1 )
+polygon = PoolVector2Array( 1.51661, 0.0921001, 72.2271, 0.0783272, 91.9596, 19.6784, 71.1677, 39.8082, 1.50799, 39.8082, 21.1081, 19.9433 )
+
+[node name="Label" type="Label" parent="."]
+margin_left = 35.7507
+margin_top = 13.3043
+margin_right = 75.7507
+margin_bottom = 27.3043
+custom_colors/font_color = Color( 0, 0, 0, 1 )
+text = "X"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="button" type="TextureButton" parent="."]
+margin_left = 20.0
+margin_right = 71.0
+margin_bottom = 40.0
+
+[connection signal="pressed" from="button" to="." method="_on_button_pressed"]
