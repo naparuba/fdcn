@@ -13,7 +13,14 @@ func set_main(main_obj):
 
 func set_chap_number(nb):
 	self.chap_number = nb
-	$Label.text = '%d' % nb
+	
+
+# The current label should be wihtout the _, so people don't want to click on it
+func _update_label():
+	if !self.is_current:
+		$ElLabel.bbcode_text = '[u]%d[/u]' % self.chap_number
+	else:
+		$ElLabel.bbcode_text = '%d' % self.chap_number
 
 
 func _set_color(color):
@@ -29,18 +36,22 @@ func _ready():
 
 func set_first():
 	$poly_for_first.visible = true
+	
 
 func set_current():
 	self._set_color(Color('00c2aa'))
 	self.is_current = true  # means: don't jump here ^^
+	self._update_label()
 	
 
 func set_previous():
 	self._set_color(Color('01bcdb'))
+	self._update_label()
 
 
 func set_normal_color():
 	self._set_color(Color('9ea8b4'))
+	self._update_label()
 
 
 ### NOTE: the button is invisible, normal ^^

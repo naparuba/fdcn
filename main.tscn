@@ -85,16 +85,17 @@ texture = ExtResource( 4 )
 position = Vector2( 88.3884, 97.9343 )
 
 [node name="footnode" type="Label" parent="Background/GlobalCompletion"]
-margin_left = 115.052
-margin_top = 159.324
-margin_right = 185.052
-margin_bottom = 173.324
+margin_left = 142.403
+margin_top = 164.985
+margin_right = 185.403
+margin_bottom = 178.985
 custom_fonts/font = ExtResource( 5 )
 custom_colors/font_color = Color( 0, 0, 0, 1 )
 custom_constants/shadow_offset_x = 0
 custom_constants/shadow_offset_y = 0
 custom_constants/shadow_as_outline = 0
 text = "X/606"
+align = 2
 __meta__ = {
 "_edit_use_anchors_": false
 }

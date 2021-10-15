@@ -23,11 +23,36 @@ color = Color( 0.00392157, 0.737255, 0.858824, 1 )
 polygon = PoolVector2Array( 1.51661, 0.0921001, 72.2271, 0.0783272, 91.9596, 19.6784, 71.1677, 39.8082, 1.50799, 39.8082, 21.1081, 19.9433 )
 
 [node name="Label" type="Label" parent="."]
+visible = false
 margin_left = 35.7507
 margin_top = 13.3043
 margin_right = 75.7507
 margin_bottom = 27.3043
 custom_colors/font_color = Color( 0, 0, 0, 1 )
+text = "X"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Label2" type="RichTextLabel" parent="."]
+visible = false
+margin_left = 35.7507
+margin_top = 13.3043
+margin_right = 75.7507
+margin_bottom = 27.3043
+custom_colors/default_color = Color( 0, 0, 0, 1 )
+bbcode_enabled = true
+bbcode_text = "Y"
+text = "Y"
+
+[node name="ElLabel" type="RichTextLabel" parent="."]
+margin_left = 28.17
+margin_top = 12.6134
+margin_right = 68.17
+margin_bottom = 32.6134
+custom_colors/default_color = Color( 0, 0, 0, 1 )
+bbcode_enabled = true
+bbcode_text = "[u]X[/u]"
 text = "X"
 __meta__ = {
 "_edit_use_anchors_": false
