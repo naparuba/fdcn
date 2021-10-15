@@ -1,8 +1,10 @@
-[gd_scene load_steps=11 format=2]
+[gd_scene load_steps=13 format=2]
 
 [ext_resource path="res://main.gd" type="Script" id=1]
 [ext_resource path="res://fonts/amon_font.tres" type="DynamicFont" id=2]
 [ext_resource path="res://ChapterChoice.tscn" type="PackedScene" id=3]
+[ext_resource path="res://images/fdcn_icon.png" type="Texture" id=4]
+[ext_resource path="res://fonts/amon_font_small.tres" type="DynamicFont" id=5]
 [ext_resource path="res://gauge.tscn" type="PackedScene" id=6]
 [ext_resource path="res://images/bar_fill.png" type="Texture" id=7]
 [ext_resource path="res://images/bar_background.png" type="Texture" id=8]
@@ -30,10 +32,10 @@ __meta__ = {
 }
 
 [node name="GlobalCompletion" type="Panel" parent="Background"]
-margin_left = 28.954
-margin_top = 32.3133
-margin_right = 217.954
-margin_bottom = 214.314
+margin_left = 28.1603
+margin_top = 21.9952
+margin_right = 217.16
+margin_bottom = 203.996
 custom_styles/panel = SubResource( 2 )
 __meta__ = {
 "_edit_use_anchors_": false
@@ -48,14 +50,20 @@ __meta__ = {
 }
 
 [node name="Label" type="Label" parent="Background/GlobalCompletion/Header"]
-margin_left = 47.877
-margin_top = 12.5992
-margin_right = 117.877
-margin_bottom = 26.5992
+margin_left = 48.0997
+margin_top = 4.0547
+margin_right = 155.1
+margin_bottom = 35.0547
+custom_fonts/font = ExtResource( 2 )
 text = "Completed"
 __meta__ = {
 "_edit_use_anchors_": false
 }
+
+[node name="fdcn" type="Sprite" parent="Background/GlobalCompletion/Header"]
+position = Vector2( 22.2236, 20.9834 )
+scale = Vector2( 0.103378, 0.0980473 )
+texture = ExtResource( 4 )
 
 [node name="Gauge" parent="Background/GlobalCompletion" instance=ExtResource( 6 )]
 position = Vector2( 88.3884, 97.9343 )
@@ -65,6 +73,7 @@ margin_left = 115.052
 margin_top = 159.324
 margin_right = 185.052
 margin_bottom = 173.324
+custom_fonts/font = ExtResource( 5 )
 custom_colors/font_color = Color( 0, 0, 0, 1 )
 custom_constants/shadow_offset_x = 0
 custom_constants/shadow_offset_y = 0
@@ -75,10 +84,10 @@ __meta__ = {
 }
 
 [node name="Position" type="Panel" parent="Background"]
-margin_left = 231.0
-margin_top = 32.0
-margin_right = 472.0
-margin_bottom = 148.0
+margin_left = 232.247
+margin_top = 21.2982
+margin_right = 473.247
+margin_bottom = 161.298
 custom_styles/panel = SubResource( 2 )
 __meta__ = {
 "_edit_use_anchors_": false
@@ -93,10 +102,11 @@ __meta__ = {
 }
 
 [node name="Label" type="Label" parent="Background/Position/Header"]
-margin_left = 88.24
-margin_top = 12.5992
-margin_right = 158.24
-margin_bottom = 26.5992
+margin_left = 85.8616
+margin_top = 3.68015
+margin_right = 167.862
+margin_bottom = 34.6801
+custom_fonts/font = ExtResource( 2 )
 text = "Position"
 __meta__ = {
 "_edit_use_anchors_": false
@@ -104,9 +114,10 @@ __meta__ = {
 
 [node name="LabelActe" type="Label" parent="Background/Position"]
 margin_left = 45.2576
-margin_top = 48.7458
+margin_top = 47.7458
 margin_right = 115.258
-margin_bottom = 62.7458
+margin_bottom = 61.7458
+custom_fonts/font = ExtResource( 5 )
 custom_colors/font_color = Color( 0, 0, 0, 1 )
 custom_constants/shadow_offset_x = 0
 custom_constants/shadow_offset_y = 0
@@ -118,9 +129,10 @@ __meta__ = {
 
 [node name="Acte" type="Label" parent="Background/Position"]
 margin_left = 45.0
-margin_top = 69.0
+margin_top = 61.4703
 margin_right = 207.0
-margin_bottom = 83.0
+margin_bottom = 92.4703
+custom_fonts/font = ExtResource( 2 )
 custom_colors/font_color = Color( 0, 0.760784, 0.666667, 1 )
 custom_constants/shadow_offset_x = 0
 custom_constants/shadow_offset_y = 0
@@ -131,20 +143,63 @@ __meta__ = {
 }
 
 [node name="fill_bar" type="TextureProgress" parent="Background/Position"]
-margin_left = 28.7206
-margin_top = 47.0676
-margin_right = 38.7206
-margin_bottom = 87.0676
+margin_left = 27.7206
+margin_top = 51.0676
+margin_right = 37.7206
+margin_bottom = 91.0676
 rect_scale = Vector2( 1, 0.839999 )
 texture_under = ExtResource( 8 )
 texture_progress = ExtResource( 7 )
 fill_mode = 3
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="LabelChapitre" type="Label" parent="Background/Position"]
+margin_left = 44.9239
+margin_top = 100.472
+margin_right = 114.924
+margin_bottom = 114.472
+custom_fonts/font = ExtResource( 5 )
+custom_colors/font_color = Color( 0, 0, 0, 1 )
+custom_constants/shadow_offset_x = 0
+custom_constants/shadow_offset_y = 0
+custom_constants/shadow_as_outline = 0
+text = "Chapitre"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="NumeroChapitre" type="Label" parent="Background/Position"]
+margin_left = 45.3337
+margin_top = 111.193
+margin_right = 207.334
+margin_bottom = 142.193
+custom_fonts/font = ExtResource( 2 )
+custom_colors/font_color = Color( 0, 0.760784, 0.666667, 1 )
+custom_constants/shadow_offset_x = 0
+custom_constants/shadow_offset_y = 0
+custom_constants/shadow_as_outline = 0
+text = "XXX"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Billys" type="Panel" parent="Background"]
+margin_left = 232.0
+margin_top = 165.0
+margin_right = 473.0
+margin_bottom = 205.0
+custom_styles/panel = SubResource( 2 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
 
 [node name="Dreadcumb" type="Panel" parent="Background"]
-margin_left = 30.0
-margin_top = 234.0
-margin_right = 475.0
-margin_bottom = 316.0
+margin_left = 29.2063
+margin_top = 223.682
+margin_right = 474.206
+margin_bottom = 305.682
 custom_styles/panel = SubResource( 2 )
 __meta__ = {
 "_edit_use_anchors_": false
@@ -158,22 +213,12 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="ChapitreEnCours" type="Label" parent="Background/Dreadcumb/Header"]
-margin_left = 380.192
-margin_top = 5.40005
-margin_right = 436.192
-margin_bottom = 36.4001
-custom_fonts/font = ExtResource( 2 )
-text = "XXXX"
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
 [node name="Label" type="Label" parent="Background/Dreadcumb/Header"]
-margin_left = 189.04
-margin_top = 10.6149
-margin_right = 259.04
-margin_bottom = 24.6149
+margin_left = 180.576
+margin_top = 3.04227
+margin_right = 253.576
+margin_bottom = 34.0423
+custom_fonts/font = ExtResource( 2 )
 text = "Avancé"
 __meta__ = {
 "_edit_use_anchors_": false
@@ -198,10 +243,10 @@ margin_right = 144.0
 margin_bottom = 0.0
 
 [node name="Next" type="Panel" parent="Background"]
-margin_left = 32.0
-margin_top = 351.0
-margin_right = 477.0
-margin_bottom = 1003.0
+margin_left = 31.2063
+margin_top = 340.682
+margin_right = 476.206
+margin_bottom = 992.682
 custom_styles/panel = SubResource( 2 )
 __meta__ = {
 "_edit_use_anchors_": false
@@ -216,10 +261,11 @@ __meta__ = {
 }
 
 [node name="Label" type="Label" parent="Background/Next/Header"]
-margin_left = 189.04
-margin_top = 10.6149
-margin_right = 259.04
-margin_bottom = 24.6149
+margin_left = 189.601
+margin_top = 5.00259
+margin_right = 259.601
+margin_bottom = 36.0026
+custom_fonts/font = ExtResource( 2 )
 text = "Choix"
 __meta__ = {
 "_edit_use_anchors_": false

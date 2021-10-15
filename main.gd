@@ -9,10 +9,8 @@ var visited_nodes_all_times = []
 
 var current_lines = []
 
-onready var hbox_next_jumps = $Progress
 
 
-onready var Going_to_line = preload('res://going_to_line.tscn')
 onready var Bread = preload('res://bread.tscn')
 onready var Choice = preload('res://ChapterChoice.tscn')
 
@@ -167,7 +165,7 @@ func refresh():
 	fill_bar.value = 40  # 40% of the act is done
 	
 	# The number
-	var _chapitre_label = $Background/Dreadcumb/Header/ChapitreEnCours
+	var _chapitre_label = $Background/Position/NumeroChapitre
 	_chapitre_label.text = '%s' % my_node['computed']['id']
 	
 	#Breads

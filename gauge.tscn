@@ -1,15 +1,17 @@
-[gd_scene load_steps=2 format=2]
+[gd_scene load_steps=3 format=2]
 
 [ext_resource path="res://gauge_inside_circle.gd" type="Script" id=1]
+[ext_resource path="res://fonts/amon_font.tres" type="DynamicFont" id=2]
 
 [node name="gauge" type="Node2D"]
 script = ExtResource( 1 )
 
 [node name="label" type="Label" parent="."]
-margin_left = -15.1361
-margin_top = -3.78403
-margin_right = 24.8639
-margin_bottom = 10.216
+margin_left = -16.3975
+margin_top = -13.0339
+margin_right = 23.6025
+margin_bottom = 17.9661
+custom_fonts/font = ExtResource( 2 )
 custom_colors/font_color = Color( 1, 1, 1, 1 )
 text = "90%"
 __meta__ = {

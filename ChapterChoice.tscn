@@ -1,6 +1,7 @@
-[gd_scene load_steps=4 format=2]
+[gd_scene load_steps=5 format=2]
 
 [ext_resource path="res://ChapterChoice.gd" type="Script" id=1]
+[ext_resource path="res://fonts/amon_font.tres" type="DynamicFont" id=2]
 
 [sub_resource type="StyleBoxFlat" id=1]
 bg_color = Color( 1, 1, 1, 1 )
@@ -24,10 +25,11 @@ __meta__ = {
 }
 
 [node name="NBChapitre" type="Label" parent="."]
-margin_left = 338.0
-margin_top = 15.0
-margin_right = 378.0
-margin_bottom = 46.0
+margin_left = 337.405
+margin_top = 9.64857
+margin_right = 379.405
+margin_bottom = 74.6486
+custom_fonts/font = ExtResource( 2 )
 custom_colors/font_color = Color( 0, 0, 0, 1 )
 text = "XXX
 "
@@ -46,10 +48,11 @@ __meta__ = {
 }
 
 [node name="Label" type="Label" parent="click"]
-margin_left = 15.1533
-margin_top = 12.3471
-margin_right = 55.1533
-margin_bottom = 26.3471
+margin_left = 14.856
+margin_top = 4.61726
+margin_right = 54.856
+margin_bottom = 35.6173
+custom_fonts/font = ExtResource( 2 )
 custom_colors/font_color = Color( 0, 0, 0, 1 )
 text = ">"
 
