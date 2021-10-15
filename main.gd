@@ -9,7 +9,10 @@ var visited_nodes_all_times = []
 
 var current_lines = []
 
-
+var parameters = {
+	'billy': 'guerrier',
+	'spoils': true,
+}
 
 onready var Bread = preload('res://bread.tscn')
 onready var Choice = preload('res://ChapterChoice.tscn')
@@ -21,6 +24,7 @@ onready var gauge = $Background/GlobalCompletion/Gauge
 var all_times_already_visited_file = "user://all_times_already_visited.save"
 var current_node_id_file = "user://current_node_id.save"
 var session_visited_nodes_file  = "user://session_visited_nodes.save"
+var parameters_file  = "user://parameters.save"
 
 
 func load_all_times_already_visited():
@@ -73,6 +77,28 @@ func save_session_visited_nodes():
 	f.store_var(session_visited_nodes)
 	f.close()
 	
+
+func load_parameters():
+	var f = File.new()
+	if f.file_exists(parameters_file):
+		f.open(parameters_file, File.READ)
+		var loaded_parameters = f.get_var()
+		f.close()
+		# NOTE: so we can manage code with new parameters
+		for k in loaded_parameters.keys():
+			var v = loaded_parameters[k]
+			print('PARAM: %s=>' % k, v)
+			parameters[k] = v
+	else:
+		# already created in globals
+		pass
+
+func save_parameters():
+	var f = File.new()
+	f.open(parameters_file, File.WRITE)
+	f.store_var(parameters)
+	f.close()
+
 
 func load_json_file(path):
 	"""Loads a JSON file from the given res path and return the loaded JSON object."""
@@ -136,12 +162,30 @@ func _ready():
 	self.load_all_times_already_visited()
 	self.load_current_node_id()
 	self.load_session_visited_nodes()
+	self.load_parameters()
 	
 	self.go_to_node(self.current_node_id)
 
 	
 	
 func refresh():
+	
+	# Update the parameters
+	$Background/Billys/SpoilButton.pressed = self.parameters['spoils']
+	
+	var billys = {'guerrier': $Background/Billys/BlockGuerrier,
+	'paysan':$Background/Billys/BlockPaysan,
+	'prudent':$Background/Billys/BlockPrudent,
+	'debrouillard':$Background/Billys/BlockDebrouillard
+	}
+	
+	for billy in billys.keys():
+		var panel = billys[billy]
+		var _style = panel.get('custom_styles/panel')
+		print('STYLE: %s' % _style)
+		_style.set_bg_color(Color('e9eaec'))  # set to light grey
+	billys[self.parameters['billy']].get('custom_styles/panel').set_bg_color(Color('9ea8b4'))  # set to dark grey
+	
 	# Update the % completion
 	#var fdcn_completion = $MarginContainer/VBoxContainer/HBoxTotalSummary/FDCNCompletion
 	var _nb_all_nodes = len(self.all_nodes)
@@ -251,3 +295,32 @@ func jump_back(previous_id):
 	
 	self.go_to_node(previous_id)
 	
+
+
+func _on_spoil_button_toggled(button_pressed):
+	print('Mode SPOIL ou pas: %s' % button_pressed)
+	self.parameters['spoils'] = button_pressed
+	self.save_parameters()
+	self.refresh()
+
+
+func _switch_to_guerrier():
+	self.parameters['billy'] = 'guerrier'
+	self.save_parameters()
+	self.refresh()
+
+
+func _switch_to_paysan():
+	self.parameters['billy'] = 'paysan'
+	self.save_parameters()
+	self.refresh()
+
+func _switch_to_prudent():
+	self.parameters['billy'] = 'prudent'
+	self.save_parameters()
+	self.refresh()
+
+func _switch_to_debrouillard():
+	self.parameters['billy'] = 'debrouillard'
+	self.save_parameters()
+	self.refresh()
