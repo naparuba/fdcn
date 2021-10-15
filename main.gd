@@ -263,12 +263,17 @@ func refresh():
 		choice.set_main(self)
 		print('NODE: %s' % son)
 		choice.set_chapitre(son['computed']['id'])
+		choice.set_spoil_enabled(self.parameters['spoils'])
 		if son['computed']['is_combat']:
 			choice.set_combat()
 		if son_id in self.session_visited_nodes:
 			choice.set_session_seen()
 		if son_id in self.visited_nodes_all_times:
 			choice.set_already_seen()
+		if son['computed']['ending']:
+			choice.set_ending()
+		if son['computed']['success']:
+			choice.set_success()
 		choices.add_child(choice)
 				
 

@@ -7,6 +7,7 @@ onready var combat_polygon = $CombatPolygon
 
 
 var chap_number
+var spoil_enabled = false
 var main
 
 # Called when the node enters the scene tree for the first time.
@@ -16,6 +17,13 @@ func _ready():
 
 func set_main(main):
 	self.main = main
+
+func set_spoil_enabled(b):
+	self.spoil_enabled = b
+	$CombatPolygon.visible = self.spoil_enabled
+	$EndPolygon.visible = self.spoil_enabled
+	$SuccessPolygon.visible = self.spoil_enabled
+
 
 func set_chapitre(chapitre):
 	self.chap_number = chapitre
@@ -30,6 +38,12 @@ func set_session_seen():
 
 func set_combat():
 	$CombatPolygon.color = Color('ff6f04')
+
+func set_ending():
+	$EndPolygon.color = Color('00c2aa')
+	
+func set_success():
+	$SuccessPolygon.color = Color('00c2aa')
 
 
 func _on_Button_pressed():

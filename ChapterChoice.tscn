@@ -110,4 +110,38 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
+[node name="EndPolygon" type="Polygon2D" parent="."]
+position = Vector2( 72.7334, 0.00131984 )
+color = Color( 0.619608, 0.658824, 0.705882, 1 )
+polygon = PoolVector2Array( 28.1169, 47.9916, 41.6251, -0.0815163, 58.0468, -0.0815163, 44.2124, 48.0062 )
+
+[node name="Label" type="Label" parent="EndPolygon"]
+margin_left = 29.217
+margin_top = 45.6984
+margin_right = 78.217
+margin_bottom = 59.6984
+rect_rotation = -73.2716
+custom_colors/font_color = Color( 0, 0, 0, 1 )
+text = "    Fin"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="SuccessPolygon" type="Polygon2D" parent="."]
+position = Vector2( 97.4971, 0.0626526 )
+color = Color( 0.619608, 0.658824, 0.705882, 1 )
+polygon = PoolVector2Array( 28.1169, 47.9916, 41.6251, -0.0815163, 58.0468, -0.0815163, 44.2124, 48.0062 )
+
+[node name="Label" type="Label" parent="SuccessPolygon"]
+margin_left = 29.217
+margin_top = 45.6984
+margin_right = 78.217
+margin_bottom = 59.6984
+rect_rotation = -73.2716
+custom_colors/font_color = Color( 0, 0, 0, 1 )
+text = "Succès"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
 [connection signal="pressed" from="click/Button" to="." method="_on_Button_pressed"]
