@@ -19,6 +19,10 @@ onready var Choice = preload('res://ChapterChoice.tscn')
 
 onready var gauge = $Background/GlobalCompletion/Gauge
 
+onready var camera = $Camera
+
+var current_page = 'main'
+
 
 # Give something like C:\Users\j.gabes\AppData\Roaming\Godot\app_userdata\fdcn for windows
 var all_times_already_visited_file = "user://all_times_already_visited.save"
@@ -151,10 +155,16 @@ static func delete_children(node):
 		
 
 
+func print_debug(s):
+	$DEBUG.text = s
+
 func _ready():
 	#Load the main font file
 	var dynamic_font = DynamicFont.new()
 	dynamic_font.font_data = load('res://fonts/amon_font.tres')
+	
+	# Register to Swiper
+	Swiper.register_main(self)
 	
 	self.all_nodes = load_json_file("res://fdcn-1-compilated-data.json")
 	
@@ -329,3 +339,50 @@ func _switch_to_debrouillard():
 	self.parameters['billy'] = 'debrouillard'
 	self.save_parameters()
 	self.refresh()
+
+
+
+func _on_main_background_gui_input(event):
+	#print('GUI EVENT: %s' % event)
+	#var swiper = get_node("/root/Swiper")
+	Swiper.compute_event(event)
+
+
+func swipe_to_left():
+	print('Going to left, from page: %s' % self.current_page)
+	if self.current_page == 'main':
+		print('Get back in chapter')
+		return
+	elif self.current_page == 'chapitres':
+		print('Going back to main')
+		self.camera.position.x -= 500
+		self.current_page = 'main'
+	elif self.current_page == 'success':
+		print('Going back to chapitres')
+		self.camera.position.x -= 500
+		self.current_page = 'chapitres'
+	elif self.current_page == 'lore':
+		print('Going back to success')
+		self.camera.position.x -= 500
+		self.current_page = 'success'
+	else:
+		print('ERROR: unknown page: %s' % self.current_page)
+	
+func swipe_to_right():
+	print('Going to right, from page: %s' % self.current_page)
+	if self.current_page == 'main':
+		print('Going to chapter')
+		self.camera.position.x += 500
+		self.current_page = 'chapitres'
+	elif self.current_page == 'chapitres':
+		print('Going to success')
+		self.camera.position.x += 500
+		self.current_page = 'success'
+	elif self.current_page == 'success':
+		print('Going  to lore')
+		self.camera.position.x += 500
+		self.current_page = 'lore'
+	elif self.current_page == 'lore':
+		print('Last page')
+	else:
+		print('ERROR: unknown page: %s' % self.current_page)

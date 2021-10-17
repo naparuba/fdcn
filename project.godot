@@ -21,6 +21,10 @@ boot_splash/image="res://images/barbare_icon.png"
 boot_splash/bg_color=Color( 0, 0, 0, 1 )
 config/icon="res://images/fdcn_icon.png"
 
+[autoload]
+
+Swiper="*res://swipe.gd"
+
 [display]
 
 window/size/width=500

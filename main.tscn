@@ -42,16 +42,18 @@ script = ExtResource( 1 )
 margin_left = 0.944916
 margin_right = 503.945
 margin_bottom = 1046.0
+mouse_filter = 1
 custom_styles/panel = SubResource( 1 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
 [node name="GlobalCompletion" type="Panel" parent="Background"]
-margin_left = 28.1603
-margin_top = 21.9952
-margin_right = 217.16
-margin_bottom = 203.996
+margin_left = 26.1603
+margin_top = 59.9952
+margin_right = 215.16
+margin_bottom = 241.996
+mouse_filter = 1
 custom_styles/panel = SubResource( 2 )
 __meta__ = {
 "_edit_use_anchors_": false
@@ -60,6 +62,7 @@ __meta__ = {
 [node name="Header" type="Panel" parent="Background/GlobalCompletion"]
 margin_right = 188.0
 margin_bottom = 42.0
+mouse_filter = 1
 custom_styles/panel = SubResource( 3 )
 __meta__ = {
 "_edit_use_anchors_": false
@@ -101,10 +104,11 @@ __meta__ = {
 }
 
 [node name="Position" type="Panel" parent="Background"]
-margin_left = 232.247
-margin_top = 21.2982
-margin_right = 473.247
-margin_bottom = 161.298
+margin_left = 230.0
+margin_top = 59.0
+margin_right = 471.0
+margin_bottom = 244.0
+mouse_filter = 1
 custom_styles/panel = SubResource( 2 )
 __meta__ = {
 "_edit_use_anchors_": false
@@ -113,6 +117,7 @@ __meta__ = {
 [node name="Header" type="Panel" parent="Background/Position"]
 margin_right = 241.0
 margin_bottom = 42.0
+mouse_filter = 1
 custom_styles/panel = SubResource( 3 )
 __meta__ = {
 "_edit_use_anchors_": false
@@ -203,10 +208,10 @@ __meta__ = {
 }
 
 [node name="Billys" type="Panel" parent="Background"]
-margin_left = 232.0
-margin_top = 165.0
-margin_right = 473.0
-margin_bottom = 205.0
+margin_left = 229.293
+margin_top = 11.3741
+margin_right = 470.293
+margin_bottom = 51.3741
 custom_styles/panel = SubResource( 2 )
 __meta__ = {
 "_edit_use_anchors_": false
@@ -269,6 +274,9 @@ texture = ExtResource( 12 )
 [node name="button" type="TextureButton" parent="Background/Billys/BlockPaysan"]
 margin_right = 37.0
 margin_bottom = 37.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
 
 [node name="BlockPrudent" type="Panel" parent="Background/Billys"]
 margin_left = 88.7785
@@ -330,10 +338,10 @@ __meta__ = {
 }
 
 [node name="Dreadcumb" type="Panel" parent="Background"]
-margin_left = 29.2063
-margin_top = 223.682
-margin_right = 474.206
-margin_bottom = 305.682
+margin_left = 27.2063
+margin_top = 261.682
+margin_right = 472.206
+margin_bottom = 343.682
 custom_styles/panel = SubResource( 2 )
 __meta__ = {
 "_edit_use_anchors_": false
@@ -342,6 +350,7 @@ __meta__ = {
 [node name="Header" type="Panel" parent="Background/Dreadcumb"]
 margin_right = 445.0
 margin_bottom = 42.0
+mouse_filter = 1
 custom_styles/panel = SubResource( 3 )
 __meta__ = {
 "_edit_use_anchors_": false
@@ -377,10 +386,11 @@ margin_right = 144.0
 margin_bottom = 0.0
 
 [node name="Next" type="Panel" parent="Background"]
-margin_left = 31.2063
-margin_top = 340.682
-margin_right = 476.206
-margin_bottom = 992.682
+margin_left = 29.2063
+margin_top = 378.682
+margin_right = 474.206
+margin_bottom = 1030.68
+mouse_filter = 1
 custom_styles/panel = SubResource( 2 )
 __meta__ = {
 "_edit_use_anchors_": false
@@ -389,6 +399,7 @@ __meta__ = {
 [node name="Header" type="Panel" parent="Background/Next"]
 margin_right = 445.0
 margin_bottom = 42.0
+mouse_filter = 1
 custom_styles/panel = SubResource( 3 )
 __meta__ = {
 "_edit_use_anchors_": false
@@ -419,8 +430,220 @@ __meta__ = {
 margin_top = 54.0
 margin_bottom = 104.0
 
+[node name="Chapitres" type="Panel" parent="."]
+margin_left = 526.877
+margin_top = 0.192627
+margin_right = 1029.88
+margin_bottom = 1046.19
+mouse_filter = 1
+custom_styles/panel = SubResource( 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="AllChapters" type="Panel" parent="Chapitres"]
+margin_left = 23.0
+margin_top = 22.0
+margin_right = 468.0
+margin_bottom = 990.0
+mouse_filter = 1
+custom_styles/panel = SubResource( 2 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Header" type="Panel" parent="Chapitres/AllChapters"]
+margin_right = 445.0
+margin_bottom = 42.0
+mouse_filter = 1
+custom_styles/panel = SubResource( 3 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Label" type="Label" parent="Chapitres/AllChapters/Header"]
+margin_left = 121.524
+margin_top = 5.00259
+margin_right = 305.524
+margin_bottom = 36.0026
+custom_fonts/font = ExtResource( 2 )
+text = "Tous les Chapitres"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="VScrollBar" type="ScrollContainer" parent="Chapitres/AllChapters"]
+margin_top = 42.0
+margin_right = 20.0
+margin_bottom = 967.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Choices" type="VBoxContainer" parent="Chapitres/AllChapters/VScrollBar"]
+margin_bottom = 104.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="ChapterChoice" parent="Chapitres/AllChapters/VScrollBar/Choices" instance=ExtResource( 3 )]
+margin_right = 0.0
+
+[node name="ChapterChoice2" parent="Chapitres/AllChapters/VScrollBar/Choices" instance=ExtResource( 3 )]
+margin_top = 54.0
+margin_right = 0.0
+margin_bottom = 104.0
+
+[node name="Succes" type="Panel" parent="."]
+margin_left = 1051.55
+margin_top = 0.192627
+margin_right = 1554.55
+margin_bottom = 1046.19
+mouse_filter = 1
+custom_styles/panel = SubResource( 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Success" type="Panel" parent="Succes"]
+margin_left = 23.0
+margin_top = 22.0
+margin_right = 468.0
+margin_bottom = 990.0
+mouse_filter = 1
+custom_styles/panel = SubResource( 2 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Header" type="Panel" parent="Succes/Success"]
+margin_right = 445.0
+margin_bottom = 42.0
+mouse_filter = 1
+custom_styles/panel = SubResource( 3 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Label" type="Label" parent="Succes/Success/Header"]
+margin_left = 121.524
+margin_top = 5.00259
+margin_right = 305.524
+margin_bottom = 36.0026
+custom_fonts/font = ExtResource( 2 )
+text = "Tous les Succès"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="VScrollBar" type="ScrollContainer" parent="Succes/Success"]
+margin_top = 42.0
+margin_right = 20.0
+margin_bottom = 967.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Choices" type="VBoxContainer" parent="Succes/Success/VScrollBar"]
+margin_bottom = 104.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="ChapterChoice" parent="Succes/Success/VScrollBar/Choices" instance=ExtResource( 3 )]
+margin_right = 0.0
+
+[node name="ChapterChoice2" parent="Succes/Success/VScrollBar/Choices" instance=ExtResource( 3 )]
+margin_top = 54.0
+margin_right = 0.0
+margin_bottom = 104.0
+
+[node name="Lore" type="Panel" parent="."]
+margin_left = 1577.95
+margin_top = -1.4892
+margin_right = 2080.95
+margin_bottom = 1044.51
+mouse_filter = 1
+custom_styles/panel = SubResource( 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Lore" type="Panel" parent="Lore"]
+margin_left = 23.0
+margin_top = 22.0
+margin_right = 468.0
+margin_bottom = 990.0
+mouse_filter = 1
+custom_styles/panel = SubResource( 2 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Header" type="Panel" parent="Lore/Lore"]
+margin_right = 445.0
+margin_bottom = 42.0
+mouse_filter = 1
+custom_styles/panel = SubResource( 3 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Label" type="Label" parent="Lore/Lore/Header"]
+margin_left = 121.524
+margin_top = 5.00259
+margin_right = 305.524
+margin_bottom = 36.0026
+custom_fonts/font = ExtResource( 2 )
+text = "Le lore"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="VScrollBar" type="ScrollContainer" parent="Lore/Lore"]
+margin_top = 42.0
+margin_right = 20.0
+margin_bottom = 967.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Choices" type="VBoxContainer" parent="Lore/Lore/VScrollBar"]
+margin_bottom = 104.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="ChapterChoice" parent="Lore/Lore/VScrollBar/Choices" instance=ExtResource( 3 )]
+margin_right = 0.0
+
+[node name="ChapterChoice2" parent="Lore/Lore/VScrollBar/Choices" instance=ExtResource( 3 )]
+margin_top = 54.0
+margin_right = 0.0
+margin_bottom = 104.0
+
+[node name="DEBUG" type="Label" parent="."]
+margin_left = 32.7058
+margin_top = 358.362
+margin_right = 78.7058
+margin_bottom = 372.362
+custom_colors/font_color = Color( 0, 0, 0, 1 )
+text = "DEBUG"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Camera" type="Camera2D" parent="."]
+position = Vector2( 251.412, 521.805 )
+current = true
+smoothing_enabled = true
+
+[connection signal="gui_input" from="Background" to="." method="_on_main_background_gui_input"]
 [connection signal="pressed" from="Background/Billys/BlockGuerrier/button" to="." method="_switch_to_guerrier"]
 [connection signal="pressed" from="Background/Billys/BlockPaysan/button" to="." method="_switch_to_paysan"]
 [connection signal="pressed" from="Background/Billys/BlockPrudent/button" to="." method="_switch_to_prudent"]
 [connection signal="pressed" from="Background/Billys/BlockDebrouillard/button" to="." method="_switch_to_debrouillard"]
 [connection signal="toggled" from="Background/Billys/SpoilButton" to="." method="_on_spoil_button_toggled"]
+[connection signal="gui_input" from="Chapitres" to="." method="_on_main_background_gui_input"]
+[connection signal="gui_input" from="Succes" to="." method="_on_main_background_gui_input"]
+[connection signal="gui_input" from="Lore" to="." method="_on_main_background_gui_input"]
