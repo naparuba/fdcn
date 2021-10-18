@@ -1,0 +1,65 @@
+[gd_scene load_steps=4 format=2]
+
+[ext_resource path="res://fonts/amon_font.tres" type="DynamicFont" id=1]
+[ext_resource path="res://themes/side_buttons_background_style.tres" type="StyleBox" id=2]
+[ext_resource path="res://left_backer.gd" type="Script" id=3]
+
+[node name="Right-Next" type="Panel"]
+margin_left = 557.789
+margin_top = 28.8276
+margin_right = 1529.79
+margin_bottom = 70.8275
+rect_rotation = 90.0
+mouse_filter = 1
+custom_styles/panel = ExtResource( 2 )
+script = ExtResource( 3 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="txt" type="Label" parent="."]
+margin_left = 527.893
+margin_top = 43.2304
+margin_right = 715.893
+margin_bottom = 74.2304
+rect_rotation = 180.0
+custom_fonts/font = ExtResource( 1 )
+text = "XXXXXXXXXXXX"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="chevron" type="Label" parent="."]
+margin_left = 456.51
+margin_top = 3.90372
+margin_right = 563.51
+margin_bottom = 34.9037
+rect_rotation = 90.4755
+custom_fonts/font = ExtResource( 1 )
+text = "<"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="top" type="Polygon2D" parent="."]
+position = Vector2( 983.122, 557.359 )
+rotation = 3.14159
+color = Color( 0.192157, 0.231373, 0.278431, 1 )
+polygon = PoolVector2Array( 1012.02, 557.146, 983.112, 515.615, 983.112, 557.426 )
+
+[node name="bottom" type="Polygon2D" parent="."]
+position = Vector2( 2001.44, 553.391 )
+rotation = 3.14159
+color = Color( 0.192157, 0.231373, 0.278431, 1 )
+polygon = PoolVector2Array( 1029.27, 511.852, 1029.27, 553.602, 984.018, 553.852 )
+
+[node name="button" type="TextureButton" parent="."]
+margin_left = 1.48657
+margin_top = -0.25531
+margin_right = 967.487
+margin_bottom = 41.7447
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[connection signal="pressed" from="button" to="." method="_on_button_pressed"]

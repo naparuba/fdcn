@@ -23,6 +23,9 @@ onready var camera = $Camera
 
 var current_page = 'main'
 
+# The 4 top menus
+var top_menus = []
+
 
 # Give something like C:\Users\j.gabes\AppData\Roaming\Godot\app_userdata\fdcn for windows
 var all_times_already_visited_file = "user://all_times_already_visited.save"
@@ -165,6 +168,15 @@ func _ready():
 	
 	# Register to Swiper
 	Swiper.register_main(self)
+
+	# Register top_menus
+	self.top_menus.append($Background/top_menu)
+	self.top_menus.append($Chapitres/top_menu)
+	self.top_menus.append($Succes/top_menu)
+	self.top_menus.append($Lore/top_menu)
+	
+	for top_menu in self.top_menus:
+		top_menu.register_main(self)
 	
 	self.all_nodes = load_json_file("res://fdcn-1-compilated-data.json")
 	
@@ -174,27 +186,32 @@ func _ready():
 	self.load_session_visited_nodes()
 	self.load_parameters()
 	
+	
 	self.go_to_node(self.current_node_id)
+	
+	self.focus_to_main()
 
 	
 	
 func refresh():
 	
 	# Update the parameters
-	$Background/Billys/SpoilButton.pressed = self.parameters['spoils']
+	for top_menu in self.top_menus:
+		top_menu.set_spoils(self.parameters['spoils'])	
+		top_menu.set_billy(self.parameters['billy'])
+		
+	#var billys = {'guerrier': $Background/Billys/BlockGuerrier,
+	#'paysan':$Background/Billys/BlockPaysan,
+	#'prudent':$Background/Billys/BlockPrudent,
+	#'debrouillard':$Background/Billys/BlockDebrouillard
+	#}
 	
-	var billys = {'guerrier': $Background/Billys/BlockGuerrier,
-	'paysan':$Background/Billys/BlockPaysan,
-	'prudent':$Background/Billys/BlockPrudent,
-	'debrouillard':$Background/Billys/BlockDebrouillard
-	}
-	
-	for billy in billys.keys():
-		var panel = billys[billy]
-		var _style = panel.get('custom_styles/panel')
-		print('STYLE: %s' % _style)
-		_style.set_bg_color(Color('e9eaec'))  # set to light grey
-	billys[self.parameters['billy']].get('custom_styles/panel').set_bg_color(Color('9ea8b4'))  # set to dark grey
+	#for billy in billys.keys():
+	#	var panel = billys[billy]
+	#	var _style = panel.get('custom_styles/panel')
+	#	print('STYLE: %s' % _style)
+	#	_style.set_bg_color(Color('e9eaec'))  # set to light grey
+	#billys[self.parameters['billy']].get('custom_styles/panel').set_bg_color(Color('9ea8b4'))  # set to dark grey
 	
 	# Update the % completion
 	#var fdcn_completion = $MarginContainer/VBoxContainer/HBoxTotalSummary/FDCNCompletion
@@ -311,12 +328,13 @@ func jump_back(previous_id):
 	self.go_to_node(previous_id)
 	
 
-
-func _on_spoil_button_toggled(button_pressed):
-	print('Mode SPOIL ou pas: %s' % button_pressed)
-	self.parameters['spoils'] = button_pressed
+func change_spoils(b):
+	print('Mode SPOIL ou pas: %s' % b)
+	self.parameters['spoils'] = b
 	self.save_parameters()
 	self.refresh()
+
+
 
 
 func _switch_to_guerrier():
@@ -348,6 +366,51 @@ func _on_main_background_gui_input(event):
 	Swiper.compute_event(event)
 
 
+func go_to_page(dest):
+	if dest == 'BACK':
+		print('Get back in chapter')
+	elif dest == 'main':
+		self.focus_to_main()
+	elif dest == 'chapitres':
+		self.focus_to_chapitres()
+	elif dest == 'success':
+		self.focus_to_success()
+	elif dest == 'lore':
+		self.focus_to_lore()
+	else:
+		print('ERROR: no such dest: %s' % dest)
+
+
+func _update_page_in_top_menus():
+	for top_menu in self.top_menus:
+		top_menu.set_page(self.current_page)	
+
+func focus_to_main():
+	print('=> main')
+	self.camera.position.x = 278
+	self.current_page = 'main'
+	self._update_page_in_top_menus()
+	
+	
+func focus_to_chapitres():
+	print('=> chapitres')
+	self.camera.position.x = 876
+	self.current_page = 'chapitres'
+	self._update_page_in_top_menus()
+	
+func focus_to_success():
+	print('=> success')
+	self.camera.position.x = 1471
+	self.current_page = 'success'
+	self._update_page_in_top_menus()
+
+func focus_to_lore():
+	print('=> lore')
+	self.camera.position.x = 2058
+	self.current_page = 'lore'
+	self._update_page_in_top_menus()
+
+
 func swipe_to_left():
 	print('Going to left, from page: %s' % self.current_page)
 	if self.current_page == 'main':
@@ -355,33 +418,22 @@ func swipe_to_left():
 		return
 	elif self.current_page == 'chapitres':
 		print('Going back to main')
-		self.camera.position.x -= 500
-		self.current_page = 'main'
+		self.focus_to_main()
 	elif self.current_page == 'success':
-		print('Going back to chapitres')
-		self.camera.position.x -= 500
-		self.current_page = 'chapitres'
+		self.focus_to_chapitres()
 	elif self.current_page == 'lore':
-		print('Going back to success')
-		self.camera.position.x -= 500
-		self.current_page = 'success'
+		self.focus_to_success()
 	else:
 		print('ERROR: unknown page: %s' % self.current_page)
 	
 func swipe_to_right():
 	print('Going to right, from page: %s' % self.current_page)
 	if self.current_page == 'main':
-		print('Going to chapter')
-		self.camera.position.x += 500
-		self.current_page = 'chapitres'
+		self.focus_to_chapitres()
 	elif self.current_page == 'chapitres':
-		print('Going to success')
-		self.camera.position.x += 500
-		self.current_page = 'success'
+		self.focus_to_success()
 	elif self.current_page == 'success':
-		print('Going  to lore')
-		self.camera.position.x += 500
-		self.current_page = 'lore'
+		self.focus_to_lore()
 	elif self.current_page == 'lore':
 		print('Last page')
 	else:

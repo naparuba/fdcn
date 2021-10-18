@@ -1,0 +1,61 @@
+[gd_scene load_steps=4 format=2]
+
+[ext_resource path="res://fonts/amon_font.tres" type="DynamicFont" id=1]
+[ext_resource path="res://themes/side_buttons_background_style.tres" type="StyleBox" id=2]
+[ext_resource path="res://left_backer.gd" type="Script" id=3]
+
+[node name="Left-Back" type="Panel"]
+margin_left = 0.429886
+margin_top = 1011.95
+margin_right = 972.43
+margin_bottom = 1053.95
+rect_rotation = -90.0
+mouse_filter = 1
+custom_styles/panel = ExtResource( 2 )
+script = ExtResource( 3 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="txt" type="Label" parent="."]
+margin_left = 465.475
+margin_top = 9.43448
+margin_right = 653.475
+margin_bottom = 40.4345
+custom_fonts/font = ExtResource( 1 )
+text = "XXXXXXXXXXXX"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="chevron" type="Label" parent="."]
+margin_left = 564.475
+margin_top = 2.43448
+margin_right = 671.475
+margin_bottom = 33.4345
+rect_rotation = 90.4755
+custom_fonts/font = ExtResource( 1 )
+text = "<"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="top" type="Polygon2D" parent="."]
+color = Color( 0.192157, 0.231373, 0.278431, 1 )
+polygon = PoolVector2Array( 971.963, 0.0406612, 971.963, 41.6629, 1012.1, -1.74314 )
+
+[node name="bottom" type="Polygon2D" parent="."]
+position = Vector2( -1018.32, 3.96838 )
+color = Color( 0.192157, 0.231373, 0.278431, 1 )
+polygon = PoolVector2Array( 1018.54, 37.6579, 984.64, -5.04383, 1018.73, -4.85654 )
+
+[node name="button" type="TextureButton" parent="."]
+margin_left = 3.0
+margin_top = -1.0
+margin_right = 969.0
+margin_bottom = 41.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[connection signal="pressed" from="button" to="." method="_on_button_pressed"]

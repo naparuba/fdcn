@@ -1,0 +1,297 @@
+[gd_scene load_steps=21 format=2]
+
+[ext_resource path="res://images/success.png" type="Texture" id=1]
+[ext_resource path="res://fonts/amon_font_small.tres" type="DynamicFont" id=2]
+[ext_resource path="res://images/fork.png" type="Texture" id=3]
+[ext_resource path="res://images/backpack.png" type="Texture" id=4]
+[ext_resource path="res://images/caution.png" type="Texture" id=5]
+[ext_resource path="res://images/sword.png" type="Texture" id=6]
+[ext_resource path="res://images/pantheon.png" type="Texture" id=7]
+[ext_resource path="res://images/chemin.png" type="Texture" id=8]
+[ext_resource path="res://images/chapter.png" type="Texture" id=9]
+[ext_resource path="res://top_menu.gd" type="Script" id=10]
+
+[sub_resource type="StyleBoxFlat" id=1]
+bg_color = Color( 1, 1, 1, 1 )
+
+[sub_resource type="StyleBoxFlat" id=2]
+bg_color = Color( 1, 1, 1, 1 )
+
+[sub_resource type="StyleBoxFlat" id=3]
+bg_color = Color( 0.913725, 0.917647, 0.92549, 1 )
+
+[sub_resource type="StyleBoxFlat" id=4]
+bg_color = Color( 0.913725, 0.917647, 0.92549, 1 )
+
+[sub_resource type="StyleBoxFlat" id=5]
+bg_color = Color( 0.913725, 0.917647, 0.92549, 1 )
+
+[sub_resource type="StyleBoxFlat" id=6]
+bg_color = Color( 0.913725, 0.917647, 0.92549, 1 )
+
+[sub_resource type="StyleBoxFlat" id=7]
+bg_color = Color( 0.913725, 0.917647, 0.92549, 1 )
+
+[sub_resource type="StyleBoxFlat" id=8]
+bg_color = Color( 0.913725, 0.917647, 0.92549, 1 )
+
+[sub_resource type="StyleBoxFlat" id=9]
+bg_color = Color( 0.913725, 0.917647, 0.92549, 1 )
+
+[sub_resource type="StyleBoxFlat" id=10]
+bg_color = Color( 0.913725, 0.917647, 0.92549, 1 )
+
+[node name="top_menu" type="Panel"]
+margin_left = 54.0
+margin_top = 9.0
+margin_right = 497.0
+margin_bottom = 51.0
+custom_styles/panel = SubResource( 1 )
+script = ExtResource( 10 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Pages" type="Panel" parent="."]
+margin_left = -0.730507
+margin_top = 1.67555
+margin_right = 189.27
+margin_bottom = 41.6756
+custom_styles/panel = SubResource( 2 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="BlockMain" type="Panel" parent="Pages"]
+margin_left = 4.64337
+margin_top = 1.22163
+margin_right = 41.6434
+margin_bottom = 38.2216
+custom_styles/panel = SubResource( 3 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="sprite" type="Sprite" parent="Pages/BlockMain"]
+position = Vector2( 18.8495, 18.2999 )
+scale = Vector2( 0.0734101, 0.0733971 )
+texture = ExtResource( 8 )
+
+[node name="button" type="TextureButton" parent="Pages/BlockMain"]
+margin_left = -0.177032
+margin_top = -0.25
+margin_right = 36.823
+margin_bottom = 36.75
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="BlockChapitres" type="Panel" parent="Pages"]
+margin_left = 55.2391
+margin_top = 0.971634
+margin_right = 92.2391
+margin_bottom = 37.9716
+custom_styles/panel = SubResource( 4 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="sprite" type="Sprite" parent="Pages/BlockChapitres"]
+position = Vector2( 19.9269, 19.1324 )
+scale = Vector2( 0.0616825, 0.0616715 )
+texture = ExtResource( 9 )
+
+[node name="button" type="TextureButton" parent="Pages/BlockChapitres"]
+margin_right = 37.0
+margin_bottom = 37.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="BlockSuccess" type="Panel" parent="Pages"]
+margin_left = 105.207
+margin_top = 1.06625
+margin_right = 142.208
+margin_bottom = 38.0663
+custom_styles/panel = SubResource( 5 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="sprite" type="Sprite" parent="Pages/BlockSuccess"]
+position = Vector2( 19.2058, 18.6945 )
+scale = Vector2( 0.0667377, 0.0667257 )
+texture = ExtResource( 1 )
+
+[node name="button" type="TextureButton" parent="Pages/BlockSuccess"]
+margin_left = 0.418823
+margin_top = 0.202682
+margin_right = 37.4188
+margin_bottom = 37.2027
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="BlockLore" type="Panel" parent="Pages"]
+margin_left = 150.557
+margin_top = 0.596634
+margin_right = 187.557
+margin_bottom = 37.5966
+custom_styles/panel = SubResource( 6 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="sprite" type="Sprite" parent="Pages/BlockLore"]
+position = Vector2( 18.8931, 18.841 )
+scale = Vector2( 0.0664966, 0.0664849 )
+texture = ExtResource( 7 )
+
+[node name="button" type="TextureButton" parent="Pages/BlockLore"]
+margin_left = -0.873657
+margin_top = 0.672302
+margin_right = 36.1263
+margin_bottom = 37.6723
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Billys" type="Panel" parent="."]
+margin_left = 197.634
+margin_top = 0.773258
+margin_right = 438.634
+margin_bottom = 40.7732
+custom_styles/panel = SubResource( 2 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="BlockGuerrier" type="Panel" parent="Billys"]
+margin_left = 4.64337
+margin_top = 1.22163
+margin_right = 41.6434
+margin_bottom = 38.2216
+custom_styles/panel = SubResource( 7 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="sprite" type="Sprite" parent="Billys/BlockGuerrier"]
+position = Vector2( 18.3771, 18.301 )
+scale = Vector2( 0.0974027, 0.0973855 )
+texture = ExtResource( 6 )
+
+[node name="button" type="TextureButton" parent="Billys/BlockGuerrier"]
+margin_left = -0.177032
+margin_top = -0.25
+margin_right = 36.823
+margin_bottom = 36.75
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="BlockPaysan" type="Panel" parent="Billys"]
+margin_left = 46.6832
+margin_top = 0.971634
+margin_right = 83.6832
+margin_bottom = 37.9716
+custom_styles/panel = SubResource( 8 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="sprite" type="Sprite" parent="Billys/BlockPaysan"]
+position = Vector2( 17.5646, 18.338 )
+scale = Vector2( 0.214251, 0.214213 )
+texture = ExtResource( 3 )
+
+[node name="button" type="TextureButton" parent="Billys/BlockPaysan"]
+margin_right = 37.0
+margin_bottom = 37.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="BlockPrudent" type="Panel" parent="Billys"]
+margin_left = 88.7785
+margin_top = 1.06625
+margin_right = 125.779
+margin_bottom = 38.0663
+custom_styles/panel = SubResource( 9 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="sprite" type="Sprite" parent="Billys/BlockPrudent"]
+position = Vector2( 18.812, 18.7755 )
+scale = Vector2( 0.116261, 0.11624 )
+texture = ExtResource( 5 )
+
+[node name="button" type="TextureButton" parent="Billys/BlockPrudent"]
+margin_left = 0.418823
+margin_top = 0.202682
+margin_right = 37.4188
+margin_bottom = 37.2027
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="BlockDebrouillard" type="Panel" parent="Billys"]
+margin_left = 128.423
+margin_top = 0.596634
+margin_right = 165.423
+margin_bottom = 37.5966
+custom_styles/panel = SubResource( 10 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="sprite" type="Sprite" parent="Billys/BlockDebrouillard"]
+position = Vector2( 18.4995, 17.5037 )
+scale = Vector2( 0.097564, 0.0975468 )
+texture = ExtResource( 4 )
+
+[node name="button" type="TextureButton" parent="Billys/BlockDebrouillard"]
+margin_left = -0.873657
+margin_top = 0.672302
+margin_right = 36.1263
+margin_bottom = 37.6723
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="SpoilLabel" type="Label" parent="Billys"]
+margin_left = 174.026
+margin_top = 1.34485
+margin_right = 244.026
+margin_bottom = 15.3448
+custom_fonts/font = ExtResource( 2 )
+custom_colors/font_color = Color( 0, 0, 0, 1 )
+custom_constants/shadow_offset_x = 0
+custom_constants/shadow_offset_y = 0
+custom_constants/shadow_as_outline = 0
+text = "Spoils"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="SpoilButton" type="CheckButton" parent="Billys"]
+margin_left = 162.0
+margin_top = 7.0
+margin_right = 238.0
+margin_bottom = 47.0
+pressed = true
+flat = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[connection signal="pressed" from="Pages/BlockMain/button" to="." method="focus_to_main"]
+[connection signal="pressed" from="Pages/BlockChapitres/button" to="." method="focus_to_chapitres"]
+[connection signal="pressed" from="Pages/BlockSuccess/button" to="." method="focus_to_success"]
+[connection signal="pressed" from="Pages/BlockLore/button" to="." method="focus_to_lore"]
+[connection signal="pressed" from="Billys/BlockGuerrier/button" to="." method="_switch_to_guerrier"]
+[connection signal="pressed" from="Billys/BlockPaysan/button" to="." method="_switch_to_paysan"]
+[connection signal="pressed" from="Billys/BlockPrudent/button" to="." method="_switch_to_prudent"]
+[connection signal="pressed" from="Billys/BlockDebrouillard/button" to="." method="_switch_to_debrouillard"]
+[connection signal="toggled" from="Billys/SpoilButton" to="." method="_on_spoil_button_toggled"]
