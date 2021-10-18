@@ -1,4 +1,4 @@
-[gd_scene load_steps=17 format=2]
+[gd_scene load_steps=20 format=2]
 
 [ext_resource path="res://main.gd" type="Script" id=1]
 [ext_resource path="res://fonts/amon_font.tres" type="DynamicFont" id=2]
@@ -10,6 +10,8 @@
 [ext_resource path="res://images/bar_background.png" type="Texture" id=8]
 [ext_resource path="res://bread.tscn" type="PackedScene" id=9]
 [ext_resource path="res://top_menu.tscn" type="PackedScene" id=10]
+[ext_resource path="res://images/anim-phumtar-2.png" type="Texture" id=11]
+[ext_resource path="res://images/anim-phumtar-1.png" type="Texture" id=12]
 [ext_resource path="res://images/soon.png" type="Texture" id=14]
 [ext_resource path="res://left_backer.tscn" type="PackedScene" id=16]
 [ext_resource path="res://right_nexter.tscn" type="PackedScene" id=17]
@@ -22,6 +24,14 @@ bg_color = Color( 1, 1, 1, 1 )
 
 [sub_resource type="StyleBoxFlat" id=2]
 bg_color = Color( 0.192157, 0.231373, 0.278431, 1 )
+
+[sub_resource type="SpriteFrames" id=4]
+animations = [ {
+"frames": [ ExtResource( 12 ), ExtResource( 11 ) ],
+"loop": true,
+"name": "default",
+"speed": 16.0
+} ]
 
 [node name="main" type="Node2D"]
 script = ExtResource( 1 )
@@ -571,15 +581,36 @@ position = Vector2( 859.456, 462.793 )
 rotation = -0.448674
 texture = ExtResource( 14 )
 
+[node name="phumtar1" type="AnimatedSprite" parent="."]
+position = Vector2( 882.154, 676.293 )
+scale = Vector2( 0.79397, 0.79397 )
+frames = SubResource( 4 )
+frame = 1
+playing = true
+
 [node name="soon2" type="Sprite" parent="."]
 position = Vector2( 1458.69, 457.842 )
 rotation = -0.448674
 texture = ExtResource( 14 )
 
+[node name="phumtar2" type="AnimatedSprite" parent="."]
+position = Vector2( 1465.15, 675.729 )
+scale = Vector2( 0.79397, 0.79397 )
+frames = SubResource( 4 )
+frame = 1
+playing = true
+
 [node name="soon3" type="Sprite" parent="."]
 position = Vector2( 2022.44, 445.881 )
 rotation = -0.448674
 texture = ExtResource( 14 )
+
+[node name="phumtar3" type="AnimatedSprite" parent="."]
+position = Vector2( 2073.67, 672.298 )
+scale = Vector2( 0.79397, 0.79397 )
+frames = SubResource( 4 )
+frame = 1
+playing = true
 
 [connection signal="gui_input" from="Background" to="." method="_on_main_background_gui_input"]
 [connection signal="gui_input" from="Chapitres" to="." method="_on_main_background_gui_input"]
