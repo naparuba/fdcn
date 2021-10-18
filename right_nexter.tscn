@@ -1,8 +1,9 @@
 [gd_scene load_steps=4 format=2]
 
 [ext_resource path="res://fonts/amon_font.tres" type="DynamicFont" id=1]
-[ext_resource path="res://themes/side_buttons_background_style.tres" type="StyleBox" id=2]
 [ext_resource path="res://left_backer.gd" type="Script" id=3]
+
+[sub_resource type="StyleBoxEmpty" id=1]
 
 [node name="Right-Next" type="Panel"]
 margin_left = 557.789
@@ -11,11 +12,17 @@ margin_right = 1529.79
 margin_bottom = 70.8275
 rect_rotation = 90.0
 mouse_filter = 1
-custom_styles/panel = ExtResource( 2 )
+custom_styles/panel = SubResource( 1 )
 script = ExtResource( 3 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
+
+[node name="poly" type="Polygon2D" parent="."]
+position = Vector2( 983.122, 557.359 )
+rotation = 3.14159
+color = Color( 0.192157, 0.231373, 0.278431, 1 )
+polygon = PoolVector2Array( 1011.98, 557.477, 983.134, 515.635, 10.9783, 515.59, -34.0981, 557.79 )
 
 [node name="txt" type="Label" parent="."]
 margin_left = 527.893
@@ -40,18 +47,6 @@ text = "<"
 __meta__ = {
 "_edit_use_anchors_": false
 }
-
-[node name="top" type="Polygon2D" parent="."]
-position = Vector2( 983.122, 557.359 )
-rotation = 3.14159
-color = Color( 0.192157, 0.231373, 0.278431, 1 )
-polygon = PoolVector2Array( 1012.02, 557.146, 983.112, 515.615, 983.112, 557.426 )
-
-[node name="bottom" type="Polygon2D" parent="."]
-position = Vector2( 2001.44, 553.391 )
-rotation = 3.14159
-color = Color( 0.192157, 0.231373, 0.278431, 1 )
-polygon = PoolVector2Array( 1029.27, 511.852, 1029.27, 553.602, 984.018, 553.852 )
 
 [node name="button" type="TextureButton" parent="."]
 margin_left = 1.48657

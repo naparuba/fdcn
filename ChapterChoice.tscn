@@ -60,6 +60,9 @@ text = ">"
 [node name="Button" type="TextureButton" parent="click"]
 margin_right = 40.0
 margin_bottom = 39.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
 
 [node name="AlreadySeenPolygon" type="Polygon2D" parent="."]
 color = Color( 0.619608, 0.658824, 0.705882, 1 )

@@ -39,6 +39,7 @@ __meta__ = {
 [node name="Left-Back" parent="Background" instance=ExtResource( 16 )]
 txt = "Chapitre précédent"
 dest = "BACK"
+is_disabled = true
 
 [node name="Right-Next" parent="Background" instance=ExtResource( 17 )]
 txt = "Tous les chapitres"

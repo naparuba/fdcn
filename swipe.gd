@@ -14,12 +14,12 @@ func register_main(_main):
 
 func compute_event(event):
 	#self.main.print_debug('%s' % event)
-	if event is InputEventScreenDrag:
-		print("Player gets dragged")
+	#if event is InputEventScreenDrag:
+	#	print("Player gets dragged")
 		#print("ply:", position)
-		print("pos: ", event.position)
-		print("rel: ", event.relative)
-		print("vel: ", event.speed)
+	#	print("pos: ", event.position)
+	#	print("rel: ", event.relative)
+	#	print("vel: ", event.speed)
 	if event is InputEventScreenTouch:
 		print('TOUCH: %s' % event.is_pressed())
 		#self.main.print_debug('TOUCH: %s' % event.is_pressed())
@@ -30,13 +30,7 @@ func compute_event(event):
 			print('STOP')
 			_calculate_swipe(event.position)
 	return
-	print('Swipe:: EVENT: %s' % event)
-	if event.is_action_pressed("click"):
-		print('START CLICK: %s' % event.position)
-		#swipe_start = get_global_mouse_pos()
-	if event.is_action_released("click"):
-		print('STOP CLICK %s' % event.position)
-		#_calculate_swipe(get_global_mouse_pos())
+	
 		
 func _calculate_swipe(swipe_end):
 	if swipe_start == null: 

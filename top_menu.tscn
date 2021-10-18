@@ -280,6 +280,7 @@ margin_left = 162.0
 margin_top = 7.0
 margin_right = 238.0
 margin_bottom = 47.0
+focus_mode = 0
 pressed = true
 flat = true
 __meta__ = {

@@ -200,6 +200,11 @@ func refresh():
 		top_menu.set_spoils(self.parameters['spoils'])	
 		top_menu.set_billy(self.parameters['billy'])
 		
+	# Note: the first left backer should be disabled if we cannot get back
+	if self.have_previous_chapters():
+		$"Background/Left-Back".set_enabled()
+	else:
+		$"Background/Left-Back".set_disabled()
 	#var billys = {'guerrier': $Background/Billys/BlockGuerrier,
 	#'paysan':$Background/Billys/BlockPaysan,
 	#'prudent':$Background/Billys/BlockPrudent,
@@ -303,6 +308,9 @@ func refresh():
 			choice.set_success()
 		choices.add_child(choice)
 				
+
+func have_previous_chapters():
+	return len(self.session_visited_nodes) > 1
 
 func jump_to_previous_chapter():
 	print('Jumping to previous chapter: %s' % str(self.session_visited_nodes))

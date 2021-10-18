@@ -34,7 +34,7 @@ func set_billy(type_billy):
 	for billy in billys.keys():
 		var panel = billys[billy]
 		var _style = panel.get('custom_styles/panel')
-		print('STYLE: %s' % _style)
+		#print('STYLE: %s' % _style)
 		_style.set_bg_color(Color('e9eaec'))  # set to light grey
 	billys[type_billy].get('custom_styles/panel').set_bg_color(Color('9ea8b4'))  # set to dark grey
 
@@ -49,7 +49,7 @@ func set_page(page_name):
 	for page in pages.keys():
 		var panel = pages[page]
 		var _style = panel.get('custom_styles/panel')
-		print('STYLE: %s' % _style)
+		#print('STYLE: %s' % _style)
 		_style.set_bg_color(Color('e9eaec'))  # set to light grey
 	pages[page_name].get('custom_styles/panel').set_bg_color(Color('9ea8b4'))  # set to dark grey
 
