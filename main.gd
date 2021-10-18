@@ -304,7 +304,15 @@ func refresh():
 		choices.add_child(choice)
 				
 
-
+func jump_to_previous_chapter():
+	print('Jumping to previous chapter: %s' % str(self.session_visited_nodes))
+	if len(self.session_visited_nodes) <= 1:
+		print('jump_back::CANNOT GO BACK')
+		return
+	var current_id = self.session_visited_nodes[-1]  # DON'T DROP IT HERE
+	var previous_id = self.session_visited_nodes[-2]  # DON'T DROP IT HERE
+	print('Previous chapter: %s =>' % current_id, '%s' % previous_id)
+	self.jump_back(previous_id)
 
 
 # We are jumping back until we found the good chapter number
@@ -368,7 +376,7 @@ func _on_main_background_gui_input(event):
 
 func go_to_page(dest):
 	if dest == 'BACK':
-		print('Get back in chapter')
+		self.jump_to_previous_chapter()
 	elif dest == 'main':
 		self.focus_to_main()
 	elif dest == 'chapitres':
@@ -385,6 +393,7 @@ func _update_page_in_top_menus():
 	for top_menu in self.top_menus:
 		top_menu.set_page(self.current_page)	
 
+
 func focus_to_main():
 	print('=> main')
 	self.camera.position.x = 278
@@ -398,11 +407,13 @@ func focus_to_chapitres():
 	self.current_page = 'chapitres'
 	self._update_page_in_top_menus()
 	
+	
 func focus_to_success():
 	print('=> success')
 	self.camera.position.x = 1471
 	self.current_page = 'success'
 	self._update_page_in_top_menus()
+
 
 func focus_to_lore():
 	print('=> lore')
@@ -414,7 +425,7 @@ func focus_to_lore():
 func swipe_to_left():
 	print('Going to left, from page: %s' % self.current_page)
 	if self.current_page == 'main':
-		print('Get back in chapter')
+		self.jump_to_previous_chapter()
 		return
 	elif self.current_page == 'chapitres':
 		print('Going back to main')
