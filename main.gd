@@ -174,6 +174,7 @@ func _ready():
 	self.top_menus.append($Chapitres/top_menu)
 	self.top_menus.append($Succes/top_menu)
 	self.top_menus.append($Lore/top_menu)
+	self.top_menus.append($About/top_menu)
 	
 	for top_menu in self.top_menus:
 		top_menu.register_main(self)
@@ -393,6 +394,8 @@ func go_to_page(dest):
 		self.focus_to_success()
 	elif dest == 'lore':
 		self.focus_to_lore()
+	elif dest == 'about':
+		self.focus_to_about()
 	else:
 		print('ERROR: no such dest: %s' % dest)
 
@@ -430,6 +433,13 @@ func focus_to_lore():
 	self._update_page_in_top_menus()
 
 
+func focus_to_about():
+	print('=> about')
+	self.camera.position.x = 2648
+	self.current_page = 'about'
+	self._update_page_in_top_menus()
+	
+
 func swipe_to_left():
 	print('Going to left, from page: %s' % self.current_page)
 	if self.current_page == 'main':
@@ -442,6 +452,8 @@ func swipe_to_left():
 		self.focus_to_chapitres()
 	elif self.current_page == 'lore':
 		self.focus_to_success()
+	elif self.current_page == 'about':
+		self.focus_to_lore()
 	else:
 		print('ERROR: unknown page: %s' % self.current_page)
 	
@@ -454,6 +466,8 @@ func swipe_to_right():
 	elif self.current_page == 'success':
 		self.focus_to_lore()
 	elif self.current_page == 'lore':
+		self.focus_to_about()
+	elif self.current_page == 'about':
 		print('Last page')
 	else:
 		print('ERROR: unknown page: %s' % self.current_page)

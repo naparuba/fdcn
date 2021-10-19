@@ -19,10 +19,10 @@
 [sub_resource type="StyleBoxFlat" id=1]
 bg_color = Color( 0.92549, 0.929412, 0.94902, 1 )
 
-[sub_resource type="StyleBoxFlat" id=3]
+[sub_resource type="StyleBoxFlat" id=2]
 bg_color = Color( 1, 1, 1, 1 )
 
-[sub_resource type="StyleBoxFlat" id=2]
+[sub_resource type="StyleBoxFlat" id=3]
 bg_color = Color( 0.192157, 0.231373, 0.278431, 1 )
 
 [sub_resource type="SpriteFrames" id=4]
@@ -63,7 +63,7 @@ margin_top = 58.3134
 margin_right = 242.069
 margin_bottom = 240.314
 mouse_filter = 1
-custom_styles/panel = SubResource( 3 )
+custom_styles/panel = SubResource( 2 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
@@ -72,7 +72,7 @@ __meta__ = {
 margin_right = 188.0
 margin_bottom = 42.0
 mouse_filter = 1
-custom_styles/panel = SubResource( 2 )
+custom_styles/panel = SubResource( 3 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
@@ -118,7 +118,7 @@ margin_top = 57.3182
 margin_right = 497.909
 margin_bottom = 242.318
 mouse_filter = 1
-custom_styles/panel = SubResource( 3 )
+custom_styles/panel = SubResource( 2 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
@@ -127,7 +127,7 @@ __meta__ = {
 margin_right = 241.0
 margin_bottom = 42.0
 mouse_filter = 1
-custom_styles/panel = SubResource( 2 )
+custom_styles/panel = SubResource( 3 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
@@ -221,7 +221,7 @@ margin_left = 54.115
 margin_top = 260.0
 margin_right = 499.115
 margin_bottom = 342.0
-custom_styles/panel = SubResource( 3 )
+custom_styles/panel = SubResource( 2 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
@@ -230,7 +230,7 @@ __meta__ = {
 margin_right = 445.0
 margin_bottom = 42.0
 mouse_filter = 1
-custom_styles/panel = SubResource( 2 )
+custom_styles/panel = SubResource( 3 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
@@ -270,7 +270,7 @@ margin_top = 377.0
 margin_right = 501.115
 margin_bottom = 1029.0
 mouse_filter = 1
-custom_styles/panel = SubResource( 3 )
+custom_styles/panel = SubResource( 2 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
@@ -279,7 +279,7 @@ __meta__ = {
 margin_right = 445.0
 margin_bottom = 42.0
 mouse_filter = 1
-custom_styles/panel = SubResource( 2 )
+custom_styles/panel = SubResource( 3 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
@@ -348,7 +348,7 @@ margin_top = 54.0
 margin_right = 504.0
 margin_bottom = 1022.0
 mouse_filter = 1
-custom_styles/panel = SubResource( 3 )
+custom_styles/panel = SubResource( 2 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
@@ -357,7 +357,7 @@ __meta__ = {
 margin_right = 445.0
 margin_bottom = 42.0
 mouse_filter = 1
-custom_styles/panel = SubResource( 2 )
+custom_styles/panel = SubResource( 3 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
@@ -434,7 +434,7 @@ margin_top = 52.0
 margin_right = 501.923
 margin_bottom = 1020.0
 mouse_filter = 1
-custom_styles/panel = SubResource( 3 )
+custom_styles/panel = SubResource( 2 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
@@ -443,7 +443,7 @@ __meta__ = {
 margin_right = 445.0
 margin_bottom = 42.0
 mouse_filter = 1
-custom_styles/panel = SubResource( 2 )
+custom_styles/panel = SubResource( 3 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
@@ -500,6 +500,14 @@ margin_bottom = 1053.12
 txt = "Les succès"
 dest = "success"
 
+[node name="Right-Next" parent="Lore" instance=ExtResource( 17 )]
+margin_left = 555.245
+margin_top = 26.5178
+margin_right = 1527.24
+margin_bottom = 68.5177
+txt = "A propos"
+dest = "about"
+
 [node name="top_menu" parent="Lore" instance=ExtResource( 10 )]
 margin_left = 58.3101
 margin_top = 3.60144
@@ -509,19 +517,19 @@ margin_bottom = 45.6014
 [node name="Lore" type="Panel" parent="Lore"]
 margin_left = 58.0
 margin_top = 51.0
-margin_right = 540.0
+margin_right = 502.0
 margin_bottom = 1019.0
 mouse_filter = 1
-custom_styles/panel = SubResource( 3 )
+custom_styles/panel = SubResource( 2 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
 [node name="Header" type="Panel" parent="Lore/Lore"]
-margin_right = 482.0
+margin_right = 442.0
 margin_bottom = 42.0
 mouse_filter = 1
-custom_styles/panel = SubResource( 2 )
+custom_styles/panel = SubResource( 3 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
@@ -559,6 +567,218 @@ margin_top = 54.0
 margin_right = 0.0
 margin_bottom = 104.0
 
+[node name="About" type="Panel" parent="."]
+margin_left = 2367.73
+margin_top = 4.39856
+margin_right = 2925.73
+margin_bottom = 1050.4
+mouse_filter = 1
+custom_styles/panel = SubResource( 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Left-Back" parent="About" instance=ExtResource( 16 )]
+margin_left = -0.755615
+margin_top = 1011.12
+margin_right = 971.245
+margin_bottom = 1053.12
+txt = "Lore"
+dest = "lore"
+
+[node name="top_menu" parent="About" instance=ExtResource( 10 )]
+margin_left = 58.3101
+margin_top = 3.60144
+margin_right = 501.31
+margin_bottom = 45.6014
+
+[node name="About" type="Panel" parent="About"]
+margin_left = 58.0
+margin_top = 51.0
+margin_right = 540.0
+margin_bottom = 1019.0
+mouse_filter = 1
+custom_styles/panel = SubResource( 2 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Header" type="Panel" parent="About/About"]
+margin_right = 482.0
+margin_bottom = 42.0
+mouse_filter = 1
+custom_styles/panel = SubResource( 3 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Label" type="Label" parent="About/About/Header"]
+margin_left = 121.524
+margin_top = 5.00259
+margin_right = 305.524
+margin_bottom = 36.0026
+custom_fonts/font = ExtResource( 2 )
+text = "A propos"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="DevLabel" type="Label" parent="About"]
+margin_left = 86.7156
+margin_top = 125.639
+margin_right = 156.716
+margin_bottom = 139.639
+custom_fonts/font = ExtResource( 5 )
+custom_colors/font_color = Color( 0, 0, 0, 1 )
+custom_constants/shadow_offset_x = 0
+custom_constants/shadow_offset_y = 0
+custom_constants/shadow_as_outline = 0
+text = "Développeur"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="DevTxt" type="Label" parent="About"]
+margin_left = 86.458
+margin_top = 139.363
+margin_right = 248.458
+margin_bottom = 170.363
+custom_fonts/font = ExtResource( 2 )
+custom_colors/font_color = Color( 0, 0.760784, 0.666667, 1 )
+custom_constants/shadow_offset_x = 0
+custom_constants/shadow_offset_y = 0
+custom_constants/shadow_as_outline = 0
+text = "Jean Gabès (naparuba)"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="VersionLabel" type="Label" parent="About"]
+margin_left = 88.4995
+margin_top = 185.694
+margin_right = 158.5
+margin_bottom = 199.694
+custom_fonts/font = ExtResource( 5 )
+custom_colors/font_color = Color( 0, 0, 0, 1 )
+custom_constants/shadow_offset_x = 0
+custom_constants/shadow_offset_y = 0
+custom_constants/shadow_as_outline = 0
+text = "Version"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="VersionTxt" type="Label" parent="About"]
+margin_left = 88.2419
+margin_top = 199.418
+margin_right = 318.242
+margin_bottom = 230.418
+custom_fonts/font = ExtResource( 2 )
+custom_colors/font_color = Color( 0, 0.760784, 0.666667, 1 )
+custom_constants/shadow_offset_x = 0
+custom_constants/shadow_offset_y = 0
+custom_constants/shadow_as_outline = 0
+text = "0.1"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="SrcLabel" type="Label" parent="About"]
+margin_left = 90.2832
+margin_top = 246.938
+margin_right = 160.284
+margin_bottom = 260.938
+custom_fonts/font = ExtResource( 5 )
+custom_colors/font_color = Color( 0, 0, 0, 1 )
+custom_constants/shadow_offset_x = 0
+custom_constants/shadow_offset_y = 0
+custom_constants/shadow_as_outline = 0
+text = "Sources"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="SrcTxt" type="Label" parent="About"]
+margin_left = 90.0256
+margin_top = 260.662
+margin_right = 320.026
+margin_bottom = 291.662
+custom_fonts/font = ExtResource( 2 )
+custom_colors/font_color = Color( 0, 0.760784, 0.666667, 1 )
+custom_constants/shadow_offset_x = 0
+custom_constants/shadow_offset_y = 0
+custom_constants/shadow_as_outline = 0
+text = "https://github.com/naparuba/fdcn"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="ThnksLabel" type="Label" parent="About"]
+margin_left = 89.6887
+margin_top = 306.993
+margin_right = 159.689
+margin_bottom = 320.993
+custom_fonts/font = ExtResource( 5 )
+custom_colors/font_color = Color( 0, 0, 0, 1 )
+custom_constants/shadow_offset_x = 0
+custom_constants/shadow_offset_y = 0
+custom_constants/shadow_as_outline = 0
+text = "Remerciements"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="ThnksTxt" type="Label" parent="About"]
+margin_left = 89.4312
+margin_top = 320.717
+margin_right = 428.431
+margin_bottom = 351.717
+custom_fonts/font = ExtResource( 2 )
+custom_colors/font_color = Color( 0, 0.760784, 0.666667, 1 )
+custom_constants/shadow_offset_x = 0
+custom_constants/shadow_offset_y = 0
+custom_constants/shadow_as_outline = 0
+text = "- Bob pour cette super oeuvre
+- Les dev de \"Godot\" qui ont
+permis à cette application d'exister"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="NotesLabel" type="Label" parent="About"]
+margin_left = 90.2832
+margin_top = 440.184
+margin_right = 160.284
+margin_bottom = 454.184
+custom_fonts/font = ExtResource( 5 )
+custom_colors/font_color = Color( 0, 0, 0, 1 )
+custom_constants/shadow_offset_x = 0
+custom_constants/shadow_offset_y = 0
+custom_constants/shadow_as_outline = 0
+text = "Notes"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="NotesTxt" type="Label" parent="About"]
+margin_left = 90.0256
+margin_top = 453.908
+margin_right = 429.026
+margin_bottom = 620.908
+custom_fonts/font = ExtResource( 2 )
+custom_colors/font_color = Color( 0, 0.760784, 0.666667, 1 )
+custom_constants/shadow_offset_x = 0
+custom_constants/shadow_offset_y = 0
+custom_constants/shadow_as_outline = 0
+text = "Toute aide pour dev ou debugguer
+est la bienvenue ^^
+Attention: pour l'instant les sauts
+qui sont des énigmes ne sont PAS
+filtrés par le bouton no-spoils"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
 [node name="DEBUG" type="Label" parent="."]
 margin_left = 55.3588
 margin_top = 357.418
@@ -585,7 +805,6 @@ texture = ExtResource( 14 )
 position = Vector2( 882.154, 676.293 )
 scale = Vector2( 0.79397, 0.79397 )
 frames = SubResource( 4 )
-frame = 1
 playing = true
 
 [node name="soon2" type="Sprite" parent="."]
@@ -597,7 +816,6 @@ texture = ExtResource( 14 )
 position = Vector2( 1465.15, 675.729 )
 scale = Vector2( 0.79397, 0.79397 )
 frames = SubResource( 4 )
-frame = 1
 playing = true
 
 [node name="soon3" type="Sprite" parent="."]
@@ -609,10 +827,10 @@ texture = ExtResource( 14 )
 position = Vector2( 2073.67, 672.298 )
 scale = Vector2( 0.79397, 0.79397 )
 frames = SubResource( 4 )
-frame = 1
 playing = true
 
 [connection signal="gui_input" from="Background" to="." method="_on_main_background_gui_input"]
 [connection signal="gui_input" from="Chapitres" to="." method="_on_main_background_gui_input"]
 [connection signal="gui_input" from="Succes" to="." method="_on_main_background_gui_input"]
 [connection signal="gui_input" from="Lore" to="." method="_on_main_background_gui_input"]
+[connection signal="gui_input" from="About" to="." method="_on_main_background_gui_input"]

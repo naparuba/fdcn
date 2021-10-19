@@ -51,7 +51,9 @@ func set_page(page_name):
 		var _style = panel.get('custom_styles/panel')
 		#print('STYLE: %s' % _style)
 		_style.set_bg_color(Color('e9eaec'))  # set to light grey
-	pages[page_name].get('custom_styles/panel').set_bg_color(Color('9ea8b4'))  # set to dark grey
+	# NOTE: about is not an icon, only with swipe
+	if page_name in pages:
+		pages[page_name].get('custom_styles/panel').set_bg_color(Color('9ea8b4'))  # set to dark grey
 
 
 func focus_to_main():
@@ -66,6 +68,8 @@ func focus_to_success():
 	
 func focus_to_lore():
 	self.main.focus_to_lore()
+	
+# NOTE: page about do NOT have a button
 
 
 func _switch_to_guerrier():
