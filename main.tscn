@@ -1,4 +1,4 @@
-[gd_scene load_steps=20 format=2]
+[gd_scene load_steps=21 format=2]
 
 [ext_resource path="res://main.gd" type="Script" id=1]
 [ext_resource path="res://fonts/amon_font.tres" type="DynamicFont" id=2]
@@ -24,6 +24,9 @@ bg_color = Color( 1, 1, 1, 1 )
 
 [sub_resource type="StyleBoxFlat" id=3]
 bg_color = Color( 0.192157, 0.231373, 0.278431, 1 )
+
+[sub_resource type="StyleBoxFlat" id=5]
+bg_color = Color( 0.913725, 0.917647, 0.92549, 1 )
 
 [sub_resource type="SpriteFrames" id=4]
 animations = [ {
@@ -373,27 +376,345 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
+[node name="SautLabel" type="Label" parent="Chapitres/AllChapters"]
+margin_left = 12.2982
+margin_top = 55.7809
+margin_right = 64.2982
+margin_bottom = 86.7809
+custom_fonts/font = ExtResource( 2 )
+custom_colors/font_color = Color( 0, 0, 0, 1 )
+text = "Saut"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Block-1" type="Panel" parent="Chapitres/AllChapters"]
+margin_left = 69.2867
+margin_top = 50.1101
+margin_right = 112.287
+margin_bottom = 92.1101
+custom_styles/panel = SubResource( 5 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="jump" type="Label" parent="Chapitres/AllChapters/Block-1"]
+margin_left = 6.00751
+margin_top = 5.04086
+margin_right = 18.0075
+margin_bottom = 36.0409
+custom_fonts/font = ExtResource( 2 )
+custom_colors/font_color = Color( 0, 0, 0, 1 )
+text = "1"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="button" type="TextureButton" parent="Chapitres/AllChapters/Block-1"]
+margin_left = -0.740051
+margin_top = -1.0
+margin_right = 44.2599
+margin_bottom = 42.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Block-100" type="Panel" parent="Chapitres/AllChapters"]
+margin_left = 120.943
+margin_top = 50.1101
+margin_right = 163.943
+margin_bottom = 92.1101
+custom_styles/panel = SubResource( 5 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="jump" type="Label" parent="Chapitres/AllChapters/Block-100"]
+margin_left = 3.48773
+margin_top = 5.67082
+margin_right = 39.4877
+margin_bottom = 36.6708
+custom_fonts/font = ExtResource( 2 )
+custom_colors/font_color = Color( 0, 0, 0, 1 )
+text = "100"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="button" type="TextureButton" parent="Chapitres/AllChapters/Block-100"]
+margin_left = -0.740051
+margin_top = -1.0
+margin_right = 44.2599
+margin_bottom = 42.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Block-200" type="Panel" parent="Chapitres/AllChapters"]
+margin_left = 175.12
+margin_top = 51.37
+margin_right = 218.12
+margin_bottom = 93.37
+custom_styles/panel = SubResource( 5 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="jump" type="Label" parent="Chapitres/AllChapters/Block-200"]
+margin_left = 4.11761
+margin_top = 5.04086
+margin_right = 40.1176
+margin_bottom = 36.0409
+custom_fonts/font = ExtResource( 2 )
+custom_colors/font_color = Color( 0, 0, 0, 1 )
+text = "200"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="button" type="TextureButton" parent="Chapitres/AllChapters/Block-200"]
+margin_left = -0.740051
+margin_top = -1.0
+margin_right = 44.2599
+margin_bottom = 42.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Block-300" type="Panel" parent="Chapitres/AllChapters"]
+margin_left = 228.667
+margin_top = 50.7401
+margin_right = 271.667
+margin_bottom = 92.7401
+custom_styles/panel = SubResource( 5 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="jump" type="Label" parent="Chapitres/AllChapters/Block-300"]
+margin_left = 4.11761
+margin_top = 5.04086
+margin_right = 40.1176
+margin_bottom = 36.0409
+custom_fonts/font = ExtResource( 2 )
+custom_colors/font_color = Color( 0, 0, 0, 1 )
+text = "300"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="button" type="TextureButton" parent="Chapitres/AllChapters/Block-300"]
+margin_left = -0.740051
+margin_top = -1.0
+margin_right = 44.2599
+margin_bottom = 42.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Block-400" type="Panel" parent="Chapitres/AllChapters"]
+margin_left = 281.583
+margin_top = 50.7401
+margin_right = 324.583
+margin_bottom = 92.7401
+custom_styles/panel = SubResource( 5 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="jump" type="Label" parent="Chapitres/AllChapters/Block-400"]
+margin_left = 4.74762
+margin_top = 5.04086
+margin_right = 40.7476
+margin_bottom = 36.0409
+custom_fonts/font = ExtResource( 2 )
+custom_colors/font_color = Color( 0, 0, 0, 1 )
+text = "400"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="button" type="TextureButton" parent="Chapitres/AllChapters/Block-400"]
+margin_left = -0.740051
+margin_top = -1.0
+margin_right = 44.2599
+margin_bottom = 42.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Block-500" type="Panel" parent="Chapitres/AllChapters"]
+margin_left = 331.98
+margin_top = 51.3701
+margin_right = 374.98
+margin_bottom = 93.3701
+custom_styles/panel = SubResource( 5 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="jump" type="Label" parent="Chapitres/AllChapters/Block-500"]
+margin_left = 4.74762
+margin_top = 5.04086
+margin_right = 40.7476
+margin_bottom = 36.0409
+custom_fonts/font = ExtResource( 2 )
+custom_colors/font_color = Color( 0, 0, 0, 1 )
+text = "500"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="button" type="TextureButton" parent="Chapitres/AllChapters/Block-500"]
+margin_left = -0.740051
+margin_top = -1.0
+margin_right = 44.2599
+margin_bottom = 42.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Block-600" type="Panel" parent="Chapitres/AllChapters"]
+margin_left = 386.157
+margin_top = 50.1101
+margin_right = 429.157
+margin_bottom = 92.1101
+custom_styles/panel = SubResource( 5 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="jump" type="Label" parent="Chapitres/AllChapters/Block-600"]
+margin_left = 3.48773
+margin_top = 5.67082
+margin_right = 39.4877
+margin_bottom = 36.6708
+custom_fonts/font = ExtResource( 2 )
+custom_colors/font_color = Color( 0, 0, 0, 1 )
+text = "600"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="button" type="TextureButton" parent="Chapitres/AllChapters/Block-600"]
+margin_left = -0.740051
+margin_top = -1.0
+margin_right = 44.2599
+margin_bottom = 42.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
 [node name="VScrollBar" type="ScrollContainer" parent="Chapitres/AllChapters"]
-margin_top = 42.0
-margin_right = 20.0
-margin_bottom = 967.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_top = 103.0
+mouse_filter = 1
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
 [node name="Choices" type="VBoxContainer" parent="Chapitres/AllChapters/VScrollBar"]
-margin_bottom = 104.0
+margin_right = 433.0
+margin_bottom = 1022.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
 [node name="ChapterChoice" parent="Chapitres/AllChapters/VScrollBar/Choices" instance=ExtResource( 3 )]
-margin_right = 0.0
+margin_right = 433.0
 
 [node name="ChapterChoice2" parent="Chapitres/AllChapters/VScrollBar/Choices" instance=ExtResource( 3 )]
 margin_top = 54.0
-margin_right = 0.0
+margin_right = 433.0
 margin_bottom = 104.0
+
+[node name="ChapterChoice3" parent="Chapitres/AllChapters/VScrollBar/Choices" instance=ExtResource( 3 )]
+margin_top = 108.0
+margin_right = 433.0
+margin_bottom = 158.0
+
+[node name="ChapterChoice4" parent="Chapitres/AllChapters/VScrollBar/Choices" instance=ExtResource( 3 )]
+margin_top = 162.0
+margin_right = 433.0
+margin_bottom = 212.0
+
+[node name="ChapterChoice5" parent="Chapitres/AllChapters/VScrollBar/Choices" instance=ExtResource( 3 )]
+margin_top = 216.0
+margin_right = 433.0
+margin_bottom = 266.0
+
+[node name="ChapterChoice6" parent="Chapitres/AllChapters/VScrollBar/Choices" instance=ExtResource( 3 )]
+margin_top = 270.0
+margin_right = 433.0
+margin_bottom = 320.0
+
+[node name="ChapterChoice7" parent="Chapitres/AllChapters/VScrollBar/Choices" instance=ExtResource( 3 )]
+margin_top = 324.0
+margin_right = 433.0
+margin_bottom = 374.0
+
+[node name="ChapterChoice8" parent="Chapitres/AllChapters/VScrollBar/Choices" instance=ExtResource( 3 )]
+margin_top = 378.0
+margin_right = 433.0
+margin_bottom = 428.0
+
+[node name="ChapterChoice9" parent="Chapitres/AllChapters/VScrollBar/Choices" instance=ExtResource( 3 )]
+margin_top = 432.0
+margin_right = 433.0
+margin_bottom = 482.0
+
+[node name="ChapterChoice10" parent="Chapitres/AllChapters/VScrollBar/Choices" instance=ExtResource( 3 )]
+margin_top = 486.0
+margin_right = 433.0
+margin_bottom = 536.0
+
+[node name="ChapterChoice11" parent="Chapitres/AllChapters/VScrollBar/Choices" instance=ExtResource( 3 )]
+margin_top = 540.0
+margin_right = 433.0
+margin_bottom = 590.0
+
+[node name="ChapterChoice12" parent="Chapitres/AllChapters/VScrollBar/Choices" instance=ExtResource( 3 )]
+margin_top = 594.0
+margin_right = 433.0
+margin_bottom = 644.0
+
+[node name="ChapterChoice13" parent="Chapitres/AllChapters/VScrollBar/Choices" instance=ExtResource( 3 )]
+margin_top = 648.0
+margin_right = 433.0
+margin_bottom = 698.0
+
+[node name="ChapterChoice14" parent="Chapitres/AllChapters/VScrollBar/Choices" instance=ExtResource( 3 )]
+margin_top = 702.0
+margin_right = 433.0
+margin_bottom = 752.0
+
+[node name="ChapterChoice15" parent="Chapitres/AllChapters/VScrollBar/Choices" instance=ExtResource( 3 )]
+margin_top = 756.0
+margin_right = 433.0
+margin_bottom = 806.0
+
+[node name="ChapterChoice16" parent="Chapitres/AllChapters/VScrollBar/Choices" instance=ExtResource( 3 )]
+margin_top = 810.0
+margin_right = 433.0
+margin_bottom = 860.0
+
+[node name="ChapterChoice17" parent="Chapitres/AllChapters/VScrollBar/Choices" instance=ExtResource( 3 )]
+margin_top = 864.0
+margin_right = 433.0
+margin_bottom = 914.0
+
+[node name="ChapterChoice18" parent="Chapitres/AllChapters/VScrollBar/Choices" instance=ExtResource( 3 )]
+margin_top = 918.0
+margin_right = 433.0
+margin_bottom = 968.0
+
+[node name="ChapterChoice19" parent="Chapitres/AllChapters/VScrollBar/Choices" instance=ExtResource( 3 )]
+margin_top = 972.0
+margin_right = 433.0
+margin_bottom = 1022.0
 
 [node name="Succes" type="Panel" parent="."]
 margin_left = 1192.29
@@ -797,14 +1118,17 @@ smoothing_enabled = true
 smoothing_speed = 20.0
 
 [node name="soon1" type="Sprite" parent="."]
+visible = false
 position = Vector2( 859.456, 462.793 )
 rotation = -0.448674
 texture = ExtResource( 14 )
 
 [node name="phumtar1" type="AnimatedSprite" parent="."]
+visible = false
 position = Vector2( 882.154, 676.293 )
 scale = Vector2( 0.79397, 0.79397 )
 frames = SubResource( 4 )
+frame = 1
 playing = true
 
 [node name="soon2" type="Sprite" parent="."]
@@ -816,6 +1140,7 @@ texture = ExtResource( 14 )
 position = Vector2( 1465.15, 675.729 )
 scale = Vector2( 0.79397, 0.79397 )
 frames = SubResource( 4 )
+frame = 1
 playing = true
 
 [node name="soon3" type="Sprite" parent="."]
@@ -827,10 +1152,18 @@ texture = ExtResource( 14 )
 position = Vector2( 2073.67, 672.298 )
 scale = Vector2( 0.79397, 0.79397 )
 frames = SubResource( 4 )
+frame = 1
 playing = true
 
 [connection signal="gui_input" from="Background" to="." method="_on_main_background_gui_input"]
 [connection signal="gui_input" from="Chapitres" to="." method="_on_main_background_gui_input"]
+[connection signal="pressed" from="Chapitres/AllChapters/Block-1/button" to="." method="jump_to_chapter_1"]
+[connection signal="pressed" from="Chapitres/AllChapters/Block-100/button" to="." method="jump_to_chapter_100"]
+[connection signal="pressed" from="Chapitres/AllChapters/Block-200/button" to="." method="jump_to_chapter_200"]
+[connection signal="pressed" from="Chapitres/AllChapters/Block-300/button" to="." method="jump_to_chapter_300"]
+[connection signal="pressed" from="Chapitres/AllChapters/Block-400/button" to="." method="jump_to_chapter_400"]
+[connection signal="pressed" from="Chapitres/AllChapters/Block-500/button" to="." method="jump_to_chapter_500"]
+[connection signal="pressed" from="Chapitres/AllChapters/Block-600/button" to="." method="jump_to_chapter_600"]
 [connection signal="gui_input" from="Succes" to="." method="_on_main_background_gui_input"]
 [connection signal="gui_input" from="Lore" to="." method="_on_main_background_gui_input"]
 [connection signal="gui_input" from="About" to="." method="_on_main_background_gui_input"]

@@ -144,6 +144,8 @@ func go_to_node(node_id):
 	print('ALL TIMES visited nodes: %s' % str(self.visited_nodes_all_times))
 	
 	self.refresh()
+	# We did change node, so important to see it
+	self.focus_to_main()
 
 
 func _get_node(node_id):
@@ -187,12 +189,78 @@ func _ready():
 	self.load_session_visited_nodes()
 	self.load_parameters()
 	
+	# Create all chapters in the 2nd screen
+	self.insert_all_chapters()
 	
+	# Jump to node, and will show main page
 	self.go_to_node(self.current_node_id)
 	
-	self.focus_to_main()
 
-	
+func jump_to_chapter_100aine(centaine):
+	var all_choices = $Chapitres/AllChapters/VScrollBar/Choices
+	var scroll_bar = $Chapitres/AllChapters/VScrollBar
+	print('Searching chapter: %s' % centaine)
+	# Get chapter until we find the good one
+	for choice in all_choices.get_children():
+		var chapter_id = choice.get_chapter_id()
+		if chapter_id == centaine:
+			print('found chapter: %s ' % chapter_id, '%s' % choice)
+			print('Jump to :%s' % choice.rect_position.y)
+			scroll_bar.scroll_vertical = choice.rect_position.y
+
+func insert_all_chapters():
+	var all_choices = $Chapitres/AllChapters/VScrollBar/Choices
+	delete_children(all_choices)
+	for chapter_id in self.all_nodes:
+		print('Creating chapter: %s' % chapter_id)
+		
+		var chapter_data = self._get_node(chapter_id)
+		
+		var choice = Choice.instance()
+		choice.set_main(self)
+		choice.set_chapitre(chapter_data['computed']['id'])
+		#choice.set_spoil_enabled(self.parameters['spoils'])
+		#if chapter_data['computed']['is_combat']:
+		#	choice.set_combat()
+		#if chapter_id in self.session_visited_nodes:
+		#	choice.set_session_seen()
+		#if chapter_id in self.visited_nodes_all_times:
+		#	choice.set_already_seen()
+		#if chapter_data['computed']['ending']:
+		#	choice.set_ending()
+		#if chapter_data['computed']['success']:
+		#	choice.set_success()
+		all_choices.add_child(choice)
+
+
+func _update_all_chapters():
+	var all_choices = $Chapitres/AllChapters/VScrollBar/Choices
+	for choice in all_choices.get_children():
+		var chapter_id = choice.get_chapter_id()
+		var chapter_data = self._get_node(chapter_id)
+		# Update if spoils need to be shown (or not)
+		choice.set_spoil_enabled(self.parameters['spoils'])
+		# Session seen
+		if chapter_id in self.session_visited_nodes:
+			choice.set_session_seen()
+		else:
+			choice.set_session_not_seen()
+		# All time seen
+		if chapter_id in self.visited_nodes_all_times:
+			choice.set_already_seen()
+		else:
+			choice.set_not_already_seen()
+		# Ending or not
+		if chapter_data['computed']['ending']:
+			choice.set_ending()
+		else:
+			choice.set_not_ending()
+		# Success or not
+		if chapter_data['computed']['success']:
+			choice.set_success()
+		else:
+			choice.set_not_success()
+			
 	
 func refresh():
 	
@@ -206,32 +274,21 @@ func refresh():
 		$"Background/Left-Back".set_enabled()
 	else:
 		$"Background/Left-Back".set_disabled()
-	#var billys = {'guerrier': $Background/Billys/BlockGuerrier,
-	#'paysan':$Background/Billys/BlockPaysan,
-	#'prudent':$Background/Billys/BlockPrudent,
-	#'debrouillard':$Background/Billys/BlockDebrouillard
-	#}
 	
-	#for billy in billys.keys():
-	#	var panel = billys[billy]
-	#	var _style = panel.get('custom_styles/panel')
-	#	print('STYLE: %s' % _style)
-	#	_style.set_bg_color(Color('e9eaec'))  # set to light grey
-	#billys[self.parameters['billy']].get('custom_styles/panel').set_bg_color(Color('9ea8b4'))  # set to dark grey
+	
+	# Page2: update all chapters
+	self._update_all_chapters()
 	
 	# Update the % completion
-	#var fdcn_completion = $MarginContainer/VBoxContainer/HBoxTotalSummary/FDCNCompletion
 	var _nb_all_nodes = len(self.all_nodes)
 	var _nb_visited = len(self.visited_nodes_all_times)
-	#var _s = '%.1f %%' % (100 * _nb_visited / float(_nb_all_nodes)) + (' (%d /' % _nb_visited) + (' %d )' % _nb_all_nodes)
-	#fdcn_completion.text = _s
+
 	var completion_foot_note = $Background/GlobalCompletion/footnode
 	completion_foot_note.text = (' %d /' % _nb_visited) + (' %d' % _nb_all_nodes)
 	
 	gauge.set_value(_nb_visited / float(_nb_all_nodes))
 	
 	# Now print my current node
-	#print('Loaded object:', self.all_nodes['%s' % self.current_node_id])
 	var my_node = self._get_node(self.current_node_id)
 	
 	# The act in progress
@@ -261,21 +318,15 @@ func refresh():
 		var bread = Bread.instance()
 		bread.set_chap_number(previous)
 		bread.set_main(self)
-		#print('COMPARING BREAD: %s' % _i, ' ', _nb_lasts)
-		#bread.set_position(Vector2(_i*200, 0))
 		if _i == 0:
-			#print('COMPARING BREAD: FIRST %s' % _i,' ',  _nb_lasts)
 			bread.set_first()
 		# If previous
 		
 		if _i == _nb_lasts - 2:
 			bread.set_previous()
-			#print('COMPARING BREAD: PREVIOUS %s' % _i, ' ', _nb_lasts)
 		elif _i == _nb_lasts - 1:
-			#print('COMPARING BREAD: CURRENT %s' % _i, ' ', _nb_lasts)
 			bread.set_current()
 		else:
-			#print('COMPARING BREAD: NORMAL %s' % _i, ' ', _nb_lasts)
 			bread.set_normal_color()
 		breads.add_child(bread)
 		_i = _i + 1
@@ -471,3 +522,26 @@ func swipe_to_right():
 		print('Last page')
 	else:
 		print('ERROR: unknown page: %s' % self.current_page)
+
+
+func jump_to_chapter_1():
+	self.jump_to_chapter_100aine(1)
+
+func jump_to_chapter_100():
+	self.jump_to_chapter_100aine(100)
+	
+func jump_to_chapter_200():
+	self.jump_to_chapter_100aine(200)
+	
+func jump_to_chapter_300():
+	self.jump_to_chapter_100aine(300)
+	
+func jump_to_chapter_400():
+	self.jump_to_chapter_100aine(400)
+	
+func jump_to_chapter_500():
+	self.jump_to_chapter_100aine(500)
+	
+func jump_to_chapter_600():
+	self.jump_to_chapter_100aine(600)	
+	
