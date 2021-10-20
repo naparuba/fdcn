@@ -226,18 +226,19 @@
     "109": {
         "computed": {
             "arc": null,
-            "chapter": null,
+            "chapter": "Tour des mages",
             "ending": false,
             "id": 109,
             "is_combat": false,
             "label": null,
-            "secret": false,
+            "secret": true,
             "sons": [
                 318
             ],
             "success": null
         },
-        "goto": 318
+        "goto": 318,
+        "secret": true
     },
     "11": {
         "computed": {
@@ -434,13 +435,14 @@
             "id": 119,
             "is_combat": false,
             "label": null,
-            "secret": false,
+            "secret": true,
             "sons": [
                 426
             ],
             "success": null
         },
-        "goto": 426
+        "goto": 426,
+        "secret": true
     },
     "12": {
         "computed": {
@@ -626,7 +628,7 @@
     "129": {
         "computed": {
             "arc": null,
-            "chapter": null,
+            "chapter": "Lenonia",
             "ending": false,
             "id": 129,
             "is_combat": false,
@@ -1242,13 +1244,14 @@
             "id": 159,
             "is_combat": false,
             "label": null,
-            "secret": false,
+            "secret": true,
             "sons": [
                 136
             ],
             "success": null
         },
-        "goto": 136
+        "goto": 136,
+        "secret": true
     },
     "16": {
         "computed": {
@@ -1366,11 +1369,17 @@
             "label": "Marché aux marchands",
             "secret": false,
             "sons": [
-                100
+                100,
+                129,
+                170
             ],
             "success": null
         },
-        "goto": 100,
+        "goto": [
+            100,
+            170,
+            129
+        ],
         "label": "Marché aux marchands"
     },
     "166": {
@@ -1475,7 +1484,7 @@
     "170": {
         "computed": {
             "arc": null,
-            "chapter": null,
+            "chapter": "Lenonia",
             "ending": false,
             "id": 170,
             "is_combat": false,
@@ -1730,11 +1739,13 @@
             "secret": false,
             "sons": [
                 95,
-                285
+                285,
+                472
             ],
             "success": null
         },
         "goto": [
+            472,
             285,
             95
         ]
@@ -2494,11 +2505,19 @@
             "label": "Moulin à grains",
             "secret": false,
             "sons": [
+                49,
+                94,
+                259,
                 378
             ],
             "success": null
         },
-        "goto": 378,
+        "goto": [
+            259,
+            378,
+            49,
+            94
+        ],
         "label": "Moulin à grains"
     },
     "22": {
@@ -2553,10 +2572,9 @@
             "sons": [
                 431
             ],
-            "success": "VALENT-BIEN"
+            "success": null
         },
-        "goto": 431,
-        "success": "VALENT-BIEN"
+        "goto": 431
     },
     "222": {
         "computed": {
@@ -2571,12 +2589,13 @@
                 336,
                 514
             ],
-            "success": null
+            "success": "VALENT-BIEN"
         },
         "goto": [
             336,
             514
-        ]
+        ],
+        "success": "VALENT-BIEN"
     },
     "223": {
         "computed": {
@@ -2811,6 +2830,7 @@
             "label": null,
             "secret": false,
             "sons": [
+                76,
                 146,
                 155
             ],
@@ -2818,7 +2838,8 @@
         },
         "goto": [
             146,
-            155
+            155,
+            76
         ]
     },
     "235": {
@@ -3281,18 +3302,19 @@
     "259": {
         "computed": {
             "arc": null,
-            "chapter": null,
+            "chapter": "Lenonia",
             "ending": false,
             "id": 259,
             "is_combat": false,
             "label": null,
-            "secret": false,
+            "secret": true,
             "sons": [
                 70
             ],
             "success": null
         },
-        "goto": 70
+        "goto": 70,
+        "secret": true
     },
     "26": {
         "computed": {
@@ -3751,7 +3773,7 @@
             "id": 282,
             "is_combat": false,
             "label": null,
-            "secret": false,
+            "secret": true,
             "sons": [
                 80,
                 561
@@ -3761,7 +3783,8 @@
         "goto": [
             80,
             561
-        ]
+        ],
+        "secret": true
     },
     "283": {
         "computed": {
@@ -4497,7 +4520,9 @@
             "label": null,
             "secret": false,
             "sons": [
+                109,
                 190,
+                327,
                 359,
                 445
             ],
@@ -4506,7 +4531,9 @@
         "goto": [
             190,
             359,
-            445
+            445,
+            109,
+            327
         ]
     },
     "319": {
@@ -4667,18 +4694,19 @@
     "327": {
         "computed": {
             "arc": null,
-            "chapter": null,
+            "chapter": "Tour des mages",
             "ending": false,
             "id": 327,
             "is_combat": false,
             "label": null,
-            "secret": false,
+            "secret": true,
             "sons": [
                 445
             ],
             "success": null
         },
-        "goto": 445
+        "goto": 445,
+        "secret": true
     },
     "328": {
         "computed": {
@@ -4792,13 +4820,14 @@
             "id": 332,
             "is_combat": false,
             "label": null,
-            "secret": false,
+            "secret": true,
             "sons": [
                 51
             ],
             "success": null
         },
-        "goto": 51
+        "goto": 51,
+        "secret": true
     },
     "333": {
         "computed": {
@@ -5498,6 +5527,7 @@
             "sons": [
                 136,
                 248,
+                389,
                 461
             ],
             "success": null
@@ -5505,7 +5535,8 @@
         "goto": [
             136,
             248,
-            461
+            461,
+            389
         ]
     },
     "367": {
@@ -5746,11 +5777,15 @@
             "label": null,
             "secret": false,
             "sons": [
+                62,
                 480
             ],
             "success": null
         },
-        "goto": 480
+        "goto": [
+            480,
+            62
+        ]
     },
     "38": {
         "computed": {
@@ -5944,19 +5979,20 @@
     },
     "389": {
         "computed": {
-            "arc": null,
-            "chapter": null,
+            "arc": "Cachots",
+            "chapter": "Forteresse",
             "ending": false,
             "id": 389,
             "is_combat": false,
             "label": null,
-            "secret": false,
+            "secret": true,
             "sons": [
                 186
             ],
             "success": null
         },
-        "goto": 186
+        "goto": 186,
+        "secret": true
     },
     "39": {
         "computed": {
@@ -7693,7 +7729,7 @@
     "472": {
         "computed": {
             "arc": null,
-            "chapter": null,
+            "chapter": "Invasion",
             "ending": false,
             "id": 472,
             "is_combat": false,
@@ -8150,18 +8186,19 @@
     "49": {
         "computed": {
             "arc": null,
-            "chapter": null,
+            "chapter": "Lenonia",
             "ending": false,
             "id": 49,
             "is_combat": false,
             "label": null,
-            "secret": false,
+            "secret": true,
             "sons": [
                 219
             ],
             "success": null
         },
-        "goto": 219
+        "goto": 219,
+        "secret": true
     },
     "490": {
         "computed": {
@@ -8443,7 +8480,7 @@
     "502": {
         "computed": {
             "arc": null,
-            "chapter": null,
+            "chapter": "Invasion",
             "ending": false,
             "id": 502,
             "is_combat": false,
@@ -9918,12 +9955,14 @@
             "secret": false,
             "sons": [
                 347,
-                408
+                408,
+                552
             ],
             "success": null
         },
         "goto": [
             347,
+            552,
             408
         ]
     },
@@ -10664,18 +10703,22 @@
     "62": {
         "computed": {
             "arc": null,
-            "chapter": null,
+            "chapter": "Virilus",
             "ending": false,
             "id": 62,
             "is_combat": false,
             "label": null,
             "secret": true,
             "sons": [
+                96,
                 480
             ],
             "success": null
         },
-        "goto": 480,
+        "goto": [
+            480,
+            96
+        ],
         "secret": true
     },
     "63": {
@@ -10957,13 +11000,14 @@
             "id": 76,
             "is_combat": true,
             "label": null,
-            "secret": false,
+            "secret": true,
             "sons": [
                 394
             ],
             "success": null
         },
-        "goto": 394
+        "goto": 394,
+        "secret": true
     },
     "77": {
         "computed": {
@@ -11359,12 +11403,12 @@
     "94": {
         "computed": {
             "arc": null,
-            "chapter": null,
+            "chapter": "Lenonia",
             "ending": false,
             "id": 94,
             "is_combat": false,
             "label": null,
-            "secret": false,
+            "secret": true,
             "sons": [
                 219,
                 378
@@ -11374,7 +11418,8 @@
         "goto": [
             219,
             378
-        ]
+        ],
+        "secret": true
     },
     "95": {
         "computed": {
@@ -11404,17 +11449,18 @@
     "96": {
         "computed": {
             "arc": null,
-            "chapter": null,
+            "chapter": "Virilus",
             "ending": true,
             "id": 96,
             "is_combat": false,
             "label": null,
-            "secret": false,
+            "secret": true,
             "sons": [],
             "success": "ROI-LICHE"
         },
         "ending": "bad",
         "goto": 608,
+        "secret": true,
         "success": "ROI-LICHE"
     },
     "97": {

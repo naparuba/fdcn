@@ -325,7 +325,7 @@ sub_arcs = [
     ('Forteresse', 553, 'Thermes', [551, 80, 561]),
     ('Forteresse', 462, 'Bagarre', [457]),
     ('Forteresse', 376, 'Cuisine', [457, 340]),
-    ('Forteresse', 583, 'Cachots', [461]),
+    ('Forteresse', 583, 'Cachots', [461, 186]),
     ('Forteresse', 425, 'Catacombes', [80]),
     ('Forteresse', 266, 'Laboratoire', [80]),
     ('Forteresse', 569, 'Mortelle', [447, 186]),
