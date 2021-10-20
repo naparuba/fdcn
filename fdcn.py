@@ -68,6 +68,8 @@ class Node(object):
         self._combat = None
         
         self._label = None
+        
+        self._secret = False
     
     
     def have_combat(self):
@@ -95,12 +97,15 @@ class Node(object):
             'arc'      : self._sub_arc,
             'is_combat': self._combat is not None,
             'label'    : self._label,
+            'secret'   : self._secret,
         }
     
     
     def get_label(self):
         if self._label:
             return '<%s-<FONT COLOR="blue" POINT-SIZE="20">%s</FONT> >' % (self._id, self._label)
+        if self._secret:
+            return '<<B><FONT COLOR="orange" POINT-SIZE="20">%s</FONT></B>>' % (self._id)
         if self._combat:
             return '<<B><FONT COLOR="red" POINT-SIZE="20">%s</FONT></B>>' % (self._id)
         return '%s' % self._id
@@ -129,6 +134,14 @@ class Node(object):
     
     def set_combat(self, combat):
         self._combat = True
+    
+    
+    def set_secret(self):
+        self._secret = True
+    
+    
+    def is_secret(self):
+        return self._secret
     
     
     def _get_ending_color(self):
@@ -254,6 +267,11 @@ for idx, n in book_data.items():
     combat = n.get('combat', None)
     if combat is not None:
         node.set_combat(combat)
+    
+    # Get the combat entry if any
+    secret = n.get('secret', False)
+    if secret:
+        node.set_secret()
     
     # Get the label if any
     label = n.get('label', None)
@@ -394,24 +412,30 @@ for node_id_str, node_data in book_data.items():
     node = node_graph.get_node(int(node_id_str))
     node_data['computed'] = node.get_computed()
 
-new_book_data_string = json.dumps(book_data, indent=4, ensure_ascii=False)  # allow utf8
+new_book_data_string = json.dumps(book_data, indent=4, ensure_ascii=False, sort_keys=True)  # allow utf8
 with codecs.open('fdcn-1-compilated-data.json', 'w', 'utf8') as f:
     f.write(new_book_data_string)
 
 all_combats = []
 all_endings = []
+all_secrets = []
 for node_id_str in book_data.keys():
     node = node_graph.get_node(int(node_id_str))
     if node.have_combat():
         all_combats.append(node.get_id())
     if node.have_ending():
         all_endings.append(node.get_id())
+    if node.is_secret():
+        all_secrets.append(node.get_id())
 
 with codecs.open('fdcn-1-compilated-combats.json', 'w', 'utf8') as f:
-    f.write(json.dumps(all_combats, indent=4, ensure_ascii=False))
+    f.write(json.dumps(all_combats, indent=4, ensure_ascii=False, sort_keys=True))
 
 with codecs.open('fdcn-1-compilated-endings.json', 'w', 'utf8') as f:
-    f.write(json.dumps(all_endings, indent=4, ensure_ascii=False))
+    f.write(json.dumps(all_endings, indent=4, ensure_ascii=False, sort_keys=True))
+
+with codecs.open('fdcn-1-compilated-secrets.json', 'w', 'utf8') as f:
+    f.write(json.dumps(all_secrets, indent=4, ensure_ascii=False, sort_keys=True))
 
 print('Rendering')
 display_graph.render()  # renderer='gdiplus', formatter='gdiplus')
