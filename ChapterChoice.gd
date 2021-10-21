@@ -18,12 +18,14 @@ func _ready():
 func set_main(main):
 	self.main = main
 
+
 func set_spoil_enabled(b):
 	self.spoil_enabled = b
 	$CombatPolygon.visible = self.spoil_enabled
 	$EndPolygon.visible = self.spoil_enabled
 	$SuccessPolygon.visible = self.spoil_enabled
 	$SecretPolygon.visible = self.spoil_enabled
+	$Label.visible = self.spoil_enabled
 
 
 func get_chapter_id():
@@ -34,6 +36,10 @@ func set_chapitre(chapitre):
 	self.chap_number = chapitre
 	$NBChapitre.text = '%3d' % chapitre
 	
+	
+func set_label(label):
+	$Label.text = label
+
 
 func set_already_seen():
 	$AlreadySeenPolygon.color = Color('00c2aa')

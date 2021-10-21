@@ -2,16 +2,11 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/fdcn.png-0fec4bc0a387b06478abb5adb22592c0.stex"
-metadata={
-"vram_texture": false
-}
+valid=false
 
 [deps]
 
 source_file="res://graph/fdcn.png"
-dest_files=[ "res://.import/fdcn.png-0fec4bc0a387b06478abb5adb22592c0.stex" ]
-
 [params]
 
 compress/mode=0

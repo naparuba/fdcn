@@ -2,6 +2,8 @@ extends Node2D
 
 var current_node_id = 1
 var all_nodes = {}
+var chapters_by_arc = {}
+var chapters_by_sub_arc = {}
 
 var secret_node_ids = []
 
@@ -179,9 +181,22 @@ func is_node_id_freely_showable(node_id):
 		print('SPOILS: %s is a secret but alrady see it' % node_id)
 		return true
 	# ok, no hope for this one, hide it
-	print('SPOILS: %s is a secret and CANNOT see it' % node_id)
+	#print('SPOILS: %s is a secret and CANNOT see it' % node_id)
 	return false
 
+
+# on the all chapters, the "is not a secret" is not a criteria, as we don't want to see this
+func is_node_id_freely_full_on_all_chapters(node_id):
+	if self.are_spoils_ok():
+			return true
+	# spoils are not known
+	var node = self._get_node(node_id)
+	# node is a secret, last hope is if we already see it in the past (not a spoil if already see ^^)
+	if node_id in self.visited_nodes_all_times:
+		return true
+	# ok, no hope for this one, hide it
+	#print('SPOILS: %s is a secret and CANNOT see it' % node_id)
+	return false
 
 static func delete_children(node):
 	for n in node.get_children():
@@ -213,7 +228,14 @@ func _ready():
 	
 	self.all_nodes = load_json_file("res://fdcn-1-compilated-data.json")
 	
+	# Just the list of int of the secret chapters
 	self.secret_node_ids = load_json_file("res://fdcn-1-compilated-secrets.json")
+	
+	# Just a dict arc -> [ chapters ]
+	self.chapters_by_arc = load_json_file("res://fdcn-1-compilated-nodes-by-chapter.json")
+	
+	# Just a dict sub_arc -> [ chapters ]
+	self.chapters_by_sub_arc = load_json_file("res://fdcn-1-compilated-nodes-by-sub-arc.json")
 	
 	# Load the nodes ids we did already visited in the past
 	self.load_all_times_already_visited()
@@ -228,6 +250,53 @@ func _ready():
 	self.go_to_node(self.current_node_id)
 	
 
+
+func _get_all_nodes_in_the_same_sub_arc(node_id):
+	var chapter_data = self._get_node(node_id)
+	var sub_arc = chapter_data["computed"]["arc"]
+	if sub_arc == null:
+		return []
+	var other_nodes = self.chapters_by_sub_arc[sub_arc]
+	print('CHAPTER: in the same SUB ARC: %s' % str(other_nodes))
+	return other_nodes
+
+
+func _get_sub_arc_completion(node_id):
+	var other_nodes = self._get_all_nodes_in_the_same_sub_arc(node_id)
+	if other_nodes == []:  # void chatper, let's say 100%
+		return 100
+	var nb_visited = 0
+	for other_id in other_nodes:
+		if other_id in self.visited_nodes_all_times:
+			nb_visited += 1
+	var pct100 = int(100 * float(nb_visited) / len(other_nodes))
+	print('Total visited sub arc: %s / ' % nb_visited, len(other_nodes), '=', pct100)
+	return pct100
+
+
+func _get_all_nodes_in_the_same_chapter(node_id):
+	var chapter_data = self._get_node(node_id)
+	var chapter = chapter_data["computed"]["chapter"]
+	if chapter == null:
+		return []
+	var other_nodes = self.chapters_by_arc[chapter]
+	print('CHAPTER: in the same ACTE: %s' % str(other_nodes))
+	return other_nodes
+
+
+func _get_acte_completion(node_id):
+	var other_nodes = self._get_all_nodes_in_the_same_chapter(node_id)
+	if other_nodes == []:  # void chatper, let's say 100%
+		return 100
+	var nb_visited = 0
+	for other_id in other_nodes:
+		if other_id in self.visited_nodes_all_times:
+			nb_visited += 1
+	var pct100 = int(100 * float(nb_visited) / len(other_nodes))
+	print('Total visited: %s / ' % nb_visited, len(other_nodes), '=', pct100)
+	return pct100
+
+
 func jump_to_chapter_100aine(centaine):
 	var all_choices = $Chapitres/AllChapters/VScrollBar/Choices
 	var scroll_bar = $Chapitres/AllChapters/VScrollBar
@@ -235,10 +304,12 @@ func jump_to_chapter_100aine(centaine):
 	# Get chapter until we find the good one
 	for choice in all_choices.get_children():
 		var chapter_id = choice.get_chapter_id()
-		if chapter_id == centaine:
+		# We are not sure the choice is visible, so take the first one that match "at least
+		if chapter_id >= centaine:
 			print('found chapter: %s ' % chapter_id, '%s' % choice)
 			print('Jump to :%s' % choice.rect_position.y)
 			scroll_bar.scroll_vertical = choice.rect_position.y
+			return
 
 # We need to compare integer, not strings
 static func _sort_all_chapters(nb1, nb2):
@@ -254,24 +325,11 @@ func insert_all_chapters():
 	chapter_ids.sort_custom(self, '_sort_all_chapters')
 	
 	for chapter_id in chapter_ids:
-		print('Creating chapter: %s' % chapter_id)
-		
 		var chapter_data = self._get_node(chapter_id)
 		
 		var choice = Choice.instance()
 		choice.set_main(self)
 		choice.set_chapitre(chapter_data['computed']['id'])
-		#choice.set_spoil_enabled(self.parameters['spoils'])
-		#if chapter_data['computed']['is_combat']:
-		#	choice.set_combat()
-		#if chapter_id in self.session_visited_nodes:
-		#	choice.set_session_seen()
-		#if chapter_id in self.visited_nodes_all_times:
-		#	choice.set_already_seen()
-		#if chapter_data['computed']['ending']:
-		#	choice.set_ending()
-		#if chapter_data['computed']['success']:
-		#	choice.set_success()
 		all_choices.add_child(choice)
 
 
@@ -280,11 +338,12 @@ func _update_all_chapters():
 	for choice in all_choices.get_children():
 		var chapter_id = choice.get_chapter_id()
 		var chapter_data = self._get_node(chapter_id)
+		
 		# Update if spoils need to be shown (or not), can depend if we already seen this node
-		if self.is_node_id_freely_showable(chapter_id):
+		if self.is_node_id_freely_full_on_all_chapters(chapter_id):
 			choice.set_spoil_enabled(true)
 		else:  # only follow the parameter
-			choice.set_spoil_enabled(self.parameters['spoils'])
+			choice.set_spoil_enabled(false)
 		# Session seen
 		if chapter_id in self.session_visited_nodes:
 			choice.set_session_seen()
@@ -305,6 +364,11 @@ func _update_all_chapters():
 			choice.set_success()
 		else:
 			choice.set_not_success()
+		# label if any
+		var _label = chapter_data['computed']['label']
+		if _label != null:
+			choice.set_label(_label)
+		# secret
 		if chapter_data['computed']['secret']:
 			choice.set_secret()
 			
@@ -342,12 +406,50 @@ func refresh():
 	var _acte_label = $Background/Position/Acte
 	_acte_label.text = '%s' % my_node['computed']['chapter']
 	
+	var pct100 = self._get_acte_completion(self.current_node_id)
 	var fill_bar = $Background/Position/fill_bar
-	fill_bar.value = 40  # 40% of the act is done
+	fill_bar.value = pct100 # % of the acte	is done
+	$Background/Position/fill_par_pct.text = '%3d%%' % pct100
 	
-	# The number
-	var _chapitre_label = $Background/Position/NumeroChapitre
-	_chapitre_label.text = '%s' % my_node['computed']['id']
+	# The arc, if any
+	var _arc = my_node['computed']['arc']
+	if _arc != null:
+		# Compute how much of the sub_arc we have done
+		var pct100_sub_arc = self._get_sub_arc_completion(self.current_node_id)
+		
+		$Background/Position/fleche_arc.visible = true
+		$Background/Position/LabelArc.visible = true
+		$Background/Position/Arc.visible = true
+		$Background/Position/Arc.text = _arc
+		$Background/Position/fill_bar_arc.visible = true
+		$Background/Position/fill_bar_arc.value = pct100_sub_arc
+		$Background/Position/fill_bar_arc_pct.visible = true
+		$Background/Position/fill_bar_arc_pct.text = '%3d%%' % pct100_sub_arc
+		
+		# The SMALL chapter display
+		var _chapitre_label = $Background/Position/NumeroChapitreSmall
+		_chapitre_label.text = '%s' % my_node['computed']['id']
+		_chapitre_label.visible = true
+		$Background/Position/LabelChapitreSmall.visible = true
+		# Hide big one
+		$Background/Position/LabelChapitreBig.visible = false
+		$Background/Position/NumeroChapitreBig.visible = false
+	else:
+		$Background/Position/fleche_arc.visible = false
+		$Background/Position/LabelArc.visible = false
+		$Background/Position/Arc.visible = false
+		$Background/Position/fill_bar_arc.visible = false
+		$Background/Position/fill_bar_arc_pct.visible = false
+
+		# The BIG chapter display
+		var _chapitre_label = $Background/Position/NumeroChapitreBig
+		_chapitre_label.text = '%s' % my_node['computed']['id']
+		_chapitre_label.visible = true
+		$Background/Position/LabelChapitreBig.visible = true
+		# Hide big one
+		$Background/Position/LabelChapitreSmall.visible = false
+		$Background/Position/NumeroChapitreSmall.visible = false
+	
 	
 	#Breads
 	var breads = $Background/Dreadcumb/breads

@@ -1,4 +1,4 @@
-[gd_scene load_steps=21 format=2]
+[gd_scene load_steps=24 format=2]
 
 [ext_resource path="res://main.gd" type="Script" id=1]
 [ext_resource path="res://fonts/amon_font.tres" type="DynamicFont" id=2]
@@ -12,7 +12,9 @@
 [ext_resource path="res://top_menu.tscn" type="PackedScene" id=10]
 [ext_resource path="res://images/anim-phumtar-2.png" type="Texture" id=11]
 [ext_resource path="res://images/anim-phumtar-1.png" type="Texture" id=12]
+[ext_resource path="res://fonts/RobotoCondensed-Regular.ttf" type="DynamicFontData" id=13]
 [ext_resource path="res://images/soon.png" type="Texture" id=14]
+[ext_resource path="res://images/fleche_bas_droite.png" type="Texture" id=15]
 [ext_resource path="res://left_backer.tscn" type="PackedScene" id=16]
 [ext_resource path="res://right_nexter.tscn" type="PackedScene" id=17]
 
@@ -24,6 +26,10 @@ bg_color = Color( 1, 1, 1, 1 )
 
 [sub_resource type="StyleBoxFlat" id=3]
 bg_color = Color( 0.192157, 0.231373, 0.278431, 1 )
+
+[sub_resource type="DynamicFont" id=6]
+size = 64
+font_data = ExtResource( 13 )
 
 [sub_resource type="StyleBoxFlat" id=4]
 bg_color = Color( 0.913725, 0.917647, 0.92549, 1 )
@@ -189,11 +195,87 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="LabelChapitre" type="Label" parent="Background/Position"]
-margin_left = 44.9239
-margin_top = 100.472
-margin_right = 114.924
-margin_bottom = 114.472
+[node name="fill_par_pct" type="Label" parent="Background/Position"]
+margin_left = 5.0
+margin_top = 72.2054
+margin_right = 28.0
+margin_bottom = 86.2054
+custom_fonts/font = ExtResource( 5 )
+custom_colors/font_color = Color( 0, 0, 0, 1 )
+custom_constants/shadow_offset_x = 0
+custom_constants/shadow_offset_y = 0
+custom_constants/shadow_as_outline = 0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="LabelArc" type="Label" parent="Background/Position"]
+margin_left = 73.4753
+margin_top = 92.7138
+margin_right = 143.476
+margin_bottom = 106.714
+custom_fonts/font = ExtResource( 5 )
+custom_colors/font_color = Color( 0, 0, 0, 1 )
+custom_constants/shadow_offset_x = 0
+custom_constants/shadow_offset_y = 0
+custom_constants/shadow_as_outline = 0
+text = "Arc"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Arc" type="Label" parent="Background/Position"]
+margin_left = 73.2177
+margin_top = 106.438
+margin_right = 235.218
+margin_bottom = 137.438
+custom_fonts/font = ExtResource( 2 )
+custom_colors/font_color = Color( 0, 0.760784, 0.666667, 1 )
+custom_constants/shadow_offset_x = 0
+custom_constants/shadow_offset_y = 0
+custom_constants/shadow_as_outline = 0
+text = "XXX"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="fleche_arc" type="Sprite" parent="Background/Position"]
+position = Vector2( 41.105, 102.211 )
+scale = Vector2( 0.184088, 0.184088 )
+texture = ExtResource( 15 )
+
+[node name="fill_bar_arc" type="TextureProgress" parent="Background/Position"]
+margin_left = 55.9383
+margin_top = 96.0356
+margin_right = 65.9383
+margin_bottom = 136.036
+rect_scale = Vector2( 1, 0.839999 )
+texture_under = ExtResource( 8 )
+texture_progress = ExtResource( 7 )
+fill_mode = 3
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="fill_bar_arc_pct" type="Label" parent="Background/Position"]
+margin_left = 33.2177
+margin_top = 117.173
+margin_right = 56.2177
+margin_bottom = 131.173
+custom_fonts/font = ExtResource( 5 )
+custom_colors/font_color = Color( 0, 0, 0, 1 )
+custom_constants/shadow_offset_x = 0
+custom_constants/shadow_offset_y = 0
+custom_constants/shadow_as_outline = 0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="LabelChapitreSmall" type="Label" parent="Background/Position"]
+margin_left = 165.822
+margin_top = 137.314
+margin_right = 235.822
+margin_bottom = 151.314
 custom_fonts/font = ExtResource( 5 )
 custom_colors/font_color = Color( 0, 0, 0, 1 )
 custom_constants/shadow_offset_x = 0
@@ -204,12 +286,44 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="NumeroChapitre" type="Label" parent="Background/Position"]
-margin_left = 45.3337
-margin_top = 111.193
-margin_right = 207.334
-margin_bottom = 142.193
+[node name="NumeroChapitreSmall" type="Label" parent="Background/Position"]
+margin_left = 165.898
+margin_top = 147.842
+margin_right = 212.898
+margin_bottom = 178.842
 custom_fonts/font = ExtResource( 2 )
+custom_colors/font_color = Color( 0, 0.760784, 0.666667, 1 )
+custom_constants/shadow_offset_x = 0
+custom_constants/shadow_offset_y = 0
+custom_constants/shadow_as_outline = 0
+text = "XXX"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="LabelChapitreBig" type="Label" parent="Background/Position"]
+visible = false
+margin_left = 134.459
+margin_top = 102.699
+margin_right = 204.459
+margin_bottom = 116.699
+custom_fonts/font = ExtResource( 5 )
+custom_colors/font_color = Color( 0, 0, 0, 1 )
+custom_constants/shadow_offset_x = 0
+custom_constants/shadow_offset_y = 0
+custom_constants/shadow_as_outline = 0
+text = "Chapitre"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="NumeroChapitreBig" type="Label" parent="Background/Position"]
+visible = false
+margin_left = 132.754
+margin_top = 111.445
+margin_right = 237.754
+margin_bottom = 187.445
+custom_fonts/font = SubResource( 6 )
 custom_colors/font_color = Color( 0, 0.760784, 0.666667, 1 )
 custom_constants/shadow_offset_x = 0
 custom_constants/shadow_offset_y = 0
@@ -789,18 +903,9 @@ __meta__ = {
 }
 
 [node name="Choices" type="VBoxContainer" parent="Succes/Success/VScrollBar"]
-margin_bottom = 104.0
 __meta__ = {
 "_edit_use_anchors_": false
 }
-
-[node name="ChapterChoice" parent="Succes/Success/VScrollBar/Choices" instance=ExtResource( 3 )]
-margin_right = 0.0
-
-[node name="ChapterChoice2" parent="Succes/Success/VScrollBar/Choices" instance=ExtResource( 3 )]
-margin_top = 54.0
-margin_right = 0.0
-margin_bottom = 104.0
 
 [node name="Lore" type="Panel" parent="."]
 margin_left = 1776.69
@@ -875,18 +980,9 @@ __meta__ = {
 }
 
 [node name="Choices" type="VBoxContainer" parent="Lore/Lore/VScrollBar"]
-margin_bottom = 104.0
 __meta__ = {
 "_edit_use_anchors_": false
 }
-
-[node name="ChapterChoice" parent="Lore/Lore/VScrollBar/Choices" instance=ExtResource( 3 )]
-margin_right = 0.0
-
-[node name="ChapterChoice2" parent="Lore/Lore/VScrollBar/Choices" instance=ExtResource( 3 )]
-margin_top = 54.0
-margin_right = 0.0
-margin_bottom = 104.0
 
 [node name="About" type="Panel" parent="."]
 margin_left = 2367.73
@@ -1128,6 +1224,7 @@ visible = false
 position = Vector2( 882.154, 676.293 )
 scale = Vector2( 0.79397, 0.79397 )
 frames = SubResource( 5 )
+frame = 1
 playing = true
 
 [node name="soon2" type="Sprite" parent="."]
@@ -1139,6 +1236,7 @@ texture = ExtResource( 14 )
 position = Vector2( 1465.15, 675.729 )
 scale = Vector2( 0.79397, 0.79397 )
 frames = SubResource( 5 )
+frame = 1
 playing = true
 
 [node name="soon3" type="Sprite" parent="."]
@@ -1150,6 +1248,7 @@ texture = ExtResource( 14 )
 position = Vector2( 2073.67, 672.298 )
 scale = Vector2( 0.79397, 0.79397 )
 frames = SubResource( 5 )
+frame = 1
 playing = true
 
 [connection signal="gui_input" from="Background" to="." method="_on_main_background_gui_input"]

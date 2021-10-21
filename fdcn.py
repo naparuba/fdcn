@@ -5,12 +5,11 @@ import json
 import sys
 import codecs
 
-display_graph = graphviz.Digraph('G', filename='graph/fdcn', format='png')
+display_graph = graphviz.Digraph('G', filename='graph/fdcn_full', format='png')
 
 with codecs.open('fdcn-1.json', 'r', 'utf8') as f:
     book_data = json.loads(f.read())
 
-# print(book_data)
 
 
 node_created = set()
@@ -419,6 +418,8 @@ with codecs.open('fdcn-1-compilated-data.json', 'w', 'utf8') as f:
 all_combats = []
 all_endings = []
 all_secrets = []
+nodes_by_chapter = {}
+nodes_by_sub_arc = {}
 for node_id_str in book_data.keys():
     node = node_graph.get_node(int(node_id_str))
     if node.have_combat():
@@ -427,6 +428,17 @@ for node_id_str in book_data.keys():
         all_endings.append(node.get_id())
     if node.is_secret():
         all_secrets.append(node.get_id())
+    arc = node.get_arc()
+    if arc:
+        if arc not in nodes_by_chapter:
+            nodes_by_chapter[arc] = []
+        nodes_by_chapter[arc].append(int(node_id_str))
+        
+    sub_arc = node.get_sub_arc()
+    if sub_arc:
+        if sub_arc not in nodes_by_sub_arc:
+            nodes_by_sub_arc[sub_arc] = []
+        nodes_by_sub_arc[sub_arc].append(int(node_id_str))
 
 with codecs.open('fdcn-1-compilated-combats.json', 'w', 'utf8') as f:
     f.write(json.dumps(all_combats, indent=4, ensure_ascii=False, sort_keys=True))
@@ -436,6 +448,12 @@ with codecs.open('fdcn-1-compilated-endings.json', 'w', 'utf8') as f:
 
 with codecs.open('fdcn-1-compilated-secrets.json', 'w', 'utf8') as f:
     f.write(json.dumps(all_secrets, indent=4, ensure_ascii=False, sort_keys=True))
+
+with codecs.open('fdcn-1-compilated-nodes-by-chapter.json', 'w', 'utf8') as f:
+    f.write(json.dumps(nodes_by_chapter, indent=4, ensure_ascii=False, sort_keys=True))
+
+with codecs.open('fdcn-1-compilated-nodes-by-sub-arc.json', 'w', 'utf8') as f:
+    f.write(json.dumps(nodes_by_sub_arc, indent=4, ensure_ascii=False, sort_keys=True))
 
 print('Rendering')
 display_graph.render()  # renderer='gdiplus', formatter='gdiplus')
