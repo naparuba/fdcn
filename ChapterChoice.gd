@@ -23,6 +23,7 @@ func set_spoil_enabled(b):
 	$CombatPolygon.visible = self.spoil_enabled
 	$EndPolygon.visible = self.spoil_enabled
 	$SuccessPolygon.visible = self.spoil_enabled
+	$SecretPolygon.visible = self.spoil_enabled
 
 
 func get_chapter_id():
@@ -63,6 +64,10 @@ func set_success():
 
 func set_not_success():
 	$SuccessPolygon.color = Color('9ea8b4')
+
+func set_secret():
+	$SecretPolygon.color = Color('00c2aa')
+	
 
 func _on_Button_pressed():
 	print('CLICK: on chapter: %s' % self.chap_number)

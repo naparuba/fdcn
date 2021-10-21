@@ -240,11 +240,20 @@ func jump_to_chapter_100aine(centaine):
 			print('Jump to :%s' % choice.rect_position.y)
 			scroll_bar.scroll_vertical = choice.rect_position.y
 
+# We need to compare integer, not strings
+static func _sort_all_chapters(nb1, nb2):
+		if int(nb1) < int(nb2):
+			return true
+		return false
 
 func insert_all_chapters():
 	var all_choices = $Chapitres/AllChapters/VScrollBar/Choices
 	delete_children(all_choices)
-	for chapter_id in self.all_nodes:
+	
+	var chapter_ids = self.all_nodes.keys()
+	chapter_ids.sort_custom(self, '_sort_all_chapters')
+	
+	for chapter_id in chapter_ids:
 		print('Creating chapter: %s' % chapter_id)
 		
 		var chapter_data = self._get_node(chapter_id)
@@ -271,8 +280,11 @@ func _update_all_chapters():
 	for choice in all_choices.get_children():
 		var chapter_id = choice.get_chapter_id()
 		var chapter_data = self._get_node(chapter_id)
-		# Update if spoils need to be shown (or not)
-		choice.set_spoil_enabled(self.parameters['spoils'])
+		# Update if spoils need to be shown (or not), can depend if we already seen this node
+		if self.is_node_id_freely_showable(chapter_id):
+			choice.set_spoil_enabled(true)
+		else:  # only follow the parameter
+			choice.set_spoil_enabled(self.parameters['spoils'])
 		# Session seen
 		if chapter_id in self.session_visited_nodes:
 			choice.set_session_seen()
@@ -293,6 +305,8 @@ func _update_all_chapters():
 			choice.set_success()
 		else:
 			choice.set_not_success()
+		if chapter_data['computed']['secret']:
+			choice.set_secret()
 			
 	
 func refresh():
@@ -374,7 +388,7 @@ func refresh():
 	for son_id in sons_ids:
 		print('My son: %s' % son_id)
 		
-		# If the son is a secret, mayve we can show it, maybe not
+		# If the son is now ok to be shown, skip it
 		if !self.is_node_id_freely_showable(son_id):
 			continue
 		
@@ -395,6 +409,8 @@ func refresh():
 			choice.set_ending()
 		if son['computed']['success']:
 			choice.set_success()
+		if son['computed']['secret']:
+			choice.set_secret()
 		choices.add_child(choice)
 				
 
