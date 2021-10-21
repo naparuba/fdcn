@@ -1,4 +1,4 @@
-[gd_scene load_steps=24 format=2]
+[gd_scene load_steps=25 format=2]
 
 [ext_resource path="res://main.gd" type="Script" id=1]
 [ext_resource path="res://fonts/amon_font.tres" type="DynamicFont" id=2]
@@ -17,6 +17,7 @@
 [ext_resource path="res://images/fleche_bas_droite.png" type="Texture" id=15]
 [ext_resource path="res://left_backer.tscn" type="PackedScene" id=16]
 [ext_resource path="res://right_nexter.tscn" type="PackedScene" id=17]
+[ext_resource path="res://Success.tscn" type="PackedScene" id=18]
 
 [sub_resource type="StyleBoxFlat" id=1]
 bg_color = Color( 0.92549, 0.929412, 0.94902, 1 )
@@ -27,14 +28,14 @@ bg_color = Color( 1, 1, 1, 1 )
 [sub_resource type="StyleBoxFlat" id=3]
 bg_color = Color( 0.192157, 0.231373, 0.278431, 1 )
 
-[sub_resource type="DynamicFont" id=6]
+[sub_resource type="DynamicFont" id=4]
 size = 64
 font_data = ExtResource( 13 )
 
-[sub_resource type="StyleBoxFlat" id=4]
+[sub_resource type="StyleBoxFlat" id=5]
 bg_color = Color( 0.913725, 0.917647, 0.92549, 1 )
 
-[sub_resource type="SpriteFrames" id=5]
+[sub_resource type="SpriteFrames" id=6]
 animations = [ {
 "frames": [ ExtResource( 12 ), ExtResource( 11 ) ],
 "loop": true,
@@ -323,7 +324,7 @@ margin_left = 132.754
 margin_top = 111.445
 margin_right = 237.754
 margin_bottom = 187.445
-custom_fonts/font = SubResource( 6 )
+custom_fonts/font = SubResource( 4 )
 custom_colors/font_color = Color( 0, 0.760784, 0.666667, 1 )
 custom_constants/shadow_offset_x = 0
 custom_constants/shadow_offset_y = 0
@@ -507,7 +508,7 @@ margin_left = 69.2867
 margin_top = 50.1101
 margin_right = 112.287
 margin_bottom = 92.1101
-custom_styles/panel = SubResource( 4 )
+custom_styles/panel = SubResource( 5 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
@@ -538,7 +539,7 @@ margin_left = 120.943
 margin_top = 50.1101
 margin_right = 163.943
 margin_bottom = 92.1101
-custom_styles/panel = SubResource( 4 )
+custom_styles/panel = SubResource( 5 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
@@ -569,7 +570,7 @@ margin_left = 175.12
 margin_top = 51.37
 margin_right = 218.12
 margin_bottom = 93.37
-custom_styles/panel = SubResource( 4 )
+custom_styles/panel = SubResource( 5 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
@@ -600,7 +601,7 @@ margin_left = 228.667
 margin_top = 50.7401
 margin_right = 271.667
 margin_bottom = 92.7401
-custom_styles/panel = SubResource( 4 )
+custom_styles/panel = SubResource( 5 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
@@ -631,7 +632,7 @@ margin_left = 281.583
 margin_top = 50.7401
 margin_right = 324.583
 margin_bottom = 92.7401
-custom_styles/panel = SubResource( 4 )
+custom_styles/panel = SubResource( 5 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
@@ -662,7 +663,7 @@ margin_left = 331.98
 margin_top = 51.3701
 margin_right = 374.98
 margin_bottom = 93.3701
-custom_styles/panel = SubResource( 4 )
+custom_styles/panel = SubResource( 5 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
@@ -693,7 +694,7 @@ margin_left = 386.157
 margin_top = 50.1101
 margin_right = 429.157
 margin_bottom = 92.1101
-custom_styles/panel = SubResource( 4 )
+custom_styles/panel = SubResource( 5 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
@@ -896,16 +897,22 @@ __meta__ = {
 
 [node name="VScrollBar" type="ScrollContainer" parent="Succes/Success"]
 margin_top = 42.0
-margin_right = 20.0
+margin_right = 442.0
 margin_bottom = 967.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Choices" type="VBoxContainer" parent="Succes/Success/VScrollBar"]
+[node name="Success" type="VBoxContainer" parent="Succes/Success/VScrollBar"]
+margin_bottom = 50.0
 __meta__ = {
 "_edit_use_anchors_": false
 }
+
+[node name="Success" parent="Succes/Success/VScrollBar/Success" instance=ExtResource( 18 )]
+margin_right = 0.0
 
 [node name="Lore" type="Panel" parent="."]
 margin_left = 1776.69
@@ -1223,18 +1230,20 @@ texture = ExtResource( 14 )
 visible = false
 position = Vector2( 882.154, 676.293 )
 scale = Vector2( 0.79397, 0.79397 )
-frames = SubResource( 5 )
+frames = SubResource( 6 )
 playing = true
 
 [node name="soon2" type="Sprite" parent="."]
+visible = false
 position = Vector2( 1458.69, 457.842 )
 rotation = -0.448674
 texture = ExtResource( 14 )
 
 [node name="phumtar2" type="AnimatedSprite" parent="."]
+visible = false
 position = Vector2( 1465.15, 675.729 )
 scale = Vector2( 0.79397, 0.79397 )
-frames = SubResource( 5 )
+frames = SubResource( 6 )
 playing = true
 
 [node name="soon3" type="Sprite" parent="."]
@@ -1245,7 +1254,7 @@ texture = ExtResource( 14 )
 [node name="phumtar3" type="AnimatedSprite" parent="."]
 position = Vector2( 2073.67, 672.298 )
 scale = Vector2( 0.79397, 0.79397 )
-frames = SubResource( 5 )
+frames = SubResource( 6 )
 playing = true
 
 [connection signal="gui_input" from="Background" to="." method="_on_main_background_gui_input"]

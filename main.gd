@@ -22,6 +22,7 @@ var parameters = {
 
 onready var Bread = preload('res://bread.tscn')
 onready var Choice = preload('res://ChapterChoice.tscn')
+onready var Success = preload('res://Success.tscn')
 
 onready var gauge = $Background/GlobalCompletion/Gauge
 
@@ -250,6 +251,8 @@ func _ready():
 	
 	# Create all chapters in the 2nd screen
 	self.insert_all_chapters()
+	# And success to the 3th
+	self.insert_all_success()
 	
 	# Jump to node, and will show main page
 	self.go_to_node(self.current_node_id)
@@ -377,6 +380,23 @@ func _update_all_chapters():
 		if chapter_data['computed']['secret']:
 			choice.set_secret()
 			
+
+
+func insert_all_success():
+	var all_success = $Succes/Success/VScrollBar/Success
+	delete_children(all_success)
+	
+	var successes = self.all_success
+	
+	for success in successes:
+		var s = Success.instance()
+		s.set_main(self)
+		print('SUCCESS: %s' % str(success))
+		s.set_chapitre(success['chapter'])
+		s.set_label(success['label'])
+		s.set_txt(success['txt'])
+		all_success.add_child(s)
+
 	
 func refresh():
 	

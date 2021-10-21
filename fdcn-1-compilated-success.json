@@ -2,256 +2,307 @@
     {
         "chapter": 26,
         "id": "POLIR-LANCE",
-        "txt": "NOT SET"
+        "label": "Polir la lance?",
+        "txt": "Vous avez choisi la Femme-Lézard"
     },
     {
         "chapter": 46,
         "id": "BOUTEILLE",
-        "txt": "NOT SET"
+        "label": "Laissez la bouteille",
+        "txt": "Vous avez frappé quelqu'un dans la bouche"
     },
     {
         "chapter": 51,
         "id": "CHUTE",
-        "txt": "NOT SET"
+        "label": "Le sol amortira la chute",
+        "txt": "Vous avez aidé une aliée à s'échapper"
     },
     {
         "chapter": 72,
         "id": "RESTOS",
-        "txt": "NOT SET"
+        "label": "Restos du coeur",
+        "txt": "Vous avez aidé les nécessiteux"
     },
     {
         "chapter": 87,
         "id": "ASSURANCE",
-        "txt": "NOT SET"
+        "label": "Assurance vie",
+        "txt": "Apprenez-en plus sur la cathédrale"
     },
     {
         "chapter": 96,
         "id": "ROI-LICHE",
-        "txt": "NOT SET"
+        "label": "Le monde a besoin d'un Roi-liche",
+        "txt": "Terminez le jeu avec la fin BILLYLUS"
     },
     {
         "chapter": 112,
         "id": "TROIE",
-        "txt": "NOT SET"
+        "label": "Le chval des trois",
+        "txt": "Vous avez vaincu les courtisanes"
     },
     {
         "chapter": 129,
         "id": "BIG-BRAIN",
-        "txt": "NOT SET"
+        "label": "Big Brain Energy",
+        "txt": "Vous avez résolu l'énigme du Facteur"
     },
     {
         "chapter": 135,
         "id": "CUL-SEC",
-        "txt": "NOT SET"
+        "label": "Cul sec",
+        "txt": "Vous avez vaincu quelqu'un qui avait plus de bouteille que vous"
     },
     {
         "chapter": 138,
         "id": "COUP",
-        "txt": "NOT SET"
+        "label": "Joli COUP",
+        "txt": "Vous avez trouvé la carte du mercenaire, possiblement sans tricher"
     },
     {
         "chapter": 156,
         "id": "SEYMOUR",
-        "txt": "NOT SET"
+        "label": "Nourris-moi, Seymours!",
+        "txt": "Vous avez fini dans le vendre d'une plante carnivore, ce sont des choses qui arrivent"
     },
     {
         "chapter": 166,
         "id": "SLIP",
-        "txt": "NOT SET"
+        "label": "Un slip tout neuf",
+        "txt": "Vous avez fait récurer le vêtement du barbare"
     },
     {
         "chapter": 194,
         "id": "FILTRE-JOURNALISTE",
-        "txt": "NOT SET"
+        "label": "Filtre à journaliste",
+        "txt": "Vous avez vaincu le général MASSACRE et TERMINE l'Acte 1"
     },
     {
         "chapter": 213,
         "id": "REPORTAGE-EXCLUSIF",
-        "txt": "NOT SET"
+        "label": "Reportage exclusif",
+        "txt": "Trouvez 4 INFOS ou plus durant l'Acte 1"
     },
     {
         "chapter": 222,
         "id": "VALENT-BIEN",
-        "txt": "NOT SET"
+        "label": "Parce qu'elles le valent bien",
+        "txt": "Vous avez administré des soins complets"
     },
     {
         "chapter": 224,
         "id": "ESCALADED-QUICKLY",
-        "txt": "NOT SET"
+        "label": "Well. That escalated quickly.",
+        "txt": "Rencontrez une fin hasardeuse en tombant de votre monture"
     },
     {
         "chapter": 228,
         "id": "PUDDING",
-        "txt": "NOT SET"
+        "label": "Le pudding à l'arsenic",
+        "txt": "Vous avez vaincu FUNESTE politiquement"
     },
     {
         "chapter": 236,
         "id": "SAFEWORD",
-        "txt": "NOT SET"
+        "label": "C'était quoi le safeword?",
+        "txt": "Vous avez vaincu FUNESTE avec l'aide de vos amis"
     },
     {
         "chapter": 275,
         "id": "TOUT-CA-POUR-CA",
-        "txt": "NOT SET"
+        "label": "Tout ça pour ça",
+        "txt": "Vous avez ouvert le trésor du sorcier"
     },
     {
         "chapter": 278,
         "id": "CERCLE-VICIEUX",
-        "txt": "NOT SET"
+        "label": "Cercle vicieux",
+        "txt": "Vous avez péri en tentant de sauver le barbare d'une situation impossible"
     },
     {
         "chapter": 288,
         "id": "SECRET-HISTOIRE",
-        "txt": "NOT SET"
+        "label": "Secret d'histoire",
+        "txt": "Apprenez-en plus sur le quartier historique"
     },
     {
         "chapter": 316,
         "id": "CALAMITY-BILLY",
-        "txt": "NOT SET"
+        "label": "Calamity Billy",
+        "txt": "Affrontez les agents de la maréchaussée dans leur QG en combat singulier"
     },
     {
         "chapter": 321,
         "id": "FBI",
-        "txt": "NOT SET"
+        "label": "FBI! OPEN UP!",
+        "txt": "Vous avez fait une entré facassante"
     },
     {
         "chapter": 329,
         "id": "INNOCENT",
-        "txt": "NOT SET"
+        "label": "L'innocent",
+        "txt": "Laissez le rituel se conclure ou ratez son interruption"
     },
     {
         "chapter": 338,
         "id": "CHUT",
-        "txt": "NOT SET"
+        "label": "Chut!",
+        "txt": "Vous avez fait ami-ami avec la Bibliothècaire"
     },
     {
         "chapter": 339,
         "id": "ULTRA-INSTINCT",
-        "txt": "NOT SET"
+        "label": "Billy Ultra Instinct",
+        "txt": "Vous aez reçu une aide inespérée"
     },
     {
         "chapter": 346,
         "id": "BIERE",
-        "txt": "NOT SET"
+        "label": "Bière qui roule...",
+        "txt": "Vous avez déclenché une bagarre générale"
     },
     {
         "chapter": 348,
         "id": "PILE-SECRETS",
-        "txt": "NOT SET"
+        "label": "Une misérable petite pile de secrets",
+        "txt": "Vous avez poliement décliné l'offre d'une créature"
     },
     {
         "chapter": 350,
         "id": "ENFANT-DRAGON",
-        "txt": "NOT SET"
+        "label": "Billy Enfant-de-Dragon",
+        "txt": "Soumettez le dragon à la loyale"
     },
     {
         "chapter": 361,
         "id": "STARDUST",
-        "txt": "NOT SET"
+        "label": "Billy Stardust",
+        "txt": "Vous avez choisi le Plaisancier"
     },
     {
         "chapter": 381,
         "id": "TEMOINS",
-        "txt": "NOT SET"
+        "label": "Soyez témoins!!",
+        "txt": "Vous avez atteint la fin GLOIRE MAX"
     },
     {
         "chapter": 408,
         "id": "OMELETTE",
-        "txt": "NOT SET"
+        "label": "Pas d'omelette sans cassé du fion",
+        "txt": "Vous avez provoqué votre adversaire"
     },
     {
         "chapter": 410,
         "id": "CULTURE-PUB",
-        "txt": "NOT SET"
+        "label": "Culture Pub",
+        "txt": "Vous avez trouvé un produit célèbre"
     },
     {
         "chapter": 436,
         "id": "VIE-BELLE",
-        "txt": "NOT SET"
+        "label": "La vie est belle",
+        "txt": "Vous avez protégé les enfants des horreurs de la guerre"
     },
     {
         "chapter": 454,
         "id": "MEMOIRE-HONOREE",
-        "txt": "NOT SET"
+        "label": "Mémoire honorée",
+        "txt": "Vous avez atteint la fin RICHESSE MAX"
     },
     {
         "chapter": 459,
         "id": "TOUTATIS",
-        "txt": "NOT SET"
+        "label": "Par Toutatis",
+        "txt": "Vous avez laissé le barbare improviser"
     },
     {
         "chapter": 495,
         "id": "EMEU-PORCELAINE",
-        "txt": "NOT SET"
+        "label": "Un émeu dans un magasin de porcelaine",
+        "txt": "Lâcher Mimine dans le laboratoire de l'Acte IV"
     },
     {
         "chapter": 505,
         "id": "OCTOGONE",
-        "txt": "NOT SET"
+        "label": "Octogone",
+        "txt": "Battez l'adversaire final de l'arène et récupérez la CEINTURE DE CHAMPION"
     },
     {
         "chapter": 513,
         "id": "PREMIER",
-        "txt": "NOT SET"
+        "label": "J'ai eu la chance d'être appelé le premier",
+        "txt": "Vous vous êtes débarassé des occupants de la taverne"
     },
     {
         "chapter": 556,
         "id": "SORS",
-        "txt": "NOT SET"
+        "label": "Sors! Sors! T'as la clé!",
+        "txt": "Vous avez aidé une aliée à s'échapper"
     },
     {
         "chapter": 559,
         "id": "VIVANT",
-        "txt": "NOT SET"
+        "label": "Toujours vivant! Ha!",
+        "txt": "Terminez le jeu avec un Billy PRUDENT"
     },
     {
         "chapter": 560,
         "id": "FIL-EPEE",
-        "txt": "NOT SET"
+        "label": "Au fil de l'épée",
+        "txt": "Vous avez vaincu MORTELLE avec l'aide de vos amis"
     },
     {
         "chapter": 579,
         "id": "BULIAAA",
-        "txt": "NOT SET"
+        "label": "Buliaaa !!!",
+        "txt": "Terminez le jeu avec un Billy GUERRIER"
     },
     {
         "chapter": 585,
         "id": "TRAVAIL-TERMINE",
-        "txt": "NOT SET"
+        "label": "Travail Terminé!",
+        "txt": "Terminez le jeu avec un Billy PAYSAN"
     },
     {
         "chapter": 586,
         "id": "FLEURS",
-        "txt": "NOT SET"
+        "label": "Dites-le avec de fleurs",
+        "txt": "Terminez le jeu avec la fin alternative PRUDENT"
     },
     {
         "chapter": 589,
         "id": "HONNEUR",
-        "txt": "NOT SET"
+        "label": "Pour l'honneur",
+        "txt": "Terminez le jeu avec la fin alternative GUERRIER"
     },
     {
         "chapter": 590,
         "id": "PERSONNEL",
-        "txt": "NOT SET"
+        "label": "Pff...Rien de personnel!",
+        "txt": "Terminez le jeu avec un Billy DEBROUILLARD"
     },
     {
         "chapter": 594,
         "id": "ARSENE",
-        "txt": "NOT SET"
+        "label": "Arsène Billy",
+        "txt": "Terminez le jeu avec la fin alternative DEBROUILLARD"
     },
     {
         "chapter": 595,
         "id": "METAAAL",
-        "txt": "NOT SET"
+        "label": "METAAAL!!!",
+        "txt": "Rencontrez une fin stylée dans les flammes du phénix"
     },
     {
         "chapter": 601,
         "id": "SABOT",
-        "txt": "NOT SET"
+        "label": "Un sabot pour deux",
+        "txt": "Terminez le jeu avec la fin alternative PAYSAN"
     },
     {
         "chapter": 604,
         "id": "TU-QUOQUE-BILLY",
-        "txt": "NOT SET"
+        "label": "Tu quoque Billy?",
+        "txt": "Terminez le jeu avec la fin secrète PRUDENT"
     }
 ]

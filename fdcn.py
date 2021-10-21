@@ -417,6 +417,18 @@ new_book_data_string = json.dumps(book_data, indent=4, ensure_ascii=False, sort_
 with codecs.open('fdcn-1-compilated-data.json', 'w', 'utf8') as f:
     f.write(new_book_data_string)
 
+
+with codecs.open('all-success.json', 'r', 'utf8') as f:
+    sucess_txt = json.loads(f.read())
+    print('Success txt', sucess_txt)
+
+
+def get_success_txt(_id):
+    for success in sucess_txt:
+        if success['id'] == _id:
+            return success['label'], success['txt']
+    raise Exception('Success: %s not found' % _id)
+
 all_combats = []
 all_endings = []
 all_secrets = []
@@ -445,8 +457,9 @@ for node_id_str in book_data.keys():
     
     success = node.get_success()
     if success:
-        print('%s have the success %s' % (node_id_str, success))
-        all_success.append({'id': success, 'chapter': int(node_id_str), 'txt': 'NOT SET'})
+        label, txt = get_success_txt(success)
+        print('%s have the success %s: %s:%s' % (node_id_str, success, label, txt))
+        all_success.append({'id': success, 'chapter': int(node_id_str), 'label':label, 'txt': txt})
         
 
 with codecs.open('fdcn-1-compilated-combats.json', 'w', 'utf8') as f:
