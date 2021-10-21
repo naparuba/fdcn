@@ -3,6 +3,8 @@ extends Node2D
 var current_node_id = 1
 var all_nodes = {}
 
+var secret_node_ids = []
+
 var session_visited_nodes = []
 
 var visited_nodes_all_times = []
@@ -152,6 +154,34 @@ func _get_node(node_id):
 	return self.all_nodes['%s' % node_id]
 
 
+func is_node_id_secret(node_id):
+	return node_id in self.secret_node_ids
+
+
+func are_spoils_ok():
+	return self.parameters['spoils']
+
+
+# We can show a Choice if:
+# * we are ok with spoils
+# * we are NOT spoils but the node is NOT a secret
+# * we are NOT spoils, the node IS a secret but we ALREADY see it
+func is_node_id_freely_showable(node_id):
+	if self.are_spoils_ok():
+		return true
+	# spoils are not known
+	var node = self._get_node(node_id)
+	# NOt a secret node, we can show without problem
+	if !node['computed']['secret']:
+		return true
+	# node is a secret, last hope is if we already see it in the past (not a spoil if already see ^^)
+	if node_id in self.visited_nodes_all_times:
+		print('SPOILS: %s is a secret but alrady see it' % node_id)
+		return true
+	# ok, no hope for this one, hide it
+	print('SPOILS: %s is a secret and CANNOT see it' % node_id)
+	return false
+
 
 static func delete_children(node):
 	for n in node.get_children():
@@ -183,6 +213,8 @@ func _ready():
 	
 	self.all_nodes = load_json_file("res://fdcn-1-compilated-data.json")
 	
+	self.secret_node_ids = load_json_file("res://fdcn-1-compilated-secrets.json")
+	
 	# Load the nodes ids we did already visited in the past
 	self.load_all_times_already_visited()
 	self.load_current_node_id()
@@ -207,6 +239,7 @@ func jump_to_chapter_100aine(centaine):
 			print('found chapter: %s ' % chapter_id, '%s' % choice)
 			print('Jump to :%s' % choice.rect_position.y)
 			scroll_bar.scroll_vertical = choice.rect_position.y
+
 
 func insert_all_chapters():
 	var all_choices = $Chapitres/AllChapters/VScrollBar/Choices
@@ -340,6 +373,10 @@ func refresh():
 	delete_children(choices)
 	for son_id in sons_ids:
 		print('My son: %s' % son_id)
+		
+		# If the son is a secret, mayve we can show it, maybe not
+		if !self.is_node_id_freely_showable(son_id):
+			continue
 		
 		var son = self._get_node(son_id)
 		

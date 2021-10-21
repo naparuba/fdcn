@@ -25,10 +25,10 @@ bg_color = Color( 1, 1, 1, 1 )
 [sub_resource type="StyleBoxFlat" id=3]
 bg_color = Color( 0.192157, 0.231373, 0.278431, 1 )
 
-[sub_resource type="StyleBoxFlat" id=5]
+[sub_resource type="StyleBoxFlat" id=4]
 bg_color = Color( 0.913725, 0.917647, 0.92549, 1 )
 
-[sub_resource type="SpriteFrames" id=4]
+[sub_resource type="SpriteFrames" id=5]
 animations = [ {
 "frames": [ ExtResource( 12 ), ExtResource( 11 ) ],
 "loop": true,
@@ -393,7 +393,7 @@ margin_left = 69.2867
 margin_top = 50.1101
 margin_right = 112.287
 margin_bottom = 92.1101
-custom_styles/panel = SubResource( 5 )
+custom_styles/panel = SubResource( 4 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
@@ -424,7 +424,7 @@ margin_left = 120.943
 margin_top = 50.1101
 margin_right = 163.943
 margin_bottom = 92.1101
-custom_styles/panel = SubResource( 5 )
+custom_styles/panel = SubResource( 4 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
@@ -455,7 +455,7 @@ margin_left = 175.12
 margin_top = 51.37
 margin_right = 218.12
 margin_bottom = 93.37
-custom_styles/panel = SubResource( 5 )
+custom_styles/panel = SubResource( 4 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
@@ -486,7 +486,7 @@ margin_left = 228.667
 margin_top = 50.7401
 margin_right = 271.667
 margin_bottom = 92.7401
-custom_styles/panel = SubResource( 5 )
+custom_styles/panel = SubResource( 4 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
@@ -517,7 +517,7 @@ margin_left = 281.583
 margin_top = 50.7401
 margin_right = 324.583
 margin_bottom = 92.7401
-custom_styles/panel = SubResource( 5 )
+custom_styles/panel = SubResource( 4 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
@@ -548,7 +548,7 @@ margin_left = 331.98
 margin_top = 51.3701
 margin_right = 374.98
 margin_bottom = 93.3701
-custom_styles/panel = SubResource( 5 )
+custom_styles/panel = SubResource( 4 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
@@ -579,7 +579,7 @@ margin_left = 386.157
 margin_top = 50.1101
 margin_right = 429.157
 margin_bottom = 92.1101
-custom_styles/panel = SubResource( 5 )
+custom_styles/panel = SubResource( 4 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
@@ -1127,7 +1127,7 @@ texture = ExtResource( 14 )
 visible = false
 position = Vector2( 882.154, 676.293 )
 scale = Vector2( 0.79397, 0.79397 )
-frames = SubResource( 4 )
+frames = SubResource( 5 )
 frame = 1
 playing = true
 
@@ -1139,7 +1139,7 @@ texture = ExtResource( 14 )
 [node name="phumtar2" type="AnimatedSprite" parent="."]
 position = Vector2( 1465.15, 675.729 )
 scale = Vector2( 0.79397, 0.79397 )
-frames = SubResource( 4 )
+frames = SubResource( 5 )
 frame = 1
 playing = true
 
@@ -1151,7 +1151,7 @@ texture = ExtResource( 14 )
 [node name="phumtar3" type="AnimatedSprite" parent="."]
 position = Vector2( 2073.67, 672.298 )
 scale = Vector2( 0.79397, 0.79397 )
-frames = SubResource( 4 )
+frames = SubResource( 5 )
 frame = 1
 playing = true
 
