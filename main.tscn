@@ -1224,7 +1224,6 @@ visible = false
 position = Vector2( 882.154, 676.293 )
 scale = Vector2( 0.79397, 0.79397 )
 frames = SubResource( 5 )
-frame = 1
 playing = true
 
 [node name="soon2" type="Sprite" parent="."]
@@ -1236,7 +1235,6 @@ texture = ExtResource( 14 )
 position = Vector2( 1465.15, 675.729 )
 scale = Vector2( 0.79397, 0.79397 )
 frames = SubResource( 5 )
-frame = 1
 playing = true
 
 [node name="soon3" type="Sprite" parent="."]
@@ -1248,7 +1246,6 @@ texture = ExtResource( 14 )
 position = Vector2( 2073.67, 672.298 )
 scale = Vector2( 0.79397, 0.79397 )
 frames = SubResource( 5 )
-frame = 1
 playing = true
 
 [connection signal="gui_input" from="Background" to="." method="_on_main_background_gui_input"]

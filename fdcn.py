@@ -10,8 +10,6 @@ display_graph = graphviz.Digraph('G', filename='graph/fdcn_full', format='png')
 with codecs.open('fdcn-1.json', 'r', 'utf8') as f:
     book_data = json.loads(f.read())
 
-
-
 node_created = set()
 
 
@@ -129,6 +127,10 @@ class Node(object):
     
     def set_sucess(self, success):
         self._success = success
+    
+    
+    def get_success(self):
+        return self._success
     
     
     def set_combat(self, combat):
@@ -420,6 +422,7 @@ all_endings = []
 all_secrets = []
 nodes_by_chapter = {}
 nodes_by_sub_arc = {}
+all_success = []
 for node_id_str in book_data.keys():
     node = node_graph.get_node(int(node_id_str))
     if node.have_combat():
@@ -433,12 +436,18 @@ for node_id_str in book_data.keys():
         if arc not in nodes_by_chapter:
             nodes_by_chapter[arc] = []
         nodes_by_chapter[arc].append(int(node_id_str))
-        
+    
     sub_arc = node.get_sub_arc()
     if sub_arc:
         if sub_arc not in nodes_by_sub_arc:
             nodes_by_sub_arc[sub_arc] = []
         nodes_by_sub_arc[sub_arc].append(int(node_id_str))
+    
+    success = node.get_success()
+    if success:
+        print('%s have the success %s' % (node_id_str, success))
+        all_success.append({'id': success, 'chapter': int(node_id_str), 'txt': 'NOT SET'})
+        
 
 with codecs.open('fdcn-1-compilated-combats.json', 'w', 'utf8') as f:
     f.write(json.dumps(all_combats, indent=4, ensure_ascii=False, sort_keys=True))
@@ -454,6 +463,9 @@ with codecs.open('fdcn-1-compilated-nodes-by-chapter.json', 'w', 'utf8') as f:
 
 with codecs.open('fdcn-1-compilated-nodes-by-sub-arc.json', 'w', 'utf8') as f:
     f.write(json.dumps(nodes_by_sub_arc, indent=4, ensure_ascii=False, sort_keys=True))
+
+with codecs.open('fdcn-1-compilated-success.json', 'w', 'utf8') as f:
+    f.write(json.dumps(all_success, indent=4, ensure_ascii=False, sort_keys=True))
 
 print('Rendering')
 display_graph.render()  # renderer='gdiplus', formatter='gdiplus')

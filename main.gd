@@ -7,6 +7,8 @@ var chapters_by_sub_arc = {}
 
 var secret_node_ids = []
 
+var all_success = []
+
 var session_visited_nodes = []
 
 var visited_nodes_all_times = []
@@ -236,6 +238,9 @@ func _ready():
 	
 	# Just a dict sub_arc -> [ chapters ]
 	self.chapters_by_sub_arc = load_json_file("res://fdcn-1-compilated-nodes-by-sub-arc.json")
+	
+	# All the success, in a list {id, chapter, txt}
+	self.all_success = load_json_file("res://fdcn-1-compilated-success.json")
 	
 	# Load the nodes ids we did already visited in the past
 	self.load_all_times_already_visited()
