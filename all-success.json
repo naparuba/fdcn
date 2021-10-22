@@ -30,7 +30,7 @@
     "txt": "Terminez le jeu avec la fin BILLYLUS"
   },
   {
-    "label": "Le chval des trois",
+    "label": "Le cheval des trois",
     "id": "TROIE",
     "txt": "Vous avez vaincu les courtisanes"
   },
@@ -127,7 +127,7 @@
   {
     "label": "Billy Ultra Instinct",
     "id": "ULTRA-INSTINCT",
-    "txt": "Vous aez reçu une aide inespérée"
+    "txt": "Vous avez reçu une aide inespérée"
   },
   {
     "label": "Bière qui roule...",

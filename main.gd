@@ -395,6 +395,7 @@ func insert_all_success():
 		s.set_chapitre(success['chapter'])
 		s.set_label(success['label'])
 		s.set_txt(success['txt'])
+		s.set_success_id(success['id'])
 		all_success.add_child(s)
 
 	

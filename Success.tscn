@@ -1,8 +1,9 @@
-[gd_scene load_steps=8 format=2]
+[gd_scene load_steps=9 format=2]
 
 [ext_resource path="res://Success.gd" type="Script" id=1]
 [ext_resource path="res://fonts/amon_font.tres" type="DynamicFont" id=2]
 [ext_resource path="res://fonts/RobotoCondensed-Regular.ttf" type="DynamicFontData" id=3]
+[ext_resource path="res://images/success/ARSENE.png" type="Texture" id=4]
 
 [sub_resource type="StyleBoxFlat" id=1]
 bg_color = Color( 1, 1, 1, 1 )
@@ -117,5 +118,9 @@ text = "Obtenu"
 __meta__ = {
 "_edit_use_anchors_": false
 }
+
+[node name="sprite" type="Sprite" parent="."]
+position = Vector2( 25.8458, 24.7221 )
+texture = ExtResource( 4 )
 
 [connection signal="pressed" from="click/Button" to="." method="_on_Button_pressed"]
