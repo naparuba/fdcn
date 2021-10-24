@@ -1,4 +1,4 @@
-[gd_scene load_steps=25 format=2]
+[gd_scene load_steps=31 format=2]
 
 [ext_resource path="res://main.gd" type="Script" id=1]
 [ext_resource path="res://fonts/amon_font.tres" type="DynamicFont" id=2]
@@ -18,6 +18,10 @@
 [ext_resource path="res://left_backer.tscn" type="PackedScene" id=16]
 [ext_resource path="res://right_nexter.tscn" type="PackedScene" id=17]
 [ext_resource path="res://Success.tscn" type="PackedScene" id=18]
+[ext_resource path="res://LoreEntry.tscn" type="PackedScene" id=19]
+[ext_resource path="res://images/new_player.png" type="Texture" id=20]
+[ext_resource path="res://images/bug.png" type="Texture" id=21]
+[ext_resource path="res://images/twitter.png" type="Texture" id=22]
 
 [sub_resource type="StyleBoxFlat" id=1]
 bg_color = Color( 0.92549, 0.929412, 0.94902, 1 )
@@ -35,6 +39,13 @@ font_data = ExtResource( 13 )
 [sub_resource type="StyleBoxFlat" id=5]
 bg_color = Color( 0.913725, 0.917647, 0.92549, 1 )
 
+[sub_resource type="StyleBoxFlat" id=8]
+bg_color = Color( 0.92549, 0.929412, 0.94902, 1 )
+corner_radius_top_left = 2
+corner_radius_top_right = 2
+corner_radius_bottom_right = 2
+corner_radius_bottom_left = 2
+
 [sub_resource type="SpriteFrames" id=6]
 animations = [ {
 "frames": [ ExtResource( 12 ), ExtResource( 11 ) ],
@@ -42,6 +53,10 @@ animations = [ {
 "name": "default",
 "speed": 16.0
 } ]
+
+[sub_resource type="DynamicFont" id=7]
+size = 32
+font_data = ExtResource( 13 )
 
 [node name="main" type="Node2D"]
 script = ExtResource( 1 )
@@ -896,9 +911,9 @@ __meta__ = {
 }
 
 [node name="VScrollBar" type="ScrollContainer" parent="Succes/Success"]
-margin_top = 42.0
+margin_top = 43.6818
 margin_right = 442.0
-margin_bottom = 967.0
+margin_bottom = 968.682
 size_flags_horizontal = 3
 size_flags_vertical = 3
 __meta__ = {
@@ -979,17 +994,150 @@ __meta__ = {
 }
 
 [node name="VScrollBar" type="ScrollContainer" parent="Lore/Lore"]
+anchor_right = 1.0
+anchor_bottom = 1.0
 margin_top = 42.0
-margin_right = 20.0
-margin_bottom = 967.0
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Choices" type="VBoxContainer" parent="Lore/Lore/VScrollBar"]
+[node name="persos" type="VBoxContainer" parent="Lore/Lore/VScrollBar"]
+margin_right = 432.0
+margin_bottom = 3209.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
 __meta__ = {
 "_edit_use_anchors_": false
 }
+
+[node name="BillyGuerrier" parent="Lore/Lore/VScrollBar/persos" instance=ExtResource( 19 )]
+margin_right = 432.0
+titre = "Billy Guerrier"
+
+[node name="BillyPaysan" parent="Lore/Lore/VScrollBar/persos" instance=ExtResource( 19 )]
+margin_top = 189.0
+margin_right = 432.0
+margin_bottom = 374.0
+entry_name = "paysan"
+titre = "Billy Paysan"
+
+[node name="BillyPrudent" parent="Lore/Lore/VScrollBar/persos" instance=ExtResource( 19 )]
+margin_top = 378.0
+margin_right = 432.0
+margin_bottom = 563.0
+entry_name = "prudent"
+titre = "Billy Prudent"
+
+[node name="BillyDebrouillard" parent="Lore/Lore/VScrollBar/persos" instance=ExtResource( 19 )]
+margin_top = 567.0
+margin_right = 432.0
+margin_bottom = 752.0
+entry_name = "debrouillard"
+titre = "Billy Debrouillard"
+
+[node name="DieuxAtella" parent="Lore/Lore/VScrollBar/persos" instance=ExtResource( 19 )]
+margin_top = 756.0
+margin_right = 432.0
+margin_bottom = 941.0
+type_entry = "dieux"
+entry_name = "atella"
+titre = "Atella"
+
+[node name="DieuxBlathnat" parent="Lore/Lore/VScrollBar/persos" instance=ExtResource( 19 )]
+margin_top = 945.0
+margin_right = 432.0
+margin_bottom = 1130.0
+type_entry = "dieux"
+entry_name = "blathnat"
+titre = "Blathnat"
+
+[node name="DieuxEdire" parent="Lore/Lore/VScrollBar/persos" instance=ExtResource( 19 )]
+margin_top = 1134.0
+margin_right = 432.0
+margin_bottom = 1319.0
+type_entry = "dieux"
+entry_name = "edire"
+titre = "Edire"
+
+[node name="DieuxMutra" parent="Lore/Lore/VScrollBar/persos" instance=ExtResource( 19 )]
+margin_top = 1323.0
+margin_right = 432.0
+margin_bottom = 1508.0
+type_entry = "dieux"
+entry_name = "mutra"
+titre = "Mutra"
+
+[node name="DieuxMelene" parent="Lore/Lore/VScrollBar/persos" instance=ExtResource( 19 )]
+margin_top = 1512.0
+margin_right = 432.0
+margin_bottom = 1697.0
+type_entry = "dieux"
+entry_name = "melene"
+titre = "Melene"
+
+[node name="DieuxNeit" parent="Lore/Lore/VScrollBar/persos" instance=ExtResource( 19 )]
+margin_top = 1701.0
+margin_right = 432.0
+margin_bottom = 1886.0
+type_entry = "dieux"
+entry_name = "neit"
+titre = "Neit"
+
+[node name="DieuxNyses" parent="Lore/Lore/VScrollBar/persos" instance=ExtResource( 19 )]
+margin_top = 1890.0
+margin_right = 432.0
+margin_bottom = 2075.0
+type_entry = "dieux"
+entry_name = "nyses"
+titre = "Nyses"
+
+[node name="DieuxPhumtar" parent="Lore/Lore/VScrollBar/persos" instance=ExtResource( 19 )]
+margin_top = 2079.0
+margin_right = 432.0
+margin_bottom = 2264.0
+type_entry = "dieux"
+entry_name = "phumtar"
+titre = "Phumtar"
+
+[node name="DieuxRunir" parent="Lore/Lore/VScrollBar/persos" instance=ExtResource( 19 )]
+margin_top = 2268.0
+margin_right = 432.0
+margin_bottom = 2453.0
+type_entry = "dieux"
+entry_name = "runir"
+titre = "Runir"
+
+[node name="DieuxVetherr" parent="Lore/Lore/VScrollBar/persos" instance=ExtResource( 19 )]
+margin_top = 2457.0
+margin_right = 432.0
+margin_bottom = 2642.0
+type_entry = "dieux"
+entry_name = "vetherr"
+titre = "Vetherr"
+
+[node name="DieuxVirilus" parent="Lore/Lore/VScrollBar/persos" instance=ExtResource( 19 )]
+margin_top = 2646.0
+margin_right = 432.0
+margin_bottom = 2831.0
+type_entry = "dieux"
+entry_name = "virilus"
+titre = "Virilus"
+
+[node name="DieuxYtia" parent="Lore/Lore/VScrollBar/persos" instance=ExtResource( 19 )]
+margin_top = 2835.0
+margin_right = 432.0
+margin_bottom = 3020.0
+type_entry = "dieux"
+entry_name = "ytia"
+titre = "Ytia"
+
+[node name="DieuxZarkan" parent="Lore/Lore/VScrollBar/persos" instance=ExtResource( 19 )]
+margin_top = 3024.0
+margin_right = 432.0
+margin_bottom = 3209.0
+type_entry = "dieux"
+entry_name = "zarkan"
+titre = "Zarkan"
 
 [node name="About" type="Panel" parent="."]
 margin_left = 2367.73
@@ -1016,11 +1164,111 @@ margin_top = 3.60144
 margin_right = 501.31
 margin_bottom = 45.6014
 
-[node name="About" type="Panel" parent="About"]
+[node name="Actions" type="Panel" parent="About"]
 margin_left = 58.0
 margin_top = 51.0
 margin_right = 540.0
-margin_bottom = 1019.0
+margin_bottom = 203.0
+mouse_filter = 1
+custom_styles/panel = SubResource( 2 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Header" type="Panel" parent="About/Actions"]
+margin_right = 482.0
+margin_bottom = 42.0
+mouse_filter = 1
+custom_styles/panel = SubResource( 3 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Label" type="Label" parent="About/Actions/Header"]
+margin_left = 121.524
+margin_top = 5.00259
+margin_right = 305.524
+margin_bottom = 36.0026
+custom_fonts/font = ExtResource( 2 )
+text = "Actions"
+align = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="nouveau_billy" type="Panel" parent="About/Actions"]
+margin_left = 37.0
+margin_top = 53.0
+margin_right = 182.0
+margin_bottom = 140.0
+custom_styles/panel = SubResource( 8 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Label" type="Label" parent="About/Actions/nouveau_billy"]
+margin_left = 0.966107
+margin_top = 56.6046
+margin_right = 40.9661
+margin_bottom = 87.6047
+custom_fonts/font = ExtResource( 2 )
+custom_colors/font_color = Color( 0, 0, 0, 1 )
+text = "Nouveau Billy"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Button" type="TextureButton" parent="About/Actions/nouveau_billy"]
+margin_right = 145.0
+margin_bottom = 87.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Sprite" type="Sprite" parent="About/Actions/nouveau_billy"]
+position = Vector2( 71.5449, 28.0304 )
+scale = Vector2( 0.0996552, 0.0996552 )
+texture = ExtResource( 20 )
+
+[node name="new_bug" type="Panel" parent="About/Actions"]
+margin_left = 295.361
+margin_top = 51.6637
+margin_right = 440.361
+margin_bottom = 138.664
+custom_styles/panel = SubResource( 8 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Label" type="Label" parent="About/Actions/new_bug"]
+margin_left = 0.966107
+margin_top = 56.6046
+margin_right = 40.9661
+margin_bottom = 87.6047
+custom_fonts/font = ExtResource( 2 )
+custom_colors/font_color = Color( 0, 0, 0, 1 )
+text = "J'ai un bug"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Button" type="TextureButton" parent="About/Actions/new_bug"]
+margin_right = 145.0
+margin_bottom = 87.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Sprite" type="Sprite" parent="About/Actions/new_bug"]
+position = Vector2( 71.5449, 28.0304 )
+scale = Vector2( 0.0996552, 0.0996552 )
+texture = ExtResource( 21 )
+
+[node name="About" type="Panel" parent="About"]
+margin_left = 59.0
+margin_top = 212.0
+margin_right = 541.0
+margin_bottom = 1012.0
 mouse_filter = 1
 custom_styles/panel = SubResource( 2 )
 __meta__ = {
@@ -1043,15 +1291,45 @@ margin_right = 305.524
 margin_bottom = 36.0026
 custom_fonts/font = ExtResource( 2 )
 text = "A propos"
+align = 1
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="DevLabel" type="Label" parent="About"]
-margin_left = 86.7156
-margin_top = 125.639
-margin_right = 156.716
-margin_bottom = 139.639
+[node name="twitter" type="Panel" parent="About/About"]
+margin_left = 251.412
+margin_top = 75.301
+margin_right = 278.412
+margin_bottom = 101.301
+custom_styles/panel = SubResource( 8 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Button" type="TextureButton" parent="About/About/twitter"]
+margin_right = 145.0
+margin_bottom = 87.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Sprite" type="Sprite" parent="About/About/twitter"]
+position = Vector2( 14.1465, 12.6797 )
+scale = Vector2( 0.0996552, 0.0996552 )
+texture = ExtResource( 22 )
+
+[node name="phumtar" type="AnimatedSprite" parent="About/About"]
+position = Vector2( 392.257, 88.6701 )
+scale = Vector2( 0.342538, 0.342538 )
+frames = SubResource( 6 )
+frame = 1
+playing = true
+
+[node name="DevLabel" type="Label" parent="About/About"]
+margin_left = 12.7327
+margin_top = 57.4765
+margin_right = 82.7331
+margin_bottom = 71.4765
 custom_fonts/font = ExtResource( 5 )
 custom_colors/font_color = Color( 0, 0, 0, 1 )
 custom_constants/shadow_offset_x = 0
@@ -1062,11 +1340,11 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="DevTxt" type="Label" parent="About"]
-margin_left = 86.458
-margin_top = 139.363
-margin_right = 248.458
-margin_bottom = 170.363
+[node name="DevTxt" type="Label" parent="About/About"]
+margin_left = 12.4751
+margin_top = 71.2005
+margin_right = 242.475
+margin_bottom = 102.2
 custom_fonts/font = ExtResource( 2 )
 custom_colors/font_color = Color( 0, 0.760784, 0.666667, 1 )
 custom_constants/shadow_offset_x = 0
@@ -1077,11 +1355,11 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="VersionLabel" type="Label" parent="About"]
-margin_left = 88.4995
-margin_top = 185.694
-margin_right = 158.5
-margin_bottom = 199.694
+[node name="VersionLabel" type="Label" parent="About/About"]
+margin_left = 14.5166
+margin_top = 117.531
+margin_right = 84.5171
+margin_bottom = 131.531
 custom_fonts/font = ExtResource( 5 )
 custom_colors/font_color = Color( 0, 0, 0, 1 )
 custom_constants/shadow_offset_x = 0
@@ -1092,11 +1370,11 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="VersionTxt" type="Label" parent="About"]
-margin_left = 88.2419
-margin_top = 199.418
-margin_right = 318.242
-margin_bottom = 230.418
+[node name="VersionTxt" type="Label" parent="About/About"]
+margin_left = 14.259
+margin_top = 131.255
+margin_right = 244.259
+margin_bottom = 162.255
 custom_fonts/font = ExtResource( 2 )
 custom_colors/font_color = Color( 0, 0.760784, 0.666667, 1 )
 custom_constants/shadow_offset_x = 0
@@ -1107,11 +1385,11 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="SrcLabel" type="Label" parent="About"]
-margin_left = 90.2832
-margin_top = 246.938
-margin_right = 160.284
-margin_bottom = 260.938
+[node name="SrcLabel" type="Label" parent="About/About"]
+margin_left = 16.3003
+margin_top = 178.775
+margin_right = 86.3011
+margin_bottom = 192.775
 custom_fonts/font = ExtResource( 5 )
 custom_colors/font_color = Color( 0, 0, 0, 1 )
 custom_constants/shadow_offset_x = 0
@@ -1122,11 +1400,11 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="SrcTxt" type="Label" parent="About"]
-margin_left = 90.0256
-margin_top = 260.662
-margin_right = 320.026
-margin_bottom = 291.662
+[node name="SrcTxt" type="Label" parent="About/About"]
+margin_left = 16.0427
+margin_top = 192.499
+margin_right = 355.043
+margin_bottom = 223.499
 custom_fonts/font = ExtResource( 2 )
 custom_colors/font_color = Color( 0, 0.760784, 0.666667, 1 )
 custom_constants/shadow_offset_x = 0
@@ -1137,11 +1415,11 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="ThnksLabel" type="Label" parent="About"]
-margin_left = 89.6887
-margin_top = 306.993
-margin_right = 159.689
-margin_bottom = 320.993
+[node name="ThnksLabel" type="Label" parent="About/About"]
+margin_left = 15.7058
+margin_top = 238.83
+margin_right = 85.7061
+margin_bottom = 252.83
 custom_fonts/font = ExtResource( 5 )
 custom_colors/font_color = Color( 0, 0, 0, 1 )
 custom_constants/shadow_offset_x = 0
@@ -1152,11 +1430,11 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="ThnksTxt" type="Label" parent="About"]
-margin_left = 89.4312
-margin_top = 320.717
-margin_right = 428.431
-margin_bottom = 351.717
+[node name="ThnksTxt" type="Label" parent="About/About"]
+margin_left = 15.4482
+margin_top = 252.554
+margin_right = 362.448
+margin_bottom = 351.554
 custom_fonts/font = ExtResource( 2 )
 custom_colors/font_color = Color( 0, 0.760784, 0.666667, 1 )
 custom_constants/shadow_offset_x = 0
@@ -1169,11 +1447,11 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="NotesLabel" type="Label" parent="About"]
-margin_left = 90.2832
-margin_top = 440.184
-margin_right = 160.284
-margin_bottom = 454.184
+[node name="NotesLabel" type="Label" parent="About/About"]
+margin_left = 16.3003
+margin_top = 372.021
+margin_right = 86.3011
+margin_bottom = 386.021
 custom_fonts/font = ExtResource( 5 )
 custom_colors/font_color = Color( 0, 0, 0, 1 )
 custom_constants/shadow_offset_x = 0
@@ -1184,11 +1462,11 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="NotesTxt" type="Label" parent="About"]
-margin_left = 90.0256
-margin_top = 453.908
-margin_right = 429.026
-margin_bottom = 620.908
+[node name="NotesTxt" type="Label" parent="About/About"]
+margin_left = 16.0427
+margin_top = 385.745
+margin_right = 355.043
+margin_bottom = 552.745
 custom_fonts/font = ExtResource( 2 )
 custom_colors/font_color = Color( 0, 0.760784, 0.666667, 1 )
 custom_constants/shadow_offset_x = 0
@@ -1203,7 +1481,28 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
+[node name="Disclaimer" type="Label" parent="About/About"]
+margin_left = 15.1111
+margin_top = 555.179
+margin_right = 440.111
+margin_bottom = 798.179
+custom_fonts/font = SubResource( 7 )
+custom_colors/font_color = Color( 0.760784, 0.447059, 0, 1 )
+custom_constants/shadow_offset_x = 0
+custom_constants/shadow_offset_y = 0
+custom_constants/shadow_as_outline = 0
+text = "IMPORTANT:
+Ceci est une application
+FAN MADE, NON OFFICIELLE
+
+Tous les droits sont à Bob Lennon
+et LinkDigitalSpirit."
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
 [node name="DEBUG" type="Label" parent="."]
+visible = false
 margin_left = 55.3588
 margin_top = 357.418
 margin_right = 101.359
@@ -1220,42 +1519,13 @@ current = true
 smoothing_enabled = true
 smoothing_speed = 20.0
 
-[node name="soon1" type="Sprite" parent="."]
-visible = false
-position = Vector2( 859.456, 462.793 )
-rotation = -0.448674
-texture = ExtResource( 14 )
-
-[node name="phumtar1" type="AnimatedSprite" parent="."]
-visible = false
-position = Vector2( 882.154, 676.293 )
-scale = Vector2( 0.79397, 0.79397 )
-frames = SubResource( 6 )
-playing = true
-
-[node name="soon2" type="Sprite" parent="."]
-visible = false
-position = Vector2( 1458.69, 457.842 )
-rotation = -0.448674
-texture = ExtResource( 14 )
-
-[node name="phumtar2" type="AnimatedSprite" parent="."]
-visible = false
-position = Vector2( 1465.15, 675.729 )
-scale = Vector2( 0.79397, 0.79397 )
-frames = SubResource( 6 )
-playing = true
-
 [node name="soon3" type="Sprite" parent="."]
+visible = false
 position = Vector2( 2022.44, 445.881 )
 rotation = -0.448674
 texture = ExtResource( 14 )
 
-[node name="phumtar3" type="AnimatedSprite" parent="."]
-position = Vector2( 2073.67, 672.298 )
-scale = Vector2( 0.79397, 0.79397 )
-frames = SubResource( 6 )
-playing = true
+[node name="AudioPlayer" type="AudioStreamPlayer2D" parent="."]
 
 [connection signal="gui_input" from="Background" to="." method="_on_main_background_gui_input"]
 [connection signal="gui_input" from="Chapitres" to="." method="_on_main_background_gui_input"]
@@ -1269,3 +1539,6 @@ playing = true
 [connection signal="gui_input" from="Succes" to="." method="_on_main_background_gui_input"]
 [connection signal="gui_input" from="Lore" to="." method="_on_main_background_gui_input"]
 [connection signal="gui_input" from="About" to="." method="_on_main_background_gui_input"]
+[connection signal="pressed" from="About/Actions/nouveau_billy/Button" to="." method="_on_button_new_billy"]
+[connection signal="pressed" from="About/Actions/new_bug/Button" to="." method="_on_button_bug"]
+[connection signal="pressed" from="About/About/twitter/Button" to="." method="_on_button_pressed_twitter"]

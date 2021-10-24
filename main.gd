@@ -153,7 +153,43 @@ func go_to_node(node_id):
 	self.refresh()
 	# We did change node, so important to see it
 	self.focus_to_main()
+	
+	# If we are in a special node, play sound
+	self._play_node_sound()
 
+
+func _play_intro():
+	var player = $AudioPlayer
+	# In all cases, stop the player
+	player.stop()
+	var sound = load('res://sounds/intro.mp3')
+	player.stream = sound
+	player.play()
+
+
+func _play_node_sound():
+	var player = $AudioPlayer
+	# In all cases, stop the player
+	player.stop()
+	
+	print('Trying load sound for %s' % self.current_node_id)
+	var node_sound_fnames = {
+		193: '193-la-cathedrale.mp3',
+		216: '216-tour-des-mages.mp3',
+		338: '338-virilus-backstory.mp3'
+	}
+	var fname = node_sound_fnames.get(int(self.current_node_id))
+	if fname == null:  # no sound this node
+		print('No sound for %s' % self.current_node_id)
+		return
+
+	var full_path = 'res://sounds/%s' % fname
+	print('SOUND: full path=%s' % full_path)
+	var sound = load(full_path)
+	print('%s is load '% sound, 'for ', self.current_node_id)
+	
+	player.stream = sound
+	player.play()
 
 func _get_node(node_id):
 	return self.all_nodes['%s' % node_id]
@@ -257,7 +293,10 @@ func _ready():
 	# Jump to node, and will show main page
 	self.go_to_node(self.current_node_id)
 	
-
+	# Play intro
+	# NOTE: if the current node id have a sound, intro will supress it
+	self._play_intro()
+	
 
 func _get_all_nodes_in_the_same_sub_arc(node_id):
 	var chapter_data = self._get_node(node_id)
@@ -398,6 +437,24 @@ func insert_all_success():
 		s.set_success_id(success['id'])
 		all_success.add_child(s)
 
+
+func _update_all_success():
+	var all_success = $Succes/Success/VScrollBar/Success
+	for success in all_success.get_children():
+		var chapter_id = success.get_chapter_id()
+		var chapter_data = self._get_node(chapter_id)
+		
+		# Update if spoils need to be shown (or not), can depend if we already seen this node
+		if self.is_node_id_freely_full_on_all_chapters(chapter_id):
+			success.set_spoil_enabled(true)
+		else:  # only follow the parameter
+			success.set_spoil_enabled(false)
+		# All time seen
+		if chapter_id in self.visited_nodes_all_times:
+			success.set_already_seen()
+		else:
+			success.set_not_already_seen()
+	
 	
 func refresh():
 	
@@ -415,6 +472,9 @@ func refresh():
 	
 	# Page2: update all chapters
 	self._update_all_chapters()
+	
+	# Page 3: update success with spoils
+	self._update_all_success()
 	
 	# Update the % completion
 	var _nb_all_nodes = len(self.all_nodes)
@@ -526,7 +586,12 @@ func refresh():
 		choice.set_main(self)
 		print('NODE: %s' % son)
 		choice.set_chapitre(son['computed']['id'])
-		choice.set_spoil_enabled(self.parameters['spoils'])
+		# Update if spoils need to be shown (or not), can depend if we already seen this node
+		if self.is_node_id_freely_full_on_all_chapters(son_id):
+			choice.set_spoil_enabled(true)
+		else:  # only follow the parameter
+			choice.set_spoil_enabled(false)
+		#choice.set_spoil_enabled(self.parameters['spoils'])
 		if son['computed']['is_combat']:
 			choice.set_combat()
 		if son_id in self.session_visited_nodes:
@@ -590,23 +655,37 @@ func _switch_to_guerrier():
 	self.parameters['billy'] = 'guerrier'
 	self.save_parameters()
 	self.refresh()
+	self._play_sound('billy-guerrier.mp3')
 
 
 func _switch_to_paysan():
 	self.parameters['billy'] = 'paysan'
 	self.save_parameters()
 	self.refresh()
+	self._play_sound('billy-paysan.mp3')
+
 
 func _switch_to_prudent():
 	self.parameters['billy'] = 'prudent'
 	self.save_parameters()
 	self.refresh()
+	self._play_sound('billy-prudent.mp3')
+
 
 func _switch_to_debrouillard():
 	self.parameters['billy'] = 'debrouillard'
 	self.save_parameters()
 	self.refresh()
+	self._play_sound('billy-debrouillard.mp3')
 
+
+func _play_sound(pth):
+	var player = $AudioPlayer
+	player.stop()
+	var full_pth = 'res://sounds/%s' % pth
+	var sound = load(full_pth)
+	player.stream = sound
+	player.play()
 
 
 func _on_main_background_gui_input(event):
@@ -726,3 +805,20 @@ func jump_to_chapter_500():
 func jump_to_chapter_600():
 	self.jump_to_chapter_100aine(600)	
 	
+
+
+func _on_button_new_billy():
+	self.session_visited_nodes = []
+	self.save_session_visited_nodes()
+	self.go_to_node(1)
+	self.refresh()
+	# We did change node, so important to see it
+	self.focus_to_main()
+
+
+func _on_button_bug():
+	OS.shell_open("https://github.com/naparuba/fdcn/issues");
+
+
+func _on_button_pressed_twitter():
+	OS.shell_open("https://twitter.com/naparuba");

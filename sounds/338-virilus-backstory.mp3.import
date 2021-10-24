@@ -1,0 +1,15 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+path="res://.import/338-virilus-backstory.mp3-5cc470680f449a377e4043e5e13adba7.mp3str"
+
+[deps]
+
+source_file="res://sounds/338-virilus-backstory.mp3"
+dest_files=[ "res://.import/338-virilus-backstory.mp3-5cc470680f449a377e4043e5e13adba7.mp3str" ]
+
+[params]
+
+loop=false
+loop_offset=0

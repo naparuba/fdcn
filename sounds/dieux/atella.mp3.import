@@ -1,0 +1,15 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+path="res://.import/atella.mp3-07716b4fa8d658e0dbb03667ba983966.mp3str"
+
+[deps]
+
+source_file="res://sounds/dieux/atella.mp3"
+dest_files=[ "res://.import/atella.mp3-07716b4fa8d658e0dbb03667ba983966.mp3str" ]
+
+[params]
+
+loop=false
+loop_offset=0

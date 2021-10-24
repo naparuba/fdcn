@@ -1,0 +1,15 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+path="res://.import/melene.mp3-be67ff9e3e6e8dfef3ec3419d2f12319.mp3str"
+
+[deps]
+
+source_file="res://sounds/dieux/melene.mp3"
+dest_files=[ "res://.import/melene.mp3-be67ff9e3e6e8dfef3ec3419d2f12319.mp3str" ]
+
+[params]
+
+loop=false
+loop_offset=0

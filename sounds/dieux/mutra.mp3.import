@@ -1,0 +1,15 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+path="res://.import/mutra.mp3-d42bd98e3355be95f8a04d13236f2e00.mp3str"
+
+[deps]
+
+source_file="res://sounds/dieux/mutra.mp3"
+dest_files=[ "res://.import/mutra.mp3-d42bd98e3355be95f8a04d13236f2e00.mp3str" ]
+
+[params]
+
+loop=false
+loop_offset=0

@@ -1,0 +1,15 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+path="res://.import/billy-paysan.mp3-51354e2e5175d4189ab38f9931ea463b.mp3str"
+
+[deps]
+
+source_file="res://sounds/billy-paysan.mp3"
+dest_files=[ "res://.import/billy-paysan.mp3-51354e2e5175d4189ab38f9931ea463b.mp3str" ]
+
+[params]
+
+loop=false
+loop_offset=0

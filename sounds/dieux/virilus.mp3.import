@@ -1,0 +1,15 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+path="res://.import/virilus.mp3-62c07e9d4f1294b76316b4c76af5811e.mp3str"
+
+[deps]
+
+source_file="res://sounds/dieux/virilus.mp3"
+dest_files=[ "res://.import/virilus.mp3-62c07e9d4f1294b76316b4c76af5811e.mp3str" ]
+
+[params]
+
+loop=false
+loop_offset=0

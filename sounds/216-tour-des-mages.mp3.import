@@ -1,0 +1,15 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+path="res://.import/216-tour-des-mages.mp3-930383dfa82f11c2acf634e445be3dfa.mp3str"
+
+[deps]
+
+source_file="res://sounds/216-tour-des-mages.mp3"
+dest_files=[ "res://.import/216-tour-des-mages.mp3-930383dfa82f11c2acf634e445be3dfa.mp3str" ]
+
+[params]
+
+loop=false
+loop_offset=0

@@ -1,0 +1,15 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+path="res://.import/guerrier.mp3-591f7a46afbea59d3549cb6afbdf2198.mp3str"
+
+[deps]
+
+source_file="res://sounds/billys/guerrier.mp3"
+dest_files=[ "res://.import/guerrier.mp3-591f7a46afbea59d3549cb6afbdf2198.mp3str" ]
+
+[params]
+
+loop=false
+loop_offset=0

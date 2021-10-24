@@ -1,0 +1,15 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+path="res://.import/billy-prudent.mp3-a9693d0cd8ec66b76bde9f48a4ca3bee.mp3str"
+
+[deps]
+
+source_file="res://sounds/billy-prudent.mp3"
+dest_files=[ "res://.import/billy-prudent.mp3-a9693d0cd8ec66b76bde9f48a4ca3bee.mp3str" ]
+
+[params]
+
+loop=false
+loop_offset=0

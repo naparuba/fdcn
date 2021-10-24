@@ -1,0 +1,15 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+path="res://.import/billy-debrouillard.mp3-da06c8289565c0b340bad0f3d6d9f960.mp3str"
+
+[deps]
+
+source_file="res://sounds/billy-debrouillard.mp3"
+dest_files=[ "res://.import/billy-debrouillard.mp3-da06c8289565c0b340bad0f3d6d9f960.mp3str" ]
+
+[params]
+
+loop=false
+loop_offset=0

@@ -1,0 +1,15 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+path="res://.import/runir.mp3-8c360150491033d3e3c3d9e86a0dbeaa.mp3str"
+
+[deps]
+
+source_file="res://sounds/dieux/runir.mp3"
+dest_files=[ "res://.import/runir.mp3-8c360150491033d3e3c3d9e86a0dbeaa.mp3str" ]
+
+[params]
+
+loop=false
+loop_offset=0

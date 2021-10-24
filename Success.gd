@@ -20,8 +20,9 @@ func set_main(main):
 
 func set_spoil_enabled(b):
 	self.spoil_enabled = b
-	$GetPolygon.visible = self.spoil_enabled
-	$Label.visible = self.spoil_enabled
+	$click.visible = self.spoil_enabled
+	$NBChapitre.visible = self.spoil_enabled
+
 
 
 func get_chapter_id():
@@ -52,7 +53,7 @@ func set_label(label):
 func set_txt(txt):
 	$Txt.text = txt
 
-func set_already_get():
+func set_already_seen():
 	$GetPolygon.color = Color('00c2aa')
 
 func set_not_already_seen():
