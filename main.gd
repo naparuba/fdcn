@@ -251,6 +251,7 @@ func _ready():
 	#Load the main font file
 	var dynamic_font = DynamicFont.new()
 	dynamic_font.font_data = load('res://fonts/amon_font.tres')
+
 	
 	# Register to Swiper
 	Swiper.register_main(self)
