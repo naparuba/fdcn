@@ -633,7 +633,7 @@
             "id": 129,
             "is_combat": false,
             "label": null,
-            "secret": false,
+            "secret": true,
             "sons": [
                 100,
                 170
@@ -644,6 +644,7 @@
             100,
             170
         ],
+        "secret": true,
         "success": "BIG-BRAIN"
     },
     "13": {

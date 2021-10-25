@@ -674,6 +674,7 @@
     "goto": 100
   },
   "129": {
+    "secret": true,
     "success": "BIG-BRAIN",
     "goto": [
       100,
