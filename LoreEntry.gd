@@ -17,9 +17,7 @@ var is_playing = false
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	$Label.text = titre
-	
-	var texture = ImageTexture.new()
-	var image = Image.new()
+
 	var dir = type_entry
 	var ext = 'png'  # default for billy
 	if type_entry == 'dieux':
@@ -27,14 +25,10 @@ func _ready():
 	var pth = 'res://images/%s/'%type_entry
 	pth += entry_name
 	pth += '.%s' % ext
-	print('FULL PATH: %s' % pth)
-	var err = image.load(pth)
-	if err != OK:
-		print('ERROR: cannot load %s' % err)
-		return
-	texture.create_from_image(image)
+
+	var texture = Utils.load_external_texture(pth, null)
 	$Sprite.texture = texture
-	print('SPRITE LOADED: %s' % entry_name)
+
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.

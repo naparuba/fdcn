@@ -30,13 +30,7 @@ func get_chapter_id():
 
 
 func set_success_id(success_id):
-	var texture = ImageTexture.new()
-	var image = Image.new()
-	var err = image.load("res://images/success/%s.png" % success_id)
-	if err != OK:
-		print('ERROR: cannot load %s' % err)
-		return
-	texture.create_from_image(image)
+	var texture = Utils.load_external_texture("res://images/success/%s.png" % success_id, null)
 	$sprite.texture = texture
 	print('SPRITE LOADED: %s' % success_id)
 

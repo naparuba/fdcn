@@ -24,6 +24,7 @@ config/icon="res://images/fdcn_icon.png"
 [autoload]
 
 Swiper="*res://swipe.gd"
+Utils="*res://utils.gd"
 
 [display]
 
