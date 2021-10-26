@@ -205,19 +205,25 @@ func are_spoils_ok():
 
 # We can show a Choice if:
 # * we are ok with spoils
-# * we are NOT spoils but the node is NOT a secret
+# * we are NOT spoils but the node is NOT a secret, and not a secret jump
 # * we are NOT spoils, the node IS a secret but we ALREADY see it
-func is_node_id_freely_showable(node_id):
+func is_node_id_freely_showable(node_id, secret_jumps):
 	if self.are_spoils_ok():
 		return true
+	
 	# spoils are not known
 	var node = self._get_node(node_id)
-	# NOt a secret node, we can show without problem
-	if !node['computed']['secret']:
+	
+	var is_in_secret_jump = node_id in secret_jumps
+	
+	# NOT a secret node, we can show without problem, but only
+	# if it's not a secret jump
+	if !node['computed']['secret'] and !is_in_secret_jump:
 		return true
-	# node is a secret, last hope is if we already see it in the past (not a spoil if already see ^^)
+		
+	# node is a secret (or in secret jumps), last hope is if we already see it in the past (not a spoil if already see ^^)
 	if node_id in self.visited_nodes_all_times:
-		print('SPOILS: %s is a secret but alrady see it' % node_id)
+		print('SPOILS: %s is a secret (or a secret jump) but already see it' % node_id)
 		return true
 	# ok, no hope for this one, hide it
 	#print('SPOILS: %s is a secret and CANNOT see it' % node_id)
@@ -225,6 +231,7 @@ func is_node_id_freely_showable(node_id):
 
 
 # on the all chapters, the "is not a secret" is not a criteria, as we don't want to see this
+# and also secret jumps is not useful here (not link to a specific src jump node)
 func is_node_id_freely_full_on_all_chapters(node_id):
 	if self.are_spoils_ok():
 			return true
@@ -538,7 +545,6 @@ func refresh():
 		$Background/Position/NumeroChapitreSmall.visible = false
 	
 	
-	#Breads
 	var breads = $Background/Dreadcumb/breads
 	delete_children(breads)
 	var nb_previous = len(self.session_visited_nodes)
@@ -570,6 +576,8 @@ func refresh():
 	
 	# And my sons
 	var sons_ids = my_node['computed']['sons']
+	# Maybe son sons are not secret, but the jump is
+	var secret_jumps = my_node['computed']['secret_jumps']
 	
 	# Clean choices
 	var choices = $Background/Next/Choices
@@ -578,7 +586,7 @@ func refresh():
 		print('My son: %s' % son_id)
 		
 		# If the son is now ok to be shown, skip it
-		if !self.is_node_id_freely_showable(son_id):
+		if !self.is_node_id_freely_showable(son_id, secret_jumps):
 			continue
 		
 		var son = self._get_node(son_id)

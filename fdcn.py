@@ -67,6 +67,8 @@ class Node(object):
         self._label = None
         
         self._secret = False
+        
+        self._secret_jumps = []
     
     
     def have_combat(self):
@@ -86,15 +88,16 @@ class Node(object):
             ending = True
         
         return {
-            'id'       : self._id,
-            'ending'   : ending,
-            'success'  : self._success,
-            'sons'     : son_ids,
-            'chapter'  : self._arc,
-            'arc'      : self._sub_arc,
-            'is_combat': self._combat is not None,
-            'label'    : self._label,
-            'secret'   : self._secret,
+            'id'          : self._id,
+            'ending'      : ending,
+            'success'     : self._success,
+            'sons'        : son_ids,
+            'chapter'     : self._arc,
+            'arc'         : self._sub_arc,
+            'is_combat'   : self._combat is not None,
+            'label'       : self._label,
+            'secret'      : self._secret,
+            'secret_jumps': self._secret_jumps,
         }
     
     
@@ -111,6 +114,11 @@ class Node(object):
     def set_label(self, label):
         print(' [%s] Set label= %s' % (self._id, label))
         self._label = label  # '<%s-<FONT COLOR="blue" POINT-SIZE="20">%s</FONT> >' % (self._id, label)
+    
+    
+    # Some jumps are secret, but the distant chapter is NOT a secret
+    def set_secret_jumps(self, secret_jumps):
+        self._secret_jumps = secret_jumps
     
     
     def get_id(self):
@@ -163,6 +171,10 @@ class Node(object):
     
     def add_son(self, son):
         self._sons.append(son)
+    
+    
+    def get_sons(self):
+        return self._sons
     
     
     def add_node_to_display_graph(self, display_graph):
@@ -278,6 +290,10 @@ for idx, n in book_data.items():
     label = n.get('label', None)
     if label:
         node.set_label(label)
+    
+    secret_jumps = n.get('secret_jumps', None)
+    if secret_jumps is not None:
+        node.set_secret_jumps(secret_jumps)
     
     goto = n['goto']
     
@@ -429,6 +445,8 @@ def get_success_txt(_id):
     raise Exception('Success: %s not found' % _id)
 
 
+reverse_jumps = {}
+
 all_combats = []
 all_endings = []
 all_secrets = []
@@ -443,6 +461,13 @@ for node_id_str in book_data.keys():
         all_endings.append(node.get_id())
     if node.is_secret():
         all_secrets.append(node.get_id())
+    # Flag reverse jumps
+    for son in node.get_sons():
+        son_id = son.get_id()
+        if son_id not in reverse_jumps:
+            reverse_jumps[son_id] = []
+        reverse_jumps[son_id].append(int(node_id_str))
+    
     arc = node.get_arc()
     if arc:
         if arc not in nodes_by_chapter:
@@ -460,6 +485,21 @@ for node_id_str in book_data.keys():
         label, txt = get_success_txt(success)
         print('%s have the success %s: %s:%s' % (node_id_str, success, label, txt))
         all_success.append({'id': success, 'chapter': int(node_id_str), 'label': label, 'txt': txt})
+
+# Check for secrets that should NOT be accessible by 2 ways
+print('Checking for secret reverse jump:')
+print('  - Must be one source')
+print('  - or multiple but ALL are real secret jump')
+print('    => if not, must use secret_jump key in .json, like fdcn1 234->76')
+
+for node_id, froms in reverse_jumps.items():
+    node = node_graph.get_node(node_id)
+    prefix = 'OK: ' if node.is_secret() else ''
+    if not node.is_secret():
+        continue
+    if len(froms) != 1:
+        prefix = '!!! WARNING => '
+    print('%s%3d <- %s' % (prefix, node_id, ', '.join(['%s' % i for i in froms])))
 
 with codecs.open('fdcn-1-compilated-combats.json', 'w', 'utf8') as f:
     f.write(json.dumps(all_combats, indent=4, ensure_ascii=False, sort_keys=True))
