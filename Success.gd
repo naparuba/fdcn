@@ -1,13 +1,12 @@
 extends Panel
 
 
-
 onready var already_seen_polygon = $GetPolygon
-
 
 var chap_number
 var spoil_enabled = false
 var main
+
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -47,11 +46,18 @@ func set_label(label):
 func set_txt(txt):
 	$Txt.text = txt
 
+
 func set_already_seen():
 	$GetPolygon.color = Color('00c2aa')
 
+
 func set_not_already_seen():
 	$GetPolygon.color = Color('9ea8b4')
+
+
+func hide_chapter():
+	$NBChapitre.visible = false
+	$click.visible = false
 
 
 func _on_Button_pressed():

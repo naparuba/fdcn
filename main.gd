@@ -8,6 +8,7 @@ var chapters_by_sub_arc = {}
 var secret_node_ids = []
 
 var all_success = []
+var all_success_chapters = {} # chapter id -> success id
 
 var session_visited_nodes = []
 
@@ -53,7 +54,6 @@ func load_all_times_already_visited():
 func save_all_times_already_visited():
 	var f = File.new()
 	f.open(all_times_already_visited_file, File.WRITE)
-	print('SAVING in file: %s' % f)
 	f.store_var(visited_nodes_all_times)
 	f.close()
 
@@ -67,10 +67,10 @@ func load_current_node_id():
 	else:
 		current_node_id = 1
 
+
 func save_current_node_id():
 	var f = File.new()
 	f.open(current_node_id_file, File.WRITE)
-	print('SAVING in file: %s' % f)
 	f.store_var(current_node_id)
 	f.close()
 
@@ -84,7 +84,9 @@ func load_session_visited_nodes():
 	else:
 		session_visited_nodes = []
 
+
 func save_session_visited_nodes():
+	return
 	var f = File.new()
 	f.open(session_visited_nodes_file, File.WRITE)
 	print('SAVING in file: %s' % f)
@@ -106,6 +108,7 @@ func load_parameters():
 	else:
 		# already created in globals
 		pass
+
 
 func save_parameters():
 	var f = File.new()
@@ -143,7 +146,8 @@ func go_to_node(node_id):
 	print('Visited session: %s' % str(self.session_visited_nodes))
 	
 	# Update id if not already visited
-	if !(self.current_node_id in visited_nodes_all_times):
+	var is_new_node = !(self.current_node_id in visited_nodes_all_times)
+	if is_new_node:
 		self.visited_nodes_all_times.append(self.current_node_id)
 		self.save_all_times_already_visited()
 		
@@ -157,14 +161,22 @@ func go_to_node(node_id):
 	# If we are in a special node, play sound
 	self._play_node_sound()
 
+	if is_new_node:
+		self._check_new_success(self.current_node_id)
+
+
+# We are in a new node, check if it's a success.
+# if it is one, display a cool success highlight ^^
+func _check_new_success(node_id):
+	# WARNING: the all_success_chapters is with str keys, not INT (thanks json)
+	var node_id_str = '%d' % node_id
+	if node_id_str in self.all_success_chapters:
+		print('SUCCESS We have a new success:', node_id_str, self.all_success_chapters[node_id_str])
+		self._get_new_success(self.all_success_chapters[node_id_str])
+	
 
 func _play_intro():
-	var player = $AudioPlayer
-	# In all cases, stop the player
-	player.stop()
-	var sound = load('res://sounds/intro.mp3')
-	player.stream = sound
-	player.play()
+	self._play_sound('intro.mp3')
 
 
 func _play_node_sound():
@@ -172,7 +184,6 @@ func _play_node_sound():
 	# In all cases, stop the player
 	player.stop()
 	
-	print('Trying load sound for %s' % self.current_node_id)
 	var node_sound_fnames = {
 		193: '193-la-cathedrale.mp3',
 		216: '216-tour-des-mages.mp3',
@@ -180,16 +191,10 @@ func _play_node_sound():
 	}
 	var fname = node_sound_fnames.get(int(self.current_node_id))
 	if fname == null:  # no sound this node
-		print('No sound for %s' % self.current_node_id)
 		return
 
-	var full_path = 'res://sounds/%s' % fname
-	print('SOUND: full path=%s' % full_path)
-	var sound = load(full_path)
-	print('%s is load '% sound, 'for ', self.current_node_id)
-	
-	player.stream = sound
-	player.play()
+	self._play_sound(fname)
+
 
 func _get_node(node_id):
 	return self.all_nodes['%s' % node_id]
@@ -244,15 +249,16 @@ func is_node_id_freely_full_on_all_chapters(node_id):
 	#print('SPOILS: %s is a secret and CANNOT see it' % node_id)
 	return false
 
+
 static func delete_children(node):
 	for n in node.get_children():
 		node.remove_child(n)
 		n.queue_free()
 		
 
-
 func print_debug(s):
 	$DEBUG.text = s
+
 
 func _ready():
 	#Load the main font file
@@ -286,6 +292,8 @@ func _ready():
 	
 	# All the success, in a list {id, chapter, txt}
 	self.all_success = load_json_file("res://fdcn-1-compilated-success.json")
+	# All the success chapters id in a list
+	self.all_success_chapters = load_json_file("res://fdcn-1-compilated-success-chapters.json")
 	
 	# Load the nodes ids we did already visited in the past
 	self.load_all_times_already_visited()
@@ -306,13 +314,22 @@ func _ready():
 	self._play_intro()
 	
 
+func _get_new_success(success_id):
+	# Update the success data
+	var popup = $SuccessPopup
+	for success in self.all_success:
+		if success['id'] != success_id:
+			continue
+		popup.update_and_show(success)
+		return
+		
+
 func _get_all_nodes_in_the_same_sub_arc(node_id):
 	var chapter_data = self._get_node(node_id)
 	var sub_arc = chapter_data["computed"]["arc"]
 	if sub_arc == null:
 		return []
 	var other_nodes = self.chapters_by_sub_arc[sub_arc]
-	print('CHAPTER: in the same SUB ARC: %s' % str(other_nodes))
 	return other_nodes
 
 
@@ -325,7 +342,6 @@ func _get_sub_arc_completion(node_id):
 		if other_id in self.visited_nodes_all_times:
 			nb_visited += 1
 	var pct100 = int(100 * float(nb_visited) / len(other_nodes))
-	print('Total visited sub arc: %s / ' % nb_visited, len(other_nodes), '=', pct100)
 	return pct100
 
 
@@ -335,7 +351,6 @@ func _get_all_nodes_in_the_same_chapter(node_id):
 	if chapter == null:
 		return []
 	var other_nodes = self.chapters_by_arc[chapter]
-	print('CHAPTER: in the same ACTE: %s' % str(other_nodes))
 	return other_nodes
 
 
@@ -348,14 +363,12 @@ func _get_acte_completion(node_id):
 		if other_id in self.visited_nodes_all_times:
 			nb_visited += 1
 	var pct100 = int(100 * float(nb_visited) / len(other_nodes))
-	print('Total visited: %s / ' % nb_visited, len(other_nodes), '=', pct100)
 	return pct100
 
 
 func jump_to_chapter_100aine(centaine):
 	var all_choices = $Chapitres/AllChapters/VScrollBar/Choices
 	var scroll_bar = $Chapitres/AllChapters/VScrollBar
-	print('Searching chapter: %s' % centaine)
 	# Get chapter until we find the good one
 	for choice in all_choices.get_children():
 		var chapter_id = choice.get_chapter_id()
@@ -366,11 +379,13 @@ func jump_to_chapter_100aine(centaine):
 			scroll_bar.scroll_vertical = choice.rect_position.y
 			return
 
+
 # We need to compare integer, not strings
 static func _sort_all_chapters(nb1, nb2):
 		if int(nb1) < int(nb2):
 			return true
 		return false
+
 
 func insert_all_chapters():
 	var all_choices = $Chapitres/AllChapters/VScrollBar/Choices
@@ -428,7 +443,6 @@ func _update_all_chapters():
 			choice.set_secret()
 			
 
-
 func insert_all_success():
 	var all_success = $Succes/Success/VScrollBar/Success
 	delete_children(all_success)
@@ -464,8 +478,7 @@ func _update_all_success():
 			success.set_not_already_seen()
 	
 	
-func refresh():
-	
+func refresh():	
 	# Update the parameters
 	for top_menu in self.top_menus:
 		top_menu.set_spoils(self.parameters['spoils'])	
@@ -548,7 +561,6 @@ func refresh():
 	var breads = $Background/Dreadcumb/breads
 	delete_children(breads)
 	var nb_previous = len(self.session_visited_nodes)
-	#print('ORIGINAL prevs: %s' % str(self.session_visited_nodes))
 	
 	var last_previous = self.session_visited_nodes
 	if len(self.session_visited_nodes) > 5:
@@ -619,6 +631,7 @@ func refresh():
 func have_previous_chapters():
 	return len(self.session_visited_nodes) > 1
 
+
 func jump_to_previous_chapter():
 	print('Jumping to previous chapter: %s' % str(self.session_visited_nodes))
 	if len(self.session_visited_nodes) <= 1:
@@ -658,8 +671,6 @@ func change_spoils(b):
 	self.refresh()
 
 
-
-
 func _switch_to_guerrier():
 	self.parameters['billy'] = 'guerrier'
 	self.save_parameters()
@@ -695,6 +706,7 @@ func _play_sound(pth):
 	var sound = load(full_pth)
 	player.stream = sound
 	player.play()
+	print('PLAYING %s' % full_pth)
 
 
 func _on_main_background_gui_input(event):
@@ -776,6 +788,7 @@ func swipe_to_left():
 		self.focus_to_lore()
 	else:
 		print('ERROR: unknown page: %s' % self.current_page)
+
 	
 func swipe_to_right():
 	print('Going to right, from page: %s' % self.current_page)

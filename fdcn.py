@@ -453,6 +453,7 @@ all_secrets = []
 nodes_by_chapter = {}
 nodes_by_sub_arc = {}
 all_success = []
+all_success_chapters = {}
 for node_id_str in book_data.keys():
     node = node_graph.get_node(int(node_id_str))
     if node.have_combat():
@@ -485,6 +486,7 @@ for node_id_str in book_data.keys():
         label, txt = get_success_txt(success)
         print('%s have the success %s: %s:%s' % (node_id_str, success, label, txt))
         all_success.append({'id': success, 'chapter': int(node_id_str), 'label': label, 'txt': txt})
+        all_success_chapters[int(node_id_str)] = success
 
 # Check for secrets that should NOT be accessible by 2 ways
 print('Checking for secret reverse jump:')
@@ -518,6 +520,9 @@ with codecs.open('fdcn-1-compilated-nodes-by-sub-arc.json', 'w', 'utf8') as f:
 
 with codecs.open('fdcn-1-compilated-success.json', 'w', 'utf8') as f:
     f.write(json.dumps(all_success, indent=4, ensure_ascii=False, sort_keys=True))
+
+with codecs.open('fdcn-1-compilated-success-chapters.json', 'w', 'utf8') as f:
+    f.write(json.dumps(all_success_chapters, indent=4, ensure_ascii=False, sort_keys=True))
 
 print('Rendering')
 display_graph.render()

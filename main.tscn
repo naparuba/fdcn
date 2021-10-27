@@ -1,4 +1,4 @@
-[gd_scene load_steps=31 format=2]
+[gd_scene load_steps=32 format=2]
 
 [ext_resource path="res://main.gd" type="Script" id=1]
 [ext_resource path="res://fonts/amon_font.tres" type="DynamicFont" id=2]
@@ -22,6 +22,7 @@
 [ext_resource path="res://images/new_player.png" type="Texture" id=20]
 [ext_resource path="res://images/bug.png" type="Texture" id=21]
 [ext_resource path="res://images/twitter.png" type="Texture" id=22]
+[ext_resource path="res://SuccessPopup.tscn" type="PackedScene" id=23]
 
 [sub_resource type="StyleBoxFlat" id=1]
 bg_color = Color( 0.92549, 0.929412, 0.94902, 1 )
@@ -1324,7 +1325,6 @@ texture = ExtResource( 22 )
 position = Vector2( 392.257, 88.6701 )
 scale = Vector2( 0.342538, 0.342538 )
 frames = SubResource( 7 )
-frame = 1
 playing = true
 
 [node name="DevLabel" type="Label" parent="About/About"]
@@ -1527,6 +1527,8 @@ rotation = -0.448674
 texture = ExtResource( 14 )
 
 [node name="AudioPlayer" type="AudioStreamPlayer2D" parent="."]
+
+[node name="SuccessPopup" parent="." instance=ExtResource( 23 )]
 
 [connection signal="gui_input" from="Background" to="." method="_on_main_background_gui_input"]
 [connection signal="gui_input" from="Chapitres" to="." method="_on_main_background_gui_input"]
