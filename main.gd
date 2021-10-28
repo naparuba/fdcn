@@ -26,6 +26,7 @@ var parameters = {
 
 onready var Bread = preload('res://bread.tscn')
 onready var Choice = preload('res://ChapterChoice.tscn')
+onready var EndingChoice = preload('res://EndingChoice.tscn')
 onready var Success = preload('res://Success.tscn')
 
 onready var gauge = $Background/GlobalCompletion/Gauge
@@ -451,6 +452,13 @@ func _update_all_chapters():
 			choice.set_secret()
 			
 
+func _get_success_txt(success_id):
+	for success in self.all_success:
+		if success_id == success['id']:
+			return success['txt']
+	return ''
+		
+
 func insert_all_success():
 	var all_success = $Succes/Success/VScrollBar/Success
 	delete_children(all_success)
@@ -637,6 +645,28 @@ func refresh():
 			choice.set_label(son['computed']['label'])
 		choices.add_child(choice)
 				
+	# Maybe we are an ending, then stack a EndingChoice with data
+	if my_node['computed']['ending']:
+		var choice = EndingChoice.instance()
+		choice.set_main(self)
+		print('IS AN END')
+		# Need an id for display:
+		# * is a success: take it
+		# * is not, take ending_id entry
+		var ending_id = my_node['computed']['success']
+		if ending_id == null:
+			ending_id = my_node['computed']['ending_id']
+		choice.set_ending_id(ending_id)
+		
+		# Text
+		var ending_txt = self._get_success_txt(ending_id)
+		if ending_txt == '':  # not a success
+			ending_txt = my_node['computed']['ending_txt']
+		choice.set_label(ending_txt)
+		choice.set_ending_type(my_node['computed']['ending_type'])
+		
+		choices.add_child(choice)
+
 
 func have_previous_chapters():
 	return len(self.session_visited_nodes) > 1
@@ -840,6 +870,10 @@ func jump_to_chapter_600():
 
 
 func _on_button_new_billy():
+	self.launch_new_billy()
+	
+	
+func launch_new_billy():
 	self.session_visited_nodes = []
 	self.save_session_visited_nodes()
 	self.go_to_node(1)

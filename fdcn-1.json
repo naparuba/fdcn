@@ -836,6 +836,8 @@
     "goto": 168
   },
   "163": {
+    "ending_txt": "Elles avaient faim, très faim ^^",
+    "ending_id": "TULIPES",
     "ending": "bad",
     "goto": 608
   },
@@ -1377,6 +1379,8 @@
     "goto": 142
   },
   "271": {
+    "ending_txt": "Un gros calin... mortel",
+    "ending_id": "VIGNES",
     "ending": "bad",
     "goto": 608
   },
@@ -1879,6 +1883,8 @@
     "goto": 383
   },
   "375": {
+    "ending_txt": "TRICHE détectée, bien tenté, mais non.",
+    "ending_id": "TRICHE",
     "ending": "bad",
     "goto": 608
   },
@@ -2345,6 +2351,8 @@
     "goto": 468
   },
   "465": {
+    "ending_txt": "On ne fait pas de bisoux à un Dragon",
+    "ending_id": "SOUFLE",
     "ending": "bad",
     "goto": 608
   },

@@ -51,6 +51,8 @@ class Node(object):
         self._id = _id
         
         self._ending = None
+        self._ending_id = None
+        self._ending_txt = None
         self._success = None
         
         self._sons = []
@@ -72,6 +74,10 @@ class Node(object):
     
     def have_ending(self):
         return self._ending is not None
+    
+    
+    def get_ending_id(self):
+        return self._ending_id
     
     
     def is_good_ending(self):
@@ -101,6 +107,9 @@ class Node(object):
             'label'       : self._label,
             'secret'      : self._secret,
             'secret_jumps': self._secret_jumps,
+            'ending_id': self._ending_id,
+            'ending_txt': self._ending_txt,
+            'ending_type' : self._ending,
         }
     
     
@@ -135,6 +144,13 @@ class Node(object):
     def set_ending(self, ending):
         self._ending = ending
     
+    
+    def set_ending_id(self, ending_id):
+        self._ending_id = ending_id
+    
+    
+    def set_ending_txt(self, ending_txt):
+        self._ending_txt = ending_txt
     
     def set_sucess(self, success):
         self._success = success
@@ -311,8 +327,11 @@ for idx, n in book_data.items():
             if _ending is None:
                 print('ERROR: node %s have an unknown ending string: %s' % (idx, ending))
                 sys.exit(2)
-            
             node.set_ending(_ending)
+            ending_id = n.get('ending_id', None)
+            if ending_id:
+                node.set_ending_id(ending_id)
+                node.set_ending_txt(n.get('ending_txt'))
         else:
             son = node_graph.get_node(goto)
             node.add_son(son)
