@@ -1,4 +1,4 @@
-[gd_scene load_steps=7 format=2]
+[gd_scene load_steps=8 format=2]
 
 [ext_resource path="res://ChapterChoice.gd" type="Script" id=1]
 [ext_resource path="res://fonts/amon_font.tres" type="DynamicFont" id=2]
@@ -18,10 +18,14 @@ corner_radius_top_right = 2
 corner_radius_bottom_right = 2
 corner_radius_bottom_left = 2
 
+[sub_resource type="DynamicFont" id=4]
+size = 40
+font_data = ExtResource( 3 )
+
 [node name="ChapterChoice" type="Panel"]
 margin_right = 446.0
-margin_bottom = 50.0
-rect_min_size = Vector2( 0, 50 )
+margin_bottom = 75.0
+rect_min_size = Vector2( 0, 75 )
 mouse_filter = 1
 custom_styles/panel = SubResource( 1 )
 script = ExtResource( 1 )
@@ -30,22 +34,21 @@ __meta__ = {
 }
 
 [node name="NBChapitre" type="Label" parent="."]
-margin_left = 337.405
-margin_top = 9.64857
-margin_right = 379.405
-margin_bottom = 74.6486
+margin_left = 322.267
+margin_top = 19.7775
+margin_right = 364.267
+margin_bottom = 54.7775
 custom_fonts/font = ExtResource( 2 )
 custom_colors/font_color = Color( 0, 0, 0, 1 )
-text = "XXX
-"
+text = "XXX"
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
 [node name="Label" type="Label" parent="."]
-margin_left = 164.0
+margin_left = 163.0
 margin_top = 2.0
-margin_right = 325.0
+margin_right = 333.0
 margin_bottom = 45.0
 custom_fonts/font = SubResource( 2 )
 custom_colors/font_color = Color( 0, 0.760784, 0.666667, 1 )
@@ -55,41 +58,43 @@ __meta__ = {
 }
 
 [node name="click" type="Panel" parent="."]
-margin_left = 387.249
-margin_top = 3.36737
-margin_right = 427.249
-margin_bottom = 43.3674
+margin_left = 368.903
+margin_top = 9.47194
+margin_right = 425.903
+margin_bottom = 66.4719
 custom_styles/panel = SubResource( 3 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
 [node name="Label" type="Label" parent="click"]
-margin_left = 14.856
-margin_top = 4.61726
-margin_right = 54.856
-margin_bottom = 35.6173
-custom_fonts/font = ExtResource( 2 )
+margin_left = 19.356
+margin_top = 1.61726
+margin_right = 59.356
+margin_bottom = 49.6173
+custom_fonts/font = SubResource( 4 )
 custom_colors/font_color = Color( 0, 0, 0, 1 )
 text = ">"
 
 [node name="Button" type="TextureButton" parent="click"]
-margin_right = 40.0
-margin_bottom = 39.0
+margin_left = -1.0
+margin_top = -1.0
+margin_right = 57.0
+margin_bottom = 58.0
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
 [node name="AlreadySeenPolygon" type="Polygon2D" parent="."]
 position = Vector2( -22.5136, 0.529732 )
-color = Color( 0.619608, 0.658824, 0.705882, 1 )
-polygon = PoolVector2Array( 28.1169, 47.9916, 41.6251, -0.0815163, 58.0468, -0.0815163, 44.2124, 48.0062 )
+color = Color( 0.878431, 0.886275, 0.898039, 1 )
+polygon = PoolVector2Array( 22.4823, 72.5328, 37.1073, 72.564, 58.1034, -0.244655, 41.6874, -0.262193, 22.5453, 67.939 )
 
 [node name="Label" type="Label" parent="AlreadySeenPolygon"]
-margin_left = 29.217
-margin_top = 45.6984
-margin_right = 78.217
-margin_bottom = 59.6984
+margin_left = 26.3216
+margin_top = 57.7255
+margin_right = 75.3216
+margin_bottom = 71.7255
 rect_rotation = -73.2716
 custom_colors/font_color = Color( 0, 0, 0, 1 )
 text = "Déjà Vu"
@@ -99,14 +104,14 @@ __meta__ = {
 
 [node name="SessionSeenPolygon" type="Polygon2D" parent="."]
 position = Vector2( 2.07602, 0.578602 )
-color = Color( 0.619608, 0.658824, 0.705882, 1 )
-polygon = PoolVector2Array( 28.1169, 47.9916, 41.6251, -0.0815163, 58.0468, -0.0815163, 44.2124, 48.0062 )
+color = Color( 0.878431, 0.886275, 0.898039, 1 )
+polygon = PoolVector2Array( 21.4577, 72.3413, 41.6251, -0.0815163, 58.0468, -0.0815163, 37.1673, 72.4201 )
 
 [node name="Label" type="Label" parent="SessionSeenPolygon"]
-margin_left = 29.217
-margin_top = 45.6984
-margin_right = 78.217
-margin_bottom = 59.6984
+margin_left = 25.6534
+margin_top = 57.5028
+margin_right = 74.6534
+margin_bottom = 71.5028
 rect_rotation = -73.2716
 custom_colors/font_color = Color( 0, 0, 0, 1 )
 text = "Ce Billy"
@@ -116,14 +121,14 @@ __meta__ = {
 
 [node name="CombatPolygon" type="Polygon2D" parent="."]
 position = Vector2( 25.5788, 0.544044 )
-color = Color( 0.619608, 0.658824, 0.705882, 1 )
-polygon = PoolVector2Array( 28.1169, 47.9916, 41.6251, -0.0815163, 58.0468, -0.0815163, 44.2124, 48.0062 )
+color = Color( 0.878431, 0.886275, 0.898039, 1 )
+polygon = PoolVector2Array( 21.2241, 72.4153, 41.6251, -0.0815163, 58.0468, -0.0815163, 37.17, 72.494 )
 
 [node name="Label" type="Label" parent="CombatPolygon"]
-margin_left = 29.217
-margin_top = 45.6984
-margin_right = 78.217
-margin_bottom = 59.6984
+margin_left = 25.4307
+margin_top = 57.2801
+margin_right = 74.4307
+margin_bottom = 71.2801
 rect_rotation = -73.2716
 custom_colors/font_color = Color( 0, 0, 0, 1 )
 text = "Combat"
@@ -133,14 +138,14 @@ __meta__ = {
 
 [node name="EndPolygon" type="Polygon2D" parent="."]
 position = Vector2( 50.2198, 0.531052 )
-color = Color( 0.619608, 0.658824, 0.705882, 1 )
-polygon = PoolVector2Array( 28.1169, 47.9916, 41.6251, -0.0815163, 58.0468, -0.0815163, 44.2124, 48.0062 )
+color = Color( 0.878431, 0.886275, 0.898039, 1 )
+polygon = PoolVector2Array( 21.2697, 72.5464, 41.6251, -0.0815163, 58.0468, -0.0815163, 37.2155, 72.507 )
 
 [node name="Label" type="Label" parent="EndPolygon"]
-margin_left = 29.217
-margin_top = 45.6984
-margin_right = 78.217
-margin_bottom = 59.6984
+margin_left = 25.6534
+margin_top = 58.6164
+margin_right = 74.6534
+margin_bottom = 72.6164
 rect_rotation = -73.2716
 custom_colors/font_color = Color( 0, 0, 0, 1 )
 text = "    Fin"
@@ -150,14 +155,14 @@ __meta__ = {
 
 [node name="SuccessPolygon" type="Polygon2D" parent="."]
 position = Vector2( 74.9835, 0.592384 )
-color = Color( 0.619608, 0.658824, 0.705882, 1 )
-polygon = PoolVector2Array( 28.1169, 47.9916, 41.6251, -0.0815163, 58.0468, -0.0815163, 44.2124, 48.0062 )
+color = Color( 0.878431, 0.886275, 0.898039, 1 )
+polygon = PoolVector2Array( 21.2713, 72.3275, 41.6251, -0.0815163, 58.0468, -0.0815163, 37.2565, 72.3669 )
 
 [node name="Label" type="Label" parent="SuccessPolygon"]
-margin_left = 29.217
-margin_top = 45.6984
-margin_right = 78.217
-margin_bottom = 59.6984
+margin_left = 26.3216
+margin_top = 56.6119
+margin_right = 75.3216
+margin_bottom = 70.6119
 rect_rotation = -73.2716
 custom_colors/font_color = Color( 0, 0, 0, 1 )
 text = "Succès"
@@ -167,14 +172,14 @@ __meta__ = {
 
 [node name="SecretPolygon" type="Polygon2D" parent="."]
 position = Vector2( 99.7867, 0.448215 )
-color = Color( 0.619608, 0.658824, 0.705882, 1 )
-polygon = PoolVector2Array( 28.1169, 47.9916, 41.6251, -0.0815163, 58.0468, -0.0815163, 44.2124, 48.0062 )
+color = Color( 0.878431, 0.886275, 0.898039, 1 )
+polygon = PoolVector2Array( 20.902, 72.4675, 41.6251, -0.0815163, 58.0468, -0.0815163, 37.2723, 72.4675 )
 
 [node name="Label" type="Label" parent="SecretPolygon"]
-margin_left = 29.217
-margin_top = 45.6984
-margin_right = 78.217
-margin_bottom = 59.6984
+margin_left = 26.3805
+margin_top = 57.0445
+margin_right = 75.3805
+margin_bottom = 71.0445
 rect_rotation = -73.2716
 custom_colors/font_color = Color( 0, 0, 0, 1 )
 text = "Secret"

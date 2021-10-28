@@ -141,7 +141,6 @@ bg_color = Color( 1, 1, 1, 1 )
 border_width_bottom = 2
 
 [node name="SuccessPopup" type="Popup"]
-visible = true
 modulate = Color( 1, 1, 1, 0 )
 margin_left = 2.0
 margin_top = 2.0

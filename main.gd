@@ -9,9 +9,12 @@ var secret_node_ids = []
 
 var all_success = []
 var all_success_chapters = {} # chapter id -> success id
+var all_endings = []
+var good_endings = []
+var end_endings = []
+
 
 var session_visited_nodes = []
-
 var visited_nodes_all_times = []
 
 var current_lines = []
@@ -141,9 +144,9 @@ func go_to_node(node_id):
 	if len(self.session_visited_nodes) == 0 or self.session_visited_nodes[len(self.session_visited_nodes) -1] != node_id:
 		self.session_visited_nodes.append(self.current_node_id)
 		self.save_session_visited_nodes()
-	else:
-		print('Already on the visited session update: %s' % str(self.session_visited_nodes))
-	print('Visited session: %s' % str(self.session_visited_nodes))
+	#else:
+	#	print('Already on the visited session update: %s' % str(self.session_visited_nodes))
+	#print('Visited session: %s' % str(self.session_visited_nodes))
 	
 	# Update id if not already visited
 	var is_new_node = !(self.current_node_id in visited_nodes_all_times)
@@ -151,8 +154,8 @@ func go_to_node(node_id):
 		self.visited_nodes_all_times.append(self.current_node_id)
 		self.save_all_times_already_visited()
 		
-	print('SESSION visited nodes: %s' % str(self.session_visited_nodes))
-	print('ALL TIMES visited nodes: %s' % str(self.visited_nodes_all_times))
+	#print('SESSION visited nodes: %s' % str(self.session_visited_nodes))
+	#print('ALL TIMES visited nodes: %s' % str(self.visited_nodes_all_times))
 	
 	self.refresh()
 	# We did change node, so important to see it
@@ -294,6 +297,11 @@ func _ready():
 	self.all_success = load_json_file("res://fdcn-1-compilated-success.json")
 	# All the success chapters id in a list
 	self.all_success_chapters = load_json_file("res://fdcn-1-compilated-success-chapters.json")
+	
+	# Endings: want all, good and bad
+	self.all_endings = load_json_file("res://fdcn-1-compilated-endings.json")
+	self.good_endings = load_json_file("res://fdcn-1-compilated-good-endings.json")
+	self.end_endings = load_json_file("res://fdcn-1-compilated-bad-endings.json")
 	
 	# Load the nodes ids we did already visited in the past
 	self.load_all_times_already_visited()
@@ -592,7 +600,7 @@ func refresh():
 	var secret_jumps = my_node['computed']['secret_jumps']
 	
 	# Clean choices
-	var choices = $Background/Next/Choices
+	var choices = $Background/Next/ScrollContainer/Choices
 	delete_children(choices)
 	for son_id in sons_ids:
 		print('My son: %s' % son_id)
@@ -625,6 +633,8 @@ func refresh():
 			choice.set_success()
 		if son['computed']['secret']:
 			choice.set_secret()
+		if son['computed']['label']:
+			choice.set_label(son['computed']['label'])
 		choices.add_child(choice)
 				
 

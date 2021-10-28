@@ -399,10 +399,10 @@ margin_right = 144.0
 margin_bottom = 0.0
 
 [node name="Next" type="Panel" parent="Background"]
-margin_left = 56.115
+margin_left = 56.0
 margin_top = 377.0
-margin_right = 501.115
-margin_bottom = 1029.0
+margin_right = 501.0
+margin_bottom = 1011.0
 mouse_filter = 1
 custom_styles/panel = SubResource( 2 )
 __meta__ = {
@@ -429,19 +429,32 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Choices" type="VBoxContainer" parent="Background/Next"]
-margin_top = 42.0
-margin_right = 446.0
-margin_bottom = 652.0
+[node name="ScrollContainer" type="ScrollContainer" parent="Background/Next"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_top = 43.0
+margin_bottom = -17.0
+mouse_filter = 1
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="ChapterChoice" parent="Background/Next/Choices" instance=ExtResource( 3 )]
+[node name="Choices" type="VBoxContainer" parent="Background/Next/ScrollContainer"]
+margin_right = 445.0
+margin_bottom = 574.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+__meta__ = {
+"_edit_use_anchors_": false
+}
 
-[node name="ChapterChoice2" parent="Background/Next/Choices" instance=ExtResource( 3 )]
-margin_top = 54.0
-margin_bottom = 104.0
+[node name="ChapterChoice" parent="Background/Next/ScrollContainer/Choices" instance=ExtResource( 3 )]
+margin_right = 445.0
+
+[node name="ChapterChoice2" parent="Background/Next/ScrollContainer/Choices" instance=ExtResource( 3 )]
+margin_top = 79.0
+margin_right = 445.0
+margin_bottom = 154.0
 
 [node name="Chapitres" type="Panel" parent="."]
 margin_left = 597.622
@@ -747,7 +760,7 @@ __meta__ = {
 
 [node name="Choices" type="VBoxContainer" parent="Chapitres/AllChapters/VScrollBar"]
 margin_right = 433.0
-margin_bottom = 1022.0
+margin_bottom = 1497.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 __meta__ = {
@@ -758,94 +771,94 @@ __meta__ = {
 margin_right = 433.0
 
 [node name="ChapterChoice2" parent="Chapitres/AllChapters/VScrollBar/Choices" instance=ExtResource( 3 )]
-margin_top = 54.0
+margin_top = 79.0
 margin_right = 433.0
-margin_bottom = 104.0
+margin_bottom = 154.0
 
 [node name="ChapterChoice3" parent="Chapitres/AllChapters/VScrollBar/Choices" instance=ExtResource( 3 )]
-margin_top = 108.0
+margin_top = 158.0
 margin_right = 433.0
-margin_bottom = 158.0
+margin_bottom = 233.0
 
 [node name="ChapterChoice4" parent="Chapitres/AllChapters/VScrollBar/Choices" instance=ExtResource( 3 )]
-margin_top = 162.0
+margin_top = 237.0
 margin_right = 433.0
-margin_bottom = 212.0
+margin_bottom = 312.0
 
 [node name="ChapterChoice5" parent="Chapitres/AllChapters/VScrollBar/Choices" instance=ExtResource( 3 )]
-margin_top = 216.0
+margin_top = 316.0
 margin_right = 433.0
-margin_bottom = 266.0
+margin_bottom = 391.0
 
 [node name="ChapterChoice6" parent="Chapitres/AllChapters/VScrollBar/Choices" instance=ExtResource( 3 )]
-margin_top = 270.0
+margin_top = 395.0
 margin_right = 433.0
-margin_bottom = 320.0
+margin_bottom = 470.0
 
 [node name="ChapterChoice7" parent="Chapitres/AllChapters/VScrollBar/Choices" instance=ExtResource( 3 )]
-margin_top = 324.0
+margin_top = 474.0
 margin_right = 433.0
-margin_bottom = 374.0
+margin_bottom = 549.0
 
 [node name="ChapterChoice8" parent="Chapitres/AllChapters/VScrollBar/Choices" instance=ExtResource( 3 )]
-margin_top = 378.0
+margin_top = 553.0
 margin_right = 433.0
-margin_bottom = 428.0
+margin_bottom = 628.0
 
 [node name="ChapterChoice9" parent="Chapitres/AllChapters/VScrollBar/Choices" instance=ExtResource( 3 )]
-margin_top = 432.0
+margin_top = 632.0
 margin_right = 433.0
-margin_bottom = 482.0
+margin_bottom = 707.0
 
 [node name="ChapterChoice10" parent="Chapitres/AllChapters/VScrollBar/Choices" instance=ExtResource( 3 )]
-margin_top = 486.0
+margin_top = 711.0
 margin_right = 433.0
-margin_bottom = 536.0
+margin_bottom = 786.0
 
 [node name="ChapterChoice11" parent="Chapitres/AllChapters/VScrollBar/Choices" instance=ExtResource( 3 )]
-margin_top = 540.0
+margin_top = 790.0
 margin_right = 433.0
-margin_bottom = 590.0
+margin_bottom = 865.0
 
 [node name="ChapterChoice12" parent="Chapitres/AllChapters/VScrollBar/Choices" instance=ExtResource( 3 )]
-margin_top = 594.0
+margin_top = 869.0
 margin_right = 433.0
-margin_bottom = 644.0
+margin_bottom = 944.0
 
 [node name="ChapterChoice13" parent="Chapitres/AllChapters/VScrollBar/Choices" instance=ExtResource( 3 )]
-margin_top = 648.0
+margin_top = 948.0
 margin_right = 433.0
-margin_bottom = 698.0
+margin_bottom = 1023.0
 
 [node name="ChapterChoice14" parent="Chapitres/AllChapters/VScrollBar/Choices" instance=ExtResource( 3 )]
-margin_top = 702.0
+margin_top = 1027.0
 margin_right = 433.0
-margin_bottom = 752.0
+margin_bottom = 1102.0
 
 [node name="ChapterChoice15" parent="Chapitres/AllChapters/VScrollBar/Choices" instance=ExtResource( 3 )]
-margin_top = 756.0
+margin_top = 1106.0
 margin_right = 433.0
-margin_bottom = 806.0
+margin_bottom = 1181.0
 
 [node name="ChapterChoice16" parent="Chapitres/AllChapters/VScrollBar/Choices" instance=ExtResource( 3 )]
-margin_top = 810.0
+margin_top = 1185.0
 margin_right = 433.0
-margin_bottom = 860.0
+margin_bottom = 1260.0
 
 [node name="ChapterChoice17" parent="Chapitres/AllChapters/VScrollBar/Choices" instance=ExtResource( 3 )]
-margin_top = 864.0
+margin_top = 1264.0
 margin_right = 433.0
-margin_bottom = 914.0
+margin_bottom = 1339.0
 
 [node name="ChapterChoice18" parent="Chapitres/AllChapters/VScrollBar/Choices" instance=ExtResource( 3 )]
-margin_top = 918.0
+margin_top = 1343.0
 margin_right = 433.0
-margin_bottom = 968.0
+margin_bottom = 1418.0
 
 [node name="ChapterChoice19" parent="Chapitres/AllChapters/VScrollBar/Choices" instance=ExtResource( 3 )]
-margin_top = 972.0
+margin_top = 1422.0
 margin_right = 433.0
-margin_bottom = 1022.0
+margin_bottom = 1497.0
 
 [node name="Succes" type="Panel" parent="."]
 margin_left = 1192.29
@@ -1382,7 +1395,7 @@ custom_colors/font_color = Color( 0, 0.760784, 0.666667, 1 )
 custom_constants/shadow_offset_x = 0
 custom_constants/shadow_offset_y = 0
 custom_constants/shadow_as_outline = 0
-text = "0.1"
+text = "0.4"
 __meta__ = {
 "_edit_use_anchors_": false
 }
@@ -1504,6 +1517,7 @@ __meta__ = {
 }
 
 [node name="DEBUG" type="Label" parent="."]
+visible = false
 margin_left = 55.3588
 margin_top = 357.418
 margin_right = 101.359

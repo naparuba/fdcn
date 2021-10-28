@@ -6,6 +6,8 @@ onready var session_seen_polygon = $SessionSeenPolygon
 onready var combat_polygon = $CombatPolygon
 
 
+var COLOR_NOT_SET = Color('e0e2e5')  # very light grey
+
 var chap_number
 var spoil_enabled = false
 var main
@@ -45,31 +47,31 @@ func set_already_seen():
 	$AlreadySeenPolygon.color = Color('00c2aa')
 
 func set_not_already_seen():
-	$AlreadySeenPolygon.color = Color('9ea8b4')
+	$AlreadySeenPolygon.color = COLOR_NOT_SET
 
 func set_session_seen():
 	$SessionSeenPolygon.color = Color('00c2aa')
 
 func set_session_not_seen():
-	$SessionSeenPolygon.color = Color('9ea8b4')
+	$SessionSeenPolygon.color = COLOR_NOT_SET
 
 func set_combat():
 	$CombatPolygon.color = Color('ff6f04')
 	
 func set_not_combat():
-	$CombatPolygon.color = Color('9ea8b4')
+	$CombatPolygon.color = COLOR_NOT_SET
 
 func set_ending():
 	$EndPolygon.color = Color('00c2aa')
 
 func set_not_ending():
-	$EndPolygon.color = Color('9ea8b4')
+	$EndPolygon.color = COLOR_NOT_SET
 
 func set_success():
 	$SuccessPolygon.color = Color('00c2aa')
 
 func set_not_success():
-	$SuccessPolygon.color = Color('9ea8b4')
+	$SuccessPolygon.color = COLOR_NOT_SET
 
 func set_secret():
 	$SecretPolygon.color = Color('00c2aa')
