@@ -30,11 +30,6 @@ class Graph(object):
         # print(' - %s created' % nid)
     
     
-    def set_ending_node(self, nid, ending):
-        node = self._nodes[nid]
-        node.set_ending(ending)
-    
-    
     def get_node(self, node_id):
         # type: (int) -> Node
         return self._nodes[node_id]
@@ -77,6 +72,14 @@ class Node(object):
     
     def have_ending(self):
         return self._ending is not None
+    
+    
+    def is_good_ending(self):
+        return self._ending == ENDINGS.GOOD
+    
+    
+    def is_bad_ending(self):
+        return self._ending == ENDINGS.BAD
     
     
     def get_computed(self):
@@ -449,6 +452,8 @@ reverse_jumps = {}
 
 all_combats = []
 all_endings = []
+good_endings = []
+bad_endings = []
 all_secrets = []
 nodes_by_chapter = {}
 nodes_by_sub_arc = {}
@@ -460,6 +465,11 @@ for node_id_str in book_data.keys():
         all_combats.append(node.get_id())
     if node.have_ending():
         all_endings.append(node.get_id())
+        if node.is_good_ending():
+            good_endings.append(node.get_id())
+        else:  # bad
+            bad_endings.append(node.get_id())
+    
     if node.is_secret():
         all_secrets.append(node.get_id())
     # Flag reverse jumps
@@ -508,6 +518,12 @@ with codecs.open('fdcn-1-compilated-combats.json', 'w', 'utf8') as f:
 
 with codecs.open('fdcn-1-compilated-endings.json', 'w', 'utf8') as f:
     f.write(json.dumps(all_endings, indent=4, ensure_ascii=False, sort_keys=True))
+
+with codecs.open('fdcn-1-compilated-good-endings.json', 'w', 'utf8') as f:
+    f.write(json.dumps(good_endings, indent=4, ensure_ascii=False, sort_keys=True))
+
+with codecs.open('fdcn-1-compilated-bad-endings.json', 'w', 'utf8') as f:
+    f.write(json.dumps(bad_endings, indent=4, ensure_ascii=False, sort_keys=True))
 
 with codecs.open('fdcn-1-compilated-secrets.json', 'w', 'utf8') as f:
     f.write(json.dumps(all_secrets, indent=4, ensure_ascii=False, sort_keys=True))
