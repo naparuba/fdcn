@@ -25,6 +25,8 @@ config/icon="res://images/fdcn_icon.png"
 
 Swiper="*res://swipe.gd"
 Utils="*res://utils.gd"
+BookData="*res://BookData.gd"
+Sounder="*res://Sounder.tscn"
 
 [display]
 

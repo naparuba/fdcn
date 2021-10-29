@@ -1,17 +1,6 @@
 extends Node2D
 
 var current_node_id = 1
-var all_nodes = {}
-var chapters_by_arc = {}
-var chapters_by_sub_arc = {}
-
-var secret_node_ids = []
-
-var all_success = []
-var all_success_chapters = {} # chapter id -> success id
-var all_endings = []
-var good_endings = []
-var end_endings = []
 
 
 var session_visited_nodes = []
@@ -121,20 +110,7 @@ func save_parameters():
 	f.close()
 
 
-func load_json_file(path):
-	"""Loads a JSON file from the given res path and return the loaded JSON object."""
-	var file = File.new()
-	file.open(path, file.READ)
-	var text = file.get_as_text()
-	var result_json = JSON.parse(text)
-	if result_json.error != OK:
-		print("[load_json_file] Error loading JSON file '" + str(path) + "'.")
-		print("\tError: ", result_json.error)
-		print("\tError Line: ", result_json.error_line)
-		print("\tError String: ", result_json.error_string)
-		return null
-	var obj = result_json.result
-	return obj
+
 
 
 func go_to_node(node_id):
@@ -155,8 +131,6 @@ func go_to_node(node_id):
 		self.visited_nodes_all_times.append(self.current_node_id)
 		self.save_all_times_already_visited()
 		
-	#print('SESSION visited nodes: %s' % str(self.session_visited_nodes))
-	#print('ALL TIMES visited nodes: %s' % str(self.visited_nodes_all_times))
 	
 	self.refresh()
 	# We did change node, so important to see it
@@ -172,15 +146,15 @@ func go_to_node(node_id):
 # We are in a new node, check if it's a success.
 # if it is one, display a cool success highlight ^^
 func _check_new_success(node_id):
-	# WARNING: the all_success_chapters is with str keys, not INT (thanks json)
-	var node_id_str = '%d' % node_id
-	if node_id_str in self.all_success_chapters:
-		print('SUCCESS We have a new success:', node_id_str, self.all_success_chapters[node_id_str])
-		self._get_new_success(self.all_success_chapters[node_id_str])
+	if BookData.is_success_chapter(node_id):
+		var success = BookData.get_success_from_chapter(node_id)
+		# Update the success data
+		var popup = $SuccessPopup
+		popup.update_and_show(success)
 	
 
 func _play_intro():
-	self._play_sound('intro.mp3')
+	Sounder.play('intro.mp3')
 
 
 func _play_node_sound():
@@ -197,15 +171,8 @@ func _play_node_sound():
 	if fname == null:  # no sound this node
 		return
 
-	self._play_sound(fname)
+	Sounder.play(fname)
 
-
-func _get_node(node_id):
-	return self.all_nodes['%s' % node_id]
-
-
-func is_node_id_secret(node_id):
-	return node_id in self.secret_node_ids
 
 
 func are_spoils_ok():
@@ -221,7 +188,7 @@ func is_node_id_freely_showable(node_id, secret_jumps):
 		return true
 	
 	# spoils are not known
-	var node = self._get_node(node_id)
+	var node = BookData.get_node(node_id)
 	
 	var is_in_secret_jump = node_id in secret_jumps
 	
@@ -245,7 +212,7 @@ func is_node_id_freely_full_on_all_chapters(node_id):
 	if self.are_spoils_ok():
 			return true
 	# spoils are not known
-	var node = self._get_node(node_id)
+	var node = BookData.get_node(node_id)
 	# node is a secret, last hope is if we already see it in the past (not a spoil if already see ^^)
 	if node_id in self.visited_nodes_all_times:
 		return true
@@ -283,26 +250,6 @@ func _ready():
 	for top_menu in self.top_menus:
 		top_menu.register_main(self)
 	
-	self.all_nodes = load_json_file("res://fdcn-1-compilated-data.json")
-	
-	# Just the list of int of the secret chapters
-	self.secret_node_ids = load_json_file("res://fdcn-1-compilated-secrets.json")
-	
-	# Just a dict arc -> [ chapters ]
-	self.chapters_by_arc = load_json_file("res://fdcn-1-compilated-nodes-by-chapter.json")
-	
-	# Just a dict sub_arc -> [ chapters ]
-	self.chapters_by_sub_arc = load_json_file("res://fdcn-1-compilated-nodes-by-sub-arc.json")
-	
-	# All the success, in a list {id, chapter, txt}
-	self.all_success = load_json_file("res://fdcn-1-compilated-success.json")
-	# All the success chapters id in a list
-	self.all_success_chapters = load_json_file("res://fdcn-1-compilated-success-chapters.json")
-	
-	# Endings: want all, good and bad
-	self.all_endings = load_json_file("res://fdcn-1-compilated-endings.json")
-	self.good_endings = load_json_file("res://fdcn-1-compilated-good-endings.json")
-	self.end_endings = load_json_file("res://fdcn-1-compilated-bad-endings.json")
 	
 	# Load the nodes ids we did already visited in the past
 	self.load_all_times_already_visited()
@@ -323,56 +270,6 @@ func _ready():
 	self._play_intro()
 	
 
-func _get_new_success(success_id):
-	# Update the success data
-	var popup = $SuccessPopup
-	for success in self.all_success:
-		if success['id'] != success_id:
-			continue
-		popup.update_and_show(success)
-		return
-		
-
-func _get_all_nodes_in_the_same_sub_arc(node_id):
-	var chapter_data = self._get_node(node_id)
-	var sub_arc = chapter_data["computed"]["arc"]
-	if sub_arc == null:
-		return []
-	var other_nodes = self.chapters_by_sub_arc[sub_arc]
-	return other_nodes
-
-
-func _get_sub_arc_completion(node_id):
-	var other_nodes = self._get_all_nodes_in_the_same_sub_arc(node_id)
-	if other_nodes == []:  # void chatper, let's say 100%
-		return 100
-	var nb_visited = 0
-	for other_id in other_nodes:
-		if other_id in self.visited_nodes_all_times:
-			nb_visited += 1
-	var pct100 = int(100 * float(nb_visited) / len(other_nodes))
-	return pct100
-
-
-func _get_all_nodes_in_the_same_chapter(node_id):
-	var chapter_data = self._get_node(node_id)
-	var chapter = chapter_data["computed"]["chapter"]
-	if chapter == null:
-		return []
-	var other_nodes = self.chapters_by_arc[chapter]
-	return other_nodes
-
-
-func _get_acte_completion(node_id):
-	var other_nodes = self._get_all_nodes_in_the_same_chapter(node_id)
-	if other_nodes == []:  # void chatper, let's say 100%
-		return 100
-	var nb_visited = 0
-	for other_id in other_nodes:
-		if other_id in self.visited_nodes_all_times:
-			nb_visited += 1
-	var pct100 = int(100 * float(nb_visited) / len(other_nodes))
-	return pct100
 
 
 func jump_to_chapter_100aine(centaine):
@@ -400,11 +297,11 @@ func insert_all_chapters():
 	var all_choices = $Chapitres/AllChapters/VScrollBar/Choices
 	delete_children(all_choices)
 	
-	var chapter_ids = self.all_nodes.keys()
+	var chapter_ids = BookData.get_all_nodes().keys()
 	chapter_ids.sort_custom(self, '_sort_all_chapters')
 	
 	for chapter_id in chapter_ids:
-		var chapter_data = self._get_node(chapter_id)
+		var chapter_data = BookData.get_node(chapter_id)
 		
 		var choice = Choice.instance()
 		choice.set_main(self)
@@ -416,7 +313,7 @@ func _update_all_chapters():
 	var all_choices = $Chapitres/AllChapters/VScrollBar/Choices
 	for choice in all_choices.get_children():
 		var chapter_id = choice.get_chapter_id()
-		var chapter_data = self._get_node(chapter_id)
+		var chapter_data = BookData.get_node(chapter_id)
 		
 		# Update if spoils need to be shown (or not), can depend if we already seen this node
 		if self.is_node_id_freely_full_on_all_chapters(chapter_id):
@@ -452,20 +349,15 @@ func _update_all_chapters():
 			choice.set_secret()
 			
 
-func _get_success_txt(success_id):
-	for success in self.all_success:
-		if success_id == success['id']:
-			return success['txt']
-	return ''
+
 		
 
 func insert_all_success():
 	var all_success = $Succes/Success/VScrollBar/Success
 	delete_children(all_success)
 	
-	var successes = self.all_success
 	
-	for success in successes:
+	for success in BookData.get_all_success():
 		var s = Success.instance()
 		s.set_main(self)
 		print('SUCCESS: %s' % str(success))
@@ -480,7 +372,7 @@ func _update_all_success():
 	var all_success = $Succes/Success/VScrollBar/Success
 	for success in all_success.get_children():
 		var chapter_id = success.get_chapter_id()
-		var chapter_data = self._get_node(chapter_id)
+		var chapter_data = BookData.get_node(chapter_id)
 		
 		# Update if spoils need to be shown (or not), can depend if we already seen this node
 		if self.is_node_id_freely_full_on_all_chapters(chapter_id):
@@ -514,7 +406,7 @@ func refresh():
 	self._update_all_success()
 	
 	# Update the % completion
-	var _nb_all_nodes = len(self.all_nodes)
+	var _nb_all_nodes = len(BookData.get_all_nodes())
 	var _nb_visited = len(self.visited_nodes_all_times)
 
 	var completion_foot_note = $Background/GlobalCompletion/footnode
@@ -523,13 +415,13 @@ func refresh():
 	gauge.set_value(_nb_visited / float(_nb_all_nodes))
 	
 	# Now print my current node
-	var my_node = self._get_node(self.current_node_id)
+	var my_node = BookData.get_node(self.current_node_id)
 	
 	# The act in progress
 	var _acte_label = $Background/Position/Acte
 	_acte_label.text = '%s' % my_node['computed']['chapter']
 	
-	var pct100 = self._get_acte_completion(self.current_node_id)
+	var pct100 = BookData.get_acte_completion(self.current_node_id, self.visited_nodes_all_times)
 	var fill_bar = $Background/Position/fill_bar
 	fill_bar.value = pct100 # % of the acte	is done
 	$Background/Position/fill_par_pct.text = '%3d%%' % pct100
@@ -538,7 +430,7 @@ func refresh():
 	var _arc = my_node['computed']['arc']
 	if _arc != null:
 		# Compute how much of the sub_arc we have done
-		var pct100_sub_arc = self._get_sub_arc_completion(self.current_node_id)
+		var pct100_sub_arc = BookData.get_sub_arc_completion(self.current_node_id, self.visited_nodes_all_times)
 		
 		$Background/Position/fleche_arc.visible = true
 		$Background/Position/LabelArc.visible = true
@@ -617,7 +509,7 @@ func refresh():
 		if !self.is_node_id_freely_showable(son_id, secret_jumps):
 			continue
 		
-		var son = self._get_node(son_id)
+		var son = BookData.get_node(son_id)
 		
 		var choice = Choice.instance()
 		choice.set_main(self)
@@ -659,7 +551,7 @@ func refresh():
 		choice.set_ending_id(ending_id)
 		
 		# Text
-		var ending_txt = self._get_success_txt(ending_id)
+		var ending_txt = BookData.get_success_txt(ending_id)
 		if ending_txt == '':  # not a success
 			ending_txt = my_node['computed']['ending_txt']
 		choice.set_label(ending_txt)
@@ -715,38 +607,29 @@ func _switch_to_guerrier():
 	self.parameters['billy'] = 'guerrier'
 	self.save_parameters()
 	self.refresh()
-	self._play_sound('billy-guerrier.mp3')
+	Sounder.play('billy-guerrier.mp3')
 
 
 func _switch_to_paysan():
 	self.parameters['billy'] = 'paysan'
 	self.save_parameters()
 	self.refresh()
-	self._play_sound('billy-paysan.mp3')
+	Sounder.play('billy-paysan.mp3')
 
 
 func _switch_to_prudent():
 	self.parameters['billy'] = 'prudent'
 	self.save_parameters()
 	self.refresh()
-	self._play_sound('billy-prudent.mp3')
+	Sounder.play('billy-prudent.mp3')
 
 
 func _switch_to_debrouillard():
 	self.parameters['billy'] = 'debrouillard'
 	self.save_parameters()
 	self.refresh()
-	self._play_sound('billy-debrouillard.mp3')
+	Sounder.play('billy-debrouillard.mp3')
 
-
-func _play_sound(pth):
-	var player = $AudioPlayer
-	player.stop()
-	var full_pth = 'res://sounds/%s' % pth
-	var sound = load(full_pth)
-	player.stream = sound
-	player.play()
-	print('PLAYING %s' % full_pth)
 
 
 func _on_main_background_gui_input(event):

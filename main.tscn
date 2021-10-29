@@ -1338,7 +1338,6 @@ texture = ExtResource( 22 )
 position = Vector2( 392.257, 88.6701 )
 scale = Vector2( 0.342538, 0.342538 )
 frames = SubResource( 7 )
-frame = 1
 playing = true
 
 [node name="DevLabel" type="Label" parent="About/About"]
