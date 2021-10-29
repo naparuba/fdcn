@@ -8,10 +8,6 @@ var visited_nodes_all_times = []
 
 var current_lines = []
 
-var parameters = {
-	'billy': 'guerrier',
-	'spoils': true,
-}
 
 onready var Bread = preload('res://bread.tscn')
 onready var Choice = preload('res://ChapterChoice.tscn')
@@ -32,7 +28,7 @@ var top_menus = []
 var all_times_already_visited_file = "user://all_times_already_visited.save"
 var current_node_id_file = "user://current_node_id.save"
 var session_visited_nodes_file  = "user://session_visited_nodes.save"
-var parameters_file  = "user://parameters.save"
+
 
 
 func load_all_times_already_visited():
@@ -87,27 +83,8 @@ func save_session_visited_nodes():
 	f.close()
 	
 
-func load_parameters():
-	var f = File.new()
-	if f.file_exists(parameters_file):
-		f.open(parameters_file, File.READ)
-		var loaded_parameters = f.get_var()
-		f.close()
-		# NOTE: so we can manage code with new parameters
-		for k in loaded_parameters.keys():
-			var v = loaded_parameters[k]
-			print('PARAM: %s=>' % k, v)
-			parameters[k] = v
-	else:
-		# already created in globals
-		pass
 
 
-func save_parameters():
-	var f = File.new()
-	f.open(parameters_file, File.WRITE)
-	f.store_var(parameters)
-	f.close()
 
 
 
@@ -175,16 +152,13 @@ func _play_node_sound():
 
 
 
-func are_spoils_ok():
-	return self.parameters['spoils']
-
 
 # We can show a Choice if:
 # * we are ok with spoils
 # * we are NOT spoils but the node is NOT a secret, and not a secret jump
 # * we are NOT spoils, the node IS a secret but we ALREADY see it
 func is_node_id_freely_showable(node_id, secret_jumps):
-	if self.are_spoils_ok():
+	if AppParameters.are_spoils_ok():
 		return true
 	
 	# spoils are not known
@@ -209,7 +183,7 @@ func is_node_id_freely_showable(node_id, secret_jumps):
 # on the all chapters, the "is not a secret" is not a criteria, as we don't want to see this
 # and also secret jumps is not useful here (not link to a specific src jump node)
 func is_node_id_freely_full_on_all_chapters(node_id):
-	if self.are_spoils_ok():
+	if AppParameters.are_spoils_ok():
 			return true
 	# spoils are not known
 	var node = BookData.get_node(node_id)
@@ -255,7 +229,7 @@ func _ready():
 	self.load_all_times_already_visited()
 	self.load_current_node_id()
 	self.load_session_visited_nodes()
-	self.load_parameters()
+	#self.load_parameters()
 	
 	# Create all chapters in the 2nd screen
 	self.insert_all_chapters()
@@ -387,10 +361,10 @@ func _update_all_success():
 	
 	
 func refresh():	
-	# Update the parameters
+	# Update the top menu with parameters
 	for top_menu in self.top_menus:
-		top_menu.set_spoils(self.parameters['spoils'])	
-		top_menu.set_billy(self.parameters['billy'])
+		top_menu.set_spoils()	
+		top_menu.set_billy()
 		
 	# Note: the first left backer should be disabled if we cannot get back
 	if self.have_previous_chapters():
@@ -520,7 +494,7 @@ func refresh():
 			choice.set_spoil_enabled(true)
 		else:  # only follow the parameter
 			choice.set_spoil_enabled(false)
-		#choice.set_spoil_enabled(self.parameters['spoils'])
+		
 		if son['computed']['is_combat']:
 			choice.set_combat()
 		if son_id in self.session_visited_nodes:
@@ -597,36 +571,30 @@ func jump_back(previous_id):
 	
 
 func change_spoils(b):
-	print('Mode SPOIL ou pas: %s' % b)
-	self.parameters['spoils'] = b
-	self.save_parameters()
+	AppParameters.set_spoils(b)
 	self.refresh()
 
 
 func _switch_to_guerrier():
-	self.parameters['billy'] = 'guerrier'
-	self.save_parameters()
+	AppParameters.set_billy_type('guerrier')
 	self.refresh()
 	Sounder.play('billy-guerrier.mp3')
 
 
 func _switch_to_paysan():
-	self.parameters['billy'] = 'paysan'
-	self.save_parameters()
+	AppParameters.set_billy_type('paysan')
 	self.refresh()
 	Sounder.play('billy-paysan.mp3')
 
 
 func _switch_to_prudent():
-	self.parameters['billy'] = 'prudent'
-	self.save_parameters()
+	AppParameters.set_billy_type('prudent')
 	self.refresh()
 	Sounder.play('billy-prudent.mp3')
 
 
 func _switch_to_debrouillard():
-	self.parameters['billy'] = 'debrouillard'
-	self.save_parameters()
+	AppParameters.set_billy_type('debrouillard')
 	self.refresh()
 	Sounder.play('billy-debrouillard.mp3')
 
@@ -660,37 +628,41 @@ func _update_page_in_top_menus():
 		top_menu.set_page(self.current_page)	
 
 
+func set_camera_to_pos(x):
+	self.camera.position.x = x
+
+
 func focus_to_main():
 	print('=> main')
-	self.camera.position.x = 278
+	self.set_camera_to_pos(278)
 	self.current_page = 'main'
 	self._update_page_in_top_menus()
 	
 	
 func focus_to_chapitres():
 	print('=> chapitres')
-	self.camera.position.x = 876
+	self.set_camera_to_pos( 876)
 	self.current_page = 'chapitres'
 	self._update_page_in_top_menus()
 	
 	
 func focus_to_success():
 	print('=> success')
-	self.camera.position.x = 1471
+	self.set_camera_to_pos (1471)
 	self.current_page = 'success'
 	self._update_page_in_top_menus()
 
 
 func focus_to_lore():
 	print('=> lore')
-	self.camera.position.x = 2058
+	self.set_camera_to_pos( 2058)
 	self.current_page = 'lore'
 	self._update_page_in_top_menus()
 
 
 func focus_to_about():
 	print('=> about')
-	self.camera.position.x = 2648
+	self.set_camera_to_pos( 2648 )
 	self.current_page = 'about'
 	self._update_page_in_top_menus()
 	

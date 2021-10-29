@@ -16,7 +16,8 @@ func register_main(main):
 	self.main = main
 
 
-func set_spoils(b):
+func set_spoils():
+	var b = AppParameters.are_spoils_ok()
 	$Billys/SpoilButton.pressed = b
 
 
@@ -24,7 +25,8 @@ func _on_spoil_button_toggled(button_pressed):
 	self.main.change_spoils(button_pressed)
 
 
-func set_billy(type_billy):
+func set_billy():
+	var type_billy = AppParameters.get_billy_type()
 	var billys = {'guerrier': $Billys/BlockGuerrier,
 	'paysan':$Billys/BlockPaysan,
 	'prudent':$Billys/BlockPrudent,

@@ -27,6 +27,7 @@ Swiper="*res://swipe.gd"
 Utils="*res://utils.gd"
 BookData="*res://BookData.gd"
 Sounder="*res://Sounder.tscn"
+AppParameters="*res://Parameters.gd"
 
 [display]
 

@@ -1,16 +1,56 @@
 extends Node
 
-
-# Declare member variables here. Examples:
-# var a = 2
-# var b = "text"
-
+var parameters_file  = "user://parameters.save"
+var parameters = {
+	'billy': 'guerrier',
+	'spoils': true,
+}
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	pass # Replace with function body.
+	self._load_parameters()
 
 
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-#func _process(delta):
-#	pass
+
+func _load_parameters():
+	var f = File.new()
+	if f.file_exists(parameters_file):
+		f.open(parameters_file, File.READ)
+		var loaded_parameters = f.get_var()
+		f.close()
+		# NOTE: so we can manage code with new parameters
+		for k in loaded_parameters.keys():
+			var v = loaded_parameters[k]
+			print('PARAM: %s=>' % k, v)
+			parameters[k] = v
+	else:
+		# already created in globals
+		pass
+
+
+func _save_parameters():
+	var f = File.new()
+	f.open(parameters_file, File.WRITE)
+	f.store_var(parameters)
+	f.close()
+
+
+func are_spoils_ok():
+	return self.parameters['spoils']
+
+func set_spoils(b):
+	print('PARAMETERS: spoils => %s' % b)
+	self.parameters['spoils'] = b
+	self._save_parameters()
+
+	
+func get_billy_type():
+	return self.parameters['billy']
+
+
+func set_billy_type(billy_type):
+	print('PARAMETERS: billy_type => %s' % billy_type)
+	self.parameters['billy'] = billy_type
+	self._save_parameters()
+
+ 

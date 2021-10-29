@@ -6,28 +6,22 @@ var minimum_drag = 100
 var main = null
 
 func _init():
-	print('Create Swiper')
+	pass
+
 
 func register_main(_main):
 	self.main = _main
 	
 
 func compute_event(event):
-	#self.main.print_debug('%s' % event)
-	#if event is InputEventScreenDrag:
-	#	print("Player gets dragged")
-		#print("ply:", position)
-	#	print("pos: ", event.position)
-	#	print("rel: ", event.relative)
-	#	print("vel: ", event.speed)
 	if event is InputEventScreenTouch:
-		print('TOUCH: %s' % event.is_pressed())
+		#print('TOUCH: %s' % event.is_pressed())
 		#self.main.print_debug('TOUCH: %s' % event.is_pressed())
 		if event.is_pressed():
-			print('START')
+			#print('START')
 			swipe_start = event.position
 		else:
-			print('STOP')
+			#print('STOP')
 			_calculate_swipe(event.position)
 	return
 	
