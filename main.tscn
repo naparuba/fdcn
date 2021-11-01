@@ -1338,6 +1338,7 @@ texture = ExtResource( 22 )
 position = Vector2( 392.257, 88.6701 )
 scale = Vector2( 0.342538, 0.342538 )
 frames = SubResource( 7 )
+frame = 1
 playing = true
 
 [node name="DevLabel" type="Label" parent="About/About"]
@@ -1365,16 +1366,17 @@ custom_colors/font_color = Color( 0, 0.760784, 0.666667, 1 )
 custom_constants/shadow_offset_x = 0
 custom_constants/shadow_offset_y = 0
 custom_constants/shadow_as_outline = 0
-text = "Jean Gabès (naparuba)"
+text = "Jean Gabès
+naparuba@gmail.com"
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
 [node name="VersionLabel" type="Label" parent="About/About"]
-margin_left = 14.5166
-margin_top = 117.531
-margin_right = 84.5171
-margin_bottom = 131.531
+margin_left = 13.1025
+margin_top = 135.209
+margin_right = 83.103
+margin_bottom = 149.209
 custom_fonts/font = ExtResource( 5 )
 custom_colors/font_color = Color( 0, 0, 0, 1 )
 custom_constants/shadow_offset_x = 0
@@ -1386,25 +1388,25 @@ __meta__ = {
 }
 
 [node name="VersionTxt" type="Label" parent="About/About"]
-margin_left = 14.259
-margin_top = 131.255
-margin_right = 244.259
-margin_bottom = 162.255
+margin_left = 12.8449
+margin_top = 155.233
+margin_right = 242.845
+margin_bottom = 186.233
 custom_fonts/font = ExtResource( 2 )
 custom_colors/font_color = Color( 0, 0.760784, 0.666667, 1 )
 custom_constants/shadow_offset_x = 0
 custom_constants/shadow_offset_y = 0
 custom_constants/shadow_as_outline = 0
-text = "0.4"
+text = "0.6"
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
 [node name="SrcLabel" type="Label" parent="About/About"]
-margin_left = 16.3003
-margin_top = 178.775
-margin_right = 86.3011
-margin_bottom = 192.775
+margin_left = 15.593
+margin_top = 187.26
+margin_right = 85.5938
+margin_bottom = 201.26
 custom_fonts/font = ExtResource( 5 )
 custom_colors/font_color = Color( 0, 0, 0, 1 )
 custom_constants/shadow_offset_x = 0
@@ -1416,10 +1418,10 @@ __meta__ = {
 }
 
 [node name="SrcTxt" type="Label" parent="About/About"]
-margin_left = 16.0427
-margin_top = 192.499
-margin_right = 355.043
-margin_bottom = 223.499
+margin_left = 15.3354
+margin_top = 200.984
+margin_right = 354.336
+margin_bottom = 231.984
 custom_fonts/font = ExtResource( 2 )
 custom_colors/font_color = Color( 0, 0.760784, 0.666667, 1 )
 custom_constants/shadow_offset_x = 0
