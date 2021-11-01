@@ -23,3 +23,6 @@ func play(pth):
 	self.player.stream = sound
 	self.player.play()
 
+
+func stop():
+	self.player.stop()

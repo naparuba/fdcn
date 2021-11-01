@@ -3,10 +3,6 @@ tool
 extends Panel
 
 
-# Declare member variables here. Examples:
-# var a = 2
-# var b = "text"
-
 export var type_entry = 'billys'
 export var entry_name = 'guerrier'
 export var titre = 'XXXX'
@@ -31,9 +27,6 @@ func _ready():
 
 
 
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-#func _process(delta):
-#	pass
 
 func _set_can_play():
 	var sprite_play = $click/sprite_play
@@ -68,6 +61,7 @@ func _on_play_pressed():
 		self._set_playing()
 
 	else:  #STOP
+		#Sounder.stop()  # need a callback system
 		player.stop()
 		self._set_can_play()
 

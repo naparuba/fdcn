@@ -1,9 +1,7 @@
 extends Panel
 
 
-# Declare member variables here. Examples:
-# var a = 2
-# var b = "text"
+
 var main = null
 
 
@@ -59,17 +57,17 @@ func set_page(page_name):
 
 
 func focus_to_main():
-	self.main.focus_to_main()
+	Swiper.focus_to_main()
 
 
 func focus_to_chapitres():
-	self.main.focus_to_chapitres()
+	Swiper.focus_to_chapitres()
 	
 func focus_to_success():
-	self.main.focus_to_success()
+	Swiper.focus_to_success()
 	
 func focus_to_lore():
-	self.main.focus_to_lore()
+	Swiper.focus_to_lore()
 	
 # NOTE: page about do NOT have a button
 

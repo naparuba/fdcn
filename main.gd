@@ -111,7 +111,7 @@ func go_to_node(node_id):
 	
 	self.refresh()
 	# We did change node, so important to see it
-	self.focus_to_main()
+	Swiper.focus_to_main()
 	
 	# If we are in a special node, play sound
 	self._play_node_sound()
@@ -599,106 +599,19 @@ func _switch_to_debrouillard():
 	Sounder.play('billy-debrouillard.mp3')
 
 
-
 func _on_main_background_gui_input(event):
 	#print('GUI EVENT: %s' % event)
 	#var swiper = get_node("/root/Swiper")
 	Swiper.compute_event(event)
 
 
-func go_to_page(dest):
-	if dest == 'BACK':
-		self.jump_to_previous_chapter()
-	elif dest == 'main':
-		self.focus_to_main()
-	elif dest == 'chapitres':
-		self.focus_to_chapitres()
-	elif dest == 'success':
-		self.focus_to_success()
-	elif dest == 'lore':
-		self.focus_to_lore()
-	elif dest == 'about':
-		self.focus_to_about()
-	else:
-		print('ERROR: no such dest: %s' % dest)
-
-
-func _update_page_in_top_menus():
+func update_page_in_top_menus(current_page):
 	for top_menu in self.top_menus:
-		top_menu.set_page(self.current_page)	
+		top_menu.set_page(current_page)	
 
 
 func set_camera_to_pos(x):
 	self.camera.position.x = x
-
-
-func focus_to_main():
-	print('=> main')
-	self.set_camera_to_pos(278)
-	self.current_page = 'main'
-	self._update_page_in_top_menus()
-	
-	
-func focus_to_chapitres():
-	print('=> chapitres')
-	self.set_camera_to_pos( 876)
-	self.current_page = 'chapitres'
-	self._update_page_in_top_menus()
-	
-	
-func focus_to_success():
-	print('=> success')
-	self.set_camera_to_pos (1471)
-	self.current_page = 'success'
-	self._update_page_in_top_menus()
-
-
-func focus_to_lore():
-	print('=> lore')
-	self.set_camera_to_pos( 2058)
-	self.current_page = 'lore'
-	self._update_page_in_top_menus()
-
-
-func focus_to_about():
-	print('=> about')
-	self.set_camera_to_pos( 2648 )
-	self.current_page = 'about'
-	self._update_page_in_top_menus()
-	
-
-func swipe_to_left():
-	print('Going to left, from page: %s' % self.current_page)
-	if self.current_page == 'main':
-		self.jump_to_previous_chapter()
-		return
-	elif self.current_page == 'chapitres':
-		print('Going back to main')
-		self.focus_to_main()
-	elif self.current_page == 'success':
-		self.focus_to_chapitres()
-	elif self.current_page == 'lore':
-		self.focus_to_success()
-	elif self.current_page == 'about':
-		self.focus_to_lore()
-	else:
-		print('ERROR: unknown page: %s' % self.current_page)
-
-	
-func swipe_to_right():
-	print('Going to right, from page: %s' % self.current_page)
-	if self.current_page == 'main':
-		self.focus_to_chapitres()
-	elif self.current_page == 'chapitres':
-		self.focus_to_success()
-	elif self.current_page == 'success':
-		self.focus_to_lore()
-	elif self.current_page == 'lore':
-		self.focus_to_about()
-	elif self.current_page == 'about':
-		print('Last page')
-	else:
-		print('ERROR: unknown page: %s' % self.current_page)
 
 
 func jump_to_chapter_1():
@@ -723,7 +636,6 @@ func jump_to_chapter_600():
 	self.jump_to_chapter_100aine(600)	
 	
 
-
 func _on_button_new_billy():
 	self.launch_new_billy()
 	
@@ -734,7 +646,7 @@ func launch_new_billy():
 	self.go_to_node(1)
 	self.refresh()
 	# We did change node, so important to see it
-	self.focus_to_main()
+	Swiper.focus_to_main()
 
 
 func _on_button_bug():
