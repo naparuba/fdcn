@@ -5,7 +5,7 @@ import json
 import sys
 import codecs
 
-display_graph = graphviz.Digraph('G', filename='graph/fdcn_full', format='png')
+display_graph = graphviz.Digraph('G', filename='graph/fdcn_full', format='png', engine='dot')
 
 with codecs.open('fdcn-1.json', 'r', 'utf8') as f:
     book_data = json.loads(f.read())
@@ -559,5 +559,18 @@ with codecs.open('fdcn-1-compilated-success.json', 'w', 'utf8') as f:
 with codecs.open('fdcn-1-compilated-success-chapters.json', 'w', 'utf8') as f:
     f.write(json.dumps(all_success_chapters, indent=4, ensure_ascii=False, sort_keys=True))
 
+# Get the node positions
+# json_string = display_graph.pipe(format='json').decode()
+# json_dict = json.loads(json_string)
+# for obj in json_dict['objects']:
+#     if 'pos' not in obj:  # do not get cluster, we don't care here
+#         continue
+#     print('OBJ: %s' % obj)
+#     print(obj['name'], '\t', obj['pos'])
+
+
+
 print('Rendering')
-display_graph.render()
+#display_graph.render(filename='hello.gv', view=True)#format='json')
+display_graph.render(format='png')
+

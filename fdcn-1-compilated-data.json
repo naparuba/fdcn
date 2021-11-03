@@ -3021,12 +3021,14 @@
             "secret": false,
             "secret_jumps": [],
             "sons": [
+                221,
                 340,
                 376
             ],
             "success": null
         },
         "goto": [
+            221,
             340,
             376
         ]
@@ -3110,8 +3112,8 @@
     },
     "221": {
         "computed": {
-            "arc": null,
-            "chapter": null,
+            "arc": "Cuisine",
+            "chapter": "Forteresse",
             "ending": false,
             "ending_id": null,
             "ending_txt": null,
@@ -3119,14 +3121,15 @@
             "id": 221,
             "is_combat": false,
             "label": null,
-            "secret": false,
+            "secret": true,
             "secret_jumps": [],
             "sons": [
                 431
             ],
             "success": null
         },
-        "goto": 431
+        "goto": 431,
+        "secret": true
     },
     "222": {
         "computed": {
@@ -8346,8 +8349,8 @@
     },
     "431": {
         "computed": {
-            "arc": null,
-            "chapter": null,
+            "arc": "Cuisine",
+            "chapter": "Forteresse",
             "ending": false,
             "ending_id": null,
             "ending_txt": null,
