@@ -358,9 +358,30 @@ func _update_all_success():
 			success.set_already_seen()
 		else:
 			success.set_not_already_seen()
+
+
+func _refresh_options():
+	var type_billy_param = AppParameters.get_billy_type()
+	var sprite_by_billy = {
+		'guerrier':    $Options/BlockGuerrier/sprite,
+		'paysan':      $Options/BlockPaysan/sprite,
+		'prudent':     $Options/BlockPrudent/sprite,
+		'debrouillard':$Options/BlockDebrouillard/sprite
+	}
 	
+	# Gray ALL .material.set_shader_param("param_name", value)
+	for billy in sprite_by_billy.keys():
+		var sprite = sprite_by_billy[billy]
+		sprite.material.set_shader_param("grayscale", true)
+	# Colorize the selected one
+	sprite_by_billy[type_billy_param].material.set_shader_param("grayscale", false)
+
 	
 func refresh():	
+	
+	# Update all options based on params
+	self._refresh_options()
+	
 	# Update the top menu with parameters
 	for top_menu in self.top_menus:
 		top_menu.set_spoils()	
@@ -477,7 +498,7 @@ func refresh():
 	var choices = $Background/Next/ScrollContainer/Choices
 	delete_children(choices)
 	for son_id in sons_ids:
-		print('My son: %s' % son_id)
+		#print('My son: %s' % son_id)
 		
 		# If the son is now ok to be shown, skip it
 		if !self.is_node_id_freely_showable(son_id, secret_jumps):
@@ -487,7 +508,7 @@ func refresh():
 		
 		var choice = Choice.instance()
 		choice.set_main(self)
-		print('NODE: %s' % son)
+		#print('NODE: %s' % son)
 		choice.set_chapitre(son['computed']['id'])
 		# Update if spoils need to be shown (or not), can depend if we already seen this node
 		if self.is_node_id_freely_full_on_all_chapters(son_id):
@@ -575,28 +596,26 @@ func change_spoils(b):
 	self.refresh()
 
 
-func _switch_to_guerrier():
-	AppParameters.set_billy_type('guerrier')
+func set_billy(billy_type):
+	AppParameters.set_billy_type(billy_type)
 	self.refresh()
-	Sounder.play('billy-guerrier.mp3')
+	Sounder.play('billy-%s.mp3' % billy_type)
+	
+
+func _switch_to_guerrier():
+	self.set_billy('guerrier')
 
 
 func _switch_to_paysan():
-	AppParameters.set_billy_type('paysan')
-	self.refresh()
-	Sounder.play('billy-paysan.mp3')
+	self.set_billy('paysan')
 
 
 func _switch_to_prudent():
-	AppParameters.set_billy_type('prudent')
-	self.refresh()
-	Sounder.play('billy-prudent.mp3')
+	self.set_billy('prudent')
 
 
 func _switch_to_debrouillard():
-	AppParameters.set_billy_type('debrouillard')
-	self.refresh()
-	Sounder.play('billy-debrouillard.mp3')
+	self.set_billy('debrouillard')
 
 
 func _on_main_background_gui_input(event):
@@ -655,3 +674,12 @@ func _on_button_bug():
 
 func _on_button_pressed_twitter():
 	OS.shell_open("https://twitter.com/naparuba");
+
+
+func show_options():
+	$Options.visible = true
+
+
+func _on_options_validate_button_pressed():
+	print('BUTTON: validate')
+	$Options.visible = false

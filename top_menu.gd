@@ -73,16 +73,25 @@ func focus_to_lore():
 
 
 func _switch_to_guerrier():
+	print('guerrier')
 	self.main._switch_to_guerrier()
 
 
 func _switch_to_paysan():
+	print('paysan')
 	self.main._switch_to_paysan()
 
 
 func _switch_to_prudent():
+	print('prudent')
 	self.main._switch_to_prudent()
 
 
 func _switch_to_debrouillard():
+	print('debrouillard')
 	self.main._switch_to_debrouillard()
+
+
+func _on_button_options():
+	print('SHOW OPTIONS')
+	self.main.show_options()

@@ -27,7 +27,6 @@ func _ready():
 
 
 
-
 func _set_can_play():
 	var sprite_play = $click/sprite_play
 	var sprite_stop = $click/sprite_stop

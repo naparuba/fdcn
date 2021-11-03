@@ -1,4 +1,4 @@
-[gd_scene load_steps=32 format=2]
+[gd_scene load_steps=49 format=2]
 
 [ext_resource path="res://main.gd" type="Script" id=1]
 [ext_resource path="res://fonts/amon_font.tres" type="DynamicFont" id=2]
@@ -23,6 +23,13 @@
 [ext_resource path="res://images/bug.png" type="Texture" id=21]
 [ext_resource path="res://images/twitter.png" type="Texture" id=22]
 [ext_resource path="res://SuccessPopup.tscn" type="PackedScene" id=23]
+[ext_resource path="res://images/billys/debrouillard.png" type="Texture" id=24]
+[ext_resource path="res://images/billys/prudent.png" type="Texture" id=25]
+[ext_resource path="res://images/billys/paysan.png" type="Texture" id=26]
+[ext_resource path="res://images/billys/guerrier.png" type="Texture" id=27]
+[ext_resource path="res://shaders/gray.gdshader" type="Shader" id=28]
+[ext_resource path="res://shaders/shader_grey.tres" type="Material" id=29]
+[ext_resource path="res://images/blue-tick.png" type="Texture" id=30]
 
 [sub_resource type="StyleBoxFlat" id=1]
 bg_color = Color( 0.92549, 0.929412, 0.94902, 1 )
@@ -58,6 +65,35 @@ animations = [ {
 [sub_resource type="DynamicFont" id=8]
 size = 32
 font_data = ExtResource( 13 )
+
+[sub_resource type="StyleBoxFlat" id=9]
+bg_color = Color( 1, 1, 1, 1 )
+
+[sub_resource type="StyleBoxFlat" id=10]
+bg_color = Color( 0.192157, 0.231373, 0.278431, 1 )
+
+[sub_resource type="StyleBoxFlat" id=11]
+bg_color = Color( 0.913725, 0.917647, 0.92549, 1 )
+
+[sub_resource type="StyleBoxEmpty" id=12]
+
+[sub_resource type="StyleBoxEmpty" id=13]
+
+[sub_resource type="ShaderMaterial" id=14]
+shader = ExtResource( 28 )
+shader_param/grayscale = false
+
+[sub_resource type="StyleBoxEmpty" id=15]
+
+[sub_resource type="ShaderMaterial" id=16]
+shader = ExtResource( 28 )
+shader_param/grayscale = false
+
+[sub_resource type="StyleBoxEmpty" id=17]
+
+[sub_resource type="ShaderMaterial" id=18]
+shader = ExtResource( 28 )
+shader_param/grayscale = false
 
 [node name="main" type="Node2D"]
 script = ExtResource( 1 )
@@ -1546,6 +1582,158 @@ texture = ExtResource( 14 )
 
 [node name="SuccessPopup" parent="." instance=ExtResource( 23 )]
 
+[node name="Options" type="Panel" parent="."]
+visible = false
+margin_left = 5.05872
+margin_top = 14.0045
+margin_right = 553.059
+margin_bottom = 1028.0
+custom_styles/panel = SubResource( 9 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Header" type="Panel" parent="Options"]
+margin_right = 548.0
+margin_bottom = 42.0
+mouse_filter = 1
+custom_styles/panel = SubResource( 10 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Label" type="Label" parent="Options/Header"]
+margin_left = 170.219
+margin_top = 6.5009
+margin_right = 354.219
+margin_bottom = 37.5009
+custom_fonts/font = ExtResource( 2 )
+text = "Options"
+align = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="tick" type="Panel" parent="Options/Header"]
+margin_left = 497.592
+margin_top = 2.68369
+margin_right = 533.592
+margin_bottom = 38.6837
+custom_styles/panel = SubResource( 11 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="tick" type="Sprite" parent="Options/Header/tick"]
+position = Vector2( 19.082, 17.7634 )
+scale = Vector2( 0.0471715, 0.0471715 )
+texture = ExtResource( 30 )
+
+[node name="button" type="TextureButton" parent="Options/Header/tick"]
+margin_left = -1.04053
+margin_top = -1.78381
+margin_right = 38.9595
+margin_bottom = 38.2162
+
+[node name="BlockGuerrier" type="Panel" parent="Options"]
+margin_left = 24.8176
+margin_top = 62.1487
+margin_right = 185.818
+margin_bottom = 498.149
+rect_scale = Vector2( 0.7, 0.7 )
+custom_styles/panel = SubResource( 12 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="sprite" type="Sprite" parent="Options/BlockGuerrier"]
+material = ExtResource( 29 )
+position = Vector2( 81.5072, 218.73 )
+texture = ExtResource( 27 )
+
+[node name="button" type="TextureButton" parent="Options/BlockGuerrier"]
+margin_left = -1.0
+margin_right = 162.0
+margin_bottom = 443.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="BlockPaysan" type="Panel" parent="Options"]
+margin_left = 138.0
+margin_top = 62.0
+margin_right = 305.0
+margin_bottom = 499.0
+rect_scale = Vector2( 0.7, 0.7 )
+custom_styles/panel = SubResource( 13 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="sprite" type="Sprite" parent="Options/BlockPaysan"]
+material = SubResource( 14 )
+position = Vector2( 83.8195, 218.718 )
+texture = ExtResource( 26 )
+
+[node name="button" type="TextureButton" parent="Options/BlockPaysan"]
+margin_left = 9.0
+margin_top = 6.0
+margin_right = 187.0
+margin_bottom = 448.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="BlockPrudent" type="Panel" parent="Options"]
+margin_left = 254.277
+margin_top = 62.1189
+margin_right = 422.277
+margin_bottom = 498.119
+rect_scale = Vector2( 0.7, 0.7 )
+custom_styles/panel = SubResource( 15 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="sprite" type="Sprite" parent="Options/BlockPrudent"]
+material = SubResource( 16 )
+position = Vector2( 83.8195, 218.718 )
+texture = ExtResource( 25 )
+
+[node name="button" type="TextureButton" parent="Options/BlockPrudent"]
+margin_left = 9.0
+margin_top = 3.0
+margin_right = 188.0
+margin_bottom = 447.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="BlockDebrouillard" type="Panel" parent="Options"]
+margin_left = 371.767
+margin_top = 63.4112
+margin_right = 568.767
+margin_bottom = 497.411
+rect_scale = Vector2( 0.7, 0.7 )
+custom_styles/panel = SubResource( 17 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="sprite" type="Sprite" parent="Options/BlockDebrouillard"]
+material = SubResource( 18 )
+position = Vector2( 98.2081, 217.282 )
+texture = ExtResource( 24 )
+
+[node name="button" type="TextureButton" parent="Options/BlockDebrouillard"]
+margin_left = -4.0
+margin_top = 6.0
+margin_right = 201.0
+margin_bottom = 453.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
 [connection signal="gui_input" from="Background" to="." method="_on_main_background_gui_input"]
 [connection signal="gui_input" from="Chapitres" to="." method="_on_main_background_gui_input"]
 [connection signal="pressed" from="Chapitres/AllChapters/Block-1/button" to="." method="jump_to_chapter_1"]
@@ -1561,3 +1749,8 @@ texture = ExtResource( 14 )
 [connection signal="pressed" from="About/Actions/nouveau_billy/Button" to="." method="_on_button_new_billy"]
 [connection signal="pressed" from="About/Actions/new_bug/Button" to="." method="_on_button_bug"]
 [connection signal="pressed" from="About/About/twitter/Button" to="." method="_on_button_pressed_twitter"]
+[connection signal="pressed" from="Options/Header/tick/button" to="." method="_on_options_validate_button_pressed"]
+[connection signal="pressed" from="Options/BlockGuerrier/button" to="." method="_switch_to_guerrier"]
+[connection signal="pressed" from="Options/BlockPaysan/button" to="." method="_switch_to_paysan"]
+[connection signal="pressed" from="Options/BlockPrudent/button" to="." method="_switch_to_prudent"]
+[connection signal="pressed" from="Options/BlockDebrouillard/button" to="." method="_switch_to_debrouillard"]
