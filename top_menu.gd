@@ -37,6 +37,14 @@ func set_billy():
 		#print('STYLE: %s' % _style)
 		_style.set_bg_color(Color('e9eaec'))  # set to light grey
 	billys[type_billy].get('custom_styles/panel').set_bg_color(Color('9ea8b4'))  # set to dark grey
+	
+	var billy_strings = {
+		'guerrier': 'Guerrier',
+		'paysan': 'Paysan',
+		'prudent': 'Prudent',
+		'debrouillard': 'Débrouillard'
+	}
+	$Billys/BillyTypeLabel.text = billy_strings[type_billy]
 
 
 func set_page(page_name):
