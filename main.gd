@@ -40,6 +40,7 @@ func load_all_times_already_visited():
 	else:
 		visited_nodes_all_times = []
 
+
 func save_all_times_already_visited():
 	var f = File.new()
 	f.open(all_times_already_visited_file, File.WRITE)
@@ -75,7 +76,6 @@ func load_session_visited_nodes():
 
 
 func save_session_visited_nodes():
-	return
 	var f = File.new()
 	f.open(session_visited_nodes_file, File.WRITE)
 	print('SAVING in file: %s' % f)
@@ -140,6 +140,7 @@ func _play_node_sound():
 	player.stop()
 	
 	var node_sound_fnames = {
+		27: '27-kakaka.mp3',
 		193: '193-la-cathedrale.mp3',
 		216: '216-tour-des-mages.mp3',
 		338: '338-virilus-backstory.mp3'

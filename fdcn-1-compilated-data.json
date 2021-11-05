@@ -4293,7 +4293,7 @@
             "ending_type": null,
             "id": 27,
             "is_combat": false,
-            "label": null,
+            "label": "KaKaKa",
             "secret": false,
             "secret_jumps": [],
             "sons": [
@@ -4307,7 +4307,8 @@
             540,
             528,
             86
-        ]
+        ],
+        "label": "KaKaKa"
     },
     "270": {
         "computed": {
