@@ -678,6 +678,8 @@ func _on_button_pressed_twitter():
 
 
 func show_options():
+	# Currently options are in the main page
+	Swiper.focus_to_main()
 	$Options.visible = true
 
 
