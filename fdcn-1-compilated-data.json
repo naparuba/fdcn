@@ -9,6 +9,7 @@
             "ending_type": null,
             "id": 1,
             "is_combat": false,
+            "jump_conditions": {},
             "label": null,
             "secret": false,
             "secret_jumps": [],
@@ -29,6 +30,11 @@
             "ending_type": null,
             "id": 10,
             "is_combat": false,
+            "jump_conditions": {
+                "184": {
+                    "$end": "KIT D'ESCALADE"
+                }
+            },
             "label": "Tour nord",
             "secret": false,
             "secret_jumps": [],
@@ -38,6 +44,9 @@
                 530
             ],
             "success": null
+        },
+        "conditions": {
+            "184": "KIT D'ESCALADE"
         },
         "goto": [
             461,
@@ -56,6 +65,7 @@
             "ending_type": null,
             "id": 100,
             "is_combat": false,
+            "jump_conditions": {},
             "label": "Acte I, Lennonia",
             "secret": false,
             "secret_jumps": [],
@@ -99,6 +109,7 @@
             "ending_type": null,
             "id": 101,
             "is_combat": false,
+            "jump_conditions": {},
             "label": "Atelier",
             "secret": false,
             "secret_jumps": [],
@@ -124,6 +135,7 @@
             "ending_type": null,
             "id": 102,
             "is_combat": false,
+            "jump_conditions": {},
             "label": null,
             "secret": false,
             "secret_jumps": [],
@@ -152,6 +164,7 @@
             "ending_type": null,
             "id": 103,
             "is_combat": false,
+            "jump_conditions": {},
             "label": null,
             "secret": true,
             "secret_jumps": [],
@@ -177,6 +190,7 @@
             "ending_type": null,
             "id": 104,
             "is_combat": false,
+            "jump_conditions": {},
             "label": null,
             "secret": false,
             "secret_jumps": [],
@@ -197,6 +211,7 @@
             "ending_type": null,
             "id": 105,
             "is_combat": false,
+            "jump_conditions": {},
             "label": null,
             "secret": false,
             "secret_jumps": [],
@@ -217,6 +232,7 @@
             "ending_type": null,
             "id": 106,
             "is_combat": false,
+            "jump_conditions": {},
             "label": null,
             "secret": false,
             "secret_jumps": [],
@@ -237,6 +253,7 @@
             "ending_type": null,
             "id": 107,
             "is_combat": false,
+            "jump_conditions": {},
             "label": null,
             "secret": false,
             "secret_jumps": [],
@@ -257,6 +274,7 @@
             "ending_type": null,
             "id": 108,
             "is_combat": false,
+            "jump_conditions": {},
             "label": null,
             "secret": false,
             "secret_jumps": [],
@@ -277,6 +295,7 @@
             "ending_type": null,
             "id": 109,
             "is_combat": false,
+            "jump_conditions": {},
             "label": null,
             "secret": true,
             "secret_jumps": [],
@@ -298,6 +317,7 @@
             "ending_type": null,
             "id": 11,
             "is_combat": false,
+            "jump_conditions": {},
             "label": null,
             "secret": false,
             "secret_jumps": [],
@@ -322,6 +342,11 @@
             "ending_type": null,
             "id": 110,
             "is_combat": false,
+            "jump_conditions": {
+                "392": {
+                    "$end": "PAYSAN"
+                }
+            },
             "label": null,
             "secret": false,
             "secret_jumps": [],
@@ -331,6 +356,9 @@
                 392
             ],
             "success": null
+        },
+        "conditions": {
+            "392": "PAYSAN"
         },
         "goto": [
             242,
@@ -348,6 +376,7 @@
             "ending_type": null,
             "id": 111,
             "is_combat": false,
+            "jump_conditions": {},
             "label": null,
             "secret": false,
             "secret_jumps": [],
@@ -368,6 +397,7 @@
             "ending_type": null,
             "id": 112,
             "is_combat": false,
+            "jump_conditions": {},
             "label": null,
             "secret": false,
             "secret_jumps": [],
@@ -389,6 +419,7 @@
             "ending_type": null,
             "id": 113,
             "is_combat": false,
+            "jump_conditions": {},
             "label": null,
             "secret": false,
             "secret_jumps": [],
@@ -410,6 +441,7 @@
             "ending_type": null,
             "id": 114,
             "is_combat": true,
+            "jump_conditions": {},
             "label": null,
             "secret": false,
             "secret_jumps": [],
@@ -430,6 +462,7 @@
             "ending_type": null,
             "id": 115,
             "is_combat": false,
+            "jump_conditions": {},
             "label": null,
             "secret": false,
             "secret_jumps": [],
@@ -454,6 +487,7 @@
             "ending_type": null,
             "id": 116,
             "is_combat": false,
+            "jump_conditions": {},
             "label": null,
             "secret": false,
             "secret_jumps": [],
@@ -478,6 +512,7 @@
             "ending_type": null,
             "id": 117,
             "is_combat": false,
+            "jump_conditions": {},
             "label": "Rue",
             "secret": false,
             "secret_jumps": [],
@@ -505,6 +540,7 @@
             "ending_type": null,
             "id": 118,
             "is_combat": false,
+            "jump_conditions": {},
             "label": null,
             "secret": false,
             "secret_jumps": [],
@@ -525,6 +561,7 @@
             "ending_type": null,
             "id": 119,
             "is_combat": false,
+            "jump_conditions": {},
             "label": null,
             "secret": true,
             "secret_jumps": [],
@@ -546,6 +583,7 @@
             "ending_type": null,
             "id": 12,
             "is_combat": false,
+            "jump_conditions": {},
             "label": null,
             "secret": false,
             "secret_jumps": [],
@@ -566,6 +604,11 @@
             "ending_type": null,
             "id": 120,
             "is_combat": false,
+            "jump_conditions": {
+                "91": {
+                    "$end": "PASSE-PARTOUT"
+                }
+            },
             "label": null,
             "secret": false,
             "secret_jumps": [],
@@ -575,6 +618,9 @@
                 125
             ],
             "success": null
+        },
+        "conditions": {
+            "91": "PASSE-PARTOUT"
         },
         "goto": [
             91,
@@ -592,6 +638,7 @@
             "ending_type": null,
             "id": 121,
             "is_combat": false,
+            "jump_conditions": {},
             "label": null,
             "secret": false,
             "secret_jumps": [],
@@ -612,6 +659,7 @@
             "ending_type": null,
             "id": 122,
             "is_combat": false,
+            "jump_conditions": {},
             "label": "Commanderie",
             "secret": false,
             "secret_jumps": [],
@@ -643,6 +691,7 @@
             "ending_type": null,
             "id": 123,
             "is_combat": false,
+            "jump_conditions": {},
             "label": null,
             "secret": false,
             "secret_jumps": [],
@@ -663,6 +712,7 @@
             "ending_type": null,
             "id": 124,
             "is_combat": false,
+            "jump_conditions": {},
             "label": null,
             "secret": false,
             "secret_jumps": [],
@@ -687,6 +737,7 @@
             "ending_type": null,
             "id": 125,
             "is_combat": false,
+            "jump_conditions": {},
             "label": null,
             "secret": false,
             "secret_jumps": [],
@@ -707,6 +758,7 @@
             "ending_type": null,
             "id": 126,
             "is_combat": false,
+            "jump_conditions": {},
             "label": null,
             "secret": false,
             "secret_jumps": [],
@@ -727,6 +779,7 @@
             "ending_type": null,
             "id": 127,
             "is_combat": false,
+            "jump_conditions": {},
             "label": null,
             "secret": false,
             "secret_jumps": [],
@@ -747,6 +800,7 @@
             "ending_type": null,
             "id": 128,
             "is_combat": false,
+            "jump_conditions": {},
             "label": null,
             "secret": false,
             "secret_jumps": [],
@@ -767,6 +821,7 @@
             "ending_type": null,
             "id": 129,
             "is_combat": false,
+            "jump_conditions": {},
             "label": null,
             "secret": true,
             "secret_jumps": [],
@@ -793,6 +848,7 @@
             "ending_type": null,
             "id": 13,
             "is_combat": false,
+            "jump_conditions": {},
             "label": null,
             "secret": true,
             "secret_jumps": [],
@@ -814,6 +870,7 @@
             "ending_type": null,
             "id": 130,
             "is_combat": false,
+            "jump_conditions": {},
             "label": null,
             "secret": true,
             "secret_jumps": [],
@@ -835,6 +892,7 @@
             "ending_type": null,
             "id": 131,
             "is_combat": false,
+            "jump_conditions": {},
             "label": null,
             "secret": false,
             "secret_jumps": [],
@@ -855,6 +913,7 @@
             "ending_type": null,
             "id": 132,
             "is_combat": false,
+            "jump_conditions": {},
             "label": null,
             "secret": false,
             "secret_jumps": [],
@@ -876,6 +935,7 @@
             "ending_type": null,
             "id": 133,
             "is_combat": true,
+            "jump_conditions": {},
             "label": null,
             "secret": false,
             "secret_jumps": [],
@@ -896,6 +956,7 @@
             "ending_type": null,
             "id": 134,
             "is_combat": false,
+            "jump_conditions": {},
             "label": null,
             "secret": false,
             "secret_jumps": [],
@@ -916,6 +977,7 @@
             "ending_type": null,
             "id": 135,
             "is_combat": false,
+            "jump_conditions": {},
             "label": null,
             "secret": false,
             "secret_jumps": [],
@@ -937,6 +999,7 @@
             "ending_type": null,
             "id": 136,
             "is_combat": false,
+            "jump_conditions": {},
             "label": null,
             "secret": false,
             "secret_jumps": [],
@@ -965,6 +1028,7 @@
             "ending_type": null,
             "id": 137,
             "is_combat": false,
+            "jump_conditions": {},
             "label": null,
             "secret": false,
             "secret_jumps": [],
@@ -985,6 +1049,7 @@
             "ending_type": null,
             "id": 138,
             "is_combat": false,
+            "jump_conditions": {},
             "label": null,
             "secret": false,
             "secret_jumps": [],
@@ -1006,6 +1071,7 @@
             "ending_type": null,
             "id": 139,
             "is_combat": false,
+            "jump_conditions": {},
             "label": null,
             "secret": false,
             "secret_jumps": [],
@@ -1027,6 +1093,7 @@
             "ending_type": null,
             "id": 14,
             "is_combat": true,
+            "jump_conditions": {},
             "label": null,
             "secret": false,
             "secret_jumps": [],
@@ -1047,6 +1114,7 @@
             "ending_type": null,
             "id": 140,
             "is_combat": false,
+            "jump_conditions": {},
             "label": null,
             "secret": false,
             "secret_jumps": [],
@@ -1067,6 +1135,7 @@
             "ending_type": null,
             "id": 141,
             "is_combat": false,
+            "jump_conditions": {},
             "label": null,
             "secret": false,
             "secret_jumps": [],
@@ -1087,6 +1156,7 @@
             "ending_type": null,
             "id": 142,
             "is_combat": false,
+            "jump_conditions": {},
             "label": null,
             "secret": false,
             "secret_jumps": [],
@@ -1107,6 +1177,7 @@
             "ending_type": null,
             "id": 143,
             "is_combat": false,
+            "jump_conditions": {},
             "label": null,
             "secret": false,
             "secret_jumps": [],
@@ -1127,6 +1198,7 @@
             "ending_type": null,
             "id": 144,
             "is_combat": false,
+            "jump_conditions": {},
             "label": null,
             "secret": false,
             "secret_jumps": [],
@@ -1147,6 +1219,7 @@
             "ending_type": null,
             "id": 145,
             "is_combat": false,
+            "jump_conditions": {},
             "label": null,
             "secret": false,
             "secret_jumps": [],
@@ -1173,6 +1246,7 @@
             "ending_type": null,
             "id": 146,
             "is_combat": false,
+            "jump_conditions": {},
             "label": null,
             "secret": false,
             "secret_jumps": [],
@@ -1193,6 +1267,7 @@
             "ending_type": null,
             "id": 147,
             "is_combat": false,
+            "jump_conditions": {},
             "label": null,
             "secret": false,
             "secret_jumps": [],
@@ -1213,6 +1288,20 @@
             "ending_type": null,
             "id": 148,
             "is_combat": false,
+            "jump_conditions": {
+                "114": {
+                    "$end": "FOURCHE"
+                },
+                "196": {
+                    "$end": "LANCE"
+                },
+                "422": {
+                    "$end": "MARMITE"
+                },
+                "455": {
+                    "$end": "KIT D'ESCALADE"
+                }
+            },
             "label": "Quartier boulanger",
             "secret": false,
             "secret_jumps": [],
@@ -1226,6 +1315,12 @@
                 496
             ],
             "success": null
+        },
+        "conditions": {
+            "114": "FOURCHE",
+            "196": "LANCE",
+            "422": "MARMITE",
+            "455": "KIT D'ESCALADE"
         },
         "goto": [
             455,
@@ -1248,6 +1343,7 @@
             "ending_type": null,
             "id": 149,
             "is_combat": false,
+            "jump_conditions": {},
             "label": null,
             "secret": false,
             "secret_jumps": [],
@@ -1272,6 +1368,7 @@
             "ending_type": null,
             "id": 15,
             "is_combat": false,
+            "jump_conditions": {},
             "label": null,
             "secret": false,
             "secret_jumps": [],
@@ -1292,6 +1389,7 @@
             "ending_type": null,
             "id": 150,
             "is_combat": false,
+            "jump_conditions": {},
             "label": null,
             "secret": false,
             "secret_jumps": [],
@@ -1312,6 +1410,11 @@
             "ending_type": null,
             "id": 151,
             "is_combat": false,
+            "jump_conditions": {
+                "18": {
+                    "$end": "BAGUE DE RUBIS"
+                }
+            },
             "label": null,
             "secret": false,
             "secret_jumps": [],
@@ -1320,6 +1423,9 @@
                 233
             ],
             "success": null
+        },
+        "conditions": {
+            "18": "BAGUE DE RUBIS"
         },
         "goto": [
             18,
@@ -1336,6 +1442,7 @@
             "ending_type": null,
             "id": 152,
             "is_combat": false,
+            "jump_conditions": {},
             "label": null,
             "secret": true,
             "secret_jumps": [],
@@ -1361,6 +1468,7 @@
             "ending_type": null,
             "id": 153,
             "is_combat": false,
+            "jump_conditions": {},
             "label": null,
             "secret": false,
             "secret_jumps": [],
@@ -1381,6 +1489,7 @@
             "ending_type": null,
             "id": 154,
             "is_combat": false,
+            "jump_conditions": {},
             "label": "Latrines",
             "secret": false,
             "secret_jumps": [],
@@ -1409,6 +1518,7 @@
             "ending_type": null,
             "id": 155,
             "is_combat": true,
+            "jump_conditions": {},
             "label": null,
             "secret": false,
             "secret_jumps": [],
@@ -1429,6 +1539,7 @@
             "ending_type": 2,
             "id": 156,
             "is_combat": false,
+            "jump_conditions": {},
             "label": null,
             "secret": false,
             "secret_jumps": [],
@@ -1449,6 +1560,7 @@
             "ending_type": null,
             "id": 157,
             "is_combat": false,
+            "jump_conditions": {},
             "label": "Quartier insalubre",
             "secret": false,
             "secret_jumps": [],
@@ -1478,6 +1590,7 @@
             "ending_type": null,
             "id": 158,
             "is_combat": false,
+            "jump_conditions": {},
             "label": "Voyante",
             "secret": false,
             "secret_jumps": [],
@@ -1511,6 +1624,7 @@
             "ending_type": null,
             "id": 159,
             "is_combat": false,
+            "jump_conditions": {},
             "label": null,
             "secret": true,
             "secret_jumps": [],
@@ -1532,6 +1646,18 @@
             "ending_type": null,
             "id": 16,
             "is_combat": false,
+            "jump_conditions": {
+                "16": {
+                    "$or": [
+                        {
+                            "$end": "MORGENSTERN"
+                        },
+                        {
+                            "$end": "GUERRIER"
+                        }
+                    ]
+                }
+            },
             "label": null,
             "secret": false,
             "secret_jumps": [],
@@ -1540,6 +1666,9 @@
                 294
             ],
             "success": null
+        },
+        "conditions": {
+            "16": "MORGENSTERN|GUERRIER"
         },
         "goto": [
             294,
@@ -1556,6 +1685,7 @@
             "ending_type": null,
             "id": 160,
             "is_combat": false,
+            "jump_conditions": {},
             "label": null,
             "secret": false,
             "secret_jumps": [],
@@ -1576,6 +1706,7 @@
             "ending_type": null,
             "id": 161,
             "is_combat": false,
+            "jump_conditions": {},
             "label": null,
             "secret": false,
             "secret_jumps": [],
@@ -1597,6 +1728,7 @@
             "ending_type": null,
             "id": 162,
             "is_combat": true,
+            "jump_conditions": {},
             "label": null,
             "secret": false,
             "secret_jumps": [],
@@ -1617,6 +1749,7 @@
             "ending_type": 2,
             "id": 163,
             "is_combat": false,
+            "jump_conditions": {},
             "label": null,
             "secret": false,
             "secret_jumps": [],
@@ -1638,6 +1771,11 @@
             "ending_type": null,
             "id": 164,
             "is_combat": false,
+            "jump_conditions": {
+                "197": {
+                    "$end": "BRAS SQUELETTIQUE"
+                }
+            },
             "label": null,
             "secret": false,
             "secret_jumps": [],
@@ -1647,6 +1785,9 @@
                 197
             ],
             "success": null
+        },
+        "conditions": {
+            "197": "BRAS SQUELETTIQUE"
         },
         "goto": [
             16,
@@ -1664,6 +1805,7 @@
             "ending_type": null,
             "id": 165,
             "is_combat": false,
+            "jump_conditions": {},
             "label": "Marché aux marchands",
             "secret": false,
             "secret_jumps": [],
@@ -1691,6 +1833,7 @@
             "ending_type": null,
             "id": 166,
             "is_combat": false,
+            "jump_conditions": {},
             "label": null,
             "secret": false,
             "secret_jumps": [],
@@ -1712,6 +1855,7 @@
             "ending_type": null,
             "id": 167,
             "is_combat": false,
+            "jump_conditions": {},
             "label": null,
             "secret": false,
             "secret_jumps": [],
@@ -1736,6 +1880,7 @@
             "ending_type": null,
             "id": 168,
             "is_combat": false,
+            "jump_conditions": {},
             "label": null,
             "secret": false,
             "secret_jumps": [],
@@ -1760,6 +1905,27 @@
             "ending_type": null,
             "id": 169,
             "is_combat": false,
+            "jump_conditions": {
+                "264": {
+                    "$end": "COUTEAU"
+                },
+                "273": {
+                    "$end": "PRUDENT"
+                },
+                "326": {
+                    "$end": "ARC"
+                },
+                "372": {
+                    "$or": [
+                        {
+                            "$end": "LANCE"
+                        },
+                        {
+                            "$end": "COTTE DE MAILLES"
+                        }
+                    ]
+                }
+            },
             "label": null,
             "secret": false,
             "secret_jumps": [],
@@ -1771,6 +1937,12 @@
                 372
             ],
             "success": null
+        },
+        "conditions": {
+            "264": "COUTEAU",
+            "273": "PRUDENT",
+            "326": "ARC",
+            "372": "LANCE|COTTE DE MAILLES"
         },
         "goto": [
             273,
@@ -1790,6 +1962,7 @@
             "ending_type": null,
             "id": 17,
             "is_combat": false,
+            "jump_conditions": {},
             "label": null,
             "secret": false,
             "secret_jumps": [],
@@ -1810,6 +1983,7 @@
             "ending_type": null,
             "id": 170,
             "is_combat": false,
+            "jump_conditions": {},
             "label": null,
             "secret": true,
             "secret_jumps": [],
@@ -1831,6 +2005,18 @@
             "ending_type": null,
             "id": 171,
             "is_combat": false,
+            "jump_conditions": {
+                "215": {
+                    "$or": [
+                        {
+                            "$end": "KIT DE SOIN"
+                        },
+                        {
+                            "$end": "PETIT MEDAILLON"
+                        }
+                    ]
+                }
+            },
             "label": "Apothicaire",
             "secret": false,
             "secret_jumps": [],
@@ -1839,6 +2025,9 @@
                 368
             ],
             "success": null
+        },
+        "conditions": {
+            "215": "KIT DE SOIN|PETIT MEDAILLON"
         },
         "goto": [
             215,
@@ -1856,6 +2045,7 @@
             "ending_type": null,
             "id": 172,
             "is_combat": false,
+            "jump_conditions": {},
             "label": null,
             "secret": false,
             "secret_jumps": [],
@@ -1877,6 +2067,7 @@
             "ending_type": null,
             "id": 173,
             "is_combat": true,
+            "jump_conditions": {},
             "label": null,
             "secret": false,
             "secret_jumps": [],
@@ -1897,6 +2088,24 @@
             "ending_type": null,
             "id": 174,
             "is_combat": false,
+            "jump_conditions": {
+                "45": {
+                    "$or": [
+                        {
+                            "$end": "GUERRIER"
+                        },
+                        {
+                            "$end": "PAYSAN"
+                        },
+                        {
+                            "$end": "PRUDENT"
+                        },
+                        {
+                            "$end": "DEBROUILLARD"
+                        }
+                    ]
+                }
+            },
             "label": null,
             "secret": false,
             "secret_jumps": [],
@@ -1904,6 +2113,9 @@
                 45
             ],
             "success": null
+        },
+        "conditions": {
+            "45": "GUERRIER|PAYSAN|PRUDENT|DEBROUILLARD"
         },
         "goto": 45
     },
@@ -1918,6 +2130,7 @@
             "ending_type": null,
             "id": 175,
             "is_combat": true,
+            "jump_conditions": {},
             "label": null,
             "secret": false,
             "secret_jumps": [],
@@ -1938,6 +2151,7 @@
             "ending_type": null,
             "id": 176,
             "is_combat": false,
+            "jump_conditions": {},
             "label": null,
             "secret": false,
             "secret_jumps": [],
@@ -1964,6 +2178,7 @@
             "ending_type": null,
             "id": 177,
             "is_combat": false,
+            "jump_conditions": {},
             "label": null,
             "secret": false,
             "secret_jumps": [],
@@ -1984,6 +2199,7 @@
             "ending_type": null,
             "id": 178,
             "is_combat": false,
+            "jump_conditions": {},
             "label": "Le Fanta",
             "secret": false,
             "secret_jumps": [],
@@ -2005,6 +2221,7 @@
             "ending_type": null,
             "id": 179,
             "is_combat": false,
+            "jump_conditions": {},
             "label": null,
             "secret": false,
             "secret_jumps": [],
@@ -2025,6 +2242,7 @@
             "ending_type": null,
             "id": 18,
             "is_combat": false,
+            "jump_conditions": {},
             "label": null,
             "secret": false,
             "secret_jumps": [],
@@ -2045,6 +2263,7 @@
             "ending_type": null,
             "id": 180,
             "is_combat": false,
+            "jump_conditions": {},
             "label": null,
             "secret": false,
             "secret_jumps": [],
@@ -2065,6 +2284,7 @@
             "ending_type": null,
             "id": 181,
             "is_combat": false,
+            "jump_conditions": {},
             "label": "Forgeron",
             "secret": false,
             "secret_jumps": [],
@@ -2090,6 +2310,7 @@
             "ending_type": null,
             "id": 182,
             "is_combat": false,
+            "jump_conditions": {},
             "label": null,
             "secret": false,
             "secret_jumps": [],
@@ -2114,6 +2335,7 @@
             "ending_type": null,
             "id": 183,
             "is_combat": false,
+            "jump_conditions": {},
             "label": null,
             "secret": false,
             "secret_jumps": [],
@@ -2140,6 +2362,11 @@
             "ending_type": null,
             "id": 184,
             "is_combat": false,
+            "jump_conditions": {
+                "10": {
+                    "$end": "KIT D'ESCALADE"
+                }
+            },
             "label": "Plateforme d'atterrissage",
             "secret": false,
             "secret_jumps": [],
@@ -2149,6 +2376,9 @@
                 581
             ],
             "success": null
+        },
+        "conditions": {
+            "10": "KIT D'ESCALADE"
         },
         "goto": [
             340,
@@ -2167,6 +2397,7 @@
             "ending_type": null,
             "id": 185,
             "is_combat": false,
+            "jump_conditions": {},
             "label": null,
             "secret": false,
             "secret_jumps": [],
@@ -2187,6 +2418,11 @@
             "ending_type": null,
             "id": 186,
             "is_combat": false,
+            "jump_conditions": {
+                "151": {
+                    "$end": "GROSSE CLE"
+                }
+            },
             "label": "Salle trésor",
             "secret": false,
             "secret_jumps": [],
@@ -2195,6 +2431,9 @@
                 313
             ],
             "success": null
+        },
+        "conditions": {
+            "151": "GROSSE CLE"
         },
         "goto": [
             151,
@@ -2212,6 +2451,14 @@
             "ending_type": null,
             "id": 187,
             "is_combat": false,
+            "jump_conditions": {
+                "108": {
+                    "$end": "PAMPHLET"
+                },
+                "269": {
+                    "$end": "ECUSSON D'ORC"
+                }
+            },
             "label": "Bibliothèque",
             "secret": false,
             "secret_jumps": [],
@@ -2221,6 +2468,10 @@
                 371
             ],
             "success": null
+        },
+        "conditions": {
+            "108": "PAMPHLET",
+            "269": "ECUSSON D'ORC"
         },
         "goto": [
             108,
@@ -2239,6 +2490,20 @@
             "ending_type": null,
             "id": 188,
             "is_combat": false,
+            "jump_conditions": {
+                "208": {
+                    "$end": "SAC DE GRAINS"
+                },
+                "217": {
+                    "$end": "MARMITE"
+                },
+                "463": {
+                    "$end": "PAMPHLET"
+                },
+                "506": {
+                    "$end": "PHILTRE D'AMOUR"
+                }
+            },
             "label": null,
             "secret": false,
             "secret_jumps": [],
@@ -2253,6 +2518,12 @@
                 506
             ],
             "success": null
+        },
+        "conditions": {
+            "208": "SAC DE GRAINS",
+            "217": "MARMITE",
+            "463": "PAMPHLET",
+            "506": "PHILTRE D'AMOUR"
         },
         "goto": [
             463,
@@ -2275,6 +2546,7 @@
             "ending_type": null,
             "id": 189,
             "is_combat": false,
+            "jump_conditions": {},
             "label": null,
             "secret": false,
             "secret_jumps": [],
@@ -2296,6 +2568,7 @@
             "ending_type": null,
             "id": 19,
             "is_combat": true,
+            "jump_conditions": {},
             "label": null,
             "secret": false,
             "secret_jumps": [],
@@ -2316,6 +2589,7 @@
             "ending_type": null,
             "id": 190,
             "is_combat": false,
+            "jump_conditions": {},
             "label": null,
             "secret": false,
             "secret_jumps": [],
@@ -2342,6 +2616,7 @@
             "ending_type": null,
             "id": 191,
             "is_combat": false,
+            "jump_conditions": {},
             "label": null,
             "secret": false,
             "secret_jumps": [],
@@ -2368,6 +2643,7 @@
             "ending_type": null,
             "id": 192,
             "is_combat": false,
+            "jump_conditions": {},
             "label": null,
             "secret": false,
             "secret_jumps": [],
@@ -2394,6 +2670,11 @@
             "ending_type": null,
             "id": 193,
             "is_combat": false,
+            "jump_conditions": {
+                "87": {
+                    "$end": "PAMPHLET"
+                }
+            },
             "label": "Acte II, La Cathédrale",
             "secret": false,
             "secret_jumps": [],
@@ -2404,6 +2685,9 @@
                 167
             ],
             "success": null
+        },
+        "conditions": {
+            "87": "PAMPHLET"
         },
         "goto": [
             87,
@@ -2423,6 +2707,7 @@
             "ending_type": null,
             "id": 194,
             "is_combat": false,
+            "jump_conditions": {},
             "label": null,
             "secret": false,
             "secret_jumps": [],
@@ -2444,6 +2729,7 @@
             "ending_type": null,
             "id": 195,
             "is_combat": false,
+            "jump_conditions": {},
             "label": null,
             "secret": false,
             "secret_jumps": [],
@@ -2464,6 +2750,7 @@
             "ending_type": null,
             "id": 196,
             "is_combat": false,
+            "jump_conditions": {},
             "label": null,
             "secret": false,
             "secret_jumps": [],
@@ -2484,6 +2771,11 @@
             "ending_type": null,
             "id": 197,
             "is_combat": false,
+            "jump_conditions": {
+                "164": {
+                    "$end": "MORGENSTERN"
+                }
+            },
             "label": null,
             "secret": false,
             "secret_jumps": [],
@@ -2492,6 +2784,9 @@
                 164
             ],
             "success": null
+        },
+        "conditions": {
+            "164": "MORGENSTERN"
         },
         "goto": [
             164,
@@ -2508,6 +2803,7 @@
             "ending_type": null,
             "id": 198,
             "is_combat": false,
+            "jump_conditions": {},
             "label": null,
             "secret": false,
             "secret_jumps": [],
@@ -2532,6 +2828,7 @@
             "ending_type": null,
             "id": 199,
             "is_combat": false,
+            "jump_conditions": {},
             "label": null,
             "secret": false,
             "secret_jumps": [],
@@ -2552,6 +2849,20 @@
             "ending_type": null,
             "id": 2,
             "is_combat": false,
+            "jump_conditions": {
+                "11": {
+                    "$end": "GUERRIER"
+                },
+                "44": {
+                    "$end": "DEBROUILLARD"
+                },
+                "77": {
+                    "$end": "PRUDENT"
+                },
+                "99": {
+                    "$end": "PAYSAN"
+                }
+            },
             "label": null,
             "secret": false,
             "secret_jumps": [],
@@ -2562,6 +2873,12 @@
                 99
             ],
             "success": null
+        },
+        "conditions": {
+            "11": "GUERRIER",
+            "44": "DEBROUILLARD",
+            "77": "PRUDENT",
+            "99": "PAYSAN"
         },
         "goto": [
             11,
@@ -2580,6 +2897,7 @@
             "ending_type": null,
             "id": 20,
             "is_combat": false,
+            "jump_conditions": {},
             "label": null,
             "secret": false,
             "secret_jumps": [],
@@ -2600,6 +2918,7 @@
             "ending_type": null,
             "id": 200,
             "is_combat": false,
+            "jump_conditions": {},
             "label": null,
             "secret": false,
             "secret_jumps": [],
@@ -2624,6 +2943,7 @@
             "ending_type": null,
             "id": 201,
             "is_combat": false,
+            "jump_conditions": {},
             "label": null,
             "secret": false,
             "secret_jumps": [],
@@ -2644,6 +2964,7 @@
             "ending_type": null,
             "id": 202,
             "is_combat": false,
+            "jump_conditions": {},
             "label": null,
             "secret": false,
             "secret_jumps": [],
@@ -2664,6 +2985,7 @@
             "ending_type": null,
             "id": 203,
             "is_combat": false,
+            "jump_conditions": {},
             "label": null,
             "secret": false,
             "secret_jumps": [],
@@ -2684,6 +3006,7 @@
             "ending_type": null,
             "id": 204,
             "is_combat": false,
+            "jump_conditions": {},
             "label": null,
             "secret": false,
             "secret_jumps": [],
@@ -2704,6 +3027,7 @@
             "ending_type": null,
             "id": 205,
             "is_combat": false,
+            "jump_conditions": {},
             "label": null,
             "secret": false,
             "secret_jumps": [],
@@ -2728,6 +3052,7 @@
             "ending_type": null,
             "id": 206,
             "is_combat": false,
+            "jump_conditions": {},
             "label": null,
             "secret": false,
             "secret_jumps": [],
@@ -2748,6 +3073,7 @@
             "ending_type": null,
             "id": 207,
             "is_combat": false,
+            "jump_conditions": {},
             "label": null,
             "secret": false,
             "secret_jumps": [],
@@ -2774,6 +3100,7 @@
             "ending_type": null,
             "id": 208,
             "is_combat": false,
+            "jump_conditions": {},
             "label": null,
             "secret": false,
             "secret_jumps": [],
@@ -2794,6 +3121,7 @@
             "ending_type": null,
             "id": 209,
             "is_combat": false,
+            "jump_conditions": {},
             "label": null,
             "secret": false,
             "secret_jumps": [],
@@ -2814,6 +3142,7 @@
             "ending_type": null,
             "id": 21,
             "is_combat": false,
+            "jump_conditions": {},
             "label": null,
             "secret": false,
             "secret_jumps": [],
@@ -2834,6 +3163,20 @@
             "ending_type": null,
             "id": 210,
             "is_combat": false,
+            "jump_conditions": {
+                "117": {
+                    "$end": "PRUDENT"
+                },
+                "181": {
+                    "$end": "GUERRIER"
+                },
+                "214": {
+                    "$end": "DEBROUILLARD"
+                },
+                "219": {
+                    "$end": "PAYSAN"
+                }
+            },
             "label": null,
             "secret": false,
             "secret_jumps": [],
@@ -2844,6 +3187,12 @@
                 219
             ],
             "success": null
+        },
+        "conditions": {
+            "117": "PRUDENT",
+            "181": "GUERRIER",
+            "214": "DEBROUILLARD",
+            "219": "PAYSAN"
         },
         "goto": [
             181,
@@ -2862,6 +3211,7 @@
             "ending_type": null,
             "id": 211,
             "is_combat": false,
+            "jump_conditions": {},
             "label": null,
             "secret": false,
             "secret_jumps": [],
@@ -2882,6 +3232,7 @@
             "ending_type": null,
             "id": 212,
             "is_combat": false,
+            "jump_conditions": {},
             "label": null,
             "secret": false,
             "secret_jumps": [],
@@ -2902,6 +3253,11 @@
             "ending_type": null,
             "id": 213,
             "is_combat": false,
+            "jump_conditions": {
+                "36": {
+                    "$end": "PRUDENT"
+                }
+            },
             "label": null,
             "secret": false,
             "secret_jumps": [],
@@ -2910,6 +3266,9 @@
                 97
             ],
             "success": "REPORTAGE-EXCLUSIF"
+        },
+        "conditions": {
+            "36": "PRUDENT"
         },
         "goto": [
             36,
@@ -2927,6 +3286,7 @@
             "ending_type": null,
             "id": 214,
             "is_combat": false,
+            "jump_conditions": {},
             "label": "Registre du commerce",
             "secret": false,
             "secret_jumps": [],
@@ -2952,6 +3312,7 @@
             "ending_type": null,
             "id": 215,
             "is_combat": false,
+            "jump_conditions": {},
             "label": null,
             "secret": false,
             "secret_jumps": [],
@@ -2972,6 +3333,7 @@
             "ending_type": null,
             "id": 216,
             "is_combat": false,
+            "jump_conditions": {},
             "label": "Acte II, La tour des Mages",
             "secret": false,
             "secret_jumps": [],
@@ -2993,6 +3355,7 @@
             "ending_type": null,
             "id": 217,
             "is_combat": false,
+            "jump_conditions": {},
             "label": null,
             "secret": false,
             "secret_jumps": [],
@@ -3017,6 +3380,18 @@
             "ending_type": null,
             "id": 218,
             "is_combat": false,
+            "jump_conditions": {
+                "376": {
+                    "$or": [
+                        {
+                            "$end": "PAYSAN"
+                        },
+                        {
+                            "$end": "MARMITE"
+                        }
+                    ]
+                }
+            },
             "label": null,
             "secret": false,
             "secret_jumps": [],
@@ -3026,6 +3401,9 @@
                 376
             ],
             "success": null
+        },
+        "conditions": {
+            "376": "PAYSAN|MARMITE"
         },
         "goto": [
             221,
@@ -3043,6 +3421,7 @@
             "ending_type": null,
             "id": 219,
             "is_combat": false,
+            "jump_conditions": {},
             "label": "Moulin à grains",
             "secret": false,
             "secret_jumps": [],
@@ -3072,6 +3451,7 @@
             "ending_type": null,
             "id": 22,
             "is_combat": false,
+            "jump_conditions": {},
             "label": null,
             "secret": false,
             "secret_jumps": [],
@@ -3092,6 +3472,7 @@
             "ending_type": null,
             "id": 220,
             "is_combat": false,
+            "jump_conditions": {},
             "label": null,
             "secret": false,
             "secret_jumps": [],
@@ -3120,6 +3501,7 @@
             "ending_type": null,
             "id": 221,
             "is_combat": false,
+            "jump_conditions": {},
             "label": null,
             "secret": true,
             "secret_jumps": [],
@@ -3141,6 +3523,7 @@
             "ending_type": null,
             "id": 222,
             "is_combat": false,
+            "jump_conditions": {},
             "label": null,
             "secret": false,
             "secret_jumps": [],
@@ -3166,6 +3549,11 @@
             "ending_type": null,
             "id": 223,
             "is_combat": false,
+            "jump_conditions": {
+                "118": {
+                    "$end": "SAC DE GRAINS"
+                }
+            },
             "label": null,
             "secret": false,
             "secret_jumps": [],
@@ -3174,6 +3562,9 @@
                 204
             ],
             "success": null
+        },
+        "conditions": {
+            "118": "SAC DE GRAINS"
         },
         "goto": [
             204,
@@ -3190,6 +3581,7 @@
             "ending_type": 1,
             "id": 224,
             "is_combat": false,
+            "jump_conditions": {},
             "label": null,
             "secret": false,
             "secret_jumps": [],
@@ -3210,6 +3602,7 @@
             "ending_type": null,
             "id": 225,
             "is_combat": false,
+            "jump_conditions": {},
             "label": null,
             "secret": false,
             "secret_jumps": [],
@@ -3230,6 +3623,11 @@
             "ending_type": null,
             "id": 226,
             "is_combat": false,
+            "jump_conditions": {
+                "228": {
+                    "$end": "BOCAL A EPICES"
+                }
+            },
             "label": "Salle des tortures",
             "secret": false,
             "secret_jumps": [],
@@ -3240,6 +3638,9 @@
                 320
             ],
             "success": null
+        },
+        "conditions": {
+            "228": "BOCAL A EPICES"
         },
         "goto": [
             251,
@@ -3259,6 +3660,7 @@
             "ending_type": null,
             "id": 227,
             "is_combat": false,
+            "jump_conditions": {},
             "label": null,
             "secret": false,
             "secret_jumps": [],
@@ -3283,6 +3685,7 @@
             "ending_type": null,
             "id": 228,
             "is_combat": false,
+            "jump_conditions": {},
             "label": null,
             "secret": false,
             "secret_jumps": [],
@@ -3304,6 +3707,7 @@
             "ending_type": null,
             "id": 229,
             "is_combat": false,
+            "jump_conditions": {},
             "label": null,
             "secret": false,
             "secret_jumps": [],
@@ -3324,6 +3728,7 @@
             "ending_type": null,
             "id": 23,
             "is_combat": false,
+            "jump_conditions": {},
             "label": null,
             "secret": false,
             "secret_jumps": [],
@@ -3344,6 +3749,7 @@
             "ending_type": null,
             "id": 230,
             "is_combat": false,
+            "jump_conditions": {},
             "label": "Clerc",
             "secret": false,
             "secret_jumps": [],
@@ -3370,6 +3776,7 @@
             "ending_type": null,
             "id": 231,
             "is_combat": true,
+            "jump_conditions": {},
             "label": null,
             "secret": false,
             "secret_jumps": [],
@@ -3391,6 +3798,7 @@
             "ending_type": null,
             "id": 232,
             "is_combat": true,
+            "jump_conditions": {},
             "label": null,
             "secret": false,
             "secret_jumps": [],
@@ -3417,6 +3825,7 @@
             "ending_type": null,
             "id": 233,
             "is_combat": false,
+            "jump_conditions": {},
             "label": null,
             "secret": false,
             "secret_jumps": [],
@@ -3437,6 +3846,18 @@
             "ending_type": null,
             "id": 234,
             "is_combat": false,
+            "jump_conditions": {
+                "146": {
+                    "$or": [
+                        {
+                            "$end": "LANCE"
+                        },
+                        {
+                            "$end": "FOURCHE"
+                        }
+                    ]
+                }
+            },
             "label": null,
             "secret": false,
             "secret_jumps": [
@@ -3448,6 +3869,9 @@
                 155
             ],
             "success": null
+        },
+        "conditions": {
+            "146": "LANCE|FOURCHE"
         },
         "goto": [
             146,
@@ -3468,6 +3892,7 @@
             "ending_type": null,
             "id": 235,
             "is_combat": false,
+            "jump_conditions": {},
             "label": null,
             "secret": false,
             "secret_jumps": [],
@@ -3492,6 +3917,7 @@
             "ending_type": null,
             "id": 236,
             "is_combat": false,
+            "jump_conditions": {},
             "label": null,
             "secret": false,
             "secret_jumps": [],
@@ -3513,6 +3939,7 @@
             "ending_type": null,
             "id": 237,
             "is_combat": false,
+            "jump_conditions": {},
             "label": null,
             "secret": false,
             "secret_jumps": [],
@@ -3533,6 +3960,7 @@
             "ending_type": null,
             "id": 238,
             "is_combat": false,
+            "jump_conditions": {},
             "label": null,
             "secret": false,
             "secret_jumps": [],
@@ -3557,6 +3985,7 @@
             "ending_type": null,
             "id": 239,
             "is_combat": false,
+            "jump_conditions": {},
             "label": null,
             "secret": false,
             "secret_jumps": [],
@@ -3577,6 +4006,7 @@
             "ending_type": null,
             "id": 24,
             "is_combat": false,
+            "jump_conditions": {},
             "label": null,
             "secret": false,
             "secret_jumps": [],
@@ -3602,6 +4032,7 @@
             "ending_type": null,
             "id": 240,
             "is_combat": true,
+            "jump_conditions": {},
             "label": null,
             "secret": false,
             "secret_jumps": [],
@@ -3622,6 +4053,24 @@
             "ending_type": null,
             "id": 241,
             "is_combat": false,
+            "jump_conditions": {
+                "45": {
+                    "$or": [
+                        {
+                            "$end": "GUERRIER"
+                        },
+                        {
+                            "$end": "PAYSAN"
+                        },
+                        {
+                            "$end": "PRUDENT"
+                        },
+                        {
+                            "$end": "DEBROUILLARD"
+                        }
+                    ]
+                }
+            },
             "label": null,
             "secret": false,
             "secret_jumps": [],
@@ -3629,6 +4078,9 @@
                 45
             ],
             "success": null
+        },
+        "conditions": {
+            "45": "GUERRIER|PAYSAN|PRUDENT|DEBROUILLARD"
         },
         "goto": 45
     },
@@ -3642,6 +4094,7 @@
             "ending_type": null,
             "id": 242,
             "is_combat": false,
+            "jump_conditions": {},
             "label": null,
             "secret": false,
             "secret_jumps": [],
@@ -3662,6 +4115,7 @@
             "ending_type": null,
             "id": 243,
             "is_combat": false,
+            "jump_conditions": {},
             "label": null,
             "secret": false,
             "secret_jumps": [],
@@ -3682,6 +4136,7 @@
             "ending_type": null,
             "id": 244,
             "is_combat": false,
+            "jump_conditions": {},
             "label": null,
             "secret": false,
             "secret_jumps": [],
@@ -3702,6 +4157,7 @@
             "ending_type": null,
             "id": 245,
             "is_combat": false,
+            "jump_conditions": {},
             "label": null,
             "secret": false,
             "secret_jumps": [],
@@ -3722,6 +4178,7 @@
             "ending_type": null,
             "id": 246,
             "is_combat": false,
+            "jump_conditions": {},
             "label": null,
             "secret": false,
             "secret_jumps": [],
@@ -3742,6 +4199,7 @@
             "ending_type": null,
             "id": 247,
             "is_combat": false,
+            "jump_conditions": {},
             "label": null,
             "secret": false,
             "secret_jumps": [],
@@ -3762,6 +4220,7 @@
             "ending_type": null,
             "id": 248,
             "is_combat": false,
+            "jump_conditions": {},
             "label": null,
             "secret": false,
             "secret_jumps": [],
@@ -3786,6 +4245,11 @@
             "ending_type": null,
             "id": 249,
             "is_combat": false,
+            "jump_conditions": {
+                "107": {
+                    "$end": "BROCHE DOREE"
+                }
+            },
             "label": null,
             "secret": false,
             "secret_jumps": [],
@@ -3794,6 +4258,9 @@
                 137
             ],
             "success": null
+        },
+        "conditions": {
+            "107": "BROCHE DOREE"
         },
         "goto": [
             137,
@@ -3810,6 +4277,7 @@
             "ending_type": null,
             "id": 25,
             "is_combat": false,
+            "jump_conditions": {},
             "label": null,
             "secret": false,
             "secret_jumps": [],
@@ -3830,6 +4298,7 @@
             "ending_type": null,
             "id": 250,
             "is_combat": false,
+            "jump_conditions": {},
             "label": null,
             "secret": false,
             "secret_jumps": [],
@@ -3850,6 +4319,7 @@
             "ending_type": null,
             "id": 251,
             "is_combat": false,
+            "jump_conditions": {},
             "label": null,
             "secret": false,
             "secret_jumps": [],
@@ -3870,6 +4340,7 @@
             "ending_type": null,
             "id": 252,
             "is_combat": false,
+            "jump_conditions": {},
             "label": null,
             "secret": false,
             "secret_jumps": [],
@@ -3890,6 +4361,7 @@
             "ending_type": null,
             "id": 253,
             "is_combat": false,
+            "jump_conditions": {},
             "label": null,
             "secret": false,
             "secret_jumps": [],
@@ -3914,6 +4386,11 @@
             "ending_type": null,
             "id": 254,
             "is_combat": false,
+            "jump_conditions": {
+                "284": {
+                    "$end": "DEBROUILLARD"
+                }
+            },
             "label": "Lavandières",
             "secret": false,
             "secret_jumps": [],
@@ -3923,6 +4400,9 @@
                 284
             ],
             "success": null
+        },
+        "conditions": {
+            "284": "DEBROUILLARD"
         },
         "goto": [
             166,
@@ -3941,6 +4421,7 @@
             "ending_type": null,
             "id": 255,
             "is_combat": false,
+            "jump_conditions": {},
             "label": null,
             "secret": false,
             "secret_jumps": [],
@@ -3961,6 +4442,7 @@
             "ending_type": null,
             "id": 256,
             "is_combat": false,
+            "jump_conditions": {},
             "label": null,
             "secret": false,
             "secret_jumps": [],
@@ -3981,6 +4463,11 @@
             "ending_type": null,
             "id": 257,
             "is_combat": false,
+            "jump_conditions": {
+                "105": {
+                    "$end": "LETTRE DE RECOMMANDATION"
+                }
+            },
             "label": null,
             "secret": false,
             "secret_jumps": [],
@@ -3989,6 +4476,9 @@
                 345
             ],
             "success": null
+        },
+        "conditions": {
+            "105": "LETTRE DE RECOMMANDATION"
         },
         "goto": [
             105,
@@ -4005,6 +4495,7 @@
             "ending_type": null,
             "id": 258,
             "is_combat": false,
+            "jump_conditions": {},
             "label": null,
             "secret": false,
             "secret_jumps": [],
@@ -4029,6 +4520,7 @@
             "ending_type": null,
             "id": 259,
             "is_combat": false,
+            "jump_conditions": {},
             "label": null,
             "secret": true,
             "secret_jumps": [],
@@ -4050,6 +4542,7 @@
             "ending_type": null,
             "id": 26,
             "is_combat": false,
+            "jump_conditions": {},
             "label": null,
             "secret": false,
             "secret_jumps": [],
@@ -4071,6 +4564,7 @@
             "ending_type": null,
             "id": 260,
             "is_combat": false,
+            "jump_conditions": {},
             "label": null,
             "secret": false,
             "secret_jumps": [],
@@ -4091,6 +4585,7 @@
             "ending_type": null,
             "id": 261,
             "is_combat": false,
+            "jump_conditions": {},
             "label": "Domaine de la souricière",
             "secret": false,
             "secret_jumps": [],
@@ -4116,6 +4611,7 @@
             "ending_type": null,
             "id": 262,
             "is_combat": false,
+            "jump_conditions": {},
             "label": null,
             "secret": false,
             "secret_jumps": [],
@@ -4140,6 +4636,7 @@
             "ending_type": null,
             "id": 263,
             "is_combat": false,
+            "jump_conditions": {},
             "label": null,
             "secret": false,
             "secret_jumps": [],
@@ -4160,6 +4657,7 @@
             "ending_type": null,
             "id": 264,
             "is_combat": false,
+            "jump_conditions": {},
             "label": null,
             "secret": false,
             "secret_jumps": [],
@@ -4180,6 +4678,7 @@
             "ending_type": null,
             "id": 265,
             "is_combat": false,
+            "jump_conditions": {},
             "label": null,
             "secret": false,
             "secret_jumps": [],
@@ -4200,6 +4699,7 @@
             "ending_type": null,
             "id": 266,
             "is_combat": false,
+            "jump_conditions": {},
             "label": "Laboratoire",
             "secret": false,
             "secret_jumps": [],
@@ -4225,6 +4725,7 @@
             "ending_type": null,
             "id": 267,
             "is_combat": false,
+            "jump_conditions": {},
             "label": null,
             "secret": false,
             "secret_jumps": [],
@@ -4249,6 +4750,7 @@
             "ending_type": null,
             "id": 268,
             "is_combat": false,
+            "jump_conditions": {},
             "label": null,
             "secret": false,
             "secret_jumps": [],
@@ -4273,6 +4775,7 @@
             "ending_type": null,
             "id": 269,
             "is_combat": false,
+            "jump_conditions": {},
             "label": null,
             "secret": false,
             "secret_jumps": [],
@@ -4293,6 +4796,7 @@
             "ending_type": null,
             "id": 27,
             "is_combat": false,
+            "jump_conditions": {},
             "label": "KaKaKa",
             "secret": false,
             "secret_jumps": [],
@@ -4320,6 +4824,7 @@
             "ending_type": null,
             "id": 270,
             "is_combat": false,
+            "jump_conditions": {},
             "label": null,
             "secret": false,
             "secret_jumps": [],
@@ -4340,6 +4845,7 @@
             "ending_type": 2,
             "id": 271,
             "is_combat": false,
+            "jump_conditions": {},
             "label": null,
             "secret": false,
             "secret_jumps": [],
@@ -4361,6 +4867,7 @@
             "ending_type": null,
             "id": 272,
             "is_combat": false,
+            "jump_conditions": {},
             "label": null,
             "secret": false,
             "secret_jumps": [],
@@ -4381,6 +4888,7 @@
             "ending_type": null,
             "id": 273,
             "is_combat": false,
+            "jump_conditions": {},
             "label": null,
             "secret": false,
             "secret_jumps": [],
@@ -4402,6 +4910,7 @@
             "ending_type": null,
             "id": 274,
             "is_combat": true,
+            "jump_conditions": {},
             "label": null,
             "secret": false,
             "secret_jumps": [],
@@ -4422,6 +4931,7 @@
             "ending_type": null,
             "id": 275,
             "is_combat": false,
+            "jump_conditions": {},
             "label": null,
             "secret": false,
             "secret_jumps": [],
@@ -4450,6 +4960,7 @@
             "ending_type": null,
             "id": 276,
             "is_combat": true,
+            "jump_conditions": {},
             "label": null,
             "secret": false,
             "secret_jumps": [],
@@ -4470,6 +4981,21 @@
             "ending_type": null,
             "id": 277,
             "is_combat": false,
+            "jump_conditions": {
+                "133": {
+                    "$or": [
+                        {
+                            "$end": "FOURCHE"
+                        },
+                        {
+                            "$end": "LANCE"
+                        }
+                    ]
+                },
+                "141": {
+                    "$end": "KIT D'ESCALADE"
+                }
+            },
             "label": null,
             "secret": false,
             "secret_jumps": [],
@@ -4480,6 +5006,10 @@
                 141
             ],
             "success": null
+        },
+        "conditions": {
+            "133": "FOURCHE|LANCE",
+            "141": "KIT D'ESCALADE"
         },
         "goto": [
             141,
@@ -4498,6 +5028,7 @@
             "ending_type": 2,
             "id": 278,
             "is_combat": false,
+            "jump_conditions": {},
             "label": null,
             "secret": false,
             "secret_jumps": [],
@@ -4518,6 +5049,11 @@
             "ending_type": null,
             "id": 279,
             "is_combat": false,
+            "jump_conditions": {
+                "112": {
+                    "$end": "PAYSAN"
+                }
+            },
             "label": null,
             "secret": false,
             "secret_jumps": [],
@@ -4526,6 +5062,9 @@
                 289
             ],
             "success": null
+        },
+        "conditions": {
+            "112": "PAYSAN"
         },
         "goto": [
             112,
@@ -4542,6 +5081,7 @@
             "ending_type": null,
             "id": 28,
             "is_combat": false,
+            "jump_conditions": {},
             "label": null,
             "secret": false,
             "secret_jumps": [],
@@ -4562,6 +5102,7 @@
             "ending_type": null,
             "id": 280,
             "is_combat": false,
+            "jump_conditions": {},
             "label": null,
             "secret": false,
             "secret_jumps": [],
@@ -4582,6 +5123,7 @@
             "ending_type": null,
             "id": 281,
             "is_combat": false,
+            "jump_conditions": {},
             "label": null,
             "secret": false,
             "secret_jumps": [],
@@ -4602,6 +5144,7 @@
             "ending_type": null,
             "id": 282,
             "is_combat": false,
+            "jump_conditions": {},
             "label": null,
             "secret": true,
             "secret_jumps": [],
@@ -4627,6 +5170,24 @@
             "ending_type": null,
             "id": 283,
             "is_combat": false,
+            "jump_conditions": {
+                "243": {
+                    "$end": "PAMPHLET"
+                },
+                "324": {
+                    "$or": [
+                        {
+                            "$end": "EPEE"
+                        },
+                        {
+                            "$end": "COUTEAU"
+                        }
+                    ]
+                },
+                "382": {
+                    "$end": "ARC"
+                }
+            },
             "label": "Tour des mages",
             "secret": false,
             "secret_jumps": [],
@@ -4640,6 +5201,11 @@
                 382
             ],
             "success": null
+        },
+        "conditions": {
+            "243": "PAMPHLET",
+            "324": "EPEE|COUTEAU",
+            "382": "ARC"
         },
         "goto": [
             317,
@@ -4662,6 +5228,7 @@
             "ending_type": null,
             "id": 284,
             "is_combat": false,
+            "jump_conditions": {},
             "label": null,
             "secret": false,
             "secret_jumps": [],
@@ -4682,6 +5249,7 @@
             "ending_type": null,
             "id": 285,
             "is_combat": false,
+            "jump_conditions": {},
             "label": "Grand place",
             "secret": false,
             "secret_jumps": [],
@@ -4712,6 +5280,7 @@
             "ending_type": null,
             "id": 286,
             "is_combat": true,
+            "jump_conditions": {},
             "label": null,
             "secret": false,
             "secret_jumps": [],
@@ -4732,6 +5301,7 @@
             "ending_type": null,
             "id": 287,
             "is_combat": false,
+            "jump_conditions": {},
             "label": null,
             "secret": false,
             "secret_jumps": [],
@@ -4756,6 +5326,7 @@
             "ending_type": null,
             "id": 288,
             "is_combat": false,
+            "jump_conditions": {},
             "label": null,
             "secret": false,
             "secret_jumps": [],
@@ -4783,6 +5354,7 @@
             "ending_type": null,
             "id": 289,
             "is_combat": false,
+            "jump_conditions": {},
             "label": null,
             "secret": false,
             "secret_jumps": [],
@@ -4803,6 +5375,7 @@
             "ending_type": null,
             "id": 29,
             "is_combat": false,
+            "jump_conditions": {},
             "label": null,
             "secret": false,
             "secret_jumps": [],
@@ -4823,6 +5396,7 @@
             "ending_type": null,
             "id": 290,
             "is_combat": false,
+            "jump_conditions": {},
             "label": null,
             "secret": false,
             "secret_jumps": [],
@@ -4843,6 +5417,11 @@
             "ending_type": null,
             "id": 291,
             "is_combat": false,
+            "jump_conditions": {
+                "36": {
+                    "$end": "PRUDENT"
+                }
+            },
             "label": null,
             "secret": false,
             "secret_jumps": [],
@@ -4851,6 +5430,9 @@
                 97
             ],
             "success": null
+        },
+        "conditions": {
+            "36": "PRUDENT"
         },
         "goto": [
             36,
@@ -4867,6 +5449,7 @@
             "ending_type": null,
             "id": 292,
             "is_combat": false,
+            "jump_conditions": {},
             "label": null,
             "secret": false,
             "secret_jumps": [],
@@ -4891,6 +5474,11 @@
             "ending_type": null,
             "id": 293,
             "is_combat": false,
+            "jump_conditions": {
+                "278": {
+                    "$end": "GUERRIER"
+                }
+            },
             "label": null,
             "secret": false,
             "secret_jumps": [],
@@ -4899,6 +5487,9 @@
                 278
             ],
             "success": null
+        },
+        "conditions": {
+            "278": "GUERRIER"
         },
         "goto": [
             278,
@@ -4915,6 +5506,7 @@
             "ending_type": null,
             "id": 294,
             "is_combat": false,
+            "jump_conditions": {},
             "label": null,
             "secret": false,
             "secret_jumps": [],
@@ -4935,6 +5527,14 @@
             "ending_type": null,
             "id": 295,
             "is_combat": false,
+            "jump_conditions": {
+                "140": {
+                    "$end": "SAC DE GRAINS"
+                },
+                "515": {
+                    "$end": "PETITE BOUTEILLE D'ACIDE"
+                }
+            },
             "label": null,
             "secret": false,
             "secret_jumps": [],
@@ -4944,6 +5544,10 @@
                 545
             ],
             "success": null
+        },
+        "conditions": {
+            "140": "SAC DE GRAINS",
+            "515": "PETITE BOUTEILLE D'ACIDE"
         },
         "goto": [
             515,
@@ -4961,6 +5565,11 @@
             "ending_type": null,
             "id": 296,
             "is_combat": false,
+            "jump_conditions": {
+                "524": {
+                    "$end": "DEBROUILLARD"
+                }
+            },
             "label": null,
             "secret": false,
             "secret_jumps": [],
@@ -4969,6 +5578,9 @@
                 524
             ],
             "success": null
+        },
+        "conditions": {
+            "524": "DEBROUILLARD"
         },
         "goto": [
             474,
@@ -4986,6 +5598,7 @@
             "ending_type": null,
             "id": 297,
             "is_combat": true,
+            "jump_conditions": {},
             "label": null,
             "secret": false,
             "secret_jumps": [],
@@ -5006,6 +5619,7 @@
             "ending_type": null,
             "id": 298,
             "is_combat": false,
+            "jump_conditions": {},
             "label": null,
             "secret": false,
             "secret_jumps": [],
@@ -5032,6 +5646,7 @@
             "ending_type": null,
             "id": 299,
             "is_combat": false,
+            "jump_conditions": {},
             "label": null,
             "secret": false,
             "secret_jumps": [],
@@ -5052,6 +5667,7 @@
             "ending_type": null,
             "id": 3,
             "is_combat": false,
+            "jump_conditions": {},
             "label": null,
             "secret": false,
             "secret_jumps": [],
@@ -5072,6 +5688,7 @@
             "ending_type": null,
             "id": 30,
             "is_combat": false,
+            "jump_conditions": {},
             "label": null,
             "secret": false,
             "secret_jumps": [],
@@ -5096,6 +5713,7 @@
             "ending_type": null,
             "id": 300,
             "is_combat": false,
+            "jump_conditions": {},
             "label": "Acte III, L'Invation",
             "secret": false,
             "secret_jumps": [],
@@ -5117,6 +5735,7 @@
             "ending_type": null,
             "id": 301,
             "is_combat": false,
+            "jump_conditions": {},
             "label": null,
             "secret": true,
             "secret_jumps": [],
@@ -5138,6 +5757,7 @@
             "ending_type": null,
             "id": 302,
             "is_combat": false,
+            "jump_conditions": {},
             "label": null,
             "secret": false,
             "secret_jumps": [],
@@ -5158,6 +5778,7 @@
             "ending_type": null,
             "id": 303,
             "is_combat": false,
+            "jump_conditions": {},
             "label": null,
             "secret": false,
             "secret_jumps": [],
@@ -5178,6 +5799,7 @@
             "ending_type": null,
             "id": 304,
             "is_combat": false,
+            "jump_conditions": {},
             "label": null,
             "secret": false,
             "secret_jumps": [],
@@ -5198,6 +5820,7 @@
             "ending_type": null,
             "id": 305,
             "is_combat": false,
+            "jump_conditions": {},
             "label": null,
             "secret": false,
             "secret_jumps": [],
@@ -5219,6 +5842,11 @@
             "ending_type": null,
             "id": 306,
             "is_combat": true,
+            "jump_conditions": {
+                "46": {
+                    "$end": "PRUDENT"
+                }
+            },
             "label": null,
             "secret": false,
             "secret_jumps": [],
@@ -5227,6 +5855,9 @@
                 303
             ],
             "success": null
+        },
+        "conditions": {
+            "46": "PRUDENT"
         },
         "goto": [
             303,
@@ -5243,6 +5874,7 @@
             "ending_type": null,
             "id": 307,
             "is_combat": false,
+            "jump_conditions": {},
             "label": null,
             "secret": false,
             "secret_jumps": [],
@@ -5267,6 +5899,7 @@
             "ending_type": null,
             "id": 308,
             "is_combat": false,
+            "jump_conditions": {},
             "label": null,
             "secret": false,
             "secret_jumps": [],
@@ -5291,6 +5924,7 @@
             "ending_type": null,
             "id": 309,
             "is_combat": false,
+            "jump_conditions": {},
             "label": null,
             "secret": false,
             "secret_jumps": [],
@@ -5311,6 +5945,7 @@
             "ending_type": null,
             "id": 31,
             "is_combat": false,
+            "jump_conditions": {},
             "label": null,
             "secret": true,
             "secret_jumps": [],
@@ -5332,6 +5967,7 @@
             "ending_type": null,
             "id": 310,
             "is_combat": false,
+            "jump_conditions": {},
             "label": null,
             "secret": true,
             "secret_jumps": [],
@@ -5353,6 +5989,11 @@
             "ending_type": null,
             "id": 311,
             "is_combat": false,
+            "jump_conditions": {
+                "288": {
+                    "$end": "PAMPHLET"
+                }
+            },
             "label": null,
             "secret": false,
             "secret_jumps": [],
@@ -5363,6 +6004,9 @@
                 440
             ],
             "success": null
+        },
+        "conditions": {
+            "288": "PAMPHLET"
         },
         "goto": [
             288,
@@ -5381,6 +6025,7 @@
             "ending_type": null,
             "id": 312,
             "is_combat": false,
+            "jump_conditions": {},
             "label": null,
             "secret": false,
             "secret_jumps": [],
@@ -5401,6 +6046,7 @@
             "ending_type": null,
             "id": 313,
             "is_combat": false,
+            "jump_conditions": {},
             "label": null,
             "secret": false,
             "secret_jumps": [],
@@ -5421,6 +6067,7 @@
             "ending_type": null,
             "id": 314,
             "is_combat": false,
+            "jump_conditions": {},
             "label": null,
             "secret": false,
             "secret_jumps": [],
@@ -5445,6 +6092,7 @@
             "ending_type": null,
             "id": 315,
             "is_combat": false,
+            "jump_conditions": {},
             "label": null,
             "secret": false,
             "secret_jumps": [],
@@ -5465,6 +6113,7 @@
             "ending_type": null,
             "id": 316,
             "is_combat": false,
+            "jump_conditions": {},
             "label": null,
             "secret": false,
             "secret_jumps": [],
@@ -5487,6 +6136,7 @@
             "ending_type": null,
             "id": 317,
             "is_combat": true,
+            "jump_conditions": {},
             "label": null,
             "secret": false,
             "secret_jumps": [],
@@ -5507,6 +6157,7 @@
             "ending_type": null,
             "id": 318,
             "is_combat": false,
+            "jump_conditions": {},
             "label": null,
             "secret": false,
             "secret_jumps": [],
@@ -5537,6 +6188,7 @@
             "ending_type": null,
             "id": 319,
             "is_combat": false,
+            "jump_conditions": {},
             "label": null,
             "secret": false,
             "secret_jumps": [],
@@ -5557,6 +6209,7 @@
             "ending_type": null,
             "id": 32,
             "is_combat": false,
+            "jump_conditions": {},
             "label": null,
             "secret": false,
             "secret_jumps": [],
@@ -5578,6 +6231,7 @@
             "ending_type": null,
             "id": 320,
             "is_combat": true,
+            "jump_conditions": {},
             "label": null,
             "secret": false,
             "secret_jumps": [],
@@ -5599,6 +6253,7 @@
             "ending_type": null,
             "id": 321,
             "is_combat": true,
+            "jump_conditions": {},
             "label": null,
             "secret": false,
             "secret_jumps": [],
@@ -5620,6 +6275,7 @@
             "ending_type": null,
             "id": 322,
             "is_combat": false,
+            "jump_conditions": {},
             "label": null,
             "secret": false,
             "secret_jumps": [],
@@ -5644,6 +6300,7 @@
             "ending_type": null,
             "id": 323,
             "is_combat": false,
+            "jump_conditions": {},
             "label": null,
             "secret": false,
             "secret_jumps": [],
@@ -5664,6 +6321,7 @@
             "ending_type": null,
             "id": 324,
             "is_combat": false,
+            "jump_conditions": {},
             "label": null,
             "secret": false,
             "secret_jumps": [],
@@ -5688,6 +6346,7 @@
             "ending_type": null,
             "id": 325,
             "is_combat": false,
+            "jump_conditions": {},
             "label": null,
             "secret": false,
             "secret_jumps": [],
@@ -5708,6 +6367,7 @@
             "ending_type": null,
             "id": 326,
             "is_combat": false,
+            "jump_conditions": {},
             "label": null,
             "secret": false,
             "secret_jumps": [],
@@ -5728,6 +6388,7 @@
             "ending_type": null,
             "id": 327,
             "is_combat": false,
+            "jump_conditions": {},
             "label": null,
             "secret": true,
             "secret_jumps": [],
@@ -5749,6 +6410,7 @@
             "ending_type": null,
             "id": 328,
             "is_combat": false,
+            "jump_conditions": {},
             "label": null,
             "secret": false,
             "secret_jumps": [],
@@ -5769,6 +6431,7 @@
             "ending_type": 2,
             "id": 329,
             "is_combat": false,
+            "jump_conditions": {},
             "label": null,
             "secret": false,
             "secret_jumps": [],
@@ -5789,6 +6452,7 @@
             "ending_type": null,
             "id": 33,
             "is_combat": false,
+            "jump_conditions": {},
             "label": null,
             "secret": false,
             "secret_jumps": [],
@@ -5825,6 +6489,20 @@
             "ending_type": null,
             "id": 330,
             "is_combat": false,
+            "jump_conditions": {
+                "411": {
+                    "$end": "GUERRIER"
+                },
+                "544": {
+                    "$end": "DEBROUILLARD"
+                },
+                "577": {
+                    "$end": "PRUDENT"
+                },
+                "599": {
+                    "$end": "PAYSAN"
+                }
+            },
             "label": null,
             "secret": false,
             "secret_jumps": [],
@@ -5835,6 +6513,12 @@
                 599
             ],
             "success": null
+        },
+        "conditions": {
+            "411": "GUERRIER",
+            "544": "DEBROUILLARD",
+            "577": "PRUDENT",
+            "599": "PAYSAN"
         },
         "goto": [
             411,
@@ -5853,6 +6537,7 @@
             "ending_type": null,
             "id": 331,
             "is_combat": false,
+            "jump_conditions": {},
             "label": null,
             "secret": false,
             "secret_jumps": [],
@@ -5873,6 +6558,7 @@
             "ending_type": null,
             "id": 332,
             "is_combat": false,
+            "jump_conditions": {},
             "label": null,
             "secret": true,
             "secret_jumps": [],
@@ -5894,6 +6580,7 @@
             "ending_type": null,
             "id": 333,
             "is_combat": false,
+            "jump_conditions": {},
             "label": null,
             "secret": false,
             "secret_jumps": [],
@@ -5914,6 +6601,7 @@
             "ending_type": null,
             "id": 334,
             "is_combat": false,
+            "jump_conditions": {},
             "label": null,
             "secret": false,
             "secret_jumps": [],
@@ -5934,6 +6622,7 @@
             "ending_type": null,
             "id": 335,
             "is_combat": false,
+            "jump_conditions": {},
             "label": null,
             "secret": false,
             "secret_jumps": [],
@@ -5962,6 +6651,7 @@
             "ending_type": null,
             "id": 336,
             "is_combat": false,
+            "jump_conditions": {},
             "label": null,
             "secret": false,
             "secret_jumps": [],
@@ -5982,6 +6672,7 @@
             "ending_type": null,
             "id": 337,
             "is_combat": false,
+            "jump_conditions": {},
             "label": null,
             "secret": false,
             "secret_jumps": [],
@@ -6002,6 +6693,7 @@
             "ending_type": null,
             "id": 338,
             "is_combat": false,
+            "jump_conditions": {},
             "label": null,
             "secret": false,
             "secret_jumps": [],
@@ -6024,6 +6716,7 @@
             "ending_type": null,
             "id": 339,
             "is_combat": true,
+            "jump_conditions": {},
             "label": null,
             "secret": false,
             "secret_jumps": [],
@@ -6045,6 +6738,7 @@
             "ending_type": null,
             "id": 34,
             "is_combat": false,
+            "jump_conditions": {},
             "label": null,
             "secret": false,
             "secret_jumps": [],
@@ -6081,6 +6775,7 @@
             "ending_type": null,
             "id": 340,
             "is_combat": false,
+            "jump_conditions": {},
             "label": "Entrepôt",
             "secret": false,
             "secret_jumps": [],
@@ -6112,6 +6807,7 @@
             "ending_type": null,
             "id": 341,
             "is_combat": false,
+            "jump_conditions": {},
             "label": null,
             "secret": false,
             "secret_jumps": [],
@@ -6138,6 +6834,7 @@
             "ending_type": null,
             "id": 342,
             "is_combat": false,
+            "jump_conditions": {},
             "label": null,
             "secret": false,
             "secret_jumps": [],
@@ -6162,6 +6859,7 @@
             "ending_type": null,
             "id": 343,
             "is_combat": false,
+            "jump_conditions": {},
             "label": null,
             "secret": false,
             "secret_jumps": [],
@@ -6189,6 +6887,7 @@
             "ending_type": null,
             "id": 344,
             "is_combat": true,
+            "jump_conditions": {},
             "label": null,
             "secret": false,
             "secret_jumps": [],
@@ -6209,6 +6908,7 @@
             "ending_type": null,
             "id": 345,
             "is_combat": false,
+            "jump_conditions": {},
             "label": null,
             "secret": false,
             "secret_jumps": [],
@@ -6230,6 +6930,7 @@
             "ending_type": null,
             "id": 346,
             "is_combat": true,
+            "jump_conditions": {},
             "label": null,
             "secret": false,
             "secret_jumps": [],
@@ -6251,6 +6952,7 @@
             "ending_type": null,
             "id": 347,
             "is_combat": false,
+            "jump_conditions": {},
             "label": null,
             "secret": false,
             "secret_jumps": [],
@@ -6271,6 +6973,7 @@
             "ending_type": null,
             "id": 348,
             "is_combat": false,
+            "jump_conditions": {},
             "label": null,
             "secret": false,
             "secret_jumps": [],
@@ -6293,6 +6996,17 @@
             "ending_type": null,
             "id": 349,
             "is_combat": true,
+            "jump_conditions": {
+                "406": {
+                    "$end": "MORGENSTERN"
+                },
+                "467": {
+                    "$end": "BOUTEILLE DE MAGIE PURE"
+                },
+                "498": {
+                    "$end": "EXPLOSIFS"
+                }
+            },
             "label": null,
             "secret": false,
             "secret_jumps": [],
@@ -6303,6 +7017,11 @@
                 498
             ],
             "success": null
+        },
+        "conditions": {
+            "406": "MORGENSTERN",
+            "467": "BOUTEILLE DE MAGIE PURE",
+            "498": "EXPLOSIFS"
         },
         "goto": [
             406,
@@ -6321,6 +7040,11 @@
             "ending_type": null,
             "id": 35,
             "is_combat": false,
+            "jump_conditions": {
+                "105": {
+                    "$end": "LETTRE DE RECOMMANDATION"
+                }
+            },
             "label": null,
             "secret": false,
             "secret_jumps": [],
@@ -6329,6 +7053,9 @@
                 345
             ],
             "success": null
+        },
+        "conditions": {
+            "105": "LETTRE DE RECOMMANDATION"
         },
         "goto": [
             105,
@@ -6346,6 +7073,7 @@
             "ending_type": null,
             "id": 350,
             "is_combat": true,
+            "jump_conditions": {},
             "label": null,
             "secret": false,
             "secret_jumps": [],
@@ -6367,6 +7095,7 @@
             "ending_type": null,
             "id": 351,
             "is_combat": false,
+            "jump_conditions": {},
             "label": null,
             "secret": false,
             "secret_jumps": [],
@@ -6387,6 +7116,7 @@
             "ending_type": null,
             "id": 352,
             "is_combat": false,
+            "jump_conditions": {},
             "label": null,
             "secret": false,
             "secret_jumps": [],
@@ -6411,6 +7141,7 @@
             "ending_type": null,
             "id": 353,
             "is_combat": false,
+            "jump_conditions": {},
             "label": null,
             "secret": false,
             "secret_jumps": [],
@@ -6431,6 +7162,7 @@
             "ending_type": null,
             "id": 354,
             "is_combat": false,
+            "jump_conditions": {},
             "label": "Taverne",
             "secret": false,
             "secret_jumps": [],
@@ -6458,6 +7190,7 @@
             "ending_type": null,
             "id": 355,
             "is_combat": false,
+            "jump_conditions": {},
             "label": null,
             "secret": false,
             "secret_jumps": [],
@@ -6482,6 +7215,7 @@
             "ending_type": null,
             "id": 356,
             "is_combat": false,
+            "jump_conditions": {},
             "label": null,
             "secret": false,
             "secret_jumps": [],
@@ -6502,6 +7236,7 @@
             "ending_type": null,
             "id": 357,
             "is_combat": false,
+            "jump_conditions": {},
             "label": null,
             "secret": false,
             "secret_jumps": [],
@@ -6522,6 +7257,7 @@
             "ending_type": null,
             "id": 358,
             "is_combat": false,
+            "jump_conditions": {},
             "label": null,
             "secret": false,
             "secret_jumps": [],
@@ -6546,6 +7282,7 @@
             "ending_type": null,
             "id": 359,
             "is_combat": false,
+            "jump_conditions": {},
             "label": null,
             "secret": false,
             "secret_jumps": [],
@@ -6573,6 +7310,7 @@
             "ending_type": null,
             "id": 36,
             "is_combat": true,
+            "jump_conditions": {},
             "label": null,
             "secret": false,
             "secret_jumps": [],
@@ -6593,6 +7331,7 @@
             "ending_type": null,
             "id": 360,
             "is_combat": false,
+            "jump_conditions": {},
             "label": null,
             "secret": false,
             "secret_jumps": [],
@@ -6613,6 +7352,7 @@
             "ending_type": null,
             "id": 361,
             "is_combat": false,
+            "jump_conditions": {},
             "label": null,
             "secret": false,
             "secret_jumps": [],
@@ -6634,6 +7374,7 @@
             "ending_type": null,
             "id": 362,
             "is_combat": false,
+            "jump_conditions": {},
             "label": null,
             "secret": false,
             "secret_jumps": [],
@@ -6654,6 +7395,7 @@
             "ending_type": null,
             "id": 363,
             "is_combat": false,
+            "jump_conditions": {},
             "label": null,
             "secret": false,
             "secret_jumps": [],
@@ -6680,6 +7422,7 @@
             "ending_type": null,
             "id": 364,
             "is_combat": false,
+            "jump_conditions": {},
             "label": null,
             "secret": false,
             "secret_jumps": [],
@@ -6700,6 +7443,7 @@
             "ending_type": null,
             "id": 365,
             "is_combat": false,
+            "jump_conditions": {},
             "label": null,
             "secret": false,
             "secret_jumps": [],
@@ -6724,6 +7468,7 @@
             "ending_type": null,
             "id": 366,
             "is_combat": false,
+            "jump_conditions": {},
             "label": null,
             "secret": false,
             "secret_jumps": [],
@@ -6752,6 +7497,7 @@
             "ending_type": null,
             "id": 367,
             "is_combat": false,
+            "jump_conditions": {},
             "label": null,
             "secret": false,
             "secret_jumps": [],
@@ -6772,6 +7518,18 @@
             "ending_type": null,
             "id": 368,
             "is_combat": false,
+            "jump_conditions": {
+                "215": {
+                    "$or": [
+                        {
+                            "$end": "KIT DE SOIN"
+                        },
+                        {
+                            "$end": "PETIT MEDAILLON"
+                        }
+                    ]
+                }
+            },
             "label": null,
             "secret": false,
             "secret_jumps": [],
@@ -6780,6 +7538,9 @@
                 215
             ],
             "success": null
+        },
+        "conditions": {
+            "215": "KIT DE SOIN|PETIT MEDAILLON"
         },
         "goto": [
             215,
@@ -6796,6 +7557,11 @@
             "ending_type": null,
             "id": 369,
             "is_combat": false,
+            "jump_conditions": {
+                "419": {
+                    "$end": "MARMITE"
+                }
+            },
             "label": null,
             "secret": false,
             "secret_jumps": [],
@@ -6804,6 +7570,9 @@
                 419
             ],
             "success": null
+        },
+        "conditions": {
+            "419": "MARMITE"
         },
         "goto": [
             419,
@@ -6820,6 +7589,7 @@
             "ending_type": null,
             "id": 37,
             "is_combat": false,
+            "jump_conditions": {},
             "label": null,
             "secret": false,
             "secret_jumps": [],
@@ -6849,6 +7619,7 @@
             "ending_type": null,
             "id": 370,
             "is_combat": true,
+            "jump_conditions": {},
             "label": null,
             "secret": false,
             "secret_jumps": [],
@@ -6869,6 +7640,7 @@
             "ending_type": null,
             "id": 371,
             "is_combat": false,
+            "jump_conditions": {},
             "label": null,
             "secret": false,
             "secret_jumps": [],
@@ -6889,6 +7661,7 @@
             "ending_type": null,
             "id": 372,
             "is_combat": false,
+            "jump_conditions": {},
             "label": null,
             "secret": false,
             "secret_jumps": [],
@@ -6909,6 +7682,7 @@
             "ending_type": null,
             "id": 373,
             "is_combat": false,
+            "jump_conditions": {},
             "label": null,
             "secret": false,
             "secret_jumps": [],
@@ -6929,6 +7703,7 @@
             "ending_type": null,
             "id": 374,
             "is_combat": false,
+            "jump_conditions": {},
             "label": null,
             "secret": false,
             "secret_jumps": [],
@@ -6949,6 +7724,7 @@
             "ending_type": 2,
             "id": 375,
             "is_combat": false,
+            "jump_conditions": {},
             "label": null,
             "secret": false,
             "secret_jumps": [],
@@ -6970,6 +7746,7 @@
             "ending_type": null,
             "id": 376,
             "is_combat": false,
+            "jump_conditions": {},
             "label": null,
             "secret": false,
             "secret_jumps": [],
@@ -6994,6 +7771,7 @@
             "ending_type": null,
             "id": 377,
             "is_combat": false,
+            "jump_conditions": {},
             "label": null,
             "secret": false,
             "secret_jumps": [],
@@ -7014,6 +7792,7 @@
             "ending_type": null,
             "id": 378,
             "is_combat": false,
+            "jump_conditions": {},
             "label": null,
             "secret": false,
             "secret_jumps": [],
@@ -7034,6 +7813,7 @@
             "ending_type": null,
             "id": 379,
             "is_combat": false,
+            "jump_conditions": {},
             "label": null,
             "secret": false,
             "secret_jumps": [],
@@ -7058,6 +7838,7 @@
             "ending_type": null,
             "id": 38,
             "is_combat": false,
+            "jump_conditions": {},
             "label": null,
             "secret": false,
             "secret_jumps": [],
@@ -7078,6 +7859,7 @@
             "ending_type": null,
             "id": 380,
             "is_combat": false,
+            "jump_conditions": {},
             "label": null,
             "secret": false,
             "secret_jumps": [],
@@ -7098,6 +7880,7 @@
             "ending_type": null,
             "id": 381,
             "is_combat": false,
+            "jump_conditions": {},
             "label": null,
             "secret": false,
             "secret_jumps": [],
@@ -7127,6 +7910,7 @@
             "ending_type": null,
             "id": 382,
             "is_combat": false,
+            "jump_conditions": {},
             "label": null,
             "secret": false,
             "secret_jumps": [],
@@ -7151,6 +7935,7 @@
             "ending_type": null,
             "id": 383,
             "is_combat": false,
+            "jump_conditions": {},
             "label": null,
             "secret": false,
             "secret_jumps": [],
@@ -7175,6 +7960,7 @@
             "ending_type": null,
             "id": 384,
             "is_combat": false,
+            "jump_conditions": {},
             "label": null,
             "secret": false,
             "secret_jumps": [],
@@ -7199,6 +7985,7 @@
             "ending_type": null,
             "id": 385,
             "is_combat": false,
+            "jump_conditions": {},
             "label": null,
             "secret": false,
             "secret_jumps": [],
@@ -7223,6 +8010,11 @@
             "ending_type": null,
             "id": 386,
             "is_combat": false,
+            "jump_conditions": {
+                "265": {
+                    "$end": "KIT D'ESCALADE"
+                }
+            },
             "label": null,
             "secret": false,
             "secret_jumps": [],
@@ -7231,6 +8023,9 @@
                 418
             ],
             "success": null
+        },
+        "conditions": {
+            "265": "KIT D'ESCALADE"
         },
         "goto": [
             265,
@@ -7248,6 +8043,7 @@
             "ending_type": null,
             "id": 387,
             "is_combat": true,
+            "jump_conditions": {},
             "label": null,
             "secret": false,
             "secret_jumps": [],
@@ -7268,6 +8064,7 @@
             "ending_type": null,
             "id": 388,
             "is_combat": false,
+            "jump_conditions": {},
             "label": null,
             "secret": false,
             "secret_jumps": [],
@@ -7288,6 +8085,7 @@
             "ending_type": null,
             "id": 389,
             "is_combat": false,
+            "jump_conditions": {},
             "label": null,
             "secret": true,
             "secret_jumps": [],
@@ -7309,6 +8107,7 @@
             "ending_type": null,
             "id": 39,
             "is_combat": false,
+            "jump_conditions": {},
             "label": null,
             "secret": false,
             "secret_jumps": [],
@@ -7329,6 +8128,7 @@
             "ending_type": null,
             "id": 390,
             "is_combat": false,
+            "jump_conditions": {},
             "label": null,
             "secret": false,
             "secret_jumps": [],
@@ -7349,6 +8149,7 @@
             "ending_type": null,
             "id": 391,
             "is_combat": false,
+            "jump_conditions": {},
             "label": null,
             "secret": false,
             "secret_jumps": [],
@@ -7369,6 +8170,7 @@
             "ending_type": null,
             "id": 392,
             "is_combat": false,
+            "jump_conditions": {},
             "label": null,
             "secret": false,
             "secret_jumps": [],
@@ -7389,6 +8191,11 @@
             "ending_type": null,
             "id": 393,
             "is_combat": false,
+            "jump_conditions": {
+                "517": {
+                    "$end": "GUERRIER"
+                }
+            },
             "label": null,
             "secret": false,
             "secret_jumps": [],
@@ -7399,6 +8206,9 @@
                 520
             ],
             "success": null
+        },
+        "conditions": {
+            "517": "GUERRIER"
         },
         "goto": [
             517,
@@ -7417,6 +8227,20 @@
             "ending_type": null,
             "id": 394,
             "is_combat": false,
+            "jump_conditions": {
+                "277": {
+                    "$end": "PRUDENT"
+                },
+                "299": {
+                    "$end": "PAYSAN"
+                },
+                "444": {
+                    "$end": "DEBROUILLARD"
+                },
+                "511": {
+                    "$end": "GUERRIER"
+                }
+            },
             "label": "Crypte",
             "secret": false,
             "secret_jumps": [],
@@ -7427,6 +8251,12 @@
                 511
             ],
             "success": null
+        },
+        "conditions": {
+            "277": "PRUDENT",
+            "299": "PAYSAN",
+            "444": "DEBROUILLARD",
+            "511": "GUERRIER"
         },
         "goto": [
             511,
@@ -7446,6 +8276,7 @@
             "ending_type": null,
             "id": 395,
             "is_combat": false,
+            "jump_conditions": {},
             "label": null,
             "secret": false,
             "secret_jumps": [],
@@ -7466,6 +8297,7 @@
             "ending_type": null,
             "id": 396,
             "is_combat": false,
+            "jump_conditions": {},
             "label": null,
             "secret": false,
             "secret_jumps": [],
@@ -7486,6 +8318,7 @@
             "ending_type": null,
             "id": 397,
             "is_combat": false,
+            "jump_conditions": {},
             "label": null,
             "secret": false,
             "secret_jumps": [],
@@ -7506,6 +8339,7 @@
             "ending_type": null,
             "id": 398,
             "is_combat": false,
+            "jump_conditions": {},
             "label": null,
             "secret": false,
             "secret_jumps": [],
@@ -7526,6 +8360,7 @@
             "ending_type": null,
             "id": 399,
             "is_combat": false,
+            "jump_conditions": {},
             "label": null,
             "secret": false,
             "secret_jumps": [],
@@ -7546,6 +8381,7 @@
             "ending_type": null,
             "id": 4,
             "is_combat": false,
+            "jump_conditions": {},
             "label": null,
             "secret": false,
             "secret_jumps": [],
@@ -7570,6 +8406,7 @@
             "ending_type": null,
             "id": 40,
             "is_combat": false,
+            "jump_conditions": {},
             "label": null,
             "secret": false,
             "secret_jumps": [],
@@ -7590,6 +8427,7 @@
             "ending_type": null,
             "id": 400,
             "is_combat": false,
+            "jump_conditions": {},
             "label": "Acte IV, La Forteresse",
             "secret": false,
             "secret_jumps": [],
@@ -7625,6 +8463,7 @@
             "ending_type": null,
             "id": 401,
             "is_combat": false,
+            "jump_conditions": {},
             "label": null,
             "secret": false,
             "secret_jumps": [],
@@ -7645,6 +8484,7 @@
             "ending_type": null,
             "id": 402,
             "is_combat": false,
+            "jump_conditions": {},
             "label": null,
             "secret": false,
             "secret_jumps": [],
@@ -7665,6 +8505,7 @@
             "ending_type": null,
             "id": 403,
             "is_combat": false,
+            "jump_conditions": {},
             "label": null,
             "secret": false,
             "secret_jumps": [],
@@ -7685,6 +8526,7 @@
             "ending_type": null,
             "id": 405,
             "is_combat": false,
+            "jump_conditions": {},
             "label": null,
             "secret": false,
             "secret_jumps": [],
@@ -7705,6 +8547,7 @@
             "ending_type": null,
             "id": 406,
             "is_combat": false,
+            "jump_conditions": {},
             "label": null,
             "secret": false,
             "secret_jumps": [],
@@ -7725,6 +8568,7 @@
             "ending_type": null,
             "id": 407,
             "is_combat": false,
+            "jump_conditions": {},
             "label": "La vampire",
             "secret": false,
             "secret_jumps": [],
@@ -7752,6 +8596,7 @@
             "ending_type": null,
             "id": 408,
             "is_combat": false,
+            "jump_conditions": {},
             "label": null,
             "secret": false,
             "secret_jumps": [],
@@ -7773,6 +8618,7 @@
             "ending_type": null,
             "id": 409,
             "is_combat": false,
+            "jump_conditions": {},
             "label": null,
             "secret": false,
             "secret_jumps": [],
@@ -7799,6 +8645,7 @@
             "ending_type": null,
             "id": 41,
             "is_combat": false,
+            "jump_conditions": {},
             "label": null,
             "secret": false,
             "secret_jumps": [],
@@ -7825,6 +8672,7 @@
             "ending_type": null,
             "id": 410,
             "is_combat": false,
+            "jump_conditions": {},
             "label": null,
             "secret": false,
             "secret_jumps": [],
@@ -7846,6 +8694,7 @@
             "ending_type": null,
             "id": 411,
             "is_combat": false,
+            "jump_conditions": {},
             "label": null,
             "secret": false,
             "secret_jumps": [],
@@ -7872,6 +8721,7 @@
             "ending_type": null,
             "id": 412,
             "is_combat": false,
+            "jump_conditions": {},
             "label": null,
             "secret": false,
             "secret_jumps": [],
@@ -7892,6 +8742,20 @@
             "ending_type": null,
             "id": 413,
             "is_combat": false,
+            "jump_conditions": {
+                "208": {
+                    "$end": "SAC DE GRAINS"
+                },
+                "217": {
+                    "$end": "MARMITE"
+                },
+                "463": {
+                    "$end": "PAMPHLET"
+                },
+                "506": {
+                    "$end": "PHILTRE D'AMOUR"
+                }
+            },
             "label": null,
             "secret": false,
             "secret_jumps": [],
@@ -7906,6 +8770,12 @@
                 506
             ],
             "success": null
+        },
+        "conditions": {
+            "208": "SAC DE GRAINS",
+            "217": "MARMITE",
+            "463": "PAMPHLET",
+            "506": "PHILTRE D'AMOUR"
         },
         "goto": [
             463,
@@ -7928,6 +8798,18 @@
             "ending_type": null,
             "id": 414,
             "is_combat": false,
+            "jump_conditions": {
+                "439": {
+                    "$or": [
+                        {
+                            "$end": "GUERRIER"
+                        },
+                        {
+                            "$end": "PAYSAN"
+                        }
+                    ]
+                }
+            },
             "label": null,
             "secret": false,
             "secret_jumps": [],
@@ -7939,6 +8821,9 @@
                 481
             ],
             "success": null
+        },
+        "conditions": {
+            "439": "GUERRIER|PAYSAN"
         },
         "goto": [
             439,
@@ -7958,6 +8843,7 @@
             "ending_type": null,
             "id": 415,
             "is_combat": false,
+            "jump_conditions": {},
             "label": null,
             "secret": false,
             "secret_jumps": [],
@@ -7984,6 +8870,7 @@
             "ending_type": null,
             "id": 416,
             "is_combat": false,
+            "jump_conditions": {},
             "label": null,
             "secret": false,
             "secret_jumps": [],
@@ -8004,6 +8891,7 @@
             "ending_type": null,
             "id": 417,
             "is_combat": false,
+            "jump_conditions": {},
             "label": null,
             "secret": false,
             "secret_jumps": [],
@@ -8024,6 +8912,7 @@
             "ending_type": null,
             "id": 418,
             "is_combat": false,
+            "jump_conditions": {},
             "label": null,
             "secret": false,
             "secret_jumps": [],
@@ -8044,6 +8933,7 @@
             "ending_type": null,
             "id": 419,
             "is_combat": false,
+            "jump_conditions": {},
             "label": null,
             "secret": false,
             "secret_jumps": [],
@@ -8064,6 +8954,7 @@
             "ending_type": null,
             "id": 42,
             "is_combat": false,
+            "jump_conditions": {},
             "label": null,
             "secret": false,
             "secret_jumps": [],
@@ -8084,6 +8975,7 @@
             "ending_type": null,
             "id": 420,
             "is_combat": false,
+            "jump_conditions": {},
             "label": null,
             "secret": false,
             "secret_jumps": [],
@@ -8105,6 +8997,7 @@
             "ending_type": null,
             "id": 421,
             "is_combat": true,
+            "jump_conditions": {},
             "label": null,
             "secret": false,
             "secret_jumps": [],
@@ -8130,6 +9023,7 @@
             "ending_type": null,
             "id": 422,
             "is_combat": true,
+            "jump_conditions": {},
             "label": null,
             "secret": false,
             "secret_jumps": [],
@@ -8150,6 +9044,7 @@
             "ending_type": null,
             "id": 423,
             "is_combat": false,
+            "jump_conditions": {},
             "label": null,
             "secret": false,
             "secret_jumps": [],
@@ -8170,6 +9065,7 @@
             "ending_type": null,
             "id": 424,
             "is_combat": false,
+            "jump_conditions": {},
             "label": null,
             "secret": false,
             "secret_jumps": [],
@@ -8196,6 +9092,7 @@
             "ending_type": null,
             "id": 425,
             "is_combat": false,
+            "jump_conditions": {},
             "label": "Catacombes",
             "secret": false,
             "secret_jumps": [],
@@ -8221,6 +9118,7 @@
             "ending_type": null,
             "id": 426,
             "is_combat": false,
+            "jump_conditions": {},
             "label": null,
             "secret": false,
             "secret_jumps": [],
@@ -8245,6 +9143,7 @@
             "ending_type": null,
             "id": 427,
             "is_combat": false,
+            "jump_conditions": {},
             "label": null,
             "secret": false,
             "secret_jumps": [],
@@ -8273,6 +9172,7 @@
             "ending_type": null,
             "id": 428,
             "is_combat": false,
+            "jump_conditions": {},
             "label": null,
             "secret": false,
             "secret_jumps": [],
@@ -8293,6 +9193,7 @@
             "ending_type": null,
             "id": 429,
             "is_combat": false,
+            "jump_conditions": {},
             "label": null,
             "secret": false,
             "secret_jumps": [],
@@ -8313,6 +9214,7 @@
             "ending_type": null,
             "id": 43,
             "is_combat": false,
+            "jump_conditions": {},
             "label": null,
             "secret": false,
             "secret_jumps": [],
@@ -8333,6 +9235,7 @@
             "ending_type": null,
             "id": 430,
             "is_combat": false,
+            "jump_conditions": {},
             "label": "Jardin",
             "secret": false,
             "secret_jumps": [],
@@ -8358,6 +9261,7 @@
             "ending_type": null,
             "id": 431,
             "is_combat": false,
+            "jump_conditions": {},
             "label": null,
             "secret": false,
             "secret_jumps": [],
@@ -8378,6 +9282,7 @@
             "ending_type": null,
             "id": 432,
             "is_combat": false,
+            "jump_conditions": {},
             "label": null,
             "secret": false,
             "secret_jumps": [],
@@ -8402,6 +9307,7 @@
             "ending_type": null,
             "id": 433,
             "is_combat": false,
+            "jump_conditions": {},
             "label": null,
             "secret": false,
             "secret_jumps": [],
@@ -8422,6 +9328,7 @@
             "ending_type": null,
             "id": 434,
             "is_combat": false,
+            "jump_conditions": {},
             "label": null,
             "secret": false,
             "secret_jumps": [],
@@ -8446,6 +9353,30 @@
             "ending_type": null,
             "id": 435,
             "is_combat": false,
+            "jump_conditions": {
+                "391": {
+                    "$end": "KIT D'ESCALADE"
+                },
+                "497": {
+                    "$or": [
+                        {
+                            "$end": "COTTE DE MAILLES"
+                        },
+                        {
+                            "$end": "MARMITTE"
+                        },
+                        {
+                            "$end": "CASQUE DE FER"
+                        },
+                        {
+                            "$end": "BOTTES EN FER"
+                        }
+                    ]
+                },
+                "56": {
+                    "$end": "FOURCHE"
+                }
+            },
             "label": null,
             "secret": false,
             "secret_jumps": [],
@@ -8456,6 +9387,11 @@
                 497
             ],
             "success": null
+        },
+        "conditions": {
+            "391": "KIT D'ESCALADE",
+            "497": "COTTE DE MAILLES|MARMITTE|CASQUE DE FER|BOTTES EN FER",
+            "56": "FOURCHE"
         },
         "goto": [
             391,
@@ -8474,6 +9410,7 @@
             "ending_type": null,
             "id": 436,
             "is_combat": false,
+            "jump_conditions": {},
             "label": null,
             "secret": false,
             "secret_jumps": [],
@@ -8501,6 +9438,7 @@
             "ending_type": null,
             "id": 437,
             "is_combat": false,
+            "jump_conditions": {},
             "label": null,
             "secret": false,
             "secret_jumps": [],
@@ -8525,6 +9463,7 @@
             "ending_type": null,
             "id": 438,
             "is_combat": false,
+            "jump_conditions": {},
             "label": null,
             "secret": false,
             "secret_jumps": [],
@@ -8545,6 +9484,7 @@
             "ending_type": null,
             "id": 439,
             "is_combat": false,
+            "jump_conditions": {},
             "label": null,
             "secret": false,
             "secret_jumps": [],
@@ -8573,6 +9513,7 @@
             "ending_type": null,
             "id": 44,
             "is_combat": false,
+            "jump_conditions": {},
             "label": null,
             "secret": false,
             "secret_jumps": [],
@@ -8597,6 +9538,44 @@
             "ending_type": null,
             "id": 440,
             "is_combat": false,
+            "jump_conditions": {
+                "179": {
+                    "$or": [
+                        {
+                            "$end": "GUERRIER"
+                        },
+                        {
+                            "$end": "COUTEAU"
+                        }
+                    ]
+                },
+                "319": {
+                    "$or": [
+                        {
+                            "$end": "PETIT MEDAILLON"
+                        },
+                        {
+                            "$end": "BROCHE DOREE"
+                        },
+                        {
+                            "$end": "BAGUE DE RUBIS"
+                        }
+                    ]
+                },
+                "483": {
+                    "$end": "GEMME MAGIQUE"
+                },
+                "72": {
+                    "$or": [
+                        {
+                            "$end": "PAYSAN"
+                        },
+                        {
+                            "$end": "MARMITE"
+                        }
+                    ]
+                }
+            },
             "label": "Vieillard",
             "secret": false,
             "secret_jumps": [],
@@ -8607,6 +9586,12 @@
                 483
             ],
             "success": null
+        },
+        "conditions": {
+            "179": "GUERRIER|COUTEAU",
+            "319": "PETIT MEDAILLON|BROCHE DOREE|BAGUE DE RUBIS",
+            "483": "GEMME MAGIQUE",
+            "72": "PAYSAN|MARMITE"
         },
         "goto": [
             72,
@@ -8626,6 +9611,7 @@
             "ending_type": null,
             "id": 441,
             "is_combat": false,
+            "jump_conditions": {},
             "label": null,
             "secret": false,
             "secret_jumps": [],
@@ -8646,6 +9632,7 @@
             "ending_type": null,
             "id": 442,
             "is_combat": false,
+            "jump_conditions": {},
             "label": null,
             "secret": false,
             "secret_jumps": [],
@@ -8666,6 +9653,7 @@
             "ending_type": null,
             "id": 443,
             "is_combat": false,
+            "jump_conditions": {},
             "label": null,
             "secret": false,
             "secret_jumps": [],
@@ -8686,6 +9674,7 @@
             "ending_type": null,
             "id": 444,
             "is_combat": false,
+            "jump_conditions": {},
             "label": null,
             "secret": false,
             "secret_jumps": [],
@@ -8706,6 +9695,7 @@
             "ending_type": null,
             "id": 445,
             "is_combat": false,
+            "jump_conditions": {},
             "label": null,
             "secret": false,
             "secret_jumps": [],
@@ -8726,6 +9716,7 @@
             "ending_type": null,
             "id": 446,
             "is_combat": false,
+            "jump_conditions": {},
             "label": null,
             "secret": false,
             "secret_jumps": [],
@@ -8746,6 +9737,7 @@
             "ending_type": null,
             "id": 447,
             "is_combat": false,
+            "jump_conditions": {},
             "label": "Couloir Est",
             "secret": false,
             "secret_jumps": [],
@@ -8781,6 +9773,7 @@
             "ending_type": null,
             "id": 448,
             "is_combat": false,
+            "jump_conditions": {},
             "label": null,
             "secret": false,
             "secret_jumps": [],
@@ -8801,6 +9794,7 @@
             "ending_type": null,
             "id": 449,
             "is_combat": false,
+            "jump_conditions": {},
             "label": null,
             "secret": false,
             "secret_jumps": [],
@@ -8825,6 +9819,7 @@
             "ending_type": null,
             "id": 45,
             "is_combat": false,
+            "jump_conditions": {},
             "label": null,
             "secret": false,
             "secret_jumps": [],
@@ -8849,6 +9844,7 @@
             "ending_type": null,
             "id": 450,
             "is_combat": false,
+            "jump_conditions": {},
             "label": null,
             "secret": false,
             "secret_jumps": [],
@@ -8877,6 +9873,7 @@
             "ending_type": null,
             "id": 451,
             "is_combat": false,
+            "jump_conditions": {},
             "label": null,
             "secret": false,
             "secret_jumps": [],
@@ -8897,6 +9894,7 @@
             "ending_type": null,
             "id": 452,
             "is_combat": false,
+            "jump_conditions": {},
             "label": null,
             "secret": false,
             "secret_jumps": [],
@@ -8917,6 +9915,7 @@
             "ending_type": null,
             "id": 453,
             "is_combat": false,
+            "jump_conditions": {},
             "label": null,
             "secret": false,
             "secret_jumps": [],
@@ -8937,6 +9936,39 @@
             "ending_type": null,
             "id": 454,
             "is_combat": false,
+            "jump_conditions": {
+                "559": {
+                    "$end": "PRUDENT"
+                },
+                "579": {
+                    "$end": "GUERRIER"
+                },
+                "585": {
+                    "$end": "PAYSAN"
+                },
+                "586": {
+                    "$end": "PRUDENT"
+                },
+                "589": {
+                    "$end": "GUERRIER"
+                },
+                "590": {
+                    "$end": "DEBROUILLARD"
+                },
+                "594": {
+                    "$end": "DEBROUILLARD"
+                },
+                "601": {
+                    "$and": [
+                        {
+                            "$end": "FER A CHEVAL"
+                        },
+                        {
+                            "$end": "TRESSE DE CENTAURESSE"
+                        }
+                    ]
+                }
+            },
             "label": null,
             "secret": false,
             "secret_jumps": [],
@@ -8951,6 +9983,16 @@
                 601
             ],
             "success": "MEMOIRE-HONOREE"
+        },
+        "conditions": {
+            "559": "PRUDENT",
+            "579": "GUERRIER",
+            "585": "PAYSAN",
+            "586": "PRUDENT",
+            "589": "GUERRIER",
+            "590": "DEBROUILLARD",
+            "594": "DEBROUILLARD",
+            "601": "FER A CHEVAL&TRESSE DE CENTAURESSE"
         },
         "goto": [
             579,
@@ -8974,6 +10016,7 @@
             "ending_type": null,
             "id": 455,
             "is_combat": false,
+            "jump_conditions": {},
             "label": null,
             "secret": false,
             "secret_jumps": [],
@@ -8998,6 +10041,7 @@
             "ending_type": null,
             "id": 456,
             "is_combat": false,
+            "jump_conditions": {},
             "label": null,
             "secret": false,
             "secret_jumps": [],
@@ -9018,6 +10062,7 @@
             "ending_type": null,
             "id": 457,
             "is_combat": false,
+            "jump_conditions": {},
             "label": "Salle de repas",
             "secret": false,
             "secret_jumps": [],
@@ -9047,6 +10092,11 @@
             "ending_type": null,
             "id": 458,
             "is_combat": false,
+            "jump_conditions": {
+                "524": {
+                    "$end": "DEBROUILLARD"
+                }
+            },
             "label": "Chambre du sorcier",
             "secret": false,
             "secret_jumps": [],
@@ -9056,6 +10106,9 @@
                 524
             ],
             "success": null
+        },
+        "conditions": {
+            "524": "DEBROUILLARD"
         },
         "goto": [
             296,
@@ -9074,6 +10127,7 @@
             "ending_type": null,
             "id": 459,
             "is_combat": false,
+            "jump_conditions": {},
             "label": null,
             "secret": false,
             "secret_jumps": [],
@@ -9095,6 +10149,7 @@
             "ending_type": null,
             "id": 46,
             "is_combat": false,
+            "jump_conditions": {},
             "label": null,
             "secret": false,
             "secret_jumps": [],
@@ -9116,6 +10171,7 @@
             "ending_type": null,
             "id": 460,
             "is_combat": false,
+            "jump_conditions": {},
             "label": null,
             "secret": false,
             "secret_jumps": [],
@@ -9140,6 +10196,7 @@
             "ending_type": null,
             "id": 461,
             "is_combat": false,
+            "jump_conditions": {},
             "label": "Couloir Nord",
             "secret": false,
             "secret_jumps": [],
@@ -9174,6 +10231,7 @@
             "ending_type": null,
             "id": 462,
             "is_combat": true,
+            "jump_conditions": {},
             "label": null,
             "secret": false,
             "secret_jumps": [],
@@ -9198,6 +10256,7 @@
             "ending_type": null,
             "id": 463,
             "is_combat": false,
+            "jump_conditions": {},
             "label": null,
             "secret": false,
             "secret_jumps": [],
@@ -9222,6 +10281,7 @@
             "ending_type": null,
             "id": 464,
             "is_combat": false,
+            "jump_conditions": {},
             "label": null,
             "secret": false,
             "secret_jumps": [],
@@ -9242,6 +10302,7 @@
             "ending_type": 2,
             "id": 465,
             "is_combat": false,
+            "jump_conditions": {},
             "label": null,
             "secret": false,
             "secret_jumps": [],
@@ -9263,6 +10324,7 @@
             "ending_type": null,
             "id": 466,
             "is_combat": false,
+            "jump_conditions": {},
             "label": null,
             "secret": false,
             "secret_jumps": [],
@@ -9283,6 +10345,7 @@
             "ending_type": null,
             "id": 467,
             "is_combat": false,
+            "jump_conditions": {},
             "label": null,
             "secret": false,
             "secret_jumps": [],
@@ -9303,6 +10366,7 @@
             "ending_type": null,
             "id": 468,
             "is_combat": false,
+            "jump_conditions": {},
             "label": null,
             "secret": false,
             "secret_jumps": [],
@@ -9323,6 +10387,7 @@
             "ending_type": null,
             "id": 469,
             "is_combat": false,
+            "jump_conditions": {},
             "label": null,
             "secret": false,
             "secret_jumps": [],
@@ -9347,6 +10412,7 @@
             "ending_type": null,
             "id": 47,
             "is_combat": false,
+            "jump_conditions": {},
             "label": null,
             "secret": false,
             "secret_jumps": [],
@@ -9367,6 +10433,7 @@
             "ending_type": null,
             "id": 470,
             "is_combat": false,
+            "jump_conditions": {},
             "label": null,
             "secret": false,
             "secret_jumps": [],
@@ -9387,6 +10454,7 @@
             "ending_type": null,
             "id": 471,
             "is_combat": false,
+            "jump_conditions": {},
             "label": null,
             "secret": false,
             "secret_jumps": [],
@@ -9407,6 +10475,7 @@
             "ending_type": null,
             "id": 472,
             "is_combat": false,
+            "jump_conditions": {},
             "label": null,
             "secret": false,
             "secret_jumps": [],
@@ -9433,6 +10502,7 @@
             "ending_type": null,
             "id": 473,
             "is_combat": false,
+            "jump_conditions": {},
             "label": null,
             "secret": false,
             "secret_jumps": [],
@@ -9457,6 +10527,7 @@
             "ending_type": null,
             "id": 474,
             "is_combat": false,
+            "jump_conditions": {},
             "label": null,
             "secret": false,
             "secret_jumps": [],
@@ -9482,6 +10553,59 @@
             "ending_type": null,
             "id": 475,
             "is_combat": true,
+            "jump_conditions": {
+                "290": {
+                    "$end": "CHLOROGLYCERINE"
+                },
+                "328": {
+                    "$end": "LIME EN ACIER D'ARKADIE"
+                },
+                "362": {
+                    "$end": "BRACELET DE CONTROLE"
+                },
+                "412": {
+                    "$end": "POINT FAIBLE"
+                },
+                "429": {
+                    "$end": "PRODUIT CHIMIQUES HASARDEUX"
+                },
+                "482": {
+                    "$end": "DARD EXPLOSIF"
+                },
+                "485": {
+                    "$end": "NATTE DE LA CENTAURESSE"
+                },
+                "508": {
+                    "$end": "BOUTEILLE D'ACIDE"
+                },
+                "509": {
+                    "$end": "ICONE DIVINE"
+                },
+                "532": {
+                    "$end": "EXPLOSIFS"
+                },
+                "558": {
+                    "$end": "MEDAILLON D'EDIRE"
+                },
+                "565": {
+                    "$end": "FLASQUE D'HUILE"
+                },
+                "567": {
+                    "$end": "ARMEE DE QUELETTES DETRUITE"
+                },
+                "568": {
+                    "$end": "BOUTEILLE DE MAGIE PURE"
+                },
+                "582": {
+                    "$end": "BOCAL A EPICES"
+                },
+                "598": {
+                    "$end": "SANG DE VAMPIRE"
+                },
+                "603": {
+                    "$end": "PERROQUET"
+                }
+            },
             "label": "Combat Virilus",
             "secret": false,
             "secret_jumps": [],
@@ -9506,6 +10630,25 @@
                 607
             ],
             "success": null
+        },
+        "conditions": {
+            "290": "CHLOROGLYCERINE",
+            "328": "LIME EN ACIER D'ARKADIE",
+            "362": "BRACELET DE CONTROLE",
+            "412": "POINT FAIBLE",
+            "429": "PRODUIT CHIMIQUES HASARDEUX",
+            "482": "DARD EXPLOSIF",
+            "485": "NATTE DE LA CENTAURESSE",
+            "508": "BOUTEILLE D'ACIDE",
+            "509": "ICONE DIVINE",
+            "532": "EXPLOSIFS",
+            "558": "MEDAILLON D'EDIRE",
+            "565": "FLASQUE D'HUILE",
+            "567": "ARMEE DE QUELETTES DETRUITE",
+            "568": "BOUTEILLE DE MAGIE PURE",
+            "582": "BOCAL A EPICES",
+            "598": "SANG DE VAMPIRE",
+            "603": "PERROQUET"
         },
         "goto": [
             290,
@@ -9539,6 +10682,29 @@
             "ending_type": null,
             "id": 476,
             "is_combat": false,
+            "jump_conditions": {
+                "559": {
+                    "$end": "PRUDENT"
+                },
+                "579": {
+                    "$end": "GUERRIER"
+                },
+                "585": {
+                    "$end": "PAYSAN"
+                },
+                "586": {
+                    "$end": "PRUDENT"
+                },
+                "589": {
+                    "$end": "GUERRIER"
+                },
+                "590": {
+                    "$end": "DEBROUILLARD"
+                },
+                "601": {
+                    "$end": "PAYSAN"
+                }
+            },
             "label": null,
             "secret": false,
             "secret_jumps": [],
@@ -9552,6 +10718,15 @@
                 601
             ],
             "success": null
+        },
+        "conditions": {
+            "559": "PRUDENT",
+            "579": "GUERRIER",
+            "585": "PAYSAN",
+            "586": "PRUDENT",
+            "589": "GUERRIER",
+            "590": "DEBROUILLARD",
+            "601": "PAYSAN"
         },
         "goto": [
             579,
@@ -9573,6 +10748,11 @@
             "ending_type": null,
             "id": 477,
             "is_combat": false,
+            "jump_conditions": {
+                "212": {
+                    "$end": "MEDAILLON D'EDIRE"
+                }
+            },
             "label": null,
             "secret": false,
             "secret_jumps": [],
@@ -9582,6 +10762,9 @@
                 349
             ],
             "success": null
+        },
+        "conditions": {
+            "212": "MEDAILLON D'EDIRE"
         },
         "goto": [
             212,
@@ -9599,6 +10782,7 @@
             "ending_type": null,
             "id": 478,
             "is_combat": false,
+            "jump_conditions": {},
             "label": null,
             "secret": false,
             "secret_jumps": [],
@@ -9619,6 +10803,7 @@
             "ending_type": null,
             "id": 479,
             "is_combat": false,
+            "jump_conditions": {},
             "label": null,
             "secret": false,
             "secret_jumps": [],
@@ -9639,6 +10824,7 @@
             "ending_type": null,
             "id": 48,
             "is_combat": false,
+            "jump_conditions": {},
             "label": "Boui-boui",
             "secret": false,
             "secret_jumps": [],
@@ -9666,6 +10852,71 @@
             "ending_type": null,
             "id": 480,
             "is_combat": false,
+            "jump_conditions": {
+                "302": {
+                    "$end": "FLASQUE D'HUILE"
+                },
+                "305": {
+                    "$end": "SANG DE VAMPIRE"
+                },
+                "331": {
+                    "$end": "BOTTE DE GARDE"
+                },
+                "334": {
+                    "$end": "PRODUITS CHIMIQUES HASARDEUX"
+                },
+                "379": {
+                    "$end": "BAGUE DE RUBIS"
+                },
+                "388": {
+                    "$end": "LIME EN ACIER D'ARKADIE"
+                },
+                "416": {
+                    "$end": "PETITE BOUTEILLE D'ACIDE"
+                },
+                "438": {
+                    "$end": "ECAILLE DE DRAGON"
+                },
+                "456": {
+                    "$end": "EXPLOSIFS"
+                },
+                "471": {
+                    "$end": "CHLOROGLYCERINE"
+                },
+                "478": {
+                    "$end": "BROCHE DOREE"
+                },
+                "525": {
+                    "$end": "PRODUITS DE NETTOYAGE"
+                },
+                "526": {
+                    "$end": "EFFIGIE DE DUEL"
+                },
+                "529": {
+                    "$end": "PERROQUET"
+                },
+                "539": {
+                    "$end": "BOUTEILLE DE MAGIE PURE"
+                },
+                "542": {
+                    "$end": "MEDAILLON D'EDIRE"
+                },
+                "557": {
+                    "$end": "TRESSE DE CENTAURESSE"
+                },
+                "562": {
+                    "$end": "BOULE A NEIGE"
+                },
+                "570": {
+                    "$end": "BOCAL A EPICES"
+                },
+                "600": {
+                    "$end": "DARD EXPLOSIF"
+                },
+                "606": {
+                    "$end": "ICONE DES PALADINS"
+                }
+            },
             "label": "Combat Chaudron noir",
             "secret": false,
             "secret_jumps": [],
@@ -9695,6 +10946,29 @@
                 607
             ],
             "success": null
+        },
+        "conditions": {
+            "302": "FLASQUE D'HUILE",
+            "305": "SANG DE VAMPIRE",
+            "331": "BOTTE DE GARDE",
+            "334": "PRODUITS CHIMIQUES HASARDEUX",
+            "379": "BAGUE DE RUBIS",
+            "388": "LIME EN ACIER D'ARKADIE",
+            "416": "PETITE BOUTEILLE D'ACIDE",
+            "438": "ECAILLE DE DRAGON",
+            "456": "EXPLOSIFS",
+            "471": "CHLOROGLYCERINE",
+            "478": "BROCHE DOREE",
+            "525": "PRODUITS DE NETTOYAGE",
+            "526": "EFFIGIE DE DUEL",
+            "529": "PERROQUET",
+            "539": "BOUTEILLE DE MAGIE PURE",
+            "542": "MEDAILLON D'EDIRE",
+            "557": "TRESSE DE CENTAURESSE",
+            "562": "BOULE A NEIGE",
+            "570": "BOCAL A EPICES",
+            "600": "DARD EXPLOSIF",
+            "606": "ICONE DES PALADINS"
         },
         "goto": [
             302,
@@ -9733,6 +11007,28 @@
             "ending_type": null,
             "id": 481,
             "is_combat": false,
+            "jump_conditions": {
+                "132": {
+                    "$or": [
+                        {
+                            "$end": "GUERRIER"
+                        },
+                        {
+                            "$end": "PAYSAN"
+                        }
+                    ]
+                },
+                "211": {
+                    "$or": [
+                        {
+                            "$end": "PRUDENT"
+                        },
+                        {
+                            "$end": "DEBROUILLARD"
+                        }
+                    ]
+                }
+            },
             "label": null,
             "secret": false,
             "secret_jumps": [],
@@ -9741,6 +11037,10 @@
                 211
             ],
             "success": null
+        },
+        "conditions": {
+            "132": "GUERRIER|PAYSAN",
+            "211": "PRUDENT|DEBROUILLARD"
         },
         "goto": [
             211,
@@ -9757,6 +11057,7 @@
             "ending_type": null,
             "id": 482,
             "is_combat": false,
+            "jump_conditions": {},
             "label": null,
             "secret": false,
             "secret_jumps": [],
@@ -9778,6 +11079,7 @@
             "ending_type": null,
             "id": 483,
             "is_combat": true,
+            "jump_conditions": {},
             "label": null,
             "secret": false,
             "secret_jumps": [],
@@ -9798,6 +11100,7 @@
             "ending_type": null,
             "id": 484,
             "is_combat": false,
+            "jump_conditions": {},
             "label": null,
             "secret": false,
             "secret_jumps": [],
@@ -9826,6 +11129,7 @@
             "ending_type": null,
             "id": 485,
             "is_combat": false,
+            "jump_conditions": {},
             "label": null,
             "secret": false,
             "secret_jumps": [],
@@ -9846,6 +11150,17 @@
             "ending_type": null,
             "id": 486,
             "is_combat": false,
+            "jump_conditions": {
+                "182": {
+                    "$end": "PALAIS DES PLAISIRS D'YTIA"
+                },
+                "202": {
+                    "$end": "BOUTEILLE DE MAGIE PURE"
+                },
+                "222": {
+                    "$end": "PRODUIT DE NETTOYAGE"
+                }
+            },
             "label": null,
             "secret": false,
             "secret_jumps": [],
@@ -9856,6 +11171,11 @@
                 574
             ],
             "success": null
+        },
+        "conditions": {
+            "182": "PALAIS DES PLAISIRS D'YTIA",
+            "202": "BOUTEILLE DE MAGIE PURE",
+            "222": "PRODUIT DE NETTOYAGE"
         },
         "goto": [
             222,
@@ -9874,6 +11194,7 @@
             "ending_type": null,
             "id": 487,
             "is_combat": false,
+            "jump_conditions": {},
             "label": null,
             "secret": false,
             "secret_jumps": [],
@@ -9894,6 +11215,7 @@
             "ending_type": null,
             "id": 488,
             "is_combat": false,
+            "jump_conditions": {},
             "label": null,
             "secret": false,
             "secret_jumps": [],
@@ -9914,6 +11236,7 @@
             "ending_type": null,
             "id": 489,
             "is_combat": false,
+            "jump_conditions": {},
             "label": null,
             "secret": false,
             "secret_jumps": [],
@@ -9940,6 +11263,7 @@
             "ending_type": null,
             "id": 49,
             "is_combat": false,
+            "jump_conditions": {},
             "label": null,
             "secret": true,
             "secret_jumps": [],
@@ -9961,6 +11285,7 @@
             "ending_type": null,
             "id": 490,
             "is_combat": false,
+            "jump_conditions": {},
             "label": null,
             "secret": false,
             "secret_jumps": [],
@@ -9987,6 +11312,7 @@
             "ending_type": null,
             "id": 491,
             "is_combat": false,
+            "jump_conditions": {},
             "label": null,
             "secret": false,
             "secret_jumps": [],
@@ -10007,6 +11333,7 @@
             "ending_type": null,
             "id": 492,
             "is_combat": false,
+            "jump_conditions": {},
             "label": null,
             "secret": false,
             "secret_jumps": [],
@@ -10027,6 +11354,7 @@
             "ending_type": null,
             "id": 493,
             "is_combat": false,
+            "jump_conditions": {},
             "label": null,
             "secret": false,
             "secret_jumps": [],
@@ -10057,6 +11385,7 @@
             "ending_type": null,
             "id": 494,
             "is_combat": false,
+            "jump_conditions": {},
             "label": null,
             "secret": false,
             "secret_jumps": [],
@@ -10077,6 +11406,7 @@
             "ending_type": null,
             "id": 495,
             "is_combat": false,
+            "jump_conditions": {},
             "label": null,
             "secret": false,
             "secret_jumps": [],
@@ -10098,6 +11428,7 @@
             "ending_type": null,
             "id": 496,
             "is_combat": false,
+            "jump_conditions": {},
             "label": "Cathédrale",
             "secret": false,
             "secret_jumps": [],
@@ -10127,6 +11458,7 @@
             "ending_type": null,
             "id": 497,
             "is_combat": false,
+            "jump_conditions": {},
             "label": null,
             "secret": false,
             "secret_jumps": [],
@@ -10147,6 +11479,7 @@
             "ending_type": null,
             "id": 498,
             "is_combat": false,
+            "jump_conditions": {},
             "label": null,
             "secret": false,
             "secret_jumps": [],
@@ -10167,6 +11500,7 @@
             "ending_type": null,
             "id": 499,
             "is_combat": false,
+            "jump_conditions": {},
             "label": null,
             "secret": false,
             "secret_jumps": [],
@@ -10187,6 +11521,7 @@
             "ending_type": null,
             "id": 5,
             "is_combat": false,
+            "jump_conditions": {},
             "label": null,
             "secret": false,
             "secret_jumps": [],
@@ -10213,6 +11548,7 @@
             "ending_type": null,
             "id": 50,
             "is_combat": false,
+            "jump_conditions": {},
             "label": null,
             "secret": false,
             "secret_jumps": [],
@@ -10241,6 +11577,7 @@
             "ending_type": null,
             "id": 500,
             "is_combat": false,
+            "jump_conditions": {},
             "label": "Acte Virilus",
             "secret": false,
             "secret_jumps": [],
@@ -10266,6 +11603,7 @@
             "ending_type": null,
             "id": 501,
             "is_combat": false,
+            "jump_conditions": {},
             "label": null,
             "secret": false,
             "secret_jumps": [],
@@ -10294,6 +11632,7 @@
             "ending_type": null,
             "id": 502,
             "is_combat": false,
+            "jump_conditions": {},
             "label": null,
             "secret": false,
             "secret_jumps": [],
@@ -10314,6 +11653,7 @@
             "ending_type": null,
             "id": 503,
             "is_combat": false,
+            "jump_conditions": {},
             "label": null,
             "secret": false,
             "secret_jumps": [],
@@ -10340,6 +11680,7 @@
             "ending_type": null,
             "id": 504,
             "is_combat": false,
+            "jump_conditions": {},
             "label": null,
             "secret": false,
             "secret_jumps": [],
@@ -10360,6 +11701,7 @@
             "ending_type": null,
             "id": 505,
             "is_combat": false,
+            "jump_conditions": {},
             "label": null,
             "secret": false,
             "secret_jumps": [],
@@ -10381,6 +11723,7 @@
             "ending_type": null,
             "id": 506,
             "is_combat": false,
+            "jump_conditions": {},
             "label": null,
             "secret": false,
             "secret_jumps": [],
@@ -10401,6 +11744,7 @@
             "ending_type": null,
             "id": 507,
             "is_combat": false,
+            "jump_conditions": {},
             "label": null,
             "secret": false,
             "secret_jumps": [],
@@ -10421,6 +11765,7 @@
             "ending_type": null,
             "id": 508,
             "is_combat": false,
+            "jump_conditions": {},
             "label": null,
             "secret": false,
             "secret_jumps": [],
@@ -10441,6 +11786,7 @@
             "ending_type": null,
             "id": 509,
             "is_combat": false,
+            "jump_conditions": {},
             "label": null,
             "secret": false,
             "secret_jumps": [],
@@ -10461,6 +11807,7 @@
             "ending_type": null,
             "id": 51,
             "is_combat": false,
+            "jump_conditions": {},
             "label": null,
             "secret": false,
             "secret_jumps": [],
@@ -10482,6 +11829,21 @@
             "ending_type": null,
             "id": 510,
             "is_combat": false,
+            "jump_conditions": {
+                "172": {
+                    "$or": [
+                        {
+                            "$end": "COUTEAU"
+                        },
+                        {
+                            "$end": "EPEE"
+                        }
+                    ]
+                },
+                "538": {
+                    "$end": "PHILTRE D'AMOUR"
+                }
+            },
             "label": null,
             "secret": false,
             "secret_jumps": [],
@@ -10491,6 +11853,10 @@
                 538
             ],
             "success": null
+        },
+        "conditions": {
+            "172": "COUTEAU|EPEE",
+            "538": "PHILTRE D'AMOUR"
         },
         "goto": [
             538,
@@ -10508,6 +11874,7 @@
             "ending_type": null,
             "id": 511,
             "is_combat": false,
+            "jump_conditions": {},
             "label": null,
             "secret": false,
             "secret_jumps": [],
@@ -10528,6 +11895,17 @@
             "ending_type": null,
             "id": 512,
             "is_combat": false,
+            "jump_conditions": {
+                "20": {
+                    "$end": "PHILTRE D'AMOUR"
+                },
+                "337": {
+                    "$end": "ECAILLE DE DRAGON"
+                },
+                "592": {
+                    "$end": "BOUTEILLE DE MAGIE PURE"
+                }
+            },
             "label": null,
             "secret": false,
             "secret_jumps": [],
@@ -10541,6 +11919,11 @@
                 592
             ],
             "success": null
+        },
+        "conditions": {
+            "20": "PHILTRE D'AMOUR",
+            "337": "ECAILLE DE DRAGON",
+            "592": "BOUTEILLE DE MAGIE PURE"
         },
         "goto": [
             337,
@@ -10562,6 +11945,7 @@
             "ending_type": null,
             "id": 513,
             "is_combat": false,
+            "jump_conditions": {},
             "label": null,
             "secret": false,
             "secret_jumps": [],
@@ -10583,6 +11967,7 @@
             "ending_type": null,
             "id": 514,
             "is_combat": false,
+            "jump_conditions": {},
             "label": null,
             "secret": false,
             "secret_jumps": [],
@@ -10603,6 +11988,7 @@
             "ending_type": null,
             "id": 515,
             "is_combat": false,
+            "jump_conditions": {},
             "label": null,
             "secret": false,
             "secret_jumps": [],
@@ -10623,6 +12009,7 @@
             "ending_type": null,
             "id": 516,
             "is_combat": false,
+            "jump_conditions": {},
             "label": null,
             "secret": false,
             "secret_jumps": [],
@@ -10649,6 +12036,7 @@
             "ending_type": null,
             "id": 517,
             "is_combat": false,
+            "jump_conditions": {},
             "label": null,
             "secret": false,
             "secret_jumps": [],
@@ -10670,6 +12058,7 @@
             "ending_type": null,
             "id": 518,
             "is_combat": true,
+            "jump_conditions": {},
             "label": null,
             "secret": false,
             "secret_jumps": [],
@@ -10690,6 +12079,7 @@
             "ending_type": null,
             "id": 519,
             "is_combat": false,
+            "jump_conditions": {},
             "label": "Pied de la tour",
             "secret": false,
             "secret_jumps": [],
@@ -10715,6 +12105,7 @@
             "ending_type": null,
             "id": 52,
             "is_combat": false,
+            "jump_conditions": {},
             "label": null,
             "secret": false,
             "secret_jumps": [],
@@ -10743,6 +12134,18 @@
             "ending_type": null,
             "id": 520,
             "is_combat": false,
+            "jump_conditions": {
+                "503": {
+                    "$or": [
+                        {
+                            "$end": "EXPLOSIFS"
+                        },
+                        {
+                            "$end": "MORGENSTERN"
+                        }
+                    ]
+                }
+            },
             "label": "Salle statues",
             "secret": false,
             "secret_jumps": [],
@@ -10751,6 +12154,9 @@
                 503
             ],
             "success": null
+        },
+        "conditions": {
+            "503": "EXPLOSIFS|MORGENSTERN"
         },
         "goto": [
             503,
@@ -10768,6 +12174,17 @@
             "ending_type": null,
             "id": 521,
             "is_combat": false,
+            "jump_conditions": {
+                "20": {
+                    "$end": "PHILTRE D'AMOUR"
+                },
+                "337": {
+                    "$end": "ECAILLE DE DRAGON"
+                },
+                "592": {
+                    "$end": "BOUTEILLE DE MAGIE PURE"
+                }
+            },
             "label": null,
             "secret": false,
             "secret_jumps": [],
@@ -10780,6 +12197,11 @@
                 592
             ],
             "success": null
+        },
+        "conditions": {
+            "20": "PHILTRE D'AMOUR",
+            "337": "ECAILLE DE DRAGON",
+            "592": "BOUTEILLE DE MAGIE PURE"
         },
         "goto": [
             3,
@@ -10800,6 +12222,20 @@
             "ending_type": null,
             "id": 522,
             "is_combat": false,
+            "jump_conditions": {
+                "245": {
+                    "$end": "LIME"
+                },
+                "321": {
+                    "$end": "DARD EXPLOSIF"
+                },
+                "373": {
+                    "$end": "COUTEAU"
+                },
+                "59": {
+                    "$end": "PASSE-PARTOUT"
+                }
+            },
             "label": null,
             "secret": false,
             "secret_jumps": [],
@@ -10810,6 +12246,12 @@
                 373
             ],
             "success": null
+        },
+        "conditions": {
+            "245": "LIME",
+            "321": "DARD EXPLOSIF",
+            "373": "COUTEAU",
+            "59": "PASSE-PARTOUT"
         },
         "goto": [
             59,
@@ -10828,6 +12270,7 @@
             "ending_type": null,
             "id": 523,
             "is_combat": false,
+            "jump_conditions": {},
             "label": null,
             "secret": false,
             "secret_jumps": [],
@@ -10854,6 +12297,7 @@
             "ending_type": null,
             "id": 524,
             "is_combat": false,
+            "jump_conditions": {},
             "label": null,
             "secret": false,
             "secret_jumps": [],
@@ -10878,6 +12322,7 @@
             "ending_type": null,
             "id": 525,
             "is_combat": false,
+            "jump_conditions": {},
             "label": null,
             "secret": false,
             "secret_jumps": [],
@@ -10898,6 +12343,7 @@
             "ending_type": null,
             "id": 526,
             "is_combat": false,
+            "jump_conditions": {},
             "label": null,
             "secret": false,
             "secret_jumps": [],
@@ -10918,6 +12364,7 @@
             "ending_type": null,
             "id": 527,
             "is_combat": false,
+            "jump_conditions": {},
             "label": null,
             "secret": false,
             "secret_jumps": [],
@@ -10938,6 +12385,7 @@
             "ending_type": null,
             "id": 528,
             "is_combat": false,
+            "jump_conditions": {},
             "label": null,
             "secret": false,
             "secret_jumps": [],
@@ -10962,6 +12410,11 @@
             "ending_type": null,
             "id": 529,
             "is_combat": false,
+            "jump_conditions": {
+                "595": {
+                    "$end": "PERROQUET"
+                }
+            },
             "label": null,
             "secret": false,
             "secret_jumps": [],
@@ -10970,6 +12423,9 @@
                 595
             ],
             "success": null
+        },
+        "conditions": {
+            "595": "PERROQUET"
         },
         "goto": [
             480,
@@ -10986,6 +12442,11 @@
             "ending_type": null,
             "id": 53,
             "is_combat": false,
+            "jump_conditions": {
+                "180": {
+                    "$end": "SAC DE GRAINS"
+                }
+            },
             "label": "Ecuries",
             "secret": false,
             "secret_jumps": [],
@@ -10995,6 +12456,9 @@
                 267
             ],
             "success": null
+        },
+        "conditions": {
+            "180": "SAC DE GRAINS"
         },
         "goto": [
             180,
@@ -11013,6 +12477,7 @@
             "ending_type": null,
             "id": 530,
             "is_combat": false,
+            "jump_conditions": {},
             "label": null,
             "secret": false,
             "secret_jumps": [],
@@ -11033,6 +12498,7 @@
             "ending_type": null,
             "id": 531,
             "is_combat": false,
+            "jump_conditions": {},
             "label": null,
             "secret": false,
             "secret_jumps": [],
@@ -11061,6 +12527,7 @@
             "ending_type": null,
             "id": 532,
             "is_combat": false,
+            "jump_conditions": {},
             "label": null,
             "secret": false,
             "secret_jumps": [],
@@ -11081,6 +12548,7 @@
             "ending_type": null,
             "id": 533,
             "is_combat": false,
+            "jump_conditions": {},
             "label": null,
             "secret": false,
             "secret_jumps": [],
@@ -11102,6 +12570,7 @@
             "ending_type": null,
             "id": 534,
             "is_combat": true,
+            "jump_conditions": {},
             "label": null,
             "secret": false,
             "secret_jumps": [],
@@ -11122,6 +12591,39 @@
             "ending_type": null,
             "id": 535,
             "is_combat": false,
+            "jump_conditions": {
+                "559": {
+                    "$end": "PRUDENT"
+                },
+                "579": {
+                    "$end": "GUERRIER"
+                },
+                "585": {
+                    "$end": "PAYSAN"
+                },
+                "586": {
+                    "$end": "PRUDENT"
+                },
+                "589": {
+                    "$end": "GUERRIER"
+                },
+                "590": {
+                    "$end": "DEBROUILLARD"
+                },
+                "601": {
+                    "$and": [
+                        {
+                            "$end": "PAYSAN"
+                        },
+                        {
+                            "$end": "FER A CHEVAL"
+                        },
+                        {
+                            "$end": "TRESSE DE CENTAURESSE"
+                        }
+                    ]
+                }
+            },
             "label": null,
             "secret": false,
             "secret_jumps": [],
@@ -11135,6 +12637,15 @@
                 601
             ],
             "success": null
+        },
+        "conditions": {
+            "559": "PRUDENT",
+            "579": "GUERRIER",
+            "585": "PAYSAN",
+            "586": "PRUDENT",
+            "589": "GUERRIER",
+            "590": "DEBROUILLARD",
+            "601": "PAYSAN&FER A CHEVAL&TRESSE DE CENTAURESSE"
         },
         "goto": [
             579,
@@ -11156,6 +12667,7 @@
             "ending_type": null,
             "id": 536,
             "is_combat": false,
+            "jump_conditions": {},
             "label": null,
             "secret": false,
             "secret_jumps": [],
@@ -11180,6 +12692,17 @@
             "ending_type": null,
             "id": 537,
             "is_combat": false,
+            "jump_conditions": {
+                "162": {
+                    "$end": "ARC"
+                },
+                "504": {
+                    "$end": "EFFIGIE DE DUEL"
+                },
+                "549": {
+                    "$end": "MEDAILLON D'EDIRE"
+                }
+            },
             "label": null,
             "secret": false,
             "secret_jumps": [],
@@ -11193,6 +12716,11 @@
                 549
             ],
             "success": null
+        },
+        "conditions": {
+            "162": "ARC",
+            "504": "EFFIGIE DE DUEL",
+            "549": "MEDAILLON D'EDIRE"
         },
         "goto": [
             504,
@@ -11214,6 +12742,7 @@
             "ending_type": null,
             "id": 538,
             "is_combat": false,
+            "jump_conditions": {},
             "label": null,
             "secret": false,
             "secret_jumps": [],
@@ -11234,6 +12763,11 @@
             "ending_type": null,
             "id": 539,
             "is_combat": false,
+            "jump_conditions": {
+                "595": {
+                    "$end": "PERROQUET"
+                }
+            },
             "label": null,
             "secret": false,
             "secret_jumps": [],
@@ -11242,6 +12776,9 @@
                 595
             ],
             "success": null
+        },
+        "conditions": {
+            "595": "PERROQUET"
         },
         "goto": [
             480,
@@ -11259,6 +12796,7 @@
             "ending_type": null,
             "id": 54,
             "is_combat": true,
+            "jump_conditions": {},
             "label": null,
             "secret": false,
             "secret_jumps": [],
@@ -11283,6 +12821,7 @@
             "ending_type": null,
             "id": 540,
             "is_combat": false,
+            "jump_conditions": {},
             "label": null,
             "secret": false,
             "secret_jumps": [],
@@ -11307,6 +12846,7 @@
             "ending_type": null,
             "id": 541,
             "is_combat": false,
+            "jump_conditions": {},
             "label": null,
             "secret": false,
             "secret_jumps": [],
@@ -11327,6 +12867,7 @@
             "ending_type": null,
             "id": 542,
             "is_combat": false,
+            "jump_conditions": {},
             "label": null,
             "secret": false,
             "secret_jumps": [],
@@ -11347,6 +12888,7 @@
             "ending_type": null,
             "id": 543,
             "is_combat": false,
+            "jump_conditions": {},
             "label": null,
             "secret": false,
             "secret_jumps": [],
@@ -11371,6 +12913,7 @@
             "ending_type": null,
             "id": 544,
             "is_combat": false,
+            "jump_conditions": {},
             "label": null,
             "secret": false,
             "secret_jumps": [],
@@ -11398,6 +12941,7 @@
             "ending_type": null,
             "id": 545,
             "is_combat": true,
+            "jump_conditions": {},
             "label": null,
             "secret": false,
             "secret_jumps": [],
@@ -11418,6 +12962,7 @@
             "ending_type": null,
             "id": 546,
             "is_combat": false,
+            "jump_conditions": {},
             "label": null,
             "secret": false,
             "secret_jumps": [],
@@ -11438,6 +12983,21 @@
             "ending_type": null,
             "id": 547,
             "is_combat": false,
+            "jump_conditions": {
+                "390": {
+                    "$end": "GROSSE CLE"
+                },
+                "550": {
+                    "$and": [
+                        {
+                            "$end": "CLE A"
+                        },
+                        {
+                            "$end": "CLE B"
+                        }
+                    ]
+                }
+            },
             "label": null,
             "secret": false,
             "secret_jumps": [],
@@ -11447,6 +13007,10 @@
                 550
             ],
             "success": null
+        },
+        "conditions": {
+            "390": "GROSSE CLE",
+            "550": "CLE A&CLE B"
         },
         "goto": [
             390,
@@ -11464,6 +13028,7 @@
             "ending_type": null,
             "id": 548,
             "is_combat": false,
+            "jump_conditions": {},
             "label": null,
             "secret": false,
             "secret_jumps": [],
@@ -11484,6 +13049,7 @@
             "ending_type": null,
             "id": 549,
             "is_combat": false,
+            "jump_conditions": {},
             "label": null,
             "secret": false,
             "secret_jumps": [],
@@ -11504,6 +13070,7 @@
             "ending_type": null,
             "id": 55,
             "is_combat": false,
+            "jump_conditions": {},
             "label": null,
             "secret": false,
             "secret_jumps": [],
@@ -11524,6 +13091,7 @@
             "ending_type": null,
             "id": 550,
             "is_combat": false,
+            "jump_conditions": {},
             "label": "Salle du trône",
             "secret": false,
             "secret_jumps": [],
@@ -11549,6 +13117,7 @@
             "ending_type": null,
             "id": 551,
             "is_combat": false,
+            "jump_conditions": {},
             "label": "Dortoir",
             "secret": false,
             "secret_jumps": [],
@@ -11580,6 +13149,11 @@
             "ending_type": null,
             "id": 552,
             "is_combat": false,
+            "jump_conditions": {
+                "604": {
+                    "$end": "PRUDENT"
+                }
+            },
             "label": null,
             "secret": false,
             "secret_jumps": [],
@@ -11588,6 +13162,9 @@
                 604
             ],
             "success": null
+        },
+        "conditions": {
+            "604": "PRUDENT"
         },
         "goto": [
             469,
@@ -11604,6 +13181,7 @@
             "ending_type": null,
             "id": 553,
             "is_combat": false,
+            "jump_conditions": {},
             "label": "Thermes",
             "secret": false,
             "secret_jumps": [],
@@ -11629,6 +13207,7 @@
             "ending_type": null,
             "id": 554,
             "is_combat": false,
+            "jump_conditions": {},
             "label": null,
             "secret": false,
             "secret_jumps": [],
@@ -11650,6 +13229,7 @@
             "ending_type": null,
             "id": 555,
             "is_combat": true,
+            "jump_conditions": {},
             "label": null,
             "secret": false,
             "secret_jumps": [],
@@ -11670,6 +13250,7 @@
             "ending_type": null,
             "id": 556,
             "is_combat": false,
+            "jump_conditions": {},
             "label": null,
             "secret": false,
             "secret_jumps": [],
@@ -11697,6 +13278,7 @@
             "ending_type": null,
             "id": 557,
             "is_combat": false,
+            "jump_conditions": {},
             "label": null,
             "secret": false,
             "secret_jumps": [],
@@ -11717,6 +13299,7 @@
             "ending_type": null,
             "id": 558,
             "is_combat": false,
+            "jump_conditions": {},
             "label": null,
             "secret": false,
             "secret_jumps": [],
@@ -11737,6 +13320,7 @@
             "ending_type": 1,
             "id": 559,
             "is_combat": false,
+            "jump_conditions": {},
             "label": null,
             "secret": false,
             "secret_jumps": [],
@@ -11757,6 +13341,7 @@
             "ending_type": null,
             "id": 56,
             "is_combat": false,
+            "jump_conditions": {},
             "label": null,
             "secret": false,
             "secret_jumps": [],
@@ -11781,6 +13366,7 @@
             "ending_type": null,
             "id": 560,
             "is_combat": false,
+            "jump_conditions": {},
             "label": null,
             "secret": false,
             "secret_jumps": [],
@@ -11802,6 +13388,7 @@
             "ending_type": null,
             "id": 561,
             "is_combat": false,
+            "jump_conditions": {},
             "label": null,
             "secret": false,
             "secret_jumps": [],
@@ -11822,6 +13409,7 @@
             "ending_type": null,
             "id": 562,
             "is_combat": false,
+            "jump_conditions": {},
             "label": null,
             "secret": false,
             "secret_jumps": [],
@@ -11842,6 +13430,7 @@
             "ending_type": null,
             "id": 563,
             "is_combat": false,
+            "jump_conditions": {},
             "label": null,
             "secret": false,
             "secret_jumps": [],
@@ -11862,6 +13451,21 @@
             "ending_type": null,
             "id": 564,
             "is_combat": false,
+            "jump_conditions": {
+                "308": {
+                    "$or": [
+                        {
+                            "$end": "ANNEAU DE RUBIS"
+                        },
+                        {
+                            "$end": "BROCHE DOREE"
+                        }
+                    ]
+                },
+                "546": {
+                    "$end": "PERROQUET"
+                }
+            },
             "label": null,
             "secret": false,
             "secret_jumps": [],
@@ -11874,6 +13478,10 @@
                 546
             ],
             "success": null
+        },
+        "conditions": {
+            "308": "ANNEAU DE RUBIS|BROCHE DOREE",
+            "546": "PERROQUET"
         },
         "goto": [
             308,
@@ -11894,6 +13502,7 @@
             "ending_type": null,
             "id": 565,
             "is_combat": false,
+            "jump_conditions": {},
             "label": null,
             "secret": false,
             "secret_jumps": [],
@@ -11914,6 +13523,7 @@
             "ending_type": null,
             "id": 566,
             "is_combat": false,
+            "jump_conditions": {},
             "label": null,
             "secret": false,
             "secret_jumps": [],
@@ -11938,6 +13548,7 @@
             "ending_type": null,
             "id": 567,
             "is_combat": false,
+            "jump_conditions": {},
             "label": null,
             "secret": false,
             "secret_jumps": [],
@@ -11958,6 +13569,7 @@
             "ending_type": null,
             "id": 568,
             "is_combat": false,
+            "jump_conditions": {},
             "label": null,
             "secret": false,
             "secret_jumps": [],
@@ -11978,6 +13590,7 @@
             "ending_type": null,
             "id": 569,
             "is_combat": false,
+            "jump_conditions": {},
             "label": "Petite alcôve",
             "secret": false,
             "secret_jumps": [],
@@ -12005,6 +13618,7 @@
             "ending_type": null,
             "id": 57,
             "is_combat": false,
+            "jump_conditions": {},
             "label": null,
             "secret": false,
             "secret_jumps": [],
@@ -12025,6 +13639,7 @@
             "ending_type": null,
             "id": 570,
             "is_combat": false,
+            "jump_conditions": {},
             "label": null,
             "secret": false,
             "secret_jumps": [],
@@ -12045,6 +13660,7 @@
             "ending_type": null,
             "id": 571,
             "is_combat": false,
+            "jump_conditions": {},
             "label": null,
             "secret": false,
             "secret_jumps": [],
@@ -12069,6 +13685,7 @@
             "ending_type": null,
             "id": 572,
             "is_combat": false,
+            "jump_conditions": {},
             "label": null,
             "secret": false,
             "secret_jumps": [],
@@ -12095,6 +13712,7 @@
             "ending_type": null,
             "id": 573,
             "is_combat": false,
+            "jump_conditions": {},
             "label": null,
             "secret": false,
             "secret_jumps": [],
@@ -12120,6 +13738,7 @@
             "ending_type": null,
             "id": 574,
             "is_combat": true,
+            "jump_conditions": {},
             "label": null,
             "secret": false,
             "secret_jumps": [],
@@ -12141,6 +13760,7 @@
             "ending_type": null,
             "id": 575,
             "is_combat": true,
+            "jump_conditions": {},
             "label": null,
             "secret": false,
             "secret_jumps": [],
@@ -12168,6 +13788,7 @@
             "ending_type": null,
             "id": 576,
             "is_combat": true,
+            "jump_conditions": {},
             "label": null,
             "secret": false,
             "secret_jumps": [],
@@ -12188,6 +13809,7 @@
             "ending_type": null,
             "id": 577,
             "is_combat": false,
+            "jump_conditions": {},
             "label": null,
             "secret": false,
             "secret_jumps": [],
@@ -12214,6 +13836,39 @@
             "ending_type": null,
             "id": 578,
             "is_combat": false,
+            "jump_conditions": {
+                "559": {
+                    "$end": "PRUDENT"
+                },
+                "579": {
+                    "$end": "GUERRIER"
+                },
+                "585": {
+                    "$end": "PAYSAN"
+                },
+                "586": {
+                    "$end": "PRUDENT"
+                },
+                "589": {
+                    "$end": "GUERRIER"
+                },
+                "590": {
+                    "$end": "DEBROUILLARD"
+                },
+                "601": {
+                    "$and": [
+                        {
+                            "$end": "PAYSAN"
+                        },
+                        {
+                            "$end": "FER A CHEVAL"
+                        },
+                        {
+                            "$end": "TRESSE DE CENTAURESSE"
+                        }
+                    ]
+                }
+            },
             "label": null,
             "secret": false,
             "secret_jumps": [],
@@ -12227,6 +13882,15 @@
                 601
             ],
             "success": null
+        },
+        "conditions": {
+            "559": "PRUDENT",
+            "579": "GUERRIER",
+            "585": "PAYSAN",
+            "586": "PRUDENT",
+            "589": "GUERRIER",
+            "590": "DEBROUILLARD",
+            "601": "PAYSAN&FER A CHEVAL&TRESSE DE CENTAURESSE"
         },
         "goto": [
             579,
@@ -12248,6 +13912,7 @@
             "ending_type": 1,
             "id": 579,
             "is_combat": false,
+            "jump_conditions": {},
             "label": null,
             "secret": false,
             "secret_jumps": [],
@@ -12269,6 +13934,7 @@
             "ending_type": null,
             "id": 58,
             "is_combat": true,
+            "jump_conditions": {},
             "label": null,
             "secret": false,
             "secret_jumps": [],
@@ -12293,6 +13959,7 @@
             "ending_type": null,
             "id": 580,
             "is_combat": false,
+            "jump_conditions": {},
             "label": null,
             "secret": false,
             "secret_jumps": [],
@@ -12317,6 +13984,11 @@
             "ending_type": null,
             "id": 581,
             "is_combat": false,
+            "jump_conditions": {
+                "184": {
+                    "$end": "KIT D'ESCALADE"
+                }
+            },
             "label": "Tour sud",
             "secret": false,
             "secret_jumps": [],
@@ -12326,6 +13998,9 @@
                 596
             ],
             "success": null
+        },
+        "conditions": {
+            "184": "KIT D'ESCALADE"
         },
         "goto": [
             400,
@@ -12344,6 +14019,7 @@
             "ending_type": null,
             "id": 582,
             "is_combat": false,
+            "jump_conditions": {},
             "label": null,
             "secret": false,
             "secret_jumps": [],
@@ -12364,6 +14040,7 @@
             "ending_type": null,
             "id": 583,
             "is_combat": false,
+            "jump_conditions": {},
             "label": "Cachots",
             "secret": false,
             "secret_jumps": [],
@@ -12393,6 +14070,7 @@
             "ending_type": null,
             "id": 584,
             "is_combat": false,
+            "jump_conditions": {},
             "label": null,
             "secret": false,
             "secret_jumps": [],
@@ -12419,6 +14097,7 @@
             "ending_type": 1,
             "id": 585,
             "is_combat": false,
+            "jump_conditions": {},
             "label": null,
             "secret": false,
             "secret_jumps": [],
@@ -12439,6 +14118,7 @@
             "ending_type": 1,
             "id": 586,
             "is_combat": false,
+            "jump_conditions": {},
             "label": null,
             "secret": false,
             "secret_jumps": [],
@@ -12459,6 +14139,18 @@
             "ending_type": null,
             "id": 587,
             "is_combat": false,
+            "jump_conditions": {
+                "272": {
+                    "$and": [
+                        {
+                            "$end": "ARC"
+                        },
+                        {
+                            "$end": "FLECHES EXPLOSIVES"
+                        }
+                    ]
+                }
+            },
             "label": null,
             "secret": false,
             "secret_jumps": [],
@@ -12468,6 +14160,9 @@
                 447
             ],
             "success": null
+        },
+        "conditions": {
+            "272": "ARC&FLECHES EXPLOSIVES"
         },
         "goto": [
             447,
@@ -12485,6 +14180,7 @@
             "ending_type": null,
             "id": 588,
             "is_combat": false,
+            "jump_conditions": {},
             "label": null,
             "secret": false,
             "secret_jumps": [],
@@ -12505,6 +14201,7 @@
             "ending_type": 1,
             "id": 589,
             "is_combat": false,
+            "jump_conditions": {},
             "label": null,
             "secret": false,
             "secret_jumps": [],
@@ -12525,6 +14222,7 @@
             "ending_type": null,
             "id": 59,
             "is_combat": false,
+            "jump_conditions": {},
             "label": null,
             "secret": false,
             "secret_jumps": [],
@@ -12545,6 +14243,7 @@
             "ending_type": 1,
             "id": 590,
             "is_combat": false,
+            "jump_conditions": {},
             "label": null,
             "secret": false,
             "secret_jumps": [],
@@ -12565,6 +14264,7 @@
             "ending_type": null,
             "id": 591,
             "is_combat": false,
+            "jump_conditions": {},
             "label": null,
             "secret": false,
             "secret_jumps": [],
@@ -12585,6 +14285,7 @@
             "ending_type": null,
             "id": 592,
             "is_combat": false,
+            "jump_conditions": {},
             "label": null,
             "secret": false,
             "secret_jumps": [],
@@ -12605,6 +14306,7 @@
             "ending_type": null,
             "id": 593,
             "is_combat": false,
+            "jump_conditions": {},
             "label": null,
             "secret": false,
             "secret_jumps": [],
@@ -12625,6 +14327,7 @@
             "ending_type": 1,
             "id": 594,
             "is_combat": false,
+            "jump_conditions": {},
             "label": null,
             "secret": false,
             "secret_jumps": [],
@@ -12645,6 +14348,7 @@
             "ending_type": 1,
             "id": 595,
             "is_combat": false,
+            "jump_conditions": {},
             "label": null,
             "secret": false,
             "secret_jumps": [],
@@ -12665,6 +14369,7 @@
             "ending_type": null,
             "id": 596,
             "is_combat": false,
+            "jump_conditions": {},
             "label": null,
             "secret": false,
             "secret_jumps": [],
@@ -12685,6 +14390,7 @@
             "ending_type": null,
             "id": 597,
             "is_combat": false,
+            "jump_conditions": {},
             "label": null,
             "secret": false,
             "secret_jumps": [],
@@ -12709,6 +14415,7 @@
             "ending_type": null,
             "id": 598,
             "is_combat": false,
+            "jump_conditions": {},
             "label": null,
             "secret": false,
             "secret_jumps": [],
@@ -12729,6 +14436,7 @@
             "ending_type": null,
             "id": 599,
             "is_combat": false,
+            "jump_conditions": {},
             "label": null,
             "secret": false,
             "secret_jumps": [],
@@ -12755,6 +14463,7 @@
             "ending_type": null,
             "id": 6,
             "is_combat": false,
+            "jump_conditions": {},
             "label": null,
             "secret": false,
             "secret_jumps": [],
@@ -12775,6 +14484,7 @@
             "ending_type": null,
             "id": 60,
             "is_combat": false,
+            "jump_conditions": {},
             "label": null,
             "secret": true,
             "secret_jumps": [],
@@ -12796,6 +14506,7 @@
             "ending_type": null,
             "id": 600,
             "is_combat": false,
+            "jump_conditions": {},
             "label": null,
             "secret": false,
             "secret_jumps": [],
@@ -12816,6 +14527,7 @@
             "ending_type": 1,
             "id": 601,
             "is_combat": false,
+            "jump_conditions": {},
             "label": null,
             "secret": false,
             "secret_jumps": [],
@@ -12836,6 +14548,7 @@
             "ending_type": null,
             "id": 602,
             "is_combat": false,
+            "jump_conditions": {},
             "label": null,
             "secret": false,
             "secret_jumps": [],
@@ -12864,6 +14577,7 @@
             "ending_type": null,
             "id": 603,
             "is_combat": false,
+            "jump_conditions": {},
             "label": null,
             "secret": false,
             "secret_jumps": [],
@@ -12884,6 +14598,7 @@
             "ending_type": 1,
             "id": 604,
             "is_combat": false,
+            "jump_conditions": {},
             "label": null,
             "secret": false,
             "secret_jumps": [],
@@ -12904,6 +14619,7 @@
             "ending_type": null,
             "id": 605,
             "is_combat": false,
+            "jump_conditions": {},
             "label": null,
             "secret": false,
             "secret_jumps": [],
@@ -12924,6 +14640,7 @@
             "ending_type": null,
             "id": 606,
             "is_combat": false,
+            "jump_conditions": {},
             "label": null,
             "secret": false,
             "secret_jumps": [],
@@ -12945,6 +14662,7 @@
             "ending_type": null,
             "id": 607,
             "is_combat": true,
+            "jump_conditions": {},
             "label": null,
             "secret": false,
             "secret_jumps": [],
@@ -12965,6 +14683,7 @@
             "ending_type": null,
             "id": 61,
             "is_combat": false,
+            "jump_conditions": {},
             "label": null,
             "secret": false,
             "secret_jumps": [],
@@ -12989,6 +14708,7 @@
             "ending_type": null,
             "id": 62,
             "is_combat": false,
+            "jump_conditions": {},
             "label": null,
             "secret": true,
             "secret_jumps": [],
@@ -13014,6 +14734,7 @@
             "ending_type": null,
             "id": 63,
             "is_combat": false,
+            "jump_conditions": {},
             "label": null,
             "secret": false,
             "secret_jumps": [],
@@ -13034,6 +14755,7 @@
             "ending_type": null,
             "id": 64,
             "is_combat": false,
+            "jump_conditions": {},
             "label": "Tour des mages",
             "secret": false,
             "secret_jumps": [],
@@ -13063,6 +14785,31 @@
             "ending_type": null,
             "id": 65,
             "is_combat": false,
+            "jump_conditions": {
+                "244": {
+                    "$or": [
+                        {
+                            "$end": "KIT DE SOIN"
+                        },
+                        {
+                            "$or": [
+                                {
+                                    "$end": "PAYSAN"
+                                },
+                                {
+                                    "$end": "DEBROUILLARD"
+                                }
+                            ]
+                        }
+                    ]
+                },
+                "375": {
+                    "$end": "LAISSEZ-PASSER"
+                },
+                "397": {
+                    "$end": "PAMPHLET"
+                }
+            },
             "label": null,
             "secret": false,
             "secret_jumps": [],
@@ -13074,6 +14821,11 @@
                 605
             ],
             "success": null
+        },
+        "conditions": {
+            "244": "KIT DE SOIN|(PAYSAN|DEBROUILLARD)",
+            "375": "LAISSEZ-PASSER",
+            "397": "PAMPHLET"
         },
         "goto": [
             605,
@@ -13093,6 +14845,7 @@
             "ending_type": null,
             "id": 66,
             "is_combat": false,
+            "jump_conditions": {},
             "label": null,
             "secret": false,
             "secret_jumps": [],
@@ -13113,6 +14866,14 @@
             "ending_type": null,
             "id": 67,
             "is_combat": false,
+            "jump_conditions": {
+                "107": {
+                    "$end": "BROCHE DOREE"
+                },
+                "137": {
+                    "$end": "LETTRE DE RECOMMANDATION"
+                }
+            },
             "label": null,
             "secret": false,
             "secret_jumps": [],
@@ -13121,6 +14882,10 @@
                 137
             ],
             "success": null
+        },
+        "conditions": {
+            "107": "BROCHE DOREE",
+            "137": "LETTRE DE RECOMMANDATION"
         },
         "goto": [
             137,
@@ -13137,6 +14902,18 @@
             "ending_type": null,
             "id": 68,
             "is_combat": false,
+            "jump_conditions": {
+                "255": {
+                    "$or": [
+                        {
+                            "$end": "PAMPHLET"
+                        },
+                        {
+                            "$end": "LETTRE DE RECOMMANDATION"
+                        }
+                    ]
+                }
+            },
             "label": null,
             "secret": false,
             "secret_jumps": [],
@@ -13145,6 +14922,9 @@
                 255
             ],
             "success": null
+        },
+        "conditions": {
+            "255": "PAMPHLET|LETTRE DE RECOMMANDATION"
         },
         "goto": [
             255,
@@ -13161,6 +14941,7 @@
             "ending_type": null,
             "id": 69,
             "is_combat": false,
+            "jump_conditions": {},
             "label": null,
             "secret": false,
             "secret_jumps": [],
@@ -13181,6 +14962,7 @@
             "ending_type": null,
             "id": 7,
             "is_combat": false,
+            "jump_conditions": {},
             "label": null,
             "secret": false,
             "secret_jumps": [],
@@ -13201,6 +14983,7 @@
             "ending_type": null,
             "id": 70,
             "is_combat": false,
+            "jump_conditions": {},
             "label": "Massacre",
             "secret": false,
             "secret_jumps": [],
@@ -13226,6 +15009,7 @@
             "ending_type": null,
             "id": 71,
             "is_combat": false,
+            "jump_conditions": {},
             "label": null,
             "secret": false,
             "secret_jumps": [],
@@ -13246,6 +15030,7 @@
             "ending_type": null,
             "id": 72,
             "is_combat": false,
+            "jump_conditions": {},
             "label": null,
             "secret": false,
             "secret_jumps": [],
@@ -13267,6 +15052,7 @@
             "ending_type": null,
             "id": 73,
             "is_combat": false,
+            "jump_conditions": {},
             "label": null,
             "secret": false,
             "secret_jumps": [],
@@ -13292,6 +15078,7 @@
             "ending_type": null,
             "id": 74,
             "is_combat": true,
+            "jump_conditions": {},
             "label": null,
             "secret": false,
             "secret_jumps": [],
@@ -13314,6 +15101,18 @@
             "ending_type": null,
             "id": 75,
             "is_combat": false,
+            "jump_conditions": {
+                "218": {
+                    "$or": [
+                        {
+                            "$end": "PAYSAN"
+                        },
+                        {
+                            "$end": "MARMITE"
+                        }
+                    ]
+                }
+            },
             "label": null,
             "secret": false,
             "secret_jumps": [],
@@ -13322,6 +15121,9 @@
                 457
             ],
             "success": null
+        },
+        "conditions": {
+            "218": "PAYSAN|MARMITE"
         },
         "goto": [
             218,
@@ -13339,6 +15141,7 @@
             "ending_type": null,
             "id": 76,
             "is_combat": true,
+            "jump_conditions": {},
             "label": null,
             "secret": false,
             "secret_jumps": [],
@@ -13360,6 +15163,7 @@
             "ending_type": null,
             "id": 77,
             "is_combat": false,
+            "jump_conditions": {},
             "label": null,
             "secret": false,
             "secret_jumps": [],
@@ -13384,6 +15188,7 @@
             "ending_type": null,
             "id": 78,
             "is_combat": false,
+            "jump_conditions": {},
             "label": null,
             "secret": false,
             "secret_jumps": [],
@@ -13408,6 +15213,11 @@
             "ending_type": null,
             "id": 79,
             "is_combat": false,
+            "jump_conditions": {
+                "256": {
+                    "$end": "PHILTRE D'AMOUR"
+                }
+            },
             "label": "Temple Ytia",
             "secret": false,
             "secret_jumps": [],
@@ -13419,6 +15229,9 @@
                 361
             ],
             "success": null
+        },
+        "conditions": {
+            "256": "PHILTRE D'AMOUR"
         },
         "goto": [
             279,
@@ -13439,6 +15252,14 @@
             "ending_type": null,
             "id": 8,
             "is_combat": false,
+            "jump_conditions": {
+                "164": {
+                    "$end": "MORGENSTERN"
+                },
+                "197": {
+                    "$end": "BRAS SQUELETTIQUE"
+                }
+            },
             "label": null,
             "secret": false,
             "secret_jumps": [],
@@ -13448,6 +15269,10 @@
                 197
             ],
             "success": null
+        },
+        "conditions": {
+            "164": "MORGENSTERN",
+            "197": "BRAS SQUELETTIQUE"
         },
         "goto": [
             164,
@@ -13465,6 +15290,7 @@
             "ending_type": null,
             "id": 80,
             "is_combat": false,
+            "jump_conditions": {},
             "label": "Croisement ouest",
             "secret": false,
             "secret_jumps": [],
@@ -13494,6 +15320,21 @@
             "ending_type": null,
             "id": 81,
             "is_combat": false,
+            "jump_conditions": {
+                "335": {
+                    "$or": [
+                        {
+                            "$end": "EPEE"
+                        },
+                        {
+                            "$end": "LANCE"
+                        },
+                        {
+                            "$end": "MORGENSTERN"
+                        }
+                    ]
+                }
+            },
             "label": null,
             "secret": false,
             "secret_jumps": [],
@@ -13502,6 +15343,9 @@
                 335
             ],
             "success": null
+        },
+        "conditions": {
+            "335": "EPEE|LANCE|MORGENSTERN"
         },
         "goto": [
             335,
@@ -13518,6 +15362,21 @@
             "ending_type": null,
             "id": 82,
             "is_combat": false,
+            "jump_conditions": {
+                "432": {
+                    "$end": "FLACON D'ACIDE"
+                },
+                "460": {
+                    "$or": [
+                        {
+                            "$end": "COUTEAU"
+                        },
+                        {
+                            "$end": "EPEE"
+                        }
+                    ]
+                }
+            },
             "label": null,
             "secret": false,
             "secret_jumps": [],
@@ -13528,6 +15387,10 @@
                 460
             ],
             "success": null
+        },
+        "conditions": {
+            "432": "FLACON D'ACIDE",
+            "460": "COUTEAU|EPEE"
         },
         "goto": [
             460,
@@ -13546,6 +15409,7 @@
             "ending_type": null,
             "id": 83,
             "is_combat": false,
+            "jump_conditions": {},
             "label": null,
             "secret": false,
             "secret_jumps": [],
@@ -13566,6 +15430,7 @@
             "ending_type": null,
             "id": 84,
             "is_combat": false,
+            "jump_conditions": {},
             "label": null,
             "secret": false,
             "secret_jumps": [],
@@ -13600,6 +15465,7 @@
             "ending_type": null,
             "id": 85,
             "is_combat": false,
+            "jump_conditions": {},
             "label": null,
             "secret": false,
             "secret_jumps": [],
@@ -13620,6 +15486,7 @@
             "ending_type": null,
             "id": 86,
             "is_combat": false,
+            "jump_conditions": {},
             "label": null,
             "secret": false,
             "secret_jumps": [],
@@ -13640,6 +15507,7 @@
             "ending_type": null,
             "id": 87,
             "is_combat": false,
+            "jump_conditions": {},
             "label": null,
             "secret": false,
             "secret_jumps": [],
@@ -13661,6 +15529,7 @@
             "ending_type": null,
             "id": 88,
             "is_combat": false,
+            "jump_conditions": {},
             "label": null,
             "secret": false,
             "secret_jumps": [],
@@ -13687,6 +15556,14 @@
             "ending_type": null,
             "id": 89,
             "is_combat": false,
+            "jump_conditions": {
+                "107": {
+                    "$end": "BROCHE DOREE"
+                },
+                "137": {
+                    "$end": "LETTRE DE RECOMMANDATION"
+                }
+            },
             "label": null,
             "secret": false,
             "secret_jumps": [],
@@ -13695,6 +15572,10 @@
                 137
             ],
             "success": null
+        },
+        "conditions": {
+            "107": "BROCHE DOREE",
+            "137": "LETTRE DE RECOMMANDATION"
         },
         "goto": [
             137,
@@ -13711,6 +15592,20 @@
             "ending_type": null,
             "id": 9,
             "is_combat": false,
+            "jump_conditions": {
+                "111": {
+                    "$end": "GUERRIER"
+                },
+                "144": {
+                    "$end": "DEBROUILLARD"
+                },
+                "177": {
+                    "$end": "PRUDENT"
+                },
+                "199": {
+                    "$end": "PAYSAN"
+                }
+            },
             "label": null,
             "secret": false,
             "secret_jumps": [],
@@ -13721,6 +15616,12 @@
                 199
             ],
             "success": null
+        },
+        "conditions": {
+            "111": "GUERRIER",
+            "144": "DEBROUILLARD",
+            "177": "PRUDENT",
+            "199": "PAYSAN"
         },
         "goto": [
             111,
@@ -13739,6 +15640,7 @@
             "ending_type": null,
             "id": 90,
             "is_combat": false,
+            "jump_conditions": {},
             "label": null,
             "secret": false,
             "secret_jumps": [],
@@ -13763,6 +15665,7 @@
             "ending_type": null,
             "id": 91,
             "is_combat": false,
+            "jump_conditions": {},
             "label": null,
             "secret": false,
             "secret_jumps": [],
@@ -13783,6 +15686,7 @@
             "ending_type": null,
             "id": 92,
             "is_combat": false,
+            "jump_conditions": {},
             "label": null,
             "secret": false,
             "secret_jumps": [],
@@ -13803,6 +15707,7 @@
             "ending_type": null,
             "id": 93,
             "is_combat": false,
+            "jump_conditions": {},
             "label": null,
             "secret": false,
             "secret_jumps": [],
@@ -13827,6 +15732,7 @@
             "ending_type": null,
             "id": 94,
             "is_combat": false,
+            "jump_conditions": {},
             "label": null,
             "secret": true,
             "secret_jumps": [],
@@ -13852,6 +15758,7 @@
             "ending_type": null,
             "id": 95,
             "is_combat": false,
+            "jump_conditions": {},
             "label": "Quartier commerçant",
             "secret": false,
             "secret_jumps": [],
@@ -13881,6 +15788,7 @@
             "ending_type": 2,
             "id": 96,
             "is_combat": false,
+            "jump_conditions": {},
             "label": null,
             "secret": true,
             "secret_jumps": [],
@@ -13903,6 +15811,7 @@
             "ending_type": null,
             "id": 97,
             "is_combat": true,
+            "jump_conditions": {},
             "label": null,
             "secret": false,
             "secret_jumps": [],
@@ -13923,6 +15832,7 @@
             "ending_type": null,
             "id": 98,
             "is_combat": false,
+            "jump_conditions": {},
             "label": "Caserne",
             "secret": false,
             "secret_jumps": [],
@@ -13948,6 +15858,7 @@
             "ending_type": null,
             "id": 99,
             "is_combat": false,
+            "jump_conditions": {},
             "label": null,
             "secret": false,
             "secret_jumps": [],

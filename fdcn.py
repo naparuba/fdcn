@@ -4,6 +4,11 @@ import graphviz
 import json
 import sys
 import codecs
+import os
+
+my_dir = os.path.dirname(__file__)
+sys.path.insert(0, my_dir)
+from condition_node import ConditionNodeFactory
 
 display_graph = graphviz.Digraph('G', filename='graph/fdcn_full', format='png', engine='dot')
 
@@ -66,6 +71,9 @@ class Node(object):
         self._secret = False
         
         self._secret_jumps = []
+        
+        self._conditions_raw = ""
+        self._conditions = None
     
     
     def have_combat(self):
@@ -97,19 +105,20 @@ class Node(object):
             ending = True
         
         return {
-            'id'          : self._id,
-            'ending'      : ending,
-            'success'     : self._success,
-            'sons'        : son_ids,
-            'chapter'     : self._arc,
-            'arc'         : self._sub_arc,
-            'is_combat'   : self._combat is not None,
-            'label'       : self._label,
-            'secret'      : self._secret,
-            'secret_jumps': self._secret_jumps,
-            'ending_id': self._ending_id,
-            'ending_txt': self._ending_txt,
-            'ending_type' : self._ending,
+            'id'             : self._id,
+            'ending'         : ending,
+            'success'        : self._success,
+            'sons'           : son_ids,
+            'chapter'        : self._arc,
+            'arc'            : self._sub_arc,
+            'is_combat'      : self._combat is not None,
+            'label'          : self._label,
+            'secret'         : self._secret,
+            'secret_jumps'   : self._secret_jumps,
+            'ending_id'      : self._ending_id,
+            'ending_txt'     : self._ending_txt,
+            'ending_type'    : self._ending,
+            'jump_conditions': self._conditions,
         }
     
     
@@ -152,6 +161,7 @@ class Node(object):
     def set_ending_txt(self, ending_txt):
         self._ending_txt = ending_txt
     
+    
     def set_sucess(self, success):
         self._success = success
     
@@ -170,6 +180,24 @@ class Node(object):
     
     def is_secret(self):
         return self._secret
+    
+    
+    def set_conditions(self, conditions):
+        self._conditions_raw = conditions
+    
+    
+    def parse_conditions(self):
+        if self._conditions_raw == "":
+            self._conditions = {}
+            return
+        # print('\n\n\n%s Condition raw: %s' % (self.get_id(), self._conditions_raw))
+        r = {}
+        for (k, expr) in self._conditions_raw.items():
+            facto = ConditionNodeFactory()
+            _condition = facto.parse_expr(expr)
+            # print('\n\n**********************\nCONDITION: %s :: %s => %s\n*****' % (k, expr, _condition))
+            r[k] = _condition.to_json()
+        self._conditions = r
     
     
     def _get_ending_color(self):
@@ -305,6 +333,11 @@ for idx, n in book_data.items():
     if secret:
         node.set_secret()
     
+    # Get the conditions
+    conditions = n.get('conditions', "")
+    if conditions:
+        node.set_conditions(conditions)
+    
     # Get the label if any
     label = n.get('label', None)
     if label:
@@ -356,6 +389,7 @@ arcs = [(1, 'Plante-Citrouille'),
         (400, 'Forteresse'),
         (500, 'Virilus')
         ]
+
 # (arc_name, Start of sub, name, stops)
 sub_arcs = [
     ('Invasion', 148, 'Quartier boulanger', [496, 285]),
@@ -447,6 +481,12 @@ for arc_name, arc_edges in arc_graphs.items():
 print('Writing compilated data')
 # Modify the book data with what we did compute
 
+print('Conditions parsing:')
+for node_id_str in book_data.keys():
+    node = node_graph.get_node(int(node_id_str))
+    node.parse_conditions()
+
+print('Export computed nodes:')
 for node_id_str, node_data in book_data.items():
     node = node_graph.get_node(int(node_id_str))
     node_data['computed'] = node.get_computed()
@@ -569,8 +609,6 @@ with codecs.open('fdcn-1-compilated-success-chapters.json', 'w', 'utf8') as f:
 #     print(obj['name'], '\t', obj['pos'])
 
 
-
 print('Rendering')
-#display_graph.render(filename='hello.gv', view=True)#format='json')
+# display_graph.render(filename='hello.gv', view=True)#format='json')
 display_graph.render(format='png')
-

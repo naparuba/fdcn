@@ -3,6 +3,12 @@
     "goto": 2
   },
   "2": {
+    "conditions": {
+      "11": "GUERRIER",
+      "99": "PAYSAN",
+      "77": "PRUDENT",
+      "44": "DEBROUILLARD"
+    },
     "goto": [
       11,
       99,
@@ -33,6 +39,10 @@
     "goto": 81
   },
   "8": {
+    "conditions": {
+      "164": "MORGENSTERN",
+      "197": "BRAS SQUELETTIQUE"
+    },
     "goto": [
       164,
       197,
@@ -40,6 +50,12 @@
     ]
   },
   "9": {
+    "conditions": {
+      "111": "GUERRIER",
+      "199": "PAYSAN",
+      "144": "DEBROUILLARD",
+      "177": "PRUDENT"
+    },
     "goto": [
       111,
       199,
@@ -49,6 +65,9 @@
   },
   "10": {
     "label": "Tour nord",
+    "conditions": {
+      "184": "KIT D'ESCALADE"
+    },
     "goto": [
       461,
       184,
@@ -76,6 +95,9 @@
     "goto": 249
   },
   "16": {
+    "conditions": {
+      "16": "MORGENSTERN|GUERRIER"
+    },
     "goto": [
       294,
       120
@@ -168,6 +190,9 @@
     ]
   },
   "35": {
+    "conditions": {
+      "105": "LETTRE DE RECOMMANDATION"
+    },
     "goto": [
       105,
       345
@@ -260,6 +285,9 @@
   },
   "53": {
     "label": "Ecuries",
+    "conditions": {
+      "180": "SAC DE GRAINS"
+    },
     "goto": [
       180,
       267,
@@ -325,6 +353,11 @@
     ]
   },
   "65": {
+    "conditions": {
+      "397": "PAMPHLET",
+      "244": "KIT DE SOIN|(PAYSAN|DEBROUILLARD)",
+      "375": "LAISSEZ-PASSER"
+    },
     "goto": [
       605,
       397,
@@ -337,12 +370,19 @@
     "goto": 100
   },
   "67": {
+    "conditions": {
+      "137": "LETTRE DE RECOMMANDATION",
+      "107": "BROCHE DOREE"
+    },
     "goto": [
       137,
       107
     ]
   },
   "68": {
+    "conditions": {
+      "255": "PAMPHLET|LETTRE DE RECOMMANDATION"
+    },
     "goto": [
       255,
       73
@@ -378,6 +418,9 @@
     ]
   },
   "75": {
+    "conditions": {
+      "218": "PAYSAN|MARMITE"
+    },
     "goto": [
       218,
       457
@@ -402,6 +445,9 @@
   },
   "79": {
     "label": "Temple Ytia",
+    "conditions": {
+      "256": "PHILTRE D'AMOUR"
+    },
     "goto": [
       279,
       26,
@@ -420,12 +466,19 @@
     ]
   },
   "81": {
+    "conditions": {
+      "335": "EPEE|LANCE|MORGENSTERN"
+    },
     "goto": [
       335,
       102
     ]
   },
   "82": {
+    "conditions": {
+      "460": "COUTEAU|EPEE",
+      "432": "FLACON D'ACIDE"
+    },
     "goto": [
       460,
       432,
@@ -465,6 +518,10 @@
     ]
   },
   "89": {
+    "conditions": {
+      "137": "LETTRE DE RECOMMANDATION",
+      "107": "BROCHE DOREE"
+    },
     "goto": [
       137,
       107
@@ -585,6 +642,9 @@
     "goto": 318
   },
   "110": {
+    "conditions": {
+      "392": "PAYSAN"
+    },
     "goto": [
       242,
       351,
@@ -633,6 +693,9 @@
     "goto": 426
   },
   "120": {
+    "conditions": {
+      "91": "PASSE-PARTOUT"
+    },
     "goto": [
       91,
       125,
@@ -750,6 +813,12 @@
   },
   "148": {
     "label": "Quartier boulanger",
+    "conditions": {
+      "196": "LANCE",
+      "455": "KIT D'ESCALADE",
+      "422": "MARMITE",
+      "114": "FOURCHE"
+    },
     "goto": [
       455,
       196,
@@ -770,6 +839,9 @@
     "goto": 178
   },
   "151": {
+    "conditions": {
+      "18": "BAGUE DE RUBIS"
+    },
     "goto": [
       18,
       233
@@ -843,6 +915,9 @@
     "goto": 608
   },
   "164": {
+    "conditions": {
+      "197": "BRAS SQUELETTIQUE"
+    },
     "goto": [
       16,
       197,
@@ -874,6 +949,12 @@
     ]
   },
   "169": {
+    "conditions": {
+      "273": "PRUDENT",
+      "372": "LANCE|COTTE DE MAILLES",
+      "264": "COUTEAU",
+      "326": "ARC"
+    },
     "goto": [
       273,
       372,
@@ -888,6 +969,9 @@
   },
   "171": {
     "label": "Apothicaire",
+    "conditions": {
+      "215": "KIT DE SOIN|PETIT MEDAILLON"
+    },
     "goto": [
       215,
       368
@@ -901,6 +985,9 @@
     "goto": 423
   },
   "174": {
+    "conditions": {
+      "45": "GUERRIER|PAYSAN|PRUDENT|DEBROUILLARD"
+    },
     "goto": 45
   },
   "175": {
@@ -949,6 +1036,9 @@
   },
   "184": {
     "label": "Plateforme d'atterrissage",
+    "conditions": {
+      "10": "KIT D'ESCALADE"
+    },
     "goto": [
       340,
       10,
@@ -960,6 +1050,9 @@
   },
   "186": {
     "label": "Salle trésor",
+    "conditions": {
+      "151": "GROSSE CLE"
+    },
     "goto": [
       151,
       313
@@ -967,6 +1060,10 @@
   },
   "187": {
     "label": "Bibliothèque",
+    "conditions": {
+      "108": "PAMPHLET",
+      "269": "ECUSSON D'ORC"
+    },
     "goto": [
       108,
       269,
@@ -974,6 +1071,12 @@
     ]
   },
   "188": {
+    "conditions": {
+      "463": "PAMPHLET",
+      "217": "MARMITE",
+      "506": "PHILTRE D'AMOUR",
+      "208": "SAC DE GRAINS"
+    },
     "goto": [
       463,
       217,
@@ -1011,6 +1114,9 @@
   },
   "193": {
     "label": "Acte II, La Cathédrale",
+    "conditions": {
+      "87": "PAMPHLET"
+    },
     "goto": [
       87,
       167,
@@ -1029,6 +1135,9 @@
     "goto": 597
   },
   "197": {
+    "conditions": {
+      "164": "MORGENSTERN"
+    },
     "goto": [
       164,
       93
@@ -1084,6 +1193,12 @@
     "goto": 110
   },
   "210": {
+    "conditions": {
+      "181": "GUERRIER",
+      "219": "PAYSAN",
+      "214": "DEBROUILLARD",
+      "117": "PRUDENT"
+    },
     "goto": [
       181,
       219,
@@ -1099,6 +1214,9 @@
   },
   "213": {
     "success": "REPORTAGE-EXCLUSIF",
+    "conditions": {
+      "36": "PRUDENT"
+    },
     "goto": [
       36,
       97
@@ -1125,6 +1243,9 @@
     ]
   },
   "218": {
+    "conditions": {
+      "376": "PAYSAN|MARMITE"
+    },
     "goto": [
       221,
       340,
@@ -1160,6 +1281,9 @@
     ]
   },
   "223": {
+    "conditions": {
+      "118": "SAC DE GRAINS"
+    },
     "goto": [
       204,
       118
@@ -1175,6 +1299,9 @@
   },
   "226": {
     "label": "Salle des tortures",
+    "conditions": {
+      "228": "BOCAL A EPICES"
+    },
     "goto": [
       251,
       236,
@@ -1218,6 +1345,9 @@
     "goto": 313
   },
   "234": {
+    "conditions": {
+      "146": "LANCE|FOURCHE"
+    },
     "goto": [
       146,
       155,
@@ -1254,6 +1384,9 @@
     "goto": 364
   },
   "241": {
+    "conditions": {
+      "45": "GUERRIER|PAYSAN|PRUDENT|DEBROUILLARD"
+    },
     "goto": 45
   },
   "242": {
@@ -1281,6 +1414,9 @@
     ]
   },
   "249": {
+    "conditions": {
+      "107": "BROCHE DOREE"
+    },
     "goto": [
       137,
       107
@@ -1303,6 +1439,9 @@
   },
   "254": {
     "label": "Lavandières",
+    "conditions": {
+      "284": "DEBROUILLARD"
+    },
     "goto": [
       166,
       284,
@@ -1316,6 +1455,9 @@
     "goto": 100
   },
   "257": {
+    "conditions": {
+      "105": "LETTRE DE RECOMMANDATION"
+    },
     "goto": [
       105,
       345
@@ -1410,6 +1552,10 @@
     "goto": 4
   },
   "277": {
+    "conditions": {
+      "141": "KIT D'ESCALADE",
+      "133": "FOURCHE|LANCE"
+    },
     "goto": [
       141,
       133,
@@ -1423,6 +1569,9 @@
     "goto": 608
   },
   "279": {
+    "conditions": {
+      "112": "PAYSAN"
+    },
     "goto": [
       112,
       289
@@ -1443,6 +1592,11 @@
   },
   "283": {
     "label": "Tour des mages",
+    "conditions": {
+      "382": "ARC",
+      "324": "EPEE|COUTEAU",
+      "243": "PAMPHLET"
+    },
     "goto": [
       317,
       382,
@@ -1490,6 +1644,9 @@
     "goto": 475
   },
   "291": {
+    "conditions": {
+      "36": "PRUDENT"
+    },
     "goto": [
       36,
       97
@@ -1502,6 +1659,9 @@
     ]
   },
   "293": {
+    "conditions": {
+      "278": "GUERRIER"
+    },
     "goto": [
       278,
       82
@@ -1511,6 +1671,10 @@
     "goto": 40
   },
   "295": {
+    "conditions": {
+      "515": "PETITE BOUTEILLE D'ACIDE",
+      "140": "SAC DE GRAINS"
+    },
     "goto": [
       515,
       140,
@@ -1518,6 +1682,9 @@
     ]
   },
   "296": {
+    "conditions": {
+      "524": "DEBROUILLARD"
+    },
     "goto": [
       474,
       524
@@ -1559,6 +1726,9 @@
   },
   "306": {
     "combat": {},
+    "conditions": {
+      "46": "PRUDENT"
+    },
     "goto": [
       303,
       46
@@ -1584,6 +1754,9 @@
     "goto": 84
   },
   "311": {
+    "conditions": {
+      "288": "PAMPHLET"
+    },
     "goto": [
       288,
       258,
@@ -1669,6 +1842,12 @@
     "goto": 608
   },
   "330": {
+    "conditions": {
+      "411": "GUERRIER",
+      "599": "PAYSAN",
+      "577": "PRUDENT",
+      "544": "DEBROUILLARD"
+    },
     "goto": [
       411,
       599,
@@ -1763,6 +1942,11 @@
   },
   "349": {
     "combat": {},
+    "conditions": {
+      "406": "MORGENSTERN",
+      "467": "BOUTEILLE DE MAGIE PURE",
+      "498": "EXPLOSIFS"
+    },
     "goto": [
       406,
       467,
@@ -1858,12 +2042,18 @@
     "goto": 183
   },
   "368": {
+    "conditions": {
+      "215": "KIT DE SOIN|PETIT MEDAILLON"
+    },
     "goto": [
       215,
       100
     ]
   },
   "369": {
+    "conditions": {
+      "419": "MARMITE"
+    },
     "goto": [
       419,
       75
@@ -1946,6 +2136,9 @@
     ]
   },
   "386": {
+    "conditions": {
+      "265": "KIT D'ESCALADE"
+    },
     "goto": [
       265,
       418
@@ -1972,6 +2165,9 @@
     "goto": 238
   },
   "393": {
+    "conditions": {
+      "517": "GUERRIER"
+    },
     "goto": [
       517,
       488,
@@ -1981,6 +2177,12 @@
   },
   "394": {
     "label": "Crypte",
+    "conditions": {
+      "511": "GUERRIER",
+      "299": "PAYSAN",
+      "277": "PRUDENT",
+      "444": "DEBROUILLARD"
+    },
     "goto": [
       511,
       299,
@@ -2064,6 +2266,12 @@
     "goto": 475
   },
   "413": {
+    "conditions": {
+      "463": "PAMPHLET",
+      "217": "MARMITE",
+      "506": "PHILTRE D'AMOUR",
+      "208": "SAC DE GRAINS"
+    },
     "goto": [
       463,
       217,
@@ -2076,6 +2284,9 @@
     ]
   },
   "414": {
+    "conditions": {
+      "439": "GUERRIER|PAYSAN"
+    },
     "goto": [
       439,
       50,
@@ -2180,6 +2391,11 @@
     ]
   },
   "435": {
+    "conditions": {
+      "391": "KIT D'ESCALADE",
+      "56": "FOURCHE",
+      "497": "COTTE DE MAILLES|MARMITTE|CASQUE DE FER|BOTTES EN FER"
+    },
     "goto": [
       391,
       56,
@@ -2214,6 +2430,12 @@
   },
   "440": {
     "label": "Vieillard",
+    "conditions": {
+      "72": "PAYSAN|MARMITE",
+      "483": "GEMME MAGIQUE",
+      "179": "GUERRIER|COUTEAU",
+      "319": "PETIT MEDAILLON|BROCHE DOREE|BAGUE DE RUBIS"
+    },
     "goto": [
       72,
       483,
@@ -2279,6 +2501,16 @@
   },
   "454": {
     "success": "MEMOIRE-HONOREE",
+    "conditions": {
+      "579": "GUERRIER",
+      "589": "GUERRIER",
+      "585": "PAYSAN",
+      "601": "FER A CHEVAL&TRESSE DE CENTAURESSE",
+      "559": "PRUDENT",
+      "586": "PRUDENT",
+      "590": "DEBROUILLARD",
+      "594": "DEBROUILLARD"
+    },
     "goto": [
       579,
       589,
@@ -2310,6 +2542,9 @@
   },
   "458": {
     "label": "Chambre du sorcier",
+    "conditions": {
+      "524": "DEBROUILLARD"
+    },
     "goto": [
       296,
       474,
@@ -2402,6 +2637,25 @@
   "475": {
     "combat": {},
     "label": "Combat Virilus",
+    "conditions": {
+      "290": "CHLOROGLYCERINE",
+      "328": "LIME EN ACIER D'ARKADIE",
+      "362": "BRACELET DE CONTROLE",
+      "412": "POINT FAIBLE",
+      "429": "PRODUIT CHIMIQUES HASARDEUX",
+      "482": "DARD EXPLOSIF",
+      "485": "NATTE DE LA CENTAURESSE",
+      "508": "BOUTEILLE D'ACIDE",
+      "509": "ICONE DIVINE",
+      "532": "EXPLOSIFS",
+      "558": "MEDAILLON D'EDIRE",
+      "565": "FLASQUE D'HUILE",
+      "567": "ARMEE DE QUELETTES DETRUITE",
+      "568": "BOUTEILLE DE MAGIE PURE",
+      "582": "BOCAL A EPICES",
+      "598": "SANG DE VAMPIRE",
+      "603": "PERROQUET"
+    },
     "goto": [
       290,
       328,
@@ -2424,6 +2678,15 @@
     ]
   },
   "476": {
+    "conditions": {
+      "579": "GUERRIER",
+      "589": "GUERRIER",
+      "585": "PAYSAN",
+      "601": "PAYSAN",
+      "559": "PRUDENT",
+      "586": "PRUDENT",
+      "590": "DEBROUILLARD"
+    },
     "goto": [
       579,
       589,
@@ -2435,6 +2698,9 @@
     ]
   },
   "477": {
+    "conditions": {
+      "212": "MEDAILLON D'EDIRE"
+    },
     "goto": [
       212,
       349,
@@ -2449,6 +2715,29 @@
   },
   "480": {
     "label": "Combat Chaudron noir",
+    "conditions": {
+      "302": "FLASQUE D'HUILE",
+      "305": "SANG DE VAMPIRE",
+      "331": "BOTTE DE GARDE",
+      "334": "PRODUITS CHIMIQUES HASARDEUX",
+      "379": "BAGUE DE RUBIS",
+      "388": "LIME EN ACIER D'ARKADIE",
+      "416": "PETITE BOUTEILLE D'ACIDE",
+      "438": "ECAILLE DE DRAGON",
+      "456": "EXPLOSIFS",
+      "471": "CHLOROGLYCERINE",
+      "478": "BROCHE DOREE",
+      "525": "PRODUITS DE NETTOYAGE",
+      "526": "EFFIGIE DE DUEL",
+      "529": "PERROQUET",
+      "539": "BOUTEILLE DE MAGIE PURE",
+      "542": "MEDAILLON D'EDIRE",
+      "557": "TRESSE DE CENTAURESSE",
+      "562": "BOULE A NEIGE",
+      "570": "BOCAL A EPICES",
+      "600": "DARD EXPLOSIF",
+      "606": "ICONE DES PALADINS"
+    },
     "goto": [
       302,
       305,
@@ -2476,6 +2765,10 @@
     ]
   },
   "481": {
+    "conditions": {
+      "211": "PRUDENT|DEBROUILLARD",
+      "132": "GUERRIER|PAYSAN"
+    },
     "goto": [
       211,
       132
@@ -2500,6 +2793,11 @@
     "goto": 475
   },
   "486": {
+    "conditions": {
+      "222": "PRODUIT DE NETTOYAGE",
+      "182": "PALAIS DES PLAISIRS D'YTIA",
+      "202": "BOUTEILLE DE MAGIE PURE"
+    },
     "goto": [
       222,
       574,
@@ -2612,6 +2910,10 @@
     "goto": 475
   },
   "510": {
+    "conditions": {
+      "538": "PHILTRE D'AMOUR",
+      "172": "COUTEAU|EPEE"
+    },
     "goto": [
       538,
       172,
@@ -2622,6 +2924,11 @@
     "goto": 407
   },
   "512": {
+    "conditions": {
+      "337": "ECAILLE DE DRAGON",
+      "592": "BOUTEILLE DE MAGIE PURE",
+      "20": "PHILTRE D'AMOUR"
+    },
     "goto": [
       337,
       592,
@@ -2665,12 +2972,20 @@
   },
   "520": {
     "label": "Salle statues",
+    "conditions": {
+      "503": "EXPLOSIFS|MORGENSTERN"
+    },
     "goto": [
       503,
       340
     ]
   },
   "521": {
+    "conditions": {
+      "337": "ECAILLE DE DRAGON",
+      "592": "BOUTEILLE DE MAGIE PURE",
+      "20": "PHILTRE D'AMOUR"
+    },
     "goto": [
       3,
       337,
@@ -2681,6 +2996,12 @@
     ]
   },
   "522": {
+    "conditions": {
+      "59": "PASSE-PARTOUT",
+      "373": "COUTEAU",
+      "245": "LIME",
+      "321": "DARD EXPLOSIF"
+    },
     "goto": [
       59,
       373,
@@ -2717,6 +3038,9 @@
     ]
   },
   "529": {
+    "conditions": {
+      "595": "PERROQUET"
+    },
     "goto": [
       480,
       595
@@ -2744,6 +3068,15 @@
     "goto": 52
   },
   "535": {
+    "conditions": {
+      "579": "GUERRIER",
+      "589": "GUERRIER",
+      "585": "PAYSAN",
+      "601": "PAYSAN&FER A CHEVAL&TRESSE DE CENTAURESSE",
+      "559": "PRUDENT",
+      "586": "PRUDENT",
+      "590": "DEBROUILLARD"
+    },
     "goto": [
       579,
       589,
@@ -2761,6 +3094,11 @@
     ]
   },
   "537": {
+    "conditions": {
+      "504": "EFFIGIE DE DUEL",
+      "549": "MEDAILLON D'EDIRE",
+      "162": "ARC"
+    },
     "goto": [
       504,
       549,
@@ -2775,6 +3113,9 @@
     "goto": 364
   },
   "539": {
+    "conditions": {
+      "595": "PERROQUET"
+    },
     "goto": [
       480,
       595
@@ -2813,6 +3154,10 @@
     "goto": 436
   },
   "547": {
+    "conditions": {
+      "390": "GROSSE CLE",
+      "550": "CLE A&CLE B"
+    },
     "goto": [
       390,
       550,
@@ -2843,6 +3188,9 @@
     ]
   },
   "552": {
+    "conditions": {
+      "604": "PRUDENT"
+    },
     "goto": [
       469,
       604
@@ -2895,6 +3243,10 @@
     "goto": 357
   },
   "564": {
+    "conditions": {
+      "308": "ANNEAU DE RUBIS|BROCHE DOREE",
+      "546": "PERROQUET"
+    },
     "goto": [
       308,
       546,
@@ -2973,6 +3325,15 @@
     ]
   },
   "578": {
+    "conditions": {
+      "579": "GUERRIER",
+      "589": "GUERRIER",
+      "585": "PAYSAN",
+      "601": "PAYSAN&FER A CHEVAL&TRESSE DE CENTAURESSE",
+      "559": "PRUDENT",
+      "586": "PRUDENT",
+      "590": "DEBROUILLARD"
+    },
     "goto": [
       579,
       589,
@@ -2996,6 +3357,9 @@
   },
   "581": {
     "label": "Tour sud",
+    "conditions": {
+      "184": "KIT D'ESCALADE"
+    },
     "goto": [
       400,
       184,
@@ -3032,6 +3396,9 @@
     "goto": 608
   },
   "587": {
+    "conditions": {
+      "272": "ARC&FLECHES EXPLOSIVES"
+    },
     "goto": [
       447,
       400,
