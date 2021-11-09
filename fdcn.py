@@ -74,6 +74,7 @@ class Node(object):
         
         self._conditions_raw = ""
         self._conditions = None
+        self._conditions_txts = {}
     
     
     def have_combat(self):
@@ -105,20 +106,21 @@ class Node(object):
             ending = True
         
         return {
-            'id'             : self._id,
-            'ending'         : ending,
-            'success'        : self._success,
-            'sons'           : son_ids,
-            'chapter'        : self._arc,
-            'arc'            : self._sub_arc,
-            'is_combat'      : self._combat is not None,
-            'label'          : self._label,
-            'secret'         : self._secret,
-            'secret_jumps'   : self._secret_jumps,
-            'ending_id'      : self._ending_id,
-            'ending_txt'     : self._ending_txt,
-            'ending_type'    : self._ending,
-            'jump_conditions': self._conditions,
+            'id'                  : self._id,
+            'ending'              : ending,
+            'success'             : self._success,
+            'sons'                : son_ids,
+            'chapter'             : self._arc,
+            'arc'                 : self._sub_arc,
+            'is_combat'           : self._combat is not None,
+            'label'               : self._label,
+            'secret'              : self._secret,
+            'secret_jumps'        : self._secret_jumps,
+            'ending_id'           : self._ending_id,
+            'ending_txt'          : self._ending_txt,
+            'ending_type'         : self._ending,
+            'jump_conditions'     : self._conditions,
+            'jump_conditions_txts': self._conditions_txts,
         }
     
     
@@ -186,18 +188,30 @@ class Node(object):
         self._conditions_raw = conditions
     
     
+    # Parse the jump condition, and produce 2 things:
+    # * dict output, for easy comparision
+    # * display text about the rule
     def parse_conditions(self):
         if self._conditions_raw == "":
             self._conditions = {}
             return
         # print('\n\n\n%s Condition raw: %s' % (self.get_id(), self._conditions_raw))
-        r = {}
+        r_tree = {}
+        r_txt = {}
+        sons_ids = ['%s' % son.get_id() for son in self._sons]
         for (k, expr) in self._conditions_raw.items():
+            # First assert the condition IS in the sons ^^
+            if k not in sons_ids:
+                print('[%s] The condition: %s is not in our sons %s' % (self.get_id(), k, ', '.join(sons_ids)))
+                sys.exit(2)
             facto = ConditionNodeFactory()
             _condition = facto.parse_expr(expr)
             # print('\n\n**********************\nCONDITION: %s :: %s => %s\n*****' % (k, expr, _condition))
-            r[k] = _condition.to_json()
-        self._conditions = r
+            r_tree[k] = _condition.to_json()
+            r_txt[k] = expr.replace('(', '( ').replace(')', ' )').replace('&', ' et ').replace('|', ' ou ').strip()
+        
+        self._conditions = r_tree
+        self._conditions_txts = r_txt
     
     
     def _get_ending_color(self):
