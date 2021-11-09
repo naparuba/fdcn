@@ -119,3 +119,55 @@ func get_success_from_chapter(node_id):
 		if success['id'] == success_id:
 			return success
 	return null
+
+
+func match_chapter_conditions(node_from_id, node_to_id):
+	var chapter_data = self.get_node(node_from_id)
+	var node_to_id_str = '%s' % node_to_id
+	var all_jump_conditions = chapter_data["computed"]["jump_conditions"]
+	var jump_condition = all_jump_conditions.get(node_to_id_str)
+	if jump_condition == null:
+		return false
+	var r = self._check_cond_rec(jump_condition, [AppParameters.get_billy_type().to_upper()])
+	return r
+
+
+func _check_cond_rec(jump_condition, facts):
+	var r = false
+	var end = jump_condition.get('$end')
+	if end != null:
+		print('FIND $end= %s', end, '<=> facts=%s' % facts)
+		r = end in facts
+		return r
+	# Ors
+	var ors = jump_condition.get('$or')
+	if ors != null:
+		for sub_condition in ors:
+			print('OR: sub condition: %s' % sub_condition)
+			r = self._check_cond_rec(sub_condition, facts)
+			if r:
+				print('OR: sub condition is true STOP: %s' % sub_condition)
+				return true
+		return false
+	
+	# Ands
+	var ands = jump_condition.get('$and')
+	if ands != null:
+		for sub_condition in ands:
+			print('AND: sub condition: %s' % sub_condition)
+			r = self._check_cond_rec(sub_condition, facts)
+			if !r:
+				print('AND: sub condition is wrong STOP: %s' % sub_condition)
+				return false
+		return true
+ 
+
+func get_condition_txt(node_from_id, node_to_id):
+	var chapter_data = self.get_node(node_from_id)
+	var node_to_id_str = '%s' % node_to_id
+	var all_txts = chapter_data["computed"]["jump_conditions_txts"]
+	var txt = all_txts.get(node_to_id_str)
+	if txt == null:
+		return ''
+	return txt
+	

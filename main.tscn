@@ -1374,7 +1374,6 @@ texture = ExtResource( 22 )
 position = Vector2( 392.257, 88.6701 )
 scale = Vector2( 0.342538, 0.342538 )
 frames = SubResource( 7 )
-frame = 1
 playing = true
 
 [node name="DevLabel" type="Label" parent="About/About"]
@@ -1593,7 +1592,7 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Header" type="Panel" parent="Options"]
+[node name="Choix du Billy" type="Panel" parent="Options"]
 margin_right = 548.0
 margin_bottom = 42.0
 mouse_filter = 1
@@ -1602,19 +1601,19 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Label" type="Label" parent="Options/Header"]
+[node name="Label" type="Label" parent="Options/Choix du Billy"]
 margin_left = 170.219
 margin_top = 6.5009
 margin_right = 354.219
 margin_bottom = 37.5009
 custom_fonts/font = ExtResource( 2 )
-text = "Options"
+text = "Choix du Billy"
 align = 1
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="tick" type="Panel" parent="Options/Header"]
+[node name="tick" type="Panel" parent="Options/Choix du Billy"]
 margin_left = 497.592
 margin_top = 2.68369
 margin_right = 533.592
@@ -1624,12 +1623,12 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="tick" type="Sprite" parent="Options/Header/tick"]
+[node name="tick" type="Sprite" parent="Options/Choix du Billy/tick"]
 position = Vector2( 19.082, 17.7634 )
 scale = Vector2( 0.0471715, 0.0471715 )
 texture = ExtResource( 30 )
 
-[node name="button" type="TextureButton" parent="Options/Header/tick"]
+[node name="button" type="TextureButton" parent="Options/Choix du Billy/tick"]
 margin_left = -1.04053
 margin_top = -1.78381
 margin_right = 38.9595
@@ -1734,6 +1733,676 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
+[node name="Items" type="ScrollContainer" parent="Options"]
+visible = false
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_top = 408.0
+margin_right = -0.000305176
+margin_bottom = 0.0045166
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Options/Items"]
+margin_right = 500.0
+margin_bottom = 1417.0
+
+[node name="Label2" type="Label" parent="Options/Items/VBoxContainer"]
+margin_right = 500.0
+margin_bottom = 31.0
+custom_fonts/font = ExtResource( 2 )
+custom_colors/font_color = Color( 0, 0, 0, 1 )
+text = "Sélectionnez trois objets"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Les armes" type="Panel" parent="Options/Items/VBoxContainer"]
+margin_top = 35.0
+margin_right = 500.0
+margin_bottom = 85.0
+rect_min_size = Vector2( 500, 50 )
+mouse_filter = 1
+custom_styles/panel = SubResource( 10 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Label" type="Label" parent="Options/Items/VBoxContainer/Les armes"]
+margin_left = 170.219
+margin_top = 6.5009
+margin_right = 354.219
+margin_bottom = 37.5009
+custom_fonts/font = ExtResource( 2 )
+text = "Les armes"
+align = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="ligne1" type="HBoxContainer" parent="Options/Items/VBoxContainer"]
+margin_top = 89.0
+margin_right = 500.0
+margin_bottom = 289.0
+
+[node name="EPEE" type="Panel" parent="Options/Items/VBoxContainer/ligne1"]
+margin_right = 200.0
+margin_bottom = 200.0
+rect_min_size = Vector2( 200, 200 )
+custom_styles/panel = SubResource( 6 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Label" type="Label" parent="Options/Items/VBoxContainer/ligne1/EPEE"]
+margin_left = 63.9661
+margin_top = 85.6046
+margin_right = 127.966
+margin_bottom = 116.605
+custom_fonts/font = ExtResource( 2 )
+custom_colors/font_color = Color( 0, 0, 0, 1 )
+text = "L'epée"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Stats" type="Label" parent="Options/Items/VBoxContainer/ligne1/EPEE"]
+margin_left = 63.9661
+margin_top = 127.605
+margin_right = 127.966
+margin_bottom = 158.605
+custom_fonts/font = ExtResource( 2 )
+custom_colors/font_color = Color( 0, 0, 0, 1 )
+text = "+4 HAB"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Button" type="TextureButton" parent="Options/Items/VBoxContainer/ligne1/EPEE"]
+margin_right = 197.0
+margin_bottom = 199.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Sprite" type="Sprite" parent="Options/Items/VBoxContainer/ligne1/EPEE"]
+position = Vector2( 100.545, 41.0303 )
+scale = Vector2( 0.0996552, 0.0996552 )
+texture = ExtResource( 20 )
+
+[node name="LANCE" type="Panel" parent="Options/Items/VBoxContainer/ligne1"]
+margin_left = 204.0
+margin_right = 404.0
+margin_bottom = 200.0
+rect_min_size = Vector2( 200, 200 )
+custom_styles/panel = SubResource( 6 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Label" type="Label" parent="Options/Items/VBoxContainer/ligne1/LANCE"]
+margin_left = 63.9661
+margin_top = 85.6046
+margin_right = 127.966
+margin_bottom = 116.605
+custom_fonts/font = ExtResource( 2 )
+custom_colors/font_color = Color( 0, 0, 0, 1 )
+text = "La Lance"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Stats" type="Label" parent="Options/Items/VBoxContainer/ligne1/LANCE"]
+margin_left = 63.9661
+margin_top = 127.605
+margin_right = 127.966
+margin_bottom = 158.605
+custom_fonts/font = ExtResource( 2 )
+custom_colors/font_color = Color( 0, 0, 0, 1 )
+text = "+3 HAB, +1 ADR"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Button" type="TextureButton" parent="Options/Items/VBoxContainer/ligne1/LANCE"]
+margin_right = 199.0
+margin_bottom = 196.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Sprite" type="Sprite" parent="Options/Items/VBoxContainer/ligne1/LANCE"]
+position = Vector2( 100.545, 41.0303 )
+scale = Vector2( 0.0996552, 0.0996552 )
+texture = ExtResource( 20 )
+
+[node name="ligne2" type="HBoxContainer" parent="Options/Items/VBoxContainer"]
+margin_top = 293.0
+margin_right = 500.0
+margin_bottom = 493.0
+
+[node name="MORGENSTERN" type="Panel" parent="Options/Items/VBoxContainer/ligne2"]
+margin_right = 200.0
+margin_bottom = 200.0
+rect_min_size = Vector2( 200, 200 )
+custom_styles/panel = SubResource( 6 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Label" type="Label" parent="Options/Items/VBoxContainer/ligne2/MORGENSTERN"]
+margin_left = 63.9661
+margin_top = 85.6046
+margin_right = 127.966
+margin_bottom = 116.605
+custom_fonts/font = ExtResource( 2 )
+custom_colors/font_color = Color( 0, 0, 0, 1 )
+text = "La Morgenstern"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Stats" type="Label" parent="Options/Items/VBoxContainer/ligne2/MORGENSTERN"]
+margin_left = 63.9661
+margin_top = 127.605
+margin_right = 127.966
+margin_bottom = 158.605
+custom_fonts/font = ExtResource( 2 )
+custom_colors/font_color = Color( 0, 0, 0, 1 )
+text = "+1 HAB, +1 END, +1 DMG"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Button" type="TextureButton" parent="Options/Items/VBoxContainer/ligne2/MORGENSTERN"]
+margin_right = 197.0
+margin_bottom = 199.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Sprite" type="Sprite" parent="Options/Items/VBoxContainer/ligne2/MORGENSTERN"]
+position = Vector2( 100.545, 41.0303 )
+scale = Vector2( 0.0996552, 0.0996552 )
+texture = ExtResource( 20 )
+
+[node name="ARC" type="Panel" parent="Options/Items/VBoxContainer/ligne2"]
+margin_left = 204.0
+margin_right = 404.0
+margin_bottom = 200.0
+rect_min_size = Vector2( 200, 200 )
+custom_styles/panel = SubResource( 6 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Label" type="Label" parent="Options/Items/VBoxContainer/ligne2/ARC"]
+margin_left = 63.9661
+margin_top = 85.6046
+margin_right = 127.966
+margin_bottom = 116.605
+custom_fonts/font = ExtResource( 2 )
+custom_colors/font_color = Color( 0, 0, 0, 1 )
+text = "L'Arc"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Stats" type="Label" parent="Options/Items/VBoxContainer/ligne2/ARC"]
+margin_left = 63.9661
+margin_top = 127.605
+margin_right = 127.966
+margin_bottom = 158.605
+custom_fonts/font = ExtResource( 2 )
+custom_colors/font_color = Color( 0, 0, 0, 1 )
+text = "+3 HAB, +1 ADR, +4 CRIT"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Button" type="TextureButton" parent="Options/Items/VBoxContainer/ligne2/ARC"]
+margin_right = 199.0
+margin_bottom = 196.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Sprite" type="Sprite" parent="Options/Items/VBoxContainer/ligne2/ARC"]
+position = Vector2( 100.545, 41.0303 )
+scale = Vector2( 0.0996552, 0.0996552 )
+texture = ExtResource( 20 )
+
+[node name="Les equipements" type="Panel" parent="Options/Items/VBoxContainer"]
+margin_top = 497.0
+margin_right = 500.0
+margin_bottom = 547.0
+rect_min_size = Vector2( 500, 50 )
+mouse_filter = 1
+custom_styles/panel = SubResource( 10 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Label" type="Label" parent="Options/Items/VBoxContainer/Les equipements"]
+margin_left = 170.219
+margin_top = 6.5009
+margin_right = 354.219
+margin_bottom = 37.5009
+custom_fonts/font = ExtResource( 2 )
+text = "Les équipements"
+align = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="ligne3" type="HBoxContainer" parent="Options/Items/VBoxContainer"]
+margin_top = 551.0
+margin_right = 500.0
+margin_bottom = 751.0
+
+[node name="COTTE-MAILLE" type="Panel" parent="Options/Items/VBoxContainer/ligne3"]
+margin_right = 200.0
+margin_bottom = 200.0
+rect_min_size = Vector2( 200, 200 )
+custom_styles/panel = SubResource( 6 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Label" type="Label" parent="Options/Items/VBoxContainer/ligne3/COTTE-MAILLE"]
+margin_left = 63.9661
+margin_top = 85.6046
+margin_right = 127.966
+margin_bottom = 116.605
+custom_fonts/font = ExtResource( 2 )
+custom_colors/font_color = Color( 0, 0, 0, 1 )
+text = "La cotte de maille"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Stats" type="Label" parent="Options/Items/VBoxContainer/ligne3/COTTE-MAILLE"]
+margin_left = 63.9661
+margin_top = 127.605
+margin_right = 127.966
+margin_bottom = 158.605
+custom_fonts/font = ExtResource( 2 )
+custom_colors/font_color = Color( 0, 0, 0, 1 )
+text = "-1 HAB, -1 ADR, +1 END, +2 ARM"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Button" type="TextureButton" parent="Options/Items/VBoxContainer/ligne3/COTTE-MAILLE"]
+margin_right = 197.0
+margin_bottom = 199.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Sprite" type="Sprite" parent="Options/Items/VBoxContainer/ligne3/COTTE-MAILLE"]
+position = Vector2( 100.545, 41.0303 )
+scale = Vector2( 0.0996552, 0.0996552 )
+texture = ExtResource( 20 )
+
+[node name="MARMITE" type="Panel" parent="Options/Items/VBoxContainer/ligne3"]
+margin_left = 204.0
+margin_right = 404.0
+margin_bottom = 200.0
+rect_min_size = Vector2( 200, 200 )
+custom_styles/panel = SubResource( 6 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Label" type="Label" parent="Options/Items/VBoxContainer/ligne3/MARMITE"]
+margin_left = 63.9661
+margin_top = 85.6046
+margin_right = 127.966
+margin_bottom = 116.605
+custom_fonts/font = ExtResource( 2 )
+custom_colors/font_color = Color( 0, 0, 0, 1 )
+text = "La marmite"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Stats" type="Label" parent="Options/Items/VBoxContainer/ligne3/MARMITE"]
+margin_left = 63.9661
+margin_top = 127.605
+margin_right = 127.966
+margin_bottom = 158.605
+custom_fonts/font = ExtResource( 2 )
+custom_colors/font_color = Color( 0, 0, 0, 1 )
+text = "+2 END, +1 ARM"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Button" type="TextureButton" parent="Options/Items/VBoxContainer/ligne3/MARMITE"]
+margin_right = 199.0
+margin_bottom = 196.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Sprite" type="Sprite" parent="Options/Items/VBoxContainer/ligne3/MARMITE"]
+position = Vector2( 100.545, 41.0303 )
+scale = Vector2( 0.0996552, 0.0996552 )
+texture = ExtResource( 20 )
+
+[node name="ligne4" type="HBoxContainer" parent="Options/Items/VBoxContainer"]
+margin_top = 755.0
+margin_right = 500.0
+margin_bottom = 955.0
+
+[node name="PAMPHLET" type="Panel" parent="Options/Items/VBoxContainer/ligne4"]
+margin_right = 200.0
+margin_bottom = 200.0
+rect_min_size = Vector2( 200, 200 )
+custom_styles/panel = SubResource( 6 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Label" type="Label" parent="Options/Items/VBoxContainer/ligne4/PAMPHLET"]
+margin_left = 63.9661
+margin_top = 85.6046
+margin_right = 127.966
+margin_bottom = 116.605
+custom_fonts/font = ExtResource( 2 )
+custom_colors/font_color = Color( 0, 0, 0, 1 )
+text = "Le pamphlet"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Stats" type="Label" parent="Options/Items/VBoxContainer/ligne4/PAMPHLET"]
+margin_left = 63.9661
+margin_top = 127.605
+margin_right = 127.966
+margin_bottom = 158.605
+custom_fonts/font = ExtResource( 2 )
+custom_colors/font_color = Color( 0, 0, 0, 1 )
+text = "+4 CHA"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Button" type="TextureButton" parent="Options/Items/VBoxContainer/ligne4/PAMPHLET"]
+margin_right = 197.0
+margin_bottom = 199.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Sprite" type="Sprite" parent="Options/Items/VBoxContainer/ligne4/PAMPHLET"]
+position = Vector2( 100.545, 41.0303 )
+scale = Vector2( 0.0996552, 0.0996552 )
+texture = ExtResource( 20 )
+
+[node name="KIT-SOINS" type="Panel" parent="Options/Items/VBoxContainer/ligne4"]
+margin_left = 204.0
+margin_right = 404.0
+margin_bottom = 200.0
+rect_min_size = Vector2( 200, 200 )
+custom_styles/panel = SubResource( 6 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Label" type="Label" parent="Options/Items/VBoxContainer/ligne4/KIT-SOINS"]
+margin_left = 63.9661
+margin_top = 85.6046
+margin_right = 127.966
+margin_bottom = 116.605
+custom_fonts/font = ExtResource( 2 )
+custom_colors/font_color = Color( 0, 0, 0, 1 )
+text = "Le kit de soin"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Stats" type="Label" parent="Options/Items/VBoxContainer/ligne4/KIT-SOINS"]
+margin_left = 63.9661
+margin_top = 127.605
+margin_right = 127.966
+margin_bottom = 158.605
+custom_fonts/font = ExtResource( 2 )
+custom_colors/font_color = Color( 0, 0, 0, 1 )
+text = "+1 CHA, double lees pv récupérés"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Button" type="TextureButton" parent="Options/Items/VBoxContainer/ligne4/KIT-SOINS"]
+margin_right = 199.0
+margin_bottom = 196.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Sprite" type="Sprite" parent="Options/Items/VBoxContainer/ligne4/KIT-SOINS"]
+position = Vector2( 100.545, 41.0303 )
+scale = Vector2( 0.0996552, 0.0996552 )
+texture = ExtResource( 20 )
+
+[node name="Les outils" type="Panel" parent="Options/Items/VBoxContainer"]
+margin_top = 959.0
+margin_right = 500.0
+margin_bottom = 1009.0
+rect_min_size = Vector2( 500, 50 )
+mouse_filter = 1
+custom_styles/panel = SubResource( 10 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Label" type="Label" parent="Options/Items/VBoxContainer/Les outils"]
+margin_left = 170.219
+margin_top = 6.5009
+margin_right = 354.219
+margin_bottom = 37.5009
+custom_fonts/font = ExtResource( 2 )
+text = "Les outils"
+align = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="ligne5" type="HBoxContainer" parent="Options/Items/VBoxContainer"]
+margin_top = 1013.0
+margin_right = 500.0
+margin_bottom = 1213.0
+
+[node name="FOURCHE" type="Panel" parent="Options/Items/VBoxContainer/ligne5"]
+margin_right = 200.0
+margin_bottom = 200.0
+rect_min_size = Vector2( 200, 200 )
+custom_styles/panel = SubResource( 6 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Label" type="Label" parent="Options/Items/VBoxContainer/ligne5/FOURCHE"]
+margin_left = 63.9661
+margin_top = 85.6046
+margin_right = 127.966
+margin_bottom = 116.605
+custom_fonts/font = ExtResource( 2 )
+custom_colors/font_color = Color( 0, 0, 0, 1 )
+text = "La fourche"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Stats" type="Label" parent="Options/Items/VBoxContainer/ligne5/FOURCHE"]
+margin_left = 63.9661
+margin_top = 127.605
+margin_right = 127.966
+margin_bottom = 158.605
+custom_fonts/font = ExtResource( 2 )
+custom_colors/font_color = Color( 0, 0, 0, 1 )
+text = "+1 HAB"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Button" type="TextureButton" parent="Options/Items/VBoxContainer/ligne5/FOURCHE"]
+margin_right = 197.0
+margin_bottom = 199.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Sprite" type="Sprite" parent="Options/Items/VBoxContainer/ligne5/FOURCHE"]
+position = Vector2( 100.545, 41.0303 )
+scale = Vector2( 0.0996552, 0.0996552 )
+texture = ExtResource( 20 )
+
+[node name="DAGUE" type="Panel" parent="Options/Items/VBoxContainer/ligne5"]
+margin_left = 204.0
+margin_right = 404.0
+margin_bottom = 200.0
+rect_min_size = Vector2( 200, 200 )
+custom_styles/panel = SubResource( 6 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Label" type="Label" parent="Options/Items/VBoxContainer/ligne5/DAGUE"]
+margin_left = 63.9661
+margin_top = 85.6046
+margin_right = 127.966
+margin_bottom = 116.605
+custom_fonts/font = ExtResource( 2 )
+custom_colors/font_color = Color( 0, 0, 0, 1 )
+text = "La dague"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Stats" type="Label" parent="Options/Items/VBoxContainer/ligne5/DAGUE"]
+margin_left = 63.9661
+margin_top = 127.605
+margin_right = 127.966
+margin_bottom = 158.605
+custom_fonts/font = ExtResource( 2 )
+custom_colors/font_color = Color( 0, 0, 0, 1 )
+text = "+6 CRIT"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Button" type="TextureButton" parent="Options/Items/VBoxContainer/ligne5/DAGUE"]
+margin_right = 199.0
+margin_bottom = 196.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Sprite" type="Sprite" parent="Options/Items/VBoxContainer/ligne5/DAGUE"]
+position = Vector2( 100.545, 41.0303 )
+scale = Vector2( 0.0996552, 0.0996552 )
+texture = ExtResource( 20 )
+
+[node name="ligne6" type="HBoxContainer" parent="Options/Items/VBoxContainer"]
+margin_top = 1217.0
+margin_right = 500.0
+margin_bottom = 1417.0
+
+[node name="KIT-ESCALADE" type="Panel" parent="Options/Items/VBoxContainer/ligne6"]
+margin_right = 200.0
+margin_bottom = 200.0
+rect_min_size = Vector2( 200, 200 )
+custom_styles/panel = SubResource( 6 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Label" type="Label" parent="Options/Items/VBoxContainer/ligne6/KIT-ESCALADE"]
+margin_left = 63.9661
+margin_top = 85.6046
+margin_right = 127.966
+margin_bottom = 116.605
+custom_fonts/font = ExtResource( 2 )
+custom_colors/font_color = Color( 0, 0, 0, 1 )
+text = "Le kit d'escalade"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Stats" type="Label" parent="Options/Items/VBoxContainer/ligne6/KIT-ESCALADE"]
+margin_left = 63.9661
+margin_top = 127.605
+margin_right = 127.966
+margin_bottom = 158.605
+custom_fonts/font = ExtResource( 2 )
+custom_colors/font_color = Color( 0, 0, 0, 1 )
+text = "+1 ADR"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Button" type="TextureButton" parent="Options/Items/VBoxContainer/ligne6/KIT-ESCALADE"]
+margin_right = 197.0
+margin_bottom = 199.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Sprite" type="Sprite" parent="Options/Items/VBoxContainer/ligne6/KIT-ESCALADE"]
+position = Vector2( 100.545, 41.0303 )
+scale = Vector2( 0.0996552, 0.0996552 )
+texture = ExtResource( 20 )
+
+[node name="SAC-GRAINS" type="Panel" parent="Options/Items/VBoxContainer/ligne6"]
+margin_left = 204.0
+margin_right = 404.0
+margin_bottom = 200.0
+rect_min_size = Vector2( 200, 200 )
+custom_styles/panel = SubResource( 6 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Label" type="Label" parent="Options/Items/VBoxContainer/ligne6/SAC-GRAINS"]
+margin_left = 63.9661
+margin_top = 85.6046
+margin_right = 127.966
+margin_bottom = 116.605
+custom_fonts/font = ExtResource( 2 )
+custom_colors/font_color = Color( 0, 0, 0, 1 )
+text = "Le sac de grains"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Stats" type="Label" parent="Options/Items/VBoxContainer/ligne6/SAC-GRAINS"]
+margin_left = 63.9661
+margin_top = 127.605
+margin_right = 127.966
+margin_bottom = 158.605
+custom_fonts/font = ExtResource( 2 )
+custom_colors/font_color = Color( 0, 0, 0, 1 )
+text = "+1 END, +2 CHA"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Button" type="TextureButton" parent="Options/Items/VBoxContainer/ligne6/SAC-GRAINS"]
+margin_right = 199.0
+margin_bottom = 196.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Sprite" type="Sprite" parent="Options/Items/VBoxContainer/ligne6/SAC-GRAINS"]
+position = Vector2( 100.545, 41.0303 )
+scale = Vector2( 0.0996552, 0.0996552 )
+texture = ExtResource( 20 )
+
 [connection signal="gui_input" from="Background" to="." method="_on_main_background_gui_input"]
 [connection signal="gui_input" from="Chapitres" to="." method="_on_main_background_gui_input"]
 [connection signal="pressed" from="Chapitres/AllChapters/Block-1/button" to="." method="jump_to_chapter_1"]
@@ -1749,8 +2418,9 @@ __meta__ = {
 [connection signal="pressed" from="About/Actions/nouveau_billy/Button" to="." method="_on_button_new_billy"]
 [connection signal="pressed" from="About/Actions/new_bug/Button" to="." method="_on_button_bug"]
 [connection signal="pressed" from="About/About/twitter/Button" to="." method="_on_button_pressed_twitter"]
-[connection signal="pressed" from="Options/Header/tick/button" to="." method="_on_options_validate_button_pressed"]
+[connection signal="pressed" from="Options/Choix du Billy/tick/button" to="." method="_on_options_validate_button_pressed"]
 [connection signal="pressed" from="Options/BlockGuerrier/button" to="." method="_switch_to_guerrier"]
 [connection signal="pressed" from="Options/BlockPaysan/button" to="." method="_switch_to_paysan"]
 [connection signal="pressed" from="Options/BlockPrudent/button" to="." method="_switch_to_prudent"]
 [connection signal="pressed" from="Options/BlockDebrouillard/button" to="." method="_switch_to_debrouillard"]
+[connection signal="pressed" from="Options/Items/VBoxContainer/ligne2/ARC/Button" to="." method="_on_button_new_billy"]

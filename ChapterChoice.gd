@@ -77,6 +77,21 @@ func set_secret():
 	$SecretPolygon.color = Color('00c2aa')
 	
 
+func set_condition_txt(condition_txt):
+	$special.text = condition_txt
+	
+
+func enable_special_jump():
+	$special.visible = true
+	$special.set("custom_colors/font_color",Color('00c2aa'))
+	$click/special.visible = true
+
+func disable_special_jump():
+	$special.visible = true
+	$special.set("custom_colors/font_color",Color(1,0,0))
+	$click/special.visible = false	
+
+
 func _on_Button_pressed():
 	print('CLICK: on chapter: %s' % self.chap_number)
 	self.main.go_to_node(self.chap_number)

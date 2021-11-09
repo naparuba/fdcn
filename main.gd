@@ -531,6 +531,16 @@ func refresh():
 			choice.set_secret()
 		if son['computed']['label']:
 			choice.set_label(son['computed']['label'])
+			
+		# Check special jump/conditions
+		var jump_condition_txt = BookData.get_condition_txt(self.current_node_id, son_id)
+		choice.set_condition_txt(jump_condition_txt)
+		var is_special = BookData.match_chapter_conditions(self.current_node_id, son_id)
+		if is_special:
+			choice.enable_special_jump()
+		else:
+			choice.disable_special_jump()
+		
 		choices.add_child(choice)
 				
 	# Maybe we are an ending, then stack a EndingChoice with data
