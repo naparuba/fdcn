@@ -96,7 +96,7 @@
   },
   "16": {
     "conditions": {
-      "16": "MORGENSTERN|GUERRIER"
+      "294": "MORGENSTERN|GUERRIER"
     },
     "goto": [
       294,
@@ -2180,7 +2180,7 @@
     "conditions": {
       "511": "GUERRIER",
       "299": "PAYSAN",
-      "277": "PRUDENT",
+      "377": "PRUDENT",
       "444": "DEBROUILLARD"
     },
     "goto": [
