@@ -10,7 +10,7 @@ my_dir = os.path.dirname(__file__)
 sys.path.insert(0, my_dir)
 from condition_node import ConditionNodeFactory
 
-display_graph = graphviz.Digraph('G', filename='graph/fdcn_full', format='png', engine='dot')
+display_graph = graphviz.Digraph('G', filename='graph/fdcn_full', format='png')#, engine='dot')
 
 with codecs.open('fdcn-1.json', 'r', 'utf8') as f:
     book_data = json.loads(f.read())
@@ -74,7 +74,11 @@ class Node(object):
         
         self._conditions_raw = ""
         self._conditions = None
+        self._conditions_objs = {}
         self._conditions_txts = {}
+        
+        self._aquire = []
+        self._remove = []
     
     
     def have_combat(self):
@@ -121,6 +125,8 @@ class Node(object):
             'ending_type'         : self._ending,
             'jump_conditions'     : self._conditions,
             'jump_conditions_txts': self._conditions_txts,
+            'aquire'              : self._aquire,
+            'remove'              : self._remove,
         }
     
     
@@ -150,6 +156,14 @@ class Node(object):
     
     def get_arc(self):
         return self._arc
+    
+    
+    def set_aquire(self, aquire):
+        self._aquire = aquire
+    
+    
+    def set_remove(self, remove):
+        self._remove = remove
     
     
     def set_ending(self, ending):
@@ -207,11 +221,20 @@ class Node(object):
             facto = ConditionNodeFactory()
             _condition = facto.parse_expr(expr)
             # print('\n\n**********************\nCONDITION: %s :: %s => %s\n*****' % (k, expr, _condition))
+            self._conditions_objs[k] = _condition
             r_tree[k] = _condition.to_json()
             r_txt[k] = expr.replace('(', '( ').replace(')', ' )').replace('&', ' et ').replace('|', ' ou ').strip()
         
         self._conditions = r_tree
         self._conditions_txts = r_txt
+    
+    
+    def get_all_conditions_token(self):
+        lst = set()
+        for (k, cond) in self._conditions_objs.items():
+            objs = cond.get_all_tokens()
+            lst |= objs
+        return lst
     
     
     def _get_ending_color(self):
@@ -361,6 +384,12 @@ for idx, n in book_data.items():
     if secret_jumps is not None:
         node.set_secret_jumps(secret_jumps)
     
+    aquire = n.get('aquire', [])
+    node.set_aquire(aquire)
+    
+    remove = n.get('remove', [])
+    node.set_remove(remove)
+    
     goto = n['goto']
     
     gotos = []
@@ -500,6 +529,46 @@ for node_id_str in book_data.keys():
     node = node_graph.get_node(int(node_id_str))
     node.parse_conditions()
 
+print('Compute all conditions')
+all_conditions = set()
+for node_id_str in book_data.keys():
+    node = node_graph.get_node(int(node_id_str))
+    conds = node.get_all_conditions_token()
+    all_conditions |= conds
+    
+print('All conditions:\n%s' % '\n'.join(sorted([' - %s' % s for s in all_conditions])))
+
+
+print('Compute aquire objects')
+all_aquire = set()
+for node_id_str in book_data.keys():
+    node = node_graph.get_node(int(node_id_str))
+    for obj in node._aquire:
+        all_aquire.add(obj)
+print('All aquire:\n%s' % '\n'.join(sorted([' - %s' % s for s in all_aquire])))
+
+all_remove = set()
+for node_id_str in book_data.keys():
+    node = node_graph.get_node(int(node_id_str))
+    for obj in node._remove:
+        all_remove.add(obj)
+print('All remove:\n%s' % '\n'.join(sorted([' - %s' % s for s in all_remove])))
+
+add_no_remove = all_aquire - all_remove
+print('Add without remove:\n%s' % '\n'.join(sorted([' - %s' % s for s in add_no_remove])))
+
+conditions_not_aquire = all_conditions - all_aquire
+print('Condition NOT aquired:\n%s' % '\n'.join(sorted([' - %s' % s for s in conditions_not_aquire])))
+
+conditions_not_remove = all_conditions - all_remove
+print('Condition NOT remove:\n%s' % '\n'.join(sorted([' - %s' % s for s in conditions_not_remove])))
+
+
+remove_but_not_add = all_remove - all_aquire
+if remove_but_not_add:
+    print('ERROR: Remove but NOT add:\n%s' % '\n'.join(sorted([' - %s' % s for s in remove_but_not_add])))
+    sys.exit(2)
+
 print('Export computed nodes:')
 for node_id_str, node_data in book_data.items():
     node = node_graph.get_node(int(node_id_str))
@@ -625,4 +694,4 @@ with codecs.open('fdcn-1-compilated-success-chapters.json', 'w', 'utf8') as f:
 
 print('Rendering')
 # display_graph.render(filename='hello.gv', view=True)#format='json')
-display_graph.render(format='png')
+display_graph.render()#format='png')

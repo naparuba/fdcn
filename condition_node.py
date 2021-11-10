@@ -1,3 +1,5 @@
+import sys
+
 class ConditionNode(object):
     def __init__(self):
         self.operator = None
@@ -16,6 +18,15 @@ class ConditionNode(object):
             return '<END: %s>' % self.value
         return 'WHAT???'
     
+    
+    def get_all_tokens(self, lst=None):
+        if lst is None:  # first one: create the list
+            lst = set()
+        if self.operator == 'simple':
+            lst.add(self.value)
+        for son in self.sons:
+            son.get_all_tokens(lst=lst)
+        return lst
     
     def to_json(self):
         if self.operator == 'or':

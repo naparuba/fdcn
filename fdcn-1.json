@@ -88,6 +88,9 @@
     "goto": 84
   },
   "14": {
+    "aquire": [
+      "ECUSSON D'ORC"
+    ],
     "combat": {},
     "goto": 67
   },
@@ -107,9 +110,15 @@
     "goto": 100
   },
   "18": {
+    "aquire": [
+      "BOULE A NEIGE"
+    ],
     "goto": 313
   },
   "19": {
+    "aquire": [
+      "ECUSSON D'ORC"
+    ],
     "combat": {},
     "goto": 22
   },
@@ -136,6 +145,10 @@
   },
   "26": {
     "success": "POLIR-LANCE",
+    "aquire": [
+      "ECAILLE DE DRAGON",
+      "PALAIS DES PLAISIRS D'YTIA"
+    ],
     "goto": 100
   },
   "27": {
@@ -147,9 +160,15 @@
     ]
   },
   "28": {
+    "aquire": [
+      "LETTRE DE RECOMMANDATION"
+    ],
     "goto": 32
   },
   "29": {
+    "aquire": [
+      "FER A CHEVAL"
+    ],
     "goto": 74
   },
   "30": {
@@ -249,10 +268,16 @@
     "goto": 414
   },
   "47": {
+    "aquire": [
+      "MEDAILLON D'EDIRE"
+    ],
     "goto": 22
   },
   "48": {
     "label": "Boui-boui",
+    "conditions": {
+      "57": "PRUDENT"
+    },
     "goto": [
       57,
       135,
@@ -273,9 +298,15 @@
   },
   "51": {
     "success": "CHUTE",
+    "aquire": [
+      "GROSSE CLE"
+    ],
     "goto": 400
   },
   "52": {
+    "aquire": [
+      "BRACELET DE CONTROLE"
+    ],
     "goto": [
       152,
       190,
@@ -438,6 +469,9 @@
     ]
   },
   "78": {
+    "aquire": [
+      "TRESSE DE CENTAURESSE"
+    ],
     "goto": [
       447,
       186
@@ -466,6 +500,9 @@
     ]
   },
   "81": {
+    "aquire": [
+      "PETITE MASSUE"
+    ],
     "conditions": {
       "335": "EPEE|LANCE|MORGENSTERN"
     },
@@ -477,7 +514,7 @@
   "82": {
     "conditions": {
       "460": "COUTEAU|EPEE",
-      "432": "FLACON D'ACIDE"
+      "432": "PETITE BOUTEILLE D'ACIDE"
     },
     "goto": [
       460,
@@ -487,6 +524,9 @@
     ]
   },
   "83": {
+    "aquire": [
+      "PHILTRE D'AMOUR"
+    ],
     "goto": 100
   },
   "84": {
@@ -629,6 +669,9 @@
     "goto": 41
   },
   "106": {
+    "aquire": [
+      "BROCHE DOREE"
+    ],
     "goto": 32
   },
   "107": {
@@ -638,6 +681,9 @@
     "goto": 338
   },
   "109": {
+    "aquire": [
+      "PERROQUET"
+    ],
     "secret": true,
     "goto": 318
   },
@@ -656,6 +702,9 @@
   },
   "112": {
     "success": "TROIE",
+    "aquire": [
+      "PALAIS DES PLAISIRS D'YTIA"
+    ],
     "goto": 100
   },
   "113": {
@@ -689,6 +738,9 @@
     "goto": 89
   },
   "119": {
+    "aquire": [
+      "PETITE BOUTEILLE D'ACIDE"
+    ],
     "secret": true,
     "goto": 426
   },
@@ -755,6 +807,9 @@
     "goto": 65
   },
   "133": {
+    "aquire": [
+      "ECUSSON D'ORC"
+    ],
     "combat": {},
     "goto": 22
   },
@@ -762,6 +817,9 @@
     "goto": 230
   },
   "135": {
+    "aquire": [
+      "PASSE-PARTOUT"
+    ],
     "success": "CUL-SEC",
     "goto": 100
   },
@@ -934,6 +992,9 @@
   },
   "166": {
     "success": "SLIP",
+    "remove": [
+      "PHILTRE D'AMOUR"
+    ],
     "goto": 100
   },
   "167": {
@@ -970,7 +1031,7 @@
   "171": {
     "label": "Apothicaire",
     "conditions": {
-      "215": "KIT DE SOIN|PETIT MEDAILLON"
+      "215": "KIT DE SOIN|MEDAILLON D'EDIRE"
     },
     "goto": [
       215,
@@ -1050,6 +1111,9 @@
   },
   "186": {
     "label": "Salle trésor",
+    "aquire": [
+      "CLE A"
+    ],
     "conditions": {
       "151": "GROSSE CLE"
     },
@@ -1099,6 +1163,9 @@
     ]
   },
   "191": {
+    "aquire": [
+      "PERROQUET"
+    ],
     "goto": [
       415,
       330,
@@ -1126,6 +1193,10 @@
   },
   "194": {
     "success": "FILTRE-JOURNALISTE",
+    "aquire": [
+      "GEMME MAGIQUE",
+      "BRAS SQUELETTIQUE"
+    ],
     "goto": 9
   },
   "195": {
@@ -1210,6 +1281,9 @@
     "goto": 65
   },
   "212": {
+    "remove": [
+      "MEDAILLON D'EDIRE"
+    ],
     "goto": 25
   },
   "213": {
@@ -1271,6 +1345,9 @@
   },
   "221": {
     "secret": true,
+    "aquire": [
+      "BOCAL A EPICES"
+    ],
     "goto": 431
   },
   "222": {
@@ -1317,6 +1394,12 @@
   },
   "228": {
     "success": "PUDDING",
+    "remove": [
+      "BOCAL A EPICES"
+    ],
+    "aquire": [
+      "CLE B"
+    ],
     "goto": 461
   },
   "229": {
@@ -1365,6 +1448,9 @@
   },
   "236": {
     "success": "SAFEWORD",
+    "aquire": [
+      "CHLOROGLYCERINE"
+    ],
     "goto": 461
   },
   "237": {
@@ -1396,6 +1482,9 @@
     "goto": 295
   },
   "244": {
+    "aquire": [
+      "BISCUITS"
+    ],
     "goto": 430
   },
   "245": {
@@ -1405,6 +1494,9 @@
     "goto": 80
   },
   "247": {
+    "aquire": [
+      "BAGUE DE RUBIS"
+    ],
     "goto": 100
   },
   "248": {
@@ -1452,6 +1544,9 @@
     "goto": 73
   },
   "256": {
+    "remove": [
+      "PHILTRE D'AMOUR"
+    ],
     "goto": 100
   },
   "257": {
@@ -1512,6 +1607,9 @@
     ]
   },
   "268": {
+    "aquire": [
+      "EXPLOSIFS"
+    ],
     "goto": [
       593,
       400
@@ -1521,6 +1619,9 @@
     "goto": 100
   },
   "270": {
+    "aquire": [
+      "MEDAILLON D'EDIRE"
+    ],
     "goto": 142
   },
   "271": {
@@ -1541,6 +1642,9 @@
   },
   "275": {
     "success": "TOUT-CA-POUR-CA",
+    "aquire": [
+      "BISCUITS"
+    ],
     "goto": [
       190,
       359,
@@ -1620,6 +1724,9 @@
     ]
   },
   "286": {
+    "aquire": [
+      "PETITE BOUTEILLE D'ACIDE"
+    ],
     "combat": {},
     "goto": 426
   },
@@ -1638,6 +1745,9 @@
     ]
   },
   "289": {
+    "aquire": [
+      "PALAIS DES PLAISIRS D'YTIA"
+    ],
     "goto": 100
   },
   "290": {
@@ -1702,6 +1812,9 @@
     ]
   },
   "299": {
+    "aquire": [
+      "EFFIGIE DE DUEL"
+    ],
     "goto": 407
   },
   "300": {
@@ -1800,6 +1913,9 @@
     "goto": 354
   },
   "320": {
+    "aquire": [
+      "CLE B"
+    ],
     "combat": {},
     "goto": 461
   },
@@ -1831,9 +1947,15 @@
   },
   "327": {
     "secret": true,
+    "aquire": [
+      "BOUTEILLE DE MAGIE PURE"
+    ],
     "goto": 445
   },
   "328": {
+    "remove": [
+      "LIME EN ACIER D'ARKADIE"
+    ],
     "goto": 475
   },
   "329": {
@@ -1856,16 +1978,25 @@
     ]
   },
   "331": {
+    "remove": [
+      "BOTTES EN FER"
+    ],
     "goto": 480
   },
   "332": {
     "secret": true,
+    "aquire": [
+      "LANIERES DE CUIRS"
+    ],
     "goto": 51
   },
   "333": {
     "goto": 270
   },
   "334": {
+    "remove": [
+      "PRODUITS CHIMIQUES HASARDEUX"
+    ],
     "goto": 480
   },
   "335": {
@@ -1877,6 +2008,9 @@
     ]
   },
   "336": {
+    "aquire": [
+      "POINT FAIBLE"
+    ],
     "goto": 292
   },
   "337": {
@@ -1889,6 +2023,9 @@
   "339": {
     "combat": {},
     "success": "ULTRA-INSTINCT",
+    "aquire": [
+      "LIME EN ACIER D'ARKADIE"
+    ],
     "goto": 383
   },
   "340": {
@@ -1938,6 +2075,9 @@
   },
   "348": {
     "success": "PILE-SECRETS",
+    "aquire": [
+      "LIME EN ACIER D'ARKADIE"
+    ],
     "goto": 383
   },
   "349": {
@@ -2022,6 +2162,9 @@
     ]
   },
   "364": {
+    "aquire": [
+      "DARD EXPLOSIF"
+    ],
     "goto": 519
   },
   "365": {
@@ -2043,7 +2186,7 @@
   },
   "368": {
     "conditions": {
-      "215": "KIT DE SOIN|PETIT MEDAILLON"
+      "215": "KIT DE SOIN|MEDAILLON D'EDIRE"
     },
     "goto": [
       215,
@@ -2073,6 +2216,9 @@
     "goto": 436
   },
   "374": {
+    "aquire": [
+      "SANG DE VAMPIRE"
+    ],
     "goto": 383
   },
   "375": {
@@ -2088,12 +2234,18 @@
     ]
   },
   "377": {
+    "aquire": [
+      "EFFIGIE DE DUEL"
+    ],
     "goto": 407
   },
   "378": {
     "goto": 70
   },
   "379": {
+    "remove": [
+      "BAGUE DE RUBIS"
+    ],
     "goto": [
       480,
       62
@@ -2149,6 +2301,9 @@
     "goto": 261
   },
   "388": {
+    "remove": [
+      "LIME EN ACIER D'ARKADIE"
+    ],
     "goto": 480
   },
   "389": {
@@ -2197,6 +2352,10 @@
     "goto": 401
   },
   "397": {
+    "aquire": [
+      "BOTTES EN FER",
+      "CASQUE EN FER"
+    ],
     "goto": 430
   },
   "398": {
@@ -2230,6 +2389,9 @@
     "goto": 154
   },
   "406": {
+    "aquire": [
+      "ARMEE DE SQUELETTES DETRUITE"
+    ],
     "goto": 25
   },
   "407": {
@@ -2253,6 +2415,9 @@
   },
   "410": {
     "success": "CULTURE-PUB",
+    "aquire": [
+      "PRODUITS DE NETTOYAGE"
+    ],
     "goto": 154
   },
   "411": {
@@ -2296,6 +2461,9 @@
     ]
   },
   "415": {
+    "aquire": [
+      "BOUTEILLE DE MAGIE PURE"
+    ],
     "goto": [
       191,
       330,
@@ -2303,6 +2471,9 @@
     ]
   },
   "416": {
+    "remove": [
+      "PETITE BOUTEILLE D'ACIDE"
+    ],
     "goto": 480
   },
   "417": {
@@ -2363,6 +2534,9 @@
     "goto": 354
   },
   "429": {
+    "remove": [
+      "PRODUITS CHIMIQUES HASARDEUX"
+    ],
     "goto": 475
   },
   "430": {
@@ -2394,7 +2568,7 @@
     "conditions": {
       "391": "KIT D'ESCALADE",
       "56": "FOURCHE",
-      "497": "COTTE DE MAILLES|MARMITTE|CASQUE DE FER|BOTTES EN FER"
+      "497": "COTTE DE MAILLES|MARMITE|CASQUE EN FER|BOTTES EN FER"
     },
     "goto": [
       391,
@@ -2418,6 +2592,9 @@
     ]
   },
   "438": {
+    "remove": [
+      "ECAILLE DE DRAGON"
+    ],
     "goto": 480
   },
   "439": {
@@ -2434,7 +2611,7 @@
       "72": "PAYSAN|MARMITE",
       "483": "GEMME MAGIQUE",
       "179": "GUERRIER|COUTEAU",
-      "319": "PETIT MEDAILLON|BROCHE DOREE|BAGUE DE RUBIS"
+      "319": "MEDAILLON D'EDIRE|BROCHE DOREE|BAGUE DE RUBIS"
     },
     "goto": [
       72,
@@ -2453,6 +2630,9 @@
     "goto": 354
   },
   "444": {
+    "aquire": [
+      "EFFIGIE DE DUEL"
+    ],
     "goto": 407
   },
   "445": {
@@ -2494,6 +2674,9 @@
     "goto": 597
   },
   "452": {
+    "aquire": [
+      "FLASQUE D'HUILE"
+    ],
     "goto": 519
   },
   "453": {
@@ -2529,6 +2712,9 @@
     ]
   },
   "456": {
+    "remove": [
+      "EXPLOSIFS"
+    ],
     "goto": 480
   },
   "457": {
@@ -2553,6 +2739,9 @@
   },
   "459": {
     "success": "TOUTATIS",
+    "aquire": [
+      "CASQUE EN FER"
+    ],
     "goto": 430
   },
   "460": {
@@ -2598,6 +2787,12 @@
     "goto": 448
   },
   "467": {
+    "aquire": [
+      "ARMEE DE SQUELETTES DETRUITE"
+    ],
+    "remove": [
+      "BOUTEILLE DE MAGIE PURE"
+    ],
     "goto": 25
   },
   "468": {
@@ -2613,6 +2808,9 @@
     "goto": 354
   },
   "471": {
+    "remove": [
+      "CHLOROGLYCERINE"
+    ],
     "goto": 480
   },
   "472": {
@@ -2642,15 +2840,15 @@
       "328": "LIME EN ACIER D'ARKADIE",
       "362": "BRACELET DE CONTROLE",
       "412": "POINT FAIBLE",
-      "429": "PRODUIT CHIMIQUES HASARDEUX",
+      "429": "PRODUITS CHIMIQUES HASARDEUX",
       "482": "DARD EXPLOSIF",
-      "485": "NATTE DE LA CENTAURESSE",
-      "508": "BOUTEILLE D'ACIDE",
-      "509": "ICONE DIVINE",
+      "485": "TRESSE DE CENTAURESSE",
+      "508": "PETITE BOUTEILLE D'ACIDE",
+      "509": "ICONE DES PALADINS",
       "532": "EXPLOSIFS",
       "558": "MEDAILLON D'EDIRE",
       "565": "FLASQUE D'HUILE",
-      "567": "ARMEE DE QUELETTES DETRUITE",
+      "567": "ARMEE DE SQUELETTES DETRUITE",
       "568": "BOUTEILLE DE MAGIE PURE",
       "582": "BOCAL A EPICES",
       "598": "SANG DE VAMPIRE",
@@ -2708,6 +2906,9 @@
     ]
   },
   "478": {
+    "remove": [
+      "BROCHE DOREE"
+    ],
     "goto": 480
   },
   "479": {
@@ -2718,7 +2919,7 @@
     "conditions": {
       "302": "FLASQUE D'HUILE",
       "305": "SANG DE VAMPIRE",
-      "331": "BOTTE DE GARDE",
+      "331": "BOTTES EN FER",
       "334": "PRODUITS CHIMIQUES HASARDEUX",
       "379": "BAGUE DE RUBIS",
       "388": "LIME EN ACIER D'ARKADIE",
@@ -2775,6 +2976,9 @@
     ]
   },
   "482": {
+    "remove": [
+      "DARD EXPLOSIF"
+    ],
     "goto": 475
   },
   "483": {
@@ -2794,7 +2998,7 @@
   },
   "486": {
     "conditions": {
-      "222": "PRODUIT DE NETTOYAGE",
+      "222": "PRODUITS DE NETTOYAGE",
       "182": "PALAIS DES PLAISIRS D'YTIA",
       "202": "BOUTEILLE DE MAGIE PURE"
     },
@@ -2826,6 +3030,9 @@
     ]
   },
   "491": {
+    "aquire": [
+      "LIME EN ACIER D'ARKADIE"
+    ],
     "goto": 383
   },
   "492": {
@@ -2860,6 +3067,9 @@
     "goto": 452
   },
   "498": {
+    "aquire": [
+      "ARMEE DE SQUELETTES DETRUITE"
+    ],
     "goto": 25
   },
   "499": {
@@ -2895,18 +3105,30 @@
   },
   "505": {
     "success": "OCTOGONE",
+    "aquire": [
+      "CEINTURE DE CHAMPION"
+    ],
     "goto": 457
   },
   "506": {
+    "remove": [
+      "PHILTRE D'AMOUR"
+    ],
     "goto": 420
   },
   "507": {
     "goto": 531
   },
   "508": {
+    "remove": [
+      "PETITE BOUTEILLE D'ACIDE"
+    ],
     "goto": 475
   },
   "509": {
+    "remove": [
+      "ICONE DES PALADINS"
+    ],
     "goto": 475
   },
   "510": {
@@ -2947,6 +3169,9 @@
     "goto": 292
   },
   "515": {
+    "remove": [
+      "PETITE BOUTEILLE D'ACIDE"
+    ],
     "goto": 367
   },
   "516": {
@@ -2999,7 +3224,7 @@
     "conditions": {
       "59": "PASSE-PARTOUT",
       "373": "COUTEAU",
-      "245": "LIME",
+      "245": "LIME EN ACIER D'ARKADIE",
       "321": "DARD EXPLOSIF"
     },
     "goto": [
@@ -3023,9 +3248,15 @@
     ]
   },
   "525": {
+    "remove": [
+      "PRODUITS DE NETTOYAGE"
+    ],
     "goto": 480
   },
   "526": {
+    "remove": [
+      "EFFIGIE DE DUEL"
+    ],
     "goto": 480
   },
   "527": {
@@ -3038,8 +3269,11 @@
     ]
   },
   "529": {
+    "remove": [
+      "PERROQUET"
+    ],
     "conditions": {
-      "595": "PERROQUET"
+      "595": "BOUTEILLE DE MAGIE PURE"
     },
     "goto": [
       480,
@@ -3058,6 +3292,9 @@
     ]
   },
   "532": {
+    "remove": [
+      "EXPLOSIFS"
+    ],
     "goto": 475
   },
   "533": {
@@ -3088,6 +3325,9 @@
     ]
   },
   "536": {
+    "aquire": [
+      "PRODUITS CHIMIQUES HASARDEUX"
+    ],
     "goto": [
       80,
       554
@@ -3110,9 +3350,15 @@
     ]
   },
   "538": {
+    "remove": [
+      "PHILTRE D'AMOUR"
+    ],
     "goto": 364
   },
   "539": {
+    "remove": [
+      "BOUTEILLE DE MAGIE PURE"
+    ],
     "conditions": {
       "595": "PERROQUET"
     },
@@ -3131,6 +3377,9 @@
     "goto": 420
   },
   "542": {
+    "remove": [
+      "MEDAILLON D'EDIRE"
+    ],
     "goto": 480
   },
   "543": {
@@ -3219,9 +3468,15 @@
     ]
   },
   "557": {
+    "remove": [
+      "TRESSE DE CENTAURESSE"
+    ],
     "goto": 480
   },
   "558": {
+    "remove": [
+      "MEDAILLON D'EDIRE"
+    ],
     "goto": 475
   },
   "559": {
@@ -3237,6 +3492,9 @@
     "goto": 80
   },
   "562": {
+    "remove": [
+      "BOULE A NEIGE"
+    ],
     "goto": 480
   },
   "563": {
@@ -3244,7 +3502,7 @@
   },
   "564": {
     "conditions": {
-      "308": "ANNEAU DE RUBIS|BROCHE DOREE",
+      "308": "BAGUE DE RUBIS|BROCHE DOREE",
       "546": "PERROQUET"
     },
     "goto": [
@@ -3269,6 +3527,9 @@
     "goto": 475
   },
   "568": {
+    "remove": [
+      "BOUTEILLE DE MAGIE PURE"
+    ],
     "goto": 475
   },
   "569": {
@@ -3280,6 +3541,9 @@
     ]
   },
   "570": {
+    "remove": [
+      "BOCAL A EPICES"
+    ],
     "goto": 480
   },
   "571": {
@@ -3367,6 +3631,9 @@
     ]
   },
   "582": {
+    "remove": [
+      "BOCAL A EPICES"
+    ],
     "goto": 475
   },
   "583": {
@@ -3425,6 +3692,9 @@
     "goto": 584
   },
   "593": {
+    "aquire": [
+      "ICONE DES PALADINS"
+    ],
     "goto": 400
   },
   "594": {
@@ -3447,6 +3717,7 @@
     ]
   },
   "598": {
+    "remove": ["SANG DE VAMPIRE"],
     "goto": 475
   },
   "599": {
@@ -3457,6 +3728,9 @@
     ]
   },
   "600": {
+    "remove": [
+      "DARD EXPLOSIF"
+    ],
     "goto": 480
   },
   "601": {
@@ -3473,6 +3747,9 @@
     ]
   },
   "603": {
+    "remove": [
+      "PERROQUET"
+    ],
     "goto": 475
   },
   "604": {
@@ -3484,6 +3761,9 @@
     "goto": 430
   },
   "606": {
+    "remove": [
+      "ICONE DES PALADINS"
+    ],
     "goto": 480
   },
   "607": {
