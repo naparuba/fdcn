@@ -88,7 +88,7 @@ func is_node_id_freely_showable(node_id, secret_jumps):
 	
 	# NOT a secret node, we can show without problem, but only
 	# if it's not a secret jump
-	if !node['computed']['secret'] and !is_in_secret_jump:
+	if !node.get_secret() and !is_in_secret_jump:
 		return true
 		
 	# node is a secret (or in secret jumps), last hope is if we already see it in the past (not a spoil if already see ^^)
@@ -100,29 +100,13 @@ func is_node_id_freely_showable(node_id, secret_jumps):
 	return false
 
 
-
-
-
-static func delete_children(node):
-	for n in node.get_children():
-		node.remove_child(n)
-		n.queue_free()
 		
 
 func print_debug(s):
 	$DEBUG.text = s
 
 
-func _ready():
-	#Load the main font file
-	var dynamic_font = DynamicFont.new()
-	dynamic_font.font_data = load('res://fonts/amon_font.tres')
-
-	
-	# Register to Swiper
-	Swiper.register_main(self)
-
-	# Register top_menus
+func _register_top_menus():
 	self.top_menus.append($Background/top_menu)
 	self.top_menus.append($Chapitres/top_menu)
 	self.top_menus.append($Succes/top_menu)
@@ -131,7 +115,14 @@ func _ready():
 	
 	for top_menu in self.top_menus:
 		top_menu.register_main(self)
-	
+
+
+func _ready():
+	# Register to Swiper for page move
+	Swiper.register_main(self)
+
+	# Register top_menus so they can call us back
+	self._register_top_menus()
 	
 	# Load the nodes ids we did already visited in the past
 	Player.do_load()
@@ -174,7 +165,7 @@ static func _sort_all_chapters(nb1, nb2):
 
 func insert_all_chapters():
 	var all_choices = $Chapitres/AllChapters/VScrollBar/Choices
-	delete_children(all_choices)
+	Utils.delete_children(all_choices)
 	
 	var chapter_ids = BookData.get_all_nodes().keys()
 	chapter_ids.sort_custom(self, '_sort_all_chapters')
@@ -184,7 +175,7 @@ func insert_all_chapters():
 		
 		var choice = Choice.instance()
 		choice.set_main(self)
-		choice.set_chapitre(chapter_data['computed']['id'])
+		choice.set_chapitre(chapter_data.get_id())
 		all_choices.add_child(choice)
 
 
@@ -210,21 +201,21 @@ func _update_all_chapters():
 		else:
 			choice.set_not_already_seen()
 		# Ending or not
-		if chapter_data['computed']['ending']:
+		if chapter_data.get_ending():
 			choice.set_ending()
 		else:
 			choice.set_not_ending()
 		# Success or not
-		if chapter_data['computed']['success']:
+		if chapter_data.get_success():
 			choice.set_success()
 		else:
 			choice.set_not_success()
 		# label if any
-		var _label = chapter_data['computed']['label']
+		var _label = chapter_data.get_label()
 		if _label != null:
 			choice.set_label(_label)
 		# secret
-		if chapter_data['computed']['secret']:
+		if chapter_data.get_secret():
 			choice.set_secret()
 			
 
@@ -233,13 +224,13 @@ func _update_all_chapters():
 
 func insert_all_success():
 	var all_success = $Succes/Success/VScrollBar/Success
-	delete_children(all_success)
+	Utils.delete_children(all_success)
 	
 	
 	for success in BookData.get_all_success():
 		var s = Success.instance()
 		s.set_main(self)
-		print('SUCCESS: %s' % str(success))
+		#print('SUCCESS: %s' % str(success))
 		s.set_chapitre(success['chapter'])
 		s.set_label(success['label'])
 		s.set_txt(success['txt'])
@@ -319,7 +310,7 @@ func refresh():
 	
 	# The act in progress
 	var _acte_label = $Background/Position/Acte
-	_acte_label.text = '%s' % my_node['computed']['chapter']
+	_acte_label.text = '%s' % my_node.get_chapter()
 	
 	var pct100 = BookData.get_acte_completion(Player.get_current_node_id(), Player.get_visited_nodes_all_times())
 	var fill_bar = $Background/Position/fill_bar
@@ -327,7 +318,7 @@ func refresh():
 	$Background/Position/fill_par_pct.text = '%3d%%' % pct100
 	
 	# The arc, if any
-	var _arc = my_node['computed']['arc']
+	var _arc = my_node.get_arc()
 	if _arc != null:
 		# Compute how much of the sub_arc we have done
 		var pct100_sub_arc = BookData.get_sub_arc_completion(Player.get_current_node_id(), Player.get_visited_nodes_all_times())
@@ -343,7 +334,7 @@ func refresh():
 		
 		# The SMALL chapter display
 		var _chapitre_label = $Background/Position/NumeroChapitreSmall
-		_chapitre_label.text = '%s' % my_node['computed']['id']
+		_chapitre_label.text = '%s' % my_node.get_id()
 		_chapitre_label.visible = true
 		$Background/Position/LabelChapitreSmall.visible = true
 		# Hide big one
@@ -358,7 +349,7 @@ func refresh():
 
 		# The BIG chapter display
 		var _chapitre_label = $Background/Position/NumeroChapitreBig
-		_chapitre_label.text = '%s' % my_node['computed']['id']
+		_chapitre_label.text = '%s' % my_node.get_id()
 		_chapitre_label.visible = true
 		$Background/Position/LabelChapitreBig.visible = true
 		# Hide big one
@@ -367,7 +358,7 @@ func refresh():
 	
 	
 	var breads = $Background/Dreadcumb/breads
-	delete_children(breads)
+	Utils.delete_children(breads)
 	
 		
 	var last_previous = Player.get_last_5_previous_visited_nodes()
@@ -393,13 +384,13 @@ func refresh():
 		
 	
 	# And my sons
-	var sons_ids = my_node['computed']['sons']
+	var sons_ids = my_node.get_sons()
 	# Maybe son sons are not secret, but the jump is
-	var secret_jumps = my_node['computed']['secret_jumps']
+	var secret_jumps = my_node.get_secret_jumps()
 	
 	# Clean choices
 	var choices = $Background/Next/ScrollContainer/Choices
-	delete_children(choices)
+	Utils.delete_children(choices)
 	for son_id in sons_ids:
 		#print('My son: %s' % son_id)
 		
@@ -412,27 +403,27 @@ func refresh():
 		var choice = Choice.instance()
 		choice.set_main(self)
 		#print('NODE: %s' % son)
-		choice.set_chapitre(son['computed']['id'])
+		choice.set_chapitre(son.get_id())
 		# Update if spoils need to be shown (or not), can depend if we already seen this node
 		if BookData.is_node_id_freely_full_on_all_chapters(son_id):
 			choice.set_spoil_enabled(true)
 		else:  # only follow the parameter
 			choice.set_spoil_enabled(false)
 		
-		if son['computed']['is_combat']:
+		if son.is_combat():
 			choice.set_combat()
 		if Player.did_billy_seen(son_id):
 			choice.set_session_seen()
 		if Player.did_all_times_seen(son_id):
 			choice.set_already_seen()
-		if son['computed']['ending']:
+		if son.get_ending():
 			choice.set_ending()
-		if son['computed']['success']:
+		if son.get_success():
 			choice.set_success()
-		if son['computed']['secret']:
+		if son.get_secret():
 			choice.set_secret()
-		if son['computed']['label']:
-			choice.set_label(son['computed']['label'])
+		if son.get_label():
+			choice.set_label(son.get_label())
 			
 		# Check special jump/conditions
 		var jump_condition_txt = BookData.get_condition_txt(Player.get_current_node_id(), son_id)
@@ -446,24 +437,24 @@ func refresh():
 		choices.add_child(choice)
 				
 	# Maybe we are an ending, then stack a EndingChoice with data
-	if my_node['computed']['ending']:
+	if my_node.get_ending():
 		var choice = EndingChoice.instance()
 		choice.set_main(self)
 		print('IS AN END')
 		# Need an id for display:
 		# * is a success: take it
 		# * is not, take ending_id entry
-		var ending_id = my_node['computed']['success']
+		var ending_id = my_node.get_success()
 		if ending_id == null:
-			ending_id = my_node['computed']['ending_id']
+			ending_id = my_node.get_ending_id()
 		choice.set_ending_id(ending_id)
 		
 		# Text
 		var ending_txt = BookData.get_success_txt(ending_id)
 		if ending_txt == '':  # not a success
-			ending_txt = my_node['computed']['ending_txt']
+			ending_txt = my_node.get_ending_txt()
 		choice.set_label(ending_txt)
-		choice.set_ending_type(my_node['computed']['ending_type'])
+		choice.set_ending_type(my_node.get_ending_type())
 		
 		choices.add_child(choice)
 

@@ -31,7 +31,7 @@ func get_chapter_id():
 func set_success_id(success_id):
 	var texture = Utils.load_external_texture("res://images/success/%s.png" % success_id, null)
 	$sprite.texture = texture
-	print('SPRITE LOADED: %s' % success_id)
+	#print('SPRITE LOADED: %s' % success_id)
 
 
 func set_chapitre(chapitre):

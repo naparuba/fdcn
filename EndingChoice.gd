@@ -13,7 +13,7 @@ func _ready():
 func set_ending_id(ending_id):
 	var texture = Utils.load_external_texture("res://images/endings/%s.png" % ending_id, null)
 	$Icone.texture = texture
-	print('SPRITE LOADED: %s' % ending_id)
+	#print('SPRITE LOADED: %s' % ending_id)
 
 
 func set_main(main):

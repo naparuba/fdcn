@@ -31,7 +31,7 @@ func _new_success_play_sound():
 
 
 func _on_AnimationPlayer_animation_finished(anim_name):
-	print('SUCCESS: Animation %s is finish' % anim_name)
+	#print('SUCCESS: Animation %s is finish' % anim_name)
 	if anim_name == 'show':  # show is finish, we can now launch hide
 		$AnimationPlayer.play('hide')
 		print('Show is done, now hide')

@@ -1,5 +1,6 @@
 extends Node
 
+var chapter_data_cls = preload('res://chapter_data.gd')
 
 var all_nodes = {}
 var chapters_by_arc = {}
@@ -15,8 +16,12 @@ var end_endings = []
 
 
 func _init():
-	
-	self.all_nodes = Utils.load_json_file("res://fdcn-1-compilated-data.json")
+	# Load chapter data in chapter_data class
+	var all_nodes_json = Utils.load_json_file("res://fdcn-1-compilated-data.json")
+	for node_id_str in all_nodes_json.keys():
+		var chapter_data = chapter_data_cls.new()
+		chapter_data.create(all_nodes_json[node_id_str])
+		self.all_nodes[node_id_str] = chapter_data
 	
 	# Just the list of int of the secret chapters
 	self.secret_node_ids = Utils.load_json_file("res://fdcn-1-compilated-secrets.json")
@@ -52,7 +57,7 @@ func get_node(node_id):
 
 func get_all_nodes_in_the_same_chapter(node_id):
 	var chapter_data = self.get_node(node_id)
-	var chapter = chapter_data["computed"]["chapter"]
+	var chapter = chapter_data.get_chapter()
 	if chapter == null:
 		return []
 	var other_nodes = self.chapters_by_arc[chapter]
@@ -74,7 +79,7 @@ func get_acte_completion(node_id, visited_nodes_all_times):
 
 func get_all_nodes_in_the_same_sub_arc(node_id):
 	var chapter_data = self.get_node(node_id)
-	var sub_arc = chapter_data["computed"]["arc"]
+	var sub_arc = chapter_data.get_arc()
 	if sub_arc == null:
 		return []
 	var other_nodes = self.chapters_by_sub_arc[sub_arc]
@@ -124,7 +129,7 @@ func get_success_from_chapter(node_id):
 func match_chapter_conditions(node_from_id, node_to_id):
 	var chapter_data = self.get_node(node_from_id)
 	var node_to_id_str = '%s' % node_to_id
-	var all_jump_conditions = chapter_data["computed"]["jump_conditions"]
+	var all_jump_conditions = chapter_data.get_jump_conditions()
 	var jump_condition = all_jump_conditions.get(node_to_id_str)
 	if jump_condition == null:
 		return false
@@ -136,17 +141,17 @@ func _check_cond_rec(jump_condition, facts):
 	var r = false
 	var end = jump_condition.get('$end')
 	if end != null:
-		print('FIND $end= %s', end, '<=> facts=%s' % facts)
+		#print('FIND $end= %s', end, '<=> facts=%s' % facts)
 		r = end in facts
 		return r
 	# Ors
 	var ors = jump_condition.get('$or')
 	if ors != null:
 		for sub_condition in ors:
-			print('OR: sub condition: %s' % sub_condition)
+			#print('OR: sub condition: %s' % sub_condition)
 			r = self._check_cond_rec(sub_condition, facts)
 			if r:
-				print('OR: sub condition is true STOP: %s' % sub_condition)
+				#print('OR: sub condition is true STOP: %s' % sub_condition)
 				return true
 		return false
 	
@@ -154,10 +159,10 @@ func _check_cond_rec(jump_condition, facts):
 	var ands = jump_condition.get('$and')
 	if ands != null:
 		for sub_condition in ands:
-			print('AND: sub condition: %s' % sub_condition)
+			#print('AND: sub condition: %s' % sub_condition)
 			r = self._check_cond_rec(sub_condition, facts)
 			if !r:
-				print('AND: sub condition is wrong STOP: %s' % sub_condition)
+				#print('AND: sub condition is wrong STOP: %s' % sub_condition)
 				return false
 		return true
  
@@ -165,7 +170,7 @@ func _check_cond_rec(jump_condition, facts):
 func get_condition_txt(node_from_id, node_to_id):
 	var chapter_data = self.get_node(node_from_id)
 	var node_to_id_str = '%s' % node_to_id
-	var all_txts = chapter_data["computed"]["jump_conditions_txts"]
+	var all_txts = chapter_data.get_jump_conditions_txts()
 	var txt = all_txts.get(node_to_id_str)
 	if txt == null:
 		return ''

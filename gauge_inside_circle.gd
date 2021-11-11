@@ -24,7 +24,7 @@ func set_parameters(color, radius, value_pct):
 	self._draw()
 
 func set_value(value_pct):
-	print('Gauge: set value to %s' % value_pct)
+	#print('Gauge: set value to %s' % value_pct)
 	self.angle_to = 360 * value_pct
 	self.label_value.text = '%s%%' % int(100*value_pct)
 	self._draw()
@@ -43,7 +43,7 @@ func _draw_inside(center, radius):
 
 
 func _draw():
-	print("PRINT CIRCLE")
+	#print("PRINT CIRCLE")
 	var center = Vector2(0, 0)
 	#var radius = 60
 	var angle_from = 0
