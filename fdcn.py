@@ -10,7 +10,7 @@ my_dir = os.path.dirname(__file__)
 sys.path.insert(0, my_dir)
 from condition_node import ConditionNodeFactory
 
-display_graph = graphviz.Digraph('G', filename='graph/fdcn_full', format='png')#, engine='dot')
+display_graph = graphviz.Digraph('G', filename='graph/fdcn_full', format='png')  # , engine='dot')
 
 with codecs.open('fdcn-1.json', 'r', 'utf8') as f:
     book_data = json.loads(f.read())
@@ -535,9 +535,8 @@ for node_id_str in book_data.keys():
     node = node_graph.get_node(int(node_id_str))
     conds = node.get_all_conditions_token()
     all_conditions |= conds
-    
-print('All conditions:\n%s' % '\n'.join(sorted([' - %s' % s for s in all_conditions])))
 
+print('All conditions:\n%s' % '\n'.join(sorted([' - %s' % s for s in all_conditions])))
 
 print('Compute aquire objects')
 all_aquire = set()
@@ -563,16 +562,14 @@ print('Condition NOT aquired:\n%s' % '\n'.join(sorted([' - %s' % s for s in cond
 conditions_not_remove = all_conditions - all_remove
 print('Condition NOT remove:\n%s' % '\n'.join(sorted([' - %s' % s for s in conditions_not_remove])))
 
-
 all_discoverd_objects = all_remove | all_aquire | all_conditions
 
 with codecs.open('fdcn-1.all_objects.json', 'r', 'utf8') as f:
     all_objs = json.loads(f.read())
     all_objs_names = set(all_objs.keys())
-    
-    
+
 if all_discoverd_objects != all_objs_names:
-    used_but_not_declared =all_discoverd_objects - all_objs_names
+    used_but_not_declared = all_discoverd_objects - all_objs_names
     if used_but_not_declared:
         print('ERROR: some objects are USED but not declared: %s' % used_but_not_declared)
         sys.exit(2)
@@ -580,8 +577,6 @@ if all_discoverd_objects != all_objs_names:
     if declared_but_not_used:
         print('ERROR: some objects are DECLARED but not used: %s' % declared_but_not_used)
         sys.exit(2)
-
- 
 
 remove_but_not_add = all_remove - all_aquire
 if remove_but_not_add:
@@ -713,4 +708,4 @@ with codecs.open('fdcn-1-compilated-success-chapters.json', 'w', 'utf8') as f:
 
 print('Rendering')
 # display_graph.render(filename='hello.gv', view=True)#format='json')
-display_graph.render()#format='png')
+display_graph.render()  # format='png')

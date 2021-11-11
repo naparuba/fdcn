@@ -171,3 +171,17 @@ func get_condition_txt(node_from_id, node_to_id):
 		return ''
 	return txt
 	
+
+# on the all chapters, the "is not a secret" is not a criteria, as we don't want to see this
+# and also secret jumps is not useful here (not link to a specific src jump node)
+func is_node_id_freely_full_on_all_chapters(node_id):
+	if AppParameters.are_spoils_ok():
+			return true
+	# spoils are not known
+	var node = self.get_node(node_id)
+	# node is a secret, last hope is if we already see it in the past (not a spoil if already see ^^)
+	if Player.did_all_times_seen(node_id):
+		return true
+	# ok, no hope for this one, hide it
+	#print('SPOILS: %s is a secret and CANNOT see it' % node_id)
+	return false

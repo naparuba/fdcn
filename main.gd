@@ -1,10 +1,5 @@
 extends Node2D
 
-var current_node_id = 1
-
-
-var session_visited_nodes = []
-var visited_nodes_all_times = []
 
 var current_lines = []
 
@@ -24,89 +19,13 @@ var current_page = 'main'
 var top_menus = []
 
 
-# Give something like C:\Users\j.gabes\AppData\Roaming\Godot\app_userdata\fdcn for windows
-var all_times_already_visited_file = "user://all_times_already_visited.save"
-var current_node_id_file = "user://current_node_id.save"
-var session_visited_nodes_file  = "user://session_visited_nodes.save"
-
-
-
-func load_all_times_already_visited():
-	var f = File.new()
-	if f.file_exists(all_times_already_visited_file):
-		f.open(all_times_already_visited_file, File.READ)
-		visited_nodes_all_times = f.get_var()
-		f.close()
-	else:
-		visited_nodes_all_times = []
-
-
-func save_all_times_already_visited():
-	var f = File.new()
-	f.open(all_times_already_visited_file, File.WRITE)
-	f.store_var(visited_nodes_all_times)
-	f.close()
-
-
-func load_current_node_id():
-	var f = File.new()
-	if f.file_exists(current_node_id_file):
-		f.open(current_node_id_file, File.READ)
-		current_node_id = f.get_var()
-		f.close()
-	else:
-		current_node_id = 1
-
-
-func save_current_node_id():
-	var f = File.new()
-	f.open(current_node_id_file, File.WRITE)
-	f.store_var(current_node_id)
-	f.close()
-
-
-func load_session_visited_nodes():
-	var f = File.new()
-	if f.file_exists(session_visited_nodes_file):
-		f.open(session_visited_nodes_file, File.READ)
-		session_visited_nodes = f.get_var()
-		f.close()
-	else:
-		session_visited_nodes = []
-
-
-func save_session_visited_nodes():
-	var f = File.new()
-	f.open(session_visited_nodes_file, File.WRITE)
-	print('SAVING in file: %s' % f)
-	f.store_var(session_visited_nodes)
-	f.close()
 	
-
-
-
-
-
 
 
 
 func go_to_node(node_id):
-	self.current_node_id = node_id
-	self.save_current_node_id()
 	
-	# Update session, but maybe it's just a app reload
-	if len(self.session_visited_nodes) == 0 or self.session_visited_nodes[len(self.session_visited_nodes) -1] != node_id:
-		self.session_visited_nodes.append(self.current_node_id)
-		self.save_session_visited_nodes()
-	#else:
-	#	print('Already on the visited session update: %s' % str(self.session_visited_nodes))
-	#print('Visited session: %s' % str(self.session_visited_nodes))
-	
-	# Update id if not already visited
-	var is_new_node = !(self.current_node_id in visited_nodes_all_times)
-	if is_new_node:
-		self.visited_nodes_all_times.append(self.current_node_id)
-		self.save_all_times_already_visited()
+	var is_new_node = Player.go_to_node(node_id)
 		
 	
 	self.refresh()
@@ -117,7 +36,7 @@ func go_to_node(node_id):
 	self._play_node_sound()
 
 	if is_new_node:
-		self._check_new_success(self.current_node_id)
+		self._check_new_success(Player.get_current_node_id())
 
 
 # We are in a new node, check if it's a success.
@@ -145,7 +64,7 @@ func _play_node_sound():
 		216: '216-tour-des-mages.mp3',
 		338: '338-virilus-backstory.mp3'
 	}
-	var fname = node_sound_fnames.get(int(self.current_node_id))
+	var fname = node_sound_fnames.get(int(Player.get_current_node_id()))
 	if fname == null:  # no sound this node
 		return
 
@@ -173,7 +92,7 @@ func is_node_id_freely_showable(node_id, secret_jumps):
 		return true
 		
 	# node is a secret (or in secret jumps), last hope is if we already see it in the past (not a spoil if already see ^^)
-	if node_id in self.visited_nodes_all_times:
+	if Player.did_all_times_seen(node_id):
 		print('SPOILS: %s is a secret (or a secret jump) but already see it' % node_id)
 		return true
 	# ok, no hope for this one, hide it
@@ -181,19 +100,7 @@ func is_node_id_freely_showable(node_id, secret_jumps):
 	return false
 
 
-# on the all chapters, the "is not a secret" is not a criteria, as we don't want to see this
-# and also secret jumps is not useful here (not link to a specific src jump node)
-func is_node_id_freely_full_on_all_chapters(node_id):
-	if AppParameters.are_spoils_ok():
-			return true
-	# spoils are not known
-	var node = BookData.get_node(node_id)
-	# node is a secret, last hope is if we already see it in the past (not a spoil if already see ^^)
-	if node_id in self.visited_nodes_all_times:
-		return true
-	# ok, no hope for this one, hide it
-	#print('SPOILS: %s is a secret and CANNOT see it' % node_id)
-	return false
+
 
 
 static func delete_children(node):
@@ -227,10 +134,7 @@ func _ready():
 	
 	
 	# Load the nodes ids we did already visited in the past
-	self.load_all_times_already_visited()
-	self.load_current_node_id()
-	self.load_session_visited_nodes()
-	#self.load_parameters()
+	Player.do_load()
 	
 	# Create all chapters in the 2nd screen
 	self.insert_all_chapters()
@@ -238,7 +142,7 @@ func _ready():
 	self.insert_all_success()
 	
 	# Jump to node, and will show main page
-	self.go_to_node(self.current_node_id)
+	self.go_to_node(Player.get_current_node_id())
 	
 	# Play intro
 	# NOTE: if the current node id have a sound, intro will supress it
@@ -291,17 +195,17 @@ func _update_all_chapters():
 		var chapter_data = BookData.get_node(chapter_id)
 		
 		# Update if spoils need to be shown (or not), can depend if we already seen this node
-		if self.is_node_id_freely_full_on_all_chapters(chapter_id):
+		if BookData.is_node_id_freely_full_on_all_chapters(chapter_id):
 			choice.set_spoil_enabled(true)
 		else:  # only follow the parameter
 			choice.set_spoil_enabled(false)
 		# Session seen
-		if chapter_id in self.session_visited_nodes:
+		if Player.did_billy_seen(chapter_id):
 			choice.set_session_seen()
 		else:
 			choice.set_session_not_seen()
 		# All time seen
-		if chapter_id in self.visited_nodes_all_times:
+		if Player.did_all_times_seen(chapter_id):
 			choice.set_already_seen()
 		else:
 			choice.set_not_already_seen()
@@ -350,12 +254,12 @@ func _update_all_success():
 		var chapter_data = BookData.get_node(chapter_id)
 		
 		# Update if spoils need to be shown (or not), can depend if we already seen this node
-		if self.is_node_id_freely_full_on_all_chapters(chapter_id):
+		if BookData.is_node_id_freely_full_on_all_chapters(chapter_id):
 			success.set_spoil_enabled(true)
 		else:  # only follow the parameter
 			success.set_spoil_enabled(false)
 		# All time seen
-		if chapter_id in self.visited_nodes_all_times:
+		if Player.did_all_times_seen(chapter_id):
 			success.set_already_seen()
 		else:
 			success.set_not_already_seen()
@@ -389,7 +293,7 @@ func refresh():
 		top_menu.set_billy()
 		
 	# Note: the first left backer should be disabled if we cannot get back
-	if self.have_previous_chapters():
+	if Player.have_previous_chapters():
 		$"Background/Left-Back".set_enabled()
 	else:
 		$"Background/Left-Back".set_disabled()
@@ -403,7 +307,7 @@ func refresh():
 	
 	# Update the % completion
 	var _nb_all_nodes = len(BookData.get_all_nodes())
-	var _nb_visited = len(self.visited_nodes_all_times)
+	var _nb_visited = Player.get_nb_all_time_seen()
 
 	var completion_foot_note = $Background/GlobalCompletion/footnode
 	completion_foot_note.text = (' %d /' % _nb_visited) + (' %d' % _nb_all_nodes)
@@ -411,13 +315,13 @@ func refresh():
 	gauge.set_value(_nb_visited / float(_nb_all_nodes))
 	
 	# Now print my current node
-	var my_node = BookData.get_node(self.current_node_id)
+	var my_node = BookData.get_node(Player.get_current_node_id())
 	
 	# The act in progress
 	var _acte_label = $Background/Position/Acte
 	_acte_label.text = '%s' % my_node['computed']['chapter']
 	
-	var pct100 = BookData.get_acte_completion(self.current_node_id, self.visited_nodes_all_times)
+	var pct100 = BookData.get_acte_completion(Player.get_current_node_id(), Player.get_visited_nodes_all_times())
 	var fill_bar = $Background/Position/fill_bar
 	fill_bar.value = pct100 # % of the acte	is done
 	$Background/Position/fill_par_pct.text = '%3d%%' % pct100
@@ -426,7 +330,7 @@ func refresh():
 	var _arc = my_node['computed']['arc']
 	if _arc != null:
 		# Compute how much of the sub_arc we have done
-		var pct100_sub_arc = BookData.get_sub_arc_completion(self.current_node_id, self.visited_nodes_all_times)
+		var pct100_sub_arc = BookData.get_sub_arc_completion(Player.get_current_node_id(), Player.get_visited_nodes_all_times())
 		
 		$Background/Position/fleche_arc.visible = true
 		$Background/Position/LabelArc.visible = true
@@ -464,11 +368,9 @@ func refresh():
 	
 	var breads = $Background/Dreadcumb/breads
 	delete_children(breads)
-	var nb_previous = len(self.session_visited_nodes)
 	
-	var last_previous = self.session_visited_nodes
-	if len(self.session_visited_nodes) > 5:
-		last_previous = self.session_visited_nodes.slice(nb_previous - 5, nb_previous)
+		
+	var last_previous = Player.get_last_5_previous_visited_nodes()
 	#print('LAST 5: %s' % str(last_previous))
 	var _nb_lasts = len(last_previous)
 	var _i = 0
@@ -512,16 +414,16 @@ func refresh():
 		#print('NODE: %s' % son)
 		choice.set_chapitre(son['computed']['id'])
 		# Update if spoils need to be shown (or not), can depend if we already seen this node
-		if self.is_node_id_freely_full_on_all_chapters(son_id):
+		if BookData.is_node_id_freely_full_on_all_chapters(son_id):
 			choice.set_spoil_enabled(true)
 		else:  # only follow the parameter
 			choice.set_spoil_enabled(false)
 		
 		if son['computed']['is_combat']:
 			choice.set_combat()
-		if son_id in self.session_visited_nodes:
+		if Player.did_billy_seen(son_id):
 			choice.set_session_seen()
-		if son_id in self.visited_nodes_all_times:
+		if Player.did_all_times_seen(son_id):
 			choice.set_already_seen()
 		if son['computed']['ending']:
 			choice.set_ending()
@@ -533,9 +435,9 @@ func refresh():
 			choice.set_label(son['computed']['label'])
 			
 		# Check special jump/conditions
-		var jump_condition_txt = BookData.get_condition_txt(self.current_node_id, son_id)
+		var jump_condition_txt = BookData.get_condition_txt(Player.get_current_node_id(), son_id)
 		choice.set_condition_txt(jump_condition_txt)
-		var is_special = BookData.match_chapter_conditions(self.current_node_id, son_id)
+		var is_special = BookData.match_chapter_conditions(Player.get_current_node_id(), son_id)
 		if is_special:
 			choice.enable_special_jump()
 		else:
@@ -566,39 +468,17 @@ func refresh():
 		choices.add_child(choice)
 
 
-func have_previous_chapters():
-	return len(self.session_visited_nodes) > 1
-
-
 func jump_to_previous_chapter():
-	print('Jumping to previous chapter: %s' % str(self.session_visited_nodes))
-	if len(self.session_visited_nodes) <= 1:
-		print('jump_back::CANNOT GO BACK')
+	var previous_id = Player.jump_to_previous_chapter()
+	if previous_id == -1:
 		return
-	var current_id = self.session_visited_nodes[-1]  # DON'T DROP IT HERE
-	var previous_id = self.session_visited_nodes[-2]  # DON'T DROP IT HERE
-	print('Previous chapter: %s =>' % current_id, '%s' % previous_id)
+		
 	self.jump_back(previous_id)
 
 
 # We are jumping back until we found the good chapter number
 func jump_back(previous_id):
-	print('jump_back::Jumping back to %s' % previous_id)
-	print('jump_back::SESSION visited nodes: %s' % str(self.session_visited_nodes))
-	if len(self.session_visited_nodes) == 1:
-		print('jump_back::CANNOT GO BACK')
-		return
-		
-	while true:
-		if len(self.session_visited_nodes) == 0:
-			print('jump_back::CRITICAL: cannot find the jump back node %s' % previous_id)
-			return
-		var ptn_id = self.session_visited_nodes.pop_back()  # drop as we did stack it
-		print('jump_back::BACK: Look at %s' % ptn_id, ' asked %s' % previous_id)
-		if ptn_id == previous_id:
-			print('jump_back::BACK: geck back at %s' % previous_id)
-			break
-	
+	var can_jump_back = Player.jump_back(previous_id)
 	self.go_to_node(previous_id)
 	
 
@@ -671,8 +551,7 @@ func _on_button_new_billy():
 	
 	
 func launch_new_billy():
-	self.session_visited_nodes = []
-	self.save_session_visited_nodes()
+	Player.launch_new_billy()
 	self.go_to_node(1)
 	self.refresh()
 	# We did change node, so important to see it
