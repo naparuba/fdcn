@@ -190,3 +190,33 @@ func is_node_id_freely_full_on_all_chapters(node_id):
 	# ok, no hope for this one, hide it
 	#print('SPOILS: %s is a secret and CANNOT see it' % node_id)
 	return false
+
+
+# We can show a Choice if:
+# * we are ok with spoils
+# * we are NOT spoils but the node is NOT a secret, and not a secret jump
+# * we are NOT spoils, the node IS a secret but we ALREADY see it
+func is_node_id_freely_showable(node_id, secret_jumps):
+	if AppParameters.are_spoils_ok():
+		return true
+	
+	# spoils are not known
+	var node = BookData.get_node(node_id)
+	
+	var is_in_secret_jump = node_id in secret_jumps
+	
+	# NOT a secret node, we can show without problem, but only
+	# if it's not a secret jump
+	if !node.get_secret() and !is_in_secret_jump:
+		return true
+		
+	# node is a secret (or in secret jumps), last hope is if we already see it in the past (not a spoil if already see ^^)
+	if Player.did_all_times_seen(node_id):
+		print('SPOILS: %s is a secret (or a secret jump) but already see it' % node_id)
+		return true
+	# ok, no hope for this one, hide it
+	#print('SPOILS: %s is a secret and CANNOT see it' % node_id)
+	return false
+
+
+

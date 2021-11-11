@@ -72,34 +72,6 @@ func _play_node_sound():
 
 
 
-
-# We can show a Choice if:
-# * we are ok with spoils
-# * we are NOT spoils but the node is NOT a secret, and not a secret jump
-# * we are NOT spoils, the node IS a secret but we ALREADY see it
-func is_node_id_freely_showable(node_id, secret_jumps):
-	if AppParameters.are_spoils_ok():
-		return true
-	
-	# spoils are not known
-	var node = BookData.get_node(node_id)
-	
-	var is_in_secret_jump = node_id in secret_jumps
-	
-	# NOT a secret node, we can show without problem, but only
-	# if it's not a secret jump
-	if !node.get_secret() and !is_in_secret_jump:
-		return true
-		
-	# node is a secret (or in secret jumps), last hope is if we already see it in the past (not a spoil if already see ^^)
-	if Player.did_all_times_seen(node_id):
-		print('SPOILS: %s is a secret (or a secret jump) but already see it' % node_id)
-		return true
-	# ok, no hope for this one, hide it
-	#print('SPOILS: %s is a secret and CANNOT see it' % node_id)
-	return false
-
-
 		
 
 func print_debug(s):
@@ -182,78 +154,25 @@ func insert_all_chapters():
 func _update_all_chapters():
 	var all_choices = $Chapitres/AllChapters/VScrollBar/Choices
 	for choice in all_choices.get_children():
-		var chapter_id = choice.get_chapter_id()
-		var chapter_data = BookData.get_node(chapter_id)
+		choice.update_when_in_all_chapters()
 		
-		# Update if spoils need to be shown (or not), can depend if we already seen this node
-		if BookData.is_node_id_freely_full_on_all_chapters(chapter_id):
-			choice.set_spoil_enabled(true)
-		else:  # only follow the parameter
-			choice.set_spoil_enabled(false)
-		# Session seen
-		if Player.did_billy_seen(chapter_id):
-			choice.set_session_seen()
-		else:
-			choice.set_session_not_seen()
-		# All time seen
-		if Player.did_all_times_seen(chapter_id):
-			choice.set_already_seen()
-		else:
-			choice.set_not_already_seen()
-		# Ending or not
-		if chapter_data.get_ending():
-			choice.set_ending()
-		else:
-			choice.set_not_ending()
-		# Success or not
-		if chapter_data.get_success():
-			choice.set_success()
-		else:
-			choice.set_not_success()
-		# label if any
-		var _label = chapter_data.get_label()
-		if _label != null:
-			choice.set_label(_label)
-		# secret
-		if chapter_data.get_secret():
-			choice.set_secret()
-			
 
-
-		
 
 func insert_all_success():
 	var all_success = $Succes/Success/VScrollBar/Success
 	Utils.delete_children(all_success)
 	
-	
 	for success in BookData.get_all_success():
 		var s = Success.instance()
 		s.set_main(self)
-		#print('SUCCESS: %s' % str(success))
-		s.set_chapitre(success['chapter'])
-		s.set_label(success['label'])
-		s.set_txt(success['txt'])
-		s.set_success_id(success['id'])
+		s.set_from_success_object(success)
 		all_success.add_child(s)
 
 
 func _update_all_success():
 	var all_success = $Succes/Success/VScrollBar/Success
 	for success in all_success.get_children():
-		var chapter_id = success.get_chapter_id()
-		var chapter_data = BookData.get_node(chapter_id)
-		
-		# Update if spoils need to be shown (or not), can depend if we already seen this node
-		if BookData.is_node_id_freely_full_on_all_chapters(chapter_id):
-			success.set_spoil_enabled(true)
-		else:  # only follow the parameter
-			success.set_spoil_enabled(false)
-		# All time seen
-		if Player.did_all_times_seen(chapter_id):
-			success.set_already_seen()
-		else:
-			success.set_not_already_seen()
+		success.update()
 
 
 func _refresh_options():
@@ -391,50 +310,18 @@ func refresh():
 	# Clean choices
 	var choices = $Background/Next/ScrollContainer/Choices
 	Utils.delete_children(choices)
-	for son_id in sons_ids:
-		#print('My son: %s' % son_id)
-		
+	for son_id in sons_ids:		
 		# If the son is now ok to be shown, skip it
-		if !self.is_node_id_freely_showable(son_id, secret_jumps):
+		if !BookData.is_node_id_freely_showable(son_id, secret_jumps):
 			continue
 		
 		var son = BookData.get_node(son_id)
-		
 		var choice = Choice.instance()
 		choice.set_main(self)
-		#print('NODE: %s' % son)
-		choice.set_chapitre(son.get_id())
-		# Update if spoils need to be shown (or not), can depend if we already seen this node
-		if BookData.is_node_id_freely_full_on_all_chapters(son_id):
-			choice.set_spoil_enabled(true)
-		else:  # only follow the parameter
-			choice.set_spoil_enabled(false)
-		
-		if son.is_combat():
-			choice.set_combat()
-		if Player.did_billy_seen(son_id):
-			choice.set_session_seen()
-		if Player.did_all_times_seen(son_id):
-			choice.set_already_seen()
-		if son.get_ending():
-			choice.set_ending()
-		if son.get_success():
-			choice.set_success()
-		if son.get_secret():
-			choice.set_secret()
-		if son.get_label():
-			choice.set_label(son.get_label())
-			
-		# Check special jump/conditions
-		var jump_condition_txt = BookData.get_condition_txt(Player.get_current_node_id(), son_id)
-		choice.set_condition_txt(jump_condition_txt)
-		var is_special = BookData.match_chapter_conditions(Player.get_current_node_id(), son_id)
-		if is_special:
-			choice.enable_special_jump()
-		else:
-			choice.disable_special_jump()
-		
+		choice.update_from_son_node(son)
+		# Display it
 		choices.add_child(choice)
+		
 				
 	# Maybe we are an ending, then stack a EndingChoice with data
 	if my_node.get_ending():

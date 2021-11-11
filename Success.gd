@@ -23,10 +23,32 @@ func set_spoil_enabled(b):
 	$NBChapitre.visible = self.spoil_enabled
 
 
+func update():
+	var chapter_id = self.get_chapter_id()
+	var chapter_data = BookData.get_node(chapter_id)
+		
+	# Update if spoils need to be shown (or not), can depend if we already seen this node
+	if BookData.is_node_id_freely_full_on_all_chapters(chapter_id):
+		self.set_spoil_enabled(true)
+	else:  # only follow the parameter
+		self.set_spoil_enabled(false)
+	# All time seen
+	if Player.did_all_times_seen(chapter_id):
+		self.set_already_seen()
+	else:
+		self.set_not_already_seen()
+
 
 func get_chapter_id():
 	return self.chap_number
 
+
+func set_from_success_object(success_object):
+	self.set_chapitre(success_object['chapter'])
+	self.set_label(success_object['label'])
+	self.set_txt(success_object['txt'])
+	self.set_success_id(success_object['id'])
+	
 
 func set_success_id(success_id):
 	var texture = Utils.load_external_texture("res://images/success/%s.png" % success_id, null)

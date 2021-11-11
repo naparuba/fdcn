@@ -95,3 +95,75 @@ func disable_special_jump():
 func _on_Button_pressed():
 	print('CLICK: on chapter: %s' % self.chap_number)
 	self.main.go_to_node(self.chap_number)
+
+
+func update_from_son_node(son):
+	var son_id = son.get_id()
+	self.set_chapitre(son.get_id())
+	# Update if spoils need to be shown (or not), can depend if we already seen this node
+	if BookData.is_node_id_freely_full_on_all_chapters(son_id):
+		self.set_spoil_enabled(true)
+	else:  # only follow the parameter
+		self.set_spoil_enabled(false)
+	
+	if son.is_combat():
+		self.set_combat()
+	if Player.did_billy_seen(son_id):
+		self.set_session_seen()
+	if Player.did_all_times_seen(son_id):
+		self.set_already_seen()
+	if son.get_ending():
+		self.set_ending()
+	if son.get_success():
+		self.set_success()
+	if son.get_secret():
+		self.set_secret()
+	if son.get_label():
+		self.set_label(son.get_label())
+		
+	# Check special jump/conditions
+	var jump_condition_txt = BookData.get_condition_txt(Player.get_current_node_id(), son_id)
+	self.set_condition_txt(jump_condition_txt)
+	var is_special = BookData.match_chapter_conditions(Player.get_current_node_id(), son_id)
+	if is_special:
+		self.enable_special_jump()
+	else:
+		self.disable_special_jump()
+
+
+func update_when_in_all_chapters():
+	var chapter_id = self.get_chapter_id()
+	var chapter_data = BookData.get_node(chapter_id)
+		
+	# Update if spoils need to be shown (or not), can depend if we already seen this node
+	if BookData.is_node_id_freely_full_on_all_chapters(chapter_id):
+		self.set_spoil_enabled(true)
+	else:  # only follow the parameter
+		self.set_spoil_enabled(false)
+	# Session seen
+	if Player.did_billy_seen(chapter_id):
+		self.set_session_seen()
+	else:
+		self.set_session_not_seen()
+	# All time seen
+	if Player.did_all_times_seen(chapter_id):
+		self.set_already_seen()
+	else:
+		self.set_not_already_seen()
+	# Ending or not
+	if chapter_data.get_ending():
+		self.set_ending()
+	else:
+		self.set_not_ending()
+	# Success or not
+	if chapter_data.get_success():
+		self.set_success()
+	else:
+		self.set_not_success()
+	# label if any
+	var _label = chapter_data.get_label()
+	if _label != null:
+		self.set_label(_label)
+	# secret
+	if chapter_data.get_secret():
+		self.set_secret()
