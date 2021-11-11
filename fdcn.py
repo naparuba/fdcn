@@ -564,6 +564,25 @@ conditions_not_remove = all_conditions - all_remove
 print('Condition NOT remove:\n%s' % '\n'.join(sorted([' - %s' % s for s in conditions_not_remove])))
 
 
+all_discoverd_objects = all_remove | all_aquire | all_conditions
+
+with codecs.open('fdcn-1.all_objects.json', 'r', 'utf8') as f:
+    all_objs = json.loads(f.read())
+    all_objs_names = set(all_objs.keys())
+    
+    
+if all_discoverd_objects != all_objs_names:
+    used_but_not_declared =all_discoverd_objects - all_objs_names
+    if used_but_not_declared:
+        print('ERROR: some objects are USED but not declared: %s' % used_but_not_declared)
+        sys.exit(2)
+    declared_but_not_used = all_objs_names - all_discoverd_objects
+    if declared_but_not_used:
+        print('ERROR: some objects are DECLARED but not used: %s' % declared_but_not_used)
+        sys.exit(2)
+
+ 
+
 remove_but_not_add = all_remove - all_aquire
 if remove_but_not_add:
     print('ERROR: Remove but NOT add:\n%s' % '\n'.join(sorted([' - %s' % s for s in remove_but_not_add])))
