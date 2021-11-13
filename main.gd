@@ -24,6 +24,7 @@ var top_menus = []
 func _ready():
 	# Register to Swiper for page move
 	Swiper.register_main(self)
+	Player.register_main(self)
 
 	# Register top_menus so they can call us back
 	self._register_top_menus()
@@ -39,6 +40,8 @@ func _ready():
 	self.insert_all_success()
 	
 	self.insert_all_objects()
+	
+	Player.compute_my_billy()
 	
 	# Jump to node, and will show main page
 	self.go_to_node(Player.get_current_node_id())
@@ -123,8 +126,18 @@ func insert_all_objects():
 		var item_data = all_objects[obj_name]
 		var item = Item.instance()
 		item.load_item_data(obj_name, item_data)
-		item_stack.add_child(item)
+		var is_ok_to_be_shown = item.is_ok_to_be_shown()
+		if is_ok_to_be_shown:
+			item_stack.add_child(item)
+			# Also let the Player know it does exists
+			Player.add_in_all_items(item)
 
+
+func refresh_all_objects():
+	var item_stack = $Options/ItemsCont/Items
+	for item in item_stack.get_children():
+		item.refresh()
+		
 
 func jump_to_chapter_100aine(centaine):
 	var all_choices = $Chapitres/AllChapters/VScrollBar/Choices
@@ -188,6 +201,8 @@ func _update_all_success():
 
 
 func _refresh_options():
+	self.refresh_all_objects()
+	
 	var type_billy_param = AppParameters.get_billy_type()
 	var sprite_by_billy = {
 		'guerrier':    $Options/BlockGuerrier/sprite,
@@ -201,7 +216,8 @@ func _refresh_options():
 		var sprite = sprite_by_billy[billy]
 		sprite.material.set_shader_param("grayscale", true)
 	# Colorize the selected one
-	sprite_by_billy[type_billy_param].material.set_shader_param("grayscale", false)
+	if type_billy_param != 'pegu':
+		sprite_by_billy[type_billy_param].material.set_shader_param("grayscale", false)
 
 	
 func refresh():	
@@ -378,6 +394,9 @@ func change_spoils(b):
 
 
 func set_billy(billy_type):
+	var current_billy = AppParameters.get_billy_type()
+	if current_billy == billy_type:  # no need to warn
+		return
 	AppParameters.set_billy_type(billy_type)
 	self.refresh()
 	Sounder.play('billy-%s.mp3' % billy_type)
@@ -397,6 +416,10 @@ func _switch_to_prudent():
 
 func _switch_to_debrouillard():
 	self.set_billy('debrouillard')
+
+
+func _switch_to_pegu():
+	self.set_billy('pegu')
 
 
 func _on_main_background_gui_input(event):
