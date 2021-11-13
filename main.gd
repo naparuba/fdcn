@@ -8,6 +8,7 @@ onready var Bread = preload('res://bread.tscn')
 onready var Choice = preload('res://ChapterChoice.tscn')
 onready var EndingChoice = preload('res://EndingChoice.tscn')
 onready var Success = preload('res://Success.tscn')
+onready var Item = preload('res://Item.tscn')
 
 onready var gauge = $Background/GlobalCompletion/Gauge
 
@@ -19,14 +20,38 @@ var current_page = 'main'
 var top_menus = []
 
 
+
+func _ready():
+	# Register to Swiper for page move
+	Swiper.register_main(self)
+
+	# Register top_menus so they can call us back
+	self._register_top_menus()
 	
+	# Load the nodes ids we did already visited in the past
+	var need_show_options_at_startup = Player.do_load()
+	if need_show_options_at_startup:
+		$Options.visible = true
+	
+	# Create all chapters in the 2nd screen
+	self.insert_all_chapters()
+	# And success to the 3th
+	self.insert_all_success()
+	
+	self.insert_all_objects()
+	
+	# Jump to node, and will show main page
+	self.go_to_node(Player.get_current_node_id())
+	
+	# Play intro
+	# NOTE: if the current node id have a sound, intro will supress it
+	self._play_intro()
 
 
 
 func go_to_node(node_id):
 	
 	var is_new_node = Player.go_to_node(node_id)
-		
 	
 	self.refresh()
 	# We did change node, so important to see it
@@ -89,29 +114,16 @@ func _register_top_menus():
 		top_menu.register_main(self)
 
 
-func _ready():
-	# Register to Swiper for page move
-	Swiper.register_main(self)
-
-	# Register top_menus so they can call us back
-	self._register_top_menus()
-	
-	# Load the nodes ids we did already visited in the past
-	Player.do_load()
-	
-	# Create all chapters in the 2nd screen
-	self.insert_all_chapters()
-	# And success to the 3th
-	self.insert_all_success()
-	
-	# Jump to node, and will show main page
-	self.go_to_node(Player.get_current_node_id())
-	
-	# Play intro
-	# NOTE: if the current node id have a sound, intro will supress it
-	self._play_intro()
-	
-
+func insert_all_objects():
+	var item_stack = $Options/ItemsCont/Items
+	Utils.delete_children(item_stack)
+	print('Insert all objects')
+	var all_objects = BookData.get_all_objects()
+	for obj_name in all_objects.keys():
+		var item_data = all_objects[obj_name]
+		var item = Item.instance()
+		item.load_item_data(obj_name, item_data)
+		item_stack.add_child(item)
 
 
 func jump_to_chapter_100aine(centaine):
@@ -452,4 +464,6 @@ func show_options():
 
 func _on_options_validate_button_pressed():
 	print('BUTTON: validate')
+	self.refresh()
 	$Options.visible = false
+	

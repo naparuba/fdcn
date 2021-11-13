@@ -1,0 +1,405 @@
+{
+    "ARC": {
+        "category": "ARME",
+        "in_chapters": [
+            1
+        ]
+    },
+    "ARMEE DE SQUELETTES DETRUITE": {
+        "category": "EVENEMENT",
+        "in_chapters": [
+            406,
+            467,
+            498
+        ]
+    },
+    "BAGUE DE RUBIS": {
+        "category": "OBJET",
+        "in_chapters": [
+            247,
+            379
+        ]
+    },
+    "BISCUITS": {
+        "category": "OBJET",
+        "in_chapters": [
+            244,
+            275
+        ]
+    },
+    "BOCAL A EPICES": {
+        "category": "OBJET",
+        "in_chapters": [
+            221,
+            228,
+            570,
+            582
+        ]
+    },
+    "BOTTES EN FER": {
+        "category": "OBJET",
+        "in_chapters": [
+            331,
+            397
+        ]
+    },
+    "BOULE A NEIGE": {
+        "category": "OBJET",
+        "in_chapters": [
+            18,
+            562
+        ]
+    },
+    "BOUTEILLE DE MAGIE PURE": {
+        "category": "OBJET",
+        "in_chapters": [
+            327,
+            415,
+            467,
+            539,
+            568
+        ]
+    },
+    "BRACELET DE CONTROLE": {
+        "category": "OBJET",
+        "in_chapters": [
+            52
+        ]
+    },
+    "BRAS SQUELETTIQUE": {
+        "category": "OBJET",
+        "in_chapters": [
+            194
+        ]
+    },
+    "BROCHE DOREE": {
+        "category": "OBJET",
+        "in_chapters": [
+            106,
+            478
+        ]
+    },
+    "CASQUE EN FER": {
+        "category": "OBJET",
+        "in_chapters": [
+            397,
+            459
+        ]
+    },
+    "CEINTURE DE CHAMPION": {
+        "category": "OBJET",
+        "in_chapters": [
+            505
+        ]
+    },
+    "CHLOROGLYCERINE": {
+        "category": "OBJET",
+        "in_chapters": [
+            236,
+            471
+        ]
+    },
+    "CLE A": {
+        "category": "OBJET",
+        "in_chapters": [
+            186
+        ]
+    },
+    "CLE B": {
+        "category": "OBJET",
+        "in_chapters": [
+            228,
+            320
+        ]
+    },
+    "COTTE DE MAILLES": {
+        "category": "EQUIPEMENT",
+        "in_chapters": [
+            1
+        ]
+    },
+    "COUTEAU": {
+        "category": "OUTIL",
+        "in_chapters": [
+            1
+        ]
+    },
+    "DARD EXPLOSIF": {
+        "category": "OBJET",
+        "in_chapters": [
+            364,
+            482,
+            600
+        ]
+    },
+    "DEBROUILLARD": {
+        "category": "BILLY",
+        "in_chapters": [
+            1
+        ]
+    },
+    "ECAILLE DE DRAGON": {
+        "category": "OBJET",
+        "in_chapters": [
+            26,
+            438
+        ]
+    },
+    "ECUSSON D'ORC": {
+        "category": "OBJET",
+        "in_chapters": [
+            14,
+            19,
+            133
+        ]
+    },
+    "EFFIGIE DE DUEL": {
+        "category": "OBJET",
+        "in_chapters": [
+            299,
+            377,
+            444,
+            526
+        ]
+    },
+    "EPEE": {
+        "category": "ARME",
+        "in_chapters": [
+            1
+        ]
+    },
+    "EXPLOSIFS": {
+        "category": "OBJET",
+        "in_chapters": [
+            268,
+            456,
+            532
+        ]
+    },
+    "FER A CHEVAL": {
+        "category": "OBJET",
+        "in_chapters": [
+            29
+        ]
+    },
+    "FLASQUE D'HUILE": {
+        "category": "OBJET",
+        "in_chapters": [
+            452
+        ]
+    },
+    "FLECHES EXPLOSIVES": {
+        "category": "OBJET",
+        "in_chapters": [
+            1
+        ]
+    },
+    "FOURCHE": {
+        "category": "OUTIL",
+        "in_chapters": [
+            1
+        ]
+    },
+    "GEMME MAGIQUE": {
+        "category": "OBJET",
+        "in_chapters": [
+            194
+        ]
+    },
+    "GROSSE CLE": {
+        "category": "OBJET",
+        "in_chapters": [
+            51
+        ]
+    },
+    "GUERRIER": {
+        "category": "BILLY",
+        "in_chapters": [
+            1
+        ]
+    },
+    "ICONE DES PALADINS": {
+        "category": "OBJET",
+        "in_chapters": [
+            509,
+            593,
+            606
+        ]
+    },
+    "KIT D'ESCALADE": {
+        "category": "OUTIL",
+        "in_chapters": [
+            1
+        ]
+    },
+    "KIT DE SOIN": {
+        "category": "EQUIPEMENT",
+        "in_chapters": [
+            1
+        ]
+    },
+    "LAISSEZ-PASSER": {
+        "category": "OBJET",
+        "in_chapters": [
+            1
+        ]
+    },
+    "LANCE": {
+        "category": "ARME",
+        "in_chapters": [
+            1
+        ]
+    },
+    "LANIERES DE CUIRS": {
+        "category": "OBJET",
+        "in_chapters": [
+            332
+        ]
+    },
+    "LETTRE DE RECOMMANDATION": {
+        "category": "OBJET",
+        "in_chapters": [
+            28
+        ]
+    },
+    "LIME EN ACIER D'ARKADIE": {
+        "category": "OBJET",
+        "in_chapters": [
+            328,
+            339,
+            348,
+            388,
+            491
+        ]
+    },
+    "MARMITE": {
+        "category": "EQUIPEMENT",
+        "in_chapters": [
+            1
+        ]
+    },
+    "MEDAILLON D'EDIRE": {
+        "category": "OBJET",
+        "in_chapters": [
+            47,
+            212,
+            270,
+            542,
+            558
+        ]
+    },
+    "MORGENSTERN": {
+        "category": "ARME",
+        "in_chapters": [
+            1
+        ]
+    },
+    "PALAIS DES PLAISIRS D'YTIA": {
+        "category": "EVENEMENT",
+        "in_chapters": [
+            26,
+            112,
+            289
+        ]
+    },
+    "PAMPHLET": {
+        "category": "EQUIPEMENT",
+        "in_chapters": [
+            1
+        ]
+    },
+    "PASSE-PARTOUT": {
+        "category": "OBJET",
+        "in_chapters": [
+            135
+        ]
+    },
+    "PAYSAN": {
+        "category": "BILLY",
+        "in_chapters": [
+            1
+        ]
+    },
+    "PERROQUET": {
+        "category": "OBJET",
+        "in_chapters": [
+            109,
+            191,
+            529,
+            603
+        ]
+    },
+    "PETITE BOUTEILLE D'ACIDE": {
+        "category": "OBJET",
+        "in_chapters": [
+            119,
+            286,
+            416,
+            508,
+            515
+        ]
+    },
+    "PETITE MASSUE": {
+        "category": "OBJET",
+        "in_chapters": [
+            81
+        ]
+    },
+    "PHILTRE D'AMOUR": {
+        "category": "OBJET",
+        "in_chapters": [
+            83,
+            166,
+            256,
+            506,
+            538
+        ]
+    },
+    "POINT FAIBLE": {
+        "category": "EVENEMENT",
+        "in_chapters": [
+            336
+        ]
+    },
+    "PRODUITS CHIMIQUES HASARDEUX": {
+        "category": "OBJET",
+        "in_chapters": [
+            334,
+            429,
+            536
+        ]
+    },
+    "PRODUITS DE NETTOYAGE": {
+        "category": "OBJET",
+        "in_chapters": [
+            410,
+            525
+        ]
+    },
+    "PRUDENT": {
+        "category": "BILLY",
+        "in_chapters": [
+            1
+        ]
+    },
+    "SAC DE GRAINS": {
+        "category": "OUTIL",
+        "in_chapters": [
+            1
+        ]
+    },
+    "SANG DE VAMPIRE": {
+        "category": "OBJET",
+        "in_chapters": [
+            374,
+            598
+        ]
+    },
+    "TRESSE DE CENTAURESSE": {
+        "category": "OBJET",
+        "in_chapters": [
+            78,
+            557
+        ]
+    }
+}

@@ -11,7 +11,6 @@ func _ready():
 	self._load_parameters()
 
 
-
 func _load_parameters():
 	var f = File.new()
 	if f.file_exists(parameters_file):

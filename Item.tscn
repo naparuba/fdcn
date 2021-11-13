@@ -1,0 +1,49 @@
+[gd_scene load_steps=4 format=2]
+
+[ext_resource path="res://fonts/amon_font.tres" type="DynamicFont" id=1]
+[ext_resource path="res://Item.gd" type="Script" id=2]
+
+[sub_resource type="StyleBoxFlat" id=1]
+
+[node name="Item" type="Panel"]
+margin_right = 500.0
+margin_bottom = 50.0
+rect_min_size = Vector2( 500, 50 )
+custom_styles/panel = SubResource( 1 )
+script = ExtResource( 2 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Nom" type="Label" parent="."]
+margin_right = 40.0
+margin_bottom = 14.0
+custom_fonts/font = ExtResource( 1 )
+custom_colors/font_color = Color( 0, 0, 0, 1 )
+text = "NOM DE L'OBJET"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Stats" type="Label" parent="."]
+margin_left = -0.529724
+margin_top = 22.2487
+margin_right = 168.47
+margin_bottom = 53.2487
+custom_fonts/font = ExtResource( 1 )
+custom_colors/font_color = Color( 0, 0, 0, 1 )
+text = "STATS"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="button" type="CheckButton" parent="."]
+margin_left = 419.018
+margin_top = 4.23785
+margin_right = 495.018
+margin_bottom = 44.2379
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[connection signal="toggled" from="button" to="." method="_on_button_toggled"]

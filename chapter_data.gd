@@ -78,3 +78,8 @@ func is_combat():
 	return self._book_data['computed']['is_combat']
 
 
+func get_aquire():
+	return self._book_data['computed']['aquire']
+	
+func get_remove():
+	return self._book_data['computed']['remove']

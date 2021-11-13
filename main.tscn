@@ -1,4 +1,4 @@
-[gd_scene load_steps=49 format=2]
+[gd_scene load_steps=50 format=2]
 
 [ext_resource path="res://main.gd" type="Script" id=1]
 [ext_resource path="res://fonts/amon_font.tres" type="DynamicFont" id=2]
@@ -30,6 +30,7 @@
 [ext_resource path="res://shaders/gray.gdshader" type="Shader" id=28]
 [ext_resource path="res://shaders/shader_grey.tres" type="Material" id=29]
 [ext_resource path="res://images/blue-tick.png" type="Texture" id=30]
+[ext_resource path="res://Item.tscn" type="PackedScene" id=31]
 
 [sub_resource type="StyleBoxFlat" id=1]
 bg_color = Color( 0.92549, 0.929412, 0.94902, 1 )
@@ -1583,9 +1584,9 @@ texture = ExtResource( 14 )
 
 [node name="Options" type="Panel" parent="."]
 visible = false
-margin_left = 5.05872
-margin_top = 14.0045
-margin_right = 553.059
+margin_left = 5.0
+margin_top = 51.0
+margin_right = 553.0
 margin_bottom = 1028.0
 custom_styles/panel = SubResource( 9 )
 __meta__ = {
@@ -1633,6 +1634,29 @@ margin_left = -1.04053
 margin_top = -1.78381
 margin_right = 38.9595
 margin_bottom = 38.2162
+
+[node name="OptionsLabel" type="Panel" parent="Options"]
+margin_left = 0.793701
+margin_top = -42.2063
+margin_right = 250.794
+margin_bottom = -0.206299
+mouse_filter = 1
+custom_styles/panel = SubResource( 10 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Label" type="Label" parent="Options/OptionsLabel"]
+margin_left = 40.8458
+margin_top = 6.5009
+margin_right = 224.846
+margin_bottom = 37.5009
+custom_fonts/font = ExtResource( 2 )
+text = "Options"
+align = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
 
 [node name="BlockGuerrier" type="Panel" parent="Options"]
 margin_left = 24.8176
@@ -1733,7 +1757,27 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Items" type="ScrollContainer" parent="Options"]
+[node name="ItemsCont" type="ScrollContainer" parent="Options"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_top = 408.0
+margin_right = -0.000305176
+margin_bottom = 0.0045166
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Items" type="VBoxContainer" parent="Options/ItemsCont"]
+margin_right = 500.0
+margin_bottom = 104.0
+
+[node name="Panel" parent="Options/ItemsCont/Items" instance=ExtResource( 31 )]
+
+[node name="Panel2" parent="Options/ItemsCont/Items" instance=ExtResource( 31 )]
+margin_top = 54.0
+margin_bottom = 104.0
+
+[node name="Items-bkp" type="ScrollContainer" parent="Options"]
 visible = false
 anchor_right = 1.0
 anchor_bottom = 1.0
@@ -1744,11 +1788,11 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="VBoxContainer" type="VBoxContainer" parent="Options/Items"]
+[node name="VBoxContainer" type="VBoxContainer" parent="Options/Items-bkp"]
 margin_right = 500.0
 margin_bottom = 1417.0
 
-[node name="Label2" type="Label" parent="Options/Items/VBoxContainer"]
+[node name="Label2" type="Label" parent="Options/Items-bkp/VBoxContainer"]
 margin_right = 500.0
 margin_bottom = 31.0
 custom_fonts/font = ExtResource( 2 )
@@ -1758,7 +1802,7 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Les armes" type="Panel" parent="Options/Items/VBoxContainer"]
+[node name="Les armes" type="Panel" parent="Options/Items-bkp/VBoxContainer"]
 margin_top = 35.0
 margin_right = 500.0
 margin_bottom = 85.0
@@ -1769,7 +1813,7 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Label" type="Label" parent="Options/Items/VBoxContainer/Les armes"]
+[node name="Label" type="Label" parent="Options/Items-bkp/VBoxContainer/Les armes"]
 margin_left = 170.219
 margin_top = 6.5009
 margin_right = 354.219
@@ -1781,12 +1825,12 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="ligne1" type="HBoxContainer" parent="Options/Items/VBoxContainer"]
+[node name="ligne1" type="HBoxContainer" parent="Options/Items-bkp/VBoxContainer"]
 margin_top = 89.0
 margin_right = 500.0
 margin_bottom = 289.0
 
-[node name="EPEE" type="Panel" parent="Options/Items/VBoxContainer/ligne1"]
+[node name="EPEE" type="Panel" parent="Options/Items-bkp/VBoxContainer/ligne1"]
 margin_right = 200.0
 margin_bottom = 200.0
 rect_min_size = Vector2( 200, 200 )
@@ -1795,7 +1839,7 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Label" type="Label" parent="Options/Items/VBoxContainer/ligne1/EPEE"]
+[node name="Label" type="Label" parent="Options/Items-bkp/VBoxContainer/ligne1/EPEE"]
 margin_left = 63.9661
 margin_top = 85.6046
 margin_right = 127.966
@@ -1807,7 +1851,7 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Stats" type="Label" parent="Options/Items/VBoxContainer/ligne1/EPEE"]
+[node name="Stats" type="Label" parent="Options/Items-bkp/VBoxContainer/ligne1/EPEE"]
 margin_left = 63.9661
 margin_top = 127.605
 margin_right = 127.966
@@ -1819,19 +1863,19 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Button" type="TextureButton" parent="Options/Items/VBoxContainer/ligne1/EPEE"]
+[node name="Button" type="TextureButton" parent="Options/Items-bkp/VBoxContainer/ligne1/EPEE"]
 margin_right = 197.0
 margin_bottom = 199.0
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Sprite" type="Sprite" parent="Options/Items/VBoxContainer/ligne1/EPEE"]
+[node name="Sprite" type="Sprite" parent="Options/Items-bkp/VBoxContainer/ligne1/EPEE"]
 position = Vector2( 100.545, 41.0303 )
 scale = Vector2( 0.0996552, 0.0996552 )
 texture = ExtResource( 20 )
 
-[node name="LANCE" type="Panel" parent="Options/Items/VBoxContainer/ligne1"]
+[node name="LANCE" type="Panel" parent="Options/Items-bkp/VBoxContainer/ligne1"]
 margin_left = 204.0
 margin_right = 404.0
 margin_bottom = 200.0
@@ -1841,7 +1885,7 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Label" type="Label" parent="Options/Items/VBoxContainer/ligne1/LANCE"]
+[node name="Label" type="Label" parent="Options/Items-bkp/VBoxContainer/ligne1/LANCE"]
 margin_left = 63.9661
 margin_top = 85.6046
 margin_right = 127.966
@@ -1853,7 +1897,7 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Stats" type="Label" parent="Options/Items/VBoxContainer/ligne1/LANCE"]
+[node name="Stats" type="Label" parent="Options/Items-bkp/VBoxContainer/ligne1/LANCE"]
 margin_left = 63.9661
 margin_top = 127.605
 margin_right = 127.966
@@ -1865,24 +1909,24 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Button" type="TextureButton" parent="Options/Items/VBoxContainer/ligne1/LANCE"]
+[node name="Button" type="TextureButton" parent="Options/Items-bkp/VBoxContainer/ligne1/LANCE"]
 margin_right = 199.0
 margin_bottom = 196.0
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Sprite" type="Sprite" parent="Options/Items/VBoxContainer/ligne1/LANCE"]
+[node name="Sprite" type="Sprite" parent="Options/Items-bkp/VBoxContainer/ligne1/LANCE"]
 position = Vector2( 100.545, 41.0303 )
 scale = Vector2( 0.0996552, 0.0996552 )
 texture = ExtResource( 20 )
 
-[node name="ligne2" type="HBoxContainer" parent="Options/Items/VBoxContainer"]
+[node name="ligne2" type="HBoxContainer" parent="Options/Items-bkp/VBoxContainer"]
 margin_top = 293.0
 margin_right = 500.0
 margin_bottom = 493.0
 
-[node name="MORGENSTERN" type="Panel" parent="Options/Items/VBoxContainer/ligne2"]
+[node name="MORGENSTERN" type="Panel" parent="Options/Items-bkp/VBoxContainer/ligne2"]
 margin_right = 200.0
 margin_bottom = 200.0
 rect_min_size = Vector2( 200, 200 )
@@ -1891,7 +1935,7 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Label" type="Label" parent="Options/Items/VBoxContainer/ligne2/MORGENSTERN"]
+[node name="Label" type="Label" parent="Options/Items-bkp/VBoxContainer/ligne2/MORGENSTERN"]
 margin_left = 63.9661
 margin_top = 85.6046
 margin_right = 127.966
@@ -1903,7 +1947,7 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Stats" type="Label" parent="Options/Items/VBoxContainer/ligne2/MORGENSTERN"]
+[node name="Stats" type="Label" parent="Options/Items-bkp/VBoxContainer/ligne2/MORGENSTERN"]
 margin_left = 63.9661
 margin_top = 127.605
 margin_right = 127.966
@@ -1915,19 +1959,19 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Button" type="TextureButton" parent="Options/Items/VBoxContainer/ligne2/MORGENSTERN"]
+[node name="Button" type="TextureButton" parent="Options/Items-bkp/VBoxContainer/ligne2/MORGENSTERN"]
 margin_right = 197.0
 margin_bottom = 199.0
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Sprite" type="Sprite" parent="Options/Items/VBoxContainer/ligne2/MORGENSTERN"]
+[node name="Sprite" type="Sprite" parent="Options/Items-bkp/VBoxContainer/ligne2/MORGENSTERN"]
 position = Vector2( 100.545, 41.0303 )
 scale = Vector2( 0.0996552, 0.0996552 )
 texture = ExtResource( 20 )
 
-[node name="ARC" type="Panel" parent="Options/Items/VBoxContainer/ligne2"]
+[node name="ARC" type="Panel" parent="Options/Items-bkp/VBoxContainer/ligne2"]
 margin_left = 204.0
 margin_right = 404.0
 margin_bottom = 200.0
@@ -1937,7 +1981,7 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Label" type="Label" parent="Options/Items/VBoxContainer/ligne2/ARC"]
+[node name="Label" type="Label" parent="Options/Items-bkp/VBoxContainer/ligne2/ARC"]
 margin_left = 63.9661
 margin_top = 85.6046
 margin_right = 127.966
@@ -1949,7 +1993,7 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Stats" type="Label" parent="Options/Items/VBoxContainer/ligne2/ARC"]
+[node name="Stats" type="Label" parent="Options/Items-bkp/VBoxContainer/ligne2/ARC"]
 margin_left = 63.9661
 margin_top = 127.605
 margin_right = 127.966
@@ -1961,19 +2005,19 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Button" type="TextureButton" parent="Options/Items/VBoxContainer/ligne2/ARC"]
+[node name="Button" type="TextureButton" parent="Options/Items-bkp/VBoxContainer/ligne2/ARC"]
 margin_right = 199.0
 margin_bottom = 196.0
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Sprite" type="Sprite" parent="Options/Items/VBoxContainer/ligne2/ARC"]
+[node name="Sprite" type="Sprite" parent="Options/Items-bkp/VBoxContainer/ligne2/ARC"]
 position = Vector2( 100.545, 41.0303 )
 scale = Vector2( 0.0996552, 0.0996552 )
 texture = ExtResource( 20 )
 
-[node name="Les equipements" type="Panel" parent="Options/Items/VBoxContainer"]
+[node name="Les equipements" type="Panel" parent="Options/Items-bkp/VBoxContainer"]
 margin_top = 497.0
 margin_right = 500.0
 margin_bottom = 547.0
@@ -1984,7 +2028,7 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Label" type="Label" parent="Options/Items/VBoxContainer/Les equipements"]
+[node name="Label" type="Label" parent="Options/Items-bkp/VBoxContainer/Les equipements"]
 margin_left = 170.219
 margin_top = 6.5009
 margin_right = 354.219
@@ -1996,12 +2040,12 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="ligne3" type="HBoxContainer" parent="Options/Items/VBoxContainer"]
+[node name="ligne3" type="HBoxContainer" parent="Options/Items-bkp/VBoxContainer"]
 margin_top = 551.0
 margin_right = 500.0
 margin_bottom = 751.0
 
-[node name="COTTE-MAILLE" type="Panel" parent="Options/Items/VBoxContainer/ligne3"]
+[node name="COTTE-MAILLE" type="Panel" parent="Options/Items-bkp/VBoxContainer/ligne3"]
 margin_right = 200.0
 margin_bottom = 200.0
 rect_min_size = Vector2( 200, 200 )
@@ -2010,7 +2054,7 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Label" type="Label" parent="Options/Items/VBoxContainer/ligne3/COTTE-MAILLE"]
+[node name="Label" type="Label" parent="Options/Items-bkp/VBoxContainer/ligne3/COTTE-MAILLE"]
 margin_left = 63.9661
 margin_top = 85.6046
 margin_right = 127.966
@@ -2022,7 +2066,7 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Stats" type="Label" parent="Options/Items/VBoxContainer/ligne3/COTTE-MAILLE"]
+[node name="Stats" type="Label" parent="Options/Items-bkp/VBoxContainer/ligne3/COTTE-MAILLE"]
 margin_left = 63.9661
 margin_top = 127.605
 margin_right = 127.966
@@ -2034,19 +2078,19 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Button" type="TextureButton" parent="Options/Items/VBoxContainer/ligne3/COTTE-MAILLE"]
+[node name="Button" type="TextureButton" parent="Options/Items-bkp/VBoxContainer/ligne3/COTTE-MAILLE"]
 margin_right = 197.0
 margin_bottom = 199.0
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Sprite" type="Sprite" parent="Options/Items/VBoxContainer/ligne3/COTTE-MAILLE"]
+[node name="Sprite" type="Sprite" parent="Options/Items-bkp/VBoxContainer/ligne3/COTTE-MAILLE"]
 position = Vector2( 100.545, 41.0303 )
 scale = Vector2( 0.0996552, 0.0996552 )
 texture = ExtResource( 20 )
 
-[node name="MARMITE" type="Panel" parent="Options/Items/VBoxContainer/ligne3"]
+[node name="MARMITE" type="Panel" parent="Options/Items-bkp/VBoxContainer/ligne3"]
 margin_left = 204.0
 margin_right = 404.0
 margin_bottom = 200.0
@@ -2056,7 +2100,7 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Label" type="Label" parent="Options/Items/VBoxContainer/ligne3/MARMITE"]
+[node name="Label" type="Label" parent="Options/Items-bkp/VBoxContainer/ligne3/MARMITE"]
 margin_left = 63.9661
 margin_top = 85.6046
 margin_right = 127.966
@@ -2068,7 +2112,7 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Stats" type="Label" parent="Options/Items/VBoxContainer/ligne3/MARMITE"]
+[node name="Stats" type="Label" parent="Options/Items-bkp/VBoxContainer/ligne3/MARMITE"]
 margin_left = 63.9661
 margin_top = 127.605
 margin_right = 127.966
@@ -2080,24 +2124,24 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Button" type="TextureButton" parent="Options/Items/VBoxContainer/ligne3/MARMITE"]
+[node name="Button" type="TextureButton" parent="Options/Items-bkp/VBoxContainer/ligne3/MARMITE"]
 margin_right = 199.0
 margin_bottom = 196.0
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Sprite" type="Sprite" parent="Options/Items/VBoxContainer/ligne3/MARMITE"]
+[node name="Sprite" type="Sprite" parent="Options/Items-bkp/VBoxContainer/ligne3/MARMITE"]
 position = Vector2( 100.545, 41.0303 )
 scale = Vector2( 0.0996552, 0.0996552 )
 texture = ExtResource( 20 )
 
-[node name="ligne4" type="HBoxContainer" parent="Options/Items/VBoxContainer"]
+[node name="ligne4" type="HBoxContainer" parent="Options/Items-bkp/VBoxContainer"]
 margin_top = 755.0
 margin_right = 500.0
 margin_bottom = 955.0
 
-[node name="PAMPHLET" type="Panel" parent="Options/Items/VBoxContainer/ligne4"]
+[node name="PAMPHLET" type="Panel" parent="Options/Items-bkp/VBoxContainer/ligne4"]
 margin_right = 200.0
 margin_bottom = 200.0
 rect_min_size = Vector2( 200, 200 )
@@ -2106,7 +2150,7 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Label" type="Label" parent="Options/Items/VBoxContainer/ligne4/PAMPHLET"]
+[node name="Label" type="Label" parent="Options/Items-bkp/VBoxContainer/ligne4/PAMPHLET"]
 margin_left = 63.9661
 margin_top = 85.6046
 margin_right = 127.966
@@ -2118,7 +2162,7 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Stats" type="Label" parent="Options/Items/VBoxContainer/ligne4/PAMPHLET"]
+[node name="Stats" type="Label" parent="Options/Items-bkp/VBoxContainer/ligne4/PAMPHLET"]
 margin_left = 63.9661
 margin_top = 127.605
 margin_right = 127.966
@@ -2130,19 +2174,19 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Button" type="TextureButton" parent="Options/Items/VBoxContainer/ligne4/PAMPHLET"]
+[node name="Button" type="TextureButton" parent="Options/Items-bkp/VBoxContainer/ligne4/PAMPHLET"]
 margin_right = 197.0
 margin_bottom = 199.0
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Sprite" type="Sprite" parent="Options/Items/VBoxContainer/ligne4/PAMPHLET"]
+[node name="Sprite" type="Sprite" parent="Options/Items-bkp/VBoxContainer/ligne4/PAMPHLET"]
 position = Vector2( 100.545, 41.0303 )
 scale = Vector2( 0.0996552, 0.0996552 )
 texture = ExtResource( 20 )
 
-[node name="KIT-SOINS" type="Panel" parent="Options/Items/VBoxContainer/ligne4"]
+[node name="KIT-SOINS" type="Panel" parent="Options/Items-bkp/VBoxContainer/ligne4"]
 margin_left = 204.0
 margin_right = 404.0
 margin_bottom = 200.0
@@ -2152,7 +2196,7 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Label" type="Label" parent="Options/Items/VBoxContainer/ligne4/KIT-SOINS"]
+[node name="Label" type="Label" parent="Options/Items-bkp/VBoxContainer/ligne4/KIT-SOINS"]
 margin_left = 63.9661
 margin_top = 85.6046
 margin_right = 127.966
@@ -2164,7 +2208,7 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Stats" type="Label" parent="Options/Items/VBoxContainer/ligne4/KIT-SOINS"]
+[node name="Stats" type="Label" parent="Options/Items-bkp/VBoxContainer/ligne4/KIT-SOINS"]
 margin_left = 63.9661
 margin_top = 127.605
 margin_right = 127.966
@@ -2176,19 +2220,19 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Button" type="TextureButton" parent="Options/Items/VBoxContainer/ligne4/KIT-SOINS"]
+[node name="Button" type="TextureButton" parent="Options/Items-bkp/VBoxContainer/ligne4/KIT-SOINS"]
 margin_right = 199.0
 margin_bottom = 196.0
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Sprite" type="Sprite" parent="Options/Items/VBoxContainer/ligne4/KIT-SOINS"]
+[node name="Sprite" type="Sprite" parent="Options/Items-bkp/VBoxContainer/ligne4/KIT-SOINS"]
 position = Vector2( 100.545, 41.0303 )
 scale = Vector2( 0.0996552, 0.0996552 )
 texture = ExtResource( 20 )
 
-[node name="Les outils" type="Panel" parent="Options/Items/VBoxContainer"]
+[node name="Les outils" type="Panel" parent="Options/Items-bkp/VBoxContainer"]
 margin_top = 959.0
 margin_right = 500.0
 margin_bottom = 1009.0
@@ -2199,7 +2243,7 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Label" type="Label" parent="Options/Items/VBoxContainer/Les outils"]
+[node name="Label" type="Label" parent="Options/Items-bkp/VBoxContainer/Les outils"]
 margin_left = 170.219
 margin_top = 6.5009
 margin_right = 354.219
@@ -2211,12 +2255,12 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="ligne5" type="HBoxContainer" parent="Options/Items/VBoxContainer"]
+[node name="ligne5" type="HBoxContainer" parent="Options/Items-bkp/VBoxContainer"]
 margin_top = 1013.0
 margin_right = 500.0
 margin_bottom = 1213.0
 
-[node name="FOURCHE" type="Panel" parent="Options/Items/VBoxContainer/ligne5"]
+[node name="FOURCHE" type="Panel" parent="Options/Items-bkp/VBoxContainer/ligne5"]
 margin_right = 200.0
 margin_bottom = 200.0
 rect_min_size = Vector2( 200, 200 )
@@ -2225,7 +2269,7 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Label" type="Label" parent="Options/Items/VBoxContainer/ligne5/FOURCHE"]
+[node name="Label" type="Label" parent="Options/Items-bkp/VBoxContainer/ligne5/FOURCHE"]
 margin_left = 63.9661
 margin_top = 85.6046
 margin_right = 127.966
@@ -2237,7 +2281,7 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Stats" type="Label" parent="Options/Items/VBoxContainer/ligne5/FOURCHE"]
+[node name="Stats" type="Label" parent="Options/Items-bkp/VBoxContainer/ligne5/FOURCHE"]
 margin_left = 63.9661
 margin_top = 127.605
 margin_right = 127.966
@@ -2249,19 +2293,19 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Button" type="TextureButton" parent="Options/Items/VBoxContainer/ligne5/FOURCHE"]
+[node name="Button" type="TextureButton" parent="Options/Items-bkp/VBoxContainer/ligne5/FOURCHE"]
 margin_right = 197.0
 margin_bottom = 199.0
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Sprite" type="Sprite" parent="Options/Items/VBoxContainer/ligne5/FOURCHE"]
+[node name="Sprite" type="Sprite" parent="Options/Items-bkp/VBoxContainer/ligne5/FOURCHE"]
 position = Vector2( 100.545, 41.0303 )
 scale = Vector2( 0.0996552, 0.0996552 )
 texture = ExtResource( 20 )
 
-[node name="DAGUE" type="Panel" parent="Options/Items/VBoxContainer/ligne5"]
+[node name="DAGUE" type="Panel" parent="Options/Items-bkp/VBoxContainer/ligne5"]
 margin_left = 204.0
 margin_right = 404.0
 margin_bottom = 200.0
@@ -2271,7 +2315,7 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Label" type="Label" parent="Options/Items/VBoxContainer/ligne5/DAGUE"]
+[node name="Label" type="Label" parent="Options/Items-bkp/VBoxContainer/ligne5/DAGUE"]
 margin_left = 63.9661
 margin_top = 85.6046
 margin_right = 127.966
@@ -2283,7 +2327,7 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Stats" type="Label" parent="Options/Items/VBoxContainer/ligne5/DAGUE"]
+[node name="Stats" type="Label" parent="Options/Items-bkp/VBoxContainer/ligne5/DAGUE"]
 margin_left = 63.9661
 margin_top = 127.605
 margin_right = 127.966
@@ -2295,24 +2339,24 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Button" type="TextureButton" parent="Options/Items/VBoxContainer/ligne5/DAGUE"]
+[node name="Button" type="TextureButton" parent="Options/Items-bkp/VBoxContainer/ligne5/DAGUE"]
 margin_right = 199.0
 margin_bottom = 196.0
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Sprite" type="Sprite" parent="Options/Items/VBoxContainer/ligne5/DAGUE"]
+[node name="Sprite" type="Sprite" parent="Options/Items-bkp/VBoxContainer/ligne5/DAGUE"]
 position = Vector2( 100.545, 41.0303 )
 scale = Vector2( 0.0996552, 0.0996552 )
 texture = ExtResource( 20 )
 
-[node name="ligne6" type="HBoxContainer" parent="Options/Items/VBoxContainer"]
+[node name="ligne6" type="HBoxContainer" parent="Options/Items-bkp/VBoxContainer"]
 margin_top = 1217.0
 margin_right = 500.0
 margin_bottom = 1417.0
 
-[node name="KIT-ESCALADE" type="Panel" parent="Options/Items/VBoxContainer/ligne6"]
+[node name="KIT-ESCALADE" type="Panel" parent="Options/Items-bkp/VBoxContainer/ligne6"]
 margin_right = 200.0
 margin_bottom = 200.0
 rect_min_size = Vector2( 200, 200 )
@@ -2321,7 +2365,7 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Label" type="Label" parent="Options/Items/VBoxContainer/ligne6/KIT-ESCALADE"]
+[node name="Label" type="Label" parent="Options/Items-bkp/VBoxContainer/ligne6/KIT-ESCALADE"]
 margin_left = 63.9661
 margin_top = 85.6046
 margin_right = 127.966
@@ -2333,7 +2377,7 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Stats" type="Label" parent="Options/Items/VBoxContainer/ligne6/KIT-ESCALADE"]
+[node name="Stats" type="Label" parent="Options/Items-bkp/VBoxContainer/ligne6/KIT-ESCALADE"]
 margin_left = 63.9661
 margin_top = 127.605
 margin_right = 127.966
@@ -2345,19 +2389,19 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Button" type="TextureButton" parent="Options/Items/VBoxContainer/ligne6/KIT-ESCALADE"]
+[node name="Button" type="TextureButton" parent="Options/Items-bkp/VBoxContainer/ligne6/KIT-ESCALADE"]
 margin_right = 197.0
 margin_bottom = 199.0
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Sprite" type="Sprite" parent="Options/Items/VBoxContainer/ligne6/KIT-ESCALADE"]
+[node name="Sprite" type="Sprite" parent="Options/Items-bkp/VBoxContainer/ligne6/KIT-ESCALADE"]
 position = Vector2( 100.545, 41.0303 )
 scale = Vector2( 0.0996552, 0.0996552 )
 texture = ExtResource( 20 )
 
-[node name="SAC-GRAINS" type="Panel" parent="Options/Items/VBoxContainer/ligne6"]
+[node name="SAC-GRAINS" type="Panel" parent="Options/Items-bkp/VBoxContainer/ligne6"]
 margin_left = 204.0
 margin_right = 404.0
 margin_bottom = 200.0
@@ -2367,7 +2411,7 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Label" type="Label" parent="Options/Items/VBoxContainer/ligne6/SAC-GRAINS"]
+[node name="Label" type="Label" parent="Options/Items-bkp/VBoxContainer/ligne6/SAC-GRAINS"]
 margin_left = 63.9661
 margin_top = 85.6046
 margin_right = 127.966
@@ -2379,7 +2423,7 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Stats" type="Label" parent="Options/Items/VBoxContainer/ligne6/SAC-GRAINS"]
+[node name="Stats" type="Label" parent="Options/Items-bkp/VBoxContainer/ligne6/SAC-GRAINS"]
 margin_left = 63.9661
 margin_top = 127.605
 margin_right = 127.966
@@ -2391,14 +2435,14 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Button" type="TextureButton" parent="Options/Items/VBoxContainer/ligne6/SAC-GRAINS"]
+[node name="Button" type="TextureButton" parent="Options/Items-bkp/VBoxContainer/ligne6/SAC-GRAINS"]
 margin_right = 199.0
 margin_bottom = 196.0
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Sprite" type="Sprite" parent="Options/Items/VBoxContainer/ligne6/SAC-GRAINS"]
+[node name="Sprite" type="Sprite" parent="Options/Items-bkp/VBoxContainer/ligne6/SAC-GRAINS"]
 position = Vector2( 100.545, 41.0303 )
 scale = Vector2( 0.0996552, 0.0996552 )
 texture = ExtResource( 20 )
@@ -2423,4 +2467,4 @@ texture = ExtResource( 20 )
 [connection signal="pressed" from="Options/BlockPaysan/button" to="." method="_switch_to_paysan"]
 [connection signal="pressed" from="Options/BlockPrudent/button" to="." method="_switch_to_prudent"]
 [connection signal="pressed" from="Options/BlockDebrouillard/button" to="." method="_switch_to_debrouillard"]
-[connection signal="pressed" from="Options/Items/VBoxContainer/ligne2/ARC/Button" to="." method="_on_button_new_billy"]
+[connection signal="pressed" from="Options/Items-bkp/VBoxContainer/ligne2/ARC/Button" to="." method="_on_button_new_billy"]

@@ -1,60 +1,176 @@
 {
-    "ARC": {},
-    "ARMEE DE SQUELETTES DETRUITE": {},
-    "BAGUE DE RUBIS": {},
-    "BISCUITS": {},
-    "BOCAL A EPICES": {},
-    "BOTTES EN FER": {},
-    "BOULE A NEIGE": {},
-    "BOUTEILLE DE MAGIE PURE": {},
-    "BRACELET DE CONTROLE": {},
-    "BRAS SQUELETTIQUE": {},
-    "BROCHE DOREE": {},
-    "CASQUE EN FER": {},
-    "CEINTURE DE CHAMPION": {},
-    "CHLOROGLYCERINE": {},
-    "CLE A": {},
-    "CLE B": {},
-    "COTTE DE MAILLES": {},
-    "COUTEAU": {},
-    "DARD EXPLOSIF": {},
-    "DEBROUILLARD": {},
-    "ECAILLE DE DRAGON": {},
-    "ECUSSON D'ORC": {},
-    "EFFIGIE DE DUEL": {},
-    "EPEE": {},
-    "EXPLOSIFS": {},
-    "FER A CHEVAL": {},
-    "FLASQUE D'HUILE": {},
-    "FLECHES EXPLOSIVES": {},
-    "FOURCHE": {},
-    "GEMME MAGIQUE": {},
-    "GROSSE CLE": {},
-    "GUERRIER": {},
-    "ICONE DES PALADINS": {},
-    "KIT D'ESCALADE": {},
-    "KIT DE SOIN": {},
-    "LAISSEZ-PASSER": {},
-    "LANCE": {},
-    "LANIERES DE CUIRS": {},
-    "LETTRE DE RECOMMANDATION": {},
-    "LIME EN ACIER D'ARKADIE": {},
-    "MARMITE": {},
-    "MEDAILLON D'EDIRE": {},
-    "MORGENSTERN": {},
-    "PALAIS DES PLAISIRS D'YTIA": {},
-    "PAMPHLET": {},
-    "PASSE-PARTOUT": {},
-    "PAYSAN": {},
-    "PERROQUET": {},
-    "PETITE BOUTEILLE D'ACIDE": {},
-    "PETITE MASSUE": {},
-    "PHILTRE D'AMOUR": {},
-    "POINT FAIBLE": {},
-    "PRODUITS CHIMIQUES HASARDEUX": {},
-    "PRODUITS DE NETTOYAGE": {},
-    "PRUDENT": {},
-    "SAC DE GRAINS": {},
-    "SANG DE VAMPIRE": {},
-    "TRESSE DE CENTAURESSE": {}
+  "ARC": {
+    "category": "ARME"
+  },
+  "ARMEE DE SQUELETTES DETRUITE": {
+    "category": "EVENEMENT"
+  },
+  "BAGUE DE RUBIS": {
+    "category": "OBJET"
+  },
+  "BISCUITS": {
+    "category": "OBJET"
+  },
+  "BOCAL A EPICES": {
+    "category": "OBJET"
+  },
+  "BOTTES EN FER": {
+    "category": "OBJET"
+  },
+  "BOULE A NEIGE": {
+    "category": "OBJET"
+  },
+  "BOUTEILLE DE MAGIE PURE": {
+    "category": "OBJET"
+  },
+  "BRACELET DE CONTROLE": {
+    "category": "OBJET"
+  },
+  "BRAS SQUELETTIQUE": {
+    "category": "OBJET"
+  },
+  "BROCHE DOREE": {
+    "category": "OBJET"
+  },
+  "CASQUE EN FER": {
+    "category": "OBJET"
+  },
+  "CEINTURE DE CHAMPION": {
+    "category": "OBJET"
+  },
+  "CHLOROGLYCERINE": {
+    "category": "OBJET"
+  },
+  "CLE A": {
+    "category": "OBJET"
+  },
+  "CLE B": {
+    "category": "OBJET"
+  },
+  "COTTE DE MAILLES": {
+    "category": "EQUIPEMENT"
+  },
+  "COUTEAU": {
+    "category": "OUTIL"
+  },
+  "DARD EXPLOSIF": {
+    "category": "OBJET"
+  },
+  "DEBROUILLARD": {
+    "category": "BILLY"
+  },
+  "ECAILLE DE DRAGON": {
+    "category": "OBJET"
+  },
+  "ECUSSON D'ORC": {
+    "category": "OBJET"
+  },
+  "EFFIGIE DE DUEL": {
+    "category": "OBJET"
+  },
+  "EPEE": {
+    "category": "ARME"
+  },
+  "EXPLOSIFS": {
+    "category": "OBJET"
+  },
+  "FER A CHEVAL": {
+    "category": "OBJET"
+  },
+  "FLASQUE D'HUILE": {
+    "category": "OBJET"
+  },
+  "FLECHES EXPLOSIVES": {
+    "category": "OBJET"
+  },
+  "FOURCHE": {
+    "category": "OUTIL"
+  },
+  "GEMME MAGIQUE": {
+    "category": "OBJET"
+  },
+  "GROSSE CLE": {
+    "category": "OBJET"
+  },
+  "GUERRIER": {
+    "category": "BILLY"
+  },
+  "ICONE DES PALADINS": {
+    "category": "OBJET"
+  },
+  "KIT D'ESCALADE": {
+    "category": "OUTIL"
+  },
+  "KIT DE SOIN": {
+    "category": "EQUIPEMENT"
+  },
+  "LAISSEZ-PASSER": {
+    "category": "OBJET"
+  },
+  "LANCE": {
+    "category": "ARME"
+  },
+  "LANIERES DE CUIRS": {
+    "category": "OBJET"
+  },
+  "LETTRE DE RECOMMANDATION": {
+    "category": "OBJET"
+  },
+  "LIME EN ACIER D'ARKADIE": {
+    "category": "OBJET"
+  },
+  "MARMITE": {
+    "category": "EQUIPEMENT"
+  },
+  "MEDAILLON D'EDIRE": {
+    "category": "OBJET"
+  },
+  "MORGENSTERN": {
+    "category": "ARME"
+  },
+  "PALAIS DES PLAISIRS D'YTIA": {
+    "category": "EVENEMENT"
+  },
+  "PAMPHLET": {
+    "category": "EQUIPEMENT"
+  },
+  "PASSE-PARTOUT": {
+    "category": "OBJET"
+  },
+  "PAYSAN": {
+    "category": "BILLY"
+  },
+  "PERROQUET": {
+    "category": "OBJET"
+  },
+  "PETITE BOUTEILLE D'ACIDE": {
+    "category": "OBJET"
+  },
+  "PETITE MASSUE": {
+    "category": "OBJET"
+  },
+  "PHILTRE D'AMOUR": {
+    "category": "OBJET"
+  },
+  "POINT FAIBLE": {
+    "category": "EVENEMENT"
+  },
+  "PRODUITS CHIMIQUES HASARDEUX": {
+    "category": "OBJET"
+  },
+  "PRODUITS DE NETTOYAGE": {
+    "category": "OBJET"
+  },
+  "PRUDENT": {
+    "category": "BILLY"
+  },
+  "SAC DE GRAINS": {
+    "category": "OUTIL"
+  },
+  "SANG DE VAMPIRE": {
+    "category": "OBJET"
+  },
+  "TRESSE DE CENTAURESSE": {
+    "category": "OBJET"
+  }
 }

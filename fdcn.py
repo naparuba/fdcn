@@ -162,8 +162,16 @@ class Node(object):
         self._aquire = aquire
     
     
+    def get_aquire(self):
+        return self._aquire
+    
+    
     def set_remove(self, remove):
         self._remove = remove
+    
+    
+    def get_remove(self):
+        return self._remove
     
     
     def set_ending(self, ending):
@@ -653,6 +661,22 @@ for node_id_str in book_data.keys():
         print('%s have the success %s: %s:%s' % (node_id_str, success, label, txt))
         all_success.append({'id': success, 'chapter': int(node_id_str), 'label': label, 'txt': txt})
         all_success_chapters[int(node_id_str)] = success
+        
+    # If the node have some items, list them
+    aquire = set(node.get_aquire())
+    remove = set(node.get_remove())
+    node_all_objs = aquire |remove
+    print('NODE %s have objects: %s' % (node_id_str, node_all_objs))
+    for obj in node_all_objs:
+        entry = all_objs[obj]
+        in_chapters = entry.get('in_chapters', [])
+        in_chapters.append(int(node_id_str))
+        entry['in_chapters'] = in_chapters
+
+# Set objects that are not in specific chapter that they are ok since chapter 1
+for obj_name, entry in all_objs.items():
+    if 'in_chapters' not in entry:
+        entry['in_chapters'] = [1]  # so will be seens always
 
 # Check for secrets that should NOT be accessible by 2 ways
 print('Checking for secret reverse jump:')
@@ -695,6 +719,9 @@ with codecs.open('fdcn-1-compilated-success.json', 'w', 'utf8') as f:
 
 with codecs.open('fdcn-1-compilated-success-chapters.json', 'w', 'utf8') as f:
     f.write(json.dumps(all_success_chapters, indent=4, ensure_ascii=False, sort_keys=True))
+
+with codecs.open('fdcn-1-compilated-all-objects.json', 'w', 'utf8') as f:
+    f.write(json.dumps(all_objs, indent=4, ensure_ascii=False, sort_keys=True))
 
 # Get the node positions
 # json_string = display_graph.pipe(format='json').decode()

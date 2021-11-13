@@ -13,6 +13,7 @@ var all_success_chapters = {} # chapter id -> success id
 var all_endings = []
 var good_endings = []
 var end_endings = []
+var all_objects = {}
 
 
 func _init():
@@ -42,10 +43,17 @@ func _init():
 	self.good_endings = Utils.load_json_file("res://fdcn-1-compilated-good-endings.json")
 	self.end_endings = Utils.load_json_file("res://fdcn-1-compilated-bad-endings.json")
 
+	# Objects, so we can insert them in the options
+	self.all_objects = Utils.load_json_file("res://fdcn-1-compilated-all-objects.json")
+	
 
 # Called when the node enters the scene tree for the first time.
 func get_all_nodes():
 	return self.all_nodes
+
+
+func get_all_objects():
+	return self.all_objects
 
 
 func get_all_success():
@@ -133,7 +141,7 @@ func match_chapter_conditions(node_from_id, node_to_id):
 	var jump_condition = all_jump_conditions.get(node_to_id_str)
 	if jump_condition == null:
 		return false
-	var r = self._check_cond_rec(jump_condition, [AppParameters.get_billy_type().to_upper()])
+	var r = self._check_cond_rec(jump_condition, Player.get_all_matched_conditions())#[AppParameters.get_billy_type().to_upper()])
 	return r
 
 
