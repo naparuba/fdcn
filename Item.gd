@@ -78,7 +78,7 @@ func refresh():
 		$Nom.text = self._item_name
 	else:
 		$Nom.text = '?'
-	FUCK=> remet le guess
+
 	#print('STYLE: %s' % _style)
 	if do_have_item:
 		_style.set_bg_color(Color('00ff00'))  # set to light grey

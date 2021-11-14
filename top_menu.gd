@@ -19,6 +19,11 @@ func set_spoils():
 	$Billys/SpoilButton.pressed = b
 
 
+func set_sound():
+	var b = AppParameters.is_sound_ok()
+	$Billys/SoundButton.pressed = b
+	
+
 func _on_spoil_button_toggled(button_pressed):
 	self.main.change_spoils(button_pressed)
 
@@ -105,3 +110,7 @@ func _switch_to_debrouillard():
 func _on_button_options():
 	print('SHOW OPTIONS')
 	self.main.show_options()
+
+
+func _on_sound_button_toggled(button_pressed):
+	self.main.change_sound(button_pressed)

@@ -229,6 +229,7 @@ func refresh():
 	for top_menu in self.top_menus:
 		top_menu.set_spoils()	
 		top_menu.set_billy()
+		top_menu.set_sound()
 		
 	# Note: the first left backer should be disabled if we cannot get back
 	if Player.have_previous_chapters():
@@ -390,6 +391,11 @@ func jump_back(previous_id):
 
 func change_spoils(b):
 	AppParameters.set_spoils(b)
+	self.refresh()
+
+
+func change_sound(b):
+	AppParameters.set_sound(b)
 	self.refresh()
 
 

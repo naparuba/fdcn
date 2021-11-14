@@ -1584,7 +1584,6 @@ texture = ExtResource( 14 )
 [node name="SuccessPopup" parent="." instance=ExtResource( 23 )]
 
 [node name="Options" type="Panel" parent="."]
-visible = false
 margin_left = 5.0
 margin_top = 51.0
 margin_right = 553.0
@@ -1676,6 +1675,7 @@ position = Vector2( 81.5072, 218.73 )
 texture = ExtResource( 27 )
 
 [node name="button" type="TextureButton" parent="Options/BlockGuerrier"]
+visible = false
 margin_left = -1.0
 margin_right = 162.0
 margin_bottom = 443.0
@@ -1700,6 +1700,7 @@ position = Vector2( 83.8195, 218.718 )
 texture = ExtResource( 26 )
 
 [node name="button" type="TextureButton" parent="Options/BlockPaysan"]
+visible = false
 margin_left = 9.0
 margin_top = 6.0
 margin_right = 187.0
@@ -1725,6 +1726,7 @@ position = Vector2( 83.8195, 218.718 )
 texture = ExtResource( 25 )
 
 [node name="button" type="TextureButton" parent="Options/BlockPrudent"]
+visible = false
 margin_left = 9.0
 margin_top = 3.0
 margin_right = 188.0
@@ -1750,6 +1752,7 @@ position = Vector2( 98.2081, 217.282 )
 texture = ExtResource( 24 )
 
 [node name="button" type="TextureButton" parent="Options/BlockDebrouillard"]
+visible = false
 margin_left = -4.0
 margin_top = 6.0
 margin_right = 201.0

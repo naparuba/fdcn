@@ -1,6 +1,8 @@
 extends Node2D
 
 
+var _is_enabled = true  # parameters can change this
+
 var cache = {}  # no lot load() too much if we can avoid
 
 var player = null
@@ -10,9 +12,21 @@ func _ready():
 	self.player = $Player
 
 
+func set_enabled(b):
+	self._is_enabled = b
+	if !self._is_enabled:  # Maybe the user is asking for no more sound ^^
+		print('STOPING SOUND')
+		self.player.stop()
+
+
+func is_enabled():
+	return self._is_enabled
+
 
 func play(pth):
 	self.player.stop()
+	if !self._is_enabled:
+		return
 	var sound
 	if pth in self.cache:
 		sound = self.cache[pth]

@@ -24,6 +24,8 @@ func update_and_show(success):
 func _new_success_play_sound():
 	var player = $AudioPlayer
 	player.stop()
+	if !Sounder.is_enabled():
+		return
 	var full_pth = 'res://sounds/lennon-c-beau.mp3'
 	var sound = load(full_pth)
 	player.stream = sound

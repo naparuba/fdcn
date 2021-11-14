@@ -44,6 +44,8 @@ func _set_playing():
 
 
 func _on_play_pressed():
+	if !Sounder.is_enabled():
+		return
 	var player = $AudioStreamPlayer
 
 	# Play

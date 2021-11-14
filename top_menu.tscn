@@ -32,7 +32,7 @@ bg_color = Color( 0.913725, 0.917647, 0.92549, 1 )
 bg_color = Color( 0.913725, 0.917647, 0.92549, 1 )
 
 [sub_resource type="DynamicFont" id=7]
-size = 24
+size = 12
 font_data = ExtResource( 12 )
 
 [sub_resource type="StyleBoxFlat" id=8]
@@ -173,10 +173,10 @@ __meta__ = {
 }
 
 [node name="BillyTypeLabel" type="Label" parent="Billys"]
-margin_left = 4.75735
-margin_top = 1.81802
-margin_right = 121.757
-margin_bottom = 33.818
+margin_left = 5.0
+margin_top = 2.0
+margin_right = 65.0
+margin_bottom = 18.0
 custom_fonts/font = SubResource( 7 )
 custom_colors/font_color = Color( 0, 0.760784, 0.666667, 1 )
 custom_constants/shadow_offset_x = 0
@@ -287,10 +287,10 @@ __meta__ = {
 }
 
 [node name="BlockOptions" type="Panel" parent="Billys"]
-margin_left = 128.423
-margin_top = 0.596634
-margin_right = 165.423
-margin_bottom = 37.5966
+margin_left = 68.319
+margin_top = 1.30374
+margin_right = 105.319
+margin_bottom = 38.3037
 custom_styles/panel = SubResource( 11 )
 __meta__ = {
 "_edit_use_anchors_": false
@@ -311,10 +311,10 @@ __meta__ = {
 }
 
 [node name="SpoilLabel" type="Label" parent="Billys"]
-margin_left = 187.901
-margin_top = 0.924394
-margin_right = 257.901
-margin_bottom = 14.9244
+margin_left = 199.215
+margin_top = -1.55048
+margin_right = 269.215
+margin_bottom = 12.4495
 custom_fonts/font = ExtResource( 2 )
 custom_colors/font_color = Color( 0, 0, 0, 1 )
 custom_constants/shadow_offset_x = 0
@@ -337,6 +337,32 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
+[node name="SoundLabel" type="Label" parent="Billys"]
+margin_left = 115.423
+margin_top = -2.96468
+margin_right = 185.423
+margin_bottom = 11.0353
+custom_fonts/font = ExtResource( 2 )
+custom_colors/font_color = Color( 0, 0, 0, 1 )
+custom_constants/shadow_offset_x = 0
+custom_constants/shadow_offset_y = 0
+custom_constants/shadow_as_outline = 0
+text = "Voix du Lennon"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="SoundButton" type="CheckButton" parent="Billys"]
+margin_left = 114.357
+margin_top = 6.22599
+margin_right = 190.357
+margin_bottom = 46.226
+pressed = true
+flat = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
 [connection signal="pressed" from="Pages/BlockMain/button" to="." method="focus_to_main"]
 [connection signal="pressed" from="Pages/BlockChapitres/button" to="." method="focus_to_chapitres"]
 [connection signal="pressed" from="Pages/BlockSuccess/button" to="." method="focus_to_success"]
@@ -347,3 +373,4 @@ __meta__ = {
 [connection signal="pressed" from="Billys/BlockDebrouillard/button" to="." method="_switch_to_debrouillard"]
 [connection signal="pressed" from="Billys/BlockOptions/button" to="." method="_on_button_options"]
 [connection signal="toggled" from="Billys/SpoilButton" to="." method="_on_spoil_button_toggled"]
+[connection signal="toggled" from="Billys/SoundButton" to="." method="_on_sound_button_toggled"]

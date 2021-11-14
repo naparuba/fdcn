@@ -103,7 +103,7 @@ func guess_after_migration():
 	for chapter_id in self.session_visited_nodes:
 		print('Playing item chapt in %s' % chapter_id)
 		self.apply_chapter_items(chapter_id)
-	return
+	
 	# Then guess objects, guess what the dude did set
 	var billy_type = AppParameters.get_billy_type()
 	var guess = {
