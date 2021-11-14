@@ -56,6 +56,9 @@ func get_all_objects():
 	return self.all_objects
 
 
+func get_item_data(item_name):
+	return self.all_objects[item_name]
+
 func get_all_success():
 	return self.all_success
 

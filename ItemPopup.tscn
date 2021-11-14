@@ -1,0 +1,49 @@
+[gd_scene load_steps=6 format=2]
+
+[ext_resource path="res://ItemPopup.gd" type="Script" id=2]
+[ext_resource path="res://images/items/question.svg" type="Texture" id=3]
+[ext_resource path="res://fonts/RobotoCondensed-Regular.ttf" type="DynamicFontData" id=4]
+
+[sub_resource type="StyleBoxFlat" id=1]
+bg_color = Color( 0.752941, 1, 0.929412, 1 )
+
+[sub_resource type="DynamicFont" id=2]
+size = 12
+font_data = ExtResource( 4 )
+
+[node name="ItemPopup" type="Panel"]
+margin_right = 250.0
+margin_bottom = 50.0
+rect_min_size = Vector2( 250, 50 )
+mouse_filter = 1
+custom_styles/panel = SubResource( 1 )
+script = ExtResource( 2 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="sprite" type="Sprite" parent="."]
+position = Vector2( 19.5874, 24.3156 )
+scale = Vector2( 0.0483685, 0.0483685 )
+texture = ExtResource( 3 )
+
+[node name="Nom" type="Label" parent="."]
+margin_left = 39.6774
+margin_top = 6.57856
+margin_right = 208.678
+margin_bottom = 37.5786
+custom_fonts/font = SubResource( 2 )
+custom_colors/font_color = Color( 0, 0, 0, 1 )
+text = "NOM DE L'OBJET"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Timer" type="Timer" parent="."]
+wait_time = 3.0
+autostart = true
+__meta__ = {
+"_editor_description_": "will delete node when done"
+}
+
+[connection signal="timeout" from="Timer" to="." method="_on_Timer_timeout"]

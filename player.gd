@@ -154,7 +154,11 @@ func go_to_node(node_id):
 		self.visited_nodes_all_times.append(self.current_node_id)
 		self.save_all_times_already_visited()
 	
-	return is_new_node
+	var aquires_and_removes = self.apply_chapter_items(node_id)
+	var aquires = aquires_and_removes[0]
+	var removes = aquires_and_removes[1]
+	
+	return [is_new_node, aquires, removes]
 
 
 func jump_to_previous_chapter():
@@ -228,17 +232,21 @@ func get_visited_nodes_all_times():
 func apply_chapter_items(chapter_id):
 	var node = BookData.get_node(chapter_id)
 	# Apply new items
+	var _really_aquires = []  # Mayve we already have some items
 	var aquires = node.get_aquire()
 	for aquire in aquires:
-		self.add_item_from_chapter(aquire, chapter_id)
-		#if !aquire in possessed_items:
-		#	print('%s +' % chapter_id, '%s' % aquire)
-		#	self.possessed_items.append(aquire)
+		var did_add = self.add_item_from_chapter(aquire, chapter_id)
+		if did_add:
+			_really_aquires.append(aquire)
 	# Then remove items
+	var _really_removes = []  # Mayve we already not have some items
 	var removes = node.get_remove()
 	for remove in removes:
-		self.remove_item_from_chapter(remove, chapter_id)
+		var did_remove = self.remove_item_from_chapter(remove, chapter_id)
+		if did_remove:
+			_really_removes.append(remove)
 	print('ETAT: %s' % chapter_id, self.possessed_items)
+	return [_really_aquires, _really_removes]
 
 
 func _recompute_matched_conditions():
@@ -262,6 +270,8 @@ func add_item_from_chapter(item_name, from_chapter):
 		self._raw_add(item_name)
 		self._recompute_matched_conditions()
 		self.save_possessed_items()
+		return true
+	return false
 
 
 func add_item_from_options(item_name):
@@ -286,6 +296,8 @@ func remove_item_from_chapter(item_name, from_chapter):
 		self._raw_remove(item_name)
 		self._recompute_matched_conditions()
 		self.save_possessed_items()
+		return true
+	return false
 
 
 func remove_item_from_options(item_name):

@@ -9,6 +9,7 @@ onready var Choice = preload('res://ChapterChoice.tscn')
 onready var EndingChoice = preload('res://EndingChoice.tscn')
 onready var Success = preload('res://Success.tscn')
 onready var Item = preload('res://Item.tscn')
+onready var ItemPopup = preload('res://ItemPopup.tscn')
 
 onready var gauge = $Background/GlobalCompletion/Gauge
 
@@ -32,7 +33,8 @@ func _ready():
 	# Load the nodes ids we did already visited in the past
 	var need_show_options_at_startup = Player.do_load()
 	if need_show_options_at_startup:
-		$Options.visible = true
+		#$Options.visible = true
+		self.show_options()
 	
 	# Create all chapters in the 2nd screen
 	self.insert_all_chapters()
@@ -49,13 +51,18 @@ func _ready():
 	# Play intro
 	# NOTE: if the current node id have a sound, intro will supress it
 	self._play_intro()
-
+	
 
 
 func go_to_node(node_id):
 	
-	var is_new_node = Player.go_to_node(node_id)
-	
+	var go_to_node_return = Player.go_to_node(node_id)
+	# => is_new_node, aquires, removes
+	var is_new_node = go_to_node_return[0]
+	var new_aquires = go_to_node_return[1]
+	var new_removes = go_to_node_return[2]
+	print('JUMP TO:  is_new=%s' % is_new_node, ' aquires=%s' % str(new_aquires), ' new removes=%s' % str(new_removes))
+		
 	self.refresh()
 	# We did change node, so important to see it
 	Swiper.focus_to_main()
@@ -65,6 +72,13 @@ func go_to_node(node_id):
 
 	if is_new_node:
 		self._check_new_success(Player.get_current_node_id())
+	
+	# Show popups about new/remove items ^^
+	# NOTE: auto disapears after 3s
+	for item_name in new_aquires:
+		self.popup_new_item(item_name)
+	for item_name in new_removes:
+		self.popup_remove_item(item_name)
 
 
 # We are in a new node, check if it's a success.
@@ -487,6 +501,7 @@ func _on_button_pressed_twitter():
 func show_options():
 	# Currently options are in the main page
 	Swiper.focus_to_main()
+	$ItemPopups.visible = false  # hide the popups for click catch
 	$Options.visible = true
 
 
@@ -494,4 +509,23 @@ func _on_options_validate_button_pressed():
 	print('BUTTON: validate')
 	self.refresh()
 	$Options.visible = false
+	$ItemPopups.visible = true  # so we can show new popups
 	
+	
+func _create_popup_item(item_name):
+	var popup = ItemPopup.instance()
+	var item_data = BookData.get_item_data(item_name)
+	popup.load_item_data(item_name, item_data)
+	return popup
+	
+	
+func popup_new_item(item_name):
+	var popup = self._create_popup_item(item_name)
+	popup.set_is_new(true)  # it's a gain
+	$ItemPopups/ScrollContainer/ItemPopupsCont.add_child(popup)
+
+
+func popup_remove_item(item_name):
+	var popup = self._create_popup_item(item_name)
+	popup.set_is_new(false)  # it's a loose
+	$ItemPopups/ScrollContainer/ItemPopupsCont.add_child(popup)

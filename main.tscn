@@ -1,4 +1,4 @@
-[gd_scene load_steps=50 format=2]
+[gd_scene load_steps=51 format=2]
 
 [ext_resource path="res://main.gd" type="Script" id=1]
 [ext_resource path="res://fonts/amon_font.tres" type="DynamicFont" id=2]
@@ -95,6 +95,8 @@ shader_param/grayscale = false
 [sub_resource type="ShaderMaterial" id=18]
 shader = ExtResource( 28 )
 shader_param/grayscale = false
+
+[sub_resource type="StyleBoxEmpty" id=19]
 
 [node name="main" type="Node2D"]
 script = ExtResource( 1 )
@@ -2448,6 +2450,33 @@ __meta__ = {
 position = Vector2( 100.545, 41.0303 )
 scale = Vector2( 0.0996552, 0.0996552 )
 texture = ExtResource( 20 )
+
+[node name="ItemPopups" type="Panel" parent="."]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 260.0
+margin_top = 53.0
+margin_right = 260.0
+margin_bottom = 53.0
+mouse_filter = 1
+custom_styles/panel = SubResource( 19 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="ScrollContainer" type="ScrollContainer" parent="ItemPopups"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = -42.0
+margin_top = -2.0
+margin_right = 446.0
+margin_bottom = 168.0
+mouse_filter = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="ItemPopupsCont" type="VBoxContainer" parent="ItemPopups/ScrollContainer"]
 
 [connection signal="gui_input" from="Background" to="." method="_on_main_background_gui_input"]
 [connection signal="gui_input" from="Chapitres" to="." method="_on_main_background_gui_input"]
