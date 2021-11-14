@@ -133,6 +133,15 @@ func get_success_from_chapter(node_id):
 			return success
 	return null
 
+func have_chapter_conditions(node_from_id, node_to_id):
+	var chapter_data = self.get_node(node_from_id)
+	var node_to_id_str = '%s' % node_to_id
+	var all_jump_conditions = chapter_data.get_jump_conditions()
+	var jump_condition = all_jump_conditions.get(node_to_id_str)
+	if jump_condition == null:
+		return false
+	return true
+	
 
 func match_chapter_conditions(node_from_id, node_to_id):
 	var chapter_data = self.get_node(node_from_id)

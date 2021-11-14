@@ -6,6 +6,9 @@ var _is_enabled = null
 var _item_name = ''
 var _item_data = {}
 
+var _unkown_icon = null
+var _item_icon = null
+
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	pass # Replace with function body.
@@ -20,6 +23,8 @@ func load_item_data(item_name, item_data):
 	$Stats.text = ''
 	var new_style = StyleBoxFlat.new()
 	self.set('custom_styles/panel', new_style)
+	self._item_icon = Utils.load_external_texture('res://images/items/%s.svg' % self._item_name, null)
+	self._unkown_icon = Utils.load_external_texture('res://images/items/question.svg', null)
 	self.refresh()
 
 
@@ -76,15 +81,17 @@ func refresh():
 	
 	if self._can_item_be_shown():
 		$Nom.text = self._item_name
+		$sprite.texture = self._item_icon
 	else:
-		$Nom.text = '?'
+		$Nom.text = ''  # We already have the ? icon
+		$sprite.texture = self._unkown_icon
 
 	#print('STYLE: %s' % _style)
 	if do_have_item:
-		_style.set_bg_color(Color('00ff00'))  # set to light grey
+		_style.set_bg_color(Color('c0ffed'))  # set to light grey
 		#print('HAVE item: %s' % self._item_name)
 	else:
-		_style.set_bg_color(Color('ff0000'))  # set to light grey
+		_style.set_bg_color(Color('ffffff'))  # set to light grey
 	# Update the button in the good state
 	$button.pressed = do_have_item
 

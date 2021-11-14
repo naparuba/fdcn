@@ -10,7 +10,7 @@
 [ext_resource path="res://images/chemin.png" type="Texture" id=8]
 [ext_resource path="res://images/chapter.png" type="Texture" id=9]
 [ext_resource path="res://top_menu.gd" type="Script" id=10]
-[ext_resource path="res://images/options.png" type="Texture" id=11]
+[ext_resource path="res://images/items/backpack.svg" type="Texture" id=11]
 [ext_resource path="res://fonts/RobotoCondensed-Regular.ttf" type="DynamicFontData" id=12]
 
 [sub_resource type="StyleBoxFlat" id=1]
@@ -297,15 +297,15 @@ __meta__ = {
 }
 
 [node name="sprite" type="Sprite" parent="Billys/BlockOptions"]
-position = Vector2( 18.0825, 18.9207 )
-scale = Vector2( 0.0692117, 0.0691995 )
+position = Vector2( 17.9156, 18.7244 )
+scale = Vector2( 0.367587, 0.367522 )
 texture = ExtResource( 11 )
 
 [node name="button" type="TextureButton" parent="Billys/BlockOptions"]
-margin_left = -0.873657
-margin_top = 0.672302
-margin_right = 36.1263
-margin_bottom = 37.6723
+margin_left = -0.165741
+margin_top = -0.167988
+margin_right = 37.8343
+margin_bottom = 36.832
 __meta__ = {
 "_edit_use_anchors_": false
 }

@@ -473,8 +473,7 @@ func launch_new_billy():
 	Player.launch_new_billy()
 	self.go_to_node(1)
 	self.refresh()
-	# We did change node, so important to see it
-	Swiper.focus_to_main()
+	self.show_options()  # So the user can choose a new billy
 
 
 func _on_button_bug():

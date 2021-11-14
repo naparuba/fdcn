@@ -87,8 +87,6 @@ func load_possessed_items():
 
 
 func save_possessed_items():
-	print('ON NE SAVE PAS LES OBJETS')
-	return
 	var f = File.new()
 	f.open(POSSESSED_ITEM_FILE, File.WRITE)
 	f.store_var(self.possessed_items)
@@ -193,6 +191,8 @@ func jump_back(previous_id):
 func launch_new_billy():
 	self.session_visited_nodes = []
 	self.save_session_visited_nodes()
+	self.possessed_items = []
+	self.save_possessed_items()
 
 
 

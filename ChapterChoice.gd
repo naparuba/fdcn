@@ -85,11 +85,20 @@ func enable_special_jump():
 	$special.visible = true
 	$special.set("custom_colors/font_color",Color('00c2aa'))
 	$click/special.visible = true
+	$click/special_wrong.visible = false
 
-func disable_special_jump():
+func enable_special_jump_wrong():
 	$special.visible = true
 	$special.set("custom_colors/font_color",Color(1,0,0))
 	$click/special.visible = false	
+	$click/special_wrong.visible = true	
+
+
+func disable_special_jump():
+	$special.visible = false
+	$special.set("custom_colors/font_color",Color(1,0,0))
+	$click/special.visible = false	
+	$click/special_wrong.visible = false	
 
 
 func _on_Button_pressed():
@@ -122,14 +131,17 @@ func update_from_son_node(son):
 		self.set_label(son.get_label())
 		
 	# Check special jump/conditions
-	var jump_condition_txt = BookData.get_condition_txt(Player.get_current_node_id(), son_id)
-	self.set_condition_txt(jump_condition_txt)
-	var is_special = BookData.match_chapter_conditions(Player.get_current_node_id(), son_id)
-	if is_special:
-		self.enable_special_jump()
-	else:
+	var have_jump_conditions = BookData.have_chapter_conditions(Player.get_current_node_id(), son_id)
+	if have_jump_conditions:
+		var jump_condition_txt = BookData.get_condition_txt(Player.get_current_node_id(), son_id)
+		self.set_condition_txt(jump_condition_txt)
+		var is_special = BookData.match_chapter_conditions(Player.get_current_node_id(), son_id)
+		if is_special:
+			self.enable_special_jump()
+		else:
+			self.enable_special_jump_wrong()
+	else:  # classic node
 		self.disable_special_jump()
-
 
 func update_when_in_all_chapters():
 	var chapter_id = self.get_chapter_id()
