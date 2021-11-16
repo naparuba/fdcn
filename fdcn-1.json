@@ -412,7 +412,7 @@
   },
   "68": {
     "conditions": {
-      "255": "PAMPHLET|LETTRE DE RECOMMANDATION"
+      "255": "PAMPHLET&LETTRE DE RECOMMANDATION"
     },
     "goto": [
       255,
