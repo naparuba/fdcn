@@ -17341,7 +17341,7 @@
             "is_combat": false,
             "jump_conditions": {
                 "255": {
-                    "$or": [
+                    "$and": [
                         {
                             "$end": "PAMPHLET"
                         },
@@ -17352,7 +17352,7 @@
                 }
             },
             "jump_conditions_txts": {
-                "255": "PAMPHLET ou LETTRE DE RECOMMANDATION"
+                "255": "PAMPHLET et LETTRE DE RECOMMANDATION"
             },
             "label": null,
             "remove": [],
@@ -17365,7 +17365,7 @@
             "success": null
         },
         "conditions": {
-            "255": "PAMPHLET|LETTRE DE RECOMMANDATION"
+            "255": "PAMPHLET&LETTRE DE RECOMMANDATION"
         },
         "goto": [
             255,
