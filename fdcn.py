@@ -108,7 +108,7 @@ class Node(object):
         ending = False
         if self._ending is not None:
             ending = True
-        
+            
         return {
             'id'                  : self._id,
             'ending'              : ending,
@@ -117,6 +117,7 @@ class Node(object):
             'chapter'             : self._arc,
             'arc'                 : self._sub_arc,
             'is_combat'           : self._combat is not None,
+            'combat'              : self._combat,
             'label'               : self._label,
             'secret'              : self._secret,
             'secret_jumps'        : self._secret_jumps,
@@ -135,7 +136,7 @@ class Node(object):
             return '<%s-<FONT COLOR="blue" POINT-SIZE="20">%s</FONT> >' % (self._id, self._label)
         if self._secret:
             return '<<B><FONT COLOR="orange" POINT-SIZE="20">%s</FONT></B>>' % (self._id)
-        if self._combat:
+        if self._combat is not None:
             return '<<B><FONT COLOR="red" POINT-SIZE="20">%s</FONT></B>>' % (self._id)
         return '%s' % self._id
     
@@ -195,7 +196,7 @@ class Node(object):
     
     
     def set_combat(self, combat):
-        self._combat = True
+        self._combat = combat
     
     
     def set_secret(self):

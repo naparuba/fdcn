@@ -91,7 +91,14 @@
     "aquire": [
       "ECUSSON D'ORC"
     ],
-    "combat": {},
+    "combat": {
+      "nom": "GUERRIERS ORCS",
+      "hab": 5,
+      "pv": 8,
+      "arm": 0,
+      "deg": 0,
+      "pyro": 4
+    },
     "goto": 67
   },
   "15": {
@@ -119,7 +126,14 @@
     "aquire": [
       "ECUSSON D'ORC"
     ],
-    "combat": {},
+    "combat": {
+      "nom": "GUARDES CORROMPUS",
+      "hab": 8,
+      "pv": 12,
+      "arm": 1,
+      "deg": 0,
+      "pyro": 4
+    },
     "goto": 22
   },
   "20": {
@@ -218,7 +232,14 @@
     ]
   },
   "36": {
-    "combat": {},
+    "combat": {
+      "nom": "2 SQUELETTES",
+      "hab": 4,
+      "pv": 10,
+      "arm": 0,
+      "deg": 0,
+      "pyro": 0
+    },
     "goto": 194
   },
   "37": {
@@ -326,7 +347,14 @@
     ]
   },
   "54": {
-    "combat": {},
+    "combat": {
+      "nom": "ORC FAMILIER",
+      "hab": 10,
+      "pv": 16,
+      "arm": 0,
+      "deg": 1,
+      "pyro": 0
+    },
     "goto": [
       457,
       421
@@ -345,7 +373,14 @@
     "goto": 135
   },
   "58": {
-    "combat": {},
+    "combat": {
+      "nom": "GNOLL SANGUINAIRE",
+      "hab": 5,
+      "pv": 10,
+      "arm": 0,
+      "deg": 0,
+      "pyro": 0
+    },
     "goto": [
       457,
       54
@@ -443,7 +478,14 @@
     ]
   },
   "74": {
-    "combat": {},
+    "combat": {
+      "nom": "5 BANDITS DE GRAND CHEMIN",
+      "hab": 11,
+      "pv": 15,
+      "arm": 0,
+      "deg": 0,
+      "pyro": 6
+    },
     "goto": [
       261
     ]
@@ -459,7 +501,14 @@
   },
   "76": {
     "secret": false,
-    "combat": {},
+    "combat": {
+      "nom": "5 GUERRIERS SQUELETTES",
+      "hab": 12,
+      "pv": 20,
+      "arm": 0,
+      "deg": 0,
+      "pyro": 4
+    },
     "goto": 394
   },
   "77": {
@@ -608,7 +657,14 @@
     "goto": 608
   },
   "97": {
-    "combat": {},
+    "combat": {
+      "nom": "MASSACRE",
+      "hab": 12,
+      "pv": 20,
+      "arm": 0,
+      "deg": 1,
+      "pyro": 4
+    },
     "goto": 194
   },
   "98": {
@@ -711,7 +767,14 @@
     "goto": 414
   },
   "114": {
-    "combat": {},
+    "combat": {
+      "nom": "ORC ESCLAVAGISTE",
+      "hab": 10,
+      "pv": 10,
+      "arm": 0,
+      "deg": 0,
+      "pyro": 4
+    },
     "goto": 597
   },
   "115": {
@@ -810,7 +873,14 @@
     "aquire": [
       "ECUSSON D'ORC"
     ],
-    "combat": {},
+    "combat": {
+      "nom": "GUARDE CORROMPU (x2)",
+      "hab": 4,
+      "pv": 7,
+      "arm": 0,
+      "deg": 1,
+      "pyro": 0
+    },
     "goto": 22
   },
   "134": {
@@ -924,7 +994,14 @@
     ]
   },
   "155": {
-    "combat": {},
+    "combat": {
+      "nom": "5 GUERRIERS SQUELETTES",
+      "hab": 12,
+      "pv": 20,
+      "arm": 0,
+      "deg": 0,
+      "pyro": 2
+    },
     "goto": 394
   },
   "156": {
@@ -963,7 +1040,14 @@
     "goto": 234
   },
   "162": {
-    "combat": {},
+    "combat": {
+      "nom": "TROLESSE AFFAIBLIE",
+      "hab": 11,
+      "pv": 12,
+      "arm": 0,
+      "deg": 1,
+      "pyro": 4
+    },
     "goto": 168
   },
   "163": {
@@ -1042,7 +1126,14 @@
     "goto": 364
   },
   "173": {
-    "combat": {},
+    "combat": {
+      "nom": "BANDIT A LA CAPE CRAMOISIE (ROUGE)",
+      "hab": 6,
+      "pv": 10,
+      "arm": 0,
+      "deg": 0,
+      "pyro": 0
+    },
     "goto": 423
   },
   "174": {
@@ -1052,7 +1143,14 @@
     "goto": 45
   },
   "175": {
-    "combat": {},
+    "combat": {
+      "nom": "3 ELFES NOIRES",
+      "hab": 11,
+      "pv": 8,
+      "arm": 0,
+      "deg": 0,
+      "pyro": 4
+    },
     "goto": 436
   },
   "176": {
@@ -1413,11 +1511,25 @@
     ]
   },
   "231": {
-    "combat": {},
+    "combat": {
+      "nom": "4 HOMMES D'ARMES",
+      "hab": 11,
+      "pv": 16,
+      "arm": 0,
+      "deg": 2,
+      "pyro": 4
+    },
     "goto": 316
   },
   "232": {
-    "combat": {},
+    "combat": {
+      "nom": "OGRE MAL EMBOUCHE",
+      "hab": 10,
+      "pv": 20,
+      "arm": 0,
+      "deg": 1,
+      "pyro": 4
+    },
     "goto": [
       154,
       447,
@@ -1466,7 +1578,14 @@
     "goto": 115
   },
   "240": {
-    "combat": {},
+    "combat": {
+      "nom": "GUEPE GEANTE",
+      "hab": 8,
+      "pv": 10,
+      "arm": 0,
+      "deg": 0,
+      "pyro": 0
+    },
     "goto": 364
   },
   "241": {
@@ -1637,7 +1756,14 @@
     "goto": 423
   },
   "274": {
-    "combat": {},
+    "combat": {
+      "nom": "XXXX",
+      "hab": 1,
+      "pv": 1,
+      "arm": 1,
+      "deg": 1,
+      "pyro": 1
+    },
     "goto": 168
   },
   "275": {
@@ -1652,7 +1778,24 @@
     ]
   },
   "276": {
-    "combat": {},
+    "combat": [
+      {
+        "nom": "GUARDES CORROMPUS",
+        "hab": 6,
+        "pv": 8,
+        "arm": 0,
+        "deg": 0,
+        "pyro": 0
+      },
+      {
+        "nom": "TROLESSE",
+        "hab": 13,
+        "pv": 16,
+        "arm": 0,
+        "deg": 1,
+        "pyro": 0
+      }
+    ],
     "goto": 4
   },
   "277": {
@@ -1727,7 +1870,14 @@
     "aquire": [
       "PETITE BOUTEILLE D'ACIDE"
     ],
-    "combat": {},
+    "combat": {
+      "nom": "PLANTE CARNITREX",
+      "hab": 13,
+      "pv": 18,
+      "arm": 0,
+      "deg": 0,
+      "pyro": 7
+    },
     "goto": 426
   },
   "287": {
@@ -1801,7 +1951,14 @@
     ]
   },
   "297": {
-    "combat": {},
+    "combat": {
+      "nom": "2 SERGENT D'ARME",
+      "hab": 8,
+      "pv": 12,
+      "arm": 1,
+      "deg": 1,
+      "pyro": 0
+    },
     "goto": 316
   },
   "298": {
@@ -1838,7 +1995,14 @@
     "goto": 480
   },
   "306": {
-    "combat": {},
+    "combat": {
+      "nom": "IVROGNE QUI DETESTE GIRAUD",
+      "hab": 3,
+      "pv": 8,
+      "arm": 0,
+      "deg": 0,
+      "pyro": 0
+    },
     "conditions": {
       "46": "PRUDENT"
     },
@@ -1897,7 +2061,14 @@
     "goto": 100
   },
   "317": {
-    "combat": {},
+    "combat": {
+      "nom": "GNOLLS MOQUEURS",
+      "hab": 6,
+      "pv": 15,
+      "arm": 0,
+      "deg": 0,
+      "pyro": 0
+    },
     "goto": 367
   },
   "318": {
@@ -1916,11 +2087,25 @@
     "aquire": [
       "CLE B"
     ],
-    "combat": {},
+    "combat": {
+      "nom": "FUNESTE",
+      "hab": 8,
+      "pv": 12,
+      "arm": 0,
+      "deg": 0,
+      "pyro": 4
+    },
     "goto": 461
   },
   "321": {
-    "combat": {},
+    "combat": {
+      "nom": "2 ELFES NOIRES SURPRISES",
+      "hab": 9,
+      "pv": 6,
+      "arm": 0,
+      "deg": 0,
+      "pyro": 4
+    },
     "success": "FBI",
     "goto": 436
   },
@@ -2021,7 +2206,14 @@
     "goto": 100
   },
   "339": {
-    "combat": {},
+    "combat": {
+      "nom": "ASMODIA",
+      "hab": 20,
+      "pv": 27,
+      "arm": 0,
+      "deg": 0,
+      "pyro": 10
+    },
     "success": "ULTRA-INSTINCT",
     "aquire": [
       "LIME EN ACIER D'ARKADIE"
@@ -2059,14 +2251,28 @@
     ]
   },
   "344": {
-    "combat": {},
+    "combat": {
+      "nom": "ORC ESCLAVAGISTE",
+      "hab": 10,
+      "pv": 10,
+      "arm": 0,
+      "deg": 0,
+      "pyro": 4
+    },
     "goto": 597
   },
   "345": {
     "goto": 41
   },
   "346": {
-    "combat": {},
+    "combat": {
+      "nom": "BAGARRE GENERALE",
+      "hab": 1,
+      "pv": 18,
+      "arm": 0,
+      "deg": 0,
+      "pyro": 0
+    },
     "success": "BIERE",
     "goto": 420
   },
@@ -2081,7 +2287,14 @@
     "goto": 383
   },
   "349": {
-    "combat": {},
+    "combat": {
+      "nom": "MASSACRE",
+      "hab": 13,
+      "pv": 18,
+      "arm": 0,
+      "deg": 1,
+      "pyro": 4
+    },
     "conditions": {
       "406": "MORGENSTERN",
       "467": "BOUTEILLE DE MAGIE PURE",
@@ -2095,7 +2308,14 @@
     ]
   },
   "350": {
-    "combat": {},
+    "combat": {
+      "nom": "DRAGON ROUGE INFERIEUR",
+      "hab": 15,
+      "pv": 40,
+      "arm": 0,
+      "deg": 1,
+      "pyro": 3
+    },
     "success": "ENFANT-DRAGON",
     "goto": 584
   },
@@ -2203,7 +2423,14 @@
     ]
   },
   "370": {
-    "combat": {},
+    "combat": {
+      "nom": "SOLDATS DE LA TAVERNE",
+      "hab": 16,
+      "pv": 30,
+      "arm": 0,
+      "deg": 0,
+      "pyro": 4
+    },
     "goto": 420
   },
   "371": {
@@ -2297,7 +2524,14 @@
     ]
   },
   "387": {
-    "combat": {},
+    "combat": {
+      "nom": "5 BANDITS DE GRAND CHEMIN",
+      "hab": 11,
+      "pv": 15,
+      "arm": 0,
+      "deg": 0,
+      "pyro": 6
+    },
     "goto": 261
   },
   "388": {
@@ -2489,14 +2723,28 @@
     "goto": 489
   },
   "421": {
-    "combat": {},
+    "combat": {
+      "nom": "CHAMPIONNE TROLLESSE",
+      "hab": 11,
+      "pv": 20,
+      "arm": 0,
+      "deg": 1,
+      "pyro": 0
+    },
     "goto": [
       505,
       548
     ]
   },
   "422": {
-    "combat": {},
+    "combat": {
+      "nom": "ORC ESCLAVAGISTE",
+      "hab": 10,
+      "pv": 10,
+      "arm": 0,
+      "deg": 0,
+      "pyro": 4
+    },
     "goto": 597
   },
   "423": {
@@ -2762,7 +3010,14 @@
     ]
   },
   "462": {
-    "combat": {},
+    "combat": {
+      "nom": "GOBELIN FOU",
+      "hab": 2,
+      "pv": 6,
+      "arm": 0,
+      "deg": 0,
+      "pyro": 0
+    },
     "goto": [
       58,
       457
@@ -2833,7 +3088,14 @@
     ]
   },
   "475": {
-    "combat": {},
+    "combat": {
+      "nom": "VIRILUS",
+      "hab": 30,
+      "pv": 40,
+      "arm": 1,
+      "deg": 1,
+      "pyro": 5
+    },
     "label": "Combat Virilus",
     "conditions": {
       "290": "CHLOROGLYCERINE",
@@ -2982,7 +3244,14 @@
     "goto": 475
   },
   "483": {
-    "combat": {},
+    "combat": {
+      "nom": "MENDIANT FOU A LIER",
+      "hab": 3,
+      "pv": 8,
+      "arm": 0,
+      "deg": 0,
+      "pyro": 0
+    },
     "goto": 428
   },
   "484": {
@@ -3185,7 +3454,14 @@
     "goto": 573
   },
   "518": {
-    "combat": {},
+    "combat": {
+      "nom": "SOLDATS DE LA TAVERNE",
+      "hab": 16,
+      "pv": 30,
+      "arm": 0,
+      "deg": 0,
+      "pyro": 4
+    },
     "goto": 420
   },
   "519": {
@@ -3301,7 +3577,14 @@
     "goto": 400
   },
   "534": {
-    "combat": {},
+    "combat": {
+      "nom": "PANTHERE INVOQUEE",
+      "hab": 8,
+      "pv": 9,
+      "arm": 0,
+      "deg": 0,
+      "pyro": 0
+    },
     "goto": 52
   },
   "535": {
@@ -3396,7 +3679,14 @@
     ]
   },
   "545": {
-    "combat": {},
+    "combat": {
+      "nom": "SCORPION GEANT",
+      "hab": 6,
+      "pv": 20,
+      "arm": 3,
+      "deg": 0,
+      "pyro": 4
+    },
     "goto": 367
   },
   "546": {
@@ -3456,7 +3746,14 @@
     "goto": 80
   },
   "555": {
-    "combat": {},
+    "combat": {
+      "nom": "OGRE",
+      "hab": 10,
+      "pv": 20,
+      "arm": 0,
+      "deg": 1,
+      "pyro": 4
+    },
     "goto": 420
   },
   "556": {
@@ -3566,11 +3863,25 @@
     ]
   },
   "574": {
-    "combat": {},
+    "combat": {
+      "nom": "ELFES NOIRES NUES",
+      "hab": 7,
+      "pv": 10,
+      "arm": 0,
+      "deg": 1,
+      "pyro": 3
+    },
     "goto": 292
   },
   "575": {
-    "combat": {},
+    "combat": {
+      "nom": "GNOLL ENDORMI",
+      "hab": 6,
+      "pv": 12,
+      "arm": 0,
+      "deg": 0,
+      "pyro": 4
+    },
     "goto": [
       154,
       447,
@@ -3578,7 +3889,14 @@
     ]
   },
   "576": {
-    "combat": {},
+    "combat": {
+      "nom": "CHAMAN FOU",
+      "hab": 6,
+      "pv": 15,
+      "arm": 0,
+      "deg": 1,
+      "pyro": 4
+    },
     "goto": 536
   },
   "577": {
@@ -3717,7 +4035,9 @@
     ]
   },
   "598": {
-    "remove": ["SANG DE VAMPIRE"],
+    "remove": [
+      "SANG DE VAMPIRE"
+    ],
     "goto": 475
   },
   "599": {
@@ -3767,7 +4087,14 @@
     "goto": 480
   },
   "607": {
-    "combat": {},
+    "combat": {
+      "nom": "VIRILUS",
+      "hab": 24,
+      "pv": 20,
+      "arm": 1,
+      "deg": 1,
+      "pyro": 0
+    },
     "goto": 563
   }
 }

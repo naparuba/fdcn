@@ -12,6 +12,14 @@ var _book_data = {}
 #            "ending_type": null,
 #            "id": 212,
 #            "is_combat": false,
+#            "combat": {
+#                "arm": 0,
+#                "deg": 0,
+#                "hab": 13,
+#                "nom": "PLANTE CARNITREX",
+#                "pv": 18,
+#                "pyro": 7
+#            },
 #            "jump_conditions": {},
 #            "jump_conditions_txts": {},
 #            "label": null,
@@ -77,6 +85,24 @@ func get_secret_jumps():
 func is_combat():
 	return self._book_data['computed']['is_combat']
 
+
+func get_combat_name():
+	return self._book_data['computed']['combat']['nom']
+	
+func get_combat_hab():
+	return self._book_data['computed']['combat']['hab']
+
+func get_combat_pv():
+	return self._book_data['computed']['combat']['pv']
+
+func get_combat_pyro():
+	return self._book_data['computed']['combat']['pyro']
+
+func get_combat_armure():
+	return self._book_data['computed']['combat']['arm']
+
+func get_combat_degat():
+	return self._book_data['computed']['combat']['deg']
 
 func get_aquire():
 	return self._book_data['computed']['aquire']

@@ -29,14 +29,14 @@ corner_radius_top_right = 2
 corner_radius_bottom_right = 2
 corner_radius_bottom_left = 2
 
-[sub_resource type="StyleBoxFlat" id=7]
+[sub_resource type="StyleBoxFlat" id=8]
 bg_color = Color( 0.956863, 0.345098, 0.345098, 1 )
 corner_radius_top_left = 2
 corner_radius_top_right = 2
 corner_radius_bottom_right = 2
 corner_radius_bottom_left = 2
 
-[sub_resource type="DynamicFont" id=6]
+[sub_resource type="DynamicFont" id=7]
 size = 40
 font_data = ExtResource( 3 )
 
@@ -65,10 +65,10 @@ __meta__ = {
 
 [node name="special" type="Label" parent="."]
 visible = false
-margin_left = 225.681
-margin_top = 54.8044
-margin_right = 362.681
-margin_bottom = 69.8044
+margin_left = 166.0
+margin_top = 55.0
+margin_right = 363.0
+margin_bottom = 70.0
 custom_fonts/font = SubResource( 2 )
 custom_colors/font_color = Color( 0, 0.760784, 0.666667, 1 )
 text = "XXX"
@@ -112,7 +112,7 @@ __meta__ = {
 visible = false
 margin_right = 58.0
 margin_bottom = 56.0
-custom_styles/panel = SubResource( 7 )
+custom_styles/panel = SubResource( 8 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
@@ -122,7 +122,7 @@ margin_left = 19.356
 margin_top = 1.61726
 margin_right = 59.356
 margin_bottom = 49.6173
-custom_fonts/font = SubResource( 6 )
+custom_fonts/font = SubResource( 7 )
 custom_colors/font_color = Color( 0, 0, 0, 1 )
 text = ">"
 __meta__ = {

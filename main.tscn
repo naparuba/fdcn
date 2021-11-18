@@ -1,4 +1,4 @@
-[gd_scene load_steps=51 format=2]
+[gd_scene load_steps=58 format=2]
 
 [ext_resource path="res://main.gd" type="Script" id=1]
 [ext_resource path="res://fonts/amon_font.tres" type="DynamicFont" id=2]
@@ -31,6 +31,9 @@
 [ext_resource path="res://shaders/shader_grey.tres" type="Material" id=29]
 [ext_resource path="res://images/blue-tick.png" type="Texture" id=30]
 [ext_resource path="res://Item.tscn" type="PackedScene" id=31]
+[ext_resource path="res://images/fight.svg" type="Texture" id=32]
+[ext_resource path="res://images/dice/6-r.svg" type="Texture" id=33]
+[ext_resource path="res://images/barbare_icon_white.png" type="Texture" id=34]
 
 [sub_resource type="StyleBoxFlat" id=1]
 bg_color = Color( 0.92549, 0.929412, 0.94902, 1 )
@@ -98,6 +101,25 @@ shader_param/grayscale = false
 
 [sub_resource type="StyleBoxEmpty" id=19]
 
+[sub_resource type="StyleBoxFlat" id=20]
+bg_color = Color( 1, 1, 1, 1 )
+border_width_top = 3
+border_color = Color( 0.192157, 0.231373, 0.278431, 1 )
+
+[sub_resource type="DynamicFont" id=21]
+font_data = ExtResource( 13 )
+
+[sub_resource type="DynamicFont" id=22]
+size = 19
+font_data = ExtResource( 13 )
+
+[sub_resource type="StyleBoxFlat" id=23]
+bg_color = Color( 0.92549, 0.929412, 0.94902, 1 )
+corner_radius_top_left = 2
+corner_radius_top_right = 2
+corner_radius_bottom_right = 2
+corner_radius_bottom_left = 2
+
 [node name="main" type="Node2D"]
 script = ExtResource( 1 )
 
@@ -148,7 +170,7 @@ margin_top = 4.0547
 margin_right = 155.1
 margin_bottom = 35.0547
 custom_fonts/font = ExtResource( 2 )
-text = "Completed"
+text = "Completé"
 __meta__ = {
 "_edit_use_anchors_": false
 }
@@ -1377,7 +1399,6 @@ texture = ExtResource( 22 )
 position = Vector2( 392.257, 88.6701 )
 scale = Vector2( 0.342538, 0.342538 )
 frames = SubResource( 7 )
-frame = 1
 playing = true
 
 [node name="DevLabel" type="Label" parent="About/About"]
@@ -2478,6 +2499,228 @@ __meta__ = {
 
 [node name="ItemPopupsCont" type="VBoxContainer" parent="ItemPopups/ScrollContainer"]
 
+[node name="Combat" type="Panel" parent="."]
+margin_left = 58.0
+margin_top = 770.941
+margin_right = 504.0
+margin_bottom = 1011.94
+mouse_filter = 1
+custom_styles/panel = SubResource( 20 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Header" type="Panel" parent="Combat"]
+margin_left = 0.0594482
+margin_top = 0.179749
+margin_right = 445.059
+margin_bottom = 42.1797
+mouse_filter = 1
+custom_styles/panel = SubResource( 3 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Label" type="Label" parent="Combat/Header"]
+margin_left = 189.601
+margin_top = 5.00259
+margin_right = 259.601
+margin_bottom = 36.0026
+custom_fonts/font = ExtResource( 2 )
+text = "Combat"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Icone" type="Sprite" parent="Combat"]
+position = Vector2( 42.3232, 83.9219 )
+scale = Vector2( 0.0226782, 0.0226782 )
+texture = ExtResource( 32 )
+
+[node name="Nom" type="Label" parent="Combat"]
+margin_left = 97.0
+margin_top = 46.0
+margin_right = 373.0
+margin_bottom = 77.0
+custom_fonts/font = ExtResource( 2 )
+custom_colors/font_color = Color( 0, 0.760784, 0.666667, 1 )
+custom_constants/shadow_offset_x = 0
+custom_constants/shadow_offset_y = 0
+custom_constants/shadow_as_outline = 0
+text = "XXX"
+align = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="EnnemiPvLabel" type="Label" parent="Combat"]
+margin_left = 295.74
+margin_top = 98.838
+margin_right = 377.74
+margin_bottom = 129.838
+custom_fonts/font = SubResource( 21 )
+custom_colors/font_color = Color( 0, 0, 0, 1 )
+custom_constants/shadow_offset_x = 0
+custom_constants/shadow_offset_y = 0
+custom_constants/shadow_as_outline = 0
+text = "PV:"
+align = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="EnnemiPvValue" type="Label" parent="Combat"]
+margin_left = 366.194
+margin_top = 96.719
+margin_right = 448.194
+margin_bottom = 127.719
+custom_fonts/font = SubResource( 22 )
+custom_colors/font_color = Color( 0, 0, 0, 1 )
+custom_constants/shadow_offset_x = 0
+custom_constants/shadow_offset_y = 0
+custom_constants/shadow_as_outline = 0
+text = "XXX"
+align = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="EnnemiHabLabel" type="Label" parent="Combat"]
+margin_left = 299.448
+margin_top = 122.146
+margin_right = 381.448
+margin_bottom = 153.146
+custom_fonts/font = SubResource( 21 )
+custom_colors/font_color = Color( 0, 0, 0, 1 )
+custom_constants/shadow_offset_x = 0
+custom_constants/shadow_offset_y = 0
+custom_constants/shadow_as_outline = 0
+text = "Hab:"
+align = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="EnnemiHabValue" type="Label" parent="Combat"]
+margin_left = 366.194
+margin_top = 121.616
+margin_right = 448.194
+margin_bottom = 152.616
+custom_fonts/font = SubResource( 22 )
+custom_colors/font_color = Color( 0, 0, 0, 1 )
+custom_constants/shadow_offset_x = 0
+custom_constants/shadow_offset_y = 0
+custom_constants/shadow_as_outline = 0
+text = "XXX"
+align = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="EnnemiArmLabel" type="Label" parent="Combat"]
+margin_left = 310.573
+margin_top = 149.162
+margin_right = 392.573
+margin_bottom = 180.162
+custom_fonts/font = SubResource( 21 )
+custom_colors/font_color = Color( 0, 0, 0, 1 )
+custom_constants/shadow_offset_x = 0
+custom_constants/shadow_offset_y = 0
+custom_constants/shadow_as_outline = 0
+text = "Armure:"
+align = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="EnnemiArmValue" type="Label" parent="Combat"]
+margin_left = 366.194
+margin_top = 149.162
+margin_right = 448.194
+margin_bottom = 180.162
+custom_fonts/font = SubResource( 22 )
+custom_colors/font_color = Color( 0, 0, 0, 1 )
+custom_constants/shadow_offset_x = 0
+custom_constants/shadow_offset_y = 0
+custom_constants/shadow_as_outline = 0
+text = "XXX"
+align = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="EnnemiDegLabel" type="Label" parent="Combat"]
+margin_left = 305.805
+margin_top = 177.238
+margin_right = 387.805
+margin_bottom = 208.238
+custom_fonts/font = SubResource( 21 )
+custom_colors/font_color = Color( 0, 0, 0, 1 )
+custom_constants/shadow_offset_x = 0
+custom_constants/shadow_offset_y = 0
+custom_constants/shadow_as_outline = 0
+text = "Dégat:"
+align = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="EnnemiDegValue" type="Label" parent="Combat"]
+margin_left = 367.784
+margin_top = 177.238
+margin_right = 449.784
+margin_bottom = 208.238
+custom_fonts/font = SubResource( 22 )
+custom_colors/font_color = Color( 0, 0, 0, 1 )
+custom_constants/shadow_offset_x = 0
+custom_constants/shadow_offset_y = 0
+custom_constants/shadow_as_outline = 0
+text = "XXX"
+align = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="dice" type="Panel" parent="Combat"]
+margin_left = 13.8042
+margin_top = 157.055
+margin_right = 70.8042
+margin_bottom = 214.055
+custom_styles/panel = SubResource( 23 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="sprite" type="Sprite" parent="Combat/dice"]
+position = Vector2( 27.5508, 27.4023 )
+scale = Vector2( 0.0770419, 0.0770419 )
+texture = ExtResource( 33 )
+
+[node name="button" type="TextureButton" parent="Combat/dice"]
+margin_right = 57.0
+margin_bottom = 58.0
+
+[node name="SpritePyro" type="Sprite" parent="Combat"]
+position = Vector2( 279.661, 189.214 )
+scale = Vector2( 0.300072, 0.300072 )
+texture = ExtResource( 34 )
+
+[node name="PyroHab" type="Label" parent="Combat"]
+margin_left = 183.054
+margin_top = 169.669
+margin_right = 265.054
+margin_bottom = 200.669
+custom_fonts/font = SubResource( 22 )
+custom_colors/font_color = Color( 0, 0, 0, 1 )
+custom_constants/shadow_offset_x = 0
+custom_constants/shadow_offset_y = 0
+custom_constants/shadow_as_outline = 0
+text = "XXX"
+align = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
 [connection signal="gui_input" from="Background" to="." method="_on_main_background_gui_input"]
 [connection signal="gui_input" from="Chapitres" to="." method="_on_main_background_gui_input"]
 [connection signal="pressed" from="Chapitres/AllChapters/Block-1/button" to="." method="jump_to_chapter_1"]
@@ -2499,3 +2742,4 @@ __meta__ = {
 [connection signal="pressed" from="Options/BlockPrudent/button" to="." method="_switch_to_prudent"]
 [connection signal="pressed" from="Options/BlockDebrouillard/button" to="." method="_switch_to_debrouillard"]
 [connection signal="pressed" from="Options/Items-bkp/VBoxContainer/ligne2/ARC/Button" to="." method="_on_button_new_billy"]
+[connection signal="pressed" from="Combat/dice/button" to="." method="_on_dice_pressed"]

@@ -34,3 +34,8 @@ func delete_children(node):
 	for n in node.get_children():
 		node.remove_child(n)
 		n.queue_free()
+
+
+func roll_a_dice(minimum, maximum):
+	var roll = randi() % (maximum-minimum+1) + minimum
+	return roll

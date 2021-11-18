@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg
+   width="557"
+   height="557"
+   version="1.1"
+   id="svg161"
+   sodipodi:docname="4-r.svg"
+   inkscape:version="1.1.1 (3bf5ae0d25, 2021-09-20)"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg">
+  <defs
+     id="defs165" />
+  <sodipodi:namedview
+     id="namedview163"
+     pagecolor="#505050"
+     bordercolor="#eeeeee"
+     borderopacity="1"
+     inkscape:pageshadow="0"
+     inkscape:pageopacity="0"
+     inkscape:pagecheckerboard="0"
+     showgrid="false"
+     inkscape:zoom="1.4578097"
+     inkscape:cx="278.15702"
+     inkscape:cy="278.84298"
+     inkscape:window-width="1920"
+     inkscape:window-height="1001"
+     inkscape:window-x="-9"
+     inkscape:window-y="-9"
+     inkscape:window-maximized="1"
+     inkscape:current-layer="svg161" />
+  <rect
+     x="4"
+     y="4"
+     width="549"
+     height="549"
+     rx="68"
+     fill="none"
+     stroke="#000"
+     stroke-width="7"
+     id="rect153" />
+  <g
+     stroke-dasharray="0,323"
+     stroke-linecap="round"
+     id="g159">
+    <path
+       stroke="#740000"
+       stroke-width="120"
+       d="M117,117v325m323-2V115"
+       id="path155" />
+    <path
+       stroke="#FF724C"
+       stroke-width="110"
+       d="M117,117v325m323-2V115"
+       id="path157" />
+  </g>
+  <circle
+     style="overflow:visible;fill:#ff724c;stroke:#740000;stroke-width:5"
+     cx="115.92734"
+     cy="439.01477"
+     r="57.114746"
+     id="circle844-6" />
+  <circle
+     style="overflow:visible;fill:#ff724c;stroke:#740000;stroke-width:5"
+     cx="441.07263"
+     cy="439.70074"
+     r="57.114746"
+     id="circle844-8" />
+  <circle
+     style="overflow:visible;fill:#ff724c;stroke:#740000;stroke-width:5"
+     cx="439.70074"
+     cy="117.29926"
+     r="57.114746"
+     id="circle844-7" />
+  <circle
+     style="overflow:visible;fill:#ff724c;stroke:#740000;stroke-width:5"
+     cx="117.29926"
+     cy="117.29926"
+     r="57.114746"
+     id="circle844" />
+</svg>

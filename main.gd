@@ -53,7 +53,6 @@ func _ready():
 	self._play_intro()
 	
 
-
 func go_to_node(node_id):
 	
 	var go_to_node_return = Player.go_to_node(node_id)
@@ -79,6 +78,28 @@ func go_to_node(node_id):
 		self.popup_new_item(item_name)
 	for item_name in new_removes:
 		self.popup_remove_item(item_name)
+	
+	# If it's a combat, show it
+	var node = BookData.get_node(node_id)
+	if node.is_combat():
+		$Combat/Nom.text = node.get_combat_name()
+		$Combat/EnnemiPvValue.text = '%s' % node.get_combat_pv()
+		$Combat/EnnemiArmValue.text = '%s' % node.get_combat_armure()
+		$Combat/EnnemiHabValue.text = '%s' % node.get_combat_hab()
+		$Combat/EnnemiDegValue.text = '%s' % node.get_combat_degat()
+		# We display the Pyro only if he help us
+		var hab_pyro = node.get_combat_pyro()
+		if hab_pyro != 0:
+			$Combat/SpritePyro.visible = true
+			$Combat/PyroHab.visible = true
+			$Combat/PyroHab.text = '+%s' % hab_pyro
+		else:  # he is not helping us
+			$Combat/SpritePyro.visible = false
+			$Combat/PyroHab.visible = false
+		# Display the whole combat panel
+		$Combat.visible = true
+	else:
+		$Combat.visible = false
 
 
 # We are in a new node, check if it's a success.
@@ -529,3 +550,11 @@ func popup_remove_item(item_name):
 	var popup = self._create_popup_item(item_name)
 	popup.set_is_new(false)  # it's a loose
 	$ItemPopups/ScrollContainer/ItemPopupsCont.add_child(popup)
+
+
+func _on_dice_pressed():
+	
+	var res = Utils.roll_a_dice(1, 6)
+	print('Dice roll %s' % res)
+	$Combat/dice/sprite.texture = Utils.load_external_texture('res://images/dice/%s-b.svg' % res, null)
+	
