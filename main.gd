@@ -96,10 +96,19 @@ func go_to_node(node_id):
 		else:  # he is not helping us
 			$Combat/SpritePyro.visible = false
 			$Combat/PyroHab.visible = false
+		# Update the billy stats
+		self._update_billy_in_combat()
 		# Display the whole combat panel
 		$Combat.visible = true
 	else:
 		$Combat.visible = false
+
+
+func _update_billy_in_combat():
+	$Combat/PlayerPvValue.text = '%s' % Player.get_pv()
+	$Combat/PlayerHabValue.text = '%s' % Player.get_hab()
+	$Combat/PlayerArmValue.text = '%s' % Player.get_arm()
+	$Combat/PlayerDegValue.text = '%s' % Player.get_deg()
 
 
 # We are in a new node, check if it's a success.

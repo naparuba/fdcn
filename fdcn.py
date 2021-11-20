@@ -108,7 +108,7 @@ class Node(object):
         ending = False
         if self._ending is not None:
             ending = True
-            
+        
         return {
             'id'                  : self._id,
             'ending'              : ending,
@@ -662,11 +662,11 @@ for node_id_str in book_data.keys():
         print('%s have the success %s: %s:%s' % (node_id_str, success, label, txt))
         all_success.append({'id': success, 'chapter': int(node_id_str), 'label': label, 'txt': txt})
         all_success_chapters[int(node_id_str)] = success
-        
+    
     # If the node have some items, list them
     aquire = set(node.get_aquire())
     remove = set(node.get_remove())
-    node_all_objs = aquire |remove
+    node_all_objs = aquire | remove
     print('NODE %s have objects: %s' % (node_id_str, node_all_objs))
     for obj in node_all_objs:
         entry = all_objs[obj]
@@ -678,6 +678,8 @@ for node_id_str in book_data.keys():
 for obj_name, entry in all_objs.items():
     if 'in_chapters' not in entry:
         entry['in_chapters'] = [1]  # so will be seens always
+    if 'stats' not in entry:
+        entry['stats'] = {}
 
 # Check for secrets that should NOT be accessible by 2 ways
 print('Checking for secret reverse jump:')

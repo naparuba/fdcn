@@ -20,13 +20,20 @@ func load_item_data(item_name, item_data):
 	self._item_data = item_data
 	#print('Loading item data: %s' % self._item_name)
 	$Nom.text = self._item_name
-	$Stats.text = ''
+	self._display_stats()
 	var new_style = StyleBoxFlat.new()
 	self.set('custom_styles/panel', new_style)
 	self._item_icon = Utils.load_external_texture('res://images/items/%s.svg' % self._item_name, null)
 	self._unkown_icon = Utils.load_external_texture('res://images/items/question.svg', null)
 	self.refresh()
 
+
+func _display_stats():
+	var s = ''
+	for k in self._item_data['stats'].keys():
+		var v = self._item_data['stats'][k]
+		s += ('%s=' % k.to_upper()) + str(v) + '    '
+	$Stats.text = s
 
 func get_name():
 	return self._item_name

@@ -20,6 +20,22 @@ var CURRENT_NODE_ID_FILE = "user://current_node_id.save"
 var SESSION_VISITED_NODES_FILE  = "user://session_visited_nodes.save"
 var POSSESSED_ITEM_FILE  = "user://possessed_item.save"
 
+# Our stats, based on items or chapters
+var end = 0
+var adr = 0
+var hab = 0
+var cha = 0
+var deg = 0
+var arm = 0
+var crit = 0
+var pv_max_bonus = 0
+
+# Winable on levels
+var gloire = 0
+var richesse = 0
+
+# Dynamic
+var pv = 0
 
 func load_all_times_already_visited():
 	var f = File.new()
@@ -121,6 +137,7 @@ func do_load():
 	self.load_session_visited_nodes()
 	self.load_possessed_items()
 	self._recompute_matched_conditions()
+	self._recompute_stats()
 	return self.need_force_display_options
 
 
@@ -256,6 +273,63 @@ func _recompute_matched_conditions():
 	self.all_matched_conditions.append(AppParameters.get_billy_type().to_upper())
 
 
+func _reset_our_stats():
+	self.end = 0
+	self.adr = 0
+	self.hab = 0
+	self.cha = 0
+	self.deg = 0
+	self.arm = 0
+	self.crit = 0
+
+
+func get_end():
+	return self.end
+func get_adr():
+	return self.adr
+func get_hab():
+	return self.hab
+func get_cha():
+	return self.cha
+func get_deg():
+	return self.deg
+func get_arm():
+	return self.arm
+func get_crit():
+	return self.crit
+func get_pv():
+	return self.pv
+
+# Compute our stats based on our objects and billy
+func _recompute_stats():
+	self._reset_our_stats()
+	for item_name in self.possessed_items:
+		var item_data = BookData.get_item_data(item_name)
+		var stats = item_data['stats']
+		for k in stats.keys():
+			var v = stats[k]
+			if k == 'end':
+				self.end += v
+			elif k == 'hab':
+				self.hab += v
+			elif k == 'adr':
+				self.adr += v
+			elif k == 'cha':
+				self.cha += v
+			elif k == 'deg':
+				self.deg += v
+			elif k == 'arm':
+				self.arm += v
+			elif k == 'crit':
+				self.crit += v
+			else:
+				print('ERROR: STATS INCONNUE DANS OBJET: %s' % k)
+				
+		print('Item:%s' % item_name, 'stats: %s' % item_data)
+	print('Billy stats: end=%s' % self.end, ' hab=%s' % self.hab, ' adr=%s'%self.adr, ' cha=%s' % self.cha,
+	' deg=%s' % self.deg,' arm=%s' % self.arm, ' crit=%s'%self.crit)
+
+
 func get_all_matched_conditions():
 	return self.all_matched_conditions
 	
@@ -269,6 +343,7 @@ func add_item_from_chapter(item_name, from_chapter):
 		print('%s +' % from_chapter, '%s' % item_name)
 		self._raw_add(item_name)
 		self._recompute_matched_conditions()
+		self._recompute_stats()
 		self.save_possessed_items()
 		return true
 	return false
@@ -281,6 +356,7 @@ func add_item_from_options(item_name):
 		self.compute_my_billy_for_option(item_name)
 		self.save_possessed_items()
 		self._recompute_matched_conditions()
+		self._recompute_stats()
 		self._main.refresh()  # we need to update all items and the billy
 		
 
@@ -295,6 +371,7 @@ func remove_item_from_chapter(item_name, from_chapter):
 		print('%s -' % from_chapter, '%s' % item_name)
 		self._raw_remove(item_name)
 		self._recompute_matched_conditions()
+		self._recompute_stats()
 		self.save_possessed_items()
 		return true
 	return false
@@ -307,6 +384,7 @@ func remove_item_from_options(item_name):
 		self.compute_my_billy_for_option(item_name)
 		self.save_possessed_items()
 		self._recompute_matched_conditions()
+		self._recompute_stats()
 		self._main.refresh()  # we need to update all items and the billy
 
 
@@ -332,6 +410,7 @@ func _compute_item_by_categories():
 
 func compute_my_billy():
 	self.compute_my_billy_for_option('')
+	self._recompute_stats()
 
 
 

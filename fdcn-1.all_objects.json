@@ -1,6 +1,11 @@
 {
   "ARC": {
-    "category": "ARME"
+    "category": "ARME",
+    "stats": {
+      "hab": 3,
+      "adr": 1,
+      "crit": 4
+    }
   },
   "ARMEE DE SQUELETTES DETRUITE": {
     "category": "EVENEMENT"
@@ -48,16 +53,30 @@
     "category": "OBJET"
   },
   "COTTE DE MAILLES": {
-    "category": "EQUIPEMENT"
+    "category": "EQUIPEMENT",
+    "stats": {
+      "hab": -1,
+      "adr": -1,
+      "end": 1,
+      "arm": 2
+    }
   },
   "COUTEAU": {
-    "category": "OUTIL"
+    "category": "OUTIL",
+    "stats": {
+      "hab": 1,
+      "crit": 6
+    }
   },
   "DARD EXPLOSIF": {
     "category": "OBJET"
   },
   "DEBROUILLARD": {
-    "category": "BILLY"
+    "category": "BILLY",
+    "stats": {
+      "adr": 2,
+      "end": -1
+    }
   },
   "ECAILLE DE DRAGON": {
     "category": "OBJET"
@@ -69,7 +88,10 @@
     "category": "OBJET"
   },
   "EPEE": {
-    "category": "ARME"
+    "category": "ARME",
+    "stats": {
+      "hab": 4
+    }
   },
   "EXPLOSIFS": {
     "category": "OBJET"
@@ -84,7 +106,11 @@
     "category": "OBJET"
   },
   "FOURCHE": {
-    "category": "OUTIL"
+    "category": "OUTIL",
+    "stats": {
+      "hab": 1,
+      "end": 3
+    }
   },
   "GEMME MAGIQUE": {
     "category": "OBJET"
@@ -93,22 +119,37 @@
     "category": "OBJET"
   },
   "GUERRIER": {
-    "category": "BILLY"
+    "category": "BILLY",
+    "stats": {
+      "hab": 2,
+      "cha": -1,
+      "deg": 1
+    }
   },
   "ICONE DES PALADINS": {
     "category": "OBJET"
   },
   "KIT D'ESCALADE": {
-    "category": "OUTIL"
+    "category": "OUTIL",
+    "stats": {
+      "adr": 1
+    }
   },
   "KIT DE SOIN": {
-    "category": "EQUIPEMENT"
+    "category": "EQUIPEMENT",
+    "stats": {
+      "cha": 1
+    }
   },
   "LAISSEZ-PASSER": {
     "category": "OBJET"
   },
   "LANCE": {
-    "category": "ARME"
+    "category": "ARME",
+    "stats": {
+      "hab": 3,
+      "adr": 1
+    }
   },
   "LANIERES DE CUIRS": {
     "category": "OBJET"
@@ -120,25 +161,41 @@
     "category": "OBJET"
   },
   "MARMITE": {
-    "category": "EQUIPEMENT"
+    "category": "EQUIPEMENT",
+    "stats": {
+      "end": 2,
+      "arm": 1
+    }
   },
   "MEDAILLON D'EDIRE": {
     "category": "OBJET"
   },
   "MORGENSTERN": {
-    "category": "ARME"
+    "category": "ARME",
+    "stats": {
+      "hab": 1,
+      "end": 1,
+      "deg": 1
+    }
   },
   "PALAIS DES PLAISIRS D'YTIA": {
     "category": "EVENEMENT"
   },
   "PAMPHLET": {
-    "category": "EQUIPEMENT"
+    "category": "EQUIPEMENT",
+    "stats": {
+      "cha": 4
+    }
   },
   "PASSE-PARTOUT": {
     "category": "OBJET"
   },
   "PAYSAN": {
-    "category": "BILLY"
+    "category": "BILLY",
+    "stats": {
+      "end": 2,
+      "adr": -1
+    }
   },
   "PERROQUET": {
     "category": "OBJET"
@@ -162,10 +219,18 @@
     "category": "OBJET"
   },
   "PRUDENT": {
-    "category": "BILLY"
+    "category": "BILLY",
+    "stats": {
+      "cha": 2,
+      "hab": -1
+    }
   },
   "SAC DE GRAINS": {
-    "category": "OUTIL"
+    "category": "OUTIL",
+    "stats": {
+      "end": 2,
+      "cha": 2
+    }
   },
   "SANG DE VAMPIRE": {
     "category": "OBJET"
