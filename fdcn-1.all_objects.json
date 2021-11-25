@@ -170,6 +170,12 @@
   "MEDAILLON D'EDIRE": {
     "category": "OBJET"
   },
+  "MEDAILLON DE RUNIR": {
+    "category": "OBJET",
+    "stats": {
+      "end": 1
+    }
+  },
   "MORGENSTERN": {
     "category": "ARME",
     "stats": {
@@ -198,6 +204,9 @@
     }
   },
   "PERROQUET": {
+    "category": "OBJET"
+  },
+  "PETIT MEDAILLON": {
     "category": "OBJET"
   },
   "PETITE BOUTEILLE D'ACIDE": {
