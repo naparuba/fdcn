@@ -162,7 +162,7 @@ func _register_top_menus():
 
 
 func insert_all_objects():
-	var item_stack = $Options/ItemsCont/Items
+	var item_stack = $Options/Equipement/ItemsCont/Items
 	Utils.delete_children(item_stack)
 	print('Insert all objects')
 	var all_objects = BookData.get_all_objects()
@@ -178,7 +178,7 @@ func insert_all_objects():
 
 
 func refresh_all_objects():
-	var item_stack = $Options/ItemsCont/Items
+	var item_stack = $Options/Equipement/ItemsCont/Items
 	for item in item_stack.get_children():
 		item.refresh()
 		
@@ -249,10 +249,10 @@ func _refresh_options():
 	
 	var type_billy_param = AppParameters.get_billy_type()
 	var sprite_by_billy = {
-		'guerrier':    $Options/BlockGuerrier/sprite,
-		'paysan':      $Options/BlockPaysan/sprite,
-		'prudent':     $Options/BlockPrudent/sprite,
-		'debrouillard':$Options/BlockDebrouillard/sprite
+		'guerrier':    $Options/Equipement/BlockGuerrier/sprite,
+		'paysan':      $Options/Equipement/BlockPaysan/sprite,
+		'prudent':     $Options/Equipement/BlockPrudent/sprite,
+		'debrouillard':$Options/Equipement/BlockDebrouillard/sprite
 	}
 	
 	# Gray ALL .material.set_shader_param("param_name", value)
@@ -529,6 +529,9 @@ func _on_button_pressed_twitter():
 
 
 func show_options():
+	# Make the options tab on equipement
+	self._options_show_equipement()
+	
 	# Currently options are in the main page
 	Swiper.focus_to_main()
 	$ItemPopups.visible = false  # hide the popups for click catch
@@ -567,3 +570,74 @@ func _on_dice_pressed():
 	print('Dice roll %s' % res)
 	$Combat/dice/sprite.texture = Utils.load_external_texture('res://images/dice/%s-b.svg' % res, null)
 	
+
+
+
+##################### Options
+func _options_show_equipement():
+	# In the options, we are showing the equipement tab, so hide
+	# the stats one
+	
+	# Change the headers part
+	# Show the equipement as shown
+	var tab_equipement = $Options/Header/TabEquipement
+	var _style = tab_equipement.get('custom_styles/panel')
+	_style.set_bg_color(Color('313b47'))  # set to dark blue
+	var v_label = $Options/Header/TabEquipement/v
+	v_label.visible = true
+	# Switch the color of the tab label
+	$Options/Header/TabEquipement/Label.set("custom_colors/font_color",Color('ffffff'))
+	
+	# And hide the other
+	var tab_stats = $Options/Header/TabStats
+	_style = tab_stats.get('custom_styles/panel')
+	_style.set_bg_color(Color('e0e2e5'))  # set to light
+	v_label = $Options/Header/TabStats/v
+	v_label.visible = false
+	$Options/Header/TabStats/Label.set("custom_colors/font_color",Color('000000'))
+	
+	# Now all is changed, we can display them
+	$Options/Equipement.visible = true
+	$Options/Stats.visible = false
+	
+
+func _options_show_stats():
+	# In the options, we are showing the equipement tab, so hide
+	# the stats one
+	
+	# Change the headers part
+	# Show the equipement as shown
+	var tab_equipement = $Options/Header/TabEquipement
+	var _style = tab_equipement.get('custom_styles/panel')
+	_style.set_bg_color(Color('e0e2e5'))  # set to dark blue
+	var v_label = $Options/Header/TabEquipement/v
+	v_label.visible = false
+	# Switch the color of the tab label
+	$Options/Header/TabEquipement/Label.set("custom_colors/font_color",Color('000000'))
+	
+	# And hide the other
+	var tab_stats = $Options/Header/TabStats
+	_style = tab_stats.get('custom_styles/panel')
+	_style.set_bg_color(Color('313b47'))  # set to light
+	v_label = $Options/Header/TabStats/v
+	v_label.visible = true
+	$Options/Header/TabStats/Label.set("custom_colors/font_color",Color('ffffff'))
+	
+	# Now all is changed, we can display them
+	$Options/Equipement.visible = false
+	$Options/Stats.visible = true
+	
+
+func _on_button_show_equipement():
+	print('SHOW EQUIPEMENT')
+	self._options_show_equipement()
+
+
+func _on_button_show_stats():
+	print('SHOW STATS')
+	self._options_show_stats()
+
+
+# The user ask to close the combat dialog
+func _on_combat_validate_button_pressed():
+	$Combat.visible = false

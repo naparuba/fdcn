@@ -1,4 +1,4 @@
-[gd_scene load_steps=58 format=2]
+[gd_scene load_steps=61 format=2]
 
 [ext_resource path="res://main.gd" type="Script" id=1]
 [ext_resource path="res://fonts/amon_font.tres" type="DynamicFont" id=2]
@@ -70,55 +70,63 @@ animations = [ {
 size = 32
 font_data = ExtResource( 13 )
 
-[sub_resource type="StyleBoxFlat" id=20]
+[sub_resource type="StyleBoxFlat" id=9]
 bg_color = Color( 1, 1, 1, 1 )
 border_width_top = 3
 border_color = Color( 0.192157, 0.231373, 0.278431, 1 )
 
-[sub_resource type="DynamicFont" id=21]
+[sub_resource type="StyleBoxFlat" id=16]
+bg_color = Color( 0.913725, 0.917647, 0.92549, 1 )
+
+[sub_resource type="DynamicFont" id=10]
 font_data = ExtResource( 13 )
 
-[sub_resource type="DynamicFont" id=22]
+[sub_resource type="DynamicFont" id=11]
 size = 19
 font_data = ExtResource( 13 )
 
-[sub_resource type="StyleBoxFlat" id=23]
+[sub_resource type="StyleBoxFlat" id=12]
 bg_color = Color( 0.92549, 0.929412, 0.94902, 1 )
 corner_radius_top_left = 2
 corner_radius_top_right = 2
 corner_radius_bottom_right = 2
 corner_radius_bottom_left = 2
 
-[sub_resource type="StyleBoxFlat" id=9]
+[sub_resource type="StyleBoxFlat" id=13]
 bg_color = Color( 1, 1, 1, 1 )
 
-[sub_resource type="StyleBoxFlat" id=10]
+[sub_resource type="StyleBoxFlat" id=14]
 bg_color = Color( 0.192157, 0.231373, 0.278431, 1 )
 
-[sub_resource type="StyleBoxFlat" id=11]
-bg_color = Color( 0.913725, 0.917647, 0.92549, 1 )
+[sub_resource type="StyleBoxFlat" id=26]
 
-[sub_resource type="StyleBoxEmpty" id=12]
+[sub_resource type="StyleBoxFlat" id=15]
+bg_color = Color( 0.878431, 0.886275, 0.898039, 1 )
 
-[sub_resource type="StyleBoxEmpty" id=13]
-
-[sub_resource type="ShaderMaterial" id=14]
-shader = ExtResource( 28 )
-shader_param/grayscale = false
-
-[sub_resource type="StyleBoxEmpty" id=15]
-
-[sub_resource type="ShaderMaterial" id=16]
-shader = ExtResource( 28 )
-shader_param/grayscale = false
+[sub_resource type="StyleBoxFlat" id=24]
+bg_color = Color( 1, 1, 1, 1 )
 
 [sub_resource type="StyleBoxEmpty" id=17]
 
-[sub_resource type="ShaderMaterial" id=18]
+[sub_resource type="StyleBoxEmpty" id=18]
+
+[sub_resource type="ShaderMaterial" id=19]
 shader = ExtResource( 28 )
 shader_param/grayscale = false
 
-[sub_resource type="StyleBoxEmpty" id=19]
+[sub_resource type="StyleBoxEmpty" id=20]
+
+[sub_resource type="ShaderMaterial" id=21]
+shader = ExtResource( 28 )
+shader_param/grayscale = false
+
+[sub_resource type="StyleBoxEmpty" id=22]
+
+[sub_resource type="ShaderMaterial" id=23]
+shader = ExtResource( 28 )
+shader_param/grayscale = false
+
+[sub_resource type="StyleBoxEmpty" id=25]
 
 [node name="main" type="Node2D"]
 script = ExtResource( 1 )
@@ -1604,15 +1612,37 @@ texture = ExtResource( 14 )
 [node name="SuccessPopup" parent="." instance=ExtResource( 23 )]
 
 [node name="Combat" type="Panel" parent="."]
+visible = false
 margin_left = 58.0
-margin_top = 770.941
+margin_top = 376.0
 margin_right = 504.0
-margin_bottom = 1011.94
+margin_bottom = 1012.0
 mouse_filter = 1
-custom_styles/panel = SubResource( 20 )
+custom_styles/panel = SubResource( 9 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
+
+[node name="IWin" type="Panel" parent="Combat"]
+margin_left = 143.0
+margin_top = 520.0
+margin_right = 283.0
+margin_bottom = 605.0
+custom_styles/panel = SubResource( 16 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="tick" type="Sprite" parent="Combat/IWin"]
+position = Vector2( 74.7039, 41.7168 )
+scale = Vector2( 0.0922094, 0.0922094 )
+texture = ExtResource( 30 )
+
+[node name="button" type="TextureButton" parent="Combat/IWin"]
+margin_left = -1.0
+margin_top = -2.0
+margin_right = 138.0
+margin_bottom = 87.0
 
 [node name="Header" type="Panel" parent="Combat"]
 margin_left = 0.0594482
@@ -1662,7 +1692,7 @@ margin_left = 55.3231
 margin_top = 95.3025
 margin_right = 137.323
 margin_bottom = 126.302
-custom_fonts/font = SubResource( 21 )
+custom_fonts/font = SubResource( 10 )
 custom_colors/font_color = Color( 0, 0, 0, 1 )
 custom_constants/shadow_offset_x = 0
 custom_constants/shadow_offset_y = 0
@@ -1678,7 +1708,7 @@ margin_left = 110.221
 margin_top = 92.4763
 margin_right = 192.221
 margin_bottom = 123.476
-custom_fonts/font = SubResource( 22 )
+custom_fonts/font = SubResource( 11 )
 custom_colors/font_color = Color( 0, 0, 0, 1 )
 custom_constants/shadow_offset_x = 0
 custom_constants/shadow_offset_y = 0
@@ -1694,7 +1724,7 @@ margin_left = 54.6159
 margin_top = 122.173
 margin_right = 136.616
 margin_bottom = 153.173
-custom_fonts/font = SubResource( 21 )
+custom_fonts/font = SubResource( 10 )
 custom_colors/font_color = Color( 0, 0, 0, 1 )
 custom_constants/shadow_offset_x = 0
 custom_constants/shadow_offset_y = 0
@@ -1710,7 +1740,7 @@ margin_left = 110.221
 margin_top = 122.882
 margin_right = 192.221
 margin_bottom = 153.882
-custom_fonts/font = SubResource( 22 )
+custom_fonts/font = SubResource( 11 )
 custom_colors/font_color = Color( 0, 0, 0, 1 )
 custom_constants/shadow_offset_x = 0
 custom_constants/shadow_offset_y = 0
@@ -1726,7 +1756,7 @@ margin_left = 65.9297
 margin_top = 148.336
 margin_right = 147.93
 margin_bottom = 179.336
-custom_fonts/font = SubResource( 21 )
+custom_fonts/font = SubResource( 10 )
 custom_colors/font_color = Color( 0, 0, 0, 1 )
 custom_constants/shadow_offset_x = 0
 custom_constants/shadow_offset_y = 0
@@ -1742,7 +1772,7 @@ margin_left = 110.928
 margin_top = 149.045
 margin_right = 192.928
 margin_bottom = 180.045
-custom_fonts/font = SubResource( 22 )
+custom_fonts/font = SubResource( 11 )
 custom_colors/font_color = Color( 0, 0, 0, 1 )
 custom_constants/shadow_offset_x = 0
 custom_constants/shadow_offset_y = 0
@@ -1758,7 +1788,7 @@ margin_left = 60.9799
 margin_top = 171.67
 margin_right = 142.98
 margin_bottom = 202.67
-custom_fonts/font = SubResource( 21 )
+custom_fonts/font = SubResource( 10 )
 custom_colors/font_color = Color( 0, 0, 0, 1 )
 custom_constants/shadow_offset_x = 0
 custom_constants/shadow_offset_y = 0
@@ -1774,7 +1804,7 @@ margin_left = 109.514
 margin_top = 175.915
 margin_right = 191.514
 margin_bottom = 206.915
-custom_fonts/font = SubResource( 22 )
+custom_fonts/font = SubResource( 11 )
 custom_colors/font_color = Color( 0, 0, 0, 1 )
 custom_constants/shadow_offset_x = 0
 custom_constants/shadow_offset_y = 0
@@ -1790,7 +1820,7 @@ margin_left = 295.74
 margin_top = 98.838
 margin_right = 377.74
 margin_bottom = 129.838
-custom_fonts/font = SubResource( 21 )
+custom_fonts/font = SubResource( 10 )
 custom_colors/font_color = Color( 0, 0, 0, 1 )
 custom_constants/shadow_offset_x = 0
 custom_constants/shadow_offset_y = 0
@@ -1806,7 +1836,7 @@ margin_left = 366.194
 margin_top = 96.719
 margin_right = 448.194
 margin_bottom = 127.719
-custom_fonts/font = SubResource( 22 )
+custom_fonts/font = SubResource( 11 )
 custom_colors/font_color = Color( 0, 0, 0, 1 )
 custom_constants/shadow_offset_x = 0
 custom_constants/shadow_offset_y = 0
@@ -1822,7 +1852,7 @@ margin_left = 299.448
 margin_top = 122.146
 margin_right = 381.448
 margin_bottom = 153.146
-custom_fonts/font = SubResource( 21 )
+custom_fonts/font = SubResource( 10 )
 custom_colors/font_color = Color( 0, 0, 0, 1 )
 custom_constants/shadow_offset_x = 0
 custom_constants/shadow_offset_y = 0
@@ -1838,7 +1868,7 @@ margin_left = 366.194
 margin_top = 121.616
 margin_right = 448.194
 margin_bottom = 152.616
-custom_fonts/font = SubResource( 22 )
+custom_fonts/font = SubResource( 11 )
 custom_colors/font_color = Color( 0, 0, 0, 1 )
 custom_constants/shadow_offset_x = 0
 custom_constants/shadow_offset_y = 0
@@ -1854,7 +1884,7 @@ margin_left = 310.573
 margin_top = 149.162
 margin_right = 392.573
 margin_bottom = 180.162
-custom_fonts/font = SubResource( 21 )
+custom_fonts/font = SubResource( 10 )
 custom_colors/font_color = Color( 0, 0, 0, 1 )
 custom_constants/shadow_offset_x = 0
 custom_constants/shadow_offset_y = 0
@@ -1870,7 +1900,7 @@ margin_left = 366.194
 margin_top = 149.162
 margin_right = 448.194
 margin_bottom = 180.162
-custom_fonts/font = SubResource( 22 )
+custom_fonts/font = SubResource( 11 )
 custom_colors/font_color = Color( 0, 0, 0, 1 )
 custom_constants/shadow_offset_x = 0
 custom_constants/shadow_offset_y = 0
@@ -1886,7 +1916,7 @@ margin_left = 305.805
 margin_top = 177.238
 margin_right = 387.805
 margin_bottom = 208.238
-custom_fonts/font = SubResource( 21 )
+custom_fonts/font = SubResource( 10 )
 custom_colors/font_color = Color( 0, 0, 0, 1 )
 custom_constants/shadow_offset_x = 0
 custom_constants/shadow_offset_y = 0
@@ -1902,7 +1932,7 @@ margin_left = 367.784
 margin_top = 177.238
 margin_right = 449.784
 margin_bottom = 208.238
-custom_fonts/font = SubResource( 22 )
+custom_fonts/font = SubResource( 11 )
 custom_colors/font_color = Color( 0, 0, 0, 1 )
 custom_constants/shadow_offset_x = 0
 custom_constants/shadow_offset_y = 0
@@ -1918,7 +1948,7 @@ margin_left = 13.8042
 margin_top = 157.055
 margin_right = 70.8042
 margin_bottom = 214.055
-custom_styles/panel = SubResource( 23 )
+custom_styles/panel = SubResource( 12 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
@@ -1942,7 +1972,7 @@ margin_left = 183.054
 margin_top = 169.669
 margin_right = 265.054
 margin_bottom = 200.669
-custom_fonts/font = SubResource( 22 )
+custom_fonts/font = SubResource( 11 )
 custom_colors/font_color = Color( 0, 0, 0, 1 )
 custom_constants/shadow_offset_x = 0
 custom_constants/shadow_offset_y = 0
@@ -1959,52 +1989,10 @@ margin_left = 5.0
 margin_top = 51.0
 margin_right = 553.0
 margin_bottom = 1028.0
-custom_styles/panel = SubResource( 9 )
+custom_styles/panel = SubResource( 13 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
-
-[node name="Choix du Billy" type="Panel" parent="Options"]
-margin_right = 548.0
-margin_bottom = 42.0
-mouse_filter = 1
-custom_styles/panel = SubResource( 10 )
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="Label" type="Label" parent="Options/Choix du Billy"]
-margin_left = 170.219
-margin_top = 6.5009
-margin_right = 354.219
-margin_bottom = 37.5009
-custom_fonts/font = ExtResource( 2 )
-text = "Choix du Billy"
-align = 1
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="tick" type="Panel" parent="Options/Choix du Billy"]
-margin_left = 497.592
-margin_top = 2.68369
-margin_right = 533.592
-margin_bottom = 38.6837
-custom_styles/panel = SubResource( 11 )
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="tick" type="Sprite" parent="Options/Choix du Billy/tick"]
-position = Vector2( 19.082, 17.7634 )
-scale = Vector2( 0.0471715, 0.0471715 )
-texture = ExtResource( 30 )
-
-[node name="button" type="TextureButton" parent="Options/Choix du Billy/tick"]
-margin_left = -1.04053
-margin_top = -1.78381
-margin_right = 38.9595
-margin_bottom = 38.2162
 
 [node name="OptionsLabel" type="Panel" parent="Options"]
 margin_left = 0.793701
@@ -2012,7 +2000,7 @@ margin_top = -42.2063
 margin_right = 250.794
 margin_bottom = -0.206299
 mouse_filter = 1
-custom_styles/panel = SubResource( 10 )
+custom_styles/panel = SubResource( 14 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
@@ -2029,23 +2017,145 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="BlockGuerrier" type="Panel" parent="Options"]
-margin_left = 24.8176
-margin_top = 62.1487
-margin_right = 185.818
-margin_bottom = 498.149
-rect_scale = Vector2( 0.7, 0.7 )
-custom_styles/panel = SubResource( 12 )
+[node name="Header" type="Panel" parent="Options"]
+margin_right = 548.0
+margin_bottom = 42.0
+mouse_filter = 1
+custom_styles/panel = SubResource( 14 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="sprite" type="Sprite" parent="Options/BlockGuerrier"]
+[node name="TabEquipement" type="Panel" parent="Options/Header"]
+margin_right = 252.0
+margin_bottom = 40.0
+custom_styles/panel = SubResource( 26 )
+
+[node name="Label" type="Label" parent="Options/Header/TabEquipement"]
+margin_left = 45.3523
+margin_top = -4.20197
+margin_right = 229.352
+margin_bottom = 26.798
+custom_fonts/font = ExtResource( 2 )
+text = "Equipement"
+align = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="v" type="Label" parent="Options/Header/TabEquipement"]
+margin_left = 100.056
+margin_top = 14.8253
+margin_right = 284.056
+margin_bottom = 45.8253
+custom_fonts/font = ExtResource( 2 )
+custom_colors/font_color = Color( 1, 1, 1, 1 )
+text = "v"
+align = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="button" type="TextureButton" parent="Options/Header/TabEquipement"]
+margin_left = -1.0
+margin_top = -1.0
+margin_right = 251.0
+margin_bottom = 43.0
+
+[node name="TabStats" type="Panel" parent="Options/Header"]
+margin_left = 250.0
+margin_top = 0.378403
+margin_right = 491.0
+margin_bottom = 40.3784
+custom_styles/panel = SubResource( 15 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Label" type="Label" parent="Options/Header/TabStats"]
+margin_left = 37.9505
+margin_top = -3.39116
+margin_right = 221.951
+margin_bottom = 27.6088
+custom_fonts/font = ExtResource( 2 )
+custom_colors/font_color = Color( 0, 0, 0, 1 )
+text = "Stats"
+align = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="v" type="Label" parent="Options/Header/TabStats"]
+margin_left = 56.9778
+margin_top = 12.0685
+margin_right = 240.978
+margin_bottom = 43.0685
+custom_fonts/font = ExtResource( 2 )
+custom_colors/font_color = Color( 1, 1, 1, 1 )
+text = "v"
+align = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="button" type="TextureButton" parent="Options/Header/TabStats"]
+margin_left = -1.0
+margin_top = -3.3784
+margin_right = 238.0
+margin_bottom = 40.6216
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="tick" type="Panel" parent="Options/Header"]
+margin_left = 497.592
+margin_top = 2.68369
+margin_right = 533.592
+margin_bottom = 38.6837
+custom_styles/panel = SubResource( 16 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="tick" type="Sprite" parent="Options/Header/tick"]
+position = Vector2( 19.082, 17.7634 )
+scale = Vector2( 0.0471715, 0.0471715 )
+texture = ExtResource( 30 )
+
+[node name="button" type="TextureButton" parent="Options/Header/tick"]
+margin_left = -1.04053
+margin_top = -1.78381
+margin_right = 38.9595
+margin_bottom = 38.2162
+
+[node name="Equipement" type="Panel" parent="Options"]
+margin_left = 1.0
+margin_top = 44.0
+margin_right = 547.0
+margin_bottom = 981.0
+mouse_filter = 1
+custom_styles/panel = SubResource( 24 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="BlockGuerrier" type="Panel" parent="Options/Equipement"]
+margin_left = 23.8176
+margin_top = 67.1487
+margin_right = 184.818
+margin_bottom = 503.149
+rect_scale = Vector2( 0.7, 0.7 )
+custom_styles/panel = SubResource( 17 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="sprite" type="Sprite" parent="Options/Equipement/BlockGuerrier"]
 material = ExtResource( 29 )
 position = Vector2( 81.5072, 218.73 )
 texture = ExtResource( 27 )
 
-[node name="button" type="TextureButton" parent="Options/BlockGuerrier"]
+[node name="button" type="TextureButton" parent="Options/Equipement/BlockGuerrier"]
 visible = false
 margin_left = -1.0
 margin_right = 162.0
@@ -2054,23 +2164,23 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="BlockPaysan" type="Panel" parent="Options"]
-margin_left = 138.0
-margin_top = 62.0
-margin_right = 305.0
-margin_bottom = 499.0
+[node name="BlockPaysan" type="Panel" parent="Options/Equipement"]
+margin_left = 137.0
+margin_top = 67.0
+margin_right = 304.0
+margin_bottom = 504.0
 rect_scale = Vector2( 0.7, 0.7 )
-custom_styles/panel = SubResource( 13 )
+custom_styles/panel = SubResource( 18 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="sprite" type="Sprite" parent="Options/BlockPaysan"]
-material = SubResource( 14 )
+[node name="sprite" type="Sprite" parent="Options/Equipement/BlockPaysan"]
+material = SubResource( 19 )
 position = Vector2( 83.8195, 218.718 )
 texture = ExtResource( 26 )
 
-[node name="button" type="TextureButton" parent="Options/BlockPaysan"]
+[node name="button" type="TextureButton" parent="Options/Equipement/BlockPaysan"]
 visible = false
 margin_left = 9.0
 margin_top = 6.0
@@ -2080,23 +2190,23 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="BlockPrudent" type="Panel" parent="Options"]
-margin_left = 254.277
-margin_top = 62.1189
-margin_right = 422.277
-margin_bottom = 498.119
+[node name="BlockPrudent" type="Panel" parent="Options/Equipement"]
+margin_left = 253.277
+margin_top = 67.1189
+margin_right = 421.277
+margin_bottom = 503.119
 rect_scale = Vector2( 0.7, 0.7 )
-custom_styles/panel = SubResource( 15 )
+custom_styles/panel = SubResource( 20 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="sprite" type="Sprite" parent="Options/BlockPrudent"]
-material = SubResource( 16 )
+[node name="sprite" type="Sprite" parent="Options/Equipement/BlockPrudent"]
+material = SubResource( 21 )
 position = Vector2( 83.8195, 218.718 )
 texture = ExtResource( 25 )
 
-[node name="button" type="TextureButton" parent="Options/BlockPrudent"]
+[node name="button" type="TextureButton" parent="Options/Equipement/BlockPrudent"]
 visible = false
 margin_left = 9.0
 margin_top = 3.0
@@ -2106,23 +2216,23 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="BlockDebrouillard" type="Panel" parent="Options"]
-margin_left = 371.767
-margin_top = 63.4112
-margin_right = 568.767
-margin_bottom = 497.411
+[node name="BlockDebrouillard" type="Panel" parent="Options/Equipement"]
+margin_left = 370.767
+margin_top = 68.4112
+margin_right = 567.767
+margin_bottom = 502.411
 rect_scale = Vector2( 0.7, 0.7 )
-custom_styles/panel = SubResource( 17 )
+custom_styles/panel = SubResource( 22 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="sprite" type="Sprite" parent="Options/BlockDebrouillard"]
-material = SubResource( 18 )
+[node name="sprite" type="Sprite" parent="Options/Equipement/BlockDebrouillard"]
+material = SubResource( 23 )
 position = Vector2( 98.2081, 217.282 )
 texture = ExtResource( 24 )
 
-[node name="button" type="TextureButton" parent="Options/BlockDebrouillard"]
+[node name="button" type="TextureButton" parent="Options/Equipement/BlockDebrouillard"]
 visible = false
 margin_left = -4.0
 margin_top = 6.0
@@ -2132,695 +2242,35 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="ItemsCont" type="ScrollContainer" parent="Options"]
+[node name="ItemsCont" type="ScrollContainer" parent="Options/Equipement"]
 anchor_right = 1.0
 anchor_bottom = 1.0
-margin_top = 408.0
-margin_right = -0.000305176
-margin_bottom = 0.0045166
+margin_left = -1.0
+margin_top = 413.0
+margin_right = -1.00031
+margin_bottom = 5.00452
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Items" type="VBoxContainer" parent="Options/ItemsCont"]
+[node name="Items" type="VBoxContainer" parent="Options/Equipement/ItemsCont"]
 margin_right = 500.0
 margin_bottom = 104.0
 
-[node name="Panel" parent="Options/ItemsCont/Items" instance=ExtResource( 31 )]
+[node name="Panel" parent="Options/Equipement/ItemsCont/Items" instance=ExtResource( 31 )]
 
-[node name="Panel2" parent="Options/ItemsCont/Items" instance=ExtResource( 31 )]
+[node name="Panel2" parent="Options/Equipement/ItemsCont/Items" instance=ExtResource( 31 )]
 margin_top = 54.0
 margin_bottom = 104.0
 
-[node name="Items-bkp" type="ScrollContainer" parent="Options"]
+[node name="Stats" type="Panel" parent="Options"]
 visible = false
-anchor_right = 1.0
-anchor_bottom = 1.0
-margin_top = 408.0
-margin_right = -0.000305176
-margin_bottom = 0.0045166
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="VBoxContainer" type="VBoxContainer" parent="Options/Items-bkp"]
-margin_right = 500.0
-margin_bottom = 1417.0
-
-[node name="Label2" type="Label" parent="Options/Items-bkp/VBoxContainer"]
-margin_right = 500.0
-margin_bottom = 31.0
-custom_fonts/font = ExtResource( 2 )
-custom_colors/font_color = Color( 0, 0, 0, 1 )
-text = "Sélectionnez trois objets"
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="Les armes" type="Panel" parent="Options/Items-bkp/VBoxContainer"]
-margin_top = 35.0
-margin_right = 500.0
-margin_bottom = 85.0
-rect_min_size = Vector2( 500, 50 )
+margin_left = 1.0
+margin_top = 41.0
+margin_right = 547.0
+margin_bottom = 981.0
 mouse_filter = 1
-custom_styles/panel = SubResource( 10 )
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="Label" type="Label" parent="Options/Items-bkp/VBoxContainer/Les armes"]
-margin_left = 170.219
-margin_top = 6.5009
-margin_right = 354.219
-margin_bottom = 37.5009
-custom_fonts/font = ExtResource( 2 )
-text = "Les armes"
-align = 1
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="ligne1" type="HBoxContainer" parent="Options/Items-bkp/VBoxContainer"]
-margin_top = 89.0
-margin_right = 500.0
-margin_bottom = 289.0
-
-[node name="EPEE" type="Panel" parent="Options/Items-bkp/VBoxContainer/ligne1"]
-margin_right = 200.0
-margin_bottom = 200.0
-rect_min_size = Vector2( 200, 200 )
-custom_styles/panel = SubResource( 6 )
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="Label" type="Label" parent="Options/Items-bkp/VBoxContainer/ligne1/EPEE"]
-margin_left = 63.9661
-margin_top = 85.6046
-margin_right = 127.966
-margin_bottom = 116.605
-custom_fonts/font = ExtResource( 2 )
-custom_colors/font_color = Color( 0, 0, 0, 1 )
-text = "L'epée"
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="Stats" type="Label" parent="Options/Items-bkp/VBoxContainer/ligne1/EPEE"]
-margin_left = 63.9661
-margin_top = 127.605
-margin_right = 127.966
-margin_bottom = 158.605
-custom_fonts/font = ExtResource( 2 )
-custom_colors/font_color = Color( 0, 0, 0, 1 )
-text = "+4 HAB"
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="Button" type="TextureButton" parent="Options/Items-bkp/VBoxContainer/ligne1/EPEE"]
-margin_right = 197.0
-margin_bottom = 199.0
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="Sprite" type="Sprite" parent="Options/Items-bkp/VBoxContainer/ligne1/EPEE"]
-position = Vector2( 100.545, 41.0303 )
-scale = Vector2( 0.0996552, 0.0996552 )
-texture = ExtResource( 20 )
-
-[node name="LANCE" type="Panel" parent="Options/Items-bkp/VBoxContainer/ligne1"]
-margin_left = 204.0
-margin_right = 404.0
-margin_bottom = 200.0
-rect_min_size = Vector2( 200, 200 )
-custom_styles/panel = SubResource( 6 )
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="Label" type="Label" parent="Options/Items-bkp/VBoxContainer/ligne1/LANCE"]
-margin_left = 63.9661
-margin_top = 85.6046
-margin_right = 127.966
-margin_bottom = 116.605
-custom_fonts/font = ExtResource( 2 )
-custom_colors/font_color = Color( 0, 0, 0, 1 )
-text = "La Lance"
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="Stats" type="Label" parent="Options/Items-bkp/VBoxContainer/ligne1/LANCE"]
-margin_left = 63.9661
-margin_top = 127.605
-margin_right = 127.966
-margin_bottom = 158.605
-custom_fonts/font = ExtResource( 2 )
-custom_colors/font_color = Color( 0, 0, 0, 1 )
-text = "+3 HAB, +1 ADR"
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="Button" type="TextureButton" parent="Options/Items-bkp/VBoxContainer/ligne1/LANCE"]
-margin_right = 199.0
-margin_bottom = 196.0
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="Sprite" type="Sprite" parent="Options/Items-bkp/VBoxContainer/ligne1/LANCE"]
-position = Vector2( 100.545, 41.0303 )
-scale = Vector2( 0.0996552, 0.0996552 )
-texture = ExtResource( 20 )
-
-[node name="ligne2" type="HBoxContainer" parent="Options/Items-bkp/VBoxContainer"]
-margin_top = 293.0
-margin_right = 500.0
-margin_bottom = 493.0
-
-[node name="MORGENSTERN" type="Panel" parent="Options/Items-bkp/VBoxContainer/ligne2"]
-margin_right = 200.0
-margin_bottom = 200.0
-rect_min_size = Vector2( 200, 200 )
-custom_styles/panel = SubResource( 6 )
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="Label" type="Label" parent="Options/Items-bkp/VBoxContainer/ligne2/MORGENSTERN"]
-margin_left = 63.9661
-margin_top = 85.6046
-margin_right = 127.966
-margin_bottom = 116.605
-custom_fonts/font = ExtResource( 2 )
-custom_colors/font_color = Color( 0, 0, 0, 1 )
-text = "La Morgenstern"
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="Stats" type="Label" parent="Options/Items-bkp/VBoxContainer/ligne2/MORGENSTERN"]
-margin_left = 63.9661
-margin_top = 127.605
-margin_right = 127.966
-margin_bottom = 158.605
-custom_fonts/font = ExtResource( 2 )
-custom_colors/font_color = Color( 0, 0, 0, 1 )
-text = "+1 HAB, +1 END, +1 DMG"
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="Button" type="TextureButton" parent="Options/Items-bkp/VBoxContainer/ligne2/MORGENSTERN"]
-margin_right = 197.0
-margin_bottom = 199.0
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="Sprite" type="Sprite" parent="Options/Items-bkp/VBoxContainer/ligne2/MORGENSTERN"]
-position = Vector2( 100.545, 41.0303 )
-scale = Vector2( 0.0996552, 0.0996552 )
-texture = ExtResource( 20 )
-
-[node name="ARC" type="Panel" parent="Options/Items-bkp/VBoxContainer/ligne2"]
-margin_left = 204.0
-margin_right = 404.0
-margin_bottom = 200.0
-rect_min_size = Vector2( 200, 200 )
-custom_styles/panel = SubResource( 6 )
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="Label" type="Label" parent="Options/Items-bkp/VBoxContainer/ligne2/ARC"]
-margin_left = 63.9661
-margin_top = 85.6046
-margin_right = 127.966
-margin_bottom = 116.605
-custom_fonts/font = ExtResource( 2 )
-custom_colors/font_color = Color( 0, 0, 0, 1 )
-text = "L'Arc"
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="Stats" type="Label" parent="Options/Items-bkp/VBoxContainer/ligne2/ARC"]
-margin_left = 63.9661
-margin_top = 127.605
-margin_right = 127.966
-margin_bottom = 158.605
-custom_fonts/font = ExtResource( 2 )
-custom_colors/font_color = Color( 0, 0, 0, 1 )
-text = "+3 HAB, +1 ADR, +4 CRIT"
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="Button" type="TextureButton" parent="Options/Items-bkp/VBoxContainer/ligne2/ARC"]
-margin_right = 199.0
-margin_bottom = 196.0
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="Sprite" type="Sprite" parent="Options/Items-bkp/VBoxContainer/ligne2/ARC"]
-position = Vector2( 100.545, 41.0303 )
-scale = Vector2( 0.0996552, 0.0996552 )
-texture = ExtResource( 20 )
-
-[node name="Les equipements" type="Panel" parent="Options/Items-bkp/VBoxContainer"]
-margin_top = 497.0
-margin_right = 500.0
-margin_bottom = 547.0
-rect_min_size = Vector2( 500, 50 )
-mouse_filter = 1
-custom_styles/panel = SubResource( 10 )
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="Label" type="Label" parent="Options/Items-bkp/VBoxContainer/Les equipements"]
-margin_left = 170.219
-margin_top = 6.5009
-margin_right = 354.219
-margin_bottom = 37.5009
-custom_fonts/font = ExtResource( 2 )
-text = "Les équipements"
-align = 1
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="ligne3" type="HBoxContainer" parent="Options/Items-bkp/VBoxContainer"]
-margin_top = 551.0
-margin_right = 500.0
-margin_bottom = 751.0
-
-[node name="COTTE-MAILLE" type="Panel" parent="Options/Items-bkp/VBoxContainer/ligne3"]
-margin_right = 200.0
-margin_bottom = 200.0
-rect_min_size = Vector2( 200, 200 )
-custom_styles/panel = SubResource( 6 )
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="Label" type="Label" parent="Options/Items-bkp/VBoxContainer/ligne3/COTTE-MAILLE"]
-margin_left = 63.9661
-margin_top = 85.6046
-margin_right = 127.966
-margin_bottom = 116.605
-custom_fonts/font = ExtResource( 2 )
-custom_colors/font_color = Color( 0, 0, 0, 1 )
-text = "La cotte de maille"
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="Stats" type="Label" parent="Options/Items-bkp/VBoxContainer/ligne3/COTTE-MAILLE"]
-margin_left = 63.9661
-margin_top = 127.605
-margin_right = 127.966
-margin_bottom = 158.605
-custom_fonts/font = ExtResource( 2 )
-custom_colors/font_color = Color( 0, 0, 0, 1 )
-text = "-1 HAB, -1 ADR, +1 END, +2 ARM"
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="Button" type="TextureButton" parent="Options/Items-bkp/VBoxContainer/ligne3/COTTE-MAILLE"]
-margin_right = 197.0
-margin_bottom = 199.0
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="Sprite" type="Sprite" parent="Options/Items-bkp/VBoxContainer/ligne3/COTTE-MAILLE"]
-position = Vector2( 100.545, 41.0303 )
-scale = Vector2( 0.0996552, 0.0996552 )
-texture = ExtResource( 20 )
-
-[node name="MARMITE" type="Panel" parent="Options/Items-bkp/VBoxContainer/ligne3"]
-margin_left = 204.0
-margin_right = 404.0
-margin_bottom = 200.0
-rect_min_size = Vector2( 200, 200 )
-custom_styles/panel = SubResource( 6 )
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="Label" type="Label" parent="Options/Items-bkp/VBoxContainer/ligne3/MARMITE"]
-margin_left = 63.9661
-margin_top = 85.6046
-margin_right = 127.966
-margin_bottom = 116.605
-custom_fonts/font = ExtResource( 2 )
-custom_colors/font_color = Color( 0, 0, 0, 1 )
-text = "La marmite"
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="Stats" type="Label" parent="Options/Items-bkp/VBoxContainer/ligne3/MARMITE"]
-margin_left = 63.9661
-margin_top = 127.605
-margin_right = 127.966
-margin_bottom = 158.605
-custom_fonts/font = ExtResource( 2 )
-custom_colors/font_color = Color( 0, 0, 0, 1 )
-text = "+2 END, +1 ARM"
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="Button" type="TextureButton" parent="Options/Items-bkp/VBoxContainer/ligne3/MARMITE"]
-margin_right = 199.0
-margin_bottom = 196.0
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="Sprite" type="Sprite" parent="Options/Items-bkp/VBoxContainer/ligne3/MARMITE"]
-position = Vector2( 100.545, 41.0303 )
-scale = Vector2( 0.0996552, 0.0996552 )
-texture = ExtResource( 20 )
-
-[node name="ligne4" type="HBoxContainer" parent="Options/Items-bkp/VBoxContainer"]
-margin_top = 755.0
-margin_right = 500.0
-margin_bottom = 955.0
-
-[node name="PAMPHLET" type="Panel" parent="Options/Items-bkp/VBoxContainer/ligne4"]
-margin_right = 200.0
-margin_bottom = 200.0
-rect_min_size = Vector2( 200, 200 )
-custom_styles/panel = SubResource( 6 )
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="Label" type="Label" parent="Options/Items-bkp/VBoxContainer/ligne4/PAMPHLET"]
-margin_left = 63.9661
-margin_top = 85.6046
-margin_right = 127.966
-margin_bottom = 116.605
-custom_fonts/font = ExtResource( 2 )
-custom_colors/font_color = Color( 0, 0, 0, 1 )
-text = "Le pamphlet"
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="Stats" type="Label" parent="Options/Items-bkp/VBoxContainer/ligne4/PAMPHLET"]
-margin_left = 63.9661
-margin_top = 127.605
-margin_right = 127.966
-margin_bottom = 158.605
-custom_fonts/font = ExtResource( 2 )
-custom_colors/font_color = Color( 0, 0, 0, 1 )
-text = "+4 CHA"
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="Button" type="TextureButton" parent="Options/Items-bkp/VBoxContainer/ligne4/PAMPHLET"]
-margin_right = 197.0
-margin_bottom = 199.0
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="Sprite" type="Sprite" parent="Options/Items-bkp/VBoxContainer/ligne4/PAMPHLET"]
-position = Vector2( 100.545, 41.0303 )
-scale = Vector2( 0.0996552, 0.0996552 )
-texture = ExtResource( 20 )
-
-[node name="KIT-SOINS" type="Panel" parent="Options/Items-bkp/VBoxContainer/ligne4"]
-margin_left = 204.0
-margin_right = 404.0
-margin_bottom = 200.0
-rect_min_size = Vector2( 200, 200 )
-custom_styles/panel = SubResource( 6 )
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="Label" type="Label" parent="Options/Items-bkp/VBoxContainer/ligne4/KIT-SOINS"]
-margin_left = 63.9661
-margin_top = 85.6046
-margin_right = 127.966
-margin_bottom = 116.605
-custom_fonts/font = ExtResource( 2 )
-custom_colors/font_color = Color( 0, 0, 0, 1 )
-text = "Le kit de soin"
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="Stats" type="Label" parent="Options/Items-bkp/VBoxContainer/ligne4/KIT-SOINS"]
-margin_left = 63.9661
-margin_top = 127.605
-margin_right = 127.966
-margin_bottom = 158.605
-custom_fonts/font = ExtResource( 2 )
-custom_colors/font_color = Color( 0, 0, 0, 1 )
-text = "+1 CHA, double lees pv récupérés"
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="Button" type="TextureButton" parent="Options/Items-bkp/VBoxContainer/ligne4/KIT-SOINS"]
-margin_right = 199.0
-margin_bottom = 196.0
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="Sprite" type="Sprite" parent="Options/Items-bkp/VBoxContainer/ligne4/KIT-SOINS"]
-position = Vector2( 100.545, 41.0303 )
-scale = Vector2( 0.0996552, 0.0996552 )
-texture = ExtResource( 20 )
-
-[node name="Les outils" type="Panel" parent="Options/Items-bkp/VBoxContainer"]
-margin_top = 959.0
-margin_right = 500.0
-margin_bottom = 1009.0
-rect_min_size = Vector2( 500, 50 )
-mouse_filter = 1
-custom_styles/panel = SubResource( 10 )
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="Label" type="Label" parent="Options/Items-bkp/VBoxContainer/Les outils"]
-margin_left = 170.219
-margin_top = 6.5009
-margin_right = 354.219
-margin_bottom = 37.5009
-custom_fonts/font = ExtResource( 2 )
-text = "Les outils"
-align = 1
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="ligne5" type="HBoxContainer" parent="Options/Items-bkp/VBoxContainer"]
-margin_top = 1013.0
-margin_right = 500.0
-margin_bottom = 1213.0
-
-[node name="FOURCHE" type="Panel" parent="Options/Items-bkp/VBoxContainer/ligne5"]
-margin_right = 200.0
-margin_bottom = 200.0
-rect_min_size = Vector2( 200, 200 )
-custom_styles/panel = SubResource( 6 )
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="Label" type="Label" parent="Options/Items-bkp/VBoxContainer/ligne5/FOURCHE"]
-margin_left = 63.9661
-margin_top = 85.6046
-margin_right = 127.966
-margin_bottom = 116.605
-custom_fonts/font = ExtResource( 2 )
-custom_colors/font_color = Color( 0, 0, 0, 1 )
-text = "La fourche"
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="Stats" type="Label" parent="Options/Items-bkp/VBoxContainer/ligne5/FOURCHE"]
-margin_left = 63.9661
-margin_top = 127.605
-margin_right = 127.966
-margin_bottom = 158.605
-custom_fonts/font = ExtResource( 2 )
-custom_colors/font_color = Color( 0, 0, 0, 1 )
-text = "+1 HAB"
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="Button" type="TextureButton" parent="Options/Items-bkp/VBoxContainer/ligne5/FOURCHE"]
-margin_right = 197.0
-margin_bottom = 199.0
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="Sprite" type="Sprite" parent="Options/Items-bkp/VBoxContainer/ligne5/FOURCHE"]
-position = Vector2( 100.545, 41.0303 )
-scale = Vector2( 0.0996552, 0.0996552 )
-texture = ExtResource( 20 )
-
-[node name="DAGUE" type="Panel" parent="Options/Items-bkp/VBoxContainer/ligne5"]
-margin_left = 204.0
-margin_right = 404.0
-margin_bottom = 200.0
-rect_min_size = Vector2( 200, 200 )
-custom_styles/panel = SubResource( 6 )
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="Label" type="Label" parent="Options/Items-bkp/VBoxContainer/ligne5/DAGUE"]
-margin_left = 63.9661
-margin_top = 85.6046
-margin_right = 127.966
-margin_bottom = 116.605
-custom_fonts/font = ExtResource( 2 )
-custom_colors/font_color = Color( 0, 0, 0, 1 )
-text = "La dague"
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="Stats" type="Label" parent="Options/Items-bkp/VBoxContainer/ligne5/DAGUE"]
-margin_left = 63.9661
-margin_top = 127.605
-margin_right = 127.966
-margin_bottom = 158.605
-custom_fonts/font = ExtResource( 2 )
-custom_colors/font_color = Color( 0, 0, 0, 1 )
-text = "+6 CRIT"
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="Button" type="TextureButton" parent="Options/Items-bkp/VBoxContainer/ligne5/DAGUE"]
-margin_right = 199.0
-margin_bottom = 196.0
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="Sprite" type="Sprite" parent="Options/Items-bkp/VBoxContainer/ligne5/DAGUE"]
-position = Vector2( 100.545, 41.0303 )
-scale = Vector2( 0.0996552, 0.0996552 )
-texture = ExtResource( 20 )
-
-[node name="ligne6" type="HBoxContainer" parent="Options/Items-bkp/VBoxContainer"]
-margin_top = 1217.0
-margin_right = 500.0
-margin_bottom = 1417.0
-
-[node name="KIT-ESCALADE" type="Panel" parent="Options/Items-bkp/VBoxContainer/ligne6"]
-margin_right = 200.0
-margin_bottom = 200.0
-rect_min_size = Vector2( 200, 200 )
-custom_styles/panel = SubResource( 6 )
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="Label" type="Label" parent="Options/Items-bkp/VBoxContainer/ligne6/KIT-ESCALADE"]
-margin_left = 63.9661
-margin_top = 85.6046
-margin_right = 127.966
-margin_bottom = 116.605
-custom_fonts/font = ExtResource( 2 )
-custom_colors/font_color = Color( 0, 0, 0, 1 )
-text = "Le kit d'escalade"
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="Stats" type="Label" parent="Options/Items-bkp/VBoxContainer/ligne6/KIT-ESCALADE"]
-margin_left = 63.9661
-margin_top = 127.605
-margin_right = 127.966
-margin_bottom = 158.605
-custom_fonts/font = ExtResource( 2 )
-custom_colors/font_color = Color( 0, 0, 0, 1 )
-text = "+1 ADR"
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="Button" type="TextureButton" parent="Options/Items-bkp/VBoxContainer/ligne6/KIT-ESCALADE"]
-margin_right = 197.0
-margin_bottom = 199.0
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="Sprite" type="Sprite" parent="Options/Items-bkp/VBoxContainer/ligne6/KIT-ESCALADE"]
-position = Vector2( 100.545, 41.0303 )
-scale = Vector2( 0.0996552, 0.0996552 )
-texture = ExtResource( 20 )
-
-[node name="SAC-GRAINS" type="Panel" parent="Options/Items-bkp/VBoxContainer/ligne6"]
-margin_left = 204.0
-margin_right = 404.0
-margin_bottom = 200.0
-rect_min_size = Vector2( 200, 200 )
-custom_styles/panel = SubResource( 6 )
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="Label" type="Label" parent="Options/Items-bkp/VBoxContainer/ligne6/SAC-GRAINS"]
-margin_left = 63.9661
-margin_top = 85.6046
-margin_right = 127.966
-margin_bottom = 116.605
-custom_fonts/font = ExtResource( 2 )
-custom_colors/font_color = Color( 0, 0, 0, 1 )
-text = "Le sac de grains"
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="Stats" type="Label" parent="Options/Items-bkp/VBoxContainer/ligne6/SAC-GRAINS"]
-margin_left = 63.9661
-margin_top = 127.605
-margin_right = 127.966
-margin_bottom = 158.605
-custom_fonts/font = ExtResource( 2 )
-custom_colors/font_color = Color( 0, 0, 0, 1 )
-text = "+1 END, +2 CHA"
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="Button" type="TextureButton" parent="Options/Items-bkp/VBoxContainer/ligne6/SAC-GRAINS"]
-margin_right = 199.0
-margin_bottom = 196.0
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="Sprite" type="Sprite" parent="Options/Items-bkp/VBoxContainer/ligne6/SAC-GRAINS"]
-position = Vector2( 100.545, 41.0303 )
-scale = Vector2( 0.0996552, 0.0996552 )
-texture = ExtResource( 20 )
+custom_styles/panel = SubResource( 24 )
 
 [node name="ItemPopups" type="Panel" parent="."]
 anchor_right = 1.0
@@ -2830,7 +2280,7 @@ margin_top = 53.0
 margin_right = 260.0
 margin_bottom = 53.0
 mouse_filter = 1
-custom_styles/panel = SubResource( 19 )
+custom_styles/panel = SubResource( 25 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
@@ -2864,10 +2314,12 @@ __meta__ = {
 [connection signal="pressed" from="About/Actions/nouveau_billy/Button" to="." method="_on_button_new_billy"]
 [connection signal="pressed" from="About/Actions/new_bug/Button" to="." method="_on_button_bug"]
 [connection signal="pressed" from="About/About/twitter/Button" to="." method="_on_button_pressed_twitter"]
+[connection signal="pressed" from="Combat/IWin/button" to="." method="_on_combat_validate_button_pressed"]
 [connection signal="pressed" from="Combat/dice/button" to="." method="_on_dice_pressed"]
-[connection signal="pressed" from="Options/Choix du Billy/tick/button" to="." method="_on_options_validate_button_pressed"]
-[connection signal="pressed" from="Options/BlockGuerrier/button" to="." method="_switch_to_guerrier"]
-[connection signal="pressed" from="Options/BlockPaysan/button" to="." method="_switch_to_paysan"]
-[connection signal="pressed" from="Options/BlockPrudent/button" to="." method="_switch_to_prudent"]
-[connection signal="pressed" from="Options/BlockDebrouillard/button" to="." method="_switch_to_debrouillard"]
-[connection signal="pressed" from="Options/Items-bkp/VBoxContainer/ligne2/ARC/Button" to="." method="_on_button_new_billy"]
+[connection signal="pressed" from="Options/Header/TabEquipement/button" to="." method="_on_button_show_equipement"]
+[connection signal="pressed" from="Options/Header/TabStats/button" to="." method="_on_button_show_stats"]
+[connection signal="pressed" from="Options/Header/tick/button" to="." method="_on_options_validate_button_pressed"]
+[connection signal="pressed" from="Options/Equipement/BlockGuerrier/button" to="." method="_switch_to_guerrier"]
+[connection signal="pressed" from="Options/Equipement/BlockPaysan/button" to="." method="_switch_to_paysan"]
+[connection signal="pressed" from="Options/Equipement/BlockPrudent/button" to="." method="_switch_to_prudent"]
+[connection signal="pressed" from="Options/Equipement/BlockDebrouillard/button" to="." method="_switch_to_debrouillard"]
