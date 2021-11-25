@@ -278,7 +278,7 @@
         "category": "OBJET",
         "in_chapters": [
             509,
-            593,
+            596,
             606
         ],
         "stats": {}
@@ -356,13 +356,21 @@
     "MEDAILLON D'EDIRE": {
         "category": "OBJET",
         "in_chapters": [
-            47,
             212,
             270,
             542,
             558
         ],
         "stats": {}
+    },
+    "MEDAILLON DE RUNIR": {
+        "category": "OBJET",
+        "in_chapters": [
+            49
+        ],
+        "stats": {
+            "end": 1
+        }
     },
     "MORGENSTERN": {
         "category": "ARME",
@@ -417,6 +425,13 @@
             191,
             529,
             603
+        ],
+        "stats": {}
+    },
+    "PETIT MEDAILLON": {
+        "category": "OBJET",
+        "in_chapters": [
+            47
         ],
         "stats": {}
     },

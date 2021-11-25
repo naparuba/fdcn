@@ -309,7 +309,10 @@
             ],
             "success": null
         },
-        "goto": 90
+        "goto": 90,
+        "stats": {
+            "richesse": 1
+        }
     },
     "108": {
         "computed": {
@@ -459,7 +462,10 @@
             ],
             "success": null
         },
-        "goto": 153
+        "goto": 153,
+        "stats": {
+            "pv": 5
+        }
     },
     "112": {
         "aquire": [
@@ -490,6 +496,10 @@
             "success": "TROIE"
         },
         "goto": 100,
+        "stats": {
+            "end": 1,
+            "hab": 1
+        },
         "success": "TROIE"
     },
     "113": {
@@ -791,7 +801,11 @@
             ],
             "success": null
         },
-        "goto": 22
+        "goto": 22,
+        "stats": {
+            "max_chance": true,
+            "max_pv": true
+        }
     },
     "122": {
         "computed": {
@@ -931,7 +945,21 @@
             ],
             "success": null
         },
-        "goto": 333
+        "goto": 333,
+        "stats_cond": {
+            "DEBROUILLARD": {
+                "crit": 3
+            },
+            "GUERRIER": {
+                "hab": 1
+            },
+            "PAYSAN": {
+                "pv_win_plus_1": true
+            },
+            "PRUDENT": {
+                "chance_max": 3
+            }
+        }
     },
     "127": {
         "computed": {
@@ -981,7 +1009,10 @@
             ],
             "success": null
         },
-        "goto": 100
+        "goto": 100,
+        "stats": {
+            "end": 1
+        }
     },
     "129": {
         "computed": {
@@ -1012,6 +1043,10 @@
             170
         ],
         "secret": true,
+        "stats": {
+            "chance": 1,
+            "info": 1
+        },
         "success": "BIG-BRAIN"
     },
     "13": {
@@ -1038,7 +1073,10 @@
             "success": null
         },
         "goto": 84,
-        "secret": true
+        "secret": true,
+        "stats": {
+            "chance": -1
+        }
     },
     "130": {
         "computed": {
@@ -1064,7 +1102,10 @@
             "success": null
         },
         "goto": 84,
-        "secret": true
+        "secret": true,
+        "stats": {
+            "pv": -1
+        }
     },
     "131": {
         "computed": {
@@ -1089,7 +1130,12 @@
             ],
             "success": null
         },
-        "goto": 70
+        "goto": 70,
+        "stats": {
+            "crit": 2,
+            "gloire": 1,
+            "info": 1
+        }
     },
     "132": {
         "computed": {
@@ -1159,7 +1205,10 @@
             ],
             "success": null
         },
-        "goto": 22
+        "goto": 22,
+        "stats": {
+            "chance": 2
+        }
     },
     "134": {
         "computed": {
@@ -1215,6 +1264,9 @@
             "success": "CUL-SEC"
         },
         "goto": 100,
+        "stats": {
+            "info": 1
+        },
         "success": "CUL-SEC"
     },
     "136": {
@@ -1273,7 +1325,10 @@
             ],
             "success": null
         },
-        "goto": 90
+        "goto": 90,
+        "stats": {
+            "gloire": 1
+        }
     },
     "138": {
         "computed": {
@@ -1299,6 +1354,10 @@
             "success": "COUP"
         },
         "goto": 100,
+        "stats": {
+            "hab": 1,
+            "info": 1
+        },
         "success": "COUP"
     },
     "139": {
@@ -1494,7 +1553,10 @@
             ],
             "success": null
         },
-        "goto": 153
+        "goto": 153,
+        "stats": {
+            "crit": 1
+        }
     },
     "145": {
         "computed": {
@@ -1668,7 +1730,11 @@
         "goto": [
             7,
             81
-        ]
+        ],
+        "stats": {
+            "end": 1,
+            "pv": -4
+        }
     },
     "15": {
         "computed": {
@@ -2419,7 +2485,10 @@
             ],
             "success": null
         },
-        "goto": 100
+        "goto": 100,
+        "stats": {
+            "hab": 1
+        }
     },
     "170": {
         "computed": {
@@ -2466,13 +2535,13 @@
                             "$end": "KIT DE SOIN"
                         },
                         {
-                            "$end": "MEDAILLON D'EDIRE"
+                            "$end": "PETIT MEDAILLON"
                         }
                     ]
                 }
             },
             "jump_conditions_txts": {
-                "215": "KIT DE SOIN ou MEDAILLON D'EDIRE"
+                "215": "KIT DE SOIN ou PETIT MEDAILLON"
             },
             "label": "Apothicaire",
             "remove": [],
@@ -2485,7 +2554,7 @@
             "success": null
         },
         "conditions": {
-            "215": "KIT DE SOIN|MEDAILLON D'EDIRE"
+            "215": "KIT DE SOIN|PETIT MEDAILLON"
         },
         "goto": [
             215,
@@ -7383,7 +7452,10 @@
             "success": null
         },
         "goto": 84,
-        "secret": true
+        "secret": true,
+        "stats": {
+            "chance": -1
+        }
     },
     "310": {
         "computed": {
@@ -8820,7 +8892,15 @@
         "goto": [
             105,
             345
-        ]
+        ],
+        "stats": {
+            "chance_max": 1
+        },
+        "stats_cond": {
+            "PRUDENT": {
+                "gloire": 1
+            }
+        }
     },
     "350": {
         "combat": {
@@ -9396,13 +9476,13 @@
                             "$end": "KIT DE SOIN"
                         },
                         {
-                            "$end": "MEDAILLON D'EDIRE"
+                            "$end": "PETIT MEDAILLON"
                         }
                     ]
                 }
             },
             "jump_conditions_txts": {
-                "215": "KIT DE SOIN ou MEDAILLON D'EDIRE"
+                "215": "KIT DE SOIN ou PETIT MEDAILLON"
             },
             "label": null,
             "remove": [],
@@ -9415,7 +9495,7 @@
             "success": null
         },
         "conditions": {
-            "215": "KIT DE SOIN|MEDAILLON D'EDIRE"
+            "215": "KIT DE SOIN|PETIT MEDAILLON"
         },
         "goto": [
             215,
@@ -9805,7 +9885,10 @@
             ],
             "success": null
         },
-        "goto": 100
+        "goto": 100,
+        "stats": {
+            "hab": 1
+        }
     },
     "380": {
         "computed": {
@@ -11159,7 +11242,11 @@
             ],
             "success": null
         },
-        "goto": 100
+        "goto": 100,
+        "stats": {
+            "chance": -1,
+            "chance_max": 1
+        }
     },
     "420": {
         "computed": {
@@ -11880,7 +11967,7 @@
                 "319": {
                     "$or": [
                         {
-                            "$end": "MEDAILLON D'EDIRE"
+                            "$end": "PETIT MEDAILLON"
                         },
                         {
                             "$end": "BROCHE DOREE"
@@ -11906,7 +11993,7 @@
             },
             "jump_conditions_txts": {
                 "179": "GUERRIER ou COUTEAU",
-                "319": "MEDAILLON D'EDIRE ou BROCHE DOREE ou BAGUE DE RUBIS",
+                "319": "PETIT MEDAILLON ou BROCHE DOREE ou BAGUE DE RUBIS",
                 "483": "GEMME MAGIQUE",
                 "72": "PAYSAN ou MARMITE"
             },
@@ -11924,7 +12011,7 @@
         },
         "conditions": {
             "179": "GUERRIER|COUTEAU",
-            "319": "MEDAILLON D'EDIRE|BROCHE DOREE|BAGUE DE RUBIS",
+            "319": "PETIT MEDAILLON|BROCHE DOREE|BAGUE DE RUBIS",
             "483": "GEMME MAGIQUE",
             "72": "PAYSAN|MARMITE"
         },
@@ -12609,6 +12696,9 @@
             "success": "BOUTEILLE"
         },
         "goto": 414,
+        "stats": {
+            "pv": 2
+        },
         "success": "BOUTEILLE"
     },
     "460": {
@@ -12918,11 +13008,11 @@
     },
     "47": {
         "aquire": [
-            "MEDAILLON D'EDIRE"
+            "PETIT MEDAILLON"
         ],
         "computed": {
             "aquire": [
-                "MEDAILLON D'EDIRE"
+                "PETIT MEDAILLON"
             ],
             "arc": null,
             "chapter": "Plante-Citrouille",
@@ -13970,8 +14060,13 @@
         ]
     },
     "49": {
+        "aquire": [
+            "MEDAILLON DE RUNIR"
+        ],
         "computed": {
-            "aquire": [],
+            "aquire": [
+                "MEDAILLON DE RUNIR"
+            ],
             "arc": null,
             "chapter": "Lenonia",
             "combat": null,
@@ -15721,8 +15816,14 @@
             "ending_type": null,
             "id": 536,
             "is_combat": false,
-            "jump_conditions": {},
-            "jump_conditions_txts": {},
+            "jump_conditions": {
+                "554": {
+                    "$end": "PAMPHLET"
+                }
+            },
+            "jump_conditions_txts": {
+                "554": "PAMPHLET"
+            },
             "label": null,
             "remove": [],
             "secret": false,
@@ -15732,6 +15833,9 @@
                 554
             ],
             "success": null
+        },
+        "conditions": {
+            "554": "PAMPHLET"
         },
         "goto": [
             80,
@@ -15911,7 +16015,10 @@
         "goto": [
             457,
             421
-        ]
+        ],
+        "stats": {
+            "pv": 5
+        }
     },
     "540": {
         "computed": {
@@ -16592,7 +16699,11 @@
         "goto": [
             163,
             452
-        ]
+        ],
+        "stats": {
+            "hab": 1,
+            "pv": -2
+        }
     },
     "560": {
         "computed": {
@@ -16922,7 +17033,11 @@
             ],
             "success": null
         },
-        "goto": 135
+        "goto": 135,
+        "stats": {
+            "chance_max": 1,
+            "richesse": 1
+        }
     },
     "570": {
         "computed": {
@@ -17355,7 +17470,10 @@
         "goto": [
             457,
             54
-        ]
+        ],
+        "stats": {
+            "pv": 5
+        }
     },
     "580": {
         "computed": {
@@ -17586,18 +17704,25 @@
             "is_combat": false,
             "jump_conditions": {
                 "272": {
-                    "$and": [
+                    "$or": [
                         {
-                            "$end": "ARC"
+                            "$and": [
+                                {
+                                    "$end": "ARC"
+                                },
+                                {
+                                    "$end": "FLECHES EXPLOSIVES"
+                                }
+                            ]
                         },
                         {
-                            "$end": "FLECHES EXPLOSIVES"
+                            "$end": "EXPLOSIFS"
                         }
                     ]
                 }
             },
             "jump_conditions_txts": {
-                "272": "ARC et FLECHES EXPLOSIVES"
+                "272": "( ARC et FLECHES EXPLOSIVES ) ou EXPLOSIFS"
             },
             "label": null,
             "remove": [],
@@ -17611,7 +17736,7 @@
             "success": null
         },
         "conditions": {
-            "272": "ARC&FLECHES EXPLOSIVES"
+            "272": "(ARC&FLECHES EXPLOSIVES)|EXPLOSIFS"
         },
         "goto": [
             447,
@@ -17770,13 +17895,8 @@
         "goto": 584
     },
     "593": {
-        "aquire": [
-            "ICONE DES PALADINS"
-        ],
         "computed": {
-            "aquire": [
-                "ICONE DES PALADINS"
-            ],
+            "aquire": [],
             "arc": null,
             "chapter": "Forteresse",
             "combat": null,
@@ -17850,8 +17970,13 @@
         "success": "METAAAL"
     },
     "596": {
+        "aquire": [
+            "ICONE DES PALADINS"
+        ],
         "computed": {
-            "aquire": [],
+            "aquire": [
+                "ICONE DES PALADINS"
+            ],
             "arc": null,
             "chapter": "Forteresse",
             "combat": null,
@@ -18013,7 +18138,10 @@
             "success": null
         },
         "goto": 37,
-        "secret": true
+        "secret": true,
+        "stats": {
+            "pv": -1
+        }
     },
     "600": {
         "computed": {
@@ -18335,7 +18463,10 @@
             ],
             "success": null
         },
-        "goto": 100
+        "goto": 100,
+        "stats": {
+            "hab": 1
+        }
     },
     "64": {
         "computed": {
@@ -18462,7 +18593,10 @@
             ],
             "success": null
         },
-        "goto": 100
+        "goto": 100,
+        "stats": {
+            "hab": 1
+        }
     },
     "67": {
         "computed": {
@@ -18575,7 +18709,10 @@
             ],
             "success": null
         },
-        "goto": 100
+        "goto": 100,
+        "stats": {
+            "chance_max": 1
+        }
     },
     "7": {
         "computed": {
@@ -18600,7 +18737,10 @@
             ],
             "success": null
         },
-        "goto": 81
+        "goto": 81,
+        "stats": {
+            "pv": 2
+        }
     },
     "70": {
         "computed": {
@@ -18655,7 +18795,11 @@
             ],
             "success": null
         },
-        "goto": 70
+        "goto": 70,
+        "stats": {
+            "crit": 2,
+            "info": 1
+        }
     },
     "72": {
         "computed": {
@@ -19078,7 +19222,15 @@
         "goto": [
             335,
             102
-        ]
+        ],
+        "stats": {
+            "pv": 2
+        },
+        "stats_cond": {
+            "MARMITE": {
+                "pv": 2
+            }
+        }
     },
     "82": {
         "computed": {
@@ -19226,7 +19378,10 @@
             ],
             "success": null
         },
-        "goto": 134
+        "goto": 134,
+        "stats": {
+            "chance": 3
+        }
     },
     "86": {
         "computed": {
@@ -19277,6 +19432,9 @@
             "success": "ASSURANCE"
         },
         "goto": 193,
+        "stats": {
+            "chance": 2
+        },
         "success": "ASSURANCE"
     },
     "88": {
@@ -19546,7 +19704,10 @@
             219,
             378
         ],
-        "secret": true
+        "secret": true,
+        "stats": {
+            "pv": 2
+        }
     },
     "95": {
         "computed": {

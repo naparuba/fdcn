@@ -36,6 +36,9 @@
     "goto": 314
   },
   "7": {
+    "stats": {
+      "pv": 2
+    },
     "goto": 81
   },
   "8": {
@@ -85,6 +88,9 @@
   },
   "13": {
     "secret": true,
+    "stats": {
+      "chance": -1
+    },
     "goto": 84
   },
   "14": {
@@ -114,6 +120,9 @@
     ]
   },
   "17": {
+    "stats": {
+      "hab": 1
+    },
     "goto": 100
   },
   "18": {
@@ -193,6 +202,9 @@
   },
   "31": {
     "secret": true,
+    "stats": {
+      "chance": -1
+    },
     "goto": 84
   },
   "32": {
@@ -223,6 +235,14 @@
     ]
   },
   "35": {
+    "stats": {
+      "chance_max": 1
+    },
+    "stats_cond": {
+      "PRUDENT": {
+        "gloire": 1
+      }
+    },
     "conditions": {
       "105": "LETTRE DE RECOMMANDATION"
     },
@@ -251,6 +271,9 @@
     ]
   },
   "38": {
+    "stats": {
+      "hab": 1
+    },
     "goto": 100
   },
   "39": {
@@ -267,6 +290,10 @@
     ]
   },
   "42": {
+    "stats": {
+      "chance": -1,
+      "chance_max": 1
+    },
     "goto": 100
   },
   "43": {
@@ -286,11 +313,14 @@
   },
   "46": {
     "success": "BOUTEILLE",
+    "stats": {
+      "pv": 2
+    },
     "goto": 414
   },
   "47": {
     "aquire": [
-      "MEDAILLON D'EDIRE"
+      "PETIT MEDAILLON"
     ],
     "goto": 22
   },
@@ -307,6 +337,9 @@
   },
   "49": {
     "secret": true,
+    "aquire": [
+      "MEDAILLON DE RUNIR"
+    ],
     "goto": 219
   },
   "50": {
@@ -355,6 +388,9 @@
       "deg": 1,
       "pyro": 0
     },
+    "stats": {
+      "pv": 5
+    },
     "goto": [
       457,
       421
@@ -364,12 +400,20 @@
     "goto": 70
   },
   "56": {
+    "stats": {
+      "hab": 1,
+      "pv": -2
+    },
     "goto": [
       163,
       452
     ]
   },
   "57": {
+    "stats": {
+      "richesse": 1,
+      "chance_max": 1
+    },
     "goto": 135
   },
   "58": {
@@ -381,6 +425,9 @@
       "deg": 0,
       "pyro": 0
     },
+    "stats": {
+      "pv": 5
+    },
     "goto": [
       457,
       54
@@ -390,6 +437,9 @@
     "goto": 436
   },
   "60": {
+    "stats": {
+      "pv": -1
+    },
     "secret": true,
     "goto": 37
   },
@@ -407,6 +457,9 @@
     ]
   },
   "63": {
+    "stats": {
+      "hab": 1
+    },
     "goto": 100
   },
   "64": {
@@ -433,6 +486,9 @@
     ]
   },
   "66": {
+    "stats": {
+      "hab": 1
+    },
     "goto": 100
   },
   "67": {
@@ -455,6 +511,9 @@
     ]
   },
   "69": {
+    "stats": {
+      "chance_max": 1
+    },
     "goto": 100
   },
   "70": {
@@ -465,6 +524,10 @@
     ]
   },
   "71": {
+    "stats": {
+      "info": 1,
+      "crit": 2
+    },
     "goto": 70
   },
   "72": {
@@ -549,6 +612,14 @@
     ]
   },
   "81": {
+    "stats": {
+      "pv": 2
+    },
+    "stats_cond": {
+      "MARMITE": {
+        "pv": 2
+      }
+    },
     "aquire": [
       "PETITE MASSUE"
     ],
@@ -590,6 +661,9 @@
     ]
   },
   "85": {
+    "stats": {
+      "chance": 3
+    },
     "goto": 134
   },
   "86": {
@@ -597,6 +671,9 @@
   },
   "87": {
     "success": "ASSURANCE",
+    "stats": {
+      "chance": 2
+    },
     "goto": 193
   },
   "88": {
@@ -636,6 +713,9 @@
   },
   "94": {
     "secret": true,
+    "stats": {
+      "pv": 2
+    },
     "goto": [
       219,
       378
@@ -731,6 +811,9 @@
     "goto": 32
   },
   "107": {
+    "stats": {
+      "richesse": 1
+    },
     "goto": 90
   },
   "108": {
@@ -754,6 +837,9 @@
     ]
   },
   "111": {
+    "stats": {
+      "pv": 5
+    },
     "goto": 153
   },
   "112": {
@@ -761,6 +847,10 @@
     "aquire": [
       "PALAIS DES PLAISIRS D'YTIA"
     ],
+    "stats": {
+      "end": 1,
+      "hab": 1
+    },
     "goto": 100
   },
   "113": {
@@ -818,6 +908,10 @@
     ]
   },
   "121": {
+    "stats": {
+      "max_pv": true,
+      "max_chance": true
+    },
     "goto": 22
   },
   "122": {
@@ -843,17 +937,38 @@
     "goto": 139
   },
   "126": {
+    "stats_cond": {
+      "GUERRIER": {
+        "hab": 1
+      },
+      "PAYSAN": {
+        "pv_win_plus_1": true
+      },
+      "PRUDENT": {
+        "chance_max": 3
+      },
+      "DEBROUILLARD": {
+        "crit": 3
+      }
+    },
     "goto": 333
   },
   "127": {
     "goto": 414
   },
   "128": {
+    "stats": {
+      "end": 1
+    },
     "goto": 100
   },
   "129": {
     "secret": true,
     "success": "BIG-BRAIN",
+    "stats": {
+      "chance": 1,
+      "info": 1
+    },
     "goto": [
       100,
       170
@@ -861,9 +976,17 @@
   },
   "130": {
     "secret": true,
+    "stats": {
+      "pv": -1
+    },
     "goto": 84
   },
   "131": {
+    "stats": {
+      "info": 1,
+      "crit": 2,
+      "gloire": 1
+    },
     "goto": 70
   },
   "132": {
@@ -881,6 +1004,9 @@
       "deg": 1,
       "pyro": 0
     },
+    "stats": {
+      "chance": 2
+    },
     "goto": 22
   },
   "134": {
@@ -891,6 +1017,9 @@
       "PASSE-PARTOUT"
     ],
     "success": "CUL-SEC",
+    "stats": {
+      "info": 1
+    },
     "goto": 100
   },
   "136": {
@@ -902,10 +1031,17 @@
     ]
   },
   "137": {
+    "stats": {
+      "gloire": 1
+    },
     "goto": 90
   },
   "138": {
     "success": "COUP",
+    "stats": {
+      "hab": 1,
+      "info": 1
+    },
     "goto": 100
   },
   "139": {
@@ -924,6 +1060,9 @@
     "goto": 230
   },
   "144": {
+    "stats": {
+      "crit": 1
+    },
     "goto": 153
   },
   "145": {
@@ -958,6 +1097,10 @@
     ]
   },
   "149": {
+    "stats": {
+      "pv": -4,
+      "end": 1
+    },
     "goto": [
       7,
       81
@@ -969,6 +1112,9 @@
   "151": {
     "conditions": {
       "18": "BAGUE DE RUBIS"
+    },
+    "stats": {
+      "richesse": 2
     },
     "goto": [
       18,
@@ -1030,6 +1176,9 @@
     ]
   },
   "159": {
+    "stats": {
+      "chance": -1
+    },
     "secret": true,
     "goto": 136
   },
@@ -1037,6 +1186,10 @@
     "goto": 403
   },
   "161": {
+    "stats": {
+      "chance": 2,
+      "pv": 3
+    },
     "goto": 234
   },
   "162": {
@@ -1079,6 +1232,10 @@
     "remove": [
       "PHILTRE D'AMOUR"
     ],
+    "stats": {
+      "info": 2,
+      "chance_max": 4
+    },
     "goto": 100
   },
   "167": {
@@ -1088,6 +1245,9 @@
     ]
   },
   "168": {
+    "stats": {
+      "gloire": 1
+    },
     "goto": [
       358,
       507
@@ -1110,12 +1270,15 @@
   },
   "170": {
     "secret": true,
+    "stats": {
+      "richesse": 1
+    },
     "goto": 100
   },
   "171": {
     "label": "Apothicaire",
     "conditions": {
-      "215": "KIT DE SOIN|MEDAILLON D'EDIRE"
+      "215": "KIT DE SOIN|PETIT MEDAILLON"
     },
     "goto": [
       215,
@@ -1161,20 +1324,34 @@
     ]
   },
   "177": {
+    "stats": {
+      "pv": 2,
+      "chance": 2
+    },
     "goto": 153
   },
   "178": {
     "label": "Le Fanta",
+    "stats": {
+      "pv_1_4_max": true
+    },
     "goto": 300
   },
   "179": {
     "goto": 354
   },
   "180": {
+    "stats": {
+      "info": 1,
+      "chance_max": 1
+    },
     "goto": 100
   },
   "181": {
     "label": "Forgeron",
+    "stats": {
+      "info": 1
+    },
     "goto": [
       70,
       322
@@ -1271,6 +1448,10 @@
     ]
   },
   "192": {
+    "stats": {
+      "richesse": 1,
+      "gloire": 1
+    },
     "goto": [
       190,
       359,
@@ -1319,6 +1500,9 @@
     ]
   },
   "199": {
+    "stats": {
+      "pv": 5
+    },
     "goto": 153
   },
   "200": {
@@ -1328,6 +1512,9 @@
     ]
   },
   "201": {
+    "stats": {
+      "gloire": -1
+    },
     "goto": 333
   },
   "202": {
@@ -1340,6 +1527,9 @@
     "goto": 249
   },
   "205": {
+    "stats": {
+      "pv": 7
+    },
     "goto": [
       261,
       224
@@ -1359,6 +1549,9 @@
     "goto": 420
   },
   "209": {
+    "stats": {
+      "pv": 2
+    },
     "goto": 110
   },
   "210": {
@@ -1376,6 +1569,10 @@
     ]
   },
   "211": {
+    "stats": {
+      "chance_max": 1,
+      "hab": 1
+    },
     "goto": 65
   },
   "212": {
@@ -1402,6 +1599,9 @@
     ]
   },
   "215": {
+    "stats": {
+      "info": 1
+    },
     "goto": 100
   },
   "216": {
@@ -1563,6 +1763,11 @@
     "aquire": [
       "CHLOROGLYCERINE"
     ],
+    "stats_cond": {
+      "PRUDENT": {
+        "gloire": 1
+      }
+    },
     "goto": 461
   },
   "237": {
@@ -1595,6 +1800,9 @@
     "goto": 45
   },
   "242": {
+    "stats": {
+      "chance": -2
+    },
     "goto": 238
   },
   "243": {
@@ -1640,6 +1848,9 @@
     "goto": 461
   },
   "252": {
+    "stats": {
+      "hab": -1
+    },
     "goto": 261
   },
   "253": {
@@ -1652,6 +1863,16 @@
     "label": "Lavandières",
     "conditions": {
       "284": "DEBROUILLARD"
+    },
+    "stats_cond": {
+      "COTTE DE MAILLES": {
+        "info": 1,
+        "chance_max": 1
+      },
+      "MARMITE": {
+        "info": 1,
+        "chance_max": 1
+      }
     },
     "goto": [
       166,
@@ -1666,11 +1887,23 @@
     "remove": [
       "PHILTRE D'AMOUR"
     ],
+    "stats": {
+      "chance_max": -2,
+      "pv": -4
+    },
     "goto": 100
   },
   "257": {
     "conditions": {
       "105": "LETTRE DE RECOMMANDATION"
+    },
+    "stats": {
+      "pv": -2
+    },
+    "stats_cond": {
+      "GUERRIER": {
+        "gloire": 1
+      }
     },
     "goto": [
       105,
@@ -1678,6 +1911,11 @@
     ]
   },
   "258": {
+    "stats_cond": {
+      "DEBROUILLARD": {
+        "pv": 2
+      }
+    },
     "goto": [
       355,
       440
@@ -1685,6 +1923,9 @@
   },
   "259": {
     "secret": true,
+    "stats": {
+      "info": 1
+    },
     "goto": 70
   },
   "260": {
@@ -1710,6 +1951,11 @@
     "goto": 423
   },
   "265": {
+    "stats_cond": {
+      "DEBROUILLARD": {
+        "gloire": 1
+      }
+    },
     "goto": 360
   },
   "266": {
@@ -1735,12 +1981,18 @@
     ]
   },
   "269": {
+    "stats": {
+      "info": 2
+    },
     "goto": 100
   },
   "270": {
     "aquire": [
       "MEDAILLON D'EDIRE"
     ],
+    "stats": {
+      "pv": 12
+    },
     "goto": 142
   },
   "271": {
@@ -1753,6 +2005,9 @@
     "goto": 80
   },
   "273": {
+    "stats": {
+      "chance": 3
+    },
     "goto": 423
   },
   "274": {
@@ -1771,6 +2026,10 @@
     "aquire": [
       "BISCUITS"
     ],
+    "stats": {
+      "gloire": 1,
+      "richesse": 1
+    },
     "goto": [
       190,
       359,
@@ -1825,9 +2084,20 @@
     ]
   },
   "280": {
+    "stats": {
+      "chance": 2
+    },
+    "stats_cond": {
+      "PRUDENT": {
+        "gloire": 1
+      }
+    },
     "goto": 414
   },
   "281": {
+    "stats": {
+      "max_pv": true
+    },
     "goto": 441
   },
   "282": {
@@ -1855,6 +2125,11 @@
     ]
   },
   "284": {
+    "stats_cond": {
+      "ARC&COUTEAU": {
+        "arc_et_couteau": true
+      }
+    },
     "goto": 254
   },
   "285": {
@@ -1888,6 +2163,9 @@
   },
   "288": {
     "success": "SECRET-HISTOIRE",
+    "stats": {
+      "chance": 2
+    },
     "goto": [
       258,
       355,
@@ -1898,6 +2176,9 @@
     "aquire": [
       "PALAIS DES PLAISIRS D'YTIA"
     ],
+    "stats": {
+      "end": 1
+    },
     "goto": 100
   },
   "290": {
@@ -1959,6 +2240,11 @@
       "deg": 1,
       "pyro": 0
     },
+    "stats_cond": {
+      "GUERRIER": {
+        "gloire": 1
+      }
+    },
     "goto": 316
   },
   "298": {
@@ -1980,6 +2266,9 @@
   },
   "301": {
     "secret": true,
+    "stats": {
+      "chance": -1
+    },
     "goto": 84
   },
   "302": {
@@ -2028,6 +2317,9 @@
   },
   "310": {
     "secret": true,
+    "stats": {
+      "chance": -1
+    },
     "goto": 84
   },
   "311": {
@@ -2058,6 +2350,9 @@
   },
   "316": {
     "success": "CALAMITY-BILLY",
+    "stats": {
+      "info": 1
+    },
     "goto": 100
   },
   "317": {
@@ -2110,12 +2405,19 @@
     "goto": 436
   },
   "322": {
+    "stats": {
+      "info": 2,
+      "hab": 2
+    },
     "goto": [
       70,
       181
     ]
   },
   "323": {
+    "stats": {
+      "half_pv": true
+    },
     "goto": 492
   },
   "324": {
@@ -2199,10 +2501,23 @@
     "goto": 292
   },
   "337": {
+    "stats": {
+      "richesse": 2,
+      "gloire": 1
+    },
     "goto": 584
   },
   "338": {
     "success": "CHUT",
+    "stats": {
+      "info": 3,
+      "chance": 7
+    },
+    "stats_cond": {
+      "PRUDENT": {
+        "gloire": 1
+      }
+    },
     "goto": 100
   },
   "339": {
@@ -2218,6 +2533,10 @@
     "aquire": [
       "LIME EN ACIER D'ARKADIE"
     ],
+    "stats": {
+      "richesse": 1,
+      "gloire": 1
+    },
     "goto": 383
   },
   "340": {
@@ -2284,6 +2603,9 @@
     "aquire": [
       "LIME EN ACIER D'ARKADIE"
     ],
+    "stats": {
+      "richesse": 1
+    },
     "goto": 383
   },
   "349": {
@@ -2317,9 +2639,20 @@
       "pyro": 3
     },
     "success": "ENFANT-DRAGON",
+    "stats": {
+      "richesse": 1
+    },
+    "stats_cond": {
+      "GUERRIER": {
+        "gloire": 1
+      }
+    },
     "goto": 584
   },
   "351": {
+    "stats": {
+      "chance": 2
+    },
     "goto": 238
   },
   "352": {
@@ -2346,18 +2679,27 @@
     ]
   },
   "356": {
+    "stats": {
+      "hab": 1
+    },
     "goto": 100
   },
   "357": {
     "goto": 527
   },
   "358": {
+    "stats": {
+      "pv": 5
+    },
     "goto": [
       523,
       516
     ]
   },
   "359": {
+    "stats": {
+      "pv": 6
+    },
     "goto": [
       190,
       318,
@@ -2369,6 +2711,11 @@
   },
   "361": {
     "success": "STARDUST",
+    "stats": {
+      "info": 1,
+      "pv_max": -2,
+      "crit": 3
+    },
     "goto": 100
   },
   "362": {
@@ -2402,11 +2749,17 @@
     ]
   },
   "367": {
+    "stats": {
+      "richesse": 1
+    },
     "goto": 183
   },
   "368": {
     "conditions": {
-      "215": "KIT DE SOIN|MEDAILLON D'EDIRE"
+      "215": "KIT DE SOIN|PETIT MEDAILLON"
+    },
+    "stats": {
+      "max_pv": true
     },
     "goto": [
       215,
@@ -2467,6 +2820,9 @@
     "goto": 407
   },
   "378": {
+    "stats": {
+      "max_pv": true
+    },
     "goto": 70
   },
   "379": {
@@ -2517,6 +2873,9 @@
   "386": {
     "conditions": {
       "265": "KIT D'ESCALADE"
+    },
+    "stats": {
+      "pv": 2
     },
     "goto": [
       265,
@@ -2580,6 +2939,9 @@
     ]
   },
   "395": {
+    "stats": {
+      "info": 1
+    },
     "goto": 70
   },
   "396": {
@@ -2596,6 +2958,9 @@
     "goto": 426
   },
   "399": {
+    "stats": {
+      "info": 1
+    },
     "goto": 70
   },
   "400": {
@@ -2626,6 +2991,9 @@
     "aquire": [
       "ARMEE DE SQUELETTES DETRUITE"
     ],
+    "stats": {
+      "end": 3
+    },
     "goto": 25
   },
   "407": {
@@ -2655,6 +3023,9 @@
     "goto": 154
   },
   "411": {
+    "stats": {
+      "chance_max": 1
+    },
     "goto": [
       191,
       415,
@@ -2711,15 +3082,31 @@
     "goto": 480
   },
   "417": {
+    "stats_cond": {
+      "PRUDENT": {
+        "gloire": 1
+      }
+    },
     "goto": 436
   },
   "418": {
     "goto": 360
   },
   "419": {
+    "stats": {
+      "hab": 1
+    },
     "goto": 75
   },
   "420": {
+    "stats": {
+      "chance": 1
+    },
+    "stats_cond": {
+      "PRUDENT": {
+        "gloire": 1
+      }
+    },
     "goto": 489
   },
   "421": {
@@ -2846,6 +3233,9 @@
     "goto": 480
   },
   "439": {
+    "stats": {
+      "pv": 2
+    },
     "goto": [
       50,
       298,
@@ -2859,7 +3249,7 @@
       "72": "PAYSAN|MARMITE",
       "483": "GEMME MAGIQUE",
       "179": "GUERRIER|COUTEAU",
-      "319": "MEDAILLON D'EDIRE|BROCHE DOREE|BAGUE DE RUBIS"
+      "319": "PETIT MEDAILLON|BROCHE DOREE|BAGUE DE RUBIS"
     },
     "goto": [
       72,
@@ -2872,6 +3262,14 @@
     "goto": 500
   },
   "442": {
+    "stats_cond": {
+      "PRUDENT|DEBROUILLARD": {
+        "chance": 1
+      },
+      "GUERRIER|PAYSAN": {
+        "pv": 1
+      }
+    },
     "goto": 414
   },
   "443": {
@@ -2902,6 +3300,9 @@
     ]
   },
   "448": {
+    "stats": {
+      "1_4_pv_max": true
+    },
     "goto": 150
   },
   "449": {
@@ -3168,6 +3569,9 @@
     ]
   },
   "478": {
+    "stats": {
+      "richesse": -1
+    },
     "remove": [
       "BROCHE DOREE"
     ],
@@ -3255,6 +3659,9 @@
     "goto": 428
   },
   "484": {
+    "stats": {
+      "richesse": -1
+    },
     "goto": [
       427,
       501,
@@ -3299,6 +3706,10 @@
     ]
   },
   "491": {
+    "stats": {
+      "richesse": 1,
+      "chance_max": -2
+    },
     "aquire": [
       "LIME EN ACIER D'ARKADIE"
     ],
@@ -3342,6 +3753,9 @@
     "goto": 25
   },
   "499": {
+    "stats": {
+      "info": 2
+    },
     "goto": 100
   },
   "500": {
@@ -3377,6 +3791,14 @@
     "aquire": [
       "CEINTURE DE CHAMPION"
     ],
+    "stats": {
+      "pv": 8
+    },
+    "stats_cond": {
+      "GUERRIER": {
+        "gloire": 1
+      }
+    },
     "goto": 457
   },
   "506": {
@@ -3398,6 +3820,9 @@
     "remove": [
       "ICONE DES PALADINS"
     ],
+    "stats": {
+      "arm": 1
+    },
     "goto": 475
   },
   "510": {
@@ -3574,6 +3999,9 @@
     "goto": 475
   },
   "533": {
+    "stats": {
+      "hab": 1
+    },
     "goto": 400
   },
   "534": {
@@ -3584,6 +4012,9 @@
       "arm": 0,
       "deg": 0,
       "pyro": 0
+    },
+    "stats": {
+      "hab": 1
     },
     "goto": 52
   },
@@ -3611,6 +4042,9 @@
     "aquire": [
       "PRODUITS CHIMIQUES HASARDEUX"
     ],
+    "conditions": {
+      "554": "PAMPHLET"
+    },
     "goto": [
       80,
       554
@@ -3663,6 +4097,10 @@
     "remove": [
       "MEDAILLON D'EDIRE"
     ],
+    "stats": {
+      "end": 1,
+      "arm": 1
+    },
     "goto": 480
   },
   "543": {
@@ -3672,6 +4110,9 @@
     ]
   },
   "544": {
+    "stats": {
+      "end": 1
+    },
     "goto": [
       191,
       415,
@@ -3743,6 +4184,9 @@
     ]
   },
   "554": {
+    "stats": {
+      "chance_max": 3
+    },
     "goto": 80
   },
   "555": {
@@ -3774,6 +4218,9 @@
     "remove": [
       "MEDAILLON D'EDIRE"
     ],
+    "stats": {
+      "max_pv": true
+    },
     "goto": 475
   },
   "559": {
@@ -3812,9 +4259,16 @@
     ]
   },
   "565": {
+    "stats": {
+      "deg": 1
+    },
     "goto": 475
   },
   "566": {
+    "stats": {
+      "chance": 2,
+      "hab": 10
+    },
     "goto": [
       340,
       400
@@ -3900,6 +4354,9 @@
     "goto": 536
   },
   "577": {
+    "stats": {
+      "hab": 1
+    },
     "goto": [
       191,
       415,
@@ -3982,7 +4439,7 @@
   },
   "587": {
     "conditions": {
-      "272": "ARC&FLECHES EXPLOSIVES"
+      "272": "(ARC&FLECHES EXPLOSIVES)|EXPLOSIFS"
     },
     "goto": [
       447,
@@ -4007,12 +4464,12 @@
     "goto": 457
   },
   "592": {
+    "stats": {
+      "richesse": 2
+    },
     "goto": 584
   },
   "593": {
-    "aquire": [
-      "ICONE DES PALADINS"
-    ],
     "goto": 400
   },
   "594": {
@@ -4026,9 +4483,15 @@
     "goto": 608
   },
   "596": {
+    "aquire": [
+      "ICONE DES PALADINS"
+    ],
     "goto": 581
   },
   "597": {
+    "stats": {
+      "pv": 3
+    },
     "goto": [
       285,
       496
@@ -4041,6 +4504,9 @@
     "goto": 475
   },
   "599": {
+    "stats": {
+      "adr": 1
+    },
     "goto": [
       191,
       415,

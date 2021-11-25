@@ -680,6 +680,8 @@ for obj_name, entry in all_objs.items():
         entry['in_chapters'] = [1]  # so will be seens always
     if 'stats' not in entry:
         entry['stats'] = {}
+    if 'stats_cond' not in entry:
+        entry['stats_cond'] = {}
 
 # Check for secrets that should NOT be accessible by 2 ways
 print('Checking for secret reverse jump:')
