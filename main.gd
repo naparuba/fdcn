@@ -263,6 +263,8 @@ func _refresh_options():
 	if type_billy_param != 'pegu':
 		sprite_by_billy[type_billy_param].material.set_shader_param("grayscale", false)
 
+	self._refresh_options_stats()
+	
 	
 func refresh():	
 	
@@ -641,3 +643,14 @@ func _on_button_show_stats():
 # The user ask to close the combat dialog
 func _on_combat_validate_button_pressed():
 	$Combat.visible = false
+
+
+func _refresh_options_stats():
+	$Options/Stats/PlayerPvValue.text = '%s' % Player.get_pv()
+	$Options/Stats/PlayerEndValue.text = '%s' % Player.get_end()
+	$Options/Stats/PlayerHabValue.text = '%s' % Player.get_hab()
+	$Options/Stats/PlayerAdrValue.text = '%s' % Player.get_adr()
+	$Options/Stats/PlayerChaValue.text = '%s' % Player.get_cha()
+	$Options/Stats/PlayerCritValue.text = '%s' % Player.get_crit()
+	$Options/Stats/PlayerDegValue.text = '%s' % Player.get_deg()
+	$Options/Stats/PlayerArmValue.text = '%s' % Player.get_arm()

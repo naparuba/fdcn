@@ -79,6 +79,10 @@ class Node(object):
         
         self._aquire = []
         self._remove = []
+        
+        self._stats = {}
+        self._stats_cond_raw = None
+        self._stats_cond = []
     
     
     def have_combat(self):
@@ -128,6 +132,8 @@ class Node(object):
             'jump_conditions_txts': self._conditions_txts,
             'aquire'              : self._aquire,
             'remove'              : self._remove,
+            'stats'               : self._stats,
+            'stats_cond'          : self._stats_cond,
         }
     
     
@@ -236,6 +242,34 @@ class Node(object):
         
         self._conditions = r_tree
         self._conditions_txts = r_txt
+    
+    
+    def set_stats(self, stats):
+        self._stats = stats
+    
+    
+    def set_stats_cond(self, stats_con):
+        self._stats_cond_raw = stats_con
+    
+    
+    # Parse the jump condition, and produce 2 things:
+    # * dict output, for easy comparision
+    # * display text about the rule
+    def parse_stats_conditions(self):
+        if not self._stats_cond_raw:
+            self._stats_cond = []
+            return
+        # print('\n\n\n%s Stats Condition raw: %s' % (self.get_id(), self._stats_cond_raw))
+        r_lst = []
+        for (expr, stats) in self._stats_cond_raw.items():
+            facto = ConditionNodeFactory()
+            _condition = facto.parse_expr(expr)
+            # print('\n\n**********************\nCONDITION: %s :: %s => %s\n*****' % (k, expr, _condition))
+            j = _condition.to_json()
+            txt = expr.replace('(', '( ').replace(')', ' )').replace('&', ' et ').replace('|', ' ou ').strip()
+            r_lst.append({'condition': j, 'stats': stats, 'txt': txt})
+            # print('%s => %s / %s' % (expr, j, txt))
+        self._stats_cond = r_lst
     
     
     def get_all_conditions_token(self):
@@ -399,6 +433,12 @@ for idx, n in book_data.items():
     remove = n.get('remove', [])
     node.set_remove(remove)
     
+    stats = n.get('stats', {})
+    node.set_stats(stats)
+    
+    stats_cond = n.get('stats_cond', {})
+    node.set_stats_cond(stats_cond)
+    
     goto = n['goto']
     
     gotos = []
@@ -537,6 +577,7 @@ print('Conditions parsing:')
 for node_id_str in book_data.keys():
     node = node_graph.get_node(int(node_id_str))
     node.parse_conditions()
+    node.parse_stats_conditions()
 
 print('Compute all conditions')
 all_conditions = set()
@@ -680,8 +721,6 @@ for obj_name, entry in all_objs.items():
         entry['in_chapters'] = [1]  # so will be seens always
     if 'stats' not in entry:
         entry['stats'] = {}
-    if 'stats_cond' not in entry:
-        entry['stats_cond'] = {}
 
 # Check for secrets that should NOT be accessible by 2 ways
 print('Checking for secret reverse jump:')

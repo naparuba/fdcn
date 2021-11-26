@@ -20,6 +20,8 @@
             "sons": [
                 2
             ],
+            "stats": {},
+            "stats_cond": [],
             "success": null
         },
         "goto": 2
@@ -53,6 +55,8 @@
                 461,
                 530
             ],
+            "stats": {},
+            "stats_cond": [],
             "success": null
         },
         "conditions": {
@@ -96,6 +100,8 @@
                 210,
                 254
             ],
+            "stats": {},
+            "stats_cond": [],
             "success": null
         },
         "goto": [
@@ -135,6 +141,8 @@
                 287,
                 393
             ],
+            "stats": {},
+            "stats_cond": [],
             "success": null
         },
         "goto": [
@@ -167,6 +175,8 @@
                 384,
                 387
             ],
+            "stats": {},
+            "stats_cond": [],
             "success": null
         },
         "goto": [
@@ -198,6 +208,8 @@
                 443,
                 470
             ],
+            "stats": {},
+            "stats_cond": [],
             "success": null
         },
         "goto": [
@@ -227,6 +239,8 @@
             "sons": [
                 383
             ],
+            "stats": {},
+            "stats_cond": [],
             "success": null
         },
         "goto": 383
@@ -252,6 +266,8 @@
             "sons": [
                 41
             ],
+            "stats": {},
+            "stats_cond": [],
             "success": null
         },
         "goto": 41
@@ -282,6 +298,8 @@
             "sons": [
                 32
             ],
+            "stats": {},
+            "stats_cond": [],
             "success": null
         },
         "goto": 32
@@ -307,6 +325,10 @@
             "sons": [
                 90
             ],
+            "stats": {
+                "richesse": 1
+            },
+            "stats_cond": [],
             "success": null
         },
         "goto": 90,
@@ -335,6 +357,8 @@
             "sons": [
                 338
             ],
+            "stats": {},
+            "stats_cond": [],
             "success": null
         },
         "goto": 338
@@ -365,6 +389,8 @@
             "sons": [
                 318
             ],
+            "stats": {},
+            "stats_cond": [],
             "success": null
         },
         "goto": 318,
@@ -392,6 +418,8 @@
                 28,
                 106
             ],
+            "stats": {},
+            "stats_cond": [],
             "success": null
         },
         "goto": [
@@ -428,6 +456,8 @@
                 351,
                 392
             ],
+            "stats": {},
+            "stats_cond": [],
             "success": null
         },
         "conditions": {
@@ -460,6 +490,10 @@
             "sons": [
                 153
             ],
+            "stats": {
+                "pv": 5
+            },
+            "stats_cond": [],
             "success": null
         },
         "goto": 153,
@@ -493,6 +527,11 @@
             "sons": [
                 100
             ],
+            "stats": {
+                "end": 1,
+                "hab": 1
+            },
+            "stats_cond": [],
             "success": "TROIE"
         },
         "goto": 100,
@@ -523,6 +562,8 @@
             "sons": [
                 414
             ],
+            "stats": {},
+            "stats_cond": [],
             "success": null
         },
         "goto": 414
@@ -563,6 +604,8 @@
             "sons": [
                 597
             ],
+            "stats": {},
+            "stats_cond": [],
             "success": null
         },
         "goto": 597
@@ -589,6 +632,8 @@
                 23,
                 30
             ],
+            "stats": {},
+            "stats_cond": [],
             "success": null
         },
         "goto": [
@@ -618,6 +663,8 @@
                 271,
                 342
             ],
+            "stats": {},
+            "stats_cond": [],
             "success": null
         },
         "goto": [
@@ -648,6 +695,8 @@
                 395,
                 399
             ],
+            "stats": {},
+            "stats_cond": [],
             "success": null
         },
         "goto": [
@@ -678,6 +727,8 @@
             "sons": [
                 89
             ],
+            "stats": {},
+            "stats_cond": [],
             "success": null
         },
         "goto": 89
@@ -708,6 +759,8 @@
             "sons": [
                 426
             ],
+            "stats": {},
+            "stats_cond": [],
             "success": null
         },
         "goto": 426,
@@ -734,6 +787,8 @@
             "sons": [
                 100
             ],
+            "stats": {},
+            "stats_cond": [],
             "success": null
         },
         "goto": 100
@@ -767,6 +822,8 @@
                 91,
                 125
             ],
+            "stats": {},
+            "stats_cond": [],
             "success": null
         },
         "conditions": {
@@ -799,6 +856,11 @@
             "sons": [
                 22
             ],
+            "stats": {
+                "max_chance": true,
+                "max_pv": true
+            },
+            "stats_cond": [],
             "success": null
         },
         "goto": 22,
@@ -832,6 +894,8 @@
                 138,
                 356
             ],
+            "stats": {},
+            "stats_cond": [],
             "success": null
         },
         "goto": [
@@ -864,6 +928,8 @@
             "sons": [
                 89
             ],
+            "stats": {},
+            "stats_cond": [],
             "success": null
         },
         "goto": 89
@@ -890,6 +956,8 @@
                 19,
                 237
             ],
+            "stats": {},
+            "stats_cond": [],
             "success": null
         },
         "goto": [
@@ -918,6 +986,8 @@
             "sons": [
                 139
             ],
+            "stats": {},
+            "stats_cond": [],
             "success": null
         },
         "goto": 139
@@ -942,6 +1012,45 @@
             "secret_jumps": [],
             "sons": [
                 333
+            ],
+            "stats": {},
+            "stats_cond": [
+                {
+                    "condition": {
+                        "$end": "GUERRIER"
+                    },
+                    "stats": {
+                        "hab": 1
+                    },
+                    "txt": "GUERRIER"
+                },
+                {
+                    "condition": {
+                        "$end": "PAYSAN"
+                    },
+                    "stats": {
+                        "pv_win_plus_1": true
+                    },
+                    "txt": "PAYSAN"
+                },
+                {
+                    "condition": {
+                        "$end": "PRUDENT"
+                    },
+                    "stats": {
+                        "chance_max": 3
+                    },
+                    "txt": "PRUDENT"
+                },
+                {
+                    "condition": {
+                        "$end": "DEBROUILLARD"
+                    },
+                    "stats": {
+                        "crit": 3
+                    },
+                    "txt": "DEBROUILLARD"
+                }
             ],
             "success": null
         },
@@ -982,6 +1091,8 @@
             "sons": [
                 414
             ],
+            "stats": {},
+            "stats_cond": [],
             "success": null
         },
         "goto": 414
@@ -1007,6 +1118,10 @@
             "sons": [
                 100
             ],
+            "stats": {
+                "end": 1
+            },
+            "stats_cond": [],
             "success": null
         },
         "goto": 100,
@@ -1036,6 +1151,11 @@
                 100,
                 170
             ],
+            "stats": {
+                "chance": 1,
+                "info": 1
+            },
+            "stats_cond": [],
             "success": "BIG-BRAIN"
         },
         "goto": [
@@ -1070,6 +1190,10 @@
             "sons": [
                 84
             ],
+            "stats": {
+                "chance": -1
+            },
+            "stats_cond": [],
             "success": null
         },
         "goto": 84,
@@ -1099,6 +1223,10 @@
             "sons": [
                 84
             ],
+            "stats": {
+                "pv": -1
+            },
+            "stats_cond": [],
             "success": null
         },
         "goto": 84,
@@ -1128,6 +1256,12 @@
             "sons": [
                 70
             ],
+            "stats": {
+                "crit": 2,
+                "gloire": 1,
+                "info": 1
+            },
+            "stats_cond": [],
             "success": null
         },
         "goto": 70,
@@ -1158,6 +1292,8 @@
             "sons": [
                 65
             ],
+            "stats": {},
+            "stats_cond": [],
             "success": null
         },
         "goto": 65
@@ -1203,6 +1339,10 @@
             "sons": [
                 22
             ],
+            "stats": {
+                "chance": 2
+            },
+            "stats_cond": [],
             "success": null
         },
         "goto": 22,
@@ -1231,6 +1371,8 @@
             "sons": [
                 230
             ],
+            "stats": {},
+            "stats_cond": [],
             "success": null
         },
         "goto": 230
@@ -1261,6 +1403,10 @@
             "sons": [
                 100
             ],
+            "stats": {
+                "info": 1
+            },
+            "stats_cond": [],
             "success": "CUL-SEC"
         },
         "goto": 100,
@@ -1293,6 +1439,8 @@
                 366,
                 461
             ],
+            "stats": {},
+            "stats_cond": [],
             "success": null
         },
         "goto": [
@@ -1323,6 +1471,10 @@
             "sons": [
                 90
             ],
+            "stats": {
+                "gloire": 1
+            },
+            "stats_cond": [],
             "success": null
         },
         "goto": 90,
@@ -1351,6 +1503,11 @@
             "sons": [
                 100
             ],
+            "stats": {
+                "hab": 1,
+                "info": 1
+            },
+            "stats_cond": [],
             "success": "COUP"
         },
         "goto": 100,
@@ -1381,6 +1538,8 @@
             "sons": [
                 230
             ],
+            "stats": {},
+            "stats_cond": [],
             "success": null
         },
         "goto": 230
@@ -1426,6 +1585,8 @@
             "sons": [
                 67
             ],
+            "stats": {},
+            "stats_cond": [],
             "success": null
         },
         "goto": 67
@@ -1451,6 +1612,8 @@
             "sons": [
                 367
             ],
+            "stats": {},
+            "stats_cond": [],
             "success": null
         },
         "goto": 367
@@ -1476,6 +1639,8 @@
             "sons": [
                 22
             ],
+            "stats": {},
+            "stats_cond": [],
             "success": null
         },
         "goto": 22
@@ -1501,6 +1666,8 @@
             "sons": [
                 323
             ],
+            "stats": {},
+            "stats_cond": [],
             "success": null
         },
         "goto": 323
@@ -1526,6 +1693,8 @@
             "sons": [
                 230
             ],
+            "stats": {},
+            "stats_cond": [],
             "success": null
         },
         "goto": 230
@@ -1551,6 +1720,10 @@
             "sons": [
                 153
             ],
+            "stats": {
+                "crit": 1
+            },
+            "stats_cond": [],
             "success": null
         },
         "goto": 153,
@@ -1581,6 +1754,8 @@
                 203,
                 374
             ],
+            "stats": {},
+            "stats_cond": [],
             "success": null
         },
         "goto": [
@@ -1610,6 +1785,8 @@
             "sons": [
                 76
             ],
+            "stats": {},
+            "stats_cond": [],
             "success": null
         },
         "goto": 76
@@ -1635,6 +1812,8 @@
             "sons": [
                 22
             ],
+            "stats": {},
+            "stats_cond": [],
             "success": null
         },
         "goto": 22
@@ -1684,6 +1863,8 @@
                 455,
                 496
             ],
+            "stats": {},
+            "stats_cond": [],
             "success": null
         },
         "conditions": {
@@ -1725,6 +1906,11 @@
                 7,
                 81
             ],
+            "stats": {
+                "end": 1,
+                "pv": -4
+            },
+            "stats_cond": [],
             "success": null
         },
         "goto": [
@@ -1757,6 +1943,8 @@
             "sons": [
                 249
             ],
+            "stats": {},
+            "stats_cond": [],
             "success": null
         },
         "goto": 249
@@ -1782,6 +1970,8 @@
             "sons": [
                 178
             ],
+            "stats": {},
+            "stats_cond": [],
             "success": null
         },
         "goto": 178
@@ -1814,6 +2004,10 @@
                 18,
                 233
             ],
+            "stats": {
+                "richesse": 2
+            },
+            "stats_cond": [],
             "success": null
         },
         "conditions": {
@@ -1822,7 +2016,10 @@
         "goto": [
             18,
             233
-        ]
+        ],
+        "stats": {
+            "richesse": 2
+        }
     },
     "152": {
         "computed": {
@@ -1846,6 +2043,8 @@
                 192,
                 275
             ],
+            "stats": {},
+            "stats_cond": [],
             "success": null
         },
         "goto": [
@@ -1875,6 +2074,8 @@
             "sons": [
                 200
             ],
+            "stats": {},
+            "stats_cond": [],
             "success": null
         },
         "goto": 200
@@ -1902,6 +2103,8 @@
                 447,
                 551
             ],
+            "stats": {},
+            "stats_cond": [],
             "success": null
         },
         "goto": [
@@ -1947,6 +2150,8 @@
             "sons": [
                 394
             ],
+            "stats": {},
+            "stats_cond": [],
             "success": null
         },
         "goto": 394
@@ -1970,6 +2175,8 @@
             "secret": false,
             "secret_jumps": [],
             "sons": [],
+            "stats": {},
+            "stats_cond": [],
             "success": "SEYMOUR"
         },
         "ending": "bad",
@@ -2000,6 +2207,8 @@
                 496,
                 564
             ],
+            "stats": {},
+            "stats_cond": [],
             "success": null
         },
         "goto": [
@@ -2036,6 +2245,8 @@
                 247,
                 499
             ],
+            "stats": {},
+            "stats_cond": [],
             "success": null
         },
         "goto": [
@@ -2069,10 +2280,17 @@
             "sons": [
                 136
             ],
+            "stats": {
+                "chance": -1
+            },
+            "stats_cond": [],
             "success": null
         },
         "goto": 136,
-        "secret": true
+        "secret": true,
+        "stats": {
+            "chance": -1
+        }
     },
     "16": {
         "computed": {
@@ -2109,6 +2327,8 @@
                 120,
                 294
             ],
+            "stats": {},
+            "stats_cond": [],
             "success": null
         },
         "conditions": {
@@ -2140,6 +2360,8 @@
             "sons": [
                 403
             ],
+            "stats": {},
+            "stats_cond": [],
             "success": null
         },
         "goto": 403
@@ -2165,9 +2387,18 @@
             "sons": [
                 234
             ],
+            "stats": {
+                "chance": 2,
+                "pv": 3
+            },
+            "stats_cond": [],
             "success": null
         },
-        "goto": 234
+        "goto": 234,
+        "stats": {
+            "chance": 2,
+            "pv": 3
+        }
     },
     "162": {
         "combat": {
@@ -2205,6 +2436,8 @@
             "sons": [
                 168
             ],
+            "stats": {},
+            "stats_cond": [],
             "success": null
         },
         "goto": 168
@@ -2228,6 +2461,8 @@
             "secret": false,
             "secret_jumps": [],
             "sons": [],
+            "stats": {},
+            "stats_cond": [],
             "success": null
         },
         "ending": "bad",
@@ -2264,6 +2499,8 @@
                 93,
                 197
             ],
+            "stats": {},
+            "stats_cond": [],
             "success": null
         },
         "conditions": {
@@ -2298,6 +2535,8 @@
                 129,
                 170
             ],
+            "stats": {},
+            "stats_cond": [],
             "success": null
         },
         "goto": [
@@ -2330,12 +2569,21 @@
             "sons": [
                 100
             ],
+            "stats": {
+                "chance_max": 4,
+                "info": 2
+            },
+            "stats_cond": [],
             "success": "SLIP"
         },
         "goto": 100,
         "remove": [
             "PHILTRE D'AMOUR"
         ],
+        "stats": {
+            "chance_max": 4,
+            "info": 2
+        },
         "success": "SLIP"
     },
     "167": {
@@ -2360,6 +2608,8 @@
                 8,
                 61
             ],
+            "stats": {},
+            "stats_cond": [],
             "success": null
         },
         "goto": [
@@ -2389,12 +2639,19 @@
                 358,
                 507
             ],
+            "stats": {
+                "gloire": 1
+            },
+            "stats_cond": [],
             "success": null
         },
         "goto": [
             358,
             507
-        ]
+        ],
+        "stats": {
+            "gloire": 1
+        }
     },
     "169": {
         "computed": {
@@ -2446,6 +2703,8 @@
                 326,
                 372
             ],
+            "stats": {},
+            "stats_cond": [],
             "success": null
         },
         "conditions": {
@@ -2483,6 +2742,10 @@
             "sons": [
                 100
             ],
+            "stats": {
+                "hab": 1
+            },
+            "stats_cond": [],
             "success": null
         },
         "goto": 100,
@@ -2511,10 +2774,17 @@
             "sons": [
                 100
             ],
+            "stats": {
+                "richesse": 1
+            },
+            "stats_cond": [],
             "success": null
         },
         "goto": 100,
-        "secret": true
+        "secret": true,
+        "stats": {
+            "richesse": 1
+        }
     },
     "171": {
         "computed": {
@@ -2551,6 +2821,8 @@
                 215,
                 368
             ],
+            "stats": {},
+            "stats_cond": [],
             "success": null
         },
         "conditions": {
@@ -2583,6 +2855,8 @@
             "sons": [
                 364
             ],
+            "stats": {},
+            "stats_cond": [],
             "success": null
         },
         "goto": 364
@@ -2623,6 +2897,8 @@
             "sons": [
                 423
             ],
+            "stats": {},
+            "stats_cond": [],
             "success": null
         },
         "goto": 423
@@ -2667,6 +2943,8 @@
             "sons": [
                 45
             ],
+            "stats": {},
+            "stats_cond": [],
             "success": null
         },
         "conditions": {
@@ -2710,6 +2988,8 @@
             "sons": [
                 436
             ],
+            "stats": {},
+            "stats_cond": [],
             "success": null
         },
         "goto": 436
@@ -2737,6 +3017,8 @@
                 495,
                 576
             ],
+            "stats": {},
+            "stats_cond": [],
             "success": null
         },
         "goto": [
@@ -2766,9 +3048,18 @@
             "sons": [
                 153
             ],
+            "stats": {
+                "chance": 2,
+                "pv": 2
+            },
+            "stats_cond": [],
             "success": null
         },
-        "goto": 153
+        "goto": 153,
+        "stats": {
+            "chance": 2,
+            "pv": 2
+        }
     },
     "178": {
         "computed": {
@@ -2791,10 +3082,17 @@
             "sons": [
                 300
             ],
+            "stats": {
+                "pv_1_4_max": true
+            },
+            "stats_cond": [],
             "success": null
         },
         "goto": 300,
-        "label": "Le Fanta"
+        "label": "Le Fanta",
+        "stats": {
+            "pv_1_4_max": true
+        }
     },
     "179": {
         "computed": {
@@ -2817,6 +3115,8 @@
             "sons": [
                 354
             ],
+            "stats": {},
+            "stats_cond": [],
             "success": null
         },
         "goto": 354
@@ -2847,6 +3147,8 @@
             "sons": [
                 313
             ],
+            "stats": {},
+            "stats_cond": [],
             "success": null
         },
         "goto": 313
@@ -2872,9 +3174,18 @@
             "sons": [
                 100
             ],
+            "stats": {
+                "chance_max": 1,
+                "info": 1
+            },
+            "stats_cond": [],
             "success": null
         },
-        "goto": 100
+        "goto": 100,
+        "stats": {
+            "chance_max": 1,
+            "info": 1
+        }
     },
     "181": {
         "computed": {
@@ -2898,13 +3209,20 @@
                 70,
                 322
             ],
+            "stats": {
+                "info": 1
+            },
+            "stats_cond": [],
             "success": null
         },
         "goto": [
             70,
             322
         ],
-        "label": "Forgeron"
+        "label": "Forgeron",
+        "stats": {
+            "info": 1
+        }
     },
     "182": {
         "computed": {
@@ -2928,6 +3246,8 @@
                 336,
                 514
             ],
+            "stats": {},
+            "stats_cond": [],
             "success": null
         },
         "goto": [
@@ -2958,6 +3278,8 @@
                 285,
                 472
             ],
+            "stats": {},
+            "stats_cond": [],
             "success": null
         },
         "goto": [
@@ -2995,6 +3317,8 @@
                 340,
                 581
             ],
+            "stats": {},
+            "stats_cond": [],
             "success": null
         },
         "conditions": {
@@ -3028,6 +3352,8 @@
             "sons": [
                 70
             ],
+            "stats": {},
+            "stats_cond": [],
             "success": null
         },
         "goto": 70
@@ -3065,6 +3391,8 @@
                 151,
                 313
             ],
+            "stats": {},
+            "stats_cond": [],
             "success": null
         },
         "conditions": {
@@ -3109,6 +3437,8 @@
                 269,
                 371
             ],
+            "stats": {},
+            "stats_cond": [],
             "success": null
         },
         "conditions": {
@@ -3168,6 +3498,8 @@
                 463,
                 506
             ],
+            "stats": {},
+            "stats_cond": [],
             "success": null
         },
         "conditions": {
@@ -3208,6 +3540,8 @@
             "sons": [
                 143
             ],
+            "stats": {},
+            "stats_cond": [],
             "success": null
         },
         "goto": 143
@@ -3253,6 +3587,8 @@
             "sons": [
                 22
             ],
+            "stats": {},
+            "stats_cond": [],
             "success": null
         },
         "goto": 22
@@ -3280,6 +3616,8 @@
                 359,
                 445
             ],
+            "stats": {},
+            "stats_cond": [],
             "success": null
         },
         "goto": [
@@ -3316,6 +3654,8 @@
                 415,
                 464
             ],
+            "stats": {},
+            "stats_cond": [],
             "success": null
         },
         "goto": [
@@ -3347,13 +3687,22 @@
                 318,
                 359
             ],
+            "stats": {
+                "gloire": 1,
+                "richesse": 1
+            },
+            "stats_cond": [],
             "success": null
         },
         "goto": [
             190,
             359,
             318
-        ]
+        ],
+        "stats": {
+            "gloire": 1,
+            "richesse": 1
+        }
     },
     "193": {
         "computed": {
@@ -3385,6 +3734,8 @@
                 87,
                 167
             ],
+            "stats": {},
+            "stats_cond": [],
             "success": null
         },
         "conditions": {
@@ -3426,6 +3777,8 @@
             "sons": [
                 9
             ],
+            "stats": {},
+            "stats_cond": [],
             "success": "FILTRE-JOURNALISTE"
         },
         "goto": 9,
@@ -3452,6 +3805,8 @@
             "sons": [
                 230
             ],
+            "stats": {},
+            "stats_cond": [],
             "success": null
         },
         "goto": 230
@@ -3477,6 +3832,8 @@
             "sons": [
                 597
             ],
+            "stats": {},
+            "stats_cond": [],
             "success": null
         },
         "goto": 597
@@ -3509,6 +3866,8 @@
                 93,
                 164
             ],
+            "stats": {},
+            "stats_cond": [],
             "success": null
         },
         "conditions": {
@@ -3541,6 +3900,8 @@
                 206,
                 317
             ],
+            "stats": {},
+            "stats_cond": [],
             "success": null
         },
         "goto": [
@@ -3569,9 +3930,16 @@
             "sons": [
                 153
             ],
+            "stats": {
+                "pv": 5
+            },
+            "stats_cond": [],
             "success": null
         },
-        "goto": 153
+        "goto": 153,
+        "stats": {
+            "pv": 5
+        }
     },
     "2": {
         "computed": {
@@ -3615,6 +3983,8 @@
                 77,
                 99
             ],
+            "stats": {},
+            "stats_cond": [],
             "success": null
         },
         "conditions": {
@@ -3651,6 +4021,8 @@
             "sons": [
                 396
             ],
+            "stats": {},
+            "stats_cond": [],
             "success": null
         },
         "goto": 396
@@ -3677,6 +4049,8 @@
                 193,
                 216
             ],
+            "stats": {},
+            "stats_cond": [],
             "success": null
         },
         "goto": [
@@ -3705,9 +4079,16 @@
             "sons": [
                 333
             ],
+            "stats": {
+                "gloire": -1
+            },
+            "stats_cond": [],
             "success": null
         },
-        "goto": 333
+        "goto": 333,
+        "stats": {
+            "gloire": -1
+        }
     },
     "202": {
         "computed": {
@@ -3730,6 +4111,8 @@
             "sons": [
                 292
             ],
+            "stats": {},
+            "stats_cond": [],
             "success": null
         },
         "goto": 292
@@ -3755,6 +4138,8 @@
             "sons": [
                 225
             ],
+            "stats": {},
+            "stats_cond": [],
             "success": null
         },
         "goto": 225
@@ -3780,6 +4165,8 @@
             "sons": [
                 249
             ],
+            "stats": {},
+            "stats_cond": [],
             "success": null
         },
         "goto": 249
@@ -3806,12 +4193,19 @@
                 224,
                 261
             ],
+            "stats": {
+                "pv": 7
+            },
+            "stats_cond": [],
             "success": null
         },
         "goto": [
             261,
             224
-        ]
+        ],
+        "stats": {
+            "pv": 7
+        }
     },
     "206": {
         "computed": {
@@ -3834,6 +4228,8 @@
             "sons": [
                 367
             ],
+            "stats": {},
+            "stats_cond": [],
             "success": null
         },
         "goto": 367
@@ -3861,6 +4257,8 @@
                 39,
                 123
             ],
+            "stats": {},
+            "stats_cond": [],
             "success": null
         },
         "goto": [
@@ -3890,6 +4288,8 @@
             "sons": [
                 420
             ],
+            "stats": {},
+            "stats_cond": [],
             "success": null
         },
         "goto": 420
@@ -3915,9 +4315,16 @@
             "sons": [
                 110
             ],
+            "stats": {
+                "pv": 2
+            },
+            "stats_cond": [],
             "success": null
         },
-        "goto": 110
+        "goto": 110,
+        "stats": {
+            "pv": 2
+        }
     },
     "21": {
         "computed": {
@@ -3940,6 +4347,8 @@
             "sons": [
                 70
             ],
+            "stats": {},
+            "stats_cond": [],
             "success": null
         },
         "goto": 70
@@ -3986,6 +4395,8 @@
                 214,
                 219
             ],
+            "stats": {},
+            "stats_cond": [],
             "success": null
         },
         "conditions": {
@@ -4022,9 +4433,18 @@
             "sons": [
                 65
             ],
+            "stats": {
+                "chance_max": 1,
+                "hab": 1
+            },
+            "stats_cond": [],
             "success": null
         },
-        "goto": 65
+        "goto": 65,
+        "stats": {
+            "chance_max": 1,
+            "hab": 1
+        }
     },
     "212": {
         "computed": {
@@ -4049,6 +4469,8 @@
             "sons": [
                 25
             ],
+            "stats": {},
+            "stats_cond": [],
             "success": null
         },
         "goto": 25,
@@ -4084,6 +4506,8 @@
                 36,
                 97
             ],
+            "stats": {},
+            "stats_cond": [],
             "success": "REPORTAGE-EXCLUSIF"
         },
         "conditions": {
@@ -4117,6 +4541,8 @@
                 33,
                 34
             ],
+            "stats": {},
+            "stats_cond": [],
             "success": null
         },
         "goto": [
@@ -4146,9 +4572,16 @@
             "sons": [
                 100
             ],
+            "stats": {
+                "info": 1
+            },
+            "stats_cond": [],
             "success": null
         },
-        "goto": 100
+        "goto": 100,
+        "stats": {
+            "info": 1
+        }
     },
     "216": {
         "computed": {
@@ -4171,6 +4604,8 @@
             "sons": [
                 311
             ],
+            "stats": {},
+            "stats_cond": [],
             "success": null
         },
         "goto": 311,
@@ -4198,6 +4633,8 @@
                 370,
                 541
             ],
+            "stats": {},
+            "stats_cond": [],
             "success": null
         },
         "goto": [
@@ -4241,6 +4678,8 @@
                 340,
                 376
             ],
+            "stats": {},
+            "stats_cond": [],
             "success": null
         },
         "conditions": {
@@ -4276,6 +4715,8 @@
                 259,
                 378
             ],
+            "stats": {},
+            "stats_cond": [],
             "success": null
         },
         "goto": [
@@ -4307,6 +4748,8 @@
             "sons": [
                 12
             ],
+            "stats": {},
+            "stats_cond": [],
             "success": null
         },
         "goto": 12
@@ -4335,6 +4778,8 @@
                 298,
                 481
             ],
+            "stats": {},
+            "stats_cond": [],
             "success": null
         },
         "goto": [
@@ -4370,6 +4815,8 @@
             "sons": [
                 431
             ],
+            "stats": {},
+            "stats_cond": [],
             "success": null
         },
         "goto": 431,
@@ -4397,6 +4844,8 @@
                 336,
                 514
             ],
+            "stats": {},
+            "stats_cond": [],
             "success": "VALENT-BIEN"
         },
         "goto": [
@@ -4433,6 +4882,8 @@
                 118,
                 204
             ],
+            "stats": {},
+            "stats_cond": [],
             "success": null
         },
         "conditions": {
@@ -4462,6 +4913,8 @@
             "secret": false,
             "secret_jumps": [],
             "sons": [],
+            "stats": {},
+            "stats_cond": [],
             "success": "ESCALADED-QUICKLY"
         },
         "ending": "good",
@@ -4489,6 +4942,8 @@
             "sons": [
                 339
             ],
+            "stats": {},
+            "stats_cond": [],
             "success": null
         },
         "goto": 339
@@ -4523,6 +4978,8 @@
                 251,
                 320
             ],
+            "stats": {},
+            "stats_cond": [],
             "success": null
         },
         "conditions": {
@@ -4558,6 +5015,8 @@
                 84,
                 169
             ],
+            "stats": {},
+            "stats_cond": [],
             "success": null
         },
         "goto": [
@@ -4593,6 +5052,8 @@
             "sons": [
                 461
             ],
+            "stats": {},
+            "stats_cond": [],
             "success": "PUDDING"
         },
         "goto": 461,
@@ -4622,6 +5083,8 @@
             "sons": [
                 70
             ],
+            "stats": {},
+            "stats_cond": [],
             "success": null
         },
         "goto": 70
@@ -4647,6 +5110,8 @@
             "sons": [
                 30
             ],
+            "stats": {},
+            "stats_cond": [],
             "success": null
         },
         "goto": 30
@@ -4673,6 +5138,8 @@
                 174,
                 241
             ],
+            "stats": {},
+            "stats_cond": [],
             "success": null
         },
         "goto": [
@@ -4717,6 +5184,8 @@
             "sons": [
                 316
             ],
+            "stats": {},
+            "stats_cond": [],
             "success": null
         },
         "goto": 316
@@ -4759,6 +5228,8 @@
                 447,
                 553
             ],
+            "stats": {},
+            "stats_cond": [],
             "success": null
         },
         "goto": [
@@ -4788,6 +5259,8 @@
             "sons": [
                 313
             ],
+            "stats": {},
+            "stats_cond": [],
             "success": null
         },
         "goto": 313
@@ -4830,6 +5303,8 @@
                 146,
                 155
             ],
+            "stats": {},
+            "stats_cond": [],
             "success": null
         },
         "conditions": {
@@ -4866,6 +5341,8 @@
                 163,
                 452
             ],
+            "stats": {},
+            "stats_cond": [],
             "success": null
         },
         "goto": [
@@ -4899,9 +5376,26 @@
             "sons": [
                 461
             ],
+            "stats": {},
+            "stats_cond": [
+                {
+                    "condition": {
+                        "$end": "PRUDENT"
+                    },
+                    "stats": {
+                        "gloire": 1
+                    },
+                    "txt": "PRUDENT"
+                }
+            ],
             "success": "SAFEWORD"
         },
         "goto": 461,
+        "stats_cond": {
+            "PRUDENT": {
+                "gloire": 1
+            }
+        },
         "success": "SAFEWORD"
     },
     "237": {
@@ -4925,6 +5419,8 @@
             "sons": [
                 22
             ],
+            "stats": {},
+            "stats_cond": [],
             "success": null
         },
         "goto": 22
@@ -4951,6 +5447,8 @@
                 7,
                 149
             ],
+            "stats": {},
+            "stats_cond": [],
             "success": null
         },
         "goto": [
@@ -4979,6 +5477,8 @@
             "sons": [
                 115
             ],
+            "stats": {},
+            "stats_cond": [],
             "success": null
         },
         "goto": 115
@@ -5005,6 +5505,8 @@
                 189,
                 195
             ],
+            "stats": {},
+            "stats_cond": [],
             "success": null
         },
         "goto": [
@@ -5048,6 +5550,8 @@
             "sons": [
                 364
             ],
+            "stats": {},
+            "stats_cond": [],
             "success": null
         },
         "goto": 364
@@ -5092,6 +5596,8 @@
             "sons": [
                 45
             ],
+            "stats": {},
+            "stats_cond": [],
             "success": null
         },
         "conditions": {
@@ -5120,9 +5626,16 @@
             "sons": [
                 238
             ],
+            "stats": {
+                "chance": -2
+            },
+            "stats_cond": [],
             "success": null
         },
-        "goto": 238
+        "goto": 238,
+        "stats": {
+            "chance": -2
+        }
     },
     "243": {
         "computed": {
@@ -5145,6 +5658,8 @@
             "sons": [
                 295
             ],
+            "stats": {},
+            "stats_cond": [],
             "success": null
         },
         "goto": 295
@@ -5175,6 +5690,8 @@
             "sons": [
                 430
             ],
+            "stats": {},
+            "stats_cond": [],
             "success": null
         },
         "goto": 430
@@ -5200,6 +5717,8 @@
             "sons": [
                 436
             ],
+            "stats": {},
+            "stats_cond": [],
             "success": null
         },
         "goto": 436
@@ -5225,6 +5744,8 @@
             "sons": [
                 80
             ],
+            "stats": {},
+            "stats_cond": [],
             "success": null
         },
         "goto": 80
@@ -5255,6 +5776,8 @@
             "sons": [
                 100
             ],
+            "stats": {},
+            "stats_cond": [],
             "success": null
         },
         "goto": 100
@@ -5281,6 +5804,8 @@
                 37,
                 556
             ],
+            "stats": {},
+            "stats_cond": [],
             "success": null
         },
         "goto": [
@@ -5316,6 +5841,8 @@
                 107,
                 137
             ],
+            "stats": {},
+            "stats_cond": [],
             "success": null
         },
         "conditions": {
@@ -5347,6 +5874,8 @@
             "sons": [
                 80
             ],
+            "stats": {},
+            "stats_cond": [],
             "success": null
         },
         "goto": 80
@@ -5372,6 +5901,8 @@
             "sons": [
                 400
             ],
+            "stats": {},
+            "stats_cond": [],
             "success": null
         },
         "goto": 400
@@ -5397,6 +5928,8 @@
             "sons": [
                 461
             ],
+            "stats": {},
+            "stats_cond": [],
             "success": null
         },
         "goto": 461
@@ -5422,9 +5955,16 @@
             "sons": [
                 261
             ],
+            "stats": {
+                "hab": -1
+            },
+            "stats_cond": [],
             "success": null
         },
-        "goto": 261
+        "goto": 261,
+        "stats": {
+            "hab": -1
+        }
     },
     "253": {
         "computed": {
@@ -5448,6 +5988,8 @@
                 263,
                 274
             ],
+            "stats": {},
+            "stats_cond": [],
             "success": null
         },
         "goto": [
@@ -5484,6 +6026,29 @@
                 166,
                 284
             ],
+            "stats": {},
+            "stats_cond": [
+                {
+                    "condition": {
+                        "$end": "COTTE DE MAILLES"
+                    },
+                    "stats": {
+                        "chance_max": 1,
+                        "info": 1
+                    },
+                    "txt": "COTTE DE MAILLES"
+                },
+                {
+                    "condition": {
+                        "$end": "MARMITE"
+                    },
+                    "stats": {
+                        "chance_max": 1,
+                        "info": 1
+                    },
+                    "txt": "MARMITE"
+                }
+            ],
             "success": null
         },
         "conditions": {
@@ -5494,7 +6059,17 @@
             284,
             100
         ],
-        "label": "Lavandières"
+        "label": "Lavandières",
+        "stats_cond": {
+            "COTTE DE MAILLES": {
+                "chance_max": 1,
+                "info": 1
+            },
+            "MARMITE": {
+                "chance_max": 1,
+                "info": 1
+            }
+        }
     },
     "255": {
         "computed": {
@@ -5517,6 +6092,8 @@
             "sons": [
                 73
             ],
+            "stats": {},
+            "stats_cond": [],
             "success": null
         },
         "goto": 73
@@ -5544,12 +6121,21 @@
             "sons": [
                 100
             ],
+            "stats": {
+                "chance_max": -2,
+                "pv": -4
+            },
+            "stats_cond": [],
             "success": null
         },
         "goto": 100,
         "remove": [
             "PHILTRE D'AMOUR"
-        ]
+        ],
+        "stats": {
+            "chance_max": -2,
+            "pv": -4
+        }
     },
     "257": {
         "computed": {
@@ -5579,6 +6165,20 @@
                 105,
                 345
             ],
+            "stats": {
+                "pv": -2
+            },
+            "stats_cond": [
+                {
+                    "condition": {
+                        "$end": "GUERRIER"
+                    },
+                    "stats": {
+                        "gloire": 1
+                    },
+                    "txt": "GUERRIER"
+                }
+            ],
             "success": null
         },
         "conditions": {
@@ -5587,7 +6187,15 @@
         "goto": [
             105,
             345
-        ]
+        ],
+        "stats": {
+            "pv": -2
+        },
+        "stats_cond": {
+            "GUERRIER": {
+                "gloire": 1
+            }
+        }
     },
     "258": {
         "computed": {
@@ -5611,12 +6219,29 @@
                 355,
                 440
             ],
+            "stats": {},
+            "stats_cond": [
+                {
+                    "condition": {
+                        "$end": "DEBROUILLARD"
+                    },
+                    "stats": {
+                        "pv": 2
+                    },
+                    "txt": "DEBROUILLARD"
+                }
+            ],
             "success": null
         },
         "goto": [
             355,
             440
-        ]
+        ],
+        "stats_cond": {
+            "DEBROUILLARD": {
+                "pv": 2
+            }
+        }
     },
     "259": {
         "computed": {
@@ -5639,10 +6264,17 @@
             "sons": [
                 70
             ],
+            "stats": {
+                "info": 1
+            },
+            "stats_cond": [],
             "success": null
         },
         "goto": 70,
-        "secret": true
+        "secret": true,
+        "stats": {
+            "info": 1
+        }
     },
     "26": {
         "aquire": [
@@ -5672,6 +6304,8 @@
             "sons": [
                 100
             ],
+            "stats": {},
+            "stats_cond": [],
             "success": "POLIR-LANCE"
         },
         "goto": 100,
@@ -5698,6 +6332,8 @@
             "sons": [
                 386
             ],
+            "stats": {},
+            "stats_cond": [],
             "success": null
         },
         "goto": 386
@@ -5724,6 +6360,8 @@
                 161,
                 312
             ],
+            "stats": {},
+            "stats_cond": [],
             "success": null
         },
         "goto": [
@@ -5754,6 +6392,8 @@
                 365,
                 555
             ],
+            "stats": {},
+            "stats_cond": [],
             "success": null
         },
         "goto": [
@@ -5782,6 +6422,8 @@
             "sons": [
                 168
             ],
+            "stats": {},
+            "stats_cond": [],
             "success": null
         },
         "goto": 168
@@ -5807,6 +6449,8 @@
             "sons": [
                 423
             ],
+            "stats": {},
+            "stats_cond": [],
             "success": null
         },
         "goto": 423
@@ -5832,9 +6476,26 @@
             "sons": [
                 360
             ],
+            "stats": {},
+            "stats_cond": [
+                {
+                    "condition": {
+                        "$end": "DEBROUILLARD"
+                    },
+                    "stats": {
+                        "gloire": 1
+                    },
+                    "txt": "DEBROUILLARD"
+                }
+            ],
             "success": null
         },
-        "goto": 360
+        "goto": 360,
+        "stats_cond": {
+            "DEBROUILLARD": {
+                "gloire": 1
+            }
+        }
     },
     "266": {
         "computed": {
@@ -5858,6 +6519,8 @@
                 176,
                 536
             ],
+            "stats": {},
+            "stats_cond": [],
             "success": null
         },
         "goto": [
@@ -5888,6 +6551,8 @@
                 69,
                 100
             ],
+            "stats": {},
+            "stats_cond": [],
             "success": null
         },
         "goto": [
@@ -5922,6 +6587,8 @@
                 400,
                 593
             ],
+            "stats": {},
+            "stats_cond": [],
             "success": null
         },
         "goto": [
@@ -5950,9 +6617,16 @@
             "sons": [
                 100
             ],
+            "stats": {
+                "info": 2
+            },
+            "stats_cond": [],
             "success": null
         },
-        "goto": 100
+        "goto": 100,
+        "stats": {
+            "info": 2
+        }
     },
     "27": {
         "computed": {
@@ -5977,6 +6651,8 @@
                 528,
                 540
             ],
+            "stats": {},
+            "stats_cond": [],
             "success": null
         },
         "goto": [
@@ -6012,9 +6688,16 @@
             "sons": [
                 142
             ],
+            "stats": {
+                "pv": 12
+            },
+            "stats_cond": [],
             "success": null
         },
-        "goto": 142
+        "goto": 142,
+        "stats": {
+            "pv": 12
+        }
     },
     "271": {
         "computed": {
@@ -6035,6 +6718,8 @@
             "secret": false,
             "secret_jumps": [],
             "sons": [],
+            "stats": {},
+            "stats_cond": [],
             "success": null
         },
         "ending": "bad",
@@ -6063,6 +6748,8 @@
             "sons": [
                 80
             ],
+            "stats": {},
+            "stats_cond": [],
             "success": null
         },
         "goto": 80
@@ -6088,9 +6775,16 @@
             "sons": [
                 423
             ],
+            "stats": {
+                "chance": 3
+            },
+            "stats_cond": [],
             "success": null
         },
-        "goto": 423
+        "goto": 423,
+        "stats": {
+            "chance": 3
+        }
     },
     "274": {
         "combat": {
@@ -6128,6 +6822,8 @@
             "sons": [
                 168
             ],
+            "stats": {},
+            "stats_cond": [],
             "success": null
         },
         "goto": 168
@@ -6160,6 +6856,11 @@
                 318,
                 359
             ],
+            "stats": {
+                "gloire": 1,
+                "richesse": 1
+            },
+            "stats_cond": [],
             "success": "TOUT-CA-POUR-CA"
         },
         "goto": [
@@ -6167,6 +6868,10 @@
             359,
             318
         ],
+        "stats": {
+            "gloire": 1,
+            "richesse": 1
+        },
         "success": "TOUT-CA-POUR-CA"
     },
     "276": {
@@ -6225,6 +6930,8 @@
             "sons": [
                 4
             ],
+            "stats": {},
+            "stats_cond": [],
             "success": null
         },
         "goto": 4
@@ -6270,6 +6977,8 @@
                 133,
                 141
             ],
+            "stats": {},
+            "stats_cond": [],
             "success": null
         },
         "conditions": {
@@ -6302,6 +7011,8 @@
             "secret": false,
             "secret_jumps": [],
             "sons": [],
+            "stats": {},
+            "stats_cond": [],
             "success": "CERCLE-VICIEUX"
         },
         "ending": "bad",
@@ -6336,6 +7047,8 @@
                 112,
                 289
             ],
+            "stats": {},
+            "stats_cond": [],
             "success": null
         },
         "conditions": {
@@ -6372,6 +7085,8 @@
             "sons": [
                 32
             ],
+            "stats": {},
+            "stats_cond": [],
             "success": null
         },
         "goto": 32
@@ -6397,9 +7112,31 @@
             "sons": [
                 414
             ],
+            "stats": {
+                "chance": 2
+            },
+            "stats_cond": [
+                {
+                    "condition": {
+                        "$end": "PRUDENT"
+                    },
+                    "stats": {
+                        "gloire": 1
+                    },
+                    "txt": "PRUDENT"
+                }
+            ],
             "success": null
         },
-        "goto": 414
+        "goto": 414,
+        "stats": {
+            "chance": 2
+        },
+        "stats_cond": {
+            "PRUDENT": {
+                "gloire": 1
+            }
+        }
     },
     "281": {
         "computed": {
@@ -6422,9 +7159,16 @@
             "sons": [
                 441
             ],
+            "stats": {
+                "max_pv": true
+            },
+            "stats_cond": [],
             "success": null
         },
-        "goto": 441
+        "goto": 441,
+        "stats": {
+            "max_pv": true
+        }
     },
     "282": {
         "computed": {
@@ -6448,6 +7192,8 @@
                 80,
                 561
             ],
+            "stats": {},
+            "stats_cond": [],
             "success": null
         },
         "goto": [
@@ -6504,6 +7250,8 @@
                 324,
                 382
             ],
+            "stats": {},
+            "stats_cond": [],
             "success": null
         },
         "conditions": {
@@ -6543,9 +7291,33 @@
             "sons": [
                 254
             ],
+            "stats": {},
+            "stats_cond": [
+                {
+                    "condition": {
+                        "$and": [
+                            {
+                                "$end": "ARC"
+                            },
+                            {
+                                "$end": "COUTEAU"
+                            }
+                        ]
+                    },
+                    "stats": {
+                        "arc_et_couteau": true
+                    },
+                    "txt": "ARC et COUTEAU"
+                }
+            ],
             "success": null
         },
-        "goto": 254
+        "goto": 254,
+        "stats_cond": {
+            "ARC&COUTEAU": {
+                "arc_et_couteau": true
+            }
+        }
     },
     "285": {
         "computed": {
@@ -6571,6 +7343,8 @@
                 450,
                 489
             ],
+            "stats": {},
+            "stats_cond": [],
             "success": null
         },
         "goto": [
@@ -6622,6 +7396,8 @@
             "sons": [
                 426
             ],
+            "stats": {},
+            "stats_cond": [],
             "success": null
         },
         "goto": 426
@@ -6648,6 +7424,8 @@
                 447,
                 520
             ],
+            "stats": {},
+            "stats_cond": [],
             "success": null
         },
         "goto": [
@@ -6678,6 +7456,10 @@
                 355,
                 440
             ],
+            "stats": {
+                "chance": 2
+            },
+            "stats_cond": [],
             "success": "SECRET-HISTOIRE"
         },
         "goto": [
@@ -6685,6 +7467,9 @@
             355,
             440
         ],
+        "stats": {
+            "chance": 2
+        },
         "success": "SECRET-HISTOIRE"
     },
     "289": {
@@ -6713,9 +7498,16 @@
             "sons": [
                 100
             ],
+            "stats": {
+                "end": 1
+            },
+            "stats_cond": [],
             "success": null
         },
-        "goto": 100
+        "goto": 100,
+        "stats": {
+            "end": 1
+        }
     },
     "29": {
         "aquire": [
@@ -6743,6 +7535,8 @@
             "sons": [
                 74
             ],
+            "stats": {},
+            "stats_cond": [],
             "success": null
         },
         "goto": 74
@@ -6768,6 +7562,8 @@
             "sons": [
                 475
             ],
+            "stats": {},
+            "stats_cond": [],
             "success": null
         },
         "goto": 475
@@ -6800,6 +7596,8 @@
                 36,
                 97
             ],
+            "stats": {},
+            "stats_cond": [],
             "success": null
         },
         "conditions": {
@@ -6832,6 +7630,8 @@
                 282,
                 551
             ],
+            "stats": {},
+            "stats_cond": [],
             "success": null
         },
         "goto": [
@@ -6867,6 +7667,8 @@
                 82,
                 278
             ],
+            "stats": {},
+            "stats_cond": [],
             "success": null
         },
         "conditions": {
@@ -6898,6 +7700,8 @@
             "sons": [
                 40
             ],
+            "stats": {},
+            "stats_cond": [],
             "success": null
         },
         "goto": 40
@@ -6935,6 +7739,8 @@
                 515,
                 545
             ],
+            "stats": {},
+            "stats_cond": [],
             "success": null
         },
         "conditions": {
@@ -6975,6 +7781,8 @@
                 474,
                 524
             ],
+            "stats": {},
+            "stats_cond": [],
             "success": null
         },
         "conditions": {
@@ -7021,9 +7829,26 @@
             "sons": [
                 316
             ],
+            "stats": {},
+            "stats_cond": [
+                {
+                    "condition": {
+                        "$end": "GUERRIER"
+                    },
+                    "stats": {
+                        "gloire": 1
+                    },
+                    "txt": "GUERRIER"
+                }
+            ],
             "success": null
         },
-        "goto": 316
+        "goto": 316,
+        "stats_cond": {
+            "GUERRIER": {
+                "gloire": 1
+            }
+        }
     },
     "298": {
         "computed": {
@@ -7048,6 +7873,8 @@
                 220,
                 481
             ],
+            "stats": {},
+            "stats_cond": [],
             "success": null
         },
         "goto": [
@@ -7082,6 +7909,8 @@
             "sons": [
                 407
             ],
+            "stats": {},
+            "stats_cond": [],
             "success": null
         },
         "goto": 407
@@ -7107,6 +7936,8 @@
             "sons": [
                 350
             ],
+            "stats": {},
+            "stats_cond": [],
             "success": null
         },
         "goto": 350
@@ -7133,6 +7964,8 @@
                 35,
                 257
             ],
+            "stats": {},
+            "stats_cond": [],
             "success": null
         },
         "goto": [
@@ -7161,6 +7994,8 @@
             "sons": [
                 188
             ],
+            "stats": {},
+            "stats_cond": [],
             "success": null
         },
         "goto": 188,
@@ -7187,10 +8022,17 @@
             "sons": [
                 84
             ],
+            "stats": {
+                "chance": -1
+            },
+            "stats_cond": [],
             "success": null
         },
         "goto": 84,
-        "secret": true
+        "secret": true,
+        "stats": {
+            "chance": -1
+        }
     },
     "302": {
         "computed": {
@@ -7213,6 +8055,8 @@
             "sons": [
                 480
             ],
+            "stats": {},
+            "stats_cond": [],
             "success": null
         },
         "goto": 480
@@ -7238,6 +8082,8 @@
             "sons": [
                 414
             ],
+            "stats": {},
+            "stats_cond": [],
             "success": null
         },
         "goto": 414
@@ -7263,6 +8109,8 @@
             "sons": [
                 100
             ],
+            "stats": {},
+            "stats_cond": [],
             "success": null
         },
         "goto": 100
@@ -7288,6 +8136,8 @@
             "sons": [
                 480
             ],
+            "stats": {},
+            "stats_cond": [],
             "success": null
         },
         "goto": 480
@@ -7335,6 +8185,8 @@
                 46,
                 303
             ],
+            "stats": {},
+            "stats_cond": [],
             "success": null
         },
         "conditions": {
@@ -7367,6 +8219,8 @@
                 186,
                 447
             ],
+            "stats": {},
+            "stats_cond": [],
             "success": null
         },
         "goto": [
@@ -7396,6 +8250,8 @@
                 175,
                 417
             ],
+            "stats": {},
+            "stats_cond": [],
             "success": null
         },
         "goto": [
@@ -7424,6 +8280,8 @@
             "sons": [
                 333
             ],
+            "stats": {},
+            "stats_cond": [],
             "success": null
         },
         "goto": 333
@@ -7449,6 +8307,10 @@
             "sons": [
                 84
             ],
+            "stats": {
+                "chance": -1
+            },
+            "stats_cond": [],
             "success": null
         },
         "goto": 84,
@@ -7478,10 +8340,17 @@
             "sons": [
                 84
             ],
+            "stats": {
+                "chance": -1
+            },
+            "stats_cond": [],
             "success": null
         },
         "goto": 84,
-        "secret": true
+        "secret": true,
+        "stats": {
+            "chance": -1
+        }
     },
     "311": {
         "computed": {
@@ -7513,6 +8382,8 @@
                 355,
                 440
             ],
+            "stats": {},
+            "stats_cond": [],
             "success": null
         },
         "conditions": {
@@ -7546,6 +8417,8 @@
             "sons": [
                 234
             ],
+            "stats": {},
+            "stats_cond": [],
             "success": null
         },
         "goto": 234
@@ -7571,6 +8444,8 @@
             "sons": [
                 10
             ],
+            "stats": {},
+            "stats_cond": [],
             "success": null
         },
         "goto": 10
@@ -7597,6 +8472,8 @@
                 363,
                 566
             ],
+            "stats": {},
+            "stats_cond": [],
             "success": null
         },
         "goto": [
@@ -7625,6 +8502,8 @@
             "sons": [
                 414
             ],
+            "stats": {},
+            "stats_cond": [],
             "success": null
         },
         "goto": 414
@@ -7650,9 +8529,16 @@
             "sons": [
                 100
             ],
+            "stats": {
+                "info": 1
+            },
+            "stats_cond": [],
             "success": "CALAMITY-BILLY"
         },
         "goto": 100,
+        "stats": {
+            "info": 1
+        },
         "success": "CALAMITY-BILLY"
     },
     "317": {
@@ -7691,6 +8577,8 @@
             "sons": [
                 367
             ],
+            "stats": {},
+            "stats_cond": [],
             "success": null
         },
         "goto": 367
@@ -7720,6 +8608,8 @@
                 359,
                 445
             ],
+            "stats": {},
+            "stats_cond": [],
             "success": null
         },
         "goto": [
@@ -7751,6 +8641,8 @@
             "sons": [
                 354
             ],
+            "stats": {},
+            "stats_cond": [],
             "success": null
         },
         "goto": 354
@@ -7776,6 +8668,8 @@
             "sons": [
                 43
             ],
+            "stats": {},
+            "stats_cond": [],
             "success": null
         },
         "goto": 43
@@ -7821,6 +8715,8 @@
             "sons": [
                 461
             ],
+            "stats": {},
+            "stats_cond": [],
             "success": null
         },
         "goto": 461
@@ -7861,6 +8757,8 @@
             "sons": [
                 436
             ],
+            "stats": {},
+            "stats_cond": [],
             "success": "FBI"
         },
         "goto": 436,
@@ -7888,12 +8786,21 @@
                 70,
                 181
             ],
+            "stats": {
+                "hab": 2,
+                "info": 2
+            },
+            "stats_cond": [],
             "success": null
         },
         "goto": [
             70,
             181
-        ]
+        ],
+        "stats": {
+            "hab": 2,
+            "info": 2
+        }
     },
     "323": {
         "computed": {
@@ -7916,9 +8823,16 @@
             "sons": [
                 492
             ],
+            "stats": {
+                "half_pv": true
+            },
+            "stats_cond": [],
             "success": null
         },
-        "goto": 492
+        "goto": 492,
+        "stats": {
+            "half_pv": true
+        }
     },
     "324": {
         "computed": {
@@ -7942,6 +8856,8 @@
                 317,
                 588
             ],
+            "stats": {},
+            "stats_cond": [],
             "success": null
         },
         "goto": [
@@ -7970,6 +8886,8 @@
             "sons": [
                 333
             ],
+            "stats": {},
+            "stats_cond": [],
             "success": null
         },
         "goto": 333
@@ -7995,6 +8913,8 @@
             "sons": [
                 423
             ],
+            "stats": {},
+            "stats_cond": [],
             "success": null
         },
         "goto": 423
@@ -8025,6 +8945,8 @@
             "sons": [
                 445
             ],
+            "stats": {},
+            "stats_cond": [],
             "success": null
         },
         "goto": 445,
@@ -8053,6 +8975,8 @@
             "sons": [
                 475
             ],
+            "stats": {},
+            "stats_cond": [],
             "success": null
         },
         "goto": 475,
@@ -8079,6 +9003,8 @@
             "secret": false,
             "secret_jumps": [],
             "sons": [],
+            "stats": {},
+            "stats_cond": [],
             "success": "INNOCENT"
         },
         "ending": "bad",
@@ -8113,6 +9039,8 @@
                 185,
                 229
             ],
+            "stats": {},
+            "stats_cond": [],
             "success": null
         },
         "goto": [
@@ -8168,6 +9096,8 @@
                 577,
                 599
             ],
+            "stats": {},
+            "stats_cond": [],
             "success": null
         },
         "conditions": {
@@ -8206,6 +9136,8 @@
             "sons": [
                 480
             ],
+            "stats": {},
+            "stats_cond": [],
             "success": null
         },
         "goto": 480,
@@ -8239,6 +9171,8 @@
             "sons": [
                 51
             ],
+            "stats": {},
+            "stats_cond": [],
             "success": null
         },
         "goto": 51,
@@ -8265,6 +9199,8 @@
             "sons": [
                 270
             ],
+            "stats": {},
+            "stats_cond": [],
             "success": null
         },
         "goto": 270
@@ -8292,6 +9228,8 @@
             "sons": [
                 480
             ],
+            "stats": {},
+            "stats_cond": [],
             "success": null
         },
         "goto": 480,
@@ -8323,6 +9261,8 @@
                 384,
                 387
             ],
+            "stats": {},
+            "stats_cond": [],
             "success": null
         },
         "goto": [
@@ -8358,6 +9298,8 @@
             "sons": [
                 292
             ],
+            "stats": {},
+            "stats_cond": [],
             "success": null
         },
         "goto": 292
@@ -8383,9 +9325,18 @@
             "sons": [
                 584
             ],
+            "stats": {
+                "gloire": 1,
+                "richesse": 2
+            },
+            "stats_cond": [],
             "success": null
         },
-        "goto": 584
+        "goto": 584,
+        "stats": {
+            "gloire": 1,
+            "richesse": 2
+        }
     },
     "338": {
         "computed": {
@@ -8408,9 +9359,33 @@
             "sons": [
                 100
             ],
+            "stats": {
+                "chance": 7,
+                "info": 3
+            },
+            "stats_cond": [
+                {
+                    "condition": {
+                        "$end": "PRUDENT"
+                    },
+                    "stats": {
+                        "gloire": 1
+                    },
+                    "txt": "PRUDENT"
+                }
+            ],
             "success": "CHUT"
         },
         "goto": 100,
+        "stats": {
+            "chance": 7,
+            "info": 3
+        },
+        "stats_cond": {
+            "PRUDENT": {
+                "gloire": 1
+            }
+        },
         "success": "CHUT"
     },
     "339": {
@@ -8454,9 +9429,18 @@
             "sons": [
                 383
             ],
+            "stats": {
+                "gloire": 1,
+                "richesse": 1
+            },
+            "stats_cond": [],
             "success": "ULTRA-INSTINCT"
         },
         "goto": 383,
+        "stats": {
+            "gloire": 1,
+            "richesse": 1
+        },
         "success": "ULTRA-INSTINCT"
     },
     "34": {
@@ -8487,6 +9471,8 @@
                 185,
                 229
             ],
+            "stats": {},
+            "stats_cond": [],
             "success": null
         },
         "goto": [
@@ -8525,6 +9511,8 @@
                 363,
                 520
             ],
+            "stats": {},
+            "stats_cond": [],
             "success": null
         },
         "goto": [
@@ -8559,6 +9547,8 @@
                 353,
                 496
             ],
+            "stats": {},
+            "stats_cond": [],
             "success": null
         },
         "goto": [
@@ -8589,6 +9579,8 @@
                 435,
                 510
             ],
+            "stats": {},
+            "stats_cond": [],
             "success": null
         },
         "goto": [
@@ -8619,6 +9611,8 @@
                 408,
                 552
             ],
+            "stats": {},
+            "stats_cond": [],
             "success": null
         },
         "goto": [
@@ -8663,6 +9657,8 @@
             "sons": [
                 597
             ],
+            "stats": {},
+            "stats_cond": [],
             "success": null
         },
         "goto": 597
@@ -8688,6 +9684,8 @@
             "sons": [
                 41
             ],
+            "stats": {},
+            "stats_cond": [],
             "success": null
         },
         "goto": 41
@@ -8728,6 +9726,8 @@
             "sons": [
                 420
             ],
+            "stats": {},
+            "stats_cond": [],
             "success": "BIERE"
         },
         "goto": 420,
@@ -8754,6 +9754,8 @@
             "sons": [
                 469
             ],
+            "stats": {},
+            "stats_cond": [],
             "success": null
         },
         "goto": 469
@@ -8784,9 +9786,16 @@
             "sons": [
                 383
             ],
+            "stats": {
+                "richesse": 1
+            },
+            "stats_cond": [],
             "success": "PILE-SECRETS"
         },
         "goto": 383,
+        "stats": {
+            "richesse": 1
+        },
         "success": "PILE-SECRETS"
     },
     "349": {
@@ -8842,6 +9851,8 @@
                 467,
                 498
             ],
+            "stats": {},
+            "stats_cond": [],
             "success": null
         },
         "conditions": {
@@ -8883,6 +9894,20 @@
             "sons": [
                 105,
                 345
+            ],
+            "stats": {
+                "chance_max": 1
+            },
+            "stats_cond": [
+                {
+                    "condition": {
+                        "$end": "PRUDENT"
+                    },
+                    "stats": {
+                        "gloire": 1
+                    },
+                    "txt": "PRUDENT"
+                }
             ],
             "success": null
         },
@@ -8938,9 +9963,31 @@
             "sons": [
                 584
             ],
+            "stats": {
+                "richesse": 1
+            },
+            "stats_cond": [
+                {
+                    "condition": {
+                        "$end": "GUERRIER"
+                    },
+                    "stats": {
+                        "gloire": 1
+                    },
+                    "txt": "GUERRIER"
+                }
+            ],
             "success": "ENFANT-DRAGON"
         },
         "goto": 584,
+        "stats": {
+            "richesse": 1
+        },
+        "stats_cond": {
+            "GUERRIER": {
+                "gloire": 1
+            }
+        },
         "success": "ENFANT-DRAGON"
     },
     "351": {
@@ -8964,9 +10011,16 @@
             "sons": [
                 238
             ],
+            "stats": {
+                "chance": 2
+            },
+            "stats_cond": [],
             "success": null
         },
-        "goto": 238
+        "goto": 238,
+        "stats": {
+            "chance": 2
+        }
     },
     "352": {
         "computed": {
@@ -8990,6 +10044,8 @@
                 271,
                 437
             ],
+            "stats": {},
+            "stats_cond": [],
             "success": null
         },
         "goto": [
@@ -9018,6 +10074,8 @@
             "sons": [
                 402
             ],
+            "stats": {},
+            "stats_cond": [],
             "success": null
         },
         "goto": 402
@@ -9045,6 +10103,8 @@
                 442,
                 493
             ],
+            "stats": {},
+            "stats_cond": [],
             "success": null
         },
         "goto": [
@@ -9076,6 +10136,8 @@
                 227,
                 446
             ],
+            "stats": {},
+            "stats_cond": [],
             "success": null
         },
         "goto": [
@@ -9104,9 +10166,16 @@
             "sons": [
                 100
             ],
+            "stats": {
+                "hab": 1
+            },
+            "stats_cond": [],
             "success": null
         },
-        "goto": 100
+        "goto": 100,
+        "stats": {
+            "hab": 1
+        }
     },
     "357": {
         "computed": {
@@ -9129,6 +10198,8 @@
             "sons": [
                 527
             ],
+            "stats": {},
+            "stats_cond": [],
             "success": null
         },
         "goto": 527
@@ -9155,12 +10226,19 @@
                 516,
                 523
             ],
+            "stats": {
+                "pv": 5
+            },
+            "stats_cond": [],
             "success": null
         },
         "goto": [
             523,
             516
-        ]
+        ],
+        "stats": {
+            "pv": 5
+        }
     },
     "359": {
         "computed": {
@@ -9185,13 +10263,20 @@
                 318,
                 445
             ],
+            "stats": {
+                "pv": 6
+            },
+            "stats_cond": [],
             "success": null
         },
         "goto": [
             190,
             318,
             445
-        ]
+        ],
+        "stats": {
+            "pv": 6
+        }
     },
     "36": {
         "combat": {
@@ -9229,6 +10314,8 @@
             "sons": [
                 194
             ],
+            "stats": {},
+            "stats_cond": [],
             "success": null
         },
         "goto": 194
@@ -9254,6 +10341,8 @@
             "sons": [
                 458
             ],
+            "stats": {},
+            "stats_cond": [],
             "success": null
         },
         "goto": 458
@@ -9279,9 +10368,20 @@
             "sons": [
                 100
             ],
+            "stats": {
+                "crit": 3,
+                "info": 1,
+                "pv_max": -2
+            },
+            "stats_cond": [],
             "success": "STARDUST"
         },
         "goto": 100,
+        "stats": {
+            "crit": 3,
+            "info": 1,
+            "pv_max": -2
+        },
         "success": "STARDUST"
     },
     "362": {
@@ -9305,6 +10405,8 @@
             "sons": [
                 475
             ],
+            "stats": {},
+            "stats_cond": [],
             "success": null
         },
         "goto": 475
@@ -9332,6 +10434,8 @@
                 340,
                 400
             ],
+            "stats": {},
+            "stats_cond": [],
             "success": null
         },
         "goto": [
@@ -9366,6 +10470,8 @@
             "sons": [
                 519
             ],
+            "stats": {},
+            "stats_cond": [],
             "success": null
         },
         "goto": 519
@@ -9392,6 +10498,8 @@
                 513,
                 555
             ],
+            "stats": {},
+            "stats_cond": [],
             "success": null
         },
         "goto": [
@@ -9423,6 +10531,8 @@
                 389,
                 461
             ],
+            "stats": {},
+            "stats_cond": [],
             "success": null
         },
         "goto": [
@@ -9453,9 +10563,16 @@
             "sons": [
                 183
             ],
+            "stats": {
+                "richesse": 1
+            },
+            "stats_cond": [],
             "success": null
         },
-        "goto": 183
+        "goto": 183,
+        "stats": {
+            "richesse": 1
+        }
     },
     "368": {
         "computed": {
@@ -9492,6 +10609,10 @@
                 100,
                 215
             ],
+            "stats": {
+                "max_pv": true
+            },
+            "stats_cond": [],
             "success": null
         },
         "conditions": {
@@ -9500,7 +10621,10 @@
         "goto": [
             215,
             100
-        ]
+        ],
+        "stats": {
+            "max_pv": true
+        }
     },
     "369": {
         "computed": {
@@ -9530,6 +10654,8 @@
                 75,
                 419
             ],
+            "stats": {},
+            "stats_cond": [],
             "success": null
         },
         "conditions": {
@@ -9564,6 +10690,8 @@
                 366,
                 461
             ],
+            "stats": {},
+            "stats_cond": [],
             "success": null
         },
         "goto": [
@@ -9609,6 +10737,8 @@
             "sons": [
                 420
             ],
+            "stats": {},
+            "stats_cond": [],
             "success": null
         },
         "goto": 420
@@ -9634,6 +10764,8 @@
             "sons": [
                 100
             ],
+            "stats": {},
+            "stats_cond": [],
             "success": null
         },
         "goto": 100
@@ -9659,6 +10791,8 @@
             "sons": [
                 423
             ],
+            "stats": {},
+            "stats_cond": [],
             "success": null
         },
         "goto": 423
@@ -9684,6 +10818,8 @@
             "sons": [
                 436
             ],
+            "stats": {},
+            "stats_cond": [],
             "success": null
         },
         "goto": 436
@@ -9714,6 +10850,8 @@
             "sons": [
                 383
             ],
+            "stats": {},
+            "stats_cond": [],
             "success": null
         },
         "goto": 383
@@ -9737,6 +10875,8 @@
             "secret": false,
             "secret_jumps": [],
             "sons": [],
+            "stats": {},
+            "stats_cond": [],
             "success": null
         },
         "ending": "bad",
@@ -9766,6 +10906,8 @@
                 369,
                 591
             ],
+            "stats": {},
+            "stats_cond": [],
             "success": null
         },
         "goto": [
@@ -9799,6 +10941,8 @@
             "sons": [
                 407
             ],
+            "stats": {},
+            "stats_cond": [],
             "success": null
         },
         "goto": 407
@@ -9824,9 +10968,16 @@
             "sons": [
                 70
             ],
+            "stats": {
+                "max_pv": true
+            },
+            "stats_cond": [],
             "success": null
         },
-        "goto": 70
+        "goto": 70,
+        "stats": {
+            "max_pv": true
+        }
     },
     "379": {
         "computed": {
@@ -9852,6 +11003,8 @@
                 62,
                 480
             ],
+            "stats": {},
+            "stats_cond": [],
             "success": null
         },
         "goto": [
@@ -9883,6 +11036,10 @@
             "sons": [
                 100
             ],
+            "stats": {
+                "hab": 1
+            },
+            "stats_cond": [],
             "success": null
         },
         "goto": 100,
@@ -9911,6 +11068,8 @@
             "sons": [
                 386
             ],
+            "stats": {},
+            "stats_cond": [],
             "success": null
         },
         "goto": 386
@@ -9939,6 +11098,8 @@
                 535,
                 578
             ],
+            "stats": {},
+            "stats_cond": [],
             "success": "TEMOINS"
         },
         "goto": [
@@ -9971,6 +11132,8 @@
                 433,
                 494
             ],
+            "stats": {},
+            "stats_cond": [],
             "success": null
         },
         "goto": [
@@ -10000,6 +11163,8 @@
                 325,
                 409
             ],
+            "stats": {},
+            "stats_cond": [],
             "success": null
         },
         "goto": [
@@ -10029,6 +11194,8 @@
                 205,
                 252
             ],
+            "stats": {},
+            "stats_cond": [],
             "success": null
         },
         "goto": [
@@ -10058,6 +11225,8 @@
                 156,
                 398
             ],
+            "stats": {},
+            "stats_cond": [],
             "success": null
         },
         "goto": [
@@ -10093,6 +11262,10 @@
                 265,
                 418
             ],
+            "stats": {
+                "pv": 2
+            },
+            "stats_cond": [],
             "success": null
         },
         "conditions": {
@@ -10101,7 +11274,10 @@
         "goto": [
             265,
             418
-        ]
+        ],
+        "stats": {
+            "pv": 2
+        }
     },
     "387": {
         "combat": {
@@ -10139,6 +11315,8 @@
             "sons": [
                 261
             ],
+            "stats": {},
+            "stats_cond": [],
             "success": null
         },
         "goto": 261
@@ -10166,6 +11344,8 @@
             "sons": [
                 480
             ],
+            "stats": {},
+            "stats_cond": [],
             "success": null
         },
         "goto": 480,
@@ -10194,6 +11374,8 @@
             "sons": [
                 186
             ],
+            "stats": {},
+            "stats_cond": [],
             "success": null
         },
         "goto": 186,
@@ -10220,6 +11402,8 @@
             "sons": [
                 89
             ],
+            "stats": {},
+            "stats_cond": [],
             "success": null
         },
         "goto": 89
@@ -10245,6 +11429,8 @@
             "sons": [
                 461
             ],
+            "stats": {},
+            "stats_cond": [],
             "success": null
         },
         "goto": 461
@@ -10270,6 +11456,8 @@
             "sons": [
                 452
             ],
+            "stats": {},
+            "stats_cond": [],
             "success": null
         },
         "goto": 452
@@ -10295,6 +11483,8 @@
             "sons": [
                 238
             ],
+            "stats": {},
+            "stats_cond": [],
             "success": null
         },
         "goto": 238
@@ -10329,6 +11519,8 @@
                 517,
                 520
             ],
+            "stats": {},
+            "stats_cond": [],
             "success": null
         },
         "conditions": {
@@ -10383,6 +11575,8 @@
                 444,
                 511
             ],
+            "stats": {},
+            "stats_cond": [],
             "success": null
         },
         "conditions": {
@@ -10420,9 +11614,16 @@
             "sons": [
                 70
             ],
+            "stats": {
+                "info": 1
+            },
+            "stats_cond": [],
             "success": null
         },
-        "goto": 70
+        "goto": 70,
+        "stats": {
+            "info": 1
+        }
     },
     "396": {
         "computed": {
@@ -10445,6 +11646,8 @@
             "sons": [
                 401
             ],
+            "stats": {},
+            "stats_cond": [],
             "success": null
         },
         "goto": 401
@@ -10477,6 +11680,8 @@
             "sons": [
                 430
             ],
+            "stats": {},
+            "stats_cond": [],
             "success": null
         },
         "goto": 430
@@ -10502,6 +11707,8 @@
             "sons": [
                 426
             ],
+            "stats": {},
+            "stats_cond": [],
             "success": null
         },
         "goto": 426
@@ -10527,9 +11734,16 @@
             "sons": [
                 70
             ],
+            "stats": {
+                "info": 1
+            },
+            "stats_cond": [],
             "success": null
         },
-        "goto": 70
+        "goto": 70,
+        "stats": {
+            "info": 1
+        }
     },
     "4": {
         "computed": {
@@ -10553,6 +11767,8 @@
                 186,
                 447
             ],
+            "stats": {},
+            "stats_cond": [],
             "success": null
         },
         "goto": [
@@ -10581,6 +11797,8 @@
             "sons": [
                 230
             ],
+            "stats": {},
+            "stats_cond": [],
             "success": null
         },
         "goto": 230
@@ -10612,6 +11830,8 @@
                 580,
                 581
             ],
+            "stats": {},
+            "stats_cond": [],
             "success": null
         },
         "goto": [
@@ -10646,6 +11866,8 @@
             "sons": [
                 184
             ],
+            "stats": {},
+            "stats_cond": [],
             "success": null
         },
         "goto": 184
@@ -10671,6 +11893,8 @@
             "sons": [
                 184
             ],
+            "stats": {},
+            "stats_cond": [],
             "success": null
         },
         "goto": 184
@@ -10696,6 +11920,8 @@
             "sons": [
                 581
             ],
+            "stats": {},
+            "stats_cond": [],
             "success": null
         },
         "goto": 581
@@ -10721,6 +11947,8 @@
             "sons": [
                 154
             ],
+            "stats": {},
+            "stats_cond": [],
             "success": null
         },
         "goto": 154
@@ -10751,9 +11979,16 @@
             "sons": [
                 25
             ],
+            "stats": {
+                "end": 3
+            },
+            "stats_cond": [],
             "success": null
         },
-        "goto": 25
+        "goto": 25,
+        "stats": {
+            "end": 3
+        }
     },
     "407": {
         "computed": {
@@ -10778,6 +12013,8 @@
                 348,
                 491
             ],
+            "stats": {},
+            "stats_cond": [],
             "success": null
         },
         "goto": [
@@ -10808,6 +12045,8 @@
             "sons": [
                 469
             ],
+            "stats": {},
+            "stats_cond": [],
             "success": "OMELETTE"
         },
         "goto": 469,
@@ -10836,6 +12075,8 @@
                 201,
                 309
             ],
+            "stats": {},
+            "stats_cond": [],
             "success": null
         },
         "goto": [
@@ -10867,6 +12108,8 @@
                 207,
                 223
             ],
+            "stats": {},
+            "stats_cond": [],
             "success": null
         },
         "goto": [
@@ -10901,6 +12144,8 @@
             "sons": [
                 154
             ],
+            "stats": {},
+            "stats_cond": [],
             "success": "CULTURE-PUB"
         },
         "goto": 154,
@@ -10929,13 +12174,20 @@
                 415,
                 464
             ],
+            "stats": {
+                "chance_max": 1
+            },
+            "stats_cond": [],
             "success": null
         },
         "goto": [
             191,
             415,
             464
-        ]
+        ],
+        "stats": {
+            "chance_max": 1
+        }
     },
     "412": {
         "computed": {
@@ -10958,6 +12210,8 @@
             "sons": [
                 475
             ],
+            "stats": {},
+            "stats_cond": [],
             "success": null
         },
         "goto": 475
@@ -11008,6 +12262,8 @@
                 463,
                 506
             ],
+            "stats": {},
+            "stats_cond": [],
             "success": null
         },
         "conditions": {
@@ -11065,6 +12321,8 @@
                 439,
                 481
             ],
+            "stats": {},
+            "stats_cond": [],
             "success": null
         },
         "conditions": {
@@ -11106,6 +12364,8 @@
                 330,
                 464
             ],
+            "stats": {},
+            "stats_cond": [],
             "success": null
         },
         "goto": [
@@ -11137,6 +12397,8 @@
             "sons": [
                 480
             ],
+            "stats": {},
+            "stats_cond": [],
             "success": null
         },
         "goto": 480,
@@ -11165,9 +12427,26 @@
             "sons": [
                 436
             ],
+            "stats": {},
+            "stats_cond": [
+                {
+                    "condition": {
+                        "$end": "PRUDENT"
+                    },
+                    "stats": {
+                        "gloire": 1
+                    },
+                    "txt": "PRUDENT"
+                }
+            ],
             "success": null
         },
-        "goto": 436
+        "goto": 436,
+        "stats_cond": {
+            "PRUDENT": {
+                "gloire": 1
+            }
+        }
     },
     "418": {
         "computed": {
@@ -11190,6 +12469,8 @@
             "sons": [
                 360
             ],
+            "stats": {},
+            "stats_cond": [],
             "success": null
         },
         "goto": 360
@@ -11215,9 +12496,16 @@
             "sons": [
                 75
             ],
+            "stats": {
+                "hab": 1
+            },
+            "stats_cond": [],
             "success": null
         },
-        "goto": 75
+        "goto": 75,
+        "stats": {
+            "hab": 1
+        }
     },
     "42": {
         "computed": {
@@ -11240,6 +12528,11 @@
             "sons": [
                 100
             ],
+            "stats": {
+                "chance": -1,
+                "chance_max": 1
+            },
+            "stats_cond": [],
             "success": null
         },
         "goto": 100,
@@ -11269,9 +12562,31 @@
             "sons": [
                 489
             ],
+            "stats": {
+                "chance": 1
+            },
+            "stats_cond": [
+                {
+                    "condition": {
+                        "$end": "PRUDENT"
+                    },
+                    "stats": {
+                        "gloire": 1
+                    },
+                    "txt": "PRUDENT"
+                }
+            ],
             "success": null
         },
-        "goto": 489
+        "goto": 489,
+        "stats": {
+            "chance": 1
+        },
+        "stats_cond": {
+            "PRUDENT": {
+                "gloire": 1
+            }
+        }
     },
     "421": {
         "combat": {
@@ -11310,6 +12625,8 @@
                 505,
                 548
             ],
+            "stats": {},
+            "stats_cond": [],
             "success": null
         },
         "goto": [
@@ -11353,6 +12670,8 @@
             "sons": [
                 597
             ],
+            "stats": {},
+            "stats_cond": [],
             "success": null
         },
         "goto": 597
@@ -11378,6 +12697,8 @@
             "sons": [
                 354
             ],
+            "stats": {},
+            "stats_cond": [],
             "success": null
         },
         "goto": 354
@@ -11405,6 +12726,8 @@
                 330,
                 415
             ],
+            "stats": {},
+            "stats_cond": [],
             "success": null
         },
         "goto": [
@@ -11435,6 +12758,8 @@
                 25,
                 477
             ],
+            "stats": {},
+            "stats_cond": [],
             "success": null
         },
         "goto": [
@@ -11465,6 +12790,8 @@
                 82,
                 293
             ],
+            "stats": {},
+            "stats_cond": [],
             "success": null
         },
         "goto": [
@@ -11496,6 +12823,8 @@
                 535,
                 578
             ],
+            "stats": {},
+            "stats_cond": [],
             "success": null
         },
         "goto": [
@@ -11526,6 +12855,8 @@
             "sons": [
                 354
             ],
+            "stats": {},
+            "stats_cond": [],
             "success": null
         },
         "goto": 354
@@ -11553,6 +12884,8 @@
             "sons": [
                 475
             ],
+            "stats": {},
+            "stats_cond": [],
             "success": null
         },
         "goto": 475,
@@ -11581,6 +12914,8 @@
             "sons": [
                 68
             ],
+            "stats": {},
+            "stats_cond": [],
             "success": null
         },
         "goto": 68
@@ -11607,6 +12942,8 @@
                 88,
                 119
             ],
+            "stats": {},
+            "stats_cond": [],
             "success": null
         },
         "goto": [
@@ -11636,6 +12973,8 @@
             "sons": [
                 457
             ],
+            "stats": {},
+            "stats_cond": [],
             "success": null
         },
         "goto": 457
@@ -11662,6 +13001,8 @@
                 435,
                 510
             ],
+            "stats": {},
+            "stats_cond": [],
             "success": null
         },
         "goto": [
@@ -11690,6 +13031,8 @@
             "sons": [
                 295
             ],
+            "stats": {},
+            "stats_cond": [],
             "success": null
         },
         "goto": 295
@@ -11716,6 +13059,8 @@
                 465,
                 521
             ],
+            "stats": {},
+            "stats_cond": [],
             "success": null
         },
         "goto": [
@@ -11774,6 +13119,8 @@
                 391,
                 497
             ],
+            "stats": {},
+            "stats_cond": [],
             "success": null
         },
         "conditions": {
@@ -11811,6 +13158,8 @@
                 403,
                 496
             ],
+            "stats": {},
+            "stats_cond": [],
             "success": "VIE-BELLE"
         },
         "goto": [
@@ -11842,6 +13191,8 @@
                 435,
                 510
             ],
+            "stats": {},
+            "stats_cond": [],
             "success": null
         },
         "goto": [
@@ -11872,6 +13223,8 @@
             "sons": [
                 480
             ],
+            "stats": {},
+            "stats_cond": [],
             "success": null
         },
         "goto": 480,
@@ -11903,6 +13256,10 @@
                 298,
                 481
             ],
+            "stats": {
+                "pv": 2
+            },
+            "stats_cond": [],
             "success": null
         },
         "goto": [
@@ -11910,7 +13267,10 @@
             298,
             220,
             481
-        ]
+        ],
+        "stats": {
+            "pv": 2
+        }
     },
     "44": {
         "computed": {
@@ -11934,6 +13294,8 @@
                 28,
                 106
             ],
+            "stats": {},
+            "stats_cond": [],
             "success": null
         },
         "goto": [
@@ -12007,6 +13369,8 @@
                 319,
                 483
             ],
+            "stats": {},
+            "stats_cond": [],
             "success": null
         },
         "conditions": {
@@ -12044,6 +13408,8 @@
             "sons": [
                 500
             ],
+            "stats": {},
+            "stats_cond": [],
             "success": null
         },
         "goto": 500
@@ -12069,9 +13435,52 @@
             "sons": [
                 414
             ],
+            "stats": {},
+            "stats_cond": [
+                {
+                    "condition": {
+                        "$or": [
+                            {
+                                "$end": "PRUDENT"
+                            },
+                            {
+                                "$end": "DEBROUILLARD"
+                            }
+                        ]
+                    },
+                    "stats": {
+                        "chance": 1
+                    },
+                    "txt": "PRUDENT ou DEBROUILLARD"
+                },
+                {
+                    "condition": {
+                        "$or": [
+                            {
+                                "$end": "GUERRIER"
+                            },
+                            {
+                                "$end": "PAYSAN"
+                            }
+                        ]
+                    },
+                    "stats": {
+                        "pv": 1
+                    },
+                    "txt": "GUERRIER ou PAYSAN"
+                }
+            ],
             "success": null
         },
-        "goto": 414
+        "goto": 414,
+        "stats_cond": {
+            "GUERRIER|PAYSAN": {
+                "pv": 1
+            },
+            "PRUDENT|DEBROUILLARD": {
+                "chance": 1
+            }
+        }
     },
     "443": {
         "computed": {
@@ -12094,6 +13503,8 @@
             "sons": [
                 354
             ],
+            "stats": {},
+            "stats_cond": [],
             "success": null
         },
         "goto": 354
@@ -12124,6 +13535,8 @@
             "sons": [
                 407
             ],
+            "stats": {},
+            "stats_cond": [],
             "success": null
         },
         "goto": 407
@@ -12149,6 +13562,8 @@
             "sons": [
                 468
             ],
+            "stats": {},
+            "stats_cond": [],
             "success": null
         },
         "goto": 468
@@ -12174,6 +13589,8 @@
             "sons": [
                 84
             ],
+            "stats": {},
+            "stats_cond": [],
             "success": null
         },
         "goto": 84
@@ -12205,6 +13622,8 @@
                 551,
                 569
             ],
+            "stats": {},
+            "stats_cond": [],
             "success": null
         },
         "goto": [
@@ -12239,9 +13658,16 @@
             "sons": [
                 150
             ],
+            "stats": {
+                "1_4_pv_max": true
+            },
+            "stats_cond": [],
             "success": null
         },
-        "goto": 150
+        "goto": 150,
+        "stats": {
+            "1_4_pv_max": true
+        }
     },
     "449": {
         "computed": {
@@ -12265,6 +13691,8 @@
                 80,
                 587
             ],
+            "stats": {},
+            "stats_cond": [],
             "success": null
         },
         "goto": [
@@ -12294,6 +13722,8 @@
                 110,
                 209
             ],
+            "stats": {},
+            "stats_cond": [],
             "success": null
         },
         "goto": [
@@ -12325,6 +13755,8 @@
                 341,
                 496
             ],
+            "stats": {},
+            "stats_cond": [],
             "success": null
         },
         "goto": [
@@ -12355,6 +13787,8 @@
             "sons": [
                 597
             ],
+            "stats": {},
+            "stats_cond": [],
             "success": null
         },
         "goto": 597
@@ -12385,6 +13819,8 @@
             "sons": [
                 519
             ],
+            "stats": {},
+            "stats_cond": [],
             "success": null
         },
         "goto": 519
@@ -12410,6 +13846,8 @@
             "sons": [
                 414
             ],
+            "stats": {},
+            "stats_cond": [],
             "success": null
         },
         "goto": 414
@@ -12483,6 +13921,8 @@
                 594,
                 601
             ],
+            "stats": {},
+            "stats_cond": [],
             "success": "MEMOIRE-HONOREE"
         },
         "conditions": {
@@ -12529,6 +13969,8 @@
                 344,
                 451
             ],
+            "stats": {},
+            "stats_cond": [],
             "success": null
         },
         "goto": [
@@ -12559,6 +14001,8 @@
             "sons": [
                 480
             ],
+            "stats": {},
+            "stats_cond": [],
             "success": null
         },
         "goto": 480,
@@ -12590,6 +14034,8 @@
                 447,
                 462
             ],
+            "stats": {},
+            "stats_cond": [],
             "success": null
         },
         "goto": [
@@ -12629,6 +14075,8 @@
                 474,
                 524
             ],
+            "stats": {},
+            "stats_cond": [],
             "success": null
         },
         "conditions": {
@@ -12667,6 +14115,8 @@
             "sons": [
                 430
             ],
+            "stats": {},
+            "stats_cond": [],
             "success": "TOUTATIS"
         },
         "goto": 430,
@@ -12693,6 +14143,10 @@
             "sons": [
                 414
             ],
+            "stats": {
+                "pv": 2
+            },
+            "stats_cond": [],
             "success": "BOUTEILLE"
         },
         "goto": 414,
@@ -12723,6 +14177,8 @@
                 435,
                 510
             ],
+            "stats": {},
+            "stats_cond": [],
             "success": null
         },
         "goto": [
@@ -12756,6 +14212,8 @@
                 547,
                 583
             ],
+            "stats": {},
+            "stats_cond": [],
             "success": null
         },
         "goto": [
@@ -12805,6 +14263,8 @@
                 58,
                 457
             ],
+            "stats": {},
+            "stats_cond": [],
             "success": null
         },
         "goto": [
@@ -12834,6 +14294,8 @@
                 262,
                 518
             ],
+            "stats": {},
+            "stats_cond": [],
             "success": null
         },
         "goto": [
@@ -12862,6 +14324,8 @@
             "sons": [
                 468
             ],
+            "stats": {},
+            "stats_cond": [],
             "success": null
         },
         "goto": 468
@@ -12885,6 +14349,8 @@
             "secret": false,
             "secret_jumps": [],
             "sons": [],
+            "stats": {},
+            "stats_cond": [],
             "success": null
         },
         "ending": "bad",
@@ -12913,6 +14379,8 @@
             "sons": [
                 448
             ],
+            "stats": {},
+            "stats_cond": [],
             "success": null
         },
         "goto": 448
@@ -12945,6 +14413,8 @@
             "sons": [
                 25
             ],
+            "stats": {},
+            "stats_cond": [],
             "success": null
         },
         "goto": 25,
@@ -12973,6 +14443,8 @@
             "sons": [
                 323
             ],
+            "stats": {},
+            "stats_cond": [],
             "success": null
         },
         "goto": 323
@@ -12999,6 +14471,8 @@
                 475,
                 480
             ],
+            "stats": {},
+            "stats_cond": [],
             "success": null
         },
         "goto": [
@@ -13032,6 +14506,8 @@
             "sons": [
                 22
             ],
+            "stats": {},
+            "stats_cond": [],
             "success": null
         },
         "goto": 22
@@ -13057,6 +14533,8 @@
             "sons": [
                 354
             ],
+            "stats": {},
+            "stats_cond": [],
             "success": null
         },
         "goto": 354
@@ -13084,6 +14562,8 @@
             "sons": [
                 480
             ],
+            "stats": {},
+            "stats_cond": [],
             "success": null
         },
         "goto": 480,
@@ -13114,6 +14594,8 @@
                 285,
                 502
             ],
+            "stats": {},
+            "stats_cond": [],
             "success": null
         },
         "goto": [
@@ -13144,6 +14626,8 @@
                 156,
                 487
             ],
+            "stats": {},
+            "stats_cond": [],
             "success": null
         },
         "goto": [
@@ -13173,6 +14657,8 @@
                 424,
                 534
             ],
+            "stats": {},
+            "stats_cond": [],
             "success": null
         },
         "goto": [
@@ -13303,6 +14789,8 @@
                 603,
                 607
             ],
+            "stats": {},
+            "stats_cond": [],
             "success": null
         },
         "conditions": {
@@ -13403,6 +14891,8 @@
                 590,
                 601
             ],
+            "stats": {},
+            "stats_cond": [],
             "success": null
         },
         "conditions": {
@@ -13453,6 +14943,8 @@
                 212,
                 349
             ],
+            "stats": {},
+            "stats_cond": [],
             "success": null
         },
         "conditions": {
@@ -13487,12 +14979,19 @@
             "sons": [
                 480
             ],
+            "stats": {
+                "richesse": -1
+            },
+            "stats_cond": [],
             "success": null
         },
         "goto": 480,
         "remove": [
             "BROCHE DOREE"
-        ]
+        ],
+        "stats": {
+            "richesse": -1
+        }
     },
     "479": {
         "computed": {
@@ -13515,6 +15014,8 @@
             "sons": [
                 405
             ],
+            "stats": {},
+            "stats_cond": [],
             "success": null
         },
         "goto": 405
@@ -13548,6 +15049,8 @@
                 135,
                 304
             ],
+            "stats": {},
+            "stats_cond": [],
             "success": null
         },
         "conditions": {
@@ -13689,6 +15192,8 @@
                 606,
                 607
             ],
+            "stats": {},
+            "stats_cond": [],
             "success": null
         },
         "conditions": {
@@ -13787,6 +15292,8 @@
                 132,
                 211
             ],
+            "stats": {},
+            "stats_cond": [],
             "success": null
         },
         "conditions": {
@@ -13821,6 +15328,8 @@
             "sons": [
                 475
             ],
+            "stats": {},
+            "stats_cond": [],
             "success": null
         },
         "goto": 475,
@@ -13864,6 +15373,8 @@
             "sons": [
                 428
             ],
+            "stats": {},
+            "stats_cond": [],
             "success": null
         },
         "goto": 428
@@ -13892,6 +15403,10 @@
                 501,
                 602
             ],
+            "stats": {
+                "richesse": -1
+            },
+            "stats_cond": [],
             "success": null
         },
         "goto": [
@@ -13899,7 +15414,10 @@
             501,
             602,
             381
-        ]
+        ],
+        "stats": {
+            "richesse": -1
+        }
     },
     "485": {
         "computed": {
@@ -13922,6 +15440,8 @@
             "sons": [
                 475
             ],
+            "stats": {},
+            "stats_cond": [],
             "success": null
         },
         "goto": 475
@@ -13964,6 +15484,8 @@
                 222,
                 574
             ],
+            "stats": {},
+            "stats_cond": [],
             "success": null
         },
         "conditions": {
@@ -13999,6 +15521,8 @@
             "sons": [
                 426
             ],
+            "stats": {},
+            "stats_cond": [],
             "success": null
         },
         "goto": 426
@@ -14024,6 +15548,8 @@
             "sons": [
                 573
             ],
+            "stats": {},
+            "stats_cond": [],
             "success": null
         },
         "goto": 573
@@ -14051,6 +15577,8 @@
                 450,
                 479
             ],
+            "stats": {},
+            "stats_cond": [],
             "success": null
         },
         "goto": [
@@ -14085,6 +15613,8 @@
             "sons": [
                 219
             ],
+            "stats": {},
+            "stats_cond": [],
             "success": null
         },
         "goto": 219,
@@ -14113,6 +15643,8 @@
                 403,
                 496
             ],
+            "stats": {},
+            "stats_cond": [],
             "success": null
         },
         "goto": [
@@ -14147,9 +15679,18 @@
             "sons": [
                 383
             ],
+            "stats": {
+                "chance_max": -2,
+                "richesse": 1
+            },
+            "stats_cond": [],
             "success": null
         },
-        "goto": 383
+        "goto": 383,
+        "stats": {
+            "chance_max": -2,
+            "richesse": 1
+        }
     },
     "492": {
         "computed": {
@@ -14172,6 +15713,8 @@
             "sons": [
                 466
             ],
+            "stats": {},
+            "stats_cond": [],
             "success": null
         },
         "goto": 466
@@ -14201,6 +15744,8 @@
                 315,
                 453
             ],
+            "stats": {},
+            "stats_cond": [],
             "success": null
         },
         "goto": [
@@ -14232,6 +15777,8 @@
             "sons": [
                 317
             ],
+            "stats": {},
+            "stats_cond": [],
             "success": null
         },
         "goto": 317
@@ -14257,6 +15804,8 @@
             "sons": [
                 536
             ],
+            "stats": {},
+            "stats_cond": [],
             "success": "EMEU-PORCELAINE"
         },
         "goto": 536,
@@ -14286,6 +15835,8 @@
                 531,
                 537
             ],
+            "stats": {},
+            "stats_cond": [],
             "success": null
         },
         "goto": [
@@ -14317,6 +15868,8 @@
             "sons": [
                 452
             ],
+            "stats": {},
+            "stats_cond": [],
             "success": null
         },
         "goto": 452
@@ -14347,6 +15900,8 @@
             "sons": [
                 25
             ],
+            "stats": {},
+            "stats_cond": [],
             "success": null
         },
         "goto": 25
@@ -14372,9 +15927,16 @@
             "sons": [
                 100
             ],
+            "stats": {
+                "info": 2
+            },
+            "stats_cond": [],
             "success": null
         },
-        "goto": 100
+        "goto": 100,
+        "stats": {
+            "info": 2
+        }
     },
     "5": {
         "computed": {
@@ -14399,6 +15961,8 @@
                 121,
                 147
             ],
+            "stats": {},
+            "stats_cond": [],
             "success": null
         },
         "goto": [
@@ -14431,6 +15995,8 @@
                 298,
                 481
             ],
+            "stats": {},
+            "stats_cond": [],
             "success": null
         },
         "goto": [
@@ -14462,6 +16028,8 @@
                 343,
                 572
             ],
+            "stats": {},
+            "stats_cond": [],
             "success": null
         },
         "goto": [
@@ -14494,6 +16062,8 @@
                 535,
                 578
             ],
+            "stats": {},
+            "stats_cond": [],
             "success": null
         },
         "goto": [
@@ -14524,6 +16094,8 @@
             "sons": [
                 405
             ],
+            "stats": {},
+            "stats_cond": [],
             "success": null
         },
         "goto": 405
@@ -14551,6 +16123,8 @@
                 340,
                 461
             ],
+            "stats": {},
+            "stats_cond": [],
             "success": null
         },
         "goto": [
@@ -14580,6 +16154,8 @@
             "sons": [
                 168
             ],
+            "stats": {},
+            "stats_cond": [],
             "success": null
         },
         "goto": 168
@@ -14610,9 +16186,31 @@
             "sons": [
                 457
             ],
+            "stats": {
+                "pv": 8
+            },
+            "stats_cond": [
+                {
+                    "condition": {
+                        "$end": "GUERRIER"
+                    },
+                    "stats": {
+                        "gloire": 1
+                    },
+                    "txt": "GUERRIER"
+                }
+            ],
             "success": "OCTOGONE"
         },
         "goto": 457,
+        "stats": {
+            "pv": 8
+        },
+        "stats_cond": {
+            "GUERRIER": {
+                "gloire": 1
+            }
+        },
         "success": "OCTOGONE"
     },
     "506": {
@@ -14638,6 +16236,8 @@
             "sons": [
                 420
             ],
+            "stats": {},
+            "stats_cond": [],
             "success": null
         },
         "goto": 420,
@@ -14666,6 +16266,8 @@
             "sons": [
                 531
             ],
+            "stats": {},
+            "stats_cond": [],
             "success": null
         },
         "goto": 531
@@ -14693,6 +16295,8 @@
             "sons": [
                 475
             ],
+            "stats": {},
+            "stats_cond": [],
             "success": null
         },
         "goto": 475,
@@ -14723,12 +16327,19 @@
             "sons": [
                 475
             ],
+            "stats": {
+                "arm": 1
+            },
+            "stats_cond": [],
             "success": null
         },
         "goto": 475,
         "remove": [
             "ICONE DES PALADINS"
-        ]
+        ],
+        "stats": {
+            "arm": 1
+        }
     },
     "51": {
         "aquire": [
@@ -14756,6 +16367,8 @@
             "sons": [
                 400
             ],
+            "stats": {},
+            "stats_cond": [],
             "success": "CHUTE"
         },
         "goto": 400,
@@ -14801,6 +16414,8 @@
                 240,
                 538
             ],
+            "stats": {},
+            "stats_cond": [],
             "success": null
         },
         "conditions": {
@@ -14834,6 +16449,8 @@
             "sons": [
                 407
             ],
+            "stats": {},
+            "stats_cond": [],
             "success": null
         },
         "goto": 407
@@ -14879,6 +16496,8 @@
                 434,
                 592
             ],
+            "stats": {},
+            "stats_cond": [],
             "success": null
         },
         "conditions": {
@@ -14917,6 +16536,8 @@
             "sons": [
                 420
             ],
+            "stats": {},
+            "stats_cond": [],
             "success": "PREMIER"
         },
         "goto": 420,
@@ -14943,6 +16564,8 @@
             "sons": [
                 292
             ],
+            "stats": {},
+            "stats_cond": [],
             "success": null
         },
         "goto": 292
@@ -14970,6 +16593,8 @@
             "sons": [
                 367
             ],
+            "stats": {},
+            "stats_cond": [],
             "success": null
         },
         "goto": 367,
@@ -15000,6 +16625,8 @@
                 403,
                 450
             ],
+            "stats": {},
+            "stats_cond": [],
             "success": null
         },
         "goto": [
@@ -15029,6 +16656,8 @@
             "sons": [
                 573
             ],
+            "stats": {},
+            "stats_cond": [],
             "success": null
         },
         "goto": 573
@@ -15069,6 +16698,8 @@
             "sons": [
                 420
             ],
+            "stats": {},
+            "stats_cond": [],
             "success": null
         },
         "goto": 420
@@ -15095,6 +16726,8 @@
                 260,
                 380
             ],
+            "stats": {},
+            "stats_cond": [],
             "success": null
         },
         "goto": [
@@ -15132,6 +16765,8 @@
                 318,
                 359
             ],
+            "stats": {},
+            "stats_cond": [],
             "success": null
         },
         "goto": [
@@ -15176,6 +16811,8 @@
                 340,
                 503
             ],
+            "stats": {},
+            "stats_cond": [],
             "success": null
         },
         "conditions": {
@@ -15227,6 +16864,8 @@
                 337,
                 592
             ],
+            "stats": {},
+            "stats_cond": [],
             "success": null
         },
         "conditions": {
@@ -15285,6 +16924,8 @@
                 321,
                 373
             ],
+            "stats": {},
+            "stats_cond": [],
             "success": null
         },
         "conditions": {
@@ -15323,6 +16964,8 @@
                 403,
                 450
             ],
+            "stats": {},
+            "stats_cond": [],
             "success": null
         },
         "goto": [
@@ -15353,6 +16996,8 @@
                 296,
                 474
             ],
+            "stats": {},
+            "stats_cond": [],
             "success": null
         },
         "goto": [
@@ -15383,6 +17028,8 @@
             "sons": [
                 480
             ],
+            "stats": {},
+            "stats_cond": [],
             "success": null
         },
         "goto": 480,
@@ -15413,6 +17060,8 @@
             "sons": [
                 480
             ],
+            "stats": {},
+            "stats_cond": [],
             "success": null
         },
         "goto": 480,
@@ -15441,6 +17090,8 @@
             "sons": [
                 484
             ],
+            "stats": {},
+            "stats_cond": [],
             "success": null
         },
         "goto": 484
@@ -15467,6 +17118,8 @@
                 6,
                 27
             ],
+            "stats": {},
+            "stats_cond": [],
             "success": null
         },
         "goto": [
@@ -15504,6 +17157,8 @@
                 480,
                 595
             ],
+            "stats": {},
+            "stats_cond": [],
             "success": null
         },
         "conditions": {
@@ -15546,6 +17201,8 @@
                 180,
                 267
             ],
+            "stats": {},
+            "stats_cond": [],
             "success": null
         },
         "conditions": {
@@ -15579,6 +17236,8 @@
             "sons": [
                 10
             ],
+            "stats": {},
+            "stats_cond": [],
             "success": null
         },
         "goto": 10
@@ -15607,6 +17266,8 @@
                 450,
                 543
             ],
+            "stats": {},
+            "stats_cond": [],
             "success": null
         },
         "goto": [
@@ -15639,6 +17300,8 @@
             "sons": [
                 475
             ],
+            "stats": {},
+            "stats_cond": [],
             "success": null
         },
         "goto": 475,
@@ -15667,9 +17330,16 @@
             "sons": [
                 400
             ],
+            "stats": {
+                "hab": 1
+            },
+            "stats_cond": [],
             "success": null
         },
-        "goto": 400
+        "goto": 400,
+        "stats": {
+            "hab": 1
+        }
     },
     "534": {
         "combat": {
@@ -15707,9 +17377,16 @@
             "sons": [
                 52
             ],
+            "stats": {
+                "hab": 1
+            },
+            "stats_cond": [],
             "success": null
         },
-        "goto": 52
+        "goto": 52,
+        "stats": {
+            "hab": 1
+        }
     },
     "535": {
         "computed": {
@@ -15778,6 +17455,8 @@
                 590,
                 601
             ],
+            "stats": {},
+            "stats_cond": [],
             "success": null
         },
         "conditions": {
@@ -15832,6 +17511,8 @@
                 80,
                 554
             ],
+            "stats": {},
+            "stats_cond": [],
             "success": null
         },
         "conditions": {
@@ -15883,6 +17564,8 @@
                 504,
                 549
             ],
+            "stats": {},
+            "stats_cond": [],
             "success": null
         },
         "conditions": {
@@ -15923,6 +17606,8 @@
             "sons": [
                 364
             ],
+            "stats": {},
+            "stats_cond": [],
             "success": null
         },
         "goto": 364,
@@ -15960,6 +17645,8 @@
                 480,
                 595
             ],
+            "stats": {},
+            "stats_cond": [],
             "success": null
         },
         "conditions": {
@@ -16010,6 +17697,10 @@
                 421,
                 457
             ],
+            "stats": {
+                "pv": 5
+            },
+            "stats_cond": [],
             "success": null
         },
         "goto": [
@@ -16042,6 +17733,8 @@
                 6,
                 27
             ],
+            "stats": {},
+            "stats_cond": [],
             "success": null
         },
         "goto": [
@@ -16070,6 +17763,8 @@
             "sons": [
                 420
             ],
+            "stats": {},
+            "stats_cond": [],
             "success": null
         },
         "goto": 420
@@ -16097,12 +17792,21 @@
             "sons": [
                 480
             ],
+            "stats": {
+                "arm": 1,
+                "end": 1
+            },
+            "stats_cond": [],
             "success": null
         },
         "goto": 480,
         "remove": [
             "MEDAILLON D'EDIRE"
-        ]
+        ],
+        "stats": {
+            "arm": 1,
+            "end": 1
+        }
     },
     "543": {
         "computed": {
@@ -16126,6 +17830,8 @@
                 157,
                 450
             ],
+            "stats": {},
+            "stats_cond": [],
             "success": null
         },
         "goto": [
@@ -16156,13 +17862,20 @@
                 415,
                 464
             ],
+            "stats": {
+                "end": 1
+            },
+            "stats_cond": [],
             "success": null
         },
         "goto": [
             191,
             415,
             464
-        ]
+        ],
+        "stats": {
+            "end": 1
+        }
     },
     "545": {
         "combat": {
@@ -16200,6 +17913,8 @@
             "sons": [
                 367
             ],
+            "stats": {},
+            "stats_cond": [],
             "success": null
         },
         "goto": 367
@@ -16225,6 +17940,8 @@
             "sons": [
                 436
             ],
+            "stats": {},
+            "stats_cond": [],
             "success": null
         },
         "goto": 436
@@ -16269,6 +17986,8 @@
                 461,
                 550
             ],
+            "stats": {},
+            "stats_cond": [],
             "success": null
         },
         "conditions": {
@@ -16302,6 +18021,8 @@
             "sons": [
                 457
             ],
+            "stats": {},
+            "stats_cond": [],
             "success": null
         },
         "goto": 457
@@ -16327,6 +18048,8 @@
             "sons": [
                 168
             ],
+            "stats": {},
+            "stats_cond": [],
             "success": null
         },
         "goto": 168
@@ -16352,6 +18075,8 @@
             "sons": [
                 70
             ],
+            "stats": {},
+            "stats_cond": [],
             "success": null
         },
         "goto": 70
@@ -16378,6 +18103,8 @@
                 281,
                 461
             ],
+            "stats": {},
+            "stats_cond": [],
             "success": null
         },
         "goto": [
@@ -16411,6 +18138,8 @@
                 553,
                 575
             ],
+            "stats": {},
+            "stats_cond": [],
             "success": null
         },
         "goto": [
@@ -16450,6 +18179,8 @@
                 469,
                 604
             ],
+            "stats": {},
+            "stats_cond": [],
             "success": null
         },
         "conditions": {
@@ -16482,6 +18213,8 @@
                 292,
                 486
             ],
+            "stats": {},
+            "stats_cond": [],
             "success": null
         },
         "goto": [
@@ -16511,9 +18244,16 @@
             "sons": [
                 80
             ],
+            "stats": {
+                "chance_max": 3
+            },
+            "stats_cond": [],
             "success": null
         },
-        "goto": 80
+        "goto": 80,
+        "stats": {
+            "chance_max": 3
+        }
     },
     "555": {
         "combat": {
@@ -16551,6 +18291,8 @@
             "sons": [
                 420
             ],
+            "stats": {},
+            "stats_cond": [],
             "success": null
         },
         "goto": 420
@@ -16578,6 +18320,8 @@
                 366,
                 461
             ],
+            "stats": {},
+            "stats_cond": [],
             "success": "SORS"
         },
         "goto": [
@@ -16610,6 +18354,8 @@
             "sons": [
                 480
             ],
+            "stats": {},
+            "stats_cond": [],
             "success": null
         },
         "goto": 480,
@@ -16640,12 +18386,19 @@
             "sons": [
                 475
             ],
+            "stats": {
+                "max_pv": true
+            },
+            "stats_cond": [],
             "success": null
         },
         "goto": 475,
         "remove": [
             "MEDAILLON D'EDIRE"
-        ]
+        ],
+        "stats": {
+            "max_pv": true
+        }
     },
     "559": {
         "computed": {
@@ -16666,6 +18419,8 @@
             "secret": false,
             "secret_jumps": [],
             "sons": [],
+            "stats": {},
+            "stats_cond": [],
             "success": "VIVANT"
         },
         "ending": "good",
@@ -16694,6 +18449,11 @@
                 163,
                 452
             ],
+            "stats": {
+                "hab": 1,
+                "pv": -2
+            },
+            "stats_cond": [],
             "success": null
         },
         "goto": [
@@ -16726,6 +18486,8 @@
             "sons": [
                 78
             ],
+            "stats": {},
+            "stats_cond": [],
             "success": "FIL-EPEE"
         },
         "goto": 78,
@@ -16752,6 +18514,8 @@
             "sons": [
                 80
             ],
+            "stats": {},
+            "stats_cond": [],
             "success": null
         },
         "goto": 80
@@ -16779,6 +18543,8 @@
             "sons": [
                 480
             ],
+            "stats": {},
+            "stats_cond": [],
             "success": null
         },
         "goto": 480,
@@ -16807,6 +18573,8 @@
             "sons": [
                 357
             ],
+            "stats": {},
+            "stats_cond": [],
             "success": null
         },
         "goto": 357
@@ -16854,6 +18622,8 @@
                 522,
                 546
             ],
+            "stats": {},
+            "stats_cond": [],
             "success": null
         },
         "conditions": {
@@ -16890,9 +18660,16 @@
             "sons": [
                 475
             ],
+            "stats": {
+                "deg": 1
+            },
+            "stats_cond": [],
             "success": null
         },
-        "goto": 475
+        "goto": 475,
+        "stats": {
+            "deg": 1
+        }
     },
     "566": {
         "computed": {
@@ -16916,12 +18693,21 @@
                 340,
                 400
             ],
+            "stats": {
+                "chance": 2,
+                "hab": 10
+            },
+            "stats_cond": [],
             "success": null
         },
         "goto": [
             340,
             400
-        ]
+        ],
+        "stats": {
+            "chance": 2,
+            "hab": 10
+        }
     },
     "567": {
         "computed": {
@@ -16944,6 +18730,8 @@
             "sons": [
                 475
             ],
+            "stats": {},
+            "stats_cond": [],
             "success": null
         },
         "goto": 475
@@ -16971,6 +18759,8 @@
             "sons": [
                 475
             ],
+            "stats": {},
+            "stats_cond": [],
             "success": null
         },
         "goto": 475,
@@ -17001,6 +18791,8 @@
                 560,
                 571
             ],
+            "stats": {},
+            "stats_cond": [],
             "success": null
         },
         "goto": [
@@ -17031,6 +18823,11 @@
             "sons": [
                 135
             ],
+            "stats": {
+                "chance_max": 1,
+                "richesse": 1
+            },
+            "stats_cond": [],
             "success": null
         },
         "goto": 135,
@@ -17062,6 +18859,8 @@
             "sons": [
                 480
             ],
+            "stats": {},
+            "stats_cond": [],
             "success": null
         },
         "goto": 480,
@@ -17091,6 +18890,8 @@
                 276,
                 447
             ],
+            "stats": {},
+            "stats_cond": [],
             "success": null
         },
         "goto": [
@@ -17121,6 +18922,8 @@
                 408,
                 552
             ],
+            "stats": {},
+            "stats_cond": [],
             "success": null
         },
         "goto": [
@@ -17151,6 +18954,8 @@
                 447,
                 520
             ],
+            "stats": {},
+            "stats_cond": [],
             "success": null
         },
         "goto": [
@@ -17194,6 +18999,8 @@
             "sons": [
                 292
             ],
+            "stats": {},
+            "stats_cond": [],
             "success": null
         },
         "goto": 292
@@ -17236,6 +19043,8 @@
                 447,
                 553
             ],
+            "stats": {},
+            "stats_cond": [],
             "success": null
         },
         "goto": [
@@ -17280,6 +19089,8 @@
             "sons": [
                 536
             ],
+            "stats": {},
+            "stats_cond": [],
             "success": null
         },
         "goto": 536
@@ -17307,13 +19118,20 @@
                 415,
                 464
             ],
+            "stats": {
+                "hab": 1
+            },
+            "stats_cond": [],
             "success": null
         },
         "goto": [
             191,
             415,
             464
-        ]
+        ],
+        "stats": {
+            "hab": 1
+        }
     },
     "578": {
         "computed": {
@@ -17382,6 +19200,8 @@
                 590,
                 601
             ],
+            "stats": {},
+            "stats_cond": [],
             "success": null
         },
         "conditions": {
@@ -17422,6 +19242,8 @@
             "secret": false,
             "secret_jumps": [],
             "sons": [],
+            "stats": {},
+            "stats_cond": [],
             "success": "BULIAAA"
         },
         "ending": "good",
@@ -17465,6 +19287,10 @@
                 54,
                 457
             ],
+            "stats": {
+                "pv": 5
+            },
+            "stats_cond": [],
             "success": null
         },
         "goto": [
@@ -17497,6 +19323,8 @@
                 400,
                 533
             ],
+            "stats": {},
+            "stats_cond": [],
             "success": null
         },
         "goto": [
@@ -17533,6 +19361,8 @@
                 400,
                 596
             ],
+            "stats": {},
+            "stats_cond": [],
             "success": null
         },
         "conditions": {
@@ -17568,6 +19398,8 @@
             "sons": [
                 475
             ],
+            "stats": {},
+            "stats_cond": [],
             "success": null
         },
         "goto": 475,
@@ -17599,6 +19431,8 @@
                 366,
                 461
             ],
+            "stats": {},
+            "stats_cond": [],
             "success": null
         },
         "goto": [
@@ -17632,6 +19466,8 @@
                 157,
                 396
             ],
+            "stats": {},
+            "stats_cond": [],
             "success": null
         },
         "goto": [
@@ -17659,6 +19495,8 @@
             "secret": false,
             "secret_jumps": [],
             "sons": [],
+            "stats": {},
+            "stats_cond": [],
             "success": "TRAVAIL-TERMINE"
         },
         "ending": "good",
@@ -17684,6 +19522,8 @@
             "secret": false,
             "secret_jumps": [],
             "sons": [],
+            "stats": {},
+            "stats_cond": [],
             "success": "FLEURS"
         },
         "ending": "good",
@@ -17733,6 +19573,8 @@
                 400,
                 447
             ],
+            "stats": {},
+            "stats_cond": [],
             "success": null
         },
         "conditions": {
@@ -17765,6 +19607,8 @@
             "sons": [
                 367
             ],
+            "stats": {},
+            "stats_cond": [],
             "success": null
         },
         "goto": 367
@@ -17788,6 +19632,8 @@
             "secret": false,
             "secret_jumps": [],
             "sons": [],
+            "stats": {},
+            "stats_cond": [],
             "success": "HONNEUR"
         },
         "ending": "good",
@@ -17815,6 +19661,8 @@
             "sons": [
                 436
             ],
+            "stats": {},
+            "stats_cond": [],
             "success": null
         },
         "goto": 436
@@ -17838,6 +19686,8 @@
             "secret": false,
             "secret_jumps": [],
             "sons": [],
+            "stats": {},
+            "stats_cond": [],
             "success": "PERSONNEL"
         },
         "ending": "good",
@@ -17865,6 +19715,8 @@
             "sons": [
                 457
             ],
+            "stats": {},
+            "stats_cond": [],
             "success": null
         },
         "goto": 457
@@ -17890,9 +19742,16 @@
             "sons": [
                 584
             ],
+            "stats": {
+                "richesse": 2
+            },
+            "stats_cond": [],
             "success": null
         },
-        "goto": 584
+        "goto": 584,
+        "stats": {
+            "richesse": 2
+        }
     },
     "593": {
         "computed": {
@@ -17915,6 +19774,8 @@
             "sons": [
                 400
             ],
+            "stats": {},
+            "stats_cond": [],
             "success": null
         },
         "goto": 400
@@ -17938,6 +19799,8 @@
             "secret": false,
             "secret_jumps": [],
             "sons": [],
+            "stats": {},
+            "stats_cond": [],
             "success": "ARSENE"
         },
         "ending": "good",
@@ -17963,6 +19826,8 @@
             "secret": false,
             "secret_jumps": [],
             "sons": [],
+            "stats": {},
+            "stats_cond": [],
             "success": "METAAAL"
         },
         "ending": "good",
@@ -17995,6 +19860,8 @@
             "sons": [
                 581
             ],
+            "stats": {},
+            "stats_cond": [],
             "success": null
         },
         "goto": 581
@@ -18021,12 +19888,19 @@
                 285,
                 496
             ],
+            "stats": {
+                "pv": 3
+            },
+            "stats_cond": [],
             "success": null
         },
         "goto": [
             285,
             496
-        ]
+        ],
+        "stats": {
+            "pv": 3
+        }
     },
     "598": {
         "computed": {
@@ -18051,6 +19925,8 @@
             "sons": [
                 475
             ],
+            "stats": {},
+            "stats_cond": [],
             "success": null
         },
         "goto": 475,
@@ -18081,13 +19957,20 @@
                 415,
                 464
             ],
+            "stats": {
+                "adr": 1
+            },
+            "stats_cond": [],
             "success": null
         },
         "goto": [
             191,
             415,
             464
-        ]
+        ],
+        "stats": {
+            "adr": 1
+        }
     },
     "6": {
         "computed": {
@@ -18110,6 +19993,8 @@
             "sons": [
                 314
             ],
+            "stats": {},
+            "stats_cond": [],
             "success": null
         },
         "goto": 314
@@ -18135,6 +20020,10 @@
             "sons": [
                 37
             ],
+            "stats": {
+                "pv": -1
+            },
+            "stats_cond": [],
             "success": null
         },
         "goto": 37,
@@ -18166,6 +20055,8 @@
             "sons": [
                 480
             ],
+            "stats": {},
+            "stats_cond": [],
             "success": null
         },
         "goto": 480,
@@ -18192,6 +20083,8 @@
             "secret": false,
             "secret_jumps": [],
             "sons": [],
+            "stats": {},
+            "stats_cond": [],
             "success": "SABOT"
         },
         "ending": "good",
@@ -18222,6 +20115,8 @@
                 535,
                 578
             ],
+            "stats": {},
+            "stats_cond": [],
             "success": null
         },
         "goto": [
@@ -18254,6 +20149,8 @@
             "sons": [
                 475
             ],
+            "stats": {},
+            "stats_cond": [],
             "success": null
         },
         "goto": 475,
@@ -18280,6 +20177,8 @@
             "secret": false,
             "secret_jumps": [],
             "sons": [],
+            "stats": {},
+            "stats_cond": [],
             "success": "TU-QUOQUE-BILLY"
         },
         "ending": "good",
@@ -18307,6 +20206,8 @@
             "sons": [
                 430
             ],
+            "stats": {},
+            "stats_cond": [],
             "success": null
         },
         "goto": 430
@@ -18334,6 +20235,8 @@
             "sons": [
                 480
             ],
+            "stats": {},
+            "stats_cond": [],
             "success": null
         },
         "goto": 480,
@@ -18377,6 +20280,8 @@
             "sons": [
                 563
             ],
+            "stats": {},
+            "stats_cond": [],
             "success": null
         },
         "goto": 563
@@ -18403,6 +20308,8 @@
                 8,
                 16
             ],
+            "stats": {},
+            "stats_cond": [],
             "success": null
         },
         "goto": [
@@ -18432,6 +20339,8 @@
                 96,
                 480
             ],
+            "stats": {},
+            "stats_cond": [],
             "success": null
         },
         "goto": [
@@ -18461,6 +20370,10 @@
             "sons": [
                 100
             ],
+            "stats": {
+                "hab": 1
+            },
+            "stats_cond": [],
             "success": null
         },
         "goto": 100,
@@ -18492,6 +20405,8 @@
                 283,
                 285
             ],
+            "stats": {},
+            "stats_cond": [],
             "success": null
         },
         "goto": [
@@ -18555,6 +20470,8 @@
                 459,
                 605
             ],
+            "stats": {},
+            "stats_cond": [],
             "success": null
         },
         "conditions": {
@@ -18591,6 +20508,10 @@
             "sons": [
                 100
             ],
+            "stats": {
+                "hab": 1
+            },
+            "stats_cond": [],
             "success": null
         },
         "goto": 100,
@@ -18630,6 +20551,8 @@
                 107,
                 137
             ],
+            "stats": {},
+            "stats_cond": [],
             "success": null
         },
         "conditions": {
@@ -18676,6 +20599,8 @@
                 73,
                 255
             ],
+            "stats": {},
+            "stats_cond": [],
             "success": null
         },
         "conditions": {
@@ -18707,6 +20632,10 @@
             "sons": [
                 100
             ],
+            "stats": {
+                "chance_max": 1
+            },
+            "stats_cond": [],
             "success": null
         },
         "goto": 100,
@@ -18735,6 +20664,10 @@
             "sons": [
                 81
             ],
+            "stats": {
+                "pv": 2
+            },
+            "stats_cond": [],
             "success": null
         },
         "goto": 81,
@@ -18764,6 +20697,8 @@
                 213,
                 291
             ],
+            "stats": {},
+            "stats_cond": [],
             "success": null
         },
         "goto": [
@@ -18793,6 +20728,11 @@
             "sons": [
                 70
             ],
+            "stats": {
+                "crit": 2,
+                "info": 1
+            },
+            "stats_cond": [],
             "success": null
         },
         "goto": 70,
@@ -18822,6 +20762,8 @@
             "sons": [
                 354
             ],
+            "stats": {},
+            "stats_cond": [],
             "success": "RESTOS"
         },
         "goto": 354,
@@ -18849,6 +20791,8 @@
                 115,
                 239
             ],
+            "stats": {},
+            "stats_cond": [],
             "success": null
         },
         "goto": [
@@ -18892,6 +20836,8 @@
             "sons": [
                 261
             ],
+            "stats": {},
+            "stats_cond": [],
             "success": null
         },
         "goto": [
@@ -18933,6 +20879,8 @@
                 218,
                 457
             ],
+            "stats": {},
+            "stats_cond": [],
             "success": null
         },
         "conditions": {
@@ -18979,6 +20927,8 @@
             "sons": [
                 394
             ],
+            "stats": {},
+            "stats_cond": [],
             "success": null
         },
         "goto": 394,
@@ -19006,6 +20956,8 @@
                 28,
                 106
             ],
+            "stats": {},
+            "stats_cond": [],
             "success": null
         },
         "goto": [
@@ -19040,6 +20992,8 @@
                 186,
                 447
             ],
+            "stats": {},
+            "stats_cond": [],
             "success": null
         },
         "goto": [
@@ -19078,6 +21032,8 @@
                 279,
                 361
             ],
+            "stats": {},
+            "stats_cond": [],
             "success": null
         },
         "conditions": {
@@ -19125,6 +21081,8 @@
                 164,
                 197
             ],
+            "stats": {},
+            "stats_cond": [],
             "success": null
         },
         "conditions": {
@@ -19161,6 +21119,8 @@
                 425,
                 447
             ],
+            "stats": {},
+            "stats_cond": [],
             "success": null
         },
         "goto": [
@@ -19213,6 +21173,20 @@
             "sons": [
                 102,
                 335
+            ],
+            "stats": {
+                "pv": 2
+            },
+            "stats_cond": [
+                {
+                    "condition": {
+                        "$end": "MARMITE"
+                    },
+                    "stats": {
+                        "pv": 2
+                    },
+                    "txt": "MARMITE"
+                }
             ],
             "success": null
         },
@@ -19273,6 +21247,8 @@
                 432,
                 460
             ],
+            "stats": {},
+            "stats_cond": [],
             "success": null
         },
         "conditions": {
@@ -19312,6 +21288,8 @@
             "sons": [
                 100
             ],
+            "stats": {},
+            "stats_cond": [],
             "success": null
         },
         "goto": 100
@@ -19343,6 +21321,8 @@
                 310,
                 440
             ],
+            "stats": {},
+            "stats_cond": [],
             "success": null
         },
         "goto": [
@@ -19376,6 +21356,10 @@
             "sons": [
                 134
             ],
+            "stats": {
+                "chance": 3
+            },
+            "stats_cond": [],
             "success": null
         },
         "goto": 134,
@@ -19404,6 +21388,8 @@
             "sons": [
                 314
             ],
+            "stats": {},
+            "stats_cond": [],
             "success": null
         },
         "goto": 314
@@ -19429,6 +21415,10 @@
             "sons": [
                 193
             ],
+            "stats": {
+                "chance": 2
+            },
+            "stats_cond": [],
             "success": "ASSURANCE"
         },
         "goto": 193,
@@ -19460,6 +21450,8 @@
                 385,
                 473
             ],
+            "stats": {},
+            "stats_cond": [],
             "success": null
         },
         "goto": [
@@ -19500,6 +21492,8 @@
                 107,
                 137
             ],
+            "stats": {},
+            "stats_cond": [],
             "success": null
         },
         "conditions": {
@@ -19553,6 +21547,8 @@
                 177,
                 199
             ],
+            "stats": {},
+            "stats_cond": [],
             "success": null
         },
         "conditions": {
@@ -19590,6 +21586,8 @@
                 5,
                 277
             ],
+            "stats": {},
+            "stats_cond": [],
             "success": null
         },
         "goto": [
@@ -19618,6 +21616,8 @@
             "sons": [
                 134
             ],
+            "stats": {},
+            "stats_cond": [],
             "success": null
         },
         "goto": 134
@@ -19643,6 +21643,8 @@
             "sons": [
                 70
             ],
+            "stats": {},
+            "stats_cond": [],
             "success": null
         },
         "goto": 70
@@ -19669,6 +21671,8 @@
                 16,
                 24
             ],
+            "stats": {},
+            "stats_cond": [],
             "success": null
         },
         "goto": [
@@ -19698,6 +21702,10 @@
                 219,
                 378
             ],
+            "stats": {
+                "pv": 2
+            },
+            "stats_cond": [],
             "success": null
         },
         "goto": [
@@ -19733,6 +21741,8 @@
                 512,
                 584
             ],
+            "stats": {},
+            "stats_cond": [],
             "success": null
         },
         "goto": [
@@ -19762,6 +21772,8 @@
             "secret": true,
             "secret_jumps": [],
             "sons": [],
+            "stats": {},
+            "stats_cond": [],
             "success": "ROI-LICHE"
         },
         "ending": "bad",
@@ -19805,6 +21817,8 @@
             "sons": [
                 194
             ],
+            "stats": {},
+            "stats_cond": [],
             "success": null
         },
         "goto": 194
@@ -19831,6 +21845,8 @@
                 231,
                 297
             ],
+            "stats": {},
+            "stats_cond": [],
             "success": null
         },
         "goto": [
@@ -19861,6 +21877,8 @@
                 28,
                 106
             ],
+            "stats": {},
+            "stats_cond": [],
             "success": null
         },
         "goto": [
