@@ -217,6 +217,18 @@ class Node(object):
         self._conditions_raw = conditions
     
     
+    def get_all_stats_keys(self):
+        r = set()
+        for k in self._stats.keys():
+            r.add(k)
+        for _stat_cond in self._stats_cond:
+            _stats = _stat_cond.get('stats', {})
+            for k in _stats:
+                r.add(k)
+        if r:
+            print('NODE: %s stats keys: %s' % (self.get_id(), r))
+        return r
+    
     # Parse the jump condition, and produce 2 things:
     # * dict output, for easy comparision
     # * display text about the rule
@@ -665,6 +677,7 @@ nodes_by_chapter = {}
 nodes_by_sub_arc = {}
 all_success = []
 all_success_chapters = {}
+all_stats_keys = set()
 for node_id_str in book_data.keys():
     node = node_graph.get_node(int(node_id_str))
     if node.have_combat():
@@ -714,6 +727,9 @@ for node_id_str in book_data.keys():
         in_chapters = entry.get('in_chapters', [])
         in_chapters.append(int(node_id_str))
         entry['in_chapters'] = in_chapters
+        
+    n_stats_keys = node.get_all_stats_keys()
+    all_stats_keys = all_stats_keys.union(n_stats_keys)
 
 # Set objects that are not in specific chapter that they are ok since chapter 1
 for obj_name, entry in all_objs.items():
@@ -736,6 +752,12 @@ for node_id, froms in reverse_jumps.items():
     if len(froms) != 1:
         prefix = '!!! WARNING => '
     print('%s%3d <- %s' % (prefix, node_id, ', '.join(['%s' % i for i in froms])))
+
+print('Checking all stats keys: %d' % len(all_stats_keys))
+all_stats_keys = list(all_stats_keys)
+all_stats_keys.sort()
+for stat_key in all_stats_keys:
+    print(' - %s' % stat_key)
 
 with codecs.open('fdcn-1-compilated-combats.json', 'w', 'utf8') as f:
     f.write(json.dumps(all_combats, indent=4, ensure_ascii=False, sort_keys=True))

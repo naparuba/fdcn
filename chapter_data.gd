@@ -54,6 +54,12 @@ func get_jump_conditions():
 func get_jump_conditions_txts():
 	return self._book_data['computed']['jump_conditions_txts']
 
+func get_stats():
+	return self._book_data['computed']['stats']
+
+func get_stats_cond():
+	return self._book_data['computed']['stats_cond']
+
 func get_ending():
 	return self._book_data['computed']['ending']
 

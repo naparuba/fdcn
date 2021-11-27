@@ -56,7 +56,7 @@ func _ready():
 func go_to_node(node_id):
 	
 	var go_to_node_return = Player.go_to_node(node_id)
-	# => is_new_node, aquires, removes
+	# =>  is_new_node, aquires, removes
 	var is_new_node = go_to_node_return[0]
 	var new_aquires = go_to_node_return[1]
 	var new_removes = go_to_node_return[2]

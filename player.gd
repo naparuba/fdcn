@@ -24,18 +24,42 @@ var POSSESSED_ITEM_FILE  = "user://possessed_item.save"
 var end = 0
 var adr = 0
 var hab = 0
-var cha = 0
+var chamax = 0
 var deg = 0
 var arm = 0
 var crit = 0
+
+
+
+# Set by chapters, saved on progression
+var end_chapters = 0
+var adr_chapters = 0
+var hab_chapters = 0
+var chamax_chapters = 0
+var deg_chapters = 0
+var arm_chapters = 0
+var crit_chapters = 0
 var pv_max_bonus = 0
+var nb_infos = 0
+
+# Set by user for debug or cheat, save on change
+var end_user = 0
+var adr_user = 0
+var hab_user = 0
+var cha_user = 0
+var deg_user = 0
+var arm_user = 0
+var crit_user = 0
+
 
 # Winable on levels
 var gloire = 0
 var richesse = 0
 
 # Dynamic
+var pv_max = 0
 var pv = 0
+var cha = 0
 
 func load_all_times_already_visited():
 	var f = File.new()
@@ -157,6 +181,11 @@ func go_to_node(node_id):
 	self.current_node_id = node_id
 	self.save_current_node_id()
 	
+	print('LOOK FOR NEW BILLY CHAPTER: %s' % self.current_node_id)
+	print('LOOK FOR NEW BILLY CHAPTER: %s' % str(self.session_visited_nodes))
+	var is_new_node_for_this_billy = !(self.current_node_id in self.session_visited_nodes)
+	print('LOOK FOR NEW BILLY CHAPTER: %s' % is_new_node_for_this_billy)
+	
 	# Update session, but maybe it's just a app reload
 	if len(self.session_visited_nodes) == 0 or self.session_visited_nodes[len(self.session_visited_nodes) -1] != node_id:
 		self.session_visited_nodes.append(self.current_node_id)
@@ -174,6 +203,13 @@ func go_to_node(node_id):
 	var aquires_and_removes = self.apply_chapter_items(node_id)
 	var aquires = aquires_and_removes[0]
 	var removes = aquires_and_removes[1]
+	
+	# If the billy enter here for the first time, apply the stats
+	if is_new_node_for_this_billy:
+		print('%s is a NEW chapter for this billy, updating its stats' % node_id)
+		self.apply_chapter_stats()
+	else:
+		print('%s is a ALREADY VIEW chapter for this billy, NOT updating its stats' % node_id)
 	
 	return [is_new_node, aquires, removes]
 
@@ -272,12 +308,12 @@ func _recompute_matched_conditions():
 		self.all_matched_conditions.append(item_name)
 	self.all_matched_conditions.append(AppParameters.get_billy_type().to_upper())
 
-
+# We reset stats on a raw billy one
 func _reset_our_stats():
-	self.end = 0
-	self.adr = 0
-	self.hab = 0
-	self.cha = 0
+	self.end = 2
+	self.adr = 1
+	self.hab = 2
+	self.chamax = 3
 	self.deg = 0
 	self.arm = 0
 	self.crit = 0
@@ -315,7 +351,7 @@ func _recompute_stats():
 			elif k == 'adr':
 				self.adr += v
 			elif k == 'cha':
-				self.cha += v
+				self.chamax += v
 			elif k == 'deg':
 				self.deg += v
 			elif k == 'arm':
@@ -326,9 +362,27 @@ func _recompute_stats():
 				print('ERROR: STATS INCONNUE DANS OBJET: %s' % k)
 				
 		print('Item:%s' % item_name, 'stats: %s' % item_data)
-	print('Billy stats: end=%s' % self.end, ' hab=%s' % self.hab, ' adr=%s'%self.adr, ' cha=%s' % self.cha,
+	print('Billy stats by objects: end=%s' % self.end, ' hab=%s' % self.hab, ' adr=%s'%self.adr, ' chamax=%s' % self.chamax,
 	' deg=%s' % self.deg,' arm=%s' % self.arm, ' crit=%s'%self.crit)
-
+	
+	self._apply_chapter_stats()
+	print('Billy stats after chapter update: end=%s' % self.end, ' hab=%s' % self.hab, ' adr=%s'%self.adr, ' chamax=%s' % self.chamax,
+	' deg=%s' % self.deg,' arm=%s' % self.arm, ' crit=%s'%self.crit)
+	
+	
+func _apply_chapter_stats():
+	# Now we have the stats from our items, we can apply the ones from the past chapters
+	self.end += self.end_chapters
+	self.adr += self.adr_chapters
+	self.hab += self.hab_chapters
+	self.chamax += self.chamax_chapters
+	self.deg += self.deg_chapters
+	self.arm += self.arm_chapters
+	self.crit += self.crit_chapters
+	# Now we can compute pv max based on end + pv_max_bonus
+	self.pv_max = self.end * 3 + self.pv_max_bonus
+	
+	
 
 func get_all_matched_conditions():
 	return self.all_matched_conditions
@@ -502,3 +556,71 @@ func compute_my_billy_for_option(new_option):
 		self._main._switch_to_pegu()
 	print('compute_my_billy: end: %s' % str(self.possessed_items))
 		
+
+func _apply_chapter_stat(k, v):
+	print('Apply chapter stats: %s' % k, ' => %s'%v)
+	### HELP: y en a 20
+	if k == '1_4_pv_max':
+		print('_apply_chapter_stat:: %s IS NOT CURRENTLY MANAGED :( )' % k)
+	elif k == 'adr':
+		self.adr_chapters += v
+	elif k == 'arc_et_couteau':
+		print('_apply_chapter_stat:: %s IS NOT CURRENTLY MANAGED :( )' % k)
+	elif k == 'arm':
+		self.arm_chapters += v
+	elif k == 'chance':
+		#TODO: need to cap this
+		self.cha += v
+	elif k == 'chance_max':  # real integer
+		self.chamax_chapters += v
+	elif k == 'crit':
+		self.crit_chapters += v
+	elif k == 'deg':
+		self.deg_chapters += v
+	elif k == 'end':
+		self.end_chapters += v
+	elif k == 'gloire':
+		self.gloire += v
+	elif k == 'hab':
+		self.hab_chapters += v
+	elif k == 'half_pv':
+		self.pv /= 2
+	elif k == 'info':
+		self.nb_infos += v
+	elif k == 'max_chance':  # bool, means: set cha to max
+		self.cha = self.chamax
+	elif k == 'max_pv':  # means: set my pv to max
+		self.pv = self.pv_max
+	elif k == 'pv':
+		# TODO: need to cap min/max this!
+		self.pv += v
+	elif k == 'pv_1_4_max':
+		print('_apply_chapter_stat:: %s IS NOT CURRENTLY MANAGED :( )' % k)
+	elif k == 'pv_max':
+		self.pv_max_bonus += v
+	elif k == 'pv_win_plus_1':
+		print('_apply_chapter_stat:: %s IS NOT CURRENTLY MANAGED :( )' % k)
+	elif k == 'richesse':
+		self.richesse += v
+	else:
+		print('THE STATS KEY %s is NOT managed ' % k)
+
+# A new chapter was reach, so apply the stats
+func apply_chapter_stats():
+	var current_node_id = self.get_current_node_id()
+	print('apply_chapter_stats:: for node: %s' % current_node_id)
+	var all_stats = BookData.get_chapter_stats(current_node_id)
+	var stats = all_stats['stats']
+	var stats_conds = all_stats['stats_conds']
+	for k in stats.keys():
+		var v = stats[k]
+		self._apply_chapter_stat(k, v)
+	
+	for stats_cond in stats_conds:
+		for k in stats_cond.keys():
+			var v = stats_cond[k]
+			self._apply_chapter_stat(k, v)
+			
+	print('Now we can rcompute all our stats')
+	self._recompute_stats()
+	

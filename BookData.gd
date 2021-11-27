@@ -136,6 +136,26 @@ func get_success_from_chapter(node_id):
 			return success
 	return null
 
+
+func get_chapter_stats(node_id):
+	var chapter_data = self.get_node(node_id)
+	var stats = chapter_data.get_stats()
+	var stats_cond_raw = chapter_data.get_stats_cond()
+	var stats_conds = []
+	for condition_pack in stats_cond_raw:
+		var condition = condition_pack['condition']
+		var b = self._check_cond_rec(condition, Player.get_all_matched_conditions())
+		print('IS CONDITION MATCH: %s' % str(condition), "=> %s" % b)
+		if b:
+			var stats_cond = condition_pack['stats']
+			stats_conds.append(stats_cond)
+			print('IS OK: %s' % str(stats_cond))
+		
+	var r = {"stats":stats, "stats_conds":stats_conds}
+	print('GIVE BACK %s' % str(r))
+	return r
+
+
 func have_chapter_conditions(node_from_id, node_to_id):
 	var chapter_data = self.get_node(node_from_id)
 	var node_to_id_str = '%s' % node_to_id
