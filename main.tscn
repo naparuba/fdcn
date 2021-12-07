@@ -1,4 +1,4 @@
-[gd_scene load_steps=61 format=2]
+[gd_scene load_steps=62 format=2]
 
 [ext_resource path="res://main.gd" type="Script" id=1]
 [ext_resource path="res://fonts/amon_font.tres" type="DynamicFont" id=2]
@@ -77,6 +77,10 @@ border_color = Color( 0.192157, 0.231373, 0.278431, 1 )
 
 [sub_resource type="StyleBoxFlat" id=10]
 bg_color = Color( 0.913725, 0.917647, 0.92549, 1 )
+
+[sub_resource type="DynamicFont" id=27]
+size = 24
+font_data = ExtResource( 13 )
 
 [sub_resource type="DynamicFont" id=11]
 font_data = ExtResource( 13 )
@@ -1466,7 +1470,7 @@ custom_colors/font_color = Color( 0, 0.760784, 0.666667, 1 )
 custom_constants/shadow_offset_x = 0
 custom_constants/shadow_offset_y = 0
 custom_constants/shadow_as_outline = 0
-text = "0.10"
+text = "0.11"
 __meta__ = {
 "_edit_use_anchors_": false
 }
@@ -1689,11 +1693,27 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
+[node name="PlayerLabel" type="Label" parent="Combat"]
+margin_left = 62.0932
+margin_top = 90.1375
+margin_right = 144.093
+margin_bottom = 121.137
+custom_fonts/font = SubResource( 27 )
+custom_colors/font_color = Color( 0, 0, 0, 1 )
+custom_constants/shadow_offset_x = 0
+custom_constants/shadow_offset_y = 0
+custom_constants/shadow_as_outline = 0
+text = "Billy"
+align = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
 [node name="PlayerPvLabel" type="Label" parent="Combat"]
-margin_left = 55.3231
-margin_top = 95.3025
-margin_right = 137.323
-margin_bottom = 126.302
+margin_left = 54.7972
+margin_top = 158.046
+margin_right = 136.797
+margin_bottom = 189.046
 custom_fonts/font = SubResource( 11 )
 custom_colors/font_color = Color( 0, 0, 0, 1 )
 custom_constants/shadow_offset_x = 0
@@ -1706,10 +1726,10 @@ __meta__ = {
 }
 
 [node name="PlayerPvValue" type="Label" parent="Combat"]
-margin_left = 110.221
-margin_top = 92.4763
-margin_right = 192.221
-margin_bottom = 123.476
+margin_left = 109.695
+margin_top = 155.22
+margin_right = 191.695
+margin_bottom = 186.22
 custom_fonts/font = SubResource( 12 )
 custom_colors/font_color = Color( 0, 0, 0, 1 )
 custom_constants/shadow_offset_x = 0
@@ -1722,10 +1742,10 @@ __meta__ = {
 }
 
 [node name="PlayerHabLabel" type="Label" parent="Combat"]
-margin_left = 54.6159
-margin_top = 122.173
-margin_right = 136.616
-margin_bottom = 153.173
+margin_left = 58.0991
+margin_top = 128.345
+margin_right = 140.099
+margin_bottom = 159.345
 custom_fonts/font = SubResource( 11 )
 custom_colors/font_color = Color( 0, 0, 0, 1 )
 custom_constants/shadow_offset_x = 0
@@ -1738,10 +1758,10 @@ __meta__ = {
 }
 
 [node name="PlayerHabValue" type="Label" parent="Combat"]
-margin_left = 110.221
-margin_top = 122.882
-margin_right = 192.221
-margin_bottom = 153.882
+margin_left = 113.704
+margin_top = 129.054
+margin_right = 195.704
+margin_bottom = 160.054
 custom_fonts/font = SubResource( 12 )
 custom_colors/font_color = Color( 0, 0, 0, 1 )
 custom_constants/shadow_offset_x = 0
@@ -1754,10 +1774,10 @@ __meta__ = {
 }
 
 [node name="PlayerArmLabel" type="Label" parent="Combat"]
-margin_left = 65.9297
-margin_top = 148.336
-margin_right = 147.93
-margin_bottom = 179.336
+margin_left = 69.8583
+margin_top = 182.571
+margin_right = 151.859
+margin_bottom = 213.571
 custom_fonts/font = SubResource( 11 )
 custom_colors/font_color = Color( 0, 0, 0, 1 )
 custom_constants/shadow_offset_x = 0
@@ -1770,10 +1790,10 @@ __meta__ = {
 }
 
 [node name="PlayerArmValue" type="Label" parent="Combat"]
-margin_left = 110.928
-margin_top = 149.045
-margin_right = 192.928
-margin_bottom = 180.045
+margin_left = 114.857
+margin_top = 183.28
+margin_right = 196.857
+margin_bottom = 214.28
 custom_fonts/font = SubResource( 12 )
 custom_colors/font_color = Color( 0, 0, 0, 1 )
 custom_constants/shadow_offset_x = 0
@@ -1786,10 +1806,10 @@ __meta__ = {
 }
 
 [node name="PlayerDegLabel" type="Label" parent="Combat"]
-margin_left = 60.9799
-margin_top = 171.67
-margin_right = 142.98
-margin_bottom = 202.67
+margin_left = 64.9085
+margin_top = 205.905
+margin_right = 146.909
+margin_bottom = 236.905
 custom_fonts/font = SubResource( 11 )
 custom_colors/font_color = Color( 0, 0, 0, 1 )
 custom_constants/shadow_offset_x = 0
@@ -1802,10 +1822,10 @@ __meta__ = {
 }
 
 [node name="PlayerDegValue" type="Label" parent="Combat"]
-margin_left = 109.514
-margin_top = 175.915
-margin_right = 191.514
-margin_bottom = 206.915
+margin_left = 113.443
+margin_top = 210.15
+margin_right = 195.443
+margin_bottom = 241.15
 custom_fonts/font = SubResource( 12 )
 custom_colors/font_color = Color( 0, 0, 0, 1 )
 custom_constants/shadow_offset_x = 0
@@ -1817,11 +1837,27 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
+[node name="EnnemiLabel" type="Label" parent="Combat"]
+margin_left = 319.698
+margin_top = 89.5762
+margin_right = 401.698
+margin_bottom = 120.576
+custom_fonts/font = SubResource( 27 )
+custom_colors/font_color = Color( 0, 0, 0, 1 )
+custom_constants/shadow_offset_x = 0
+custom_constants/shadow_offset_y = 0
+custom_constants/shadow_as_outline = 0
+text = "Ennemi"
+align = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
 [node name="EnnemiPvLabel" type="Label" parent="Combat"]
-margin_left = 295.74
-margin_top = 98.838
-margin_right = 377.74
-margin_bottom = 129.838
+margin_left = 296.301
+margin_top = 153.992
+margin_right = 378.301
+margin_bottom = 184.992
 custom_fonts/font = SubResource( 11 )
 custom_colors/font_color = Color( 0, 0, 0, 1 )
 custom_constants/shadow_offset_x = 0
@@ -1834,10 +1870,10 @@ __meta__ = {
 }
 
 [node name="EnnemiPvValue" type="Label" parent="Combat"]
-margin_left = 366.194
-margin_top = 96.719
-margin_right = 448.194
-margin_bottom = 127.719
+margin_left = 366.755
+margin_top = 151.873
+margin_right = 448.755
+margin_bottom = 182.873
 custom_fonts/font = SubResource( 12 )
 custom_colors/font_color = Color( 0, 0, 0, 1 )
 custom_constants/shadow_offset_x = 0
@@ -1850,10 +1886,10 @@ __meta__ = {
 }
 
 [node name="EnnemiHabLabel" type="Label" parent="Combat"]
-margin_left = 299.448
-margin_top = 122.146
-margin_right = 381.448
-margin_bottom = 153.146
+margin_left = 300.009
+margin_top = 128.3
+margin_right = 382.009
+margin_bottom = 159.3
 custom_fonts/font = SubResource( 11 )
 custom_colors/font_color = Color( 0, 0, 0, 1 )
 custom_constants/shadow_offset_x = 0
@@ -1866,10 +1902,10 @@ __meta__ = {
 }
 
 [node name="EnnemiHabValue" type="Label" parent="Combat"]
-margin_left = 366.194
-margin_top = 121.616
-margin_right = 448.194
-margin_bottom = 152.616
+margin_left = 366.755
+margin_top = 127.77
+margin_right = 448.755
+margin_bottom = 158.77
 custom_fonts/font = SubResource( 12 )
 custom_colors/font_color = Color( 0, 0, 0, 1 )
 custom_constants/shadow_offset_x = 0
@@ -1882,10 +1918,10 @@ __meta__ = {
 }
 
 [node name="EnnemiArmLabel" type="Label" parent="Combat"]
-margin_left = 310.573
-margin_top = 149.162
-margin_right = 392.573
-margin_bottom = 180.162
+margin_left = 311.134
+margin_top = 181.152
+margin_right = 393.134
+margin_bottom = 212.152
 custom_fonts/font = SubResource( 11 )
 custom_colors/font_color = Color( 0, 0, 0, 1 )
 custom_constants/shadow_offset_x = 0
@@ -1898,10 +1934,10 @@ __meta__ = {
 }
 
 [node name="EnnemiArmValue" type="Label" parent="Combat"]
-margin_left = 366.194
-margin_top = 149.162
-margin_right = 448.194
-margin_bottom = 180.162
+margin_left = 366.755
+margin_top = 181.152
+margin_right = 448.755
+margin_bottom = 212.152
 custom_fonts/font = SubResource( 12 )
 custom_colors/font_color = Color( 0, 0, 0, 1 )
 custom_constants/shadow_offset_x = 0
@@ -1914,10 +1950,10 @@ __meta__ = {
 }
 
 [node name="EnnemiDegLabel" type="Label" parent="Combat"]
-margin_left = 305.805
-margin_top = 177.238
-margin_right = 387.805
-margin_bottom = 208.238
+margin_left = 306.366
+margin_top = 209.228
+margin_right = 388.366
+margin_bottom = 240.228
 custom_fonts/font = SubResource( 11 )
 custom_colors/font_color = Color( 0, 0, 0, 1 )
 custom_constants/shadow_offset_x = 0
@@ -1930,10 +1966,10 @@ __meta__ = {
 }
 
 [node name="EnnemiDegValue" type="Label" parent="Combat"]
-margin_left = 367.784
-margin_top = 177.238
-margin_right = 449.784
-margin_bottom = 208.238
+margin_left = 368.345
+margin_top = 209.228
+margin_right = 450.345
+margin_bottom = 240.228
 custom_fonts/font = SubResource( 12 )
 custom_colors/font_color = Color( 0, 0, 0, 1 )
 custom_constants/shadow_offset_x = 0
@@ -2296,6 +2332,9 @@ margin_right = 547.0
 margin_bottom = 981.0
 mouse_filter = 1
 custom_styles/panel = SubResource( 18 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
 
 [node name="PlayerPvLabel" type="Label" parent="Options/Stats"]
 margin_left = 55.3231
@@ -2361,6 +2400,22 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
+[node name="PlayerEndValueDetail" type="Label" parent="Options/Stats"]
+margin_left = 170.289
+margin_top = 62.3131
+margin_right = 252.289
+margin_bottom = 93.3128
+custom_fonts/font = SubResource( 12 )
+custom_colors/font_color = Color( 0, 0, 0, 1 )
+custom_constants/shadow_offset_x = 0
+custom_constants/shadow_offset_y = 0
+custom_constants/shadow_as_outline = 0
+text = "XXX"
+align = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
 [node name="PlayerHabLabel" type="Label" parent="Options/Stats"]
 margin_left = 54.0632
 margin_top = 31.0465
@@ -2381,6 +2436,22 @@ __meta__ = {
 margin_left = 108.961
 margin_top = 28.2203
 margin_right = 190.961
+margin_bottom = 59.22
+custom_fonts/font = SubResource( 12 )
+custom_colors/font_color = Color( 0, 0, 0, 1 )
+custom_constants/shadow_offset_x = 0
+custom_constants/shadow_offset_y = 0
+custom_constants/shadow_as_outline = 0
+text = "XXX"
+align = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="PlayerHabValueDetail" type="Label" parent="Options/Stats"]
+margin_left = 171.698
+margin_top = 28.2203
+margin_right = 253.698
 margin_bottom = 59.22
 custom_fonts/font = SubResource( 12 )
 custom_colors/font_color = Color( 0, 0, 0, 1 )
@@ -2425,6 +2496,22 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
+[node name="PlayerAdrValueDetail" type="Label" parent="Options/Stats"]
+margin_left = 168.879
+margin_top = 134.129
+margin_right = 250.879
+margin_bottom = 165.128
+custom_fonts/font = SubResource( 12 )
+custom_colors/font_color = Color( 0, 0, 0, 1 )
+custom_constants/shadow_offset_x = 0
+custom_constants/shadow_offset_y = 0
+custom_constants/shadow_as_outline = 0
+text = "XXX"
+align = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
 [node name="PlayerChaLabel" type="Label" parent="Options/Stats"]
 margin_left = 56.583
 margin_top = 175.937
@@ -2445,6 +2532,22 @@ __meta__ = {
 margin_left = 111.481
 margin_top = 173.111
 margin_right = 193.481
+margin_bottom = 204.111
+custom_fonts/font = SubResource( 12 )
+custom_colors/font_color = Color( 0, 0, 0, 1 )
+custom_constants/shadow_offset_x = 0
+custom_constants/shadow_offset_y = 0
+custom_constants/shadow_as_outline = 0
+text = "XXX"
+align = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="PlayerChaValueDetail" type="Label" parent="Options/Stats"]
+margin_left = 168.879
+margin_top = 173.111
+margin_right = 250.879
 margin_bottom = 204.111
 custom_fonts/font = SubResource( 12 )
 custom_colors/font_color = Color( 0, 0, 0, 1 )
@@ -2489,6 +2592,22 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
+[node name="PlayerCritValueDetail" type="Label" parent="Options/Stats"]
+margin_left = 166.284
+margin_top = 219.728
+margin_right = 248.284
+margin_bottom = 250.728
+custom_fonts/font = SubResource( 12 )
+custom_colors/font_color = Color( 0, 0, 0, 1 )
+custom_constants/shadow_offset_x = 0
+custom_constants/shadow_offset_y = 0
+custom_constants/shadow_as_outline = 0
+text = "XXX"
+align = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
 [node name="PlayerDegLabel" type="Label" parent="Options/Stats"]
 margin_left = 57.8429
 margin_top = 269.172
@@ -2510,6 +2629,22 @@ margin_left = 112.741
 margin_top = 266.345
 margin_right = 194.741
 margin_bottom = 297.345
+custom_fonts/font = SubResource( 12 )
+custom_colors/font_color = Color( 0, 0, 0, 1 )
+custom_constants/shadow_offset_x = 0
+custom_constants/shadow_offset_y = 0
+custom_constants/shadow_as_outline = 0
+text = "XXX"
+align = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="PlayerDegValueDetail" type="Label" parent="Options/Stats"]
+margin_left = 164.8
+margin_top = 265.01
+margin_right = 246.8
+margin_bottom = 296.01
 custom_fonts/font = SubResource( 12 )
 custom_colors/font_color = Color( 0, 0, 0, 1 )
 custom_constants/shadow_offset_x = 0
@@ -2553,29 +2688,21 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="NotFinish" type="Label" parent="Options/Stats"]
-margin_left = 45.805
-margin_top = 436.238
-margin_right = 282.805
-margin_bottom = 477.238
-custom_fonts/font = SubResource( 11 )
+[node name="PlayerArmValueDetail" type="Label" parent="Options/Stats"]
+margin_left = 166.209
+margin_top = 301.548
+margin_right = 248.209
+margin_bottom = 332.548
+custom_fonts/font = SubResource( 12 )
 custom_colors/font_color = Color( 0, 0, 0, 1 )
 custom_constants/shadow_offset_x = 0
 custom_constants/shadow_offset_y = 0
 custom_constants/shadow_as_outline = 0
-text = "Les stats ne sont pas encore finies,
-DEV en cours ^^"
+text = "XXX"
 align = 1
 __meta__ = {
 "_edit_use_anchors_": false
 }
-
-[node name="phumtar" type="AnimatedSprite" parent="Options/Stats"]
-position = Vector2( 376.257, 465.67 )
-scale = Vector2( 0.342538, 0.342538 )
-frames = SubResource( 7 )
-frame = 1
-playing = true
 
 [node name="ItemPopups" type="Panel" parent="."]
 anchor_right = 1.0

@@ -30,8 +30,17 @@ var arm = 0
 var crit = 0
 
 
+# Set by items
+var end_items = 0
+var adr_items = 0
+var hab_items = 0
+var chamax_items = 0
+var deg_items = 0
+var arm_items = 0
+var crit_items = 0
 
-# Set by chapters, saved on progression
+
+# Set by chapters recompute at startup
 var end_chapters = 0
 var adr_chapters = 0
 var hab_chapters = 0
@@ -155,11 +164,23 @@ func guess_after_migration():
 		self._raw_add(item_name)
 
 
+# At startup we are redoing ALL our chapters and we grok stats from it
+func _redo_all_my_chapters_stats():
+	print('redo_all_my_chapters_stats:')
+	# Objects
+	# First time we are here, we look at all
+	for chapter_id in self.session_visited_nodes:
+		print('Playing chapt  stats in %s' % chapter_id)
+		self.apply_one_chapter_stats(chapter_id)
+	
+
 func do_load():
 	self.load_all_times_already_visited()
 	self.load_current_node_id()
 	self.load_session_visited_nodes()
 	self.load_possessed_items()
+	# at startup redo all our chapters so we can get our stats from chapter up to date, even if chapters data are updated
+	self._redo_all_my_chapters_stats()
 	self._recompute_matched_conditions()
 	self._recompute_stats()
 	return self.need_force_display_options
@@ -207,7 +228,7 @@ func go_to_node(node_id):
 	# If the billy enter here for the first time, apply the stats
 	if is_new_node_for_this_billy:
 		print('%s is a NEW chapter for this billy, updating its stats' % node_id)
-		self.apply_chapter_stats()
+		self.apply_one_chapter_stats(node_id)
 	else:
 		print('%s is a ALREADY VIEW chapter for this billy, NOT updating its stats' % node_id)
 	
@@ -308,6 +329,7 @@ func _recompute_matched_conditions():
 		self.all_matched_conditions.append(item_name)
 	self.all_matched_conditions.append(AppParameters.get_billy_type().to_upper())
 
+
 # We reset stats on a raw billy one
 func _reset_our_stats():
 	self.end = 2
@@ -317,6 +339,15 @@ func _reset_our_stats():
 	self.deg = 0
 	self.arm = 0
 	self.crit = 0
+	
+	# Also item ones
+	self.end_items = 0
+	self.adr_items = 0
+	self.hab_items = 0
+	self.chamax_items = 0
+	self.deg_items = 0
+	self.arm_items = 0
+	self.crit_items = 0
 
 
 func get_end():
@@ -327,6 +358,8 @@ func get_hab():
 	return self.hab
 func get_cha():
 	return self.cha
+func get_chamax():
+	return self.chamax
 func get_deg():
 	return self.deg
 func get_arm():
@@ -335,10 +368,75 @@ func get_crit():
 	return self.crit
 func get_pv():
 	return self.pv
+# For chapters
+func get_end_chapters():
+	return self.end_chapters
+func get_adr_chapters():
+	return self.adr_chapters
+func get_hab_chapters():
+	return self.hab_chapters
+func get_chamax_chapters():
+	return self.chamax_chapters
+func get_deg_chapters():
+	return self.deg_chapters
+func get_arm_chapters():
+	return self.arm_chapters
+func get_crit_chapters():
+	return self.crit_chapters
+# For items
+func get_end_items():
+	return self.end_items
+func get_adr_items():
+	return self.adr_items
+func get_hab_items():
+	return self.hab_items
+func get_chamax_items():
+	return self.chamax_items
+func get_deg_items():
+	return self.deg_items
+func get_arm_items():
+	return self.arm_items
+func get_crit_items():
+	return self.crit_items
+
+
+# Based on our billy, we have different stats changes
+func _apply_billy_stats():
+	var billy_type = AppParameters.get_billy_type()
+	if billy_type == 'guerrier':
+		self.hab += 2
+		self.hab_items += 2
+		self.chamax -= 1
+		self.chamax_items -= 1
+		self.deg += 1
+		self.deg_items += 1
+	elif billy_type == 'prudent':
+		self.hab -= 1
+		self.hab_items -= 1
+		self.chamax += 2
+		self.chamax_items += 2
+	elif billy_type == 'paysan':
+		self.adr -= 1
+		self.adr_items -= 1
+		self.end += 2
+		self.end_items += 2
+	elif billy_type == 'debrouillard':
+		self.adr += 2
+		self.adr_items += 2
+		self.end -= 1
+		self.end_items -= 1
+	elif billy_type == 'pegu':
+		pass
+	else:
+		print('ERROR: the billy type: %s is unknown' % billy_type)
+		
 
 # Compute our stats based on our objects and billy
 func _recompute_stats():
 	self._reset_our_stats()
+	
+	self._apply_billy_stats()
+	
 	for item_name in self.possessed_items:
 		var item_data = BookData.get_item_data(item_name)
 		var stats = item_data['stats']
@@ -346,18 +444,25 @@ func _recompute_stats():
 			var v = stats[k]
 			if k == 'end':
 				self.end += v
+				self.end_items += v
 			elif k == 'hab':
 				self.hab += v
+				self.hab_items += v
 			elif k == 'adr':
 				self.adr += v
+				self.adr_items += v
 			elif k == 'cha':
 				self.chamax += v
+				self.chamax_items += v
 			elif k == 'deg':
 				self.deg += v
+				self.deg_items += v
 			elif k == 'arm':
 				self.arm += v
+				self.arm_items += v
 			elif k == 'crit':
 				self.crit += v
+				self.crit_items += v
 			else:
 				print('ERROR: STATS INCONNUE DANS OBJET: %s' % k)
 				
@@ -365,12 +470,12 @@ func _recompute_stats():
 	print('Billy stats by objects: end=%s' % self.end, ' hab=%s' % self.hab, ' adr=%s'%self.adr, ' chamax=%s' % self.chamax,
 	' deg=%s' % self.deg,' arm=%s' % self.arm, ' crit=%s'%self.crit)
 	
-	self._apply_chapter_stats()
+	self._apply_all_chapters_stats()
 	print('Billy stats after chapter update: end=%s' % self.end, ' hab=%s' % self.hab, ' adr=%s'%self.adr, ' chamax=%s' % self.chamax,
 	' deg=%s' % self.deg,' arm=%s' % self.arm, ' crit=%s'%self.crit)
 	
 	
-func _apply_chapter_stats():
+func _apply_all_chapters_stats():
 	# Now we have the stats from our items, we can apply the ones from the past chapters
 	self.end += self.end_chapters
 	self.adr += self.adr_chapters
@@ -520,6 +625,22 @@ func clean_billy_overload(new_option):
 				break
 
 
+func switch_to_guerrier():
+	self._main._switch_to_guerrier()
+	
+func switch_to_prudent():
+	self._main._switch_to_prudent()
+
+func switch_to_paysan():
+	self._main._switch_to_paysan()
+
+func switch_to_debrouillard():
+	self._main._switch_to_debrouillard()
+
+func switch_to_pegu():
+	self._main._switch_to_pegu()
+	
+
 # We just did an option change, so if we need to remove one, not this one ^^
 func compute_my_billy_for_option(new_option):
 	print('compute_my_billy: start: %s' % str(self.possessed_items))
@@ -535,25 +656,25 @@ func compute_my_billy_for_option(new_option):
 	
 	if nb_armes + nb_equipements + nb_outils < 3:
 		print('IS A PEGU')
-		self._main._switch_to_pegu()
+		self.switch_to_pegu()
 		return
 		
 	# Detect billy type
 	if nb_armes >= 2:
 		print('=> IS A GUERRIER')
-		self._main._switch_to_guerrier()
+		self.switch_to_guerrier()
 	elif nb_equipements >= 2:
 		print('=> IS A PRUDENT')
-		self._main._switch_to_prudent()
+		self.switch_to_prudent()
 	elif nb_outils >= 2:
 		print('=> IS A PAYSAN')
-		self._main._switch_to_paysan()
+		self.switch_to_paysan()
 	elif nb_armes == 1 && nb_equipements == 1 && nb_outils == 1:
 		print('IS DEBROUILLARD')
-		self._main._switch_to_debrouillard()
+		self.switch_to_debrouillard()
 	else:
 		print('IS A PEGU')
-		self._main._switch_to_pegu()
+		self.switch_to_pegu()
 	print('compute_my_billy: end: %s' % str(self.possessed_items))
 		
 
@@ -606,10 +727,9 @@ func _apply_chapter_stat(k, v):
 		print('THE STATS KEY %s is NOT managed ' % k)
 
 # A new chapter was reach, so apply the stats
-func apply_chapter_stats():
-	var current_node_id = self.get_current_node_id()
-	print('apply_chapter_stats:: for node: %s' % current_node_id)
-	var all_stats = BookData.get_chapter_stats(current_node_id)
+func apply_one_chapter_stats(node_id):
+	print('apply_one_chapter_stats:: for node: %s' % node_id)
+	var all_stats = BookData.get_chapter_stats(node_id)
 	var stats = all_stats['stats']
 	var stats_conds = all_stats['stats_conds']
 	for k in stats.keys():

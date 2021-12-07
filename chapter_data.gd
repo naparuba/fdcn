@@ -92,23 +92,32 @@ func is_combat():
 	return self._book_data['computed']['is_combat']
 
 
+# TODO: the 276 is a list
+func _get_combat():
+	var combat = self._book_data['computed']['combat']
+	#print('type: %s , array=' % typeof(combat), '=%s' % TYPE_ARRAY)
+	if typeof(combat) == TYPE_ARRAY:
+		return combat[0]
+	return combat
+
+
 func get_combat_name():
-	return self._book_data['computed']['combat']['nom']
+	return self._get_combat()['nom']
 	
 func get_combat_hab():
-	return self._book_data['computed']['combat']['hab']
+	return self._get_combat()['hab']
 
 func get_combat_pv():
-	return self._book_data['computed']['combat']['pv']
+	return self._get_combat()['pv']
 
 func get_combat_pyro():
-	return self._book_data['computed']['combat']['pyro']
+	return self._get_combat()['pyro']
 
 func get_combat_armure():
-	return self._book_data['computed']['combat']['arm']
+	return self._get_combat()['arm']
 
 func get_combat_degat():
-	return self._book_data['computed']['combat']['deg']
+	return self._get_combat()['deg']
 
 func get_aquire():
 	return self._book_data['computed']['aquire']

@@ -647,10 +647,24 @@ func _on_combat_validate_button_pressed():
 
 func _refresh_options_stats():
 	$Options/Stats/PlayerPvValue.text = '%s' % Player.get_pv()
+	
 	$Options/Stats/PlayerEndValue.text = '%s' % Player.get_end()
+	$Options/Stats/PlayerEndValueDetail.text = '(base:2, item/billy:%s' % Player.get_end_items() + ', chapitres:%s)' % Player.get_end_chapters()
+	
 	$Options/Stats/PlayerHabValue.text = '%s' % Player.get_hab()
+	$Options/Stats/PlayerHabValueDetail.text = '(base:2, item/billy:%s' % Player.get_hab_items() + ', chapitres:%s)' % Player.get_hab_chapters()
+	
 	$Options/Stats/PlayerAdrValue.text = '%s' % Player.get_adr()
-	$Options/Stats/PlayerChaValue.text = '%s' % Player.get_cha()
+	$Options/Stats/PlayerAdrValueDetail.text = '(base:1, item/billy:%s' % Player.get_adr_items() + ', chapitres:%s)' % Player.get_adr_chapters()
+	
+	$Options/Stats/PlayerChaValue.text = ('%s' % Player.get_cha()) + ('/%s' % Player.get_chamax())
+	$Options/Stats/PlayerChaValueDetail.text = '(base:3, item/billy:%s' % Player.get_chamax_items() + ', chapitres:%s)' % Player.get_chamax_chapters()
+	
 	$Options/Stats/PlayerCritValue.text = '%s' % Player.get_crit()
+	$Options/Stats/PlayerCritValueDetail.text = '(item/billy:%s' % Player.get_crit_items() + ', chapitres:%s)' % Player.get_crit_chapters()
+	
 	$Options/Stats/PlayerDegValue.text = '%s' % Player.get_deg()
+	$Options/Stats/PlayerDegValueDetail.text = '(item/billy:%s' % Player.get_deg_items() + ', chapitres:%s)' % Player.get_deg_chapters()
+	
 	$Options/Stats/PlayerArmValue.text = '%s' % Player.get_arm()
+	$Options/Stats/PlayerArmValueDetail.text = '(item/billy:%s' % Player.get_arm_items() + ', chapitres:%s)' % Player.get_arm_chapters()
