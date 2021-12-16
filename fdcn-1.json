@@ -1862,6 +1862,7 @@
   "254": {
     "label": "Lavandières",
     "conditions": {
+      "166": "PHILTRE D'AMOUR",
       "284": "DEBROUILLARD"
     },
     "stats_cond": {

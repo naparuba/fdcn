@@ -6010,11 +6010,15 @@
             "id": 254,
             "is_combat": false,
             "jump_conditions": {
+                "166": {
+                    "$end": "PHILTRE D'AMOUR"
+                },
                 "284": {
                     "$end": "DEBROUILLARD"
                 }
             },
             "jump_conditions_txts": {
+                "166": "PHILTRE D'AMOUR",
                 "284": "DEBROUILLARD"
             },
             "label": "Lavandières",
@@ -6052,6 +6056,7 @@
             "success": null
         },
         "conditions": {
+            "166": "PHILTRE D'AMOUR",
             "284": "DEBROUILLARD"
         },
         "goto": [
