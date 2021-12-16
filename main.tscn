@@ -78,59 +78,59 @@ border_color = Color( 0.192157, 0.231373, 0.278431, 1 )
 [sub_resource type="StyleBoxFlat" id=10]
 bg_color = Color( 0.913725, 0.917647, 0.92549, 1 )
 
-[sub_resource type="DynamicFont" id=27]
+[sub_resource type="DynamicFont" id=11]
 size = 24
 font_data = ExtResource( 13 )
 
-[sub_resource type="DynamicFont" id=11]
+[sub_resource type="DynamicFont" id=12]
 font_data = ExtResource( 13 )
 
-[sub_resource type="DynamicFont" id=12]
+[sub_resource type="DynamicFont" id=13]
 size = 19
 font_data = ExtResource( 13 )
 
-[sub_resource type="StyleBoxFlat" id=13]
+[sub_resource type="StyleBoxFlat" id=14]
 bg_color = Color( 0.92549, 0.929412, 0.94902, 1 )
 corner_radius_top_left = 2
 corner_radius_top_right = 2
 corner_radius_bottom_right = 2
 corner_radius_bottom_left = 2
 
-[sub_resource type="StyleBoxFlat" id=14]
-bg_color = Color( 1, 1, 1, 1 )
-
 [sub_resource type="StyleBoxFlat" id=15]
-bg_color = Color( 0.192157, 0.231373, 0.278431, 1 )
+bg_color = Color( 1, 1, 1, 1 )
 
 [sub_resource type="StyleBoxFlat" id=16]
+bg_color = Color( 0.192157, 0.231373, 0.278431, 1 )
 
 [sub_resource type="StyleBoxFlat" id=17]
-bg_color = Color( 0.878431, 0.886275, 0.898039, 1 )
 
 [sub_resource type="StyleBoxFlat" id=18]
-bg_color = Color( 1, 1, 1, 1 )
+bg_color = Color( 0.878431, 0.886275, 0.898039, 1 )
 
-[sub_resource type="StyleBoxEmpty" id=19]
+[sub_resource type="StyleBoxFlat" id=19]
+bg_color = Color( 1, 1, 1, 1 )
 
 [sub_resource type="StyleBoxEmpty" id=20]
 
-[sub_resource type="ShaderMaterial" id=21]
+[sub_resource type="StyleBoxEmpty" id=21]
+
+[sub_resource type="ShaderMaterial" id=22]
 shader = ExtResource( 28 )
 shader_param/grayscale = false
 
-[sub_resource type="StyleBoxEmpty" id=22]
+[sub_resource type="StyleBoxEmpty" id=23]
 
-[sub_resource type="ShaderMaterial" id=23]
+[sub_resource type="ShaderMaterial" id=24]
 shader = ExtResource( 28 )
 shader_param/grayscale = false
 
-[sub_resource type="StyleBoxEmpty" id=24]
+[sub_resource type="StyleBoxEmpty" id=25]
 
-[sub_resource type="ShaderMaterial" id=25]
+[sub_resource type="ShaderMaterial" id=26]
 shader = ExtResource( 28 )
 shader_param/grayscale = false
 
-[sub_resource type="StyleBoxEmpty" id=26]
+[sub_resource type="StyleBoxEmpty" id=27]
 
 [node name="main" type="Node2D"]
 script = ExtResource( 1 )
@@ -1698,7 +1698,7 @@ margin_left = 62.0932
 margin_top = 90.1375
 margin_right = 144.093
 margin_bottom = 121.137
-custom_fonts/font = SubResource( 27 )
+custom_fonts/font = SubResource( 11 )
 custom_colors/font_color = Color( 0, 0, 0, 1 )
 custom_constants/shadow_offset_x = 0
 custom_constants/shadow_offset_y = 0
@@ -1714,7 +1714,7 @@ margin_left = 54.7972
 margin_top = 158.046
 margin_right = 136.797
 margin_bottom = 189.046
-custom_fonts/font = SubResource( 11 )
+custom_fonts/font = SubResource( 12 )
 custom_colors/font_color = Color( 0, 0, 0, 1 )
 custom_constants/shadow_offset_x = 0
 custom_constants/shadow_offset_y = 0
@@ -1730,7 +1730,7 @@ margin_left = 109.695
 margin_top = 155.22
 margin_right = 191.695
 margin_bottom = 186.22
-custom_fonts/font = SubResource( 12 )
+custom_fonts/font = SubResource( 13 )
 custom_colors/font_color = Color( 0, 0, 0, 1 )
 custom_constants/shadow_offset_x = 0
 custom_constants/shadow_offset_y = 0
@@ -1746,7 +1746,7 @@ margin_left = 58.0991
 margin_top = 128.345
 margin_right = 140.099
 margin_bottom = 159.345
-custom_fonts/font = SubResource( 11 )
+custom_fonts/font = SubResource( 12 )
 custom_colors/font_color = Color( 0, 0, 0, 1 )
 custom_constants/shadow_offset_x = 0
 custom_constants/shadow_offset_y = 0
@@ -1762,7 +1762,7 @@ margin_left = 113.704
 margin_top = 129.054
 margin_right = 195.704
 margin_bottom = 160.054
-custom_fonts/font = SubResource( 12 )
+custom_fonts/font = SubResource( 13 )
 custom_colors/font_color = Color( 0, 0, 0, 1 )
 custom_constants/shadow_offset_x = 0
 custom_constants/shadow_offset_y = 0
@@ -1778,7 +1778,7 @@ margin_left = 69.8583
 margin_top = 182.571
 margin_right = 151.859
 margin_bottom = 213.571
-custom_fonts/font = SubResource( 11 )
+custom_fonts/font = SubResource( 12 )
 custom_colors/font_color = Color( 0, 0, 0, 1 )
 custom_constants/shadow_offset_x = 0
 custom_constants/shadow_offset_y = 0
@@ -1794,7 +1794,7 @@ margin_left = 114.857
 margin_top = 183.28
 margin_right = 196.857
 margin_bottom = 214.28
-custom_fonts/font = SubResource( 12 )
+custom_fonts/font = SubResource( 13 )
 custom_colors/font_color = Color( 0, 0, 0, 1 )
 custom_constants/shadow_offset_x = 0
 custom_constants/shadow_offset_y = 0
@@ -1810,7 +1810,7 @@ margin_left = 64.9085
 margin_top = 205.905
 margin_right = 146.909
 margin_bottom = 236.905
-custom_fonts/font = SubResource( 11 )
+custom_fonts/font = SubResource( 12 )
 custom_colors/font_color = Color( 0, 0, 0, 1 )
 custom_constants/shadow_offset_x = 0
 custom_constants/shadow_offset_y = 0
@@ -1826,7 +1826,7 @@ margin_left = 113.443
 margin_top = 210.15
 margin_right = 195.443
 margin_bottom = 241.15
-custom_fonts/font = SubResource( 12 )
+custom_fonts/font = SubResource( 13 )
 custom_colors/font_color = Color( 0, 0, 0, 1 )
 custom_constants/shadow_offset_x = 0
 custom_constants/shadow_offset_y = 0
@@ -1842,7 +1842,7 @@ margin_left = 319.698
 margin_top = 89.5762
 margin_right = 401.698
 margin_bottom = 120.576
-custom_fonts/font = SubResource( 27 )
+custom_fonts/font = SubResource( 11 )
 custom_colors/font_color = Color( 0, 0, 0, 1 )
 custom_constants/shadow_offset_x = 0
 custom_constants/shadow_offset_y = 0
@@ -1858,7 +1858,7 @@ margin_left = 296.301
 margin_top = 153.992
 margin_right = 378.301
 margin_bottom = 184.992
-custom_fonts/font = SubResource( 11 )
+custom_fonts/font = SubResource( 12 )
 custom_colors/font_color = Color( 0, 0, 0, 1 )
 custom_constants/shadow_offset_x = 0
 custom_constants/shadow_offset_y = 0
@@ -1874,7 +1874,7 @@ margin_left = 366.755
 margin_top = 151.873
 margin_right = 448.755
 margin_bottom = 182.873
-custom_fonts/font = SubResource( 12 )
+custom_fonts/font = SubResource( 13 )
 custom_colors/font_color = Color( 0, 0, 0, 1 )
 custom_constants/shadow_offset_x = 0
 custom_constants/shadow_offset_y = 0
@@ -1890,7 +1890,7 @@ margin_left = 300.009
 margin_top = 128.3
 margin_right = 382.009
 margin_bottom = 159.3
-custom_fonts/font = SubResource( 11 )
+custom_fonts/font = SubResource( 12 )
 custom_colors/font_color = Color( 0, 0, 0, 1 )
 custom_constants/shadow_offset_x = 0
 custom_constants/shadow_offset_y = 0
@@ -1906,7 +1906,7 @@ margin_left = 366.755
 margin_top = 127.77
 margin_right = 448.755
 margin_bottom = 158.77
-custom_fonts/font = SubResource( 12 )
+custom_fonts/font = SubResource( 13 )
 custom_colors/font_color = Color( 0, 0, 0, 1 )
 custom_constants/shadow_offset_x = 0
 custom_constants/shadow_offset_y = 0
@@ -1922,7 +1922,7 @@ margin_left = 311.134
 margin_top = 181.152
 margin_right = 393.134
 margin_bottom = 212.152
-custom_fonts/font = SubResource( 11 )
+custom_fonts/font = SubResource( 12 )
 custom_colors/font_color = Color( 0, 0, 0, 1 )
 custom_constants/shadow_offset_x = 0
 custom_constants/shadow_offset_y = 0
@@ -1938,7 +1938,7 @@ margin_left = 366.755
 margin_top = 181.152
 margin_right = 448.755
 margin_bottom = 212.152
-custom_fonts/font = SubResource( 12 )
+custom_fonts/font = SubResource( 13 )
 custom_colors/font_color = Color( 0, 0, 0, 1 )
 custom_constants/shadow_offset_x = 0
 custom_constants/shadow_offset_y = 0
@@ -1954,7 +1954,7 @@ margin_left = 306.366
 margin_top = 209.228
 margin_right = 388.366
 margin_bottom = 240.228
-custom_fonts/font = SubResource( 11 )
+custom_fonts/font = SubResource( 12 )
 custom_colors/font_color = Color( 0, 0, 0, 1 )
 custom_constants/shadow_offset_x = 0
 custom_constants/shadow_offset_y = 0
@@ -1970,7 +1970,7 @@ margin_left = 368.345
 margin_top = 209.228
 margin_right = 450.345
 margin_bottom = 240.228
-custom_fonts/font = SubResource( 12 )
+custom_fonts/font = SubResource( 13 )
 custom_colors/font_color = Color( 0, 0, 0, 1 )
 custom_constants/shadow_offset_x = 0
 custom_constants/shadow_offset_y = 0
@@ -1986,7 +1986,7 @@ margin_left = 13.8042
 margin_top = 157.055
 margin_right = 70.8042
 margin_bottom = 214.055
-custom_styles/panel = SubResource( 13 )
+custom_styles/panel = SubResource( 14 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
@@ -2010,7 +2010,7 @@ margin_left = 183.054
 margin_top = 169.669
 margin_right = 265.054
 margin_bottom = 200.669
-custom_fonts/font = SubResource( 12 )
+custom_fonts/font = SubResource( 13 )
 custom_colors/font_color = Color( 0, 0, 0, 1 )
 custom_constants/shadow_offset_x = 0
 custom_constants/shadow_offset_y = 0
@@ -2026,7 +2026,7 @@ margin_left = 18.805
 margin_top = 344.238
 margin_right = 255.805
 margin_bottom = 385.238
-custom_fonts/font = SubResource( 11 )
+custom_fonts/font = SubResource( 12 )
 custom_colors/font_color = Color( 0, 0, 0, 1 )
 custom_constants/shadow_offset_x = 0
 custom_constants/shadow_offset_y = 0
@@ -2050,7 +2050,7 @@ margin_left = 5.0
 margin_top = 51.0
 margin_right = 553.0
 margin_bottom = 1028.0
-custom_styles/panel = SubResource( 14 )
+custom_styles/panel = SubResource( 15 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
@@ -2061,7 +2061,7 @@ margin_top = -42.2063
 margin_right = 250.794
 margin_bottom = -0.206299
 mouse_filter = 1
-custom_styles/panel = SubResource( 15 )
+custom_styles/panel = SubResource( 16 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
@@ -2082,7 +2082,7 @@ __meta__ = {
 margin_right = 548.0
 margin_bottom = 42.0
 mouse_filter = 1
-custom_styles/panel = SubResource( 15 )
+custom_styles/panel = SubResource( 16 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
@@ -2090,7 +2090,7 @@ __meta__ = {
 [node name="TabEquipement" type="Panel" parent="Options/Header"]
 margin_right = 252.0
 margin_bottom = 40.0
-custom_styles/panel = SubResource( 16 )
+custom_styles/panel = SubResource( 17 )
 
 [node name="Label" type="Label" parent="Options/Header/TabEquipement"]
 margin_left = 45.3523
@@ -2128,7 +2128,7 @@ margin_left = 250.0
 margin_top = 0.378403
 margin_right = 491.0
 margin_bottom = 40.3784
-custom_styles/panel = SubResource( 17 )
+custom_styles/panel = SubResource( 18 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
@@ -2196,7 +2196,7 @@ margin_top = 44.0
 margin_right = 547.0
 margin_bottom = 981.0
 mouse_filter = 1
-custom_styles/panel = SubResource( 18 )
+custom_styles/panel = SubResource( 19 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
@@ -2207,7 +2207,7 @@ margin_top = 67.1487
 margin_right = 184.818
 margin_bottom = 503.149
 rect_scale = Vector2( 0.7, 0.7 )
-custom_styles/panel = SubResource( 19 )
+custom_styles/panel = SubResource( 20 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
@@ -2232,13 +2232,13 @@ margin_top = 67.0
 margin_right = 304.0
 margin_bottom = 504.0
 rect_scale = Vector2( 0.7, 0.7 )
-custom_styles/panel = SubResource( 20 )
+custom_styles/panel = SubResource( 21 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
 [node name="sprite" type="Sprite" parent="Options/Equipement/BlockPaysan"]
-material = SubResource( 21 )
+material = SubResource( 22 )
 position = Vector2( 83.8195, 218.718 )
 texture = ExtResource( 26 )
 
@@ -2258,13 +2258,13 @@ margin_top = 67.1189
 margin_right = 421.277
 margin_bottom = 503.119
 rect_scale = Vector2( 0.7, 0.7 )
-custom_styles/panel = SubResource( 22 )
+custom_styles/panel = SubResource( 23 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
 [node name="sprite" type="Sprite" parent="Options/Equipement/BlockPrudent"]
-material = SubResource( 23 )
+material = SubResource( 24 )
 position = Vector2( 83.8195, 218.718 )
 texture = ExtResource( 25 )
 
@@ -2284,13 +2284,13 @@ margin_top = 68.4112
 margin_right = 567.767
 margin_bottom = 502.411
 rect_scale = Vector2( 0.7, 0.7 )
-custom_styles/panel = SubResource( 24 )
+custom_styles/panel = SubResource( 25 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
 [node name="sprite" type="Sprite" parent="Options/Equipement/BlockDebrouillard"]
-material = SubResource( 25 )
+material = SubResource( 26 )
 position = Vector2( 98.2081, 217.282 )
 texture = ExtResource( 24 )
 
@@ -2331,7 +2331,7 @@ margin_top = 41.0
 margin_right = 547.0
 margin_bottom = 981.0
 mouse_filter = 1
-custom_styles/panel = SubResource( 18 )
+custom_styles/panel = SubResource( 19 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
@@ -2341,7 +2341,7 @@ margin_left = 55.3231
 margin_top = 95.3025
 margin_right = 137.323
 margin_bottom = 126.302
-custom_fonts/font = SubResource( 11 )
+custom_fonts/font = SubResource( 12 )
 custom_colors/font_color = Color( 0, 0, 0, 1 )
 custom_constants/shadow_offset_x = 0
 custom_constants/shadow_offset_y = 0
@@ -2357,7 +2357,7 @@ margin_left = 110.221
 margin_top = 92.4763
 margin_right = 192.221
 margin_bottom = 123.476
-custom_fonts/font = SubResource( 12 )
+custom_fonts/font = SubResource( 13 )
 custom_colors/font_color = Color( 0, 0, 0, 1 )
 custom_constants/shadow_offset_x = 0
 custom_constants/shadow_offset_y = 0
@@ -2373,7 +2373,7 @@ margin_left = 55.3231
 margin_top = 63.8044
 margin_right = 137.323
 margin_bottom = 94.8039
-custom_fonts/font = SubResource( 11 )
+custom_fonts/font = SubResource( 12 )
 custom_colors/font_color = Color( 0, 0, 0, 1 )
 custom_constants/shadow_offset_x = 0
 custom_constants/shadow_offset_y = 0
@@ -2389,7 +2389,7 @@ margin_left = 110.221
 margin_top = 60.9783
 margin_right = 192.221
 margin_bottom = 91.978
-custom_fonts/font = SubResource( 12 )
+custom_fonts/font = SubResource( 13 )
 custom_colors/font_color = Color( 0, 0, 0, 1 )
 custom_constants/shadow_offset_x = 0
 custom_constants/shadow_offset_y = 0
@@ -2405,7 +2405,7 @@ margin_left = 170.289
 margin_top = 62.3131
 margin_right = 252.289
 margin_bottom = 93.3128
-custom_fonts/font = SubResource( 12 )
+custom_fonts/font = SubResource( 13 )
 custom_colors/font_color = Color( 0, 0, 0, 1 )
 custom_constants/shadow_offset_x = 0
 custom_constants/shadow_offset_y = 0
@@ -2421,7 +2421,7 @@ margin_left = 54.0632
 margin_top = 31.0465
 margin_right = 136.063
 margin_bottom = 62.046
-custom_fonts/font = SubResource( 11 )
+custom_fonts/font = SubResource( 12 )
 custom_colors/font_color = Color( 0, 0, 0, 1 )
 custom_constants/shadow_offset_x = 0
 custom_constants/shadow_offset_y = 0
@@ -2437,7 +2437,7 @@ margin_left = 108.961
 margin_top = 28.2203
 margin_right = 190.961
 margin_bottom = 59.22
-custom_fonts/font = SubResource( 12 )
+custom_fonts/font = SubResource( 13 )
 custom_colors/font_color = Color( 0, 0, 0, 1 )
 custom_constants/shadow_offset_x = 0
 custom_constants/shadow_offset_y = 0
@@ -2453,7 +2453,7 @@ margin_left = 171.698
 margin_top = 28.2203
 margin_right = 253.698
 margin_bottom = 59.22
-custom_fonts/font = SubResource( 12 )
+custom_fonts/font = SubResource( 13 )
 custom_colors/font_color = Color( 0, 0, 0, 1 )
 custom_constants/shadow_offset_x = 0
 custom_constants/shadow_offset_y = 0
@@ -2469,7 +2469,7 @@ margin_left = 56.583
 margin_top = 135.62
 margin_right = 138.583
 margin_bottom = 166.619
-custom_fonts/font = SubResource( 11 )
+custom_fonts/font = SubResource( 12 )
 custom_colors/font_color = Color( 0, 0, 0, 1 )
 custom_constants/shadow_offset_x = 0
 custom_constants/shadow_offset_y = 0
@@ -2485,7 +2485,7 @@ margin_left = 111.481
 margin_top = 132.794
 margin_right = 193.481
 margin_bottom = 163.793
-custom_fonts/font = SubResource( 12 )
+custom_fonts/font = SubResource( 13 )
 custom_colors/font_color = Color( 0, 0, 0, 1 )
 custom_constants/shadow_offset_x = 0
 custom_constants/shadow_offset_y = 0
@@ -2501,7 +2501,7 @@ margin_left = 168.879
 margin_top = 134.129
 margin_right = 250.879
 margin_bottom = 165.128
-custom_fonts/font = SubResource( 12 )
+custom_fonts/font = SubResource( 13 )
 custom_colors/font_color = Color( 0, 0, 0, 1 )
 custom_constants/shadow_offset_x = 0
 custom_constants/shadow_offset_y = 0
@@ -2517,7 +2517,7 @@ margin_left = 56.583
 margin_top = 175.937
 margin_right = 138.583
 margin_bottom = 206.937
-custom_fonts/font = SubResource( 11 )
+custom_fonts/font = SubResource( 12 )
 custom_colors/font_color = Color( 0, 0, 0, 1 )
 custom_constants/shadow_offset_x = 0
 custom_constants/shadow_offset_y = 0
@@ -2533,7 +2533,7 @@ margin_left = 111.481
 margin_top = 173.111
 margin_right = 193.481
 margin_bottom = 204.111
-custom_fonts/font = SubResource( 12 )
+custom_fonts/font = SubResource( 13 )
 custom_colors/font_color = Color( 0, 0, 0, 1 )
 custom_constants/shadow_offset_x = 0
 custom_constants/shadow_offset_y = 0
@@ -2549,7 +2549,7 @@ margin_left = 168.879
 margin_top = 173.111
 margin_right = 250.879
 margin_bottom = 204.111
-custom_fonts/font = SubResource( 12 )
+custom_fonts/font = SubResource( 13 )
 custom_colors/font_color = Color( 0, 0, 0, 1 )
 custom_constants/shadow_offset_x = 0
 custom_constants/shadow_offset_y = 0
@@ -2565,7 +2565,7 @@ margin_left = 55.3231
 margin_top = 222.555
 margin_right = 137.323
 margin_bottom = 253.554
-custom_fonts/font = SubResource( 11 )
+custom_fonts/font = SubResource( 12 )
 custom_colors/font_color = Color( 0, 0, 0, 1 )
 custom_constants/shadow_offset_x = 0
 custom_constants/shadow_offset_y = 0
@@ -2581,7 +2581,7 @@ margin_left = 110.221
 margin_top = 219.728
 margin_right = 192.221
 margin_bottom = 250.728
-custom_fonts/font = SubResource( 12 )
+custom_fonts/font = SubResource( 13 )
 custom_colors/font_color = Color( 0, 0, 0, 1 )
 custom_constants/shadow_offset_x = 0
 custom_constants/shadow_offset_y = 0
@@ -2597,7 +2597,7 @@ margin_left = 166.284
 margin_top = 219.728
 margin_right = 248.284
 margin_bottom = 250.728
-custom_fonts/font = SubResource( 12 )
+custom_fonts/font = SubResource( 13 )
 custom_colors/font_color = Color( 0, 0, 0, 1 )
 custom_constants/shadow_offset_x = 0
 custom_constants/shadow_offset_y = 0
@@ -2613,7 +2613,7 @@ margin_left = 57.8429
 margin_top = 269.172
 margin_right = 139.843
 margin_bottom = 300.171
-custom_fonts/font = SubResource( 11 )
+custom_fonts/font = SubResource( 12 )
 custom_colors/font_color = Color( 0, 0, 0, 1 )
 custom_constants/shadow_offset_x = 0
 custom_constants/shadow_offset_y = 0
@@ -2629,7 +2629,7 @@ margin_left = 112.741
 margin_top = 266.345
 margin_right = 194.741
 margin_bottom = 297.345
-custom_fonts/font = SubResource( 12 )
+custom_fonts/font = SubResource( 13 )
 custom_colors/font_color = Color( 0, 0, 0, 1 )
 custom_constants/shadow_offset_x = 0
 custom_constants/shadow_offset_y = 0
@@ -2645,7 +2645,7 @@ margin_left = 164.8
 margin_top = 265.01
 margin_right = 246.8
 margin_bottom = 296.01
-custom_fonts/font = SubResource( 12 )
+custom_fonts/font = SubResource( 13 )
 custom_colors/font_color = Color( 0, 0, 0, 1 )
 custom_constants/shadow_offset_x = 0
 custom_constants/shadow_offset_y = 0
@@ -2661,7 +2661,7 @@ margin_left = 56.583
 margin_top = 305.709
 margin_right = 138.583
 margin_bottom = 336.709
-custom_fonts/font = SubResource( 11 )
+custom_fonts/font = SubResource( 12 )
 custom_colors/font_color = Color( 0, 0, 0, 1 )
 custom_constants/shadow_offset_x = 0
 custom_constants/shadow_offset_y = 0
@@ -2677,7 +2677,7 @@ margin_left = 111.481
 margin_top = 302.883
 margin_right = 193.481
 margin_bottom = 333.883
-custom_fonts/font = SubResource( 12 )
+custom_fonts/font = SubResource( 13 )
 custom_colors/font_color = Color( 0, 0, 0, 1 )
 custom_constants/shadow_offset_x = 0
 custom_constants/shadow_offset_y = 0
@@ -2693,7 +2693,7 @@ margin_left = 166.209
 margin_top = 301.548
 margin_right = 248.209
 margin_bottom = 332.548
-custom_fonts/font = SubResource( 12 )
+custom_fonts/font = SubResource( 13 )
 custom_colors/font_color = Color( 0, 0, 0, 1 )
 custom_constants/shadow_offset_x = 0
 custom_constants/shadow_offset_y = 0
@@ -2712,7 +2712,7 @@ margin_top = 53.0
 margin_right = 260.0
 margin_bottom = 53.0
 mouse_filter = 1
-custom_styles/panel = SubResource( 26 )
+custom_styles/panel = SubResource( 27 )
 __meta__ = {
 "_edit_use_anchors_": false
 }

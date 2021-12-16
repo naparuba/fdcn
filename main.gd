@@ -41,7 +41,7 @@ func _ready():
 	# And success to the 3th
 	self.insert_all_success()
 	
-	self.insert_all_objects()
+	Player.insert_all_objects()
 	
 	Player.compute_my_billy()
 	
@@ -161,21 +161,13 @@ func _register_top_menus():
 		top_menu.register_main(self)
 
 
-func insert_all_objects():
+func display_all_objects():
 	var item_stack = $Options/Equipement/ItemsCont/Items
 	Utils.delete_children(item_stack)
 	print('Insert all objects')
-	var all_objects = BookData.get_all_objects()
-	for obj_name in all_objects.keys():
-		var item_data = all_objects[obj_name]
-		var item = Item.instance()
-		item.load_item_data(obj_name, item_data)
-		var is_ok_to_be_shown = item.is_ok_to_be_shown()
-		if is_ok_to_be_shown:
-			item_stack.add_child(item)
-			# Also let the Player know it does exists
-			Player.add_in_all_items(item)
-
+	for item in Player.all_items:
+		item_stack.add_child(item)
+	
 
 func refresh_all_objects():
 	var item_stack = $Options/Equipement/ItemsCont/Items
@@ -445,33 +437,31 @@ func change_sound(b):
 	self.refresh()
 
 
-func set_billy(billy_type):
+# When billy type is change in Player, refresh display and play sound
+func billy_type_is_changed():
 	var current_billy = AppParameters.get_billy_type()
-	if current_billy == billy_type:  # no need to warn
-		return
-	AppParameters.set_billy_type(billy_type)
 	self.refresh()
-	Sounder.play('billy-%s.mp3' % billy_type)
+	Sounder.play('billy-%s.mp3' % current_billy)
 	
 
-func _switch_to_guerrier():
-	self.set_billy('guerrier')
+#func _switch_to_guerrier():
+#	self.set_billy('guerrier')
 
 
-func _switch_to_paysan():
-	self.set_billy('paysan')
+#func _switch_to_paysan():
+#	self.set_billy('paysan')
 
 
-func _switch_to_prudent():
-	self.set_billy('prudent')
+#func _switch_to_prudent():
+#	self.set_billy('prudent')
 
 
-func _switch_to_debrouillard():
-	self.set_billy('debrouillard')
+#func _switch_to_debrouillard():
+#	self.set_billy('debrouillard')
 
 
-func _switch_to_pegu():
-	self.set_billy('pegu')
+#func _switch_to_pegu():
+#	self.set_billy('pegu')
 
 
 func _on_main_background_gui_input(event):

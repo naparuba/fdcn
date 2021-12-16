@@ -1,5 +1,7 @@
 extends Node
 
+onready var Item = preload('res://Item.tscn')
+
 var _main = null
 var need_force_display_options = false   # if we did guess, show options to show it
 var type_billy = 'guerrier'
@@ -11,6 +13,7 @@ var session_visited_nodes = []
 var visited_nodes_all_times = []
 
 var possessed_items = []
+
 
 var all_items = []
 
@@ -184,6 +187,22 @@ func do_load():
 	self._recompute_matched_conditions()
 	self._recompute_stats()
 	return self.need_force_display_options
+
+
+func insert_all_objects():
+	print('Insert all objects')
+	var all_objects = BookData.get_all_objects()
+	for obj_name in all_objects.keys():
+		var item_data = all_objects[obj_name]
+		var item = Item.instance()
+		item.load_item_data(obj_name, item_data)
+		var is_ok_to_be_shown = item.is_ok_to_be_shown()
+		if is_ok_to_be_shown:
+			# Also let the Player know it does exists
+			print('KNOWN ITEM: %s' % item)
+			self.add_in_all_items(item)
+	if self._main:  # not in tests
+		self._main.display_all_objects()
 
 
 func register_main(main):
@@ -516,7 +535,8 @@ func add_item_from_options(item_name):
 		self.save_possessed_items()
 		self._recompute_matched_conditions()
 		self._recompute_stats()
-		self._main.refresh()  # we need to update all items and the billy
+		if self._main:  # miss in test
+			self._main.refresh()  # we need to update all items and the billy
 		
 
 func _raw_add(item_name):
@@ -544,7 +564,8 @@ func remove_item_from_options(item_name):
 		self.save_possessed_items()
 		self._recompute_matched_conditions()
 		self._recompute_stats()
-		self._main.refresh()  # we need to update all items and the billy
+		if self._main:  # miss in test
+			self._main.refresh()  # we need to update all items and the billy
 
 
 func _raw_remove(item_name):
@@ -625,20 +646,35 @@ func clean_billy_overload(new_option):
 				break
 
 
-func switch_to_guerrier():
-	self._main._switch_to_guerrier()
+func _switch_to_billy(billy_type):
+	var current_billy = AppParameters.get_billy_type()
+	if current_billy == billy_type:  # no need to warn
+		return
+	AppParameters.set_billy_type(billy_type)
+	if self._main:  # miss in test
+		self._main.billy_type_is_changed()
 	
-func switch_to_prudent():
-	self._main._switch_to_prudent()
 
-func switch_to_paysan():
-	self._main._switch_to_paysan()
 
-func switch_to_debrouillard():
-	self._main._switch_to_debrouillard()
+#func switch_to_guerrier():
+#	if self._main:  # miss in test
+#		self._main._switch_to_guerrier()
+	
+#func switch_to_prudent():
+#	if self._main:  # miss in test	
+#		self._main._switch_to_prudent()
 
-func switch_to_pegu():
-	self._main._switch_to_pegu()
+#func switch_to_paysan():
+#	if self._main:  # miss in test
+#		self._main._switch_to_paysan()
+
+#func switch_to_debrouillard():
+#	if self._main:  # miss in test
+#		self._main._switch_to_debrouillard()
+
+#func switch_to_pegu():
+#	if self._main:  # miss in test	
+#		self._main._switch_to_pegu()
 	
 
 # We just did an option change, so if we need to remove one, not this one ^^
@@ -656,25 +692,25 @@ func compute_my_billy_for_option(new_option):
 	
 	if nb_armes + nb_equipements + nb_outils < 3:
 		print('IS A PEGU')
-		self.switch_to_pegu()
+		self._switch_to_billy('pegu')
 		return
 		
 	# Detect billy type
 	if nb_armes >= 2:
 		print('=> IS A GUERRIER')
-		self.switch_to_guerrier()
+		self._switch_to_billy('guerrier')
 	elif nb_equipements >= 2:
 		print('=> IS A PRUDENT')
-		self.switch_to_prudent()
+		self._switch_to_billy('prudent')
 	elif nb_outils >= 2:
 		print('=> IS A PAYSAN')
-		self.switch_to_paysan()
+		self._switch_to_billy('paysan')
 	elif nb_armes == 1 && nb_equipements == 1 && nb_outils == 1:
 		print('IS DEBROUILLARD')
-		self.switch_to_debrouillard()
+		self._switch_to_billy('debrouillard')
 	else:
 		print('IS A PEGU')
-		self.switch_to_pegu()
+		self._switch_to_billy('pegu')
 	print('compute_my_billy: end: %s' % str(self.possessed_items))
 		
 
