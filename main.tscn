@@ -1411,7 +1411,6 @@ texture = ExtResource( 22 )
 position = Vector2( 392.257, 88.6701 )
 scale = Vector2( 0.342538, 0.342538 )
 frames = SubResource( 7 )
-frame = 1
 playing = true
 
 [node name="DevLabel" type="Label" parent="About/About"]
@@ -1470,7 +1469,7 @@ custom_colors/font_color = Color( 0, 0.760784, 0.666667, 1 )
 custom_constants/shadow_offset_x = 0
 custom_constants/shadow_offset_y = 0
 custom_constants/shadow_as_outline = 0
-text = "0.11"
+text = "0.12"
 __meta__ = {
 "_edit_use_anchors_": false
 }
@@ -1521,10 +1520,10 @@ __meta__ = {
 }
 
 [node name="ThnksTxt" type="Label" parent="About/About"]
-margin_left = 15.4482
-margin_top = 252.554
-margin_right = 362.448
-margin_bottom = 351.554
+margin_left = 15.0
+margin_top = 253.0
+margin_right = 362.0
+margin_bottom = 427.0
 custom_fonts/font = ExtResource( 2 )
 custom_colors/font_color = Color( 0, 0.760784, 0.666667, 1 )
 custom_constants/shadow_offset_x = 0
@@ -1533,7 +1532,8 @@ custom_constants/shadow_as_outline = 0
 text = "- Bob pour cette super oeuvre
 - Les dev de \"Godot\" qui ont
 permis à cette application d'exister
-- Anael Closson pour son patch :)"
+- Anael Closson pour son patch :)
+- Mystorage09 pour son ticket :)"
 __meta__ = {
 "_edit_use_anchors_": false
 }
@@ -2042,6 +2042,7 @@ __meta__ = {
 position = Vector2( 349.257, 373.67 )
 scale = Vector2( 0.342538, 0.342538 )
 frames = SubResource( 7 )
+frame = 1
 playing = true
 
 [node name="Options" type="Panel" parent="."]
