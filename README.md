@@ -13,5 +13,3 @@ Elle est décomposée en deux parties:
 Elle ressemble à ça :
 
 ![image](preview.png)
-
-J'ai pour objectif de la rendre disponible sur le Google play si c'est possible ^^

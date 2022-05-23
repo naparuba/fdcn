@@ -496,7 +496,7 @@ arcs = [(1, 'Plante-Citrouille'),
 
 # (arc_name, Start of sub, name, stops)
 sub_arcs = [
-    ('Invasion', 148, 'Quartier boulanger', [496, 285]),
+    ('Invasion', 148, 'Quartier boulanger', [496, 285, 353]),
     ('Invasion', 283, 'Tour des mages', [183, 95, 285]),
     
     ('Forteresse', 553, 'Thermes', [551, 80, 561]),
