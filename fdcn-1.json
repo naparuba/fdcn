@@ -474,7 +474,7 @@
   "65": {
     "conditions": {
       "397": "PAMPHLET",
-      "244": "KIT DE SOIN|(PAYSAN|DEBROUILLARD)",
+      "244": "KIT DE SOIN&(PAYSAN|DEBROUILLARD)",
       "375": "LAISSEZ-PASSER"
     },
     "goto": [

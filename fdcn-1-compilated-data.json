@@ -19891,6 +19891,7 @@
             "secret_jumps": [],
             "sons": [
                 285,
+                353,
                 496
             ],
             "stats": {
@@ -19901,6 +19902,7 @@
         },
         "goto": [
             285,
+            353,
             496
         ],
         "stats": {
@@ -20436,7 +20438,7 @@
             "is_combat": false,
             "jump_conditions": {
                 "244": {
-                    "$or": [
+                    "$and": [
                         {
                             "$end": "KIT DE SOIN"
                         },
@@ -20460,7 +20462,7 @@
                 }
             },
             "jump_conditions_txts": {
-                "244": "KIT DE SOIN ou ( PAYSAN ou DEBROUILLARD )",
+                "244": "KIT DE SOIN et ( PAYSAN ou DEBROUILLARD )",
                 "375": "LAISSEZ-PASSER",
                 "397": "PAMPHLET"
             },
@@ -20480,7 +20482,7 @@
             "success": null
         },
         "conditions": {
-            "244": "KIT DE SOIN|(PAYSAN|DEBROUILLARD)",
+            "244": "KIT DE SOIN&(PAYSAN|DEBROUILLARD)",
             "375": "LAISSEZ-PASSER",
             "397": "PAMPHLET"
         },
