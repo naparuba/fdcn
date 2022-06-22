@@ -1762,7 +1762,8 @@
   "236": {
     "success": "SAFEWORD",
     "aquire": [
-      "CHLOROGLYCERINE"
+      "CHLOROGLYCERINE",
+      "CLE B"
     ],
     "stats_cond": {
       "PRUDENT": {

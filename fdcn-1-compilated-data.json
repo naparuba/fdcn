@@ -5357,11 +5357,13 @@
     },
     "236": {
         "aquire": [
-            "CHLOROGLYCERINE"
+            "CHLOROGLYCERINE",
+            "CLE B"
         ],
         "computed": {
             "aquire": [
-                "CHLOROGLYCERINE"
+                "CHLOROGLYCERINE",
+                "CLE B"
             ],
             "arc": "Funeste",
             "chapter": "Forteresse",
