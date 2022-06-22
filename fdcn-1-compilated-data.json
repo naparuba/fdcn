@@ -3303,10 +3303,14 @@
             "jump_conditions": {
                 "10": {
                     "$end": "KIT D'ESCALADE"
+                },
+                "581": {
+                    "$end": "KIT D'ESCALADE"
                 }
             },
             "jump_conditions_txts": {
-                "10": "KIT D'ESCALADE"
+                "10": "KIT D'ESCALADE",
+                "581": "KIT D'ESCALADE"
             },
             "label": "Plateforme d'atterrissage",
             "remove": [],
@@ -3322,7 +3326,8 @@
             "success": null
         },
         "conditions": {
-            "10": "KIT D'ESCALADE"
+            "10": "KIT D'ESCALADE",
+            "581": "KIT D'ESCALADE"
         },
         "goto": [
             340,

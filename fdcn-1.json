@@ -1373,7 +1373,8 @@
   "184": {
     "label": "Plateforme d'atterrissage",
     "conditions": {
-      "10": "KIT D'ESCALADE"
+      "10": "KIT D'ESCALADE",
+      "581": "KIT D'ESCALADE"
     },
     "goto": [
       340,
