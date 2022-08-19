@@ -6104,11 +6104,16 @@
             "sons": [
                 73
             ],
-            "stats": {},
+            "stats": {
+                "chance_max": 1
+            },
             "stats_cond": [],
             "success": null
         },
-        "goto": 73
+        "goto": 73,
+        "stats": {
+            "chance_max": 1
+        }
     },
     "256": {
         "computed": {
