@@ -12,4 +12,7 @@ Elle est décomposée en deux parties:
 
 Elle ressemble à ça :
 
+### Confidentialité / Privacy
+L'application ne récupère ni n'envoie d'informations des utilisateurs.
+
 ![image](preview.png)
