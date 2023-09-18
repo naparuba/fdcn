@@ -114,26 +114,26 @@ class Node(object):
             ending = True
         
         return {
-            'id'                  : self._id,
-            'ending'              : ending,
-            'success'             : self._success,
-            'sons'                : son_ids,
-            'chapter'             : self._arc,
-            'arc'                 : self._sub_arc,
-            'is_combat'           : self._combat is not None,
-            'combat'              : self._combat,
-            'label'               : self._label,
-            'secret'              : self._secret,
-            'secret_jumps'        : self._secret_jumps,
-            'ending_id'           : self._ending_id,
-            'ending_txt'          : self._ending_txt,
-            'ending_type'         : self._ending,
-            'jump_conditions'     : self._conditions,
+            'id':                   self._id,
+            'ending':               ending,
+            'success':              self._success,
+            'sons':                 son_ids,
+            'chapter':              self._arc,
+            'arc':                  self._sub_arc,
+            'is_combat':            self._combat is not None,
+            'combat':               self._combat,
+            'label':                self._label,
+            'secret':               self._secret,
+            'secret_jumps':         self._secret_jumps,
+            'ending_id':            self._ending_id,
+            'ending_txt':           self._ending_txt,
+            'ending_type':          self._ending,
+            'jump_conditions':      self._conditions,
             'jump_conditions_txts': self._conditions_txts,
-            'aquire'              : self._aquire,
-            'remove'              : self._remove,
-            'stats'               : self._stats,
-            'stats_cond'          : self._stats_cond,
+            'aquire':               self._aquire,
+            'remove':               self._remove,
+            'stats':                self._stats,
+            'stats_cond':           self._stats_cond,
         }
     
     
@@ -228,6 +228,7 @@ class Node(object):
         if r:
             print('NODE: %s stats keys: %s' % (self.get_id(), r))
         return r
+    
     
     # Parse the jump condition, and produce 2 things:
     # * dict output, for easy comparision
@@ -325,14 +326,17 @@ class Node(object):
         if self._ending is not None:
             # First myself
             node_id_string = '%s' % self._id
-            graph.node(node_id_string, shape='ellipse', style='solid', color=border_color, penwidth=penwidth, fillcolor='white', label=self.get_label())
+            graph.node(node_id_string, shape='ellipse', style='solid', color=border_color, penwidth=penwidth,
+                       fillcolor='white', label=self.get_label())
             
             # And also add the visual ending node
             node_id_string = "end-from-%s" % self._id
-            graph.node(node_id_string, shape='doubleoctagon', style='filled', color=border_color, penwidth=penwidth, fillcolor=self._get_ending_color(), label='End (%s)' % self._id)
+            graph.node(node_id_string, shape='doubleoctagon', style='filled', color=border_color, penwidth=penwidth,
+                       fillcolor=self._get_ending_color(), label='End (%s)' % self._id)
         else:  # classic node
             node_id_string = '%s' % self._id
-            graph.node(node_id_string, color=border_color, penwidth=penwidth, shape='ellipse', style='solid', fillcolor='white', label=self.get_label())
+            graph.node(node_id_string, color=border_color, penwidth=penwidth, shape='ellipse', style='solid',
+                       fillcolor='white', label=self.get_label())
     
     
     def _get_graph_from_nodes(self, other, arc_graphs):
@@ -727,7 +731,7 @@ for node_id_str in book_data.keys():
         in_chapters = entry.get('in_chapters', [])
         in_chapters.append(int(node_id_str))
         entry['in_chapters'] = in_chapters
-        
+    
     n_stats_keys = node.get_all_stats_keys()
     all_stats_keys = all_stats_keys.union(n_stats_keys)
 
