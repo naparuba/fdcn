@@ -6,7 +6,7 @@ Elle est décomposée en deux parties:
 * partie en Python reposant sur le fichier fdcn-1.json qui permet de générer:
   * l'image de tous les liens entre chapitre dans /graph
   * les fichiers nécessaires à la seconde partie
-* une application (web, windows et surtout Android) permettant 
+* une application (web, windows et surtout Android) en Godot permettant 
   * de suivre son avancée dans le livre
   * de savoir par quels chapitres il est déjà passé (ou pas)
 
