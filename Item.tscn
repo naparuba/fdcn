@@ -13,15 +13,13 @@ size = 15
 font_data = ExtResource( 4 )
 
 [node name="Item" type="Panel"]
-margin_right = 500.0
+margin_right = 450.0
 margin_bottom = 50.0
-rect_min_size = Vector2( 500, 50 )
+rect_min_size = Vector2( 450, 50 )
+rect_scale = Vector2( 1, 1 )
 mouse_filter = 1
 custom_styles/panel = SubResource( 1 )
 script = ExtResource( 2 )
-__meta__ = {
-"_edit_use_anchors_": false
-}
 
 [node name="sprite" type="Sprite" parent="."]
 position = Vector2( 19.5874, 24.3156 )
@@ -33,32 +31,26 @@ margin_left = 39.0828
 margin_top = 0.037941
 margin_right = 208.083
 margin_bottom = 31.0379
-custom_fonts/font = ExtResource( 1 )
 custom_colors/font_color = Color( 0, 0, 0, 1 )
+custom_fonts/font = ExtResource( 1 )
 text = "NOM DE L'OBJET"
-__meta__ = {
-"_edit_use_anchors_": false
-}
 
 [node name="Stats" type="Label" parent="."]
 margin_left = 40.1305
 margin_top = 28.6346
 margin_right = 209.13
 margin_bottom = 59.6346
-custom_fonts/font = SubResource( 2 )
 custom_colors/font_color = Color( 0.466667, 0.423529, 0.423529, 1 )
+custom_fonts/font = SubResource( 2 )
 text = "STATS"
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
 [node name="button" type="CheckButton" parent="."]
-margin_left = 419.018
-margin_top = 4.23785
-margin_right = 495.018
-margin_bottom = 44.2379
-__meta__ = {
-"_edit_use_anchors_": false
-}
+margin_left = 375.0
+margin_top = 4.0
+margin_right = 451.0
+margin_bottom = 44.0
 
 [connection signal="toggled" from="button" to="." method="_on_button_toggled"]

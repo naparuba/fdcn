@@ -31,11 +31,21 @@ func _ready():
 	self._register_top_menus()
 	
 	# Load the nodes ids we did already visited in the past
+	self._reload_all_player()
+	
+	self._do_load_book_context()
+	
+
+func _reload_all_player():
+	# Load the nodes ids we did already visited in the past
 	var need_show_options_at_startup = Player.do_load()
 	if need_show_options_at_startup:
-		#$Options.visible = true
+		print('_reload_all_player:: need_show_options_at_startup is forced')
 		self.show_options()
-	
+
+
+func _do_load_book_context():
+	print('_do_load_book_context')
 	# Create all chapters in the 2nd screen
 	self.insert_all_chapters()
 	# And success to the 3th
@@ -51,7 +61,7 @@ func _ready():
 	# Play intro
 	# NOTE: if the current node id have a sound, intro will supress it
 	self._play_intro()
-	
+
 
 func go_to_node(node_id):
 	
@@ -122,7 +132,12 @@ func _check_new_success(node_id):
 	
 
 func _play_intro():
-	Sounder.play('intro.mp3')
+	var intro_sound = {
+		1: 'intro-fdcn.mp3',
+		2: 'intro-cdsi.mp3',
+	}
+	var book_number = AppParameters.get_book_number()
+	Sounder.play(intro_sound.get(book_number))
 
 
 func _play_node_sound():
@@ -144,7 +159,6 @@ func _play_node_sound():
 
 
 
-		
 
 func print_debug(s):
 	$DEBUG.text = s
@@ -250,12 +264,38 @@ func _refresh_options():
 	# Gray ALL .material.set_shader_param("param_name", value)
 	for billy in sprite_by_billy.keys():
 		var sprite = sprite_by_billy[billy]
-		sprite.material.set_shader_param("grayscale", true)
+		self.__set_sprite_to_grey(sprite)
+		#sprite.material.set_shader_param("grayscale", true)
 	# Colorize the selected one
 	if type_billy_param != 'pegu':
-		sprite_by_billy[type_billy_param].material.set_shader_param("grayscale", false)
+		#sprite_by_billy[type_billy_param].material.set_shader_param("grayscale", false)
+		self.__set_sprite_to_not_grey(sprite_by_billy[type_billy_param])
 
 	self._refresh_options_stats()
+	
+	# TODO : refresh book display with grayscale
+	self._refresh_options_book_select_display()
+	
+
+
+func __set_sprite_to_grey(sprite):
+	sprite.material.set_shader_param("grayscale", true)
+	
+	
+func __set_sprite_to_not_grey(sprite):
+	sprite.material.set_shader_param("grayscale", false)
+
+
+func _refresh_options_book_select_display():
+	var book_number = AppParameters.get_book_number()
+	if book_number == 1:
+		self.__set_sprite_to_not_grey($Options/BookSelect/BoolSelectFcdn/sprite)
+		self.__set_sprite_to_grey($Options/BookSelect/BoolSelectCdsi/sprite)
+	else:
+		self.__set_sprite_to_grey($Options/BookSelect/BoolSelectFcdn/sprite)
+		self.__set_sprite_to_not_grey($Options/BookSelect/BoolSelectCdsi/sprite)
+	
+
 	
 	
 func refresh():	
@@ -268,6 +308,7 @@ func refresh():
 		top_menu.set_spoils()	
 		top_menu.set_billy()
 		top_menu.set_sound()
+		top_menu.set_book_context()
 		
 	# Note: the first left backer should be disabled if we cannot get back
 	if Player.have_previous_chapters():
@@ -444,24 +485,13 @@ func billy_type_is_changed():
 	Sounder.play('billy-%s.mp3' % current_billy)
 	
 
-#func _switch_to_guerrier():
-#	self.set_billy('guerrier')
-
-
-#func _switch_to_paysan():
-#	self.set_billy('paysan')
-
-
-#func _switch_to_prudent():
-#	self.set_billy('prudent')
-
-
-#func _switch_to_debrouillard():
-#	self.set_billy('debrouillard')
-
-
-#func _switch_to_pegu():
-#	self.set_billy('pegu')
+func _change_book_number(book_number):
+	var did_change = AppParameters.set_book_number(book_number)
+	if !did_change:
+		return
+	self._do_load_book_context()
+	self._reload_all_player()
+	self.refresh()
 
 
 func _on_main_background_gui_input(event):
@@ -520,6 +550,13 @@ func _on_button_pressed_twitter():
 	OS.shell_open("https://twitter.com/naparuba");
 
 
+# Switch between options visible or not
+func _on_option_btn_pressed():
+	if !$Options.visible:
+		self.show_options()
+	else:
+		self._on_options_validate_button_pressed()
+
 func show_options():
 	# Make the options tab on equipement
 	self._options_show_equipement()
@@ -557,39 +594,36 @@ func popup_remove_item(item_name):
 
 
 func _on_dice_pressed():
-	
 	var res = Utils.roll_a_dice(1, 6)
 	print('Dice roll %s' % res)
 	$Combat/dice/sprite.texture = Utils.load_external_texture('res://images/dice/%s-b.svg' % res, null)
 	
 
 
+func __set_tab_not_selected(tab):
+	var _style = tab.get('custom_styles/panel')
+	_style.set_bg_color(Color('999999'))  # set to dark blue
+	print('__set_tab_not_selected', tab)
+
+
+func __set_tab_selected(tab):
+	var _style = tab.get('custom_styles/panel')
+	_style.set_bg_color(Color('e0e2e5'))  # set to light
+	print('__set_tab_selected', tab)
 
 ##################### Options
+
+# Change colors of the tab, and hide/show real divs
 func _options_show_equipement():
 	# In the options, we are showing the equipement tab, so hide
 	# the stats one
-	
-	# Change the headers part
-	# Show the equipement as shown
-	var tab_equipement = $Options/Header/TabEquipement
-	var _style = tab_equipement.get('custom_styles/panel')
-	_style.set_bg_color(Color('313b47'))  # set to dark blue
-	var v_label = $Options/Header/TabEquipement/v
-	v_label.visible = true
-	# Switch the color of the tab label
-	$Options/Header/TabEquipement/Label.set("custom_colors/font_color",Color('ffffff'))
-	
-	# And hide the other
-	var tab_stats = $Options/Header/TabStats
-	_style = tab_stats.get('custom_styles/panel')
-	_style.set_bg_color(Color('e0e2e5'))  # set to light
-	v_label = $Options/Header/TabStats/v
-	v_label.visible = false
-	$Options/Header/TabStats/Label.set("custom_colors/font_color",Color('000000'))
+	self.__set_tab_selected($Options/Header/TabEquipement)
+	self.__set_tab_not_selected($Options/Header/TabStats)
+	self.__set_tab_not_selected($Options/Header/TabSelectBook)
 	
 	# Now all is changed, we can display them
 	$Options/Equipement.visible = true
+	$Options/BookSelect.visible = false
 	$Options/Stats.visible = false
 	
 
@@ -598,35 +632,77 @@ func _options_show_stats():
 	# the stats one
 	
 	# Change the headers part
-	# Show the equipement as shown
-	var tab_equipement = $Options/Header/TabEquipement
-	var _style = tab_equipement.get('custom_styles/panel')
-	_style.set_bg_color(Color('e0e2e5'))  # set to dark blue
-	var v_label = $Options/Header/TabEquipement/v
-	v_label.visible = false
-	# Switch the color of the tab label
-	$Options/Header/TabEquipement/Label.set("custom_colors/font_color",Color('000000'))
+	self.__set_tab_not_selected($Options/Header/TabEquipement)
+	#var tab_equipement = $Options/Header/TabEquipement
+	#var _style = tab_equipement.get('custom_styles/panel')
+	#_style.set_bg_color(Color('e0e2e5'))  # set to dark blue
 	
+	self.__set_tab_not_selected($Options/Header/TabSelectBook)
+	#var tab_select_book = $Options/Header/TabSelectBook
+	#_style = tab_select_book.get('custom_styles/panel')
+	#_style.set_bg_color(Color('e0e2e5'))  # set to dark blue
+	#var v_label = $Options/Header/TabEquipement/v
+	#v_label.visible = false
+	# Switch the color of the tab label
+	#$Options/Header/TabEquipement/Label.set("custom_colors/font_color",Color('000000'))
+	
+	self.__set_tab_selected($Options/Header/TabStats)
 	# And hide the other
-	var tab_stats = $Options/Header/TabStats
-	_style = tab_stats.get('custom_styles/panel')
-	_style.set_bg_color(Color('313b47'))  # set to light
-	v_label = $Options/Header/TabStats/v
-	v_label.visible = true
-	$Options/Header/TabStats/Label.set("custom_colors/font_color",Color('ffffff'))
+	#var tab_stats = $Options/Header/TabStats
+	#_style = tab_stats.get('custom_styles/panel')
+	#_style.set_bg_color(Color('313b47'))  # set to light
+	#v_label = $Options/Header/TabStats/v
+	#v_label.visible = true
+	#$Options/Header/TabStats/Label.set("custom_colors/font_color",Color('ffffff'))
+	
 	
 	# Now all is changed, we can display them
 	$Options/Equipement.visible = false
+	$Options/BookSelect.visible = false
 	$Options/Stats.visible = true
 	
 
+
+func _options_show_book_select():
+	# In the options, light up book select, hide others
+	
+	self.__set_tab_not_selected($Options/Header/TabEquipement)
+	# Hide equipement
+	#var tab_equipement = $Options/Header/TabEquipement
+	#var _style = tab_equipement.get('custom_styles/panel')
+	#_style.set_bg_color(Color('e0e2e5'))  # set to dark blue
+	
+	self.__set_tab_selected($Options/Header/TabSelectBook)
+	# Show select book
+	#var tab_select_book = $Options/Header/TabSelectBook
+	#_style = tab_select_book.get('custom_styles/panel')
+	#_style.set_bg_color(Color('313b47'))  # set to dark blue
+
+	self.__set_tab_not_selected($Options/Header/TabStats)
+	#var tab_stats = $Options/Header/TabStats
+	#_style = tab_stats.get('custom_styles/panel')
+	#_style.set_bg_color(Color('e0e2e5'))  # set to dark blue
+	
+	
+	# Now all is changed, we can display them
+	$Options/Equipement.visible = false
+	$Options/BookSelect.visible = true
+	$Options/Stats.visible = false
+	
+
+
 func _on_button_show_equipement():
-	print('SHOW EQUIPEMENT')
+	print('_on_button_show_equipement')
 	self._options_show_equipement()
 
 
+func _on_button_show_book_select():
+	print('_on_button_show_book_select')
+	self._options_show_book_select()
+
+
 func _on_button_show_stats():
-	print('SHOW STATS')
+	print('_on_button_show_stats')
 	self._options_show_stats()
 
 
@@ -658,3 +734,21 @@ func _refresh_options_stats():
 	
 	$Options/Stats/PlayerArmValue.text = '%s' % Player.get_arm()
 	$Options/Stats/PlayerArmValueDetail.text = '(item/billy:%s' % Player.get_arm_items() + ', chapitres:%s)' % Player.get_arm_chapters()
+
+
+func _switch_to_book_fcdn():
+	print('SWITCH TO FCDN BOOK')
+	var sprite1 = $Options/BookSelect/BoolSelectFcdn/sprite
+	sprite1.material.set_shader_param("grayscale", false)
+	var sprite2 = $Options/BookSelect/BoolSelectCdsi/sprite
+	sprite2.material.set_shader_param("grayscale", true)
+	self._change_book_number(1)
+
+
+func _switch_to_book_cdsi():
+	print('SWITCH TO CDSI BOOK')
+	var sprite1 = $Options/BookSelect/BoolSelectFcdn/sprite
+	sprite1.material.set_shader_param("grayscale", true)
+	var sprite2 = $Options/BookSelect/BoolSelectCdsi/sprite
+	sprite2.material.set_shader_param("grayscale", false)
+	self._change_book_number(2)

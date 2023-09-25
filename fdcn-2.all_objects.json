@@ -1,0 +1,253 @@
+{
+  "ARC": {
+    "category": "ARME",
+    "stats": {
+      "hab": 3,
+      "adr": 1,
+      "crit": 4
+    }
+  },
+  "CDSI EST LA": {
+    "category": "EVENEMENT"
+  },
+  "ARMEE DE SQUELETTES DETRUITE": {
+    "category": "EVENEMENT"
+  },
+  "BAGUE DE RUBIS": {
+    "category": "OBJET"
+  },
+  "BISCUITS": {
+    "category": "OBJET"
+  },
+  "BOCAL A EPICES": {
+    "category": "OBJET"
+  },
+  "BOTTES EN FER": {
+    "category": "OBJET"
+  },
+  "BOULE A NEIGE": {
+    "category": "OBJET"
+  },
+  "BOUTEILLE DE MAGIE PURE": {
+    "category": "OBJET"
+  },
+  "BRACELET DE CONTROLE": {
+    "category": "OBJET"
+  },
+  "BRAS SQUELETTIQUE": {
+    "category": "OBJET"
+  },
+  "BROCHE DOREE": {
+    "category": "OBJET"
+  },
+  "CASQUE EN FER": {
+    "category": "OBJET"
+  },
+  "CEINTURE DE CHAMPION": {
+    "category": "OBJET"
+  },
+  "CHLOROGLYCERINE": {
+    "category": "OBJET"
+  },
+  "CLE A": {
+    "category": "OBJET"
+  },
+  "CLE B": {
+    "category": "OBJET"
+  },
+  "COTTE DE MAILLES": {
+    "category": "EQUIPEMENT",
+    "stats": {
+      "hab": -1,
+      "adr": -1,
+      "end": 1,
+      "arm": 2
+    }
+  },
+  "COUTEAU": {
+    "category": "OUTIL",
+    "stats": {
+      "hab": 1,
+      "crit": 6
+    }
+  },
+  "DARD EXPLOSIF": {
+    "category": "OBJET"
+  },
+  "DEBROUILLARD": {
+    "category": "BILLY",
+    "stats": {
+      "adr": 2,
+      "end": -1
+    }
+  },
+  "ECAILLE DE DRAGON": {
+    "category": "OBJET"
+  },
+  "ECUSSON D'ORC": {
+    "category": "OBJET"
+  },
+  "EFFIGIE DE DUEL": {
+    "category": "OBJET"
+  },
+  "EPEE": {
+    "category": "ARME",
+    "stats": {
+      "hab": 4
+    }
+  },
+  "EXPLOSIFS": {
+    "category": "OBJET"
+  },
+  "FER A CHEVAL": {
+    "category": "OBJET"
+  },
+  "FLASQUE D'HUILE": {
+    "category": "OBJET"
+  },
+  "FLECHES EXPLOSIVES": {
+    "category": "OBJET"
+  },
+  "FOURCHE": {
+    "category": "OUTIL",
+    "stats": {
+      "hab": 1,
+      "end": 3
+    }
+  },
+  "GEMME MAGIQUE": {
+    "category": "OBJET"
+  },
+  "GROSSE CLE": {
+    "category": "OBJET"
+  },
+  "GUERRIER": {
+    "category": "BILLY",
+    "stats": {
+      "hab": 2,
+      "cha": -1,
+      "deg": 1
+    }
+  },
+  "ICONE DES PALADINS": {
+    "category": "OBJET"
+  },
+  "KIT D'ESCALADE": {
+    "category": "OUTIL",
+    "stats": {
+      "adr": 1
+    }
+  },
+  "KIT DE SOIN": {
+    "category": "EQUIPEMENT",
+    "stats": {
+      "cha": 1
+    }
+  },
+  "LAISSEZ-PASSER": {
+    "category": "OBJET"
+  },
+  "LANCE": {
+    "category": "ARME",
+    "stats": {
+      "hab": 3,
+      "adr": 1
+    }
+  },
+  "LANIERES DE CUIRS": {
+    "category": "OBJET"
+  },
+  "LETTRE DE RECOMMANDATION": {
+    "category": "OBJET"
+  },
+  "LIME EN ACIER D'ARKADIE": {
+    "category": "OBJET"
+  },
+  "MARMITE": {
+    "category": "EQUIPEMENT",
+    "stats": {
+      "end": 2,
+      "arm": 1
+    }
+  },
+  "MEDAILLON D'EDIRE": {
+    "category": "OBJET"
+  },
+  "MEDAILLON DE RUNIR": {
+    "category": "OBJET",
+    "stats": {
+      "end": 1
+    }
+  },
+  "MORGENSTERN": {
+    "category": "ARME",
+    "stats": {
+      "hab": 1,
+      "end": 1,
+      "deg": 1
+    }
+  },
+  "PALAIS DES PLAISIRS D'YTIA": {
+    "category": "EVENEMENT"
+  },
+  "PAMPHLET": {
+    "category": "EQUIPEMENT",
+    "stats": {
+      "cha": 4
+    }
+  },
+  "PASSE-PARTOUT": {
+    "category": "OBJET"
+  },
+  "PAYSAN": {
+    "category": "BILLY",
+    "stats": {
+      "end": 2,
+      "adr": -1
+    }
+  },
+  "PERROQUET": {
+    "category": "OBJET"
+  },
+  "PETIT MEDAILLON": {
+    "category": "OBJET"
+  },
+  "PETITE BOUTEILLE D'ACIDE": {
+    "category": "OBJET"
+  },
+  "PETITE MASSUE": {
+    "category": "OBJET"
+  },
+  "PHILTRE D'AMOUR": {
+    "category": "OBJET"
+  },
+  "POINT FAIBLE": {
+    "category": "EVENEMENT"
+  },
+  "PRODUITS CHIMIQUES HASARDEUX": {
+    "category": "OBJET"
+  },
+  "PRODUITS DE NETTOYAGE": {
+    "category": "OBJET"
+  },
+  "PRUDENT": {
+    "category": "BILLY",
+    "stats": {
+      "cha": 2,
+      "hab": -1
+    }
+  },
+  "SAC DE GRAINS": {
+    "category": "OUTIL",
+    "stats": {
+      "end": 2,
+      "cha": 2
+    }
+  },
+  "SANG DE VAMPIRE": {
+    "category": "OBJET"
+  },
+  "TRESSE DE CENTAURESSE": {
+    "category": "OBJET"
+  }
+}

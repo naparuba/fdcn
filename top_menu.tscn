@@ -1,4 +1,4 @@
-[gd_scene load_steps=24 format=2]
+[gd_scene load_steps=29 format=2]
 
 [ext_resource path="res://images/success.png" type="Texture" id=1]
 [ext_resource path="res://fonts/amon_font_small.tres" type="DynamicFont" id=2]
@@ -12,23 +12,28 @@
 [ext_resource path="res://top_menu.gd" type="Script" id=10]
 [ext_resource path="res://images/items/backpack.svg" type="Texture" id=11]
 [ext_resource path="res://fonts/RobotoCondensed-Regular.ttf" type="DynamicFontData" id=12]
+[ext_resource path="res://images/options.png" type="Texture" id=13]
+[ext_resource path="res://images/fdcn_icon.png" type="Texture" id=14]
+[ext_resource path="res://images/cdsi_logo.png" type="Texture" id=15]
+[ext_resource path="res://images/cdsi_title.png" type="Texture" id=16]
+[ext_resource path="res://images/fdcn_title.png" type="Texture" id=17]
 
 [sub_resource type="StyleBoxFlat" id=1]
 bg_color = Color( 1, 1, 1, 1 )
 
+[sub_resource type="StyleBoxFlat" id=3]
+bg_color = Color( 0.913725, 0.917647, 0.92549, 1 )
+
 [sub_resource type="StyleBoxFlat" id=2]
 bg_color = Color( 1, 1, 1, 1 )
 
-[sub_resource type="StyleBoxFlat" id=3]
+[sub_resource type="StyleBoxFlat" id=6]
 bg_color = Color( 0.913725, 0.917647, 0.92549, 1 )
 
 [sub_resource type="StyleBoxFlat" id=4]
 bg_color = Color( 0.913725, 0.917647, 0.92549, 1 )
 
 [sub_resource type="StyleBoxFlat" id=5]
-bg_color = Color( 0.913725, 0.917647, 0.92549, 1 )
-
-[sub_resource type="StyleBoxFlat" id=6]
 bg_color = Color( 0.913725, 0.917647, 0.92549, 1 )
 
 [sub_resource type="DynamicFont" id=7]
@@ -48,25 +53,80 @@ bg_color = Color( 0.913725, 0.917647, 0.92549, 1 )
 bg_color = Color( 0.913725, 0.917647, 0.92549, 1 )
 
 [node name="top_menu" type="Panel"]
-margin_left = 54.0
+margin_left = 3.0
 margin_top = 9.0
 margin_right = 497.0
 margin_bottom = 51.0
 custom_styles/panel = SubResource( 1 )
 script = ExtResource( 10 )
-__meta__ = {
-"_edit_use_anchors_": false
-}
 
-[node name="Pages" type="Panel" parent="."]
-margin_left = -0.730507
+[node name="OptionsBtn" type="Panel" parent="."]
+margin_left = 4.55624
+margin_top = 3.11881
+margin_right = 41.5563
+margin_bottom = 40.1188
+custom_styles/panel = SubResource( 3 )
+
+[node name="sprite" type="Sprite" parent="OptionsBtn"]
+position = Vector2( 18.8495, 18.2999 )
+scale = Vector2( 0.0734101, 0.0733971 )
+texture = ExtResource( 13 )
+
+[node name="button" type="TextureButton" parent="OptionsBtn"]
+margin_left = -0.177032
+margin_top = -0.25
+margin_right = 36.823
+margin_bottom = 36.75
+
+[node name="BookSelection" type="Panel" parent="."]
+margin_left = 51.2695
 margin_top = 1.67555
-margin_right = 189.27
+margin_right = 241.27
 margin_bottom = 41.6756
 custom_styles/panel = SubResource( 2 )
-__meta__ = {
-"_edit_use_anchors_": false
-}
+
+[node name="BookDisplayFdcn" type="Panel" parent="BookSelection"]
+margin_left = -6.0
+margin_top = 2.0
+margin_right = 101.0
+margin_bottom = 39.0
+custom_styles/panel = SubResource( 6 )
+
+[node name="logo" type="Sprite" parent="BookSelection/BookDisplayFdcn"]
+position = Vector2( 18.8931, 18.841 )
+scale = Vector2( 0.0664966, 0.0664849 )
+texture = ExtResource( 14 )
+
+[node name="title" type="Sprite" parent="BookSelection/BookDisplayFdcn"]
+position = Vector2( 70.7305, 18.3244 )
+scale = Vector2( 0.20995, 0.209877 )
+texture = ExtResource( 17 )
+
+[node name="BookDisplayCdsi" type="Panel" parent="BookSelection"]
+visible = false
+margin_left = -3.0
+margin_top = 1.0
+margin_right = 104.0
+margin_bottom = 38.0
+custom_styles/panel = SubResource( 6 )
+
+[node name="logo" type="Sprite" parent="BookSelection/BookDisplayCdsi"]
+position = Vector2( 15.7305, 18.3244 )
+scale = Vector2( 0.122885, 0.122863 )
+texture = ExtResource( 15 )
+
+[node name="title" type="Sprite" parent="BookSelection/BookDisplayCdsi"]
+position = Vector2( 70.7305, 18.3244 )
+scale = Vector2( 0.20995, 0.209877 )
+texture = ExtResource( 16 )
+
+[node name="Pages" type="Panel" parent="."]
+visible = false
+margin_left = 51.2695
+margin_top = 1.67555
+margin_right = 241.27
+margin_bottom = 41.6756
+custom_styles/panel = SubResource( 2 )
 
 [node name="BlockMain" type="Panel" parent="Pages"]
 margin_left = 4.64337
@@ -74,9 +134,6 @@ margin_top = 1.22163
 margin_right = 41.6434
 margin_bottom = 38.2216
 custom_styles/panel = SubResource( 3 )
-__meta__ = {
-"_edit_use_anchors_": false
-}
 
 [node name="sprite" type="Sprite" parent="Pages/BlockMain"]
 position = Vector2( 18.8495, 18.2999 )
@@ -88,9 +145,6 @@ margin_left = -0.177032
 margin_top = -0.25
 margin_right = 36.823
 margin_bottom = 36.75
-__meta__ = {
-"_edit_use_anchors_": false
-}
 
 [node name="BlockChapitres" type="Panel" parent="Pages"]
 margin_left = 55.2391
@@ -98,9 +152,6 @@ margin_top = 0.971634
 margin_right = 92.2391
 margin_bottom = 37.9716
 custom_styles/panel = SubResource( 4 )
-__meta__ = {
-"_edit_use_anchors_": false
-}
 
 [node name="sprite" type="Sprite" parent="Pages/BlockChapitres"]
 position = Vector2( 19.9269, 19.1324 )
@@ -110,9 +161,6 @@ texture = ExtResource( 9 )
 [node name="button" type="TextureButton" parent="Pages/BlockChapitres"]
 margin_right = 37.0
 margin_bottom = 37.0
-__meta__ = {
-"_edit_use_anchors_": false
-}
 
 [node name="BlockSuccess" type="Panel" parent="Pages"]
 margin_left = 105.207
@@ -120,9 +168,6 @@ margin_top = 1.06625
 margin_right = 142.208
 margin_bottom = 38.0663
 custom_styles/panel = SubResource( 5 )
-__meta__ = {
-"_edit_use_anchors_": false
-}
 
 [node name="sprite" type="Sprite" parent="Pages/BlockSuccess"]
 position = Vector2( 19.2058, 18.6945 )
@@ -134,9 +179,6 @@ margin_left = 0.418823
 margin_top = 0.202682
 margin_right = 37.4188
 margin_bottom = 37.2027
-__meta__ = {
-"_edit_use_anchors_": false
-}
 
 [node name="BlockLore" type="Panel" parent="Pages"]
 margin_left = 150.557
@@ -144,9 +186,6 @@ margin_top = 0.596634
 margin_right = 187.557
 margin_bottom = 37.5966
 custom_styles/panel = SubResource( 6 )
-__meta__ = {
-"_edit_use_anchors_": false
-}
 
 [node name="sprite" type="Sprite" parent="Pages/BlockLore"]
 position = Vector2( 18.8931, 18.841 )
@@ -158,35 +197,27 @@ margin_left = -0.873657
 margin_top = 0.672302
 margin_right = 36.1263
 margin_bottom = 37.6723
-__meta__ = {
-"_edit_use_anchors_": false
-}
 
 [node name="Billys" type="Panel" parent="."]
-margin_left = 197.634
+visible = false
+margin_left = 249.634
 margin_top = 0.773258
-margin_right = 438.634
+margin_right = 490.634
 margin_bottom = 40.7732
 custom_styles/panel = SubResource( 2 )
-__meta__ = {
-"_edit_use_anchors_": false
-}
 
 [node name="BillyTypeLabel" type="Label" parent="Billys"]
 margin_left = 5.0
-margin_top = 2.0
+margin_top = 20.0
 margin_right = 65.0
-margin_bottom = 18.0
-custom_fonts/font = SubResource( 7 )
+margin_bottom = 36.0
 custom_colors/font_color = Color( 0, 0.760784, 0.666667, 1 )
 custom_constants/shadow_offset_x = 0
 custom_constants/shadow_offset_y = 0
 custom_constants/shadow_as_outline = 0
+custom_fonts/font = SubResource( 7 )
 text = "Débrouillard"
 align = 2
-__meta__ = {
-"_edit_use_anchors_": false
-}
 
 [node name="BlockGuerrier" type="Panel" parent="Billys"]
 visible = false
@@ -292,9 +323,6 @@ margin_top = 1.30374
 margin_right = 105.319
 margin_bottom = 38.3037
 custom_styles/panel = SubResource( 11 )
-__meta__ = {
-"_edit_use_anchors_": false
-}
 
 [node name="sprite" type="Sprite" parent="Billys/BlockOptions"]
 position = Vector2( 17.9156, 18.7244 )
@@ -306,63 +334,49 @@ margin_left = -0.165741
 margin_top = -0.167988
 margin_right = 37.8343
 margin_bottom = 36.832
-__meta__ = {
-"_edit_use_anchors_": false
-}
 
-[node name="SpoilLabel" type="Label" parent="Billys"]
-margin_left = 199.215
-margin_top = -1.55048
-margin_right = 269.215
-margin_bottom = 12.4495
-custom_fonts/font = ExtResource( 2 )
+[node name="SpoilLabel" type="Label" parent="."]
+margin_left = 448.849
+margin_top = -0.777222
+margin_right = 518.849
+margin_bottom = 13.2228
 custom_colors/font_color = Color( 0, 0, 0, 1 )
 custom_constants/shadow_offset_x = 0
 custom_constants/shadow_offset_y = 0
 custom_constants/shadow_as_outline = 0
+custom_fonts/font = ExtResource( 2 )
 text = "Spoils"
-__meta__ = {
-"_edit_use_anchors_": false
-}
 
-[node name="SpoilButton" type="CheckButton" parent="Billys"]
-margin_left = 175.875
-margin_top = 6.57954
-margin_right = 251.875
-margin_bottom = 46.5795
+[node name="SpoilButton" type="CheckButton" parent="."]
+margin_left = 425.509
+margin_top = 7.3528
+margin_right = 501.509
+margin_bottom = 47.3528
 focus_mode = 0
 pressed = true
 flat = true
-__meta__ = {
-"_edit_use_anchors_": false
-}
 
-[node name="SoundLabel" type="Label" parent="Billys"]
-margin_left = 115.423
-margin_top = -2.96468
-margin_right = 185.423
-margin_bottom = 11.0353
-custom_fonts/font = ExtResource( 2 )
+[node name="SoundLabel" type="Label" parent="."]
+margin_left = 365.057
+margin_top = -2.19142
+margin_right = 435.057
+margin_bottom = 11.8086
 custom_colors/font_color = Color( 0, 0, 0, 1 )
 custom_constants/shadow_offset_x = 0
 custom_constants/shadow_offset_y = 0
 custom_constants/shadow_as_outline = 0
+custom_fonts/font = ExtResource( 2 )
 text = "Voix du Lennon"
-__meta__ = {
-"_edit_use_anchors_": false
-}
 
-[node name="SoundButton" type="CheckButton" parent="Billys"]
-margin_left = 114.357
-margin_top = 6.22599
-margin_right = 190.357
-margin_bottom = 46.226
+[node name="SoundButton" type="CheckButton" parent="."]
+margin_left = 363.991
+margin_top = 6.99925
+margin_right = 439.991
+margin_bottom = 46.9993
 pressed = true
 flat = true
-__meta__ = {
-"_edit_use_anchors_": false
-}
 
+[connection signal="pressed" from="OptionsBtn/button" to="." method="_on_button_options"]
 [connection signal="pressed" from="Pages/BlockMain/button" to="." method="focus_to_main"]
 [connection signal="pressed" from="Pages/BlockChapitres/button" to="." method="focus_to_chapitres"]
 [connection signal="pressed" from="Pages/BlockSuccess/button" to="." method="focus_to_success"]
@@ -372,5 +386,5 @@ __meta__ = {
 [connection signal="pressed" from="Billys/BlockPrudent/button" to="." method="_switch_to_prudent"]
 [connection signal="pressed" from="Billys/BlockDebrouillard/button" to="." method="_switch_to_debrouillard"]
 [connection signal="pressed" from="Billys/BlockOptions/button" to="." method="_on_button_options"]
-[connection signal="toggled" from="Billys/SpoilButton" to="." method="_on_spoil_button_toggled"]
-[connection signal="toggled" from="Billys/SoundButton" to="." method="_on_sound_button_toggled"]
+[connection signal="toggled" from="SpoilButton" to="." method="_on_spoil_button_toggled"]
+[connection signal="toggled" from="SoundButton" to="." method="_on_sound_button_toggled"]

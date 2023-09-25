@@ -5,6 +5,7 @@ import json
 import sys
 import codecs
 import os
+import argparse
 
 # NOTE: I don't want a real package name for just a couple of files, so keep like this currently
 my_dir = os.path.dirname(__file__)
@@ -13,7 +14,20 @@ sys.path.insert(0, my_dir)
 from graph import Graph
 from endings import ENDINGS
 
-display_graph = graphviz.Digraph('G', filename='graph/fdcn_full', format='png')
+
+parser = argparse.ArgumentParser(description="Compile all .json for the UI app")
+parser.add_argument("--book", type=int, choices=[1, 2], help="Number of the book to compile")
+
+args = parser.parse_args()
+
+book_number = args.book
+if book_number is None:
+    print('ERROR: Missing --book parameter')
+    sys.exit(2)
+else:
+    print(f'Vous avez choisi le livre {book_number}.')
+
+display_graph = graphviz.Digraph('G', filename=f'graph/fdcn_full-{book_number}', format='png')
 
 
 def load_json_file(file_name):
@@ -23,7 +37,7 @@ def load_json_file(file_name):
     return data
 
 
-book_data = load_json_file('fdcn-1.json')
+book_data = load_json_file(f'fdcn-{book_number}.json')
 
 node_created = set()
 
@@ -104,12 +118,12 @@ for idx, n in book_data.items():
             node.add_son(son)
 
 # [1, "Plante-Citrouille"]
-arcs = load_json_file('fdcn-1.arcs.json')
+arcs = load_json_file(f'fdcn-{book_number}.arcs.json')
 
 # (arc_name, Start of sub, name, stops)
-sub_arcs = load_json_file('fdcn-1.sub_arcs.json')
+sub_arcs = load_json_file(f'fdcn-{book_number}.sub_arcs.json')
 
-manual_sub_arcs = load_json_file('fdcn-1.manual_sub_arcs.json')
+manual_sub_arcs = load_json_file(f'fdcn-{book_number}.manual_sub_arcs.json')
 
 # Tag nodes with arc, from lower to higher so we don't rewrite them
 for arc_start, arc_name in reversed(arcs):
@@ -223,9 +237,8 @@ print('Condition NOT remove:\n%s' % '\n'.join(sorted([' - %s' % s for s in condi
 
 all_discoverd_objects = all_remove | all_aquire | all_conditions
 
-with codecs.open('fdcn-1.all_objects.json', 'r', 'utf8') as f:
-    all_objs = json.loads(f.read())
-    all_objs_names = set(all_objs.keys())
+all_objs = load_json_file(f'fdcn-{book_number}.all_objects.json')
+all_objs_names = set(all_objs.keys())
 
 if all_discoverd_objects != all_objs_names:
     used_but_not_declared = all_discoverd_objects - all_objs_names
@@ -248,12 +261,11 @@ for node_id_str, node_data in book_data.items():
     node_data['computed'] = node.get_computed()
 
 new_book_data_string = json.dumps(book_data, indent=4, ensure_ascii=False, sort_keys=True)  # allow utf8
-with codecs.open('fdcn-1-compilated-data.json', 'w', 'utf8') as f:
+with codecs.open(f'fdcn-{book_number}-compilated-data.json', 'w', 'utf8') as f:
     f.write(new_book_data_string)
 
-with codecs.open('all-success.json', 'r', 'utf8') as f:
-    sucess_txt = json.loads(f.read())
-    print('Success txt', sucess_txt)
+sucess_txt = load_json_file(f'all-success-{book_number}.json')
+print('Success txt', sucess_txt)
 
 
 def get_success_txt(_id):
@@ -371,19 +383,9 @@ to_dump_as_json = {
 
 print('Generating json files for UI')
 for (k, v) in to_dump_as_json.items():
-    with codecs.open('fdcn-1-compilated-%s.json' % k, 'w', 'utf8') as f:
+    with codecs.open(f'fdcn-{book_number}-compilated-{k}.json', 'w', 'utf8') as f:
         f.write(json.dumps(v, indent=4, ensure_ascii=False, sort_keys=True))
         print(' - %s = OK' % k)
-
-# Get the node positions
-# json_string = display_graph.pipe(format='json').decode()
-# json_dict = json.loads(json_string)
-# for obj in json_dict['objects']:
-#     if 'pos' not in obj:  # do not get cluster, we don't care here
-#         continue
-#     print('OBJ: %s' % obj)
-#     print(obj['name'], '\t', obj['pos'])
-
 
 # Windows need too much deps, like dot.exe, so skip on it
 if os.name != 'nt':

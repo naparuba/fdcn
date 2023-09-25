@@ -1,0 +1,15 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+path="res://.import/lennon-c-beau.mp3-48b37e023da897acdc29b2712566ff73.mp3str"
+
+[deps]
+
+source_file="res://sounds/lennon-c-beau.mp3"
+dest_files=[ "res://.import/lennon-c-beau.mp3-48b37e023da897acdc29b2712566ff73.mp3str" ]
+
+[params]
+
+loop=false
+loop_offset=0

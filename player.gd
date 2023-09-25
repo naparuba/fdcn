@@ -18,10 +18,10 @@ var possessed_items = []
 var all_items = []
 
 # Give something like C:\Users\j.gabes\AppData\Roaming\Godot\app_userdata\fdcn for windows
-var ALL_TIMES_ALREADY_VISITED_FILE = "user://all_times_already_visited.save"
-var CURRENT_NODE_ID_FILE = "user://current_node_id.save"
-var SESSION_VISITED_NODES_FILE  = "user://session_visited_nodes.save"
-var POSSESSED_ITEM_FILE  = "user://possessed_item.save"
+var OLD_ALL_TIMES_ALREADY_VISITED_FILE = "user://all_times_already_visited.save"
+var OLD_CURRENT_NODE_ID_FILE = "user://current_node_id.save"
+var OLD_SESSION_VISITED_NODES_FILE  = "user://session_visited_nodes.save"
+var OLD_POSSESSED_ITEM_FILE  = "user://possessed_item.save"
 
 # Our stats, based on items or chapters
 var end = 0
@@ -73,10 +73,31 @@ var pv_max = 0
 var pv = 0
 var cha = 0
 
-func load_all_times_already_visited():
+
+# Be sure to migrate old files from before managing numerous books
+func _assert_migrate_file(old_path, new_path):
+	var directory = Directory.new()
 	var f = File.new()
-	if f.file_exists(ALL_TIMES_ALREADY_VISITED_FILE):
-		f.open(ALL_TIMES_ALREADY_VISITED_FILE, File.READ)
+	if !f.file_exists(old_path):
+		return
+	# Oups, migration needed!
+	print('Migrating ', old_path, 'to', new_path)
+	directory.rename(old_path, new_path)
+		
+
+func _get_all_times_already_visited_file():
+	var book_number = AppParameters.get_book_number()
+	var pth = "user://all_times_already_visited-%s.save" % book_number
+	return pth
+
+
+func load_all_times_already_visited():
+	var pth = self._get_all_times_already_visited_file()
+	self._assert_migrate_file(OLD_ALL_TIMES_ALREADY_VISITED_FILE, pth)
+	var f = File.new()
+	if f.file_exists(pth):
+		print('load_all_times_already_visited:: loading file %s' % pth)
+		f.open(pth, File.READ)
 		self.visited_nodes_all_times = f.get_var()
 		f.close()
 	else:
@@ -88,16 +109,25 @@ func load_all_times_already_visited():
 
 
 func save_all_times_already_visited():
+	var pth = self._get_all_times_already_visited_file()
 	var f = File.new()
-	f.open(ALL_TIMES_ALREADY_VISITED_FILE, File.WRITE)
+	f.open(pth, File.WRITE)
 	f.store_var(visited_nodes_all_times)
 	f.close()
 
 
+############### CURRENT NODE ID
+func _get_current_node_id_file():
+	var book_number = AppParameters.get_book_number()
+	var pth = "user://current_node_id-%s.save" % book_number
+	return pth
+
 func load_current_node_id():
 	var f = File.new()
-	if f.file_exists(CURRENT_NODE_ID_FILE):
-		f.open(CURRENT_NODE_ID_FILE, File.READ)
+	var pth = self._get_current_node_id_file()
+	self._assert_migrate_file(OLD_CURRENT_NODE_ID_FILE, pth)
+	if f.file_exists(pth):
+		f.open(pth, File.READ)
 		current_node_id = f.get_var()
 		f.close()
 	else:
@@ -105,16 +135,25 @@ func load_current_node_id():
 
 
 func save_current_node_id():
+	var pth = self._get_current_node_id_file()
 	var f = File.new()
-	f.open(CURRENT_NODE_ID_FILE, File.WRITE)
+	f.open(pth, File.WRITE)
 	f.store_var(current_node_id)
 	f.close()
 
 
+############### SESSION_VISITED_NODES
+func _get_session_visited_nodes_file():
+	var book_number = AppParameters.get_book_number()
+	var pth = "user://session_visited_nodes-%s.save" % book_number
+	return pth
+	
 func load_session_visited_nodes():
+	var pth = self._get_session_visited_nodes_file()
+	self._assert_migrate_file(OLD_SESSION_VISITED_NODES_FILE, pth)
 	var f = File.new()
-	if f.file_exists(SESSION_VISITED_NODES_FILE):
-		f.open(SESSION_VISITED_NODES_FILE, File.READ)
+	if f.file_exists(pth):
+		f.open(pth, File.READ)
 		session_visited_nodes = f.get_var()
 		f.close()
 	else:
@@ -122,16 +161,26 @@ func load_session_visited_nodes():
 
 
 func save_session_visited_nodes():
+	var pth = self._get_session_visited_nodes_file()
 	var f = File.new()
-	f.open(SESSION_VISITED_NODES_FILE, File.WRITE)
+	f.open(pth, File.WRITE)
 	f.store_var(session_visited_nodes)
 	f.close()
 
 
+############### POSSESSED_ITEM_FILE
+func _get_possessed_items_file():
+	var book_number = AppParameters.get_book_number()
+	var pth = "user://possessed_item-%s.save" % book_number
+	return pth
+	
+	
 func load_possessed_items():
+	var pth = self._get_possessed_items_file()
+	self._assert_migrate_file(OLD_POSSESSED_ITEM_FILE, pth)
 	var f = File.new()
-	if f.file_exists(POSSESSED_ITEM_FILE):
-		f.open(POSSESSED_ITEM_FILE, File.READ)
+	if f.file_exists(pth):
+		f.open(pth, File.READ)
 		self.possessed_items = f.get_var()
 		f.close()
 	else:
@@ -139,10 +188,12 @@ func load_possessed_items():
 
 
 func save_possessed_items():
+	var pth = self._get_possessed_items_file()
 	var f = File.new()
-	f.open(POSSESSED_ITEM_FILE, File.WRITE)
+	f.open(pth, File.WRITE)
 	f.store_var(self.possessed_items)
 	f.close()
+
 
 
 func guess_after_migration():
@@ -191,6 +242,7 @@ func do_load():
 
 func insert_all_objects():
 	print('Insert all objects')
+	self.all_items = []  # Always reset the list
 	var all_objects = BookData.get_all_objects()
 	for obj_name in all_objects.keys():
 		var item_data = all_objects[obj_name]
@@ -199,7 +251,7 @@ func insert_all_objects():
 		var is_ok_to_be_shown = item.is_ok_to_be_shown()
 		if is_ok_to_be_shown:
 			# Also let the Player know it does exists
-			print('KNOWN ITEM: %s' % item)
+			#print('KNOWN ITEM: %s' % item)
 			self.add_in_all_items(item)
 	if self._main:  # not in tests
 		self._main.display_all_objects()

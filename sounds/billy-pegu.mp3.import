@@ -1,0 +1,15 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+path="res://.import/billy-pegu.mp3-f43694eef60add0d454eb5575a699fdd.mp3str"
+
+[deps]
+
+source_file="res://sounds/billy-pegu.mp3"
+dest_files=[ "res://.import/billy-pegu.mp3-f43694eef60add0d454eb5575a699fdd.mp3str" ]
+
+[params]
+
+loop=false
+loop_offset=0

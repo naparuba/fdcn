@@ -5,12 +5,14 @@ var parameters = {
 	'billy': 'guerrier',
 	'spoils': true,
 	'sound': true,
+	'current_book': 1,  # which book did the user select
 }
 
-# Called when the node enters the scene tree for the first time.
-func _ready():
+func _init():
+	print('Parameters: init')
 	self._load_parameters()
 	self._apply_parameters()
+
 
 
 func _load_parameters():
@@ -39,6 +41,8 @@ func _save_parameters():
 # We warn others about the params, if changed or load
 func _apply_parameters():
 	Sounder.set_enabled(self.parameters['sound'])
+	print('PARAMETERS: _apply_parameters')
+	BookData.do_load_book(self.parameters['current_book'])
 	
 
 func are_spoils_ok():
@@ -80,4 +84,19 @@ func set_billy_type(billy_type):
 	self.parameters['billy'] = billy_type
 	self._save_parameters()
 
+
+func set_book_number(book_number):
+	var current = self.parameters['current_book']
+	if current == book_number:
+		return false
+	print('PARAMETERS: book_number => %s' % book_number)
+	self.parameters['current_book'] = book_number
+	self._save_parameters()
+	self._apply_parameters()
+	return true
  
+
+func get_book_number():
+	return self.parameters['current_book']
+	
+	

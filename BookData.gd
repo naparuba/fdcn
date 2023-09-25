@@ -2,6 +2,7 @@ extends Node
 
 var chapter_data_cls = preload('res://chapter_data.gd')
 
+var _current_book_number = 1  # Which book is currently selected
 var all_nodes = {}
 var chapters_by_arc = {}
 var chapters_by_sub_arc = {}
@@ -17,34 +18,40 @@ var all_objects = {}
 
 
 func _init():
+	print('BookData: init')
+	
+	
+func do_load_book(book_number):	
+	print('BookData: switch to book:'+str(self._current_book_number))
+	self._current_book_number = book_number
 	# Load chapter data in chapter_data class
-	var all_nodes_json = Utils.load_json_file("res://fdcn-1-compilated-data.json")
+	var all_nodes_json = Utils.load_json_file("res://fdcn-"+str(self._current_book_number)+"-compilated-data.json")
 	for node_id_str in all_nodes_json.keys():
 		var chapter_data = chapter_data_cls.new()
 		chapter_data.create(all_nodes_json[node_id_str])
 		self.all_nodes[node_id_str] = chapter_data
 	
 	# Just the list of int of the secret chapters
-	self.secret_node_ids = Utils.load_json_file("res://fdcn-1-compilated-secrets.json")
+	self.secret_node_ids = Utils.load_json_file("res://fdcn-"+str(self._current_book_number)+"-compilated-secrets.json")
 	
 	# Just a dict arc -> [ chapters ]
-	self.chapters_by_arc = Utils.load_json_file("res://fdcn-1-compilated-nodes-by-chapter.json")
+	self.chapters_by_arc = Utils.load_json_file("res://fdcn-"+str(self._current_book_number)+"-compilated-nodes-by-chapter.json")
 	
 	# Just a dict sub_arc -> [ chapters ]
-	self.chapters_by_sub_arc = Utils.load_json_file("res://fdcn-1-compilated-nodes-by-sub-arc.json")
+	self.chapters_by_sub_arc = Utils.load_json_file("res://fdcn-"+str(self._current_book_number)+"-compilated-nodes-by-sub-arc.json")
 	
 	# All the success, in a list {id, chapter, txt}
-	self.all_success = Utils.load_json_file("res://fdcn-1-compilated-success.json")
+	self.all_success = Utils.load_json_file("res://fdcn-"+str(self._current_book_number)+"-compilated-success.json")
 	# All the success chapters id in a list
-	self.all_success_chapters = Utils.load_json_file("res://fdcn-1-compilated-success-chapters.json")
+	self.all_success_chapters = Utils.load_json_file("res://fdcn-"+str(self._current_book_number)+"-compilated-success-chapters.json")
 	
 	# Endings: want all, good and bad
-	self.all_endings = Utils.load_json_file("res://fdcn-1-compilated-endings.json")
-	self.good_endings = Utils.load_json_file("res://fdcn-1-compilated-good-endings.json")
-	self.end_endings = Utils.load_json_file("res://fdcn-1-compilated-bad-endings.json")
+	self.all_endings = Utils.load_json_file("res://fdcn-"+str(self._current_book_number)+"-compilated-endings.json")
+	self.good_endings = Utils.load_json_file("res://fdcn-"+str(self._current_book_number)+"-compilated-good-endings.json")
+	self.end_endings = Utils.load_json_file("res://fdcn-"+str(self._current_book_number)+"-compilated-bad-endings.json")
 
 	# Objects, so we can insert them in the options
-	self.all_objects = Utils.load_json_file("res://fdcn-1-compilated-all-objects.json")
+	self.all_objects = Utils.load_json_file("res://fdcn-"+str(self._current_book_number)+"-compilated-all-objects.json")
 	
 
 # Called when the node enters the scene tree for the first time.

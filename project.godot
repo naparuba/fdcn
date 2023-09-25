@@ -23,11 +23,11 @@ config/icon="res://images/fdcn_icon.png"
 
 [autoload]
 
-Swiper="*res://swipe.gd"
+Sounder="*res://Sounder.tscn"
 Utils="*res://utils.gd"
 BookData="*res://BookData.gd"
-Sounder="*res://Sounder.tscn"
 AppParameters="*res://Parameters.gd"
+Swiper="*res://swipe.gd"
 Player="*res://player.gd"
 
 [display]

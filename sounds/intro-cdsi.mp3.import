@@ -1,0 +1,15 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+path="res://.import/intro-cdsi.mp3-8e46fd36f49423809d8b02bc83df3201.mp3str"
+
+[deps]
+
+source_file="res://sounds/intro-cdsi.mp3"
+dest_files=[ "res://.import/intro-cdsi.mp3-8e46fd36f49423809d8b02bc83df3201.mp3str" ]
+
+[params]
+
+loop=false
+loop_offset=0

@@ -1,0 +1,308 @@
+[
+    {
+        "chapter": 26,
+        "id": "POLIR-LANCE",
+        "label": "CDSI EN FORCE",
+        "txt": "CDSI EN FORCE"
+    },
+    {
+        "chapter": 46,
+        "id": "BOUTEILLE",
+        "label": "Laissez la bouteille",
+        "txt": "Vous avez frappé quelqu'un dans la bouche"
+    },
+    {
+        "chapter": 51,
+        "id": "CHUTE",
+        "label": "Le sol amortira la chute",
+        "txt": "Vous avez aidé une aliée à s'échapper"
+    },
+    {
+        "chapter": 72,
+        "id": "RESTOS",
+        "label": "Restos du coeur",
+        "txt": "Vous avez aidé les nécessiteux"
+    },
+    {
+        "chapter": 87,
+        "id": "ASSURANCE",
+        "label": "Assurance vie",
+        "txt": "Apprenez-en plus sur la cathédrale"
+    },
+    {
+        "chapter": 96,
+        "id": "ROI-LICHE",
+        "label": "Le monde a besoin d'un Roi-liche",
+        "txt": "Terminez le jeu avec la fin BILLYLUS"
+    },
+    {
+        "chapter": 112,
+        "id": "TROIE",
+        "label": "Le cheval des trois",
+        "txt": "Vous avez vaincu les courtisanes"
+    },
+    {
+        "chapter": 129,
+        "id": "BIG-BRAIN",
+        "label": "Big Brain Energy",
+        "txt": "Vous avez résolu l'énigme du Facteur"
+    },
+    {
+        "chapter": 135,
+        "id": "CUL-SEC",
+        "label": "Cul sec",
+        "txt": "Vous avez vaincu quelqu'un qui avait plus de bouteille que vous"
+    },
+    {
+        "chapter": 138,
+        "id": "COUP",
+        "label": "Joli COUP",
+        "txt": "Vous avez trouvé la carte du mercenaire, possiblement sans tricher"
+    },
+    {
+        "chapter": 156,
+        "id": "SEYMOUR",
+        "label": "Nourris-moi, Seymours!",
+        "txt": "Vous avez fini dans le vendre d'une plante carnivore, ce sont des choses qui arrivent"
+    },
+    {
+        "chapter": 166,
+        "id": "SLIP",
+        "label": "Un slip tout neuf",
+        "txt": "Vous avez fait récurer le vêtement du barbare"
+    },
+    {
+        "chapter": 194,
+        "id": "FILTRE-JOURNALISTE",
+        "label": "Filtre à journaliste",
+        "txt": "Vous avez vaincu le général MASSACRE et TERMINE l'Acte 1"
+    },
+    {
+        "chapter": 213,
+        "id": "REPORTAGE-EXCLUSIF",
+        "label": "Reportage exclusif",
+        "txt": "Trouvez 4 INFOS ou plus durant l'Acte 1"
+    },
+    {
+        "chapter": 222,
+        "id": "VALENT-BIEN",
+        "label": "Parce qu'elles le valent bien",
+        "txt": "Vous avez administré des soins complets"
+    },
+    {
+        "chapter": 224,
+        "id": "ESCALADED-QUICKLY",
+        "label": "Well. That escalated quickly.",
+        "txt": "Rencontrez une fin hasardeuse en tombant de votre monture"
+    },
+    {
+        "chapter": 228,
+        "id": "PUDDING",
+        "label": "Le pudding à l'arsenic",
+        "txt": "Vous avez vaincu FUNESTE politiquement"
+    },
+    {
+        "chapter": 236,
+        "id": "SAFEWORD",
+        "label": "C'était quoi le safeword?",
+        "txt": "Vous avez vaincu FUNESTE avec l'aide de vos amis"
+    },
+    {
+        "chapter": 275,
+        "id": "TOUT-CA-POUR-CA",
+        "label": "Tout ça pour ça",
+        "txt": "Vous avez ouvert le trésor du sorcier"
+    },
+    {
+        "chapter": 278,
+        "id": "CERCLE-VICIEUX",
+        "label": "Cercle vicieux",
+        "txt": "Vous avez péri en tentant de sauver le barbare d'une situation impossible"
+    },
+    {
+        "chapter": 288,
+        "id": "SECRET-HISTOIRE",
+        "label": "Secret d'histoire",
+        "txt": "Apprenez-en plus sur le quartier historique"
+    },
+    {
+        "chapter": 316,
+        "id": "CALAMITY-BILLY",
+        "label": "Calamity Billy",
+        "txt": "Affrontez les agents de la maréchaussée dans leur QG en combat singulier"
+    },
+    {
+        "chapter": 321,
+        "id": "FBI",
+        "label": "FBI! OPEN UP!",
+        "txt": "Vous avez fait une entré facassante"
+    },
+    {
+        "chapter": 329,
+        "id": "INNOCENT",
+        "label": "L'innocent",
+        "txt": "Laissez le rituel se conclure ou ratez son interruption"
+    },
+    {
+        "chapter": 338,
+        "id": "CHUT",
+        "label": "Chut!",
+        "txt": "Vous avez fait ami-ami avec la Bibliothècaire"
+    },
+    {
+        "chapter": 339,
+        "id": "ULTRA-INSTINCT",
+        "label": "Billy Ultra Instinct",
+        "txt": "Vous avez reçu une aide inespérée"
+    },
+    {
+        "chapter": 346,
+        "id": "BIERE",
+        "label": "Bière qui roule...",
+        "txt": "Vous avez déclenché une bagarre générale"
+    },
+    {
+        "chapter": 348,
+        "id": "PILE-SECRETS",
+        "label": "Une misérable petite pile de secrets",
+        "txt": "Vous avez poliement décliné l'offre d'une créature"
+    },
+    {
+        "chapter": 350,
+        "id": "ENFANT-DRAGON",
+        "label": "Billy Enfant-de-Dragon",
+        "txt": "Soumettez le dragon à la loyale"
+    },
+    {
+        "chapter": 361,
+        "id": "STARDUST",
+        "label": "Billy Stardust",
+        "txt": "Vous avez choisi le Plaisancier"
+    },
+    {
+        "chapter": 381,
+        "id": "TEMOINS",
+        "label": "Soyez témoins!!",
+        "txt": "Vous avez atteint la fin GLOIRE MAX"
+    },
+    {
+        "chapter": 408,
+        "id": "OMELETTE",
+        "label": "Pas d'omelette sans cassé du fion",
+        "txt": "Vous avez provoqué votre adversaire"
+    },
+    {
+        "chapter": 410,
+        "id": "CULTURE-PUB",
+        "label": "Culture Pub",
+        "txt": "Vous avez trouvé un produit célèbre"
+    },
+    {
+        "chapter": 436,
+        "id": "VIE-BELLE",
+        "label": "La vie est belle",
+        "txt": "Vous avez protégé les enfants des horreurs de la guerre"
+    },
+    {
+        "chapter": 454,
+        "id": "MEMOIRE-HONOREE",
+        "label": "Mémoire honorée",
+        "txt": "Vous avez atteint la fin RICHESSE MAX"
+    },
+    {
+        "chapter": 459,
+        "id": "TOUTATIS",
+        "label": "Par Toutatis",
+        "txt": "Vous avez laissé le barbare improviser"
+    },
+    {
+        "chapter": 495,
+        "id": "EMEU-PORCELAINE",
+        "label": "Un émeu dans un magasin de porcelaine",
+        "txt": "Lâcher Mimine dans le laboratoire de l'Acte IV"
+    },
+    {
+        "chapter": 505,
+        "id": "OCTOGONE",
+        "label": "Octogone",
+        "txt": "Battez l'adversaire final de l'arène et récupérez la CEINTURE DE CHAMPION"
+    },
+    {
+        "chapter": 513,
+        "id": "PREMIER",
+        "label": "J'ai eu la chance d'être appelé le premier",
+        "txt": "Vous vous êtes débarassé des occupants de la taverne"
+    },
+    {
+        "chapter": 556,
+        "id": "SORS",
+        "label": "Sors! Sors! T'as la clé!",
+        "txt": "Vous avez aidé une aliée à s'échapper"
+    },
+    {
+        "chapter": 559,
+        "id": "VIVANT",
+        "label": "Toujours vivant! Ha!",
+        "txt": "Terminez le jeu avec un Billy PRUDENT"
+    },
+    {
+        "chapter": 560,
+        "id": "FIL-EPEE",
+        "label": "Au fil de l'épée",
+        "txt": "Vous avez vaincu MORTELLE avec l'aide de vos amis"
+    },
+    {
+        "chapter": 579,
+        "id": "BULIAAA",
+        "label": "Buliaaa !!!",
+        "txt": "Terminez le jeu avec un Billy GUERRIER"
+    },
+    {
+        "chapter": 585,
+        "id": "TRAVAIL-TERMINE",
+        "label": "Travail Terminé!",
+        "txt": "Terminez le jeu avec un Billy PAYSAN"
+    },
+    {
+        "chapter": 586,
+        "id": "FLEURS",
+        "label": "Dites-le avec de fleurs",
+        "txt": "Terminez le jeu avec la fin alternative PRUDENT"
+    },
+    {
+        "chapter": 589,
+        "id": "HONNEUR",
+        "label": "Pour l'honneur",
+        "txt": "Terminez le jeu avec la fin alternative GUERRIER"
+    },
+    {
+        "chapter": 590,
+        "id": "PERSONNEL",
+        "label": "Pff...Rien de personnel!",
+        "txt": "Terminez le jeu avec un Billy DEBROUILLARD"
+    },
+    {
+        "chapter": 594,
+        "id": "ARSENE",
+        "label": "Arsène Billy",
+        "txt": "Terminez le jeu avec la fin alternative DEBROUILLARD"
+    },
+    {
+        "chapter": 595,
+        "id": "METAAAL",
+        "label": "METAAAL!!!",
+        "txt": "Rencontrez une fin stylée dans les flammes du phénix"
+    },
+    {
+        "chapter": 601,
+        "id": "SABOT",
+        "label": "Un sabot pour deux",
+        "txt": "Terminez le jeu avec la fin alternative PAYSAN"
+    },
+    {
+        "chapter": 604,
+        "id": "TU-QUOQUE-BILLY",
+        "label": "Tu quoque Billy?",
+        "txt": "Terminez le jeu avec la fin secrète PRUDENT"
+    }
+]

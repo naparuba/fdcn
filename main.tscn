@@ -1,4 +1,4 @@
-[gd_scene load_steps=63 format=2]
+[gd_scene load_steps=74 format=2]
 
 [ext_resource path="res://main.gd" type="Script" id=1]
 [ext_resource path="res://fonts/amon_font.tres" type="DynamicFont" id=2]
@@ -34,6 +34,11 @@
 [ext_resource path="res://images/fight.svg" type="Texture" id=32]
 [ext_resource path="res://images/dice/6-r.svg" type="Texture" id=33]
 [ext_resource path="res://images/barbare_icon_white.png" type="Texture" id=34]
+[ext_resource path="res://images/backpack.png" type="Texture" id=35]
+[ext_resource path="res://images/health.png" type="Texture" id=36]
+[ext_resource path="res://images/book_select.png" type="Texture" id=37]
+[ext_resource path="res://images/cdsi_book.jpg" type="Texture" id=38]
+[ext_resource path="res://images/fdcn_book.jpg" type="Texture" id=39]
 
 [sub_resource type="StyleBoxFlat" id=1]
 bg_color = Color( 0.92549, 0.929412, 0.94902, 1 )
@@ -87,6 +92,7 @@ size = 24
 font_data = ExtResource( 13 )
 
 [sub_resource type="DynamicFont" id=13]
+outline_color = Color( 0, 0, 0, 1 )
 font_data = ExtResource( 13 )
 
 [sub_resource type="DynamicFont" id=14]
@@ -100,18 +106,20 @@ corner_radius_top_right = 2
 corner_radius_bottom_right = 2
 corner_radius_bottom_left = 2
 
-[sub_resource type="StyleBoxFlat" id=16]
+[sub_resource type="StyleBoxFlat" id=35]
 bg_color = Color( 1, 1, 1, 1 )
 
 [sub_resource type="StyleBoxFlat" id=17]
 bg_color = Color( 0.192157, 0.231373, 0.278431, 1 )
 
-[sub_resource type="StyleBoxFlat" id=18]
+[sub_resource type="StyleBoxFlat" id=29]
 
-[sub_resource type="StyleBoxFlat" id=19]
+[sub_resource type="StyleBoxFlat" id=30]
 bg_color = Color( 0.878431, 0.886275, 0.898039, 1 )
 
-[sub_resource type="StyleBoxFlat" id=20]
+[sub_resource type="StyleBoxFlat" id=31]
+
+[sub_resource type="StyleBoxFlat" id=32]
 bg_color = Color( 1, 1, 1, 1 )
 
 [sub_resource type="StyleBoxEmpty" id=21]
@@ -134,6 +142,23 @@ shader_param/grayscale = false
 shader = ExtResource( 28 )
 shader_param/grayscale = false
 
+[sub_resource type="StyleBoxFlat" id=33]
+bg_color = Color( 1, 1, 1, 1 )
+
+[sub_resource type="StyleBoxFlat" id=34]
+bg_color = Color( 1, 1, 1, 1 )
+
+[sub_resource type="StyleBoxFlat" id=36]
+bg_color = Color( 1, 1, 1, 1 )
+
+[sub_resource type="ShaderMaterial" id=37]
+shader = ExtResource( 28 )
+shader_param/grayscale = false
+
+[sub_resource type="ShaderMaterial" id=38]
+shader = ExtResource( 28 )
+shader_param/grayscale = false
+
 [sub_resource type="StyleBoxEmpty" id=28]
 
 [node name="main" type="Node2D"]
@@ -145,9 +170,6 @@ margin_right = 559.0
 margin_bottom = 1046.0
 mouse_filter = 1
 custom_styles/panel = SubResource( 1 )
-__meta__ = {
-"_edit_use_anchors_": false
-}
 
 [node name="Left-Back" parent="Background" instance=ExtResource( 16 )]
 txt = "Chapitre précédent"
@@ -159,6 +181,10 @@ txt = "Tous les chapitres"
 dest = "chapitres"
 
 [node name="top_menu" parent="Background" instance=ExtResource( 10 )]
+margin_left = 1.0
+margin_top = 3.0
+margin_right = 495.0
+margin_bottom = 45.0
 
 [node name="GlobalCompletion" type="Panel" parent="Background"]
 margin_left = 53.069
@@ -561,10 +587,10 @@ txt = "Les succès"
 dest = "success"
 
 [node name="top_menu" parent="Chapitres" instance=ExtResource( 10 )]
-margin_left = 60.378
-margin_top = 4.91962
-margin_right = 503.378
-margin_bottom = 46.9196
+margin_left = 2.37799
+margin_top = 0.919621
+margin_right = 496.378
+margin_bottom = 42.9196
 
 [node name="AllChapters" type="Panel" parent="Chapitres"]
 margin_left = 59.0
@@ -965,10 +991,10 @@ txt = "Lore"
 dest = "lore"
 
 [node name="top_menu" parent="Succes" instance=ExtResource( 10 )]
-margin_left = 58.71
-margin_top = 3.91962
-margin_right = 501.71
-margin_bottom = 45.9196
+margin_left = 0.709999
+margin_top = -0.08038
+margin_right = 443.71
+margin_bottom = 41.9196
 
 [node name="Success" type="Panel" parent="Succes"]
 margin_left = 56.9229
@@ -1049,10 +1075,10 @@ txt = "A propos"
 dest = "about"
 
 [node name="top_menu" parent="Lore" instance=ExtResource( 10 )]
-margin_left = 58.3101
-margin_top = 3.60144
-margin_right = 501.31
-margin_bottom = 45.6014
+margin_left = 0.310101
+margin_top = -0.39856
+margin_right = 443.31
+margin_bottom = 41.6014
 
 [node name="Lore" type="Panel" parent="Lore"]
 margin_left = 58.0
@@ -1252,10 +1278,10 @@ txt = "Lore"
 dest = "lore"
 
 [node name="top_menu" parent="About" instance=ExtResource( 10 )]
-margin_left = 58.3101
-margin_top = 3.60144
-margin_right = 501.31
-margin_bottom = 45.6014
+margin_left = -0.689899
+margin_top = 0.60144
+margin_right = 442.31
+margin_bottom = 42.6014
 
 [node name="Actions" type="Panel" parent="About"]
 margin_left = 58.0
@@ -1473,7 +1499,7 @@ custom_constants/shadow_offset_x = 0
 custom_constants/shadow_offset_y = 0
 custom_constants/shadow_as_outline = 0
 custom_fonts/font = ExtResource( 2 )
-text = "0.13"
+text = "0.14"
 __meta__ = {
 "_edit_use_anchors_": false
 }
@@ -2056,171 +2082,83 @@ margin_left = 5.0
 margin_top = 51.0
 margin_right = 553.0
 margin_bottom = 1028.0
-custom_styles/panel = SubResource( 16 )
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="OptionsLabel" type="Panel" parent="Options"]
-margin_left = 0.793701
-margin_top = -42.2063
-margin_right = 250.794
-margin_bottom = -0.206299
-mouse_filter = 1
-custom_styles/panel = SubResource( 17 )
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="Label" type="Label" parent="Options/OptionsLabel"]
-margin_left = 40.8458
-margin_top = 6.5009
-margin_right = 224.846
-margin_bottom = 37.5009
-custom_fonts/font = ExtResource( 2 )
-text = "Options"
-align = 1
-__meta__ = {
-"_edit_use_anchors_": false
-}
+custom_styles/panel = SubResource( 35 )
 
 [node name="Header" type="Panel" parent="Options"]
-margin_right = 548.0
-margin_bottom = 42.0
+margin_right = 93.0
+margin_bottom = 986.0
 mouse_filter = 1
 custom_styles/panel = SubResource( 17 )
-__meta__ = {
-"_edit_use_anchors_": false
-}
 
 [node name="TabEquipement" type="Panel" parent="Options/Header"]
-margin_right = 252.0
-margin_bottom = 40.0
-custom_styles/panel = SubResource( 18 )
+margin_right = 92.0
+margin_bottom = 194.0
+custom_styles/panel = SubResource( 29 )
 
-[node name="Label" type="Label" parent="Options/Header/TabEquipement"]
-margin_left = 45.3523
-margin_top = -4.20197
-margin_right = 229.352
-margin_bottom = 26.798
-custom_fonts/font = ExtResource( 2 )
-text = "Equipement"
-align = 1
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="v" type="Label" parent="Options/Header/TabEquipement"]
-margin_left = 100.056
-margin_top = 14.8253
-margin_right = 284.056
-margin_bottom = 45.8253
-custom_colors/font_color = Color( 1, 1, 1, 1 )
-custom_fonts/font = ExtResource( 2 )
-text = "v"
-align = 1
-__meta__ = {
-"_edit_use_anchors_": false
-}
+[node name="EquipementSprite" type="Sprite" parent="Options/Header/TabEquipement"]
+position = Vector2( 47, 106 )
+scale = Vector2( 0.307692, 0.292169 )
+texture = ExtResource( 35 )
 
 [node name="button" type="TextureButton" parent="Options/Header/TabEquipement"]
 margin_left = -1.0
 margin_top = -1.0
-margin_right = 251.0
-margin_bottom = 43.0
+margin_right = 89.0
+margin_bottom = 194.0
 
 [node name="TabStats" type="Panel" parent="Options/Header"]
-margin_left = 250.0
-margin_top = 0.378403
-margin_right = 491.0
-margin_bottom = 40.3784
-custom_styles/panel = SubResource( 19 )
-__meta__ = {
-"_edit_use_anchors_": false
-}
+margin_top = 198.0
+margin_right = 91.0
+margin_bottom = 434.0
+custom_styles/panel = SubResource( 30 )
 
-[node name="Label" type="Label" parent="Options/Header/TabStats"]
-margin_left = 37.9505
-margin_top = -3.39116
-margin_right = 221.951
-margin_bottom = 27.6088
-custom_colors/font_color = Color( 0, 0, 0, 1 )
-custom_fonts/font = ExtResource( 2 )
-text = "Stats"
-align = 1
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="v" type="Label" parent="Options/Header/TabStats"]
-margin_left = 56.9778
-margin_top = 12.0685
-margin_right = 240.978
-margin_bottom = 43.0685
-custom_colors/font_color = Color( 1, 1, 1, 1 )
-custom_fonts/font = ExtResource( 2 )
-text = "v"
-align = 1
-__meta__ = {
-"_edit_use_anchors_": false
-}
+[node name="StatsSprite" type="Sprite" parent="Options/Header/TabStats"]
+position = Vector2( 47, 105 )
+scale = Vector2( 0.715606, 0.871041 )
+texture = ExtResource( 36 )
 
 [node name="button" type="TextureButton" parent="Options/Header/TabStats"]
+margin_left = 4.0
+margin_top = 1.0
+margin_right = 89.0
+margin_bottom = 235.0
+
+[node name="TabSelectBook" type="Panel" parent="Options/Header"]
+margin_top = 439.0
+margin_right = 92.0
+margin_bottom = 633.0
+custom_styles/panel = SubResource( 31 )
+
+[node name="SelectBookSprite" type="Sprite" parent="Options/Header/TabSelectBook"]
+position = Vector2( 45, 99 )
+scale = Vector2( 0.158966, 0.199014 )
+texture = ExtResource( 37 )
+
+[node name="button" type="TextureButton" parent="Options/Header/TabSelectBook"]
 margin_left = -1.0
-margin_top = -3.3784
-margin_right = 238.0
-margin_bottom = 40.6216
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="tick" type="Panel" parent="Options/Header"]
-margin_left = 497.592
-margin_top = 2.68369
-margin_right = 533.592
-margin_bottom = 38.6837
-custom_styles/panel = SubResource( 11 )
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="tick" type="Sprite" parent="Options/Header/tick"]
-position = Vector2( 19.082, 17.7634 )
-scale = Vector2( 0.0471715, 0.0471715 )
-texture = ExtResource( 30 )
-
-[node name="button" type="TextureButton" parent="Options/Header/tick"]
-margin_left = -1.04053
-margin_top = -1.78381
-margin_right = 38.9595
-margin_bottom = 38.2162
+margin_top = -1.0
+margin_right = 89.0
+margin_bottom = 194.0
 
 [node name="Equipement" type="Panel" parent="Options"]
 visible = false
-margin_left = 1.0
-margin_top = 44.0
+margin_left = 95.0
 margin_right = 547.0
 margin_bottom = 981.0
 mouse_filter = 1
-custom_styles/panel = SubResource( 20 )
-__meta__ = {
-"_edit_use_anchors_": false
-}
+custom_styles/panel = SubResource( 32 )
 
 [node name="BlockGuerrier" type="Panel" parent="Options/Equipement"]
-margin_left = 23.8176
-margin_top = 67.1487
-margin_right = 184.818
-margin_bottom = 503.149
+margin_left = -2.0
+margin_right = 159.0
+margin_bottom = 451.0
 rect_scale = Vector2( 0.7, 0.7 )
 custom_styles/panel = SubResource( 21 )
-__meta__ = {
-"_edit_use_anchors_": false
-}
 
 [node name="sprite" type="Sprite" parent="Options/Equipement/BlockGuerrier"]
 material = ExtResource( 29 )
-position = Vector2( 81.5072, 218.73 )
+position = Vector2( 74.416, 198.723 )
+scale = Vector2( 0.822243, 0.908078 )
 texture = ExtResource( 27 )
 
 [node name="button" type="TextureButton" parent="Options/Equipement/BlockGuerrier"]
@@ -2233,19 +2171,17 @@ __meta__ = {
 }
 
 [node name="BlockPaysan" type="Panel" parent="Options/Equipement"]
-margin_left = 137.0
-margin_top = 67.0
-margin_right = 304.0
-margin_bottom = 504.0
+margin_left = 113.0
+margin_top = 4.0
+margin_right = 280.0
+margin_bottom = 400.0
 rect_scale = Vector2( 0.7, 0.7 )
 custom_styles/panel = SubResource( 22 )
-__meta__ = {
-"_edit_use_anchors_": false
-}
 
 [node name="sprite" type="Sprite" parent="Options/Equipement/BlockPaysan"]
 material = SubResource( 23 )
-position = Vector2( 83.8195, 218.718 )
+position = Vector2( 64.0526, 194.537 )
+scale = Vector2( 0.864614, 0.907562 )
 texture = ExtResource( 26 )
 
 [node name="button" type="TextureButton" parent="Options/Equipement/BlockPaysan"]
@@ -2259,19 +2195,17 @@ __meta__ = {
 }
 
 [node name="BlockPrudent" type="Panel" parent="Options/Equipement"]
-margin_left = 253.277
-margin_top = 67.1189
-margin_right = 421.277
-margin_bottom = 503.119
+margin_left = 232.0
+margin_top = 2.00001
+margin_right = 386.0
+margin_bottom = 407.0
 rect_scale = Vector2( 0.7, 0.7 )
 custom_styles/panel = SubResource( 24 )
-__meta__ = {
-"_edit_use_anchors_": false
-}
 
 [node name="sprite" type="Sprite" parent="Options/Equipement/BlockPrudent"]
 material = SubResource( 25 )
-position = Vector2( 83.8195, 218.718 )
+position = Vector2( 51.1954, 199.538 )
+scale = Vector2( 0.8289, 0.917414 )
 texture = ExtResource( 25 )
 
 [node name="button" type="TextureButton" parent="Options/Equipement/BlockPrudent"]
@@ -2285,10 +2219,10 @@ __meta__ = {
 }
 
 [node name="BlockDebrouillard" type="Panel" parent="Options/Equipement"]
-margin_left = 370.767
-margin_top = 68.4112
-margin_right = 567.767
-margin_bottom = 502.411
+margin_left = 328.0
+margin_top = 10.0
+margin_right = 504.0
+margin_bottom = 415.0
 rect_scale = Vector2( 0.7, 0.7 )
 custom_styles/panel = SubResource( 26 )
 __meta__ = {
@@ -2297,7 +2231,8 @@ __meta__ = {
 
 [node name="sprite" type="Sprite" parent="Options/Equipement/BlockDebrouillard"]
 material = SubResource( 27 )
-position = Vector2( 98.2081, 217.282 )
+position = Vector2( 82.4091, 187.981 )
+scale = Vector2( 0.836486, 0.923395 )
 texture = ExtResource( 24 )
 
 [node name="button" type="TextureButton" parent="Options/Equipement/BlockDebrouillard"]
@@ -2314,15 +2249,12 @@ __meta__ = {
 anchor_right = 1.0
 anchor_bottom = 1.0
 margin_left = -1.0
-margin_top = 413.0
-margin_right = -1.00031
-margin_bottom = 5.00452
-__meta__ = {
-"_edit_use_anchors_": false
-}
+margin_top = 288.0
+margin_right = -1.0
+margin_bottom = 5.0
 
 [node name="Items" type="VBoxContainer" parent="Options/Equipement/ItemsCont"]
-margin_right = 500.0
+margin_right = 450.0
 margin_bottom = 104.0
 
 [node name="Panel" parent="Options/Equipement/ItemsCont/Items" instance=ExtResource( 31 )]
@@ -2332,15 +2264,25 @@ margin_top = 54.0
 margin_bottom = 104.0
 
 [node name="Stats" type="Panel" parent="Options"]
-margin_left = 1.0
+margin_left = 92.0
 margin_top = 41.0
 margin_right = 547.0
 margin_bottom = 981.0
 mouse_filter = 1
-custom_styles/panel = SubResource( 20 )
-__meta__ = {
-"_edit_use_anchors_": false
-}
+custom_styles/panel = SubResource( 33 )
+
+[node name="WarningText" type="Label" parent="Options/Stats"]
+margin_left = 26.0
+margin_top = -22.0
+margin_right = 353.0
+margin_bottom = 8.99951
+custom_colors/font_color = Color( 1, 0.419608, 0, 1 )
+custom_constants/shadow_offset_x = 0
+custom_constants/shadow_offset_y = 0
+custom_constants/shadow_as_outline = 0
+custom_fonts/font = SubResource( 13 )
+text = "Attention: fonctionalité non finie, bugs possibles :)"
+align = 1
 
 [node name="PlayerPvLabel" type="Label" parent="Options/Stats"]
 margin_left = 55.3231
@@ -2354,9 +2296,6 @@ custom_constants/shadow_as_outline = 0
 custom_fonts/font = SubResource( 13 )
 text = "PV:"
 align = 1
-__meta__ = {
-"_edit_use_anchors_": false
-}
 
 [node name="PlayerPvValue" type="Label" parent="Options/Stats"]
 margin_left = 110.221
@@ -2710,7 +2649,57 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
+[node name="BookSelect" type="Panel" parent="Options"]
+visible = false
+margin_left = 95.0
+margin_top = 1.0
+margin_right = 550.0
+margin_bottom = 941.0
+mouse_filter = 1
+custom_styles/panel = SubResource( 34 )
+
+[node name="BoolSelectFcdn" type="Panel" parent="Options/BookSelect"]
+margin_left = 74.0
+margin_top = 89.0
+margin_right = 505.0
+margin_bottom = 630.0
+rect_scale = Vector2( 0.7, 0.7 )
+custom_styles/panel = SubResource( 36 )
+
+[node name="sprite" type="Sprite" parent="Options/BookSelect/BoolSelectFcdn"]
+material = SubResource( 37 )
+position = Vector2( 213.571, 265.736 )
+scale = Vector2( 0.184632, 0.217434 )
+texture = ExtResource( 39 )
+
+[node name="button" type="TextureButton" parent="Options/BookSelect/BoolSelectFcdn"]
+margin_left = 26.0
+margin_top = -27.0
+margin_right = 400.0
+margin_bottom = 560.0
+
+[node name="BoolSelectCdsi" type="Panel" parent="Options/BookSelect"]
+margin_left = 72.0
+margin_top = 508.0
+margin_right = 503.0
+margin_bottom = 1049.0
+rect_scale = Vector2( 0.7, 0.7 )
+custom_styles/panel = SubResource( 36 )
+
+[node name="sprite" type="Sprite" parent="Options/BookSelect/BoolSelectCdsi"]
+material = SubResource( 38 )
+position = Vector2( 221.423, 298.373 )
+scale = Vector2( 0.742878, 0.856293 )
+texture = ExtResource( 38 )
+
+[node name="button" type="TextureButton" parent="Options/BookSelect/BoolSelectCdsi"]
+margin_left = 33.0
+margin_top = 21.0
+margin_right = 406.0
+margin_bottom = 573.0
+
 [node name="ItemPopups" type="Panel" parent="."]
+visible = false
 anchor_right = 1.0
 anchor_bottom = 1.0
 margin_left = 260.0
@@ -2731,9 +2720,6 @@ margin_top = -2.0
 margin_right = 446.0
 margin_bottom = 168.0
 mouse_filter = 1
-__meta__ = {
-"_edit_use_anchors_": false
-}
 
 [node name="ItemPopupsCont" type="VBoxContainer" parent="ItemPopups/ScrollContainer"]
 
@@ -2756,8 +2742,10 @@ __meta__ = {
 [connection signal="pressed" from="Combat/dice/button" to="." method="_on_dice_pressed"]
 [connection signal="pressed" from="Options/Header/TabEquipement/button" to="." method="_on_button_show_equipement"]
 [connection signal="pressed" from="Options/Header/TabStats/button" to="." method="_on_button_show_stats"]
-[connection signal="pressed" from="Options/Header/tick/button" to="." method="_on_options_validate_button_pressed"]
+[connection signal="pressed" from="Options/Header/TabSelectBook/button" to="." method="_on_button_show_book_select"]
 [connection signal="pressed" from="Options/Equipement/BlockGuerrier/button" to="." method="_switch_to_guerrier"]
 [connection signal="pressed" from="Options/Equipement/BlockPaysan/button" to="." method="_switch_to_paysan"]
 [connection signal="pressed" from="Options/Equipement/BlockPrudent/button" to="." method="_switch_to_prudent"]
 [connection signal="pressed" from="Options/Equipement/BlockDebrouillard/button" to="." method="_switch_to_debrouillard"]
+[connection signal="pressed" from="Options/BookSelect/BoolSelectFcdn/button" to="." method="_switch_to_book_fcdn"]
+[connection signal="pressed" from="Options/BookSelect/BoolSelectCdsi/button" to="." method="_switch_to_book_cdsi"]

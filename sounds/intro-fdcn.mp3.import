@@ -1,0 +1,15 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+path="res://.import/intro-fdcn.mp3-bbac751d911f1f1d36723de7832724d7.mp3str"
+
+[deps]
+
+source_file="res://sounds/intro-fdcn.mp3"
+dest_files=[ "res://.import/intro-fdcn.mp3-bbac751d911f1f1d36723de7832724d7.mp3str" ]
+
+[params]
+
+loop=false
+loop_offset=0
