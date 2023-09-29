@@ -144,17 +144,25 @@ func _play_node_sound():
 	var player = $AudioPlayer
 	# In all cases, stop the player
 	player.stop()
+	var book_number = AppParameters.get_book_number()
 	
 	var node_sound_fnames = {
-		27: '27-kakaka.mp3',
-		193: '193-la-cathedrale.mp3',
-		216: '216-tour-des-mages.mp3',
-		338: '338-virilus-backstory.mp3'
+		# FDCN
+		1 : {
+			27: '27-kakaka.mp3',
+			193: '193-la-cathedrale.mp3',
+			216: '216-tour-des-mages.mp3',
+			338: '338-virilus-backstory.mp3'
+		},
+		# CDSI
+		2 : {
+			
+		},
 	}
-	var fname = node_sound_fnames.get(int(Player.get_current_node_id()))
+	var fname = node_sound_fnames[book_number].get(int(Player.get_current_node_id()))
 	if fname == null:  # no sound this node
 		return
-
+	
 	Sounder.play(fname)
 
 
@@ -435,7 +443,6 @@ func refresh():
 	if my_node.get_ending():
 		var choice = EndingChoice.instance()
 		choice.set_main(self)
-		print('IS AN END')
 		# Need an id for display:
 		# * is a success: take it
 		# * is not, take ending_id entry
