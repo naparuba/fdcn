@@ -1,0 +1,15 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+path="res://.import/phumta.mp3-1746fa8c2ac54615ef467274aa6d59db.mp3str"
+
+[deps]
+
+source_file="res://sounds/dieux/2/phumta.mp3"
+dest_files=[ "res://.import/phumta.mp3-1746fa8c2ac54615ef467274aa6d59db.mp3str" ]
+
+[params]
+
+loop=false
+loop_offset=0

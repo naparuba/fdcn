@@ -6,6 +6,7 @@ extends Panel
 export var type_entry = 'billys'
 export var entry_name = 'guerrier'
 export var titre = 'XXXX'
+export var book_number = 1
 
 
 var is_playing = false
@@ -19,6 +20,8 @@ func _ready():
 	if type_entry == 'dieux':
 		ext = 'jpg'
 	var pth = 'res://images/%s/'%type_entry
+	if type_entry == 'dieux':
+		pth += '%s/' % self.book_number
 	pth += entry_name
 	pth += '.%s' % ext
 
@@ -50,7 +53,12 @@ func _on_play_pressed():
 
 	# Play
 	if ! self.is_playing:
-		var pth = 'res://sounds/%s/'%type_entry
+		var pth = ''
+		if type_entry == 'dieux':
+			pth = 'res://sounds/%s/' % type_entry
+			pth += '%s/' % self.book_number
+		else:
+			pth = 'res://sounds/%s/' % type_entry
 		pth += entry_name
 		pth += '.mp3'
 		print('FULL PATH: %s' % pth)

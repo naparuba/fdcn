@@ -1,0 +1,15 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+path="res://.import/vetherr.mp3-f29a731f6be251faa0e350f45dab892d.mp3str"
+
+[deps]
+
+source_file="res://sounds/dieux/1/vetherr.mp3"
+dest_files=[ "res://.import/vetherr.mp3-f29a731f6be251faa0e350f45dab892d.mp3str" ]
+
+[params]
+
+loop=false
+loop_offset=0

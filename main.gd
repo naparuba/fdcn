@@ -8,6 +8,7 @@ onready var Bread = preload('res://bread.tscn')
 onready var Choice = preload('res://ChapterChoice.tscn')
 onready var EndingChoice = preload('res://EndingChoice.tscn')
 onready var Success = preload('res://Success.tscn')
+onready var LoreEntry = preload('res://LoreEntry.tscn')
 onready var Item = preload('res://Item.tscn')
 onready var ItemPopup = preload('res://ItemPopup.tscn')
 
@@ -50,6 +51,8 @@ func _do_load_book_context():
 	self.insert_all_chapters()
 	# And success to the 3th
 	self.insert_all_success()
+	# Also lore as book have differents gods ^^
+	self.insert_all_lore()
 	
 	Player.insert_all_objects()
 	
@@ -250,6 +253,62 @@ func insert_all_success():
 		s.set_main(self)
 		s.set_from_success_object(success)
 		all_success.add_child(s)
+
+func insert_all_lore():
+	var all_lore = $Lore/Lore/VScrollBar/persos
+	Utils.delete_children(all_lore)
+	
+	var book_number = AppParameters.get_book_number()
+	
+	var refs = {
+		1: [
+			{'type': 'billys', 'name': 'guerrier', 'title':'Billy Guerrier'},
+			{'type': 'billys', 'name': 'paysan', 'title':'Billy Paysan'},
+			{'type': 'billys', 'name': 'prudent', 'title':'Billy Prudent'},
+			{'type': 'billys', 'name': 'debrouillard', 'title':'Billy Debrouillard'},
+			# Dieux
+			{'type': 'dieux', 'name': 'atella', 'title':'Atella'},
+			{'type': 'dieux', 'name': 'blathnat', 'title':'Blathnat'},
+			{'type': 'dieux', 'name': 'edire', 'title':'Edire'},
+			{'type': 'dieux', 'name': 'mutra', 'title':'Mutra'},
+			{'type': 'dieux', 'name': 'melene', 'title':'Melene'},
+			{'type': 'dieux', 'name': 'neit', 'title':'Neit'},
+			{'type': 'dieux', 'name': 'nyses', 'title':'Nyses'},
+			{'type': 'dieux', 'name': 'parodikos', 'title':'Parodikos'},
+			{'type': 'dieux', 'name': 'phumtar', 'title':'Phumtar'},
+			{'type': 'dieux', 'name': 'runir', 'title':'Runir'},
+			{'type': 'dieux', 'name': 'vetherr', 'title':'Vetherr'},
+			{'type': 'dieux', 'name': 'virilus', 'title':'Virilus'},
+			{'type': 'dieux', 'name': 'ytia', 'title':'Ytia'},
+			{'type': 'dieux', 'name': 'zarkan', 'title':'Zarkan'},
+		],
+		2: [
+			{'type': 'billys', 'name': 'guerrier', 'title':'Billy Guerrier'},
+			{'type': 'billys', 'name': 'paysan', 'title':'Billy Paysan'},
+			{'type': 'billys', 'name': 'prudent', 'title':'Billy Prudent'},
+			{'type': 'billys', 'name': 'debrouillard', 'title':'Billy Debrouillard'},
+			# Dieux
+			{'type': 'dieux', 'name': 'blathnat', 'title':'Blathnat'},
+			{'type': 'dieux', 'name': 'iotos', 'title':'Iotos'},
+			{'type': 'dieux', 'name': 'khalassa_et_ohassa', 'title':'khalassa et o\'hassa'},
+			{'type': 'dieux', 'name': 'nehdira', 'title':'Neh\'Dira'},
+			{'type': 'dieux', 'name': 'phumta', 'title':'Phumta'},
+			{'type': 'dieux', 'name': 'vetherr', 'title':'Vetherr'},
+			{'type': 'dieux', 'name': 'zarhkhan', 'title':'Zarhkhan'},
+			
+		],
+	}
+	var lst = refs.get(book_number)
+	
+	for _def in lst:
+		var s = LoreEntry.instance()
+		s.type_entry = _def['type']
+		s.entry_name = _def['name']
+		s.titre = _def['title']
+		s.book_number = book_number
+		
+		all_lore.add_child(s)
+
 
 
 func _update_all_success():

@@ -1,0 +1,15 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+path="res://.import/blathnat.mp3-05a3264d4f5a4faf27f42438d01d2528.mp3str"
+
+[deps]
+
+source_file="res://sounds/dieux/1/blathnat.mp3"
+dest_files=[ "res://.import/blathnat.mp3-05a3264d4f5a4faf27f42438d01d2528.mp3str" ]
+
+[params]
+
+loop=false
+loop_offset=0

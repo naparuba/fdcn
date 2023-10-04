@@ -1,0 +1,15 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+path="res://.import/nyses.mp3-41d3381bb4eb0d0c1765b54134fe0932.mp3str"
+
+[deps]
+
+source_file="res://sounds/dieux/1/nyses.mp3"
+dest_files=[ "res://.import/nyses.mp3-41d3381bb4eb0d0c1765b54134fe0932.mp3str" ]
+
+[params]
+
+loop=false
+loop_offset=0

@@ -1,0 +1,15 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+path="res://.import/iotos.mp3-164d695b2b242e48a21fc0af4a4f89d3.mp3str"
+
+[deps]
+
+source_file="res://sounds/dieux/2/iotos.mp3"
+dest_files=[ "res://.import/iotos.mp3-164d695b2b242e48a21fc0af4a4f89d3.mp3str" ]
+
+[params]
+
+loop=false
+loop_offset=0

@@ -7,9 +7,6 @@ margin_right = 93.0
 margin_bottom = 40.0
 rect_min_size = Vector2( 70, 0 )
 script = ExtResource( 1 )
-__meta__ = {
-"_edit_use_anchors_": false
-}
 
 [node name="poly_for_first" type="Polygon2D" parent="."]
 visible = false

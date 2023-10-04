@@ -1,0 +1,15 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+path="res://.import/parodikos.mp3-0eeecce8850624a71828496c504f5fe2.mp3str"
+
+[deps]
+
+source_file="res://sounds/dieux/1/parodikos.mp3"
+dest_files=[ "res://.import/parodikos.mp3-0eeecce8850624a71828496c504f5fe2.mp3str" ]
+
+[params]
+
+loop=false
+loop_offset=0

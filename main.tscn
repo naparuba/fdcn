@@ -28,7 +28,6 @@
 [ext_resource path="res://images/billys/paysan.png" type="Texture" id=26]
 [ext_resource path="res://images/billys/guerrier.png" type="Texture" id=27]
 [ext_resource path="res://shaders/gray.gdshader" type="Shader" id=28]
-[ext_resource path="res://shaders/shader_grey.tres" type="Material" id=29]
 [ext_resource path="res://images/blue-tick.png" type="Texture" id=30]
 [ext_resource path="res://Item.tscn" type="PackedScene" id=31]
 [ext_resource path="res://images/fight.svg" type="Texture" id=32]
@@ -123,6 +122,10 @@ bg_color = Color( 0.878431, 0.886275, 0.898039, 1 )
 bg_color = Color( 1, 1, 1, 1 )
 
 [sub_resource type="StyleBoxEmpty" id=21]
+
+[sub_resource type="ShaderMaterial" id=39]
+shader = ExtResource( 28 )
+shader_param/grayscale = false
 
 [sub_resource type="StyleBoxEmpty" id=22]
 
@@ -355,9 +358,6 @@ custom_constants/shadow_offset_y = 0
 custom_constants/shadow_as_outline = 0
 custom_fonts/font = ExtResource( 2 )
 text = "XXX"
-__meta__ = {
-"_edit_use_anchors_": false
-}
 
 [node name="fleche_arc" type="Sprite" parent="Background/Position"]
 position = Vector2( 41.105, 102.211 )
@@ -1441,6 +1441,7 @@ texture = ExtResource( 22 )
 position = Vector2( 392.257, 88.6701 )
 scale = Vector2( 0.342538, 0.342538 )
 frames = SubResource( 7 )
+frame = 1
 playing = true
 
 [node name="DevLabel" type="Label" parent="About/About"]
@@ -1499,10 +1500,7 @@ custom_constants/shadow_offset_x = 0
 custom_constants/shadow_offset_y = 0
 custom_constants/shadow_as_outline = 0
 custom_fonts/font = ExtResource( 2 )
-text = "0.14"
-__meta__ = {
-"_edit_use_anchors_": false
-}
+text = "0.15"
 
 [node name="SrcLabel" type="Label" parent="About/About"]
 margin_left = 15.593
@@ -2073,7 +2071,6 @@ __meta__ = {
 position = Vector2( 349.257, 373.67 )
 scale = Vector2( 0.342538, 0.342538 )
 frames = SubResource( 7 )
-frame = 1
 playing = true
 
 [node name="Options" type="Panel" parent="."]
@@ -2141,7 +2138,6 @@ margin_right = 89.0
 margin_bottom = 194.0
 
 [node name="Equipement" type="Panel" parent="Options"]
-visible = false
 margin_left = 95.0
 margin_right = 547.0
 margin_bottom = 981.0
@@ -2156,7 +2152,7 @@ rect_scale = Vector2( 0.7, 0.7 )
 custom_styles/panel = SubResource( 21 )
 
 [node name="sprite" type="Sprite" parent="Options/Equipement/BlockGuerrier"]
-material = ExtResource( 29 )
+material = SubResource( 39 )
 position = Vector2( 74.416, 198.723 )
 scale = Vector2( 0.822243, 0.908078 )
 texture = ExtResource( 27 )
@@ -2264,6 +2260,7 @@ margin_top = 54.0
 margin_bottom = 104.0
 
 [node name="Stats" type="Panel" parent="Options"]
+visible = false
 margin_left = 92.0
 margin_top = 41.0
 margin_right = 547.0

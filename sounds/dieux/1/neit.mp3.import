@@ -1,0 +1,15 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+path="res://.import/neit.mp3-cefd1e245b2f45ac88836e9cee15f8bf.mp3str"
+
+[deps]
+
+source_file="res://sounds/dieux/1/neit.mp3"
+dest_files=[ "res://.import/neit.mp3-cefd1e245b2f45ac88836e9cee15f8bf.mp3str" ]
+
+[params]
+
+loop=false
+loop_offset=0

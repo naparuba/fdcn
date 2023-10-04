@@ -1,0 +1,15 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+path="res://.import/phumtar.mp3-06c62436425c8ab818c9dbfa8c6cfbc5.mp3str"
+
+[deps]
+
+source_file="res://sounds/dieux/1/phumtar.mp3"
+dest_files=[ "res://.import/phumtar.mp3-06c62436425c8ab818c9dbfa8c6cfbc5.mp3str" ]
+
+[params]
+
+loop=false
+loop_offset=0

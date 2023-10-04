@@ -1,0 +1,15 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+path="res://.import/khalassa_et_ohassa.mp3-90063b133a8cd23c39017341f38664f6.mp3str"
+
+[deps]
+
+source_file="res://sounds/dieux/2/khalassa_et_ohassa.mp3"
+dest_files=[ "res://.import/khalassa_et_ohassa.mp3-90063b133a8cd23c39017341f38664f6.mp3str" ]
+
+[params]
+
+loop=false
+loop_offset=0

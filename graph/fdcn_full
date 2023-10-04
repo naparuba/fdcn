@@ -452,7 +452,7 @@ digraph G {
 	444 [label=444 color=black fillcolor=white penwidth=1.0 shape=ellipse style=solid]
 	445 [label=445 color=black fillcolor=white penwidth=1.0 shape=ellipse style=solid]
 	446 [label=446 color=black fillcolor=white penwidth=1.0 shape=ellipse style=solid]
-	447 [label=<447-<FONT COLOR="blue" POINT-SIZE="20">Couloir Est</FONT> > color=black fillcolor=white penwidth=1.0 shape=ellipse style=solid]
+	447 [label=<447-<FONT COLOR="blue" POINT-SIZE="20">Couloir Ouest</FONT> > color=black fillcolor=white penwidth=1.0 shape=ellipse style=solid]
 	448 [label=448 color=black fillcolor=white penwidth=1.0 shape=ellipse style=solid]
 	449 [label=449 color=black fillcolor=white penwidth=1.0 shape=ellipse style=solid]
 	450 [label=450 color=black fillcolor=white penwidth=1.0 shape=ellipse style=solid]
@@ -1443,6 +1443,7 @@ digraph G {
 		584 -> 64
 		592 -> 584
 		597 -> 285
+		597 -> 353
 		597 -> 496
 		label=Invasion
 		fontcolor=red fontsize=72

@@ -1,0 +1,15 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+path="res://.import/nehdira.mp3-1f18988cf2394366d7dc1f0d063c7e05.mp3str"
+
+[deps]
+
+source_file="res://sounds/dieux/2/nehdira.mp3"
+dest_files=[ "res://.import/nehdira.mp3-1f18988cf2394366d7dc1f0d063c7e05.mp3str" ]
+
+[params]
+
+loop=false
+loop_offset=0

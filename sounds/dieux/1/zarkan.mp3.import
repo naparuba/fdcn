@@ -1,0 +1,15 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+path="res://.import/zarkan.mp3-4dbde05b54c51d65c16e8203e8797b27.mp3str"
+
+[deps]
+
+source_file="res://sounds/dieux/1/zarkan.mp3"
+dest_files=[ "res://.import/zarkan.mp3-4dbde05b54c51d65c16e8203e8797b27.mp3str" ]
+
+[params]
+
+loop=false
+loop_offset=0
