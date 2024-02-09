@@ -217,6 +217,26 @@ class Node(object):
     def set_stats_cond(self, stats_con):
         self._stats_cond_raw = stats_con
     
+    def get_all_possibles_goto(self, goto):
+        # type: (list) -> list
+        goto = set(goto)
+        print(f'CONDITION RAWS: {self._conditions_raw}')
+        if self._conditions_raw:
+            for k in self._conditions_raw.keys():
+                print(f'get_all_possibles_goto:: condition={k}')
+                try:
+                    k = int(k)
+                except ValueError:
+                    print('ERROR: invalid condition jump')
+                    continue
+                goto.add(k)
+                
+        for k in self._secret_jumps:
+            goto.add(k)
+        
+        goto = list(goto)
+        return goto
+    
     
     # Parse the jump condition, and produce 2 things:
     # * dict output, for easy comparision

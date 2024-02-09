@@ -54,8 +54,11 @@ func _do_load_book_context():
 	# Also lore as book have differents gods ^^
 	self.insert_all_lore()
 	
+	print('_do_load_book_context:: Player.insert_all_objects')
 	Player.insert_all_objects()
-	
+	print('_do_load_book_context:: Player.do_load')
+	Player.do_load()  # TEST
+	print('_do_load_book_context:: Player.compute_my_billy')
 	Player.compute_my_billy()
 	
 	# Jump to node, and will show main page

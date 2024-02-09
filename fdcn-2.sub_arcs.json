@@ -1,14 +1,3 @@
 [
-    ["Invasion", 148, "Quartier boulanger", [496, 285, 353]],
-    ["Invasion", 283, "Tour des mages", [183, 95, 285]],
 
-    ["Forteresse", 553, "Thermes", [551, 80, 561]],
-    ["Forteresse", 462, "Bagarre", [457]],
-    ["Forteresse", 376, "Cuisine", [457, 340]],
-    ["Forteresse", 583, "Cachots", [461, 186]],
-    ["Forteresse", 425, "Catacombes", [80]],
-    ["Forteresse", 266, "Laboratoire", [80]],
-    ["Forteresse", 569, "Mortelle", [447, 186]],
-    ["Forteresse", 226, "Funeste", [461]],
-    ["Forteresse", 340, "Entrepôt", [184, 520, 218, 400]]
 ]

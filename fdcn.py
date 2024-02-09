@@ -14,7 +14,6 @@ sys.path.insert(0, my_dir)
 from graph import Graph
 from endings import ENDINGS
 
-
 parser = argparse.ArgumentParser(description="Compile all .json for the UI app")
 parser.add_argument("--book", type=int, choices=[1, 2], help="Number of the book to compile")
 
@@ -91,11 +90,15 @@ for idx, n in book_data.items():
     stats_cond = n.get('stats_cond', {})
     node.set_stats_cond(stats_cond)
     
-    goto = n['goto']
-    
-    gotos = []
+    goto = n.get('goto', [])
     if isinstance(goto, int):
-        if goto == 608:
+        goto = [goto]
+    goto = node.get_all_possibles_goto(goto)
+    print(f' possible goto:{n.get("goto", [])} => {goto}')
+    # goto = n['goto']
+    
+    if isinstance(goto, int):
+        if goto == 608 and book_number == 1:
             ending = n.get('ending', None)
             if ending is None:
                 print('ERROR: node %s is an end without ending' % idx)
@@ -243,10 +246,12 @@ all_objs_names = set(all_objs.keys())
 if all_discoverd_objects != all_objs_names:
     used_but_not_declared = all_discoverd_objects - all_objs_names
     if used_but_not_declared:
+        used_but_not_declared = sorted(used_but_not_declared)
         print('ERROR: some objects are USED but not declared: %s' % used_but_not_declared)
         sys.exit(2)
     declared_but_not_used = all_objs_names - all_discoverd_objects
     if declared_but_not_used:
+        declared_but_not_used = sorted(list(declared_but_not_used))
         print('ERROR: some objects are DECLARED but not used: %s' % declared_but_not_used)
         sys.exit(2)
 
@@ -344,6 +349,7 @@ for node_id_str in book_data.keys():
 for obj_name, entry in all_objs.items():
     if 'in_chapters' not in entry:
         entry['in_chapters'] = [1]  # so will be seens always
+        print('  ** Defaulting object: %s' % obj_name)
     if 'stats' not in entry:
         entry['stats'] = {}
 
@@ -387,7 +393,7 @@ for (k, v) in to_dump_as_json.items():
         f.write(json.dumps(v, indent=4, ensure_ascii=False, sort_keys=True))
         print(' - %s = OK' % k)
 
-# Windows need too much deps, like dot.exe, so skip on it
+# Windows need too many deps, like dot.exe, so skip on it
 if os.name != 'nt':
     print('Rendering')
     # display_graph.render(filename='hello.gv', view=True)#format='json')

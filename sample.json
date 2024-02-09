@@ -1,0 +1,76 @@
+{
+  "36": {
+    "label": "Ecuries",
+    "secret": true,
+    "success": "COUDE",
+    "aquire": [
+      "PELUCHE BON MARCHE"
+    ],
+    "remove": [
+      "PHILTRE D'AMOUR"
+    ],
+    "ending": "bad",
+    "ending_txt": "Elles avaient faim, très faim ^^",
+    "ending_id": "TULIPES",
+    "stats": {
+      "pv": 1,
+      "pv_max": 1,
+      "pv_1_4_max": true,
+      "pv_1_2_max": true,
+      "max_pv": true,
+      "richesse": 1,
+      "hab": 1,
+      "deg": 1,
+      "end": 1,
+      "chance": -1,
+      "chance_max": 1,
+      "adr": 1,
+      "rancune": 1,
+      "respect": 1
+    },
+    "stats_cond": {
+      "PRUDENT": {
+        "hab": 1
+      }
+    },
+    "combat": {
+      "nom": "2 SQUELETTES",
+      "hab": 4,
+      "pv": 10,
+      "arm": 0,
+      "deg": 0,
+      "pyro": 4
+    },
+    "goto": [
+      194
+    ],
+    "conditions": {
+      "411": "GUERRIER",
+      "477": "PRUDENT",
+      "499": "PAYSAN",
+      "444": "DEBROUILLARD",
+       "244": "KIT DE SOIN&(PAYSAN|DEBROUILLARD)",
+      "295": "KHAZIN",
+      "380": "PLOUF",
+      "295": "NADEE",
+      "380": "SA'PANNA"
+    },
+    "secret_jumps": [
+      76
+    ]
+  },
+  "LOI-49-3": {
+    "category": "EVENEMENT"
+  },
+  "OEUFS DE SCORPYDRE": {
+    "category": "OBJET"
+  },
+  "SAC DE GRAINS": {
+    "category": "OUTIL",
+    "stats": {
+      "end": 2,
+      "cha": 2
+    }
+  }
+}
+

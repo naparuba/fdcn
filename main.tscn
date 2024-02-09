@@ -1441,7 +1441,6 @@ texture = ExtResource( 22 )
 position = Vector2( 392.257, 88.6701 )
 scale = Vector2( 0.342538, 0.342538 )
 frames = SubResource( 7 )
-frame = 1
 playing = true
 
 [node name="DevLabel" type="Label" parent="About/About"]
@@ -2071,6 +2070,7 @@ __meta__ = {
 position = Vector2( 349.257, 373.67 )
 scale = Vector2( 0.342538, 0.342538 )
 frames = SubResource( 7 )
+frame = 1
 playing = true
 
 [node name="Options" type="Panel" parent="."]

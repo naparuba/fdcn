@@ -64,13 +64,15 @@ func is_ok_to_be_shown():
 # * we already did see it's chapter in the past plays
 func _can_item_be_shown():
 	if self._is_enabled:
+		print('ITEM:: ', self._item_name, 'SHOW :: _is_enabled' )
 		return true
 	if AppParameters.are_spoils_ok():
+		print('ITEM:: ', self._item_name, 'SHOW :: spoils are ok' )
 		return true
 	#print('Can item: %s be shown ' % self._item_name, '%s' % self._item_data)
 	for chapter_id in self._item_data['in_chapters']:
 		if Player.did_all_times_seen(chapter_id):
-			#print('Item %s can be seens thanks to chapter' % self._item_name, '%s' % chapter_id)
+			print('Item %s can be seens thanks to chapter' % self._item_name, '%s' % chapter_id)
 			return true
 		#else:
 		#	print('Item %s is not ok with chapter' % self._item_name, '%s' % chapter_id)
@@ -86,10 +88,14 @@ func refresh():
 	
 	var _style = self.get('custom_styles/panel')
 	
+	print('ITEM:: ', self._item_name, 'do have item? ',do_have_item )
+	
 	if self._can_item_be_shown():
+		print('ITEM:: ', self._item_name, 'SHOW\n' )
 		$Nom.text = self._item_name
 		$sprite.texture = self._item_icon
 	else:
+		print('ITEM:: ', self._item_name, 'HIDE\n' )
 		$Nom.text = ''  # We already have the ? icon
 		$sprite.texture = self._unkown_icon
 

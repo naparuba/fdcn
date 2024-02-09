@@ -1,257 +1,262 @@
 [
   {
-    "id": "POLIR-LANCE",
-    "label": "CDSI EN FORCE",
-    "txt": "CDSI EN FORCE"
+    "id": "CEST-REPARTI",
+    "label": "Oh oh... Et c'est reparti",
+    "txt": "Vous avez choisi de rempiler"
   },
   {
-    "label": "Laissez la bouteille",
-    "id": "BOUTEILLE",
-    "txt": "Vous avez frappé quelqu'un dans la bouche"
+    "label": "Punished Bouli",
+    "id": "PUNISHED-BOULI",
+    "txt": "Vous avez refusé l'existence d'un bonhomme de neige"
   },
   {
-    "id": "CHUTE",
-    "label": "Le sol amortira la chute",
-    "txt": "Vous avez aidé une aliée à s'échapper"
+    "id": "BESOIN-AIDE",
+    "label": "Avez-vous besoin de mon aide?",
+    "txt": "Vous avez tout prévu, naturellement"
   },
   {
-    "label": "Restos du coeur",
-    "id": "RESTOS",
-    "txt": "Vous avez aidé les nécessiteux"
+    "label": "A mon plus grand fan: Billy!",
+    "id": "GRAND-FAN",
+    "txt": "Vous avez obtenu une édition collector"
   },
   {
-    "label": "Assurance vie",
-    "id": "ASSURANCE",
-    "txt": "Apprenez-en plus sur la cathédrale"
+    "label": "YAMEROOO!!",
+    "id": "YAMEROOO",
+    "txt": "Vous avez été extirpé d'un enfer personnel"
   },
   {
-    "label": "Le monde a besoin d'un Roi-liche",
-    "id": "ROI-LICHE",
-    "txt": "Terminez le jeu avec la fin BILLYLUS"
+    "label": "Laissez-passer A38",
+    "id": "A38",
+    "txt": "Vous avez fait les choses jusqu'au bout"
   },
   {
-    "label": "Le cheval des trois",
-    "id": "TROIE",
-    "txt": "Vous avez vaincu les courtisanes"
+    "label": "Le coude de Billy",
+    "id": "COUDE",
+    "txt": "Vous n'avez pas su tirer votre épingle du jeu"
   },
   {
-    "label": "Big Brain Energy",
-    "id": "BIG-BRAIN",
-    "txt": "Vous avez résolu l'énigme du Facteur"
+    "label": "Argument de pointe",
+    "id": "ARGUMENT-POINTE",
+    "txt": "Vous n'avez pas l'habitude d'y aller par quatre chemins"
   },
   {
-    "label": "Cul sec",
-    "id": "CUL-SEC",
-    "txt": "Vous avez vaincu quelqu'un qui avait plus de bouteille que vous"
+    "label": "Galaxy brain",
+    "id": "GALAXY-BRAIN",
+    "txt": "Vous avez trouvé la rponse que le facteur attendait"
   },
   {
-    "label": "Joli COUP",
-    "id": "COUP",
-    "txt": "Vous avez trouvé la carte du mercenaire, possiblement sans tricher"
+    "label": "GET OVER HERE!",
+    "id": "GET-OVER-HERE",
+    "txt": "Vous n'avez pas été du genre à lâcher prise"
   },
   {
-    "label": "Nourris-moi, Seymours!",
-    "id": "SEYMOUR",
-    "txt": "Vous avez fini dans le vendre d'une plante carnivore, ce sont des choses qui arrivent"
+    "label": "Phobie administrative",
+    "id": "PHOBIE-ADMINISTRATIVE",
+    "txt": "Vous avez été méthodique,ou très chanceux"
   },
   {
-    "label": "Un slip tout neuf",
-    "id": "SLIP",
-    "txt": "Vous avez fait récurer le vêtement du barbare"
+    "label": "Le Big Dead",
+    "id": "BIG-DEAL",
+    "txt": "Vous avez cédé face au maitre du commerce"
   },
   {
-    "id": "FILTRE-JOURNALISTE",
-    "label": "Filtre à journaliste",
-    "txt": "Vous avez vaincu le général MASSACRE et TERMINE l'Acte 1"
+    "id": "NOT-GUILTY",
+    "label": "Not guilty!",
+    "txt": "Vous avez été un peu trop honnête"
   },
   {
-    "id": "REPORTAGE-EXCLUSIF",
-    "label": "Reportage exclusif",
-    "txt": "Trouvez 4 INFOS ou plus durant l'Acte 1"
+    "id": "GLISSE-CHEF",
+    "label": "J'ai glissé chef",
+    "txt": "Vous n'avez même pas commencé"
   },
   {
-    "label": "Parce qu'elles le valent bien",
-    "id": "VALENT-BIEN",
-    "txt": "Vous avez administré des soins complets"
+    "label": "Ca compte quand même que pour un!",
+    "id": "CA-COMPTE-POUR-UN",
+    "txt": "Vous avez refusé de vous laisser intimider"
   },
   {
-    "label": "Well. That escalated quickly.",
-    "id": "ESCALADED-QUICKLY",
-    "txt": "Rencontrez une fin hasardeuse en tombant de votre monture"
+    "label": "Parkour? Parkour!",
+    "id": "PARKOUR",
+    "txt": "Vous êtes parfaitement inconscient, mais vivant"
   },
   {
-    "id": "PUDDING",
-    "label": "Le pudding à l'arsenic",
-    "txt": "Vous avez vaincu FUNESTE politiquement"
+    "id": "SIXIEME-SENS",
+    "label": "Sixième sens",
+    "txt": "Vous avez aidé une vieille à traverser sa dernière route"
   },
   {
-    "id": "SAFEWORD",
-    "label": "C'était quoi le safeword?",
-    "txt": "Vous avez vaincu FUNESTE avec l'aide de vos amis"
+    "id": "NENETTE",
+    "label": "Nenette bat tout",
+    "txt": "Vous avez eu la chance du débutant"
   },
   {
-    "label": "Tout ça pour ça",
-    "id": "TOUT-CA-POUR-CA",
-    "txt": "Vous avez ouvert le trésor du sorcier"
+    "label": "Les aventures de Xilly",
+    "id": "XILLY",
+    "txt": "Vous avez adapté votre histoire à votre public"
   },
   {
-    "label": "Cercle vicieux",
-    "id": "CERCLE-VICIEUX",
-    "txt": "Vous avez péri en tentant de sauver le barbare d'une situation impossible"
+    "label": "J'ai trouvé lé Titre™",
+    "id": "TROUVE-LE-TITRE",
+    "txt": "Vous l'avez enfin récupéré"
   },
   {
-    "label": "Secret d'histoire",
-    "id": "SECRET-HISTOIRE",
-    "txt": "Apprenez-en plus sur le quartier historique"
+    "label": "Orgie syndicale",
+    "id": "ORGIE-SYNDICALE",
+    "txt": "Vous avez rendu es naines extra-lucides"
   },
   {
-    "label": "Calamity Billy",
-    "id": "CALAMITY-BILLY",
-    "txt": "Affrontez les agents de la maréchaussée dans leur QG en combat singulier"
+    "label": "La maison gagne toujours",
+    "id": "MAISON-GAGNE-TOUJOURS",
+    "txt": "Vous avez prouvé ne pas être n'importe qui"
   },
   {
-    "label": "FBI! OPEN UP!",
-    "id": "FBI",
-    "txt": "Vous avez fait une entré facassante"
+    "label": "GUNDAAAAAAAAAAM!",
+    "id": "GUNDAAAM",
+    "txt": "Vous avez usé de stratégies alternatives"
   },
   {
-    "label": "L'innocent",
-    "id": "INNOCENT",
-    "txt": "Laissez le rituel se conclure ou ratez son interruption"
+    "label": "Il en faut peu pour être heureux",
+    "id": "PEU-POUR-ETRE-HEUREUX",
+    "txt": "Vous avez cherché un autre sens à votre vie"
   },
   {
-    "label": "Chut!",
-    "id": "CHUT",
-    "txt": "Vous avez fait ami-ami avec la Bibliothècaire"
+    "label": "J'ai couvert des guerres vous savez?",
+    "id": "COUVERT-GUERRE",
+    "txt": "Vous avez fait étalage de votre ténacité"
   },
   {
-    "label": "Billy Ultra Instinct",
-    "id": "ULTRA-INSTINCT",
-    "txt": "Vous avez reçu une aide inespérée"
+    "label": "Un ventre plus gros que vos yeux",
+    "id": "VENTRE-PLUS-GROS",
+    "txt": "Vous avez nourri Mimine"
   },
   {
-    "label": "Bière qui roule...",
-    "id": "BIERE",
-    "txt": "Vous avez déclenché une bagarre générale"
+    "label": "Technique secrête: Mentir!",
+    "id": "MENTIR",
+    "txt": "Vous avez excellé dans la pratique d l'art judiciaire"
   },
   {
-    "label": "Une misérable petite pile de secrets",
-    "id": "PILE-SECRETS",
-    "txt": "Vous avez poliement décliné l'offre d'une créature"
+    "label": "Zigmaâ Male",
+    "id": "ZIGMAA-MALE",
+    "txt": "Vous avez rendu le PB à son état naturel"
   },
   {
-    "id": "ENFANT-DRAGON",
-    "label": "Billy Enfant-de-Dragon",
-    "txt": "Soumettez le dragon à la loyale"
+    "id": "VERY-BAD-TRIP",
+    "label": "Very bad trip",
+    "txt": "Vous avez vu des choses"
   },
   {
-    "label": "Billy Stardust",
-    "id": "STARDUST",
-    "txt": "Vous avez choisi le Plaisancier"
+    "label": "POTION D'EXPLOSION!",
+    "id": "POTION-EXPLOSION",
+    "txt": "Vous avez opté pour une solution détonante"
   },
   {
-    "label": "Soyez témoins!!",
-    "id": "TEMOINS",
-    "txt": "Vous avez atteint la fin GLOIRE MAX"
+    "label": "Etal des lieux",
+    "id": "ETALS-LIEUX",
+    "txt": "Vous avez découvert meilleur explorateur que vous"
   },
   {
-    "label": "Pas d'omelette sans cassé du fion",
-    "id": "OMELETTE",
-    "txt": "Vous avez provoqué votre adversaire"
+    "label": "Izallgoud",
+    "id": "IZALLGOUD",
+    "txt": "Vous avez invoqué le Sultanétat d'urgence"
   },
   {
-    "label": "Culture Pub",
-    "id": "CULTURE-PUB",
-    "txt": "Vous avez trouvé un produit célèbre"
+    "label": "No way pan",
+    "id": "NO-WAY-PAN",
+    "txt": "Vous avez refusé les heures suplémentaires"
   },
   {
-    "label": "La vie est belle",
-    "id": "VIE-BELLE",
-    "txt": "Vous avez protégé les enfants des horreurs de la guerre"
+    "label": "Pipautage professionnel",
+    "id": "PIPAUTAGE-PROFESSIONNEL",
+    "txt": "Vous avez bâti une défense imparable"
   },
   {
-    "label": "Mémoire honorée",
-    "id": "MEMOIRE-HONOREE",
-    "txt": "Vous avez atteint la fin RICHESSE MAX"
+    "label": "JE suis, donc je suis",
+    "id": "JE-SUIS-DONC-JE-SUIS",
+    "txt": "Vous avez nié votre inexistence"
   },
   {
-    "label": "Par Toutatis",
-    "id": "TOUTATIS",
-    "txt": "Vous avez laissé le barbare improviser"
+    "label": "Appropriation culturelle",
+    "id": "APPROPRIATION-CULTURELLE",
+    "txt": "Vous avez déposé quelqu'un à la mauvaise adresse"
   },
   {
-    "label": "Un émeu dans un magasin de porcelaine",
-    "id": "EMEU-PORCELAINE",
-    "txt": "Lâcher Mimine dans le laboratoire de l'Acte IV"
-  },
-  {
-    "id": "OCTOGONE",
-    "label": "Octogone",
-    "txt": "Battez l'adversaire final de l'arène et récupérez la CEINTURE DE CHAMPION"
-  },
-  {
-    "label": "J'ai eu la chance d'être appelé le premier",
-    "id": "PREMIER",
-    "txt": "Vous vous êtes débarassé des occupants de la taverne"
-  },
-  {
-    "id": "SORS",
-    "label": "Sors! Sors! T'as la clé!",
-    "txt": "Vous avez aidé une aliée à s'échapper"
-  },
-  {
-    "label": "Toujours vivant! Ha!",
-    "id": "VIVANT",
-    "txt": "Terminez le jeu avec un Billy PRUDENT"
-  },
-  {
-    "id": "FIL-EPEE",
-    "label": "Au fil de l'épée",
-    "txt": "Vous avez vaincu MORTELLE avec l'aide de vos amis"
-  },
-  {
-    "id": "BULIAAA",
-    "label": "Buliaaa !!!",
-    "txt": "Terminez le jeu avec un Billy GUERRIER"
-  },
-  {
-    "label": "Travail Terminé!",
-    "id": "TRAVAIL-TERMINE",
-    "txt": "Terminez le jeu avec un Billy PAYSAN"
-  },
-  {
-    "label": "Dites-le avec de fleurs",
-    "id": "FLEURS",
-    "txt": "Terminez le jeu avec la fin alternative PRUDENT"
-  },
-  {
-    "label": "Pour l'honneur",
-    "id": "HONNEUR",
+    "label": "Full throttle",
+    "id": "FULL-THROTTLE",
     "txt": "Terminez le jeu avec la fin alternative GUERRIER"
   },
   {
-    "label": "Pff...Rien de personnel!",
-    "id": "PERSONNEL",
+    "id": "ME-TOO",
+    "label": "#MeToo",
+    "txt": "Vous avez brisé le silence avec le Pyro Barbare"
+  },
+  {
+    "label": "Fusil de Tchekhov",
+    "id": "FUSIL-TCHEKHOV",
+    "txt": "Vous aviez gardé ça pour le boss de fin"
+  },
+  {
+    "id": "RUISSELLEMENT",
+    "label": "Théorie du ruissellement",
+    "txt": "Vous avez atteint la fin RICHESSE MAX"
+  },
+  {
+    "label": "L'ordre des choses",
+    "id": "ORDRE-CHOSES",
+    "txt": "Vous avez libéré Khazin du poids de ses regrets"
+  },
+  {
+    "id": "MILLES-ET-UNE-NEIGE",
+    "label": "Les Mille et Une Neiges",
+    "txt": "Vous avez rejoint les personnages de conte"
+  },
+  {
+    "id": "POSTERITE-ADMINISTRATIVE",
+    "label": "Postériété administrative",
+    "txt": "Vous avez élevé Plouf au rang d'archiviste"
+  },
+  {
+    "label": "Bonne chance au prochain",
+    "id": "BONNE-CHANCE",
     "txt": "Terminez le jeu avec un Billy DEBROUILLARD"
   },
   {
-    "label": "Arsène Billy",
-    "id": "ARSENE",
-    "txt": "Terminez le jeu avec la fin alternative DEBROUILLARD"
-  },
-  {
-    "label": "METAAAL!!!",
-    "id": "METAAAL",
-    "txt": "Rencontrez une fin stylée dans les flammes du phénix"
-  },
-  {
-    "label": "Un sabot pour deux",
-    "id": "SABOT",
+    "label": "Elevage Arrangé",
+    "id": "ELEVAGE-ARRANGE",
     "txt": "Terminez le jeu avec la fin alternative PAYSAN"
   },
   {
-    "label": "Tu quoque Billy?",
-    "id": "TU-QUOQUE-BILLY",
-    "txt": "Terminez le jeu avec la fin secrète PRUDENT"
+    "label": "Je n'aime pas le sable",
+    "id": "AIME-PAS-LE-SABLE",
+    "txt": "Vous avez atteint le fin RANCUNE MAX"
+  },
+  {
+    "label": "Je t'aime aussi, citoyen ordinaire",
+    "id": "CITOYEN-ORDINAIRE",
+    "txt": "Vous avez obtenu la fin RESPECT MAX"
+  },
+  {
+    "label": "Pyro-Montana",
+    "id": "PYRO-MONTANA",
+    "txt": "Terminez le jeu avec la fin alternative DEBROUILLARD"
+  },
+  {
+    "label": "Ace Attorney",
+    "id": "ACE-ATTORNEY",
+    "txt": "Terminez le jeu avec la fin alternative PRUDENT"
+  },
+  {
+    "label": "Un bon tuteur",
+    "id": "BON-TUTEUR",
+    "txt": "Terminez le jeu avec un Billy PAYSAN"
+  },
+  {
+    "label": "Sa place est dans un musée",
+    "id": "PLACE-MUSEE",
+    "txt": "Terminez le jeu avec un Billy PRUDENT"
+  },
+  {
+    "label": "Ni guide, ni maitre",
+    "id": "NI-GUIDE",
+    "txt": "Terminez le jeu avec un Billy GUERRIER"
   }
 ]

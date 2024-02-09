@@ -56,6 +56,10 @@ pointing/emulate_touch_from_mouse=true
 file_logging/enable_file_logging=true
 file_logging/max_log_files=1
 
+[network]
+
+limits/debugger_stdout/max_chars_per_second=65536
+
 [physics]
 
 common/enable_pause_aware_picking=true

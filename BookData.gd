@@ -63,6 +63,10 @@ func get_all_objects():
 	return self.all_objects
 
 
+func exists_item_data(item_name):  # for old data migration
+	return self.all_objects.has(item_name)
+	
+
 func get_item_data(item_name):
 	return self.all_objects[item_name]
 
@@ -180,7 +184,7 @@ func match_chapter_conditions(node_from_id, node_to_id):
 	var jump_condition = all_jump_conditions.get(node_to_id_str)
 	if jump_condition == null:
 		return false
-	var r = self._check_cond_rec(jump_condition, Player.get_all_matched_conditions())#[AppParameters.get_billy_type().to_upper()])
+	var r = self._check_cond_rec(jump_condition, Player.get_all_matched_conditions())
 	return r
 
 

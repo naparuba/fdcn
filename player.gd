@@ -23,6 +23,9 @@ var OLD_CURRENT_NODE_ID_FILE = "user://current_node_id.save"
 var OLD_SESSION_VISITED_NODES_FILE  = "user://session_visited_nodes.save"
 var OLD_POSSESSED_ITEM_FILE  = "user://possessed_item.save"
 
+var TO_CLEAN_ONE_TIME_BOOK_2 = ['user://all_times_already_visited-2.save', 'user://current_node_id-2.save', "user://session_visited_nodes-2.save", "user://possessed_item-2.save"]
+var TO_CLEAN_ONE_TIME_BOOK_2_FLAG = 'user://bug_book_2_fixed.flag.save'
+
 # Our stats, based on items or chapters
 var end = 0
 var adr = 0
@@ -92,6 +95,7 @@ func _get_all_times_already_visited_file():
 
 
 func load_all_times_already_visited():
+	self._assert_bug_book_2_preload_is_fixed()
 	var pth = self._get_all_times_already_visited_file()
 	self._assert_migrate_file(OLD_ALL_TIMES_ALREADY_VISITED_FILE, pth)
 	var f = File.new()
@@ -116,6 +120,20 @@ func save_all_times_already_visited():
 	f.close()
 
 
+func _assert_bug_book_2_preload_is_fixed():
+	var f = File.new()
+	print("Looking to clean old book2 data that make bugs")
+	if !f.file_exists(TO_CLEAN_ONE_TIME_BOOK_2_FLAG):
+		for to_clean in TO_CLEAN_ONE_TIME_BOOK_2:
+			var dir = Directory.new()
+			print('REMOVING: ', to_clean)
+			dir.remove(to_clean)
+		f.open(TO_CLEAN_ONE_TIME_BOOK_2_FLAG, File.WRITE)
+		f.store_var(true)
+		f.close()	
+			
+	
+
 ############### CURRENT NODE ID
 func _get_current_node_id_file():
 	var book_number = AppParameters.get_book_number()
@@ -123,6 +141,7 @@ func _get_current_node_id_file():
 	return pth
 
 func load_current_node_id():
+	self._assert_bug_book_2_preload_is_fixed()
 	var f = File.new()
 	var pth = self._get_current_node_id_file()
 	self._assert_migrate_file(OLD_CURRENT_NODE_ID_FILE, pth)
@@ -149,6 +168,7 @@ func _get_session_visited_nodes_file():
 	return pth
 	
 func load_session_visited_nodes():
+	self._assert_bug_book_2_preload_is_fixed()
 	var pth = self._get_session_visited_nodes_file()
 	self._assert_migrate_file(OLD_SESSION_VISITED_NODES_FILE, pth)
 	var f = File.new()
@@ -176,6 +196,8 @@ func _get_possessed_items_file():
 	
 	
 func load_possessed_items():
+	self._assert_bug_book_2_preload_is_fixed()
+	self.possessed_items = []
 	var pth = self._get_possessed_items_file()
 	self._assert_migrate_file(OLD_POSSESSED_ITEM_FILE, pth)
 	var f = File.new()
@@ -185,6 +207,7 @@ func load_possessed_items():
 		f.close()
 	else:
 		self.guess_after_migration()
+	self._clean_not_existing_items()  # between version migration, don't keep item that don't exits anymore
 
 
 func save_possessed_items():
@@ -208,12 +231,23 @@ func guess_after_migration():
 	# Then guess objects, guess what the dude did set
 	var billy_type = AppParameters.get_billy_type()
 	var guess = {
+		1:{
 		'guerrier': ['EPEE', 'LANCE','MARMITE'],
 		'prudent': ['KIT DE SOIN', 'COTTE DE MAILLES','MARMITE'],
 		'paysan': ['COUTEAU', "KIT D'ESCALADE",'SAC DE GRAINS'],
 		'debrouillard': ['EPEE', 'COTTE DE MAILLES','COUTEAU'],
+		'pegu': [],
+		},
+		2:{
+		'guerrier': ['SABRE', 'LANCE','SEAU'],
+		'prudent': ['SEAU', 'COTTE DE MAILLES','GUIDE TOURISTIQUE'],
+		'paysan': ['FLEAU A GRAINS', "FILET DE PECHE",'SAC DE GRAINS'],
+		'debrouillard': ['SABRE', 'COTTE DE MAILLES','SAC DE GRAINS'],
+		'pegu': [],
+		}
 	}
-	for item_name in guess[billy_type]:
+	var book_number = AppParameters.get_book_number()
+	for item_name in guess[book_number][billy_type]:
 		print('GUESS: %s' % item_name)
 		self._raw_add(item_name)
 
@@ -502,11 +536,19 @@ func _apply_billy_stats():
 		print('ERROR: the billy type: %s is unknown' % billy_type)
 		
 
+func _clean_not_existing_items():
+	var to_del = []
+	for item_name in self.possessed_items:
+		if !BookData.exists_item_data(item_name):
+			to_del.append(item_name)
+	for item_name in to_del:
+		self._raw_remove(item_name)
+
 # Compute our stats based on our objects and billy
 func _recompute_stats():
 	self._reset_our_stats()
-	
 	self._apply_billy_stats()
+	
 	
 	for item_name in self.possessed_items:
 		var item_data = BookData.get_item_data(item_name)

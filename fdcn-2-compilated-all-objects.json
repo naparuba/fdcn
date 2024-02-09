@@ -1,4 +1,34 @@
 {
+    "AILERON AERODYNAMIQUE": {
+        "category": "OBJET",
+        "in_chapters": [
+            85,
+            318,
+            325,
+            375
+        ],
+        "stats": {}
+    },
+    "AILERON AERODYNAMIQUE INSTALLE": {
+        "category": "OBJET",
+        "in_chapters": [
+            305,
+            318,
+            325
+        ],
+        "stats": {
+            "arm": 1
+        }
+    },
+    "APPEAU": {
+        "category": "OBJET",
+        "in_chapters": [
+            272,
+            317,
+            373
+        ],
+        "stats": {}
+    },
     "ARC": {
         "category": "ARME",
         "in_chapters": [
@@ -10,133 +40,121 @@
             "hab": 3
         }
     },
-    "ARMEE DE SQUELETTES DETRUITE": {
-        "category": "EVENEMENT",
-        "in_chapters": [
-            406,
-            467,
-            498
-        ],
-        "stats": {}
-    },
-    "BAGUE DE RUBIS": {
+    "AUTORISATION SPECIALE": {
         "category": "OBJET",
         "in_chapters": [
-            247,
             379
         ],
         "stats": {}
     },
-    "BISCUITS": {
+    "AVIS DE RECHERCHE": {
         "category": "OBJET",
         "in_chapters": [
-            244,
-            275
+            3,
+            6,
+            37,
+            40,
+            68,
+            73
         ],
         "stats": {}
     },
-    "BOCAL A EPICES": {
+    "BOITE DE CRAYONS": {
+        "category": "EQUIPEMENT",
+        "in_chapters": [
+            1
+        ],
+        "stats": {
+            "cha": 2,
+            "crit": 1
+        }
+    },
+    "BON POUR DE L'ARGENT": {
         "category": "OBJET",
         "in_chapters": [
-            221,
-            228,
-            570,
-            582
+            262
         ],
         "stats": {}
     },
-    "BOTTES EN FER": {
+    "BOUCLIER A PLUMES": {
         "category": "OBJET",
         "in_chapters": [
-            331,
-            397
+            87,
+            163,
+            406,
+            517
         ],
         "stats": {}
     },
-    "BOULE A NEIGE": {
+    "BOUTEILLE DE VIN": {
         "category": "OBJET",
         "in_chapters": [
-            18,
-            562
+            103,
+            171,
+            195,
+            549
         ],
         "stats": {}
     },
-    "BOUTEILLE DE MAGIE PURE": {
+    "BRACELET A POINTES": {
         "category": "OBJET",
         "in_chapters": [
-            327,
-            415,
-            467,
-            539,
-            568
+            424
         ],
         "stats": {}
     },
-    "BRACELET DE CONTROLE": {
+    "BRACELET IOTOS": {
         "category": "OBJET",
         "in_chapters": [
-            52
-        ],
-        "stats": {}
-    },
-    "BRAS SQUELETTIQUE": {
-        "category": "OBJET",
-        "in_chapters": [
-            194
+            512
         ],
         "stats": {}
     },
     "BROCHE DOREE": {
         "category": "OBJET",
         "in_chapters": [
-            106,
-            478
+            33
         ],
         "stats": {}
     },
-    "CASQUE EN FER": {
+    "CARTE GOLD": {
         "category": "OBJET",
         "in_chapters": [
-            397,
-            459
-        ],
-        "stats": {}
-    },
-    "CDSI EST LA": {
-        "category": "EVENEMENT",
-        "in_chapters": [
-            1
-        ],
-        "stats": {}
-    },
-    "CEINTURE DE CHAMPION": {
-        "category": "OBJET",
-        "in_chapters": [
-            505
+            95,
+            216,
+            231,
+            379
         ],
         "stats": {}
     },
     "CHLOROGLYCERINE": {
         "category": "OBJET",
         "in_chapters": [
-            236,
-            471
+            284,
+            410,
+            428,
+            680
         ],
         "stats": {}
     },
-    "CLE A": {
-        "category": "OBJET",
+    "CONSEIL DE CUSHOM DERRIERE": {
+        "category": "EVENEMENT",
         "in_chapters": [
-            186
+            654
         ],
         "stats": {}
     },
-    "CLE B": {
+    "CONSEIL NE PAS BAISSER LES YEUX": {
+        "category": "EVENEMENT",
+        "in_chapters": [
+            258
+        ],
+        "stats": {}
+    },
+    "CORNE DES SABLES D'IVOIRE": {
         "category": "OBJET",
         "in_chapters": [
-            228,
-            236,
-            320
+            264
         ],
         "stats": {}
     },
@@ -152,22 +170,29 @@
             "hab": -1
         }
     },
-    "COUTEAU": {
+    "COUTEAU CEREMONIAL": {
         "category": "OUTIL",
         "in_chapters": [
             1
         ],
         "stats": {
-            "crit": 6,
-            "hab": 1
+            "crit": 5,
+            "hab": 1,
+            "richesse": 1
         }
     },
-    "DARD EXPLOSIF": {
+    "CREME SOLAIRE": {
         "category": "OBJET",
         "in_chapters": [
-            364,
-            482,
-            600
+            282,
+            501
+        ],
+        "stats": {}
+    },
+    "DEBRIDAGE DE SCORPIONS": {
+        "category": "EVENEMENT",
+        "in_chapters": [
+            164
         ],
         "stats": {}
     },
@@ -181,93 +206,106 @@
             "end": -1
         }
     },
-    "ECAILLE DE DRAGON": {
-        "category": "OBJET",
+    "DEUX REUSSITES": {
+        "category": "EVENEMENT",
         "in_chapters": [
-            26,
-            438
+            19
         ],
         "stats": {}
     },
-    "ECUSSON D'ORC": {
+    "DISQUES CLOUTES": {
         "category": "OBJET",
         "in_chapters": [
-            14,
-            19,
-            133
+            318,
+            325,
+            375,
+            441
         ],
         "stats": {}
     },
-    "EFFIGIE DE DUEL": {
+    "DISQUES CLOUTES INSTALLES": {
         "category": "OBJET",
         "in_chapters": [
-            299,
-            377,
-            444,
-            526
-        ],
-        "stats": {}
-    },
-    "EPEE": {
-        "category": "ARME",
-        "in_chapters": [
-            1
+            318,
+            325,
+            353
         ],
         "stats": {
-            "hab": 4
+            "deg": 1,
+            "hab": 1
         }
     },
-    "EXPLOSIFS": {
-        "category": "OBJET",
-        "in_chapters": [
-            268,
-            456,
-            532
-        ],
-        "stats": {}
-    },
-    "FER A CHEVAL": {
-        "category": "OBJET",
-        "in_chapters": [
-            29
-        ],
-        "stats": {}
-    },
-    "FLASQUE D'HUILE": {
-        "category": "OBJET",
-        "in_chapters": [
-            452
-        ],
-        "stats": {}
-    },
-    "FLECHES EXPLOSIVES": {
-        "category": "OBJET",
+    "FDCN LU": {
+        "category": "EVENEMENT",
         "in_chapters": [
             1
         ],
         "stats": {}
     },
-    "FOURCHE": {
+    "FILET DE PECHE": {
         "category": "OUTIL",
         "in_chapters": [
             1
         ],
         "stats": {
-            "end": 3,
-            "hab": 1
+            "adr": 1,
+            "end": 1
         }
     },
-    "GEMME MAGIQUE": {
+    "FLASQUE D'HUILE": {
         "category": "OBJET",
         "in_chapters": [
-            194
+            671
         ],
         "stats": {}
     },
-    "GROSSE CLE": {
+    "FLEAU A GRAINS": {
+        "category": "OUTIL",
+        "in_chapters": [
+            1
+        ],
+        "stats": {
+            "end": 2,
+            "hab": 1,
+            "pv_max": 2
+        }
+    },
+    "FLUTE": {
         "category": "OBJET",
         "in_chapters": [
-            51
+            258
+        ],
+        "stats": {}
+    },
+    "FORMULAIRE DE NATIONALITE": {
+        "category": "OBJET",
+        "in_chapters": [
+            418
+        ],
+        "stats": {}
+    },
+    "FUSEE ECLAIRANTE": {
+        "category": "OBJET",
+        "in_chapters": [
+            537
+        ],
+        "stats": {}
+    },
+    "GOURDE SCELLEE": {
+        "category": "OBJET",
+        "in_chapters": [
+            122,
+            522
+        ],
+        "stats": {}
+    },
+    "GRI-GRI": {
+        "category": "OBJET",
+        "in_chapters": [
+            51,
+            163,
+            212,
+            228
         ],
         "stats": {}
     },
@@ -282,37 +320,26 @@
             "hab": 2
         }
     },
-    "ICONE DES PALADINS": {
-        "category": "OBJET",
-        "in_chapters": [
-            509,
-            596,
-            606
-        ],
-        "stats": {}
-    },
-    "KIT D'ESCALADE": {
-        "category": "OUTIL",
-        "in_chapters": [
-            1
-        ],
-        "stats": {
-            "adr": 1
-        }
-    },
-    "KIT DE SOIN": {
+    "GUIDE TOURISTIQUE": {
         "category": "EQUIPEMENT",
         "in_chapters": [
             1
         ],
         "stats": {
-            "cha": 1
+            "cha": 3
         }
     },
-    "LAISSEZ-PASSER": {
+    "HALISTAIR SAMRAAT REGISTAAN": {
         "category": "OBJET",
         "in_chapters": [
-            1
+            489
+        ],
+        "stats": {}
+    },
+    "KHAZIN": {
+        "category": "OBJET",
+        "in_chapters": [
+            14
         ],
         "stats": {}
     },
@@ -326,93 +353,132 @@
             "hab": 3
         }
     },
-    "LANIERES DE CUIRS": {
-        "category": "OBJET",
-        "in_chapters": [
-            332
-        ],
-        "stats": {}
-    },
-    "LETTRE DE RECOMMANDATION": {
-        "category": "OBJET",
-        "in_chapters": [
-            28
-        ],
-        "stats": {}
-    },
-    "LIME EN ACIER D'ARKADIE": {
-        "category": "OBJET",
-        "in_chapters": [
-            328,
-            339,
-            348,
-            388,
-            491
-        ],
-        "stats": {}
-    },
-    "MARMITE": {
-        "category": "EQUIPEMENT",
-        "in_chapters": [
-            1
-        ],
-        "stats": {
-            "arm": 1,
-            "end": 2
-        }
-    },
-    "MEDAILLON D'EDIRE": {
-        "category": "OBJET",
-        "in_chapters": [
-            212,
-            270,
-            542,
-            558
-        ],
-        "stats": {}
-    },
-    "MEDAILLON DE RUNIR": {
-        "category": "OBJET",
-        "in_chapters": [
-            49
-        ],
-        "stats": {
-            "end": 1
-        }
-    },
-    "MORGENSTERN": {
-        "category": "ARME",
-        "in_chapters": [
-            1
-        ],
-        "stats": {
-            "deg": 1,
-            "end": 1,
-            "hab": 1
-        }
-    },
-    "PALAIS DES PLAISIRS D'YTIA": {
+    "LOI-120": {
         "category": "EVENEMENT",
         "in_chapters": [
-            26,
-            112,
-            289
+            284,
+            314
         ],
         "stats": {}
     },
-    "PAMPHLET": {
-        "category": "EQUIPEMENT",
+    "LOI-188": {
+        "category": "EVENEMENT",
+        "in_chapters": [
+            54,
+            85,
+            130
+        ],
+        "stats": {}
+    },
+    "LOI-19": {
+        "category": "EVENEMENT",
+        "in_chapters": [
+            319
+        ],
+        "stats": {}
+    },
+    "LOI-22": {
+        "category": "EVENEMENT",
+        "in_chapters": [
+            122
+        ],
+        "stats": {}
+    },
+    "LOI-234": {
+        "category": "EVENEMENT",
+        "in_chapters": [
+            142,
+            227,
+            302,
+            654
+        ],
+        "stats": {}
+    },
+    "LOI-269": {
+        "category": "EVENEMENT",
+        "in_chapters": [
+            441
+        ],
+        "stats": {}
+    },
+    "LOI-299": {
+        "category": "EVENEMENT",
+        "in_chapters": [
+            339,
+            379
+        ],
+        "stats": {}
+    },
+    "LOI-49-3": {
+        "category": "EVENEMENT",
+        "in_chapters": [
+            453
+        ],
+        "stats": {}
+    },
+    "LOI-521": {
+        "category": "EVENEMENT",
+        "in_chapters": [
+            258
+        ],
+        "stats": {}
+    },
+    "LUCIOLES": {
+        "category": "OBJET",
+        "in_chapters": [
+            57,
+            76
+        ],
+        "stats": {}
+    },
+    "MECANISME DEESSE DEUX FOIS": {
+        "category": "EVENEMENT",
+        "in_chapters": [
+            562
+        ],
+        "stats": {}
+    },
+    "MIROIR DE NADEE": {
+        "category": "OBJET",
+        "in_chapters": [
+            471
+        ],
+        "stats": {}
+    },
+    "MIROIR FERME": {
+        "category": "OBJET",
+        "in_chapters": [
+            1,
+            417,
+            471
+        ],
+        "stats": {}
+    },
+    "MIRROIR FERME": {
+        "category": "OBJET",
+        "in_chapters": [
+            308
+        ],
+        "stats": {}
+    },
+    "NADEE": {
+        "category": "OBJET",
         "in_chapters": [
             1
         ],
-        "stats": {
-            "cha": 4
-        }
+        "stats": {}
     },
-    "PASSE-PARTOUT": {
+    "OEUFS DE SCORPYDRE": {
         "category": "OBJET",
         "in_chapters": [
-            135
+            530
+        ],
+        "stats": {}
+    },
+    "PARI GAGNE": {
+        "category": "EVENEMENT",
+        "in_chapters": [
+            1
         ],
         "stats": {}
     },
@@ -426,73 +492,28 @@
             "end": 2
         }
     },
-    "PERROQUET": {
+    "PELUCHE BON MARCHE": {
         "category": "OBJET",
         "in_chapters": [
-            109,
-            191,
-            529,
-            603
+            35
         ],
         "stats": {}
     },
-    "PETIT MEDAILLON": {
+    "PIOCHE": {
+        "category": "ARME",
+        "in_chapters": [
+            1
+        ],
+        "stats": {
+            "deg": 1,
+            "hab": 2,
+            "pv_max": 2
+        }
+    },
+    "PLOUF": {
         "category": "OBJET",
         "in_chapters": [
-            47
-        ],
-        "stats": {}
-    },
-    "PETITE BOUTEILLE D'ACIDE": {
-        "category": "OBJET",
-        "in_chapters": [
-            119,
-            286,
-            416,
-            508,
-            515
-        ],
-        "stats": {}
-    },
-    "PETITE MASSUE": {
-        "category": "OBJET",
-        "in_chapters": [
-            81
-        ],
-        "stats": {}
-    },
-    "PHILTRE D'AMOUR": {
-        "category": "OBJET",
-        "in_chapters": [
-            83,
-            166,
-            256,
-            506,
-            538
-        ],
-        "stats": {}
-    },
-    "POINT FAIBLE": {
-        "category": "EVENEMENT",
-        "in_chapters": [
-            336
-        ],
-        "stats": {}
-    },
-    "PRODUITS CHIMIQUES HASARDEUX": {
-        "category": "OBJET",
-        "in_chapters": [
-            334,
-            429,
-            536
-        ],
-        "stats": {}
-    },
-    "PRODUITS DE NETTOYAGE": {
-        "category": "OBJET",
-        "in_chapters": [
-            410,
-            525
+            147
         ],
         "stats": {}
     },
@@ -506,6 +527,51 @@
             "hab": -1
         }
     },
+    "RETROVISEUR": {
+        "category": "OBJET",
+        "in_chapters": [
+            318,
+            319,
+            325,
+            375
+        ],
+        "stats": {}
+    },
+    "RETROVISEUR INSTALLE": {
+        "category": "OBJET",
+        "in_chapters": [
+            318,
+            325,
+            533
+        ],
+        "stats": {}
+    },
+    "SA'PANNA": {
+        "category": "OBJET",
+        "in_chapters": [
+            333
+        ],
+        "stats": {}
+    },
+    "SABLIER PERPETUEL": {
+        "category": "OBJET",
+        "in_chapters": [
+            464,
+            485,
+            681
+        ],
+        "stats": {}
+    },
+    "SABRE": {
+        "category": "ARME",
+        "in_chapters": [
+            1
+        ],
+        "stats": {
+            "crit": 2,
+            "hab": 3
+        }
+    },
     "SAC DE GRAINS": {
         "category": "OUTIL",
         "in_chapters": [
@@ -516,19 +582,157 @@
             "end": 2
         }
     },
-    "SANG DE VAMPIRE": {
-        "category": "OBJET",
+    "SCORPIODROME": {
+        "category": "EVENEMENT",
         "in_chapters": [
-            374,
-            598
+            340
         ],
         "stats": {}
     },
-    "TRESSE DE CENTAURESSE": {
+    "SCORPION DORE": {
         "category": "OBJET",
         "in_chapters": [
-            78,
-            557
+            375
+        ],
+        "stats": {}
+    },
+    "SCORPYDE DE SA'PANNA": {
+        "category": "OBJET",
+        "in_chapters": [
+            318,
+            325,
+            363,
+            375
+        ],
+        "stats": {
+            "hab": 2
+        }
+    },
+    "SEAU": {
+        "category": "EQUIPEMENT",
+        "in_chapters": [
+            1
+        ],
+        "stats": {
+            "arm": 1,
+            "end": 1,
+            "pv_max": 2
+        }
+    },
+    "SECRET DU DOUBLE INFINI": {
+        "category": "OBJET",
+        "in_chapters": [
+            588
+        ],
+        "stats": {}
+    },
+    "SECRET SULTAN SUR SA FILLE": {
+        "category": "EVENEMENT",
+        "in_chapters": [
+            1
+        ],
+        "stats": {}
+    },
+    "SOUFFLE DANS LA CORNE": {
+        "category": "EVENEMENT",
+        "in_chapters": [
+            690
+        ],
+        "stats": {}
+    },
+    "SUCRE": {
+        "category": "OBJET",
+        "in_chapters": [
+            301
+        ],
+        "stats": {}
+    },
+    "TAMPON JAUNE": {
+        "category": "EVENEMENT",
+        "in_chapters": [
+            335
+        ],
+        "stats": {}
+    },
+    "TAMPON ROUGE": {
+        "category": "EVENEMENT",
+        "in_chapters": [
+            16,
+            46,
+            59,
+            136
+        ],
+        "stats": {}
+    },
+    "TAMPON VERT": {
+        "category": "EVENEMENT",
+        "in_chapters": [
+            98,
+            498
+        ],
+        "stats": {}
+    },
+    "TONIQUE MYSTERIEUX": {
+        "category": "OBJET",
+        "in_chapters": [
+            176
+        ],
+        "stats": {}
+    },
+    "TRIBUNAL": {
+        "category": "EVENEMENT",
+        "in_chapters": [
+            310
+        ],
+        "stats": {}
+    },
+    "TROIS COUPS DE FOUET": {
+        "category": "EVENEMENT",
+        "in_chapters": [
+            130,
+            227,
+            364
+        ],
+        "stats": {}
+    },
+    "TROIS REUSSITES": {
+        "category": "EVENEMENT",
+        "in_chapters": [
+            1
+        ],
+        "stats": {}
+    },
+    "TROMBONE": {
+        "category": "OBJET",
+        "in_chapters": [
+            109
+        ],
+        "stats": {}
+    },
+    "TURBAN POUR KHAZIN": {
+        "category": "OBJET",
+        "in_chapters": [
+            536
+        ],
+        "stats": {}
+    },
+    "UN ECHEC": {
+        "category": "EVENEMENT",
+        "in_chapters": [
+            306
+        ],
+        "stats": {}
+    },
+    "UNE REUSSITE": {
+        "category": "EVENEMENT",
+        "in_chapters": [
+            22,
+            178,
+            188,
+            234,
+            299,
+            394,
+            521
         ],
         "stats": {}
     }

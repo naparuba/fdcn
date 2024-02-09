@@ -1,4573 +1,4571 @@
 {
   "1": {
-    "goto": 99
+    "aquire": [
+      "MIROIR FERME",
+      "FDCN LU"
+    ],
+    "goto": 12
   },
   "2": {
-    "conditions": {
-      "11": "GUERRIER | CDSI EST LA",
-      "99": "PAYSAN",
-      "77": "PRUDENT",
-      "44": "DEBROUILLARD"
-    },
     "goto": [
-      11,
-      99,
-      77,
-      44
+      602
     ]
   },
   "3": {
-    "goto": 350
+    "aquire": [
+      "AVIS DE RECHERCHE"
+    ],
+    "stats": {
+      "pv": 5
+    },
+    "goto": 89
   },
   "4": {
     "goto": [
-      447,
-      186
+      198,
+      170
     ]
   },
   "5": {
+    "success": "CEST-REPARTI",
     "goto": [
-      121,
-      147,
-      47
+      18
     ]
   },
   "6": {
-    "goto": 314
+    "aquire": [
+      "AVIS DE RECHERCHE"
+    ],
+    "stats": {
+      "pv": 5
+    },
+    "goto": 89
   },
   "7": {
-    "stats": {
-      "pv": 2
-    },
-    "goto": 81
+    "success": "PUNISHED-BOULI",
+    "goto": 621
   },
   "8": {
-    "conditions": {
-      "164": "MORGENSTERN",
-      "197": "BRAS SQUELETTIQUE"
+    "stats": {
+      "pv": 4,
+      "chance": 2
     },
     "goto": [
-      164,
-      197,
-      93
+      89
     ]
   },
   "9": {
-    "conditions": {
-      "111": "GUERRIER",
-      "199": "PAYSAN",
-      "144": "DEBROUILLARD",
-      "177": "PRUDENT"
-    },
+    "success": "BESOIN-AIDE",
     "goto": [
-      111,
-      199,
-      144,
-      177
+      466
     ]
   },
   "10": {
-    "label": "Tour nord",
     "conditions": {
-      "184": "KIT D'ESCALADE"
+      "338": "KHAZIN",
+      "378": "PLOUF"
     },
     "goto": [
-      461,
-      184,
-      530
+      338,
+      378
     ]
   },
   "11": {
     "goto": [
-      28,
-      106
-    ]
-  },
-  "12": {
-    "goto": 100
-  },
-  "13": {
-    "secret": true,
-    "stats": {
-      "chance": -1
-    },
-    "goto": 84
-  },
-  "14": {
-    "aquire": [
-      "ECUSSON D'ORC"
+      36
     ],
     "combat": {
-      "nom": "GUERRIERS ORCS",
+      "nom": "SERGENT ET TROUFION",
       "hab": 5,
-      "pv": 8,
-      "arm": 0,
-      "deg": 0,
-      "pyro": 4
-    },
-    "goto": 67
-  },
-  "15": {
-    "goto": 249
-  },
-  "16": {
-    "conditions": {
-      "294": "MORGENSTERN|GUERRIER"
-    },
-    "goto": [
-      294,
-      120
-    ]
-  },
-  "17": {
-    "stats": {
-      "hab": 1
-    },
-    "goto": 100
-  },
-  "18": {
-    "aquire": [
-      "BOULE A NEIGE"
-    ],
-    "goto": 313
-  },
-  "19": {
-    "aquire": [
-      "ECUSSON D'ORC"
-    ],
-    "combat": {
-      "nom": "GUARDES CORROMPUS",
-      "hab": 8,
-      "pv": 12,
+      "pv": 9,
       "arm": 1,
       "deg": 0,
       "pyro": 4
-    },
-    "goto": 22
+    }
   },
-  "20": {
-    "goto": 396
-  },
-  "21": {
-    "goto": 70
-  },
-  "22": {
-    "goto": 12
-  },
-  "23": {
-    "goto": 30
-  },
-  "24": {
+  "12": {
     "goto": [
-      195,
-      189
+      5,
+      55
+    ],
+    "conditions": {
+      "5": "FDCN LU"
+    }
+  },
+  "13": {
+    "stats": {
+      "chance_max": 1
+    },
+    "success": "GRAND-FAN",
+    "goto": [
+      85,
+      109
     ]
   },
-  "25": {
-    "goto": 80
-  },
-  "26": {
-    "success": "POLIR-LANCE",
+  "14": {
     "aquire": [
-      "ECAILLE DE DRAGON",
-      "PALAIS DES PLAISIRS D'YTIA"
+      "KHAZIN"
     ],
-    "goto": 100
+    "goto": 181
   },
-  "27": {
-    "label": "KaKaKa",
+  "15": {
     "goto": [
+      267,
       540,
-      528,
       86
     ]
   },
-  "28": {
+  "16": {
     "aquire": [
-      "LETTRE DE RECOMMANDATION"
+      "TAMPON ROUGE"
     ],
-    "goto": 32
-  },
-  "29": {
-    "aquire": [
-      "FER A CHEVAL"
+    "goto": [
+      102,
+      141,
+      123,
+      192
     ],
-    "goto": 74
-  },
-  "30": {
-    "goto": [
-      35,
-      257
-    ]
-  },
-  "31": {
-    "secret": true,
-    "stats": {
-      "chance": -1
-    },
-    "goto": 84
-  },
-  "32": {
-    "goto": 43
-  },
-  "33": {
-    "goto": [
-      21,
-      34,
-      71,
-      229,
-      55,
-      185,
-      131,
-      185
-    ]
-  },
-  "34": {
-    "goto": [
-      21,
-      33,
-      71,
-      229,
-      55,
-      185,
-      131,
-      185
-    ]
-  },
-  "35": {
-    "stats": {
-      "chance_max": 1
-    },
-    "stats_cond": {
-      "PRUDENT": {
-        "gloire": 1
-      }
-    },
-    "conditions": {
-      "105": "LETTRE DE RECOMMANDATION"
-    },
-    "goto": [
-      105,
-      345
-    ]
-  },
-  "36": {
     "combat": {
-      "nom": "2 SQUELETTES",
-      "hab": 4,
-      "pv": 10,
-      "arm": 0,
-      "deg": 0,
-      "pyro": 0
-    },
-    "goto": 194
-  },
-  "37": {
-    "goto": [
-      60,
-      366,
-      248,
-      461
-    ]
-  },
-  "38": {
-    "stats": {
-      "hab": 1
-    },
-    "goto": 100
-  },
-  "39": {
-    "goto": 89
-  },
-  "40": {
-    "goto": 230
-  },
-  "41": {
-    "goto": [
-      14,
-      207,
-      223
-    ]
-  },
-  "42": {
-    "stats": {
-      "chance": -1,
-      "chance_max": 1
-    },
-    "goto": 100
-  },
-  "43": {
-    "goto": 68
-  },
-  "44": {
-    "goto": [
-      28,
-      106
-    ]
-  },
-  "45": {
-    "goto": [
-      209,
-      110
-    ]
-  },
-  "46": {
-    "success": "BOUTEILLE",
-    "stats": {
-      "pv": 2
-    },
-    "goto": 414
-  },
-  "47": {
-    "aquire": [
-      "PETIT MEDAILLON"
-    ],
-    "goto": 22
-  },
-  "48": {
-    "label": "Boui-boui",
-    "conditions": {
-      "57": "PRUDENT"
-    },
-    "goto": [
-      57,
-      135,
-      304
-    ]
-  },
-  "49": {
-    "secret": true,
-    "aquire": [
-      "MEDAILLON DE RUNIR"
-    ],
-    "goto": 219
-  },
-  "50": {
-    "goto": [
-      298,
-      220,
-      481,
-      65
-    ]
-  },
-  "51": {
-    "success": "CHUTE",
-    "aquire": [
-      "GROSSE CLE"
-    ],
-    "goto": 400
-  },
-  "52": {
-    "aquire": [
-      "BRACELET DE CONTROLE"
-    ],
-    "goto": [
-      152,
-      190,
-      359,
-      318
-    ]
-  },
-  "53": {
-    "label": "Ecuries",
-    "conditions": {
-      "180": "SAC DE GRAINS"
-    },
-    "goto": [
-      180,
-      267,
-      100
-    ]
-  },
-  "54": {
-    "combat": {
-      "nom": "ORC FAMILIER",
+      "nom": "JEUNE KRÄNELORNIEN EPUISE",
       "hab": 10,
-      "pv": 16,
+      "pv": 12,
       "arm": 0,
       "deg": 1,
       "pyro": 0
-    },
+    }
+  },
+  "17": {
+    "success": "YAMEROOO",
     "stats": {
-      "pv": 5
+      "pv": 1
     },
+    "goto": 127
+  },
+  "18": {
     "goto": [
-      457,
-      421
-    ]
-  },
-  "55": {
-    "goto": 70
-  },
-  "56": {
-    "stats": {
-      "hab": 1,
-      "pv": -2
-    },
-    "goto": [
-      163,
-      452
-    ]
-  },
-  "57": {
-    "stats": {
-      "richesse": 1,
-      "chance_max": 1
-    },
-    "goto": 135
-  },
-  "58": {
-    "combat": {
-      "nom": "GNOLL SANGUINAIRE",
-      "hab": 5,
-      "pv": 10,
-      "arm": 0,
-      "deg": 0,
-      "pyro": 0
-    },
-    "stats": {
-      "pv": 5
-    },
-    "goto": [
-      457,
-      54
-    ]
-  },
-  "59": {
-    "goto": 436
-  },
-  "60": {
-    "stats": {
-      "pv": -1
-    },
-    "secret": true,
-    "goto": 37
-  },
-  "61": {
-    "goto": [
-      16,
-      8
-    ]
-  },
-  "62": {
-    "secret": true,
-    "goto": [
-      480,
-      96
-    ]
-  },
-  "63": {
-    "stats": {
-      "hab": 1
-    },
-    "goto": 100
-  },
-  "64": {
-    "label": "Tour des mages",
-    "goto": [
-      183,
-      283,
-      285,
-      95
-    ]
-  },
-  "65": {
-    "conditions": {
-      "397": "PAMPHLET",
-      "244": "KIT DE SOIN&(PAYSAN|DEBROUILLARD)",
-      "375": "LAISSEZ-PASSER"
-    },
-    "goto": [
-      605,
-      397,
-      244,
-      375,
-      459
-    ]
-  },
-  "66": {
-    "stats": {
-      "hab": 1
-    },
-    "goto": 100
-  },
-  "67": {
-    "conditions": {
-      "137": "LETTRE DE RECOMMANDATION",
-      "107": "BROCHE DOREE"
-    },
-    "goto": [
-      137,
-      107
-    ]
-  },
-  "68": {
-    "conditions": {
-      "255": "PAMPHLET&LETTRE DE RECOMMANDATION"
-    },
-    "goto": [
-      255,
-      73
-    ]
-  },
-  "69": {
-    "stats": {
-      "chance_max": 1
-    },
-    "goto": 100
-  },
-  "70": {
-    "label": "Massacre",
-    "goto": [
-      213,
-      291
-    ]
-  },
-  "71": {
-    "stats": {
-      "info": 1,
-      "crit": 2
-    },
-    "goto": 70
-  },
-  "72": {
-    "success": "RESTOS",
-    "goto": 354
-  },
-  "73": {
-    "goto": [
-      239,
-      115
-    ]
-  },
-  "74": {
-    "combat": {
-      "nom": "5 BANDITS DE GRAND CHEMIN",
-      "hab": 11,
-      "pv": 15,
-      "arm": 0,
-      "deg": 0,
-      "pyro": 6
-    },
-    "goto": [
-      261
-    ]
-  },
-  "75": {
-    "conditions": {
-      "218": "PAYSAN|MARMITE"
-    },
-    "goto": [
-      218,
-      457
-    ]
-  },
-  "76": {
-    "secret": false,
-    "combat": {
-      "nom": "5 GUERRIERS SQUELETTES",
-      "hab": 12,
-      "pv": 20,
-      "arm": 0,
-      "deg": 0,
-      "pyro": 4
-    },
-    "goto": 394
-  },
-  "77": {
-    "goto": [
-      28,
-      106
-    ]
-  },
-  "78": {
-    "aquire": [
-      "TRESSE DE CENTAURESSE"
-    ],
-    "goto": [
-      447,
-      186
-    ]
-  },
-  "79": {
-    "label": "Temple Ytia",
-    "conditions": {
-      "256": "PHILTRE D'AMOUR"
-    },
-    "goto": [
-      279,
-      26,
-      361,
-      256,
-      100
-    ]
-  },
-  "80": {
-    "label": "Croisement ouest",
-    "goto": [
-      447,
-      400,
-      266,
-      425
-    ]
-  },
-  "81": {
-    "stats": {
-      "pv": 2
-    },
-    "stats_cond": {
-      "MARMITE": {
-        "pv": 2
-      }
-    },
-    "aquire": [
-      "PETITE MASSUE"
+      11,
+      77,
+      99,
+      44
     ],
     "conditions": {
-      "335": "EPEE|LANCE|MORGENSTERN"
-    },
-    "goto": [
-      335,
-      102
-    ]
+      "11": "GUERRIER",
+      "77": "PRUDENT",
+      "99": "PAYSAN",
+      "44": "DEBROUILLARD"
+    }
   },
-  "82": {
-    "conditions": {
-      "460": "COUTEAU|EPEE",
-      "432": "PETITE BOUTEILLE D'ACIDE"
-    },
-    "goto": [
-      460,
-      432,
-      352,
-      116
-    ]
-  },
-  "83": {
+  "19": {
     "aquire": [
-      "PHILTRE D'AMOUR"
+      "DEUX REUSSITES"
     ],
-    "goto": 100
+    "goto": 303
   },
-  "84": {
-    "goto": [
-      310,
-      301,
-      130,
-      31,
-      103,
-      13,
-      440
-    ]
-  },
-  "85": {
-    "stats": {
-      "chance": 3
-    },
-    "goto": 134
-  },
-  "86": {
-    "goto": 314
-  },
-  "87": {
-    "success": "ASSURANCE",
-    "stats": {
-      "chance": 2
-    },
-    "goto": 193
-  },
-  "88": {
-    "goto": [
-      286,
-      473,
-      385
-    ]
-  },
-  "89": {
-    "conditions": {
-      "137": "LETTRE DE RECOMMANDATION",
-      "107": "BROCHE DOREE"
-    },
-    "goto": [
-      137,
-      107
-    ]
-  },
-  "90": {
-    "goto": [
-      5,
-      277
-    ]
-  },
-  "91": {
-    "goto": 134
-  },
-  "92": {
-    "goto": 70
-  },
-  "93": {
-    "goto": [
-      16,
-      24
-    ]
-  },
-  "94": {
-    "secret": true,
-    "stats": {
-      "pv": 2
-    },
-    "goto": [
-      219,
-      378
-    ]
-  },
-  "95": {
-    "label": "Quartier commerçant",
-    "goto": [
-      584,
-      512,
-      157,
-      64
-    ]
-  },
-  "96": {
-    "secret": true,
-    "ending": "bad",
-    "success": "ROI-LICHE",
-    "goto": 608
-  },
-  "97": {
-    "combat": {
-      "nom": "MASSACRE",
-      "hab": 12,
-      "pv": 20,
-      "arm": 0,
-      "deg": 1,
-      "pyro": 4
-    },
-    "goto": 194
-  },
-  "98": {
-    "label": "Caserne",
-    "goto": [
-      231,
-      297
-    ]
-  },
-  "99": {
-    "goto": [
-      28,
-      106
-    ]
-  },
-  "100": {
-    "label": "Acte I, Lennonia",
-    "goto": [
-      158,
-      187,
-      122,
-      98,
-      48,
-      79,
-      171,
-      165,
-      254,
-      53,
-      210
-    ]
-  },
-  "101": {
-    "label": "Atelier",
-    "goto": [
-      287,
-      393
-    ]
-  },
-  "102": {
-    "goto": [
-      29,
-      387,
-      74,
-      384
-    ]
-  },
-  "103": {
-    "secret": true,
-    "goto": [
-      470,
-      443
-    ]
-  },
-  "104": {
-    "goto": 383
-  },
-  "105": {
-    "goto": 41
-  },
-  "106": {
-    "aquire": [
-      "BROCHE DOREE"
-    ],
-    "goto": 32
-  },
-  "107": {
-    "stats": {
-      "richesse": 1
-    },
-    "goto": 90
-  },
-  "108": {
-    "goto": 338
-  },
-  "109": {
-    "aquire": [
-      "PERROQUET"
-    ],
-    "secret": true,
-    "goto": 318
-  },
-  "110": {
-    "conditions": {
-      "392": "PAYSAN"
-    },
-    "goto": [
-      242,
-      351,
-      392
-    ]
-  },
-  "111": {
-    "stats": {
-      "pv": 5
-    },
-    "goto": 153
-  },
-  "112": {
-    "success": "TROIE",
-    "aquire": [
-      "PALAIS DES PLAISIRS D'YTIA"
-    ],
+  "20": {
+    "goto": 121,
     "stats": {
       "end": 1,
-      "hab": 1
-    },
-    "goto": 100
+      "pv": 3,
+      "chance_max": 1
+    }
   },
-  "113": {
-    "goto": 414
-  },
-  "114": {
-    "combat": {
-      "nom": "ORC ESCLAVAGISTE",
-      "hab": 10,
-      "pv": 10,
-      "arm": 0,
-      "deg": 0,
-      "pyro": 4
-    },
-    "goto": 597
-  },
-  "115": {
+  "21": {
     "goto": [
-      23,
-      30
+      501,
+      105
     ]
   },
-  "116": {
-    "goto": [
-      342,
-      271
-    ]
-  },
-  "117": {
-    "label": "Rue",
-    "goto": [
-      92,
-      399,
-      395
-    ]
-  },
-  "118": {
-    "goto": 89
-  },
-  "119": {
+  "22": {
     "aquire": [
-      "PETITE BOUTEILLE D'ACIDE"
+      "UNE REUSSITE"
     ],
-    "secret": true,
-    "goto": 426
+    "goto": 202
   },
-  "120": {
+  "23": {
+    "goto": 223
+  },
+  "24": {
+    "stats": {
+      "pv": -5,
+      "chance": -4
+    },
+    "goto": [
+      414,
+      58
+    ]
+  },
+  "25": {
+    "goto": [
+      472,
+      203,
+      27
+    ]
+  },
+  "26": {
+    "goto": 261
+  },
+  "27": {
+    "goto": 15
+  },
+  "28": {
+    "goto": [
+      411,
+      477,
+      499,
+      444
+    ],
     "conditions": {
-      "91": "PASSE-PARTOUT"
-    },
-    "goto": [
-      91,
-      125,
-      85
-    ]
+      "411": "GUERRIER",
+      "477": "PRUDENT",
+      "499": "PAYSAN",
+      "444": "DEBROUILLARD"
+    }
   },
-  "121": {
+  "29": {
     "stats": {
-      "max_pv": true,
-      "max_chance": true
-    },
-    "goto": 22
-  },
-  "122": {
-    "label": "Commanderie",
-    "goto": [
-      356,
-      63,
-      17,
-      66,
-      138
-    ]
-  },
-  "123": {
-    "goto": 89
-  },
-  "124": {
-    "goto": [
-      237,
-      19
-    ]
-  },
-  "125": {
-    "goto": 139
-  },
-  "126": {
-    "stats_cond": {
-      "GUERRIER": {
-        "hab": 1
-      },
-      "PAYSAN": {
-        "pv_win_plus_1": true
-      },
-      "PRUDENT": {
-        "chance_max": 3
-      },
-      "DEBROUILLARD": {
-        "crit": 3
-      }
-    },
-    "goto": 333
-  },
-  "127": {
-    "goto": 414
-  },
-  "128": {
-    "stats": {
-      "end": 1
-    },
-    "goto": 100
-  },
-  "129": {
-    "secret": true,
-    "success": "BIG-BRAIN",
-    "stats": {
-      "chance": 1,
-      "info": 1
-    },
-    "goto": [
-      100,
-      170
-    ]
-  },
-  "130": {
-    "secret": true,
-    "stats": {
-      "pv": -1
-    },
-    "goto": 84
-  },
-  "131": {
-    "stats": {
-      "info": 1,
-      "crit": 2,
-      "gloire": 1
-    },
-    "goto": 70
-  },
-  "132": {
-    "goto": 65
-  },
-  "133": {
-    "aquire": [
-      "ECUSSON D'ORC"
-    ],
-    "combat": {
-      "nom": "GUARDE CORROMPU (x2)",
-      "hab": 4,
-      "pv": 7,
-      "arm": 0,
-      "deg": 1,
-      "pyro": 0
-    },
-    "stats": {
+      "pv": 3,
       "chance": 2
     },
-    "goto": 22
+    "goto": [
+      382,
+      127
+    ]
   },
-  "134": {
-    "goto": 230
-  },
-  "135": {
-    "aquire": [
-      "PASSE-PARTOUT"
-    ],
-    "success": "CUL-SEC",
+  "30": {
+    "success": "A38",
     "stats": {
-      "info": 1
+      "pv": 3,
+      "chance_max": 1
     },
-    "goto": 100
-  },
-  "136": {
-    "goto": [
-      159,
-      366,
-      248,
-      461
-    ]
-  },
-  "137": {
-    "stats": {
-      "gloire": 1
+    "stats_cond": {
+      "PRUDENT": {
+        "hab": 1
+      }
     },
-    "goto": 90
+    "goto": 144
   },
-  "138": {
-    "success": "COUP",
-    "stats": {
-      "hab": 1,
-      "info": 1
-    },
-    "goto": 100
-  },
-  "139": {
-    "goto": 230
-  },
-  "140": {
-    "goto": 367
-  },
-  "141": {
-    "goto": 22
-  },
-  "142": {
-    "goto": 323
-  },
-  "143": {
-    "goto": 230
-  },
-  "144": {
-    "stats": {
-      "crit": 1
-    },
-    "goto": 153
-  },
-  "145": {
-    "goto": [
-      374,
-      104,
-      203
-    ]
-  },
-  "146": {
-    "goto": 76
-  },
-  "147": {
-    "goto": 22
-  },
-  "148": {
-    "label": "Quartier boulanger",
-    "conditions": {
-      "196": "LANCE",
-      "455": "KIT D'ESCALADE",
-      "422": "MARMITE",
-      "114": "FOURCHE"
-    },
-    "goto": [
-      455,
-      196,
-      422,
-      114,
-      344,
-      285,
-      496
-    ]
-  },
-  "149": {
-    "stats": {
-      "pv": -4,
-      "end": 1
-    },
-    "goto": [
-      7,
-      81
-    ]
-  },
-  "150": {
-    "goto": 178
-  },
-  "151": {
-    "conditions": {
-      "18": "BAGUE DE RUBIS"
-    },
-    "stats": {
-      "richesse": 2
-    },
-    "goto": [
-      18,
-      233
-    ]
-  },
-  "152": {
-    "secret": true,
-    "goto": [
-      275,
-      192
-    ]
-  },
-  "153": {
-    "goto": 200
-  },
-  "154": {
-    "label": "Latrines",
-    "goto": [
-      447,
-      551,
-      410
-    ]
-  },
-  "155": {
+  "31": {
     "combat": {
-      "nom": "5 GUERRIERS SQUELETTES",
-      "hab": 12,
-      "pv": 20,
+      "nom": "PERRODACTYLE",
+      "hab": 8,
+      "pv": 10,
       "arm": 0,
       "deg": 0,
       "pyro": 2
     },
-    "goto": 394
+    "goto": 260
   },
-  "156": {
-    "success": "SEYMOUR",
-    "ending": "bad",
-    "goto": 608
+  "32": {
+    "success": "COUDE",
+    "goto": 150
   },
-  "157": {
-    "label": "Quartier insalubre",
-    "goto": [
-      490,
-      564,
-      496,
-      95
-    ]
-  },
-  "158": {
-    "label": "Voyante",
-    "goto": [
-      42,
-      38,
-      128,
-      83,
-      247,
-      499
-    ]
-  },
-  "159": {
-    "stats": {
-      "chance": -1
-    },
-    "secret": true,
-    "goto": 136
-  },
-  "160": {
-    "goto": 403
-  },
-  "161": {
-    "stats": {
-      "chance": 2,
-      "pv": 3
-    },
-    "goto": 234
-  },
-  "162": {
-    "combat": {
-      "nom": "TROLESSE AFFAIBLIE",
-      "hab": 11,
-      "pv": 12,
-      "arm": 0,
-      "deg": 1,
-      "pyro": 4
-    },
-    "goto": 168
-  },
-  "163": {
-    "ending_txt": "Elles avaient faim, très faim ^^",
-    "ending_id": "TULIPES",
-    "ending": "bad",
-    "goto": 608
-  },
-  "164": {
-    "conditions": {
-      "197": "BRAS SQUELETTIQUE"
-    },
-    "goto": [
-      16,
-      197,
-      93
-    ]
-  },
-  "165": {
-    "label": "Marché aux marchands",
-    "goto": [
-      100,
-      170,
-      129
-    ]
-  },
-  "166": {
-    "success": "SLIP",
-    "remove": [
-      "PHILTRE D'AMOUR"
+  "33": {
+    "aquire": [
+      "BROCHE DOREE"
     ],
-    "stats": {
-      "info": 2,
-      "chance_max": 4
-    },
-    "goto": 100
-  },
-  "167": {
-    "goto": [
-      61,
-      8
-    ]
-  },
-  "168": {
-    "stats": {
-      "gloire": 1
-    },
-    "goto": [
-      358,
-      507
-    ]
-  },
-  "169": {
-    "conditions": {
-      "273": "PRUDENT",
-      "372": "LANCE|COTTE DE MAILLES",
-      "264": "COUTEAU",
-      "326": "ARC"
-    },
-    "goto": [
-      273,
-      372,
-      264,
-      326,
-      173
-    ]
-  },
-  "170": {
-    "secret": true,
     "stats": {
       "richesse": 1
     },
-    "goto": 100
+    "goto": 80
   },
-  "171": {
-    "label": "Apothicaire",
-    "conditions": {
-      "215": "KIT DE SOIN|PETIT MEDAILLON"
+  "34": {
+    "stats": {
+      "pv": 1
     },
+    "goto": 215
+  },
+  "35": {
+    "aquire": [
+      "PELUCHE BON MARCHE"
+    ],
     "goto": [
-      215,
-      368
+      382,
+      127
     ]
   },
-  "172": {
-    "goto": 364
+  "36": {
+    "goto": [
+      80,
+      33
+    ],
+    "conditions": {
+      "33": "DEBROUILLARD"
+    }
   },
-  "173": {
+  "37": {
+    "aquire": [
+      "AVIS DE RECHERCHE"
+    ],
+    "stats": {
+      "pv": 3
+    },
+    "goto": 89
+  },
+  "38": {
+    "goto": 15
+  },
+  "39": {
+    "goto": 93
+  },
+  "40": {
+    "aquire": [
+      "AVIS DE RECHERCHE"
+    ],
+    "goto": 89,
     "combat": {
-      "nom": "BANDIT A LA CAPE CRAMOISIE (ROUGE)",
-      "hab": 6,
-      "pv": 10,
+      "nom": "CHASSEURS DE PRIMES TERRIFIES",
+      "hab": 5,
+      "pv": 8,
       "arm": 0,
       "deg": 0,
       "pyro": 0
     },
-    "goto": 423
+    "stats": {
+      "pv": 5
+    }
   },
-  "174": {
+  "41": {
+    "goto": [
+      140,
+      20,
+      92,
+      185,
+      169
+    ],
     "conditions": {
-      "45": "GUERRIER|PAYSAN|PRUDENT|DEBROUILLARD"
-    },
-    "goto": 45
+      "140": "FILET DE PECHE",
+      "20": "SAC DE GRAINS",
+      "92": "GUIDE TOURISTIQUE"
+    }
   },
-  "175": {
+  "42": {
+    "success": "ARGUMENT-POINTE",
+    "goto": 21
+  },
+  "43": {
+    "goto": 36,
     "combat": {
-      "nom": "3 ELFES NOIRES",
-      "hab": 11,
+      "nom": "SERGENT",
+      "hab": 3,
+      "pv": 6,
+      "arm": 0,
+      "deg": -1,
+      "pyro": 4
+    }
+  },
+  "44": {
+    "goto": [
+      176,
+      43
+    ]
+  },
+  "45": {
+    "label": "Jungle",
+    "goto": [
+      119,
+      91
+    ],
+    "conditions": {
+      "119": "FDCN LU"
+    }
+  },
+  "46": {
+    "aquire": [
+      "TAMPON ROUGE"
+    ],
+    "goto": [
+      102,
+      141,
+      123,
+      192
+    ]
+  },
+  "47": {
+    "goto": 114
+  },
+  "48": {
+    "stats": {
+      "hab": 1,
+      "pv_max": 1
+    },
+    "goto": 21
+  },
+  "49": {
+    "goto": [
+      31,
+      260
+    ]
+  },
+  "50": {
+    "goto": 182
+  },
+  "51": {
+    "aquire": [
+      "GRI-GRI"
+    ],
+    "goto": 175
+  },
+  "52": {
+    "goto": 15
+  },
+  "53": {
+    "goto": 514
+  },
+  "54": {
+    "success": "GALAXY-BRAIN",
+    "aquire": [
+      "LOI-188"
+    ],
+    "stats": {
+      "pv_max": 1,
+      "chance_max": 1
+    },
+    "goto": 215
+  },
+  "55": {
+    "goto": 18
+  },
+  "56": {
+    "goto": [
+      65,
+      90
+    ]
+  },
+  "57": {
+    "remove": [
+      "LUCIOLES"
+    ],
+    "goto": 138
+  },
+  "58": {
+    "goto": 21
+  },
+  "59": {
+    "aquire": [
+      "TAMPON ROUGE"
+    ],
+    "goto": [
+      102,
+      141,
+      123,
+      192
+    ]
+  },
+  "60": {
+    "goto": 514
+  },
+  "61": {
+    "goto": 41
+  },
+  "62": {
+    "goto": 261
+  },
+  "63": {
+    "goto": [
+      180,
+      268
+    ]
+  },
+  "64": {
+    "goto": [
+      48,
+      24
+    ]
+  },
+  "65": {
+    "conditions": {
+      "6": "COUTEAU CEREMONIAL",
+      "3": "BOITE DE CRAYONS",
+      "40": "GUERRIER"
+    },
+    "goto": [
+      68,
+      6,
+      3,
+      40
+    ]
+  },
+  "66": {
+    "goto": 370
+  },
+  "67": {
+    "stats": {
+      "chance": 3,
+      "chance_max": 1
+    },
+    "goto": 289
+  },
+  "68": {
+    "combat": {
+      "nom": "CHASSEURS DE PRIMES",
+      "hab": 7,
+      "pv": 11,
+      "arm": 0,
+      "deg": 0,
+      "pyro": 4
+    },
+    "aquire": [
+      "AVIS DE RECHERCHE"
+    ],
+    "stats": {
+      "pv": 5
+    },
+    "goto": 89
+  },
+  "69": {
+    "stats": {
+      "pv": 2,
+      "chance": 3,
+      "chance_max": 1
+    },
+    "cond": {
+      "PAYSAN": {
+        "end": 1
+      }
+    },
+    "goto": 537
+  },
+  "70": {
+    "goto": 114
+  },
+  "71": {
+    "goto": 138
+  },
+  "72": {
+    "stats": {
+      "hab": 1,
+      "richesse": 1
+    },
+    "cond": {
+      "COUTEAU CEREMONIAL|PIOCHE": {
+        "richesse": 2
+      }
+    },
+    "goto": 127
+  },
+  "73": {
+    "combat": {
+      "nom": "CHASSEURS DE PRIMES SURPRIS",
+      "hab": 7,
+      "pv": 11,
+      "arm": 0,
+      "deg": 0,
+      "pyro": 4
+    },
+    "stats": {
+      "pv": 3
+    },
+    "aquire": [
+      "AVIS DE RECHERCHE"
+    ],
+    "goto": 89
+  },
+  "74": {
+    "goto": 289
+  },
+  "75": {
+    "success": "GET-OVER-HERE",
+    "goto": 225
+  },
+  "76": {
+    "aquire": [
+      "LUCIOLES"
+    ],
+    "stats": {
+      "chance_max": 3
+    },
+    "goto": 89
+  },
+  "77": {
+    "goto": 36
+  },
+  "78": {
+    "stats": {
+      "chance": 1
+    },
+    "conditions": {
+      "195": "BOUTEILLE DE VIN",
+      "212": "GRI-GRI"
+    },
+    "goto": [
+      195,
+      212,
+      118,
+      148,
+      369,
+      127
+    ]
+  },
+  "79": {
+    "stats": {
+      "rancune": 1
+    },
+    "combat": {
+      "nom": "ELFE SAUVAGE",
+      "hab": 6,
+      "pv": 9,
+      "arm": 0,
+      "deg": 0,
+      "pyro": 4
+    },
+    "goto": 161
+  },
+  "80": {
+    "conditions": {
+      "145": "FILET DE PECHE"
+    },
+    "goto": [
+      135,
+      145,
+      155
+    ]
+  },
+  "81": {
+    "combat": {
+      "nom": "JEUNE POUSSE CARNITREX",
+      "hab": 10,
       "pv": 8,
       "arm": 0,
       "deg": 0,
       "pyro": 4
     },
-    "goto": 436
+    "goto": 41
   },
-  "176": {
+  "82": {
+    "goto": 225
+  },
+  "83": {
+    "conditions": {
+      "244": "DEBROUILLARD",
+      "75": "PIOCHE",
+      "94": "FILET DE PECHE",
+      "172": "FLEAU A GRAINS",
+      "9": "TROMBONE"
+    },
     "goto": [
-      80,
-      576,
-      495
+      172,
+      225,
+      244,
+      75,
+      94,
+      172,
+      9
+    ],
+    "secret_jumps": [
+      82
     ]
   },
-  "177": {
+  "84": {
+    "goto": [
+      35,
+      29,
+      382
+    ]
+  },
+  "85": {
+    "aquire": [
+      "AILERON AERODYNAMIQUE",
+      "LOI-188"
+    ],
+    "goto": 215
+  },
+  "86": {
+    "goto": [
+      490,
+      309,
+      187
+    ]
+  },
+  "87": {
+    "aquire": [
+      "BOUCLIER A PLUMES"
+    ],
+    "goto": 175
+  },
+  "88": {
+    "goto": 370
+  },
+  "89": {
+    "goto": 100
+  },
+  "90": {
+    "goto": [
+      117,
+      133,
+      8
+    ]
+  },
+  "91": {
+    "conditions": {
+      "61": "COUTEAU CEREMONIAL|SABRE",
+      "139": "SEAU"
+    },
+    "goto": [
+      137,
+      146,
+      61,
+      139,
+      81
+    ]
+  },
+  "92": {
+    "stats": {
+      "end": 1,
+      "hab": 1,
+      "chance_max": 1
+    },
+    "goto": 121
+  },
+  "93": {
+    "conditions": {
+      "305": "AILERON AERODYNAMIQUE",
+      "353": "DISQUES CLOUTES",
+      "533": "RETROVISEUR"
+    },
+    "goto": [
+      372,
+      305,
+      353,
+      533
+    ]
+  },
+  "94": {
+    "goto": 225
+  },
+  "95": {
+    "aquire": [
+      "CARTE GOLD"
+    ],
+    "stats": {
+      "respect": 1
+    },
+    "goto": [
+      283,
+      127
+    ]
+  },
+  "96": {
+    "stats": {
+      "pv": 3
+    },
+    "goto": 189
+  },
+  "97": {
+    "goto": 161
+  },
+  "98": {
+    "aquire": [
+      "TAMPON VERT"
+    ],
+    "success": "PHOBIE-ADMINISTRATIVE",
+    "goto": [
+      123,
+      141,
+      191,
+      192
+    ]
+  },
+  "99": {
+    "goto": 36
+  },
+  "100": {
+    "label": "Acte I, L'Exode",
+    "goto": [
+      45,
+      131
+    ]
+  },
+  "101": {
+    "conditions": {
+      "288": "GUIDE TOURISTIQUE",
+      "389": "PAYSAN",
+      "470": "DEBROUILLARD"
+    },
+    "goto": [
+      328,
+      266,
+      362
+    ]
+  },
+  "102": {
+    "goto": 15
+  },
+  "103": {
+    "stats": {
+      "hab": 1
+    },
+    "remove": [
+      "BOUTEILLE DE VIN"
+    ],
+    "goto": [
+      382,
+      127
+    ]
+  },
+  "104": {
+    "ending": "bad"
+  },
+  "105": {
+    "label": "Fêtes",
+    "goto": 283
+  },
+  "106": {
+    "goto": 215
+  },
+  "107": {
+    "goto": 168
+  },
+  "108": {
+    "goto": [
+      79,
+      97
+    ]
+  },
+  "109": {
+    "aquire": [
+      "TROMBONE"
+    ],
+    "success": "BIG-DEAL",
+    "goto": 215
+  },
+  "110": {
+    "goto": 144
+  },
+  "111": {
+    "goto": 438
+  },
+  "112": {
+    "stats": {
+      "chance_max": -1
+    },
+    "goto": 330
+  },
+  "113": {
+    "combat": {
+      "nom": "Elfe-panthère",
+      "hab": 12,
+      "pv": 15,
+      "arm": 0,
+      "deg": 1,
+      "pyro": 7
+    },
+    "goto": 175
+  },
+  "114": {
+    "conditions": {
+      "42": "BOITE DE CRAYONS",
+      "158": "SAC DE GRAINS",
+      "129": "PAYSAN"
+    },
+    "goto": [
+      42,
+      158,
+      129,
+      64,
+      58
+    ]
+  },
+  "115": {
+    "stats": {
+      "chance_max": 1
+    },
+    "goto": [
+      382,
+      127
+    ]
+  },
+  "116": {
+    "conditions": {
+      "295": "KHAZIN",
+      "380": "PLOUF"
+    },
+    "goto": [
+      295,
+      380
+    ]
+  },
+  "117": {
+    "goto": [
+      37,
+      73
+    ]
+  },
+  "118": {
+    "goto": [
+      72,
+      17,
+      127
+    ]
+  },
+  "119": {
+    "goto": 41
+  },
+  "120": {
+    "goto": 330
+  },
+  "121": {
+    "stats": {
+      "pv": 3
+    },
+    "goto": 108
+  },
+  "122": {
+    "aquire": [
+      "GOURDE SCELLEE",
+      "LOI-22"
+    ],
+    "goto": [
+      240,
+      226
+    ]
+  },
+  "123": {
+    "goto": [
+      335,
+      102,
+      141,
+      191
+    ]
+  },
+  "124": {
+    "conditions": {
+      "311": "GUERRIER",
+      "377": "PRUDENT",
+      "399": "PAYSAN",
+      "344": "DEBROUILLARD"
+    },
+    "goto": [
+      311,
+      377,
+      399,
+      344
+    ]
+  },
+  "125": {
+    "combat": {
+      "nom": "Champion nain",
+      "hab": 5,
+      "pv": 10,
+      "arm": 1,
+      "deg": 0,
+      "pyro": 4
+    },
+    "goto": [
+      95,
+      231
+    ]
+  },
+  "126": {
+    "stats": {
+      "max_pv": true
+    },
+    "goto": 366
+  },
+  "127": {
+    "goto": 124
+  },
+  "128": {
+    "goto": 366
+  },
+  "129": {
+    "stats": {
+      "pv_max": 2
+    },
+    "goto": 21
+  },
+  "130": {
+    "aquire": [
+      "LOI-188",
+      "TROIS COUPS DE FOUET"
+    ],
+    "goto": 215
+  },
+  "131": {
+    "label": "Prieuré",
+    "conditions": {
+      "134": "GUIDE TOURISTIQUE"
+    },
+    "goto": [
+      134,
+      147
+    ]
+  },
+  "132": {
+    "stats": {
+      "pv": 3
+    },
+    "goto": 144
+  },
+  "133": {
+    "goto": [
+      76,
+      8
+    ]
+  },
+  "134": {
+    "stats": {
+      "chance": 3
+    },
+    "goto": 147
+  },
+  "135": {
+    "stats": {
+      "hab": 1,
+      "chance": 2
+    },
+    "goto": 56
+  },
+  "136": {
+    "aquire": [
+      "TAMPON ROUGE"
+    ],
+    "goto": [
+      102,
+      141,
+      123,
+      192
+    ]
+  },
+  "137": {
+    "goto": 41
+  },
+  "138": {
+    "goto": 14
+  },
+  "139": {
+    "goto": 41
+  },
+  "140": {
+    "stats": {
+      "end": 1
+    },
+    "stats_cond": {
+      "DEBROUILLARD": {
+        "critique": 2,
+        "end": -1
+      }
+    },
+    "goto": 121
+  },
+  "141": {
+    "stats": {
+      "chance": 1
+    },
+    "goto": [
+      102,
+      123,
+      191,
+      192
+    ]
+  },
+  "142": {
+    "aquire": [
+      "LOI-234"
+    ],
+    "goto": 63
+  },
+  "143": {
+    "stats": {
+      "rancune": 1
+    },
+    "success": "NOT-GUILTY",
+    "goto": 101
+  },
+  "144": {
+    "goto": 181
+  },
+  "145": {
+    "stats": {
+      "max_pv": true,
+      "chance_max": 1
+    },
+    "goto": 56
+  },
+  "146": {
+    "stats": {
+      "pv": -5
+    },
+    "goto": [
+      41,
+      104
+    ]
+  },
+  "147": {
+    "aquire": [
+      "PLOUF"
+    ],
+    "goto": [
+      198,
+      4,
+      170
+    ]
+  },
+  "148": {
+    "goto": [
+      174,
+      229,
+      127
+    ]
+  },
+  "149": {
+    "stats": {
+      "chance": 2
+    },
+    "goto": 186
+  },
+  "150": {
+    "conditions": {
+      "50": "TROIS COUPS DE FOUET",
+      "177": "PRUDENT"
+    },
+    "goto": [
+      391,
+      50,
+      177
+    ]
+  },
+  "151": {
+    "ending": "bad",
+    "success": "GLISSE-CHEF"
+  },
+  "152": {
+    "stats": {
+      "pv": -4
+    },
+    "goto": [
+      32,
+      235
+    ]
+  },
+  "153": {
+    "conditions": {
+      "360": "BOUCLIER A PLUMES"
+    },
+    "goto": [
+      115,
+      193,
+      360
+    ]
+  },
+  "154": {
+    "goto": 165
+  },
+  "155": {
+    "stats": {
+      "end": 1,
+      "pv": -3
+    },
+    "stats_cond": {
+      "SAC DE GRAINS": {
+        "pv": 3
+      }
+    },
+    "goto": [
+      151,
+      56
+    ]
+  },
+  "156": {
+    "goto": 200
+  },
+  "157": {
+    "goto": 307
+  },
+  "158": {
+    "stats": {
+      "hab": 1
+    },
+    "goto": 21
+  },
+  "159": {
+    "goto": [
+      420,
+      126
+    ]
+  },
+  "160": {
+    "goto": 167
+  },
+  "161": {
+    "conditions": {
+      "163": "GUERRIER",
+      "51": "ARC",
+      "87": "GUIDE TOURISTIQUE"
+    },
+    "goto": [
+      113,
+      163,
+      51,
+      87
+    ]
+  },
+  "162": {
+    "stats": {
+      "end": 1,
+      "rancune": 1
+    },
+    "stats_cond": {
+      "DEBROUILLARD": {
+        "hab": 1
+      }
+    },
+    "goto": 366
+  },
+  "163": {
+    "aquire": [
+      "GRI-GRI",
+      "BOUCLIER A PLUMES"
+    ],
+    "goto": 175
+  },
+  "164": {
+    "aquire": [
+      "DEBRIDAGE DE SCORPIONS"
+    ],
+    "stats": {
+      "hab": 1,
+      "end": 1
+    },
+    "goto": 209
+  },
+  "165": {
+    "goto": [
+      149,
+      186
+    ]
+  },
+  "166": {
+    "success": "CA-COMPTE-POUR-UN",
+    "combat": {
+      "nom": "Mastodonte",
+      "hab": 15,
+      "pv": 20,
+      "arm": 1,
+      "deg": 1,
+      "pyro": 7
+    },
+    "goto": 138
+  },
+  "167": {
+    "stats": {
+      "pv": 9,
+      "chance": 4
+    },
+    "goto": 47
+  },
+  "168": {
     "stats": {
       "pv": 2,
       "chance": 2
     },
-    "goto": 153
-  },
-  "178": {
-    "label": "Le Fanta",
-    "stats": {
-      "pv_1_4_max": true
-    },
-    "goto": 300
-  },
-  "179": {
-    "goto": 354
-  },
-  "180": {
-    "stats": {
-      "info": 1,
-      "chance_max": 1
-    },
-    "goto": 100
-  },
-  "181": {
-    "label": "Forgeron",
-    "stats": {
-      "info": 1
-    },
-    "goto": [
-      70,
-      322
-    ]
-  },
-  "182": {
-    "goto": [
-      336,
-      514
-    ]
-  },
-  "183": {
-    "goto": [
-      472,
-      285,
-      95
-    ]
-  },
-  "184": {
-    "label": "Plateforme d'atterrissage",
-    "conditions": {
-      "10": "KIT D'ESCALADE",
-      "581": "KIT D'ESCALADE"
-    },
-    "goto": [
-      340,
-      10,
-      581
-    ]
-  },
-  "185": {
     "goto": 70
   },
-  "186": {
-    "label": "Salle trésor",
+  "169": {
+    "stats": {
+      "end": 1,
+      "pv": -4
+    },
+    "goto": 121
+  },
+  "170": {
+    "goto": [
+      102,
+      123,
+      191,
+      141
+    ]
+  },
+  "171": {
     "aquire": [
-      "CLE A"
+      "BOUTEILLE DE VIN"
     ],
-    "conditions": {
-      "151": "GROSSE CLE"
+    "stats_cond": {
+      "PRUDENT|PAYSAN": {
+        "respect": 1
+      }
     },
     "goto": [
-      151,
-      313
+      132,
+      30
     ]
   },
-  "187": {
-    "label": "Bibliothèque",
-    "conditions": {
-      "108": "PAMPHLET",
-      "269": "ECUSSON D'ORC"
+  "172": {
+    "goto": 182
+  },
+  "173": {
+    "stats": {
+      "chance": 1
     },
-    "goto": [
-      108,
-      269,
-      371
-    ]
+    "goto": 320
   },
-  "188": {
+  "174": {
+    "success": "PARKOUR",
+    "stats_cond": {
+      "GUERRIER|PRUDENT|PAYSAN": {
+        "adr": 1
+      },
+      "DEBROUILLARD": {
+        "critique": 2
+      }
+    },
+    "goto": 127
+  },
+  "175": {
     "conditions": {
-      "463": "PAMPHLET",
-      "217": "MARMITE",
-      "506": "PHILTRE D'AMOUR",
+      "197": "PRUDENT",
+      "199": "PAYSAN",
+      "49": "ARC|PIOCHE|LANCE",
       "208": "SAC DE GRAINS"
     },
     "goto": [
-      463,
-      217,
-      506,
+      197,
+      199,
+      49,
       208,
-      346,
-      370,
+      31
+    ]
+  },
+  "176": {
+    "aquire": [
+      "TONIQUE MYSTERIEUX"
+    ],
+    "stats": {
+      "pv_max": true
+    },
+    "goto": 36
+  },
+  "177": {
+    "goto": 182
+  },
+  "178": {
+    "aquire": [
+      "UNE REUSSITE"
+    ],
+    "goto": 303
+  },
+  "179": {
+    "goto": 138
+  },
+  "180": {
+    "combat": {
+      "nom": "TROIS ASSASSINS MONSTRUEUX",
+      "hab": 9,
+      "pv": 9,
+      "arm": 1,
+      "deg": 0,
+      "pyro": 3
+    },
+    "goto": 116
+  },
+  "181": {
+    "label": "Desert de Stia",
+    "conditions": {
+      "160": "KHAZIN",
+      "107": "PLOUF"
+    },
+    "goto": [
+      160,
+      107
+    ]
+  },
+  "182": {
+    "conditions": {
+      "383": "GUERRIER",
+      "217": "PRUDENT",
+      "522": "GOURDE SCELLEE"
+    },
+    "goto": [
+      383,
+      217,
+      522,
+      282
+    ]
+  },
+  "183": {
+    "goto": 366
+  },
+  "184": {
+    "stats": {
+      "pv": -1
+    },
+    "goto": [
       283,
-      148
+      127
     ]
   },
-  "189": {
-    "goto": 143
-  },
-  "190": {
-    "goto": [
-      359,
-      318,
-      445
-    ]
-  },
-  "191": {
-    "aquire": [
-      "PERROQUET"
-    ],
-    "goto": [
-      415,
-      330,
-      464
-    ]
-  },
-  "192": {
+  "185": {
     "stats": {
-      "richesse": 1,
-      "gloire": 1
+      "hab": 1,
+      "pv": -2
     },
-    "goto": [
-      190,
-      359,
-      318
-    ]
+    "goto": 121
   },
-  "193": {
-    "label": "Acte II, La Cathédrale",
-    "conditions": {
-      "87": "PAMPHLET"
-    },
-    "goto": [
-      87,
-      167,
-      61,
-      8
-    ]
-  },
-  "194": {
-    "success": "FILTRE-JOURNALISTE",
-    "aquire": [
-      "GEMME MAGIQUE",
-      "BRAS SQUELETTIQUE"
-    ],
-    "goto": 9
-  },
-  "195": {
-    "goto": 230
-  },
-  "196": {
-    "goto": 597
-  },
-  "197": {
-    "conditions": {
-      "164": "MORGENSTERN"
-    },
-    "goto": [
-      164,
-      93
-    ]
-  },
-  "198": {
-    "goto": [
-      317,
-      206
-    ]
-  },
-  "199": {
-    "stats": {
-      "pv": 5
-    },
-    "goto": 153
-  },
-  "200": {
-    "goto": [
-      193,
-      216
-    ]
-  },
-  "201": {
-    "stats": {
-      "gloire": -1
-    },
-    "goto": 333
-  },
-  "202": {
-    "goto": 292
-  },
-  "203": {
-    "goto": 225
-  },
-  "204": {
-    "goto": 249
-  },
-  "205": {
-    "stats": {
-      "pv": 7
-    },
-    "goto": [
-      261,
-      224
-    ]
-  },
-  "206": {
-    "goto": 367
-  },
-  "207": {
-    "goto": [
-      39,
-      123,
-      15
-    ]
-  },
-  "208": {
-    "goto": 420
-  },
-  "209": {
+  "186": {
     "stats": {
       "pv": 2
     },
-    "goto": 110
+    "goto": 156
   },
-  "210": {
+  "187": {
+    "goto": 25
+  },
+  "188": {
+    "aquire": [
+      "UNE REUSSITE"
+    ],
+    "goto": 202
+  },
+  "189": {
+    "goto": 154
+  },
+  "190": {
+    "goto": 25
+  },
+  "191": {
     "conditions": {
-      "181": "GUERRIER",
-      "219": "PAYSAN",
-      "214": "DEBROUILLARD",
-      "117": "PRUDENT"
+      "46": "GUIDE TOURISTIQUE",
+      "59": "SEAU",
+      "136": "PIOCHE"
     },
     "goto": [
-      181,
-      219,
-      214,
-      117
+      16,
+      46,
+      59,
+      136
+    ]
+  },
+  "192": {
+    "goto": [
+      110,
+      201,
+      171
+    ]
+  },
+  "193": {
+    "stats": {
+      "chance": 2
+    },
+    "goto": [
+      382,
+      127
+    ]
+  },
+  "194": {
+    "goto": 116
+  },
+  "195": {
+    "remove": [
+      "BOUTEILLE DE VIN"
+    ],
+    "stats": {
+      "end": 1,
+      "chance_max": 1
+    },
+    "goto": 127
+  },
+  "196": {
+    "conditions": {
+      "361": "GUERRIER",
+      "249": "PAYSAN"
+    },
+    "goto": [
+      361,
+      249,
+      385
+    ]
+  },
+  "197": {
+    "combat": {
+      "nom": "Perrodactyle vexé",
+      "hab": 6,
+      "pv": 10,
+      "arm": 0,
+      "deg": 0,
+      "pyro": 2
+    },
+    "goto": 260
+  },
+  "198": {
+    "goto": [
+      4,
+      170
+    ]
+  },
+  "199": {
+    "goto": 260
+  },
+  "200": {
+    "label": "La cité des reflets",
+    "goto": 28
+  },
+  "201": {
+    "stats_cond": {
+      "PRUDENT|PAYSAN": {
+        "respect": 1
+      }
+    },
+    "goto": [
+      132,
+      30
+    ]
+  },
+  "202": {
+    "conditions": {
+      "521": "FLUTE",
+      "178": "PLOUF"
+    },
+    "goto": [
+      371,
+      505,
+      521,
+      178,
+      246
+    ]
+  },
+  "203": {
+    "goto": 15
+  },
+  "204": {
+    "goto": [
+      314,
+      410
+    ]
+  },
+  "205": {
+    "conditions": {
+      "13": "BOITE DE CRAYONS"
+    },
+    "goto": [
+      85,
+      109,
+      13
+    ]
+  },
+  "206": {
+    "goto": 182
+  },
+  "207": {
+    "conditions": {
+      "26": "FDCN LU"
+    },
+    "goto": [
+      26,
+      62
+    ]
+  },
+  "208": {
+    "conditions": {
+      "199": "PAYSAN",
+      "197": "PRUDENT",
+      "49": "ARC|PIOCHE|LANCE"
+    },
+    "goto": [
+      199,
+      197,
+      49,
+      31
+    ]
+  },
+  "209": {
+    "conditions": {
+      "393": "PAYSAN",
+      "194": "FILET DE PECHE"
+    },
+    "goto": [
+      250,
+      393,
+      194
+    ]
+  },
+  "210": {
+    "goto": [
+      143,
+      341
     ]
   },
   "211": {
-    "stats": {
-      "chance_max": 1,
-      "hab": 1
-    },
-    "goto": 65
+    "goto": 330
   },
   "212": {
     "remove": [
-      "MEDAILLON D'EDIRE"
+      "GRI-GRI"
     ],
-    "goto": 25
+    "stats": {
+      "end": 1,
+      "richesse": 1,
+      "chance_max": 1
+    },
+    "goto": 127
   },
   "213": {
-    "success": "REPORTAGE-EXCLUSIF",
     "conditions": {
-      "36": "PRUDENT"
+      "238": "KHAZIN",
+      "218": "PLOUF"
     },
     "goto": [
-      36,
-      97
+      238,
+      218
     ]
   },
   "214": {
-    "label": "Registre du commerce",
+    "success": "SIXIEME-SENS",
+    "conditions": {
+      "476": "KHAZIN",
+      "287": "PLOUF"
+    },
     "goto": [
-      34,
-      33
+      476,
+      287
     ]
   },
   "215": {
-    "stats": {
-      "info": 1
-    },
-    "goto": 100
-  },
-  "216": {
-    "label": "Acte II, La tour des Mages",
-    "goto": 311
-  },
-  "217": {
     "goto": [
-      370,
-      541
+      106,
+      561,
+      376,
+      226
     ]
   },
-  "218": {
-    "conditions": {
-      "376": "PAYSAN|MARMITE"
-    },
+  "216": {
+    "aquire": [
+      "CARTE GOLD"
+    ],
     "goto": [
-      221,
-      340,
-      376
+      382,
+      127
+    ]
+  },
+  "217": {
+    "goto": 282
+  },
+  "218": {
+    "goto": [
+      207,
+      333
     ]
   },
   "219": {
-    "label": "Moulin à grains",
-    "goto": [
-      259,
-      378,
-      49,
-      94
-    ]
+    "goto": 202
   },
   "220": {
+    "conditions": {
+      "317": "BOITE DE CRAYONS",
+      "272": "CARTE GOLD",
+      "373": "BOUCLIER A PLUMES"
+    },
     "goto": [
-      50,
-      298,
-      481,
-      65
+      157,
+      317,
+      272,
+      373
     ]
   },
   "221": {
-    "secret": true,
-    "aquire": [
-      "BOCAL A EPICES"
-    ],
-    "goto": 431
+    "success": "NENETTE",
+    "stats": {
+      "richesse": 1,
+      "respect": 1
+    },
+    "goto": [
+      382,
+      127
+    ]
   },
   "222": {
-    "success": "VALENT-BIEN",
+    "conditions": {
+      "352": "SEAU",
+      "273": "SUCRE"
+    },
     "goto": [
-      336,
-      514
+      352,
+      273,
+      296,
+      542
     ]
   },
   "223": {
     "conditions": {
-      "118": "SAC DE GRAINS"
+      "227": "CARTE GOLD"
     },
     "goto": [
-      204,
-      118
+      337,
+      227
     ]
   },
   "224": {
-    "ending": "good",
-    "success": "ESCALADED-QUICKLY",
-    "goto": 608
+    "goto": 15
   },
   "225": {
-    "goto": 339
+    "combat": {
+      "nom": "La poigne filante",
+      "hab": 7,
+      "pv": 14,
+      "arm": 0,
+      "deg": 0,
+      "pyro": 0
+    },
+    "goto": 466
   },
   "226": {
-    "label": "Salle des tortures",
     "conditions": {
-      "228": "BOCAL A EPICES"
+      "23": "GUERRIER",
+      "220": "PRUDENT",
+      "259": "PAYSAN",
+      "434": "DEBROUILLARD"
     },
     "goto": [
-      251,
-      236,
-      228,
-      320
+      23,
+      220,
+      259,
+      434
     ]
   },
   "227": {
-    "goto": [
-      169,
-      84
-    ]
-  },
-  "228": {
-    "success": "PUDDING",
-    "remove": [
-      "BOCAL A EPICES"
-    ],
     "aquire": [
-      "CLE B"
+      "LOI-234",
+      "TROIS COUPS DE FOUET"
     ],
-    "goto": 461
-  },
-  "229": {
-    "goto": 70
-  },
-  "230": {
-    "label": "Clerc",
-    "goto": [
-      174,
-      241
-    ]
-  },
-  "231": {
-    "combat": {
-      "nom": "4 HOMMES D'ARMES",
-      "hab": 11,
-      "pv": 16,
-      "arm": 0,
-      "deg": 2,
-      "pyro": 4
-    },
-    "goto": 316
-  },
-  "232": {
-    "combat": {
-      "nom": "OGRE MAL EMBOUCHE",
-      "hab": 10,
-      "pv": 20,
-      "arm": 0,
-      "deg": 1,
-      "pyro": 4
-    },
-    "goto": [
-      154,
-      447,
-      553
-    ]
-  },
-  "233": {
-    "goto": 313
-  },
-  "234": {
-    "conditions": {
-      "146": "LANCE|FOURCHE"
-    },
-    "goto": [
-      146,
-      155,
-      76
-    ],
-    "secret_jumps": [
-      76
-    ]
-  },
-  "235": {
-    "goto": [
-      452,
-      163
-    ]
-  },
-  "236": {
-    "success": "SAFEWORD",
-    "aquire": [
-      "CHLOROGLYCERINE",
-      "CLE B"
-    ],
-    "stats_cond": {
-      "PRUDENT": {
-        "gloire": 1
-      }
-    },
-    "goto": 461
-  },
-  "237": {
-    "goto": 22
-  },
-  "238": {
-    "goto": [
-      149,
-      7
-    ]
-  },
-  "239": {
-    "goto": 115
-  },
-  "240": {
-    "combat": {
-      "nom": "GUEPE GEANTE",
-      "hab": 8,
-      "pv": 10,
-      "arm": 0,
-      "deg": 0,
-      "pyro": 0
-    },
-    "goto": 364
-  },
-  "241": {
-    "conditions": {
-      "45": "GUERRIER|PAYSAN|PRUDENT|DEBROUILLARD"
-    },
-    "goto": 45
-  },
-  "242": {
-    "stats": {
-      "chance": -2
-    },
-    "goto": 238
-  },
-  "243": {
-    "goto": 295
-  },
-  "244": {
-    "aquire": [
-      "BISCUITS"
-    ],
-    "goto": 430
-  },
-  "245": {
-    "goto": 436
-  },
-  "246": {
-    "goto": 80
-  },
-  "247": {
-    "aquire": [
-      "BAGUE DE RUBIS"
-    ],
-    "goto": 100
-  },
-  "248": {
-    "goto": [
-      556,
-      37
-    ]
-  },
-  "249": {
-    "conditions": {
-      "107": "BROCHE DOREE"
-    },
-    "goto": [
-      137,
-      107
-    ]
-  },
-  "250": {
-    "goto": 400
-  },
-  "251": {
-    "goto": 461
-  },
-  "252": {
-    "stats": {
-      "hab": -1
-    },
-    "goto": 261
-  },
-  "253": {
-    "goto": [
-      274,
-      263
-    ]
-  },
-  "254": {
-    "label": "Lavandières",
-    "conditions": {
-      "166": "PHILTRE D'AMOUR",
-      "284": "DEBROUILLARD"
-    },
-    "stats_cond": {
-      "COTTE DE MAILLES": {
-        "info": 1,
-        "chance_max": 1
-      },
-      "MARMITE": {
-        "info": 1,
-        "chance_max": 1
-      }
-    },
-    "goto": [
-      166,
-      284,
-      100
-    ]
-  },
-  "255": {
-    "goto": 73,
-    "stats": {
-      "chance_max": 1
-    }
-  },
-  "256": {
-    "remove": [
-      "PHILTRE D'AMOUR"
-    ],
-    "stats": {
-      "chance_max": -2,
-      "pv": -4
-    },
-    "goto": 100
-  },
-  "257": {
-    "conditions": {
-      "105": "LETTRE DE RECOMMANDATION"
-    },
-    "stats": {
-      "pv": -2
-    },
-    "stats_cond": {
-      "GUERRIER": {
-        "gloire": 1
-      }
-    },
-    "goto": [
-      105,
-      345
-    ]
-  },
-  "258": {
-    "stats_cond": {
-      "DEBROUILLARD": {
-        "pv": 2
-      }
-    },
-    "goto": [
-      355,
-      440
-    ]
-  },
-  "259": {
-    "secret": true,
-    "stats": {
-      "info": 1
-    },
-    "goto": 70
-  },
-  "260": {
-    "goto": 386
-  },
-  "261": {
-    "label": "Domaine de la souricière",
-    "goto": [
-      312,
-      161
-    ]
-  },
-  "262": {
-    "goto": [
-      365,
-      555
-    ]
-  },
-  "263": {
-    "goto": 168
-  },
-  "264": {
-    "goto": 423
-  },
-  "265": {
-    "stats_cond": {
-      "DEBROUILLARD": {
-        "gloire": 1
-      }
-    },
-    "goto": 360
-  },
-  "266": {
-    "label": "Laboratoire",
-    "goto": [
-      536,
-      176
-    ]
-  },
-  "267": {
-    "goto": [
-      69,
-      100
-    ]
-  },
-  "268": {
-    "aquire": [
-      "EXPLOSIFS"
-    ],
-    "goto": [
-      593,
-      400
-    ]
-  },
-  "269": {
-    "stats": {
-      "info": 2
-    },
-    "goto": 100
-  },
-  "270": {
-    "aquire": [
-      "MEDAILLON D'EDIRE"
-    ],
-    "stats": {
-      "pv": 12
-    },
-    "goto": 142
-  },
-  "271": {
-    "ending_txt": "Un gros calin... mortel",
-    "ending_id": "VIGNES",
-    "ending": "bad",
-    "goto": 608
-  },
-  "272": {
-    "goto": 80
-  },
-  "273": {
-    "stats": {
-      "chance": 3
-    },
-    "goto": 423
-  },
-  "274": {
-    "combat": {
-      "nom": "XXXX",
-      "hab": 1,
-      "pv": 1,
-      "arm": 1,
-      "deg": 1,
-      "pyro": 1
-    },
-    "goto": 168
-  },
-  "275": {
-    "success": "TOUT-CA-POUR-CA",
-    "aquire": [
-      "BISCUITS"
-    ],
-    "stats": {
-      "gloire": 1,
-      "richesse": 1
-    },
-    "goto": [
-      190,
-      359,
-      318
-    ]
-  },
-  "276": {
-    "combat": [
-      {
-        "nom": "GUARDES CORROMPUS",
-        "hab": 6,
-        "pv": 8,
-        "arm": 0,
-        "deg": 0,
-        "pyro": 0
-      },
-      {
-        "nom": "TROLESSE",
-        "hab": 13,
-        "pv": 16,
-        "arm": 0,
-        "deg": 1,
-        "pyro": 0
-      }
-    ],
-    "goto": 4
-  },
-  "277": {
-    "conditions": {
-      "141": "KIT D'ESCALADE",
-      "133": "FOURCHE|LANCE"
-    },
-    "goto": [
-      141,
-      133,
-      124,
-      19
-    ]
-  },
-  "278": {
-    "ending": "bad",
-    "success": "CERCLE-VICIEUX",
-    "goto": 608
-  },
-  "279": {
-    "conditions": {
-      "112": "PAYSAN"
-    },
-    "goto": [
-      112,
-      289
-    ]
-  },
-  "280": {
-    "stats": {
-      "chance": 2
-    },
-    "stats_cond": {
-      "PRUDENT": {
-        "gloire": 1
-      }
-    },
-    "goto": 414
-  },
-  "281": {
-    "stats": {
-      "max_pv": true
-    },
-    "goto": 441
-  },
-  "282": {
-    "secret": true,
-    "goto": [
-      80,
-      561
-    ]
-  },
-  "283": {
-    "label": "Tour des mages",
-    "conditions": {
-      "382": "ARC",
-      "324": "EPEE|COUTEAU",
-      "243": "PAMPHLET"
-    },
-    "goto": [
-      317,
-      382,
-      324,
-      243,
-      198,
-      95,
-      285
-    ]
-  },
-  "284": {
-    "stats_cond": {
-      "ARC&COUTEAU": {
-        "arc_et_couteau": true
-      }
-    },
-    "goto": 254
-  },
-  "285": {
-    "label": "Grand place",
-    "goto": [
-      489,
-      413,
-      64,
-      450
-    ]
-  },
-  "286": {
-    "aquire": [
-      "PETITE BOUTEILLE D'ACIDE"
-    ],
-    "combat": {
-      "nom": "PLANTE CARNITREX",
-      "hab": 13,
-      "pv": 18,
-      "arm": 0,
-      "deg": 0,
-      "pyro": 7
-    },
-    "goto": 426
-  },
-  "287": {
-    "goto": [
-      447,
-      520
-    ]
-  },
-  "288": {
-    "success": "SECRET-HISTOIRE",
-    "stats": {
-      "chance": 2
-    },
-    "goto": [
-      258,
-      355,
-      440
-    ]
-  },
-  "289": {
-    "aquire": [
-      "PALAIS DES PLAISIRS D'YTIA"
-    ],
-    "stats": {
-      "end": 1
-    },
-    "goto": 100
-  },
-  "290": {
-    "goto": 475
-  },
-  "291": {
-    "conditions": {
-      "36": "PRUDENT"
-    },
-    "goto": [
-      36,
-      97
-    ]
-  },
-  "292": {
-    "goto": [
-      551,
-      282
-    ]
-  },
-  "293": {
-    "conditions": {
-      "278": "GUERRIER"
-    },
-    "goto": [
-      278,
-      82
-    ]
-  },
-  "294": {
-    "goto": 40
-  },
-  "295": {
-    "conditions": {
-      "515": "PETITE BOUTEILLE D'ACIDE",
-      "140": "SAC DE GRAINS"
-    },
-    "goto": [
-      515,
-      140,
-      545
-    ]
-  },
-  "296": {
-    "conditions": {
-      "524": "DEBROUILLARD"
-    },
-    "goto": [
-      474,
-      524
-    ]
-  },
-  "297": {
-    "combat": {
-      "nom": "2 SERGENT D'ARME",
-      "hab": 8,
-      "pv": 12,
-      "arm": 1,
-      "deg": 1,
-      "pyro": 0
-    },
-    "stats_cond": {
-      "GUERRIER": {
-        "gloire": 1
-      }
-    },
-    "goto": 316
-  },
-  "298": {
-    "goto": [
-      220,
-      481,
-      65
-    ]
-  },
-  "299": {
-    "aquire": [
-      "EFFIGIE DE DUEL"
-    ],
-    "goto": 407
-  },
-  "300": {
-    "label": "Acte III, L'Invation",
-    "goto": 188
-  },
-  "301": {
-    "secret": true,
-    "stats": {
-      "chance": -1
-    },
-    "goto": 84
-  },
-  "302": {
-    "goto": 480
-  },
-  "303": {
-    "goto": 414
-  },
-  "304": {
-    "goto": 100
-  },
-  "305": {
-    "goto": 480
-  },
-  "306": {
-    "combat": {
-      "nom": "IVROGNE QUI DETESTE GIRAUD",
-      "hab": 3,
-      "pv": 8,
-      "arm": 0,
-      "deg": 0,
-      "pyro": 0
-    },
-    "conditions": {
-      "46": "PRUDENT"
-    },
-    "goto": [
-      303,
-      46
-    ]
-  },
-  "307": {
-    "goto": [
-      447,
-      186
-    ]
-  },
-  "308": {
-    "goto": [
-      175,
-      417
-    ]
-  },
-  "309": {
-    "goto": 333
-  },
-  "310": {
-    "secret": true,
-    "stats": {
-      "chance": -1
-    },
-    "goto": 84
-  },
-  "311": {
-    "conditions": {
-      "288": "PAMPHLET"
-    },
-    "goto": [
-      288,
-      258,
-      355,
-      440
-    ]
-  },
-  "312": {
-    "goto": 234
-  },
-  "313": {
-    "goto": 10
-  },
-  "314": {
-    "goto": [
-      566,
-      363
-    ]
-  },
-  "315": {
-    "goto": 414
-  },
-  "316": {
-    "success": "CALAMITY-BILLY",
-    "stats": {
-      "info": 1
-    },
-    "goto": 100
-  },
-  "317": {
-    "combat": {
-      "nom": "GNOLLS MOQUEURS",
-      "hab": 6,
-      "pv": 15,
-      "arm": 0,
-      "deg": 0,
-      "pyro": 0
-    },
-    "goto": 367
-  },
-  "318": {
-    "goto": [
-      190,
-      359,
-      445,
-      109,
-      327
-    ]
-  },
-  "319": {
-    "goto": 354
-  },
-  "320": {
-    "aquire": [
-      "CLE B"
-    ],
-    "combat": {
-      "nom": "FUNESTE",
-      "hab": 8,
-      "pv": 12,
-      "arm": 0,
-      "deg": 0,
-      "pyro": 4
-    },
-    "goto": 461
-  },
-  "321": {
-    "combat": {
-      "nom": "2 ELFES NOIRES SURPRISES",
-      "hab": 9,
-      "pv": 6,
-      "arm": 0,
-      "deg": 0,
-      "pyro": 4
-    },
-    "success": "FBI",
-    "goto": 436
-  },
-  "322": {
-    "stats": {
-      "info": 2,
-      "hab": 2
-    },
-    "goto": [
-      70,
-      181
-    ]
-  },
-  "323": {
-    "stats": {
-      "half_pv": true
-    },
-    "goto": 492
-  },
-  "324": {
-    "goto": [
-      317,
-      588
-    ]
-  },
-  "325": {
-    "goto": 333
-  },
-  "326": {
-    "goto": 423
-  },
-  "327": {
-    "secret": true,
-    "aquire": [
-      "BOUTEILLE DE MAGIE PURE"
-    ],
-    "goto": 445
-  },
-  "328": {
-    "remove": [
-      "LIME EN ACIER D'ARKADIE"
-    ],
-    "goto": 475
-  },
-  "329": {
-    "ending": "bad",
-    "success": "INNOCENT",
-    "goto": 608
-  },
-  "330": {
-    "conditions": {
-      "411": "GUERRIER",
-      "599": "PAYSAN",
-      "577": "PRUDENT",
-      "544": "DEBROUILLARD"
-    },
-    "goto": [
-      411,
-      599,
-      577,
-      544
-    ]
-  },
-  "331": {
-    "remove": [
-      "BOTTES EN FER"
-    ],
-    "goto": 480
-  },
-  "332": {
-    "secret": true,
-    "aquire": [
-      "LANIERES DE CUIRS"
-    ],
-    "goto": 51
-  },
-  "333": {
-    "goto": 270
-  },
-  "334": {
-    "remove": [
-      "PRODUITS CHIMIQUES HASARDEUX"
-    ],
-    "goto": 480
-  },
-  "335": {
-    "goto": [
-      29,
-      387,
-      74,
-      384
-    ]
-  },
-  "336": {
-    "aquire": [
-      "POINT FAIBLE"
-    ],
-    "goto": 292
-  },
-  "337": {
-    "stats": {
-      "richesse": 2,
-      "gloire": 1
-    },
-    "goto": 584
-  },
-  "338": {
-    "success": "CHUT",
-    "stats": {
-      "info": 3,
-      "chance": 7
-    },
-    "stats_cond": {
-      "PRUDENT": {
-        "gloire": 1
-      }
-    },
-    "goto": 100
-  },
-  "339": {
-    "combat": {
-      "nom": "ASMODIA",
-      "hab": 20,
-      "pv": 27,
-      "arm": 0,
-      "deg": 0,
-      "pyro": 10
-    },
-    "success": "ULTRA-INSTINCT",
-    "aquire": [
-      "LIME EN ACIER D'ARKADIE"
-    ],
-    "stats": {
-      "richesse": 1,
-      "gloire": 1
-    },
-    "goto": 383
-  },
-  "340": {
-    "label": "Entrepôt",
-    "goto": [
-      184,
-      520,
-      218,
-      363,
-      332
-    ]
-  },
-  "341": {
-    "goto": [
-      353,
-      285,
-      496
-    ]
-  },
-  "342": {
-    "goto": [
-      435,
-      510
-    ]
-  },
-  "343": {
-    "goto": [
-      347,
-      552,
-      408
-    ]
-  },
-  "344": {
-    "combat": {
-      "nom": "ORC ESCLAVAGISTE",
-      "hab": 10,
-      "pv": 10,
-      "arm": 0,
-      "deg": 0,
-      "pyro": 4
-    },
-    "goto": 597
-  },
-  "345": {
-    "goto": 41
-  },
-  "346": {
-    "combat": {
-      "nom": "BAGARRE GENERALE",
-      "hab": 1,
-      "pv": 18,
-      "arm": 0,
-      "deg": 0,
-      "pyro": 0
-    },
-    "success": "BIERE",
-    "goto": 420
-  },
-  "347": {
-    "goto": 469
-  },
-  "348": {
-    "success": "PILE-SECRETS",
-    "aquire": [
-      "LIME EN ACIER D'ARKADIE"
-    ],
-    "stats": {
-      "richesse": 1
-    },
-    "goto": 383
-  },
-  "349": {
-    "combat": {
-      "nom": "MASSACRE",
-      "hab": 13,
-      "pv": 18,
-      "arm": 0,
-      "deg": 1,
-      "pyro": 4
-    },
-    "conditions": {
-      "406": "MORGENSTERN",
-      "467": "BOUTEILLE DE MAGIE PURE",
-      "498": "EXPLOSIFS"
-    },
-    "goto": [
-      406,
-      467,
-      498,
-      246
-    ]
-  },
-  "350": {
-    "combat": {
-      "nom": "DRAGON ROUGE INFERIEUR",
-      "hab": 15,
-      "pv": 40,
-      "arm": 0,
-      "deg": 1,
-      "pyro": 3
-    },
-    "success": "ENFANT-DRAGON",
-    "stats": {
-      "richesse": 1
-    },
-    "stats_cond": {
-      "GUERRIER": {
-        "gloire": 1
-      }
-    },
-    "goto": 584
-  },
-  "351": {
-    "stats": {
-      "chance": 2
-    },
-    "goto": 238
-  },
-  "352": {
-    "goto": [
-      437,
-      271
-    ]
-  },
-  "353": {
-    "goto": 402
-  },
-  "354": {
-    "label": "Taverne",
-    "goto": [
-      306,
-      493,
-      442
-    ]
-  },
-  "355": {
-    "goto": [
-      227,
-      446
-    ]
-  },
-  "356": {
     "stats": {
       "hab": 1
     },
-    "goto": 100
+    "goto": 63
   },
-  "357": {
-    "goto": 527
+  "228": {
+    "aquire": [
+      "GRI-GRI"
+    ],
+    "stats": {
+      "hab": 1
+    },
+    "goto": 297
   },
-  "358": {
+  "229": {
+    "ending": "bad",
+    "ending_txt": "Gravé dans les pavés"
+  },
+  "230": {
+    "goto": 63
+  },
+  "231": {
+    "aquire": [
+      "CARTE GOLD"
+    ],
+    "stats": {
+      "rancune": 1
+    },
+    "goto": [
+      283,
+      127
+    ]
+  },
+  "232": {
+    "goto": 440
+  },
+  "233": {
+    "stats": {
+      "pv": 3
+    },
+    "goto": 425
+  },
+  "234": {
+    "aquire": [
+      "UNE REUSSITE"
+    ],
+    "combat": {
+      "nom": "Garde des nains",
+      "hab": 9,
+      "pv": 11,
+      "arm": 1,
+      "deg": 0,
+      "pyro": 0
+    },
+    "goto": 330
+  },
+  "235": {
+    "goto": 182
+  },
+  "236": {
+    "conditions": {
+      "397": "NADEE",
+      "346": "SA'PANNA"
+    },
+    "goto": [
+      397,
+      346
+    ]
+  },
+  "237": {
+    "combat": {
+      "nom": "Abomination de plus",
+      "hab": 5,
+      "pv": 5,
+      "arm": 1,
+      "deg": 0,
+      "pyro": 0
+    },
+    "goto": 116
+  },
+  "238": {
+    "goto": [
+      207,
+      333
+    ]
+  },
+  "239": {
+    "goto": [
+      262,
+      184,
+      283
+    ]
+  },
+  "240": {
+    "goto": [
+      441,
+      258,
+      122,
+      319,
+      226
+    ]
+  },
+  "241": {
+    "goto": 366
+  },
+  "242": {
+    "stats": {
+      "richesse": 2
+    },
+    "goto": 248
+  },
+  "243": {
+    "goto": 388
+  },
+  "244": {
+    "goto": 225
+  },
+  "245": {
+    "goto": [
+      588,
+      291,
+      489
+    ]
+  },
+  "246": {
+    "goto": 303
+  },
+  "247": {
+    "stats": {
+      "richesse": 1
+    },
+    "goto": 243
+  },
+  "248": {
+    "conditions": {
+      "284": "AVIS DE RECHERCHE"
+    },
+    "goto": [
+      284,
+      204
+    ]
+  },
+  "249": {
+    "stats": {
+      "respect": 1,
+      "pv_1_2_max": true
+    },
+    "goto": 366
+  },
+  "250": {
+    "combat": {
+      "nom": "Trois sans visages",
+      "hab": 9,
+      "pv": 9,
+      "arm": 1,
+      "deg": 0,
+      "pyro": 3
+    },
+    "goto": 116
+  },
+  "251": {
+    "goto": [
+      430,
+      435
+    ]
+  },
+  "252": {
+    "goto": 251
+  },
+  "253": {
+    "success": "XILLY",
+    "stats": {
+      "chance": 2
+    },
+    "goto": 297
+  },
+  "254": {
+    "conditions": {
+      "684": "PRUDENT",
+      "517": "BOUCLIER A PLUMES",
+      "431": "FLUTE",
+      "428": "CHLOROGLYCERINE"
+    },
+    "goto": [
+      474,
+      684,
+      517,
+      431,
+      428
+    ]
+  },
+  "255": {
+    "goto": [
+      368,
+      412
+    ]
+  },
+  "256": {
+    "combat": {
+      "nom": "Mimine",
+      "hab": 99,
+      "pv": 99,
+      "arm": 99,
+      "deg": 99,
+      "pyro": 0
+    },
+    "goto": 313
+  },
+  "257": {
+    "goto": 10
+  },
+  "258": {
+    "aquire": [
+      "FLUTE",
+      "LOI-521",
+      "CONSEIL NE PAS BAISSER LES YEUX"
+    ],
+    "goto": [
+      240,
+      226
+    ]
+  },
+  "259": {
+    "conditions": {
+      "379": "CARTE GOLD",
+      "164": "DISQUES CLOUTES|AILERON AERODYNAMIQUE"
+    },
+    "goto": [
+      379,
+      164,
+      339
+    ]
+  },
+  "260": {
+    "conditions": {
+      "57": "LUCIOLES",
+      "71": "COTTE DE MAILLES",
+      "179": "SAC DE GRAINS"
+    },
+    "goto": [
+      57,
+      71,
+      179,
+      166
+    ]
+  },
+  "261": {
+    "goto": [
+      215,
+      240
+    ]
+  },
+  "262": {
+    "aquire": [
+      "BON POUR DE L'ARGENT"
+    ],
+    "goto": [
+      283,
+      127
+    ]
+  },
+  "263": {
+    "conditions": {
+      "85": "GRI-GRI|BOUTEILLE DE VIN|BON POUR DE L'ARGENT",
+      "109": "GRI-GRI|BOUTEILLE DE VIN|BON POUR DE L'ARGENT"
+    },
+    "goto": [
+      85,
+      109,
+      215
+    ]
+  },
+  "264": {
+    "success": "TROUVE-LE-TITRE",
+    "aquire": [
+      "CORNE DES SABLES D'IVOIRE"
+    ],
+    "goto": 553
+  },
+  "265": {
+    "goto": 10
+  },
+  "266": {
+    "goto": 101
+  },
+  "267": {
+    "goto": 25
+  },
+  "268": {
+    "combat": {
+      "nom": "2 assassins monstrueux",
+      "hab": 7,
+      "pv": 7,
+      "arm": 1,
+      "deg": 0,
+      "pyro": 3
+    },
+    "stats": {
+      "rancune": 1
+    },
+    "goto": 116
+  },
+  "269": {
+    "goto": 303
+  },
+  "270": {
+    "stats": {
+      "rancune": 1
+    },
+    "goto": 280
+  },
+  "271": {
+    "goto": 366
+  },
+  "272": {
+    "aquire": [
+      "APPEAU"
+    ],
+    "stats": {
+      "end": 1,
+      "chance_max": 2
+    },
+    "goto": 157
+  },
+  "273": {
+    "success": "ORGIE-SYNDICALE",
+    "goto": [
+      570,
+      496
+    ]
+  },
+  "274": {
+    "goto": 503
+  },
+  "275": {
+    "stats": {
+      "chance": 4
+    },
+    "goto": 366
+  },
+  "276": {
+    "goto": 355
+  },
+  "277": {
+    "goto": [
+      211,
+      112
+    ]
+  },
+  "278": {
+    "goto": 483
+  },
+  "279": {
+    "goto": [
+      394,
+      349
+    ]
+  },
+  "280": {
+    "goto": 583
+  },
+  "281": {
+    "goto": 182
+  },
+  "282": {
+    "remove": [
+      "CREME SOLAIRE"
+    ],
+    "combat": {
+      "nom": "Torche dardante",
+      "hab": 11,
+      "pv": 17,
+      "arm": 0,
+      "deg": 0,
+      "pyro": 0
+    },
+    "goto": 466
+  },
+  "283": {
+    "goto": [
+      125,
+      332,
+      301,
+      127
+    ]
+  },
+  "284": {
+    "success": "MAISON-GAGNE-TOUJOURS",
+    "aquire": [
+      "CHLOROGLYCERINE",
+      "LOI-120"
+    ],
+    "stats": {
+      "critique": 1
+    },
+    "goto": 408
+  },
+  "285": {
+    "stats": {
+      "rancune": 1
+    },
+    "goto": 438
+  },
+  "286": {
+    "conditions": {
+      "342": "GUERRIER",
+      "274": "PRUDENT",
+      "455": "PLOUF"
+    },
+    "goto": [
+      342,
+      274,
+      455,
+      422,
+      419
+    ]
+  },
+  "287": {
+    "goto": 460
+  },
+  "288": {
+    "goto": 101
+  },
+  "289": {
+    "goto": 300
+  },
+  "290": {
+    "stats": {
+      "max_pv": true
+    },
+    "goto": 289
+  },
+  "291": {
+    "goto": 664
+  },
+  "292": {
+    "stats": {
+      "respect": 1
+    },
+    "goto": 583
+  },
+  "293": {
+    "combat": {
+      "nom": "Gnoll surpris",
+      "hab": 3,
+      "pv": 7,
+      "arm": 0,
+      "deg": -1,
+      "pyro": 0
+    },
+    "goto": 355
+  },
+  "294": {
+    "goto": 366
+  },
+  "295": {
     "stats": {
       "pv": 5
     },
     "goto": [
-      523,
+      322,
+      289
+    ]
+  },
+  "296": {
+    "combat": {
+      "nom": "Creuse de la fontaine",
+      "hab": 6,
+      "pv": 6,
+      "arm": 1,
+      "deg": 0,
+      "pyro": 0
+    },
+    "goto": 524
+  },
+  "297": {
+    "goto": [
+      69,
       516
+    ]
+  },
+  "298": {
+    "goto": 313
+  },
+  "299": {
+    "aquire": [
+      "UNE REUSSITE"
+    ],
+    "goto": 202
+  },
+  "300": {
+    "goto": [
+      310,
+      340
+    ]
+  },
+  "301": {
+    "aquire": [
+      "SUCRE"
+    ],
+    "conditions": {
+      "78": "FDCN LU",
+      "195": "BOUTEILLE DE VIN",
+      "212": "GRI-GRI"
+    },
+    "goto": [
+      78,
+      195,
+      212,
+      118,
+      148,
+      369,
+      127
+    ]
+  },
+  "302": {
+    "aquire": [
+      "LOI-234"
+    ],
+    "stats": {
+      "rancune": 1
+    },
+    "goto": 226
+  },
+  "303": {
+    "conditions": {
+      "277": "PRUDENT"
+    },
+    "secret_jumps": [
+      234
+    ],
+    "goto": [
+      279,
+      277,
+      306,
+      234
+    ]
+  },
+  "304": {
+    "goto": [
+      224,
+      498,
+      38
+    ]
+  },
+  "305": {
+    "aquire": [
+      "AILERON AERODYNAMIQUE INSTALLE"
+    ],
+    "goto": [
+      93,
+      372
+    ]
+  },
+  "306": {
+    "aquire": [
+      "UN ECHEC"
+    ],
+    "goto": 330
+  },
+  "307": {
+    "goto": [
+      473,
+      237
+    ]
+  },
+  "308": {
+    "aquire": [
+      "MIRROIR FERME"
+    ],
+    "stats": {
+      "richesse": 2,
+      "respect": 1
+    },
+    "goto": 583
+  },
+  "309": {
+    "goto": 25
+  },
+  "310": {
+    "label": "Justice juste",
+    "aquire": [
+      "TRIBUNAL"
+    ],
+    "conditions": {
+      "257": "NADEE",
+      "265": "SA'PANNA"
+    },
+    "goto": [
+      257,
+      265
+    ]
+  },
+  "311": {
+    "goto": 96
+  },
+  "312": {
+    "combat": {
+      "nom": "Cushom le garde",
+      "hab": 7,
+      "pv": 9,
+      "arm": 1,
+      "deg": 0,
+      "pyro": 0
+    },
+    "goto": 302
+  },
+  "313": {
+    "conditions": {
+      "318": "CHLOROGLYCERINE"
+    },
+    "goto": [
+      318,
+      375,
+      325
+    ]
+  },
+  "314": {
+    "aquire": [
+      "LOI-120"
+    ],
+    "goto": 408
+  },
+  "315": {
+    "goto": [
+      476,
+      287
+    ]
+  },
+  "316": {
+    "goto": 313
+  },
+  "317": {
+    "aquire": [
+      "APPEAU"
+    ],
+    "stats": {
+      "chance": 2
+    },
+    "goto": 157
+  },
+  "318": {
+    "remove": [
+      "AILERON AERODYNAMIQUE",
+      "AILERON AERODYNAMIQUE INSTALLE",
+      "SCORPYDE DE SA'PANNA",
+      "RETROVISEUR",
+      "RETROVISEUR INSTALLE",
+      "DISQUES CLOUTES",
+      "DISQUES CLOUTES INSTALLES"
+    ],
+    "stats": {
+      "critique": 2,
+      "richesse": 1,
+      "rancune": 1,
+      "respect": 1
+    },
+    "goto": [
+      367
+    ]
+  },
+  "319": {
+    "aquire": [
+      "LOI-19",
+      "RETROVISEUR"
+    ],
+    "goto": [
+      240,
+      226
+    ]
+  },
+  "320": {
+    "conditions": {
+      "390": "AILERON AERODYNAMIQUE",
+      "331": "DEBRIDAGE DE SCORPIONS"
+    },
+    "goto": [
+      324,
+      150,
+      390,
+      331
+    ]
+  },
+  "321": {
+    "combat": {
+      "nom": "Creux de la caserne",
+      "hab": 10,
+      "pv": 10,
+      "arm": 1,
+      "deg": 0,
+      "pyro": 4
+    },
+    "stats": {
+      "rancune": 1
+    },
+    "goto": 531
+  },
+  "322": {
+    "stats": {
+      "rancune": 1,
+      "pv": 4
+    },
+    "goto": 289
+  },
+  "323": {
+    "success": "GUNDAAAM",
+    "combat": {
+      "nom": "Gardien surpris",
+      "hab": 12,
+      "pv": 24,
+      "arm": 1,
+      "deg": 1,
+      "pyro": 6
+    },
+    "goto": 370
+  },
+  "324": {
+    "goto": [
+      374,
+      347
+    ]
+  },
+  "325": {
+    "remove": [
+      "AILERON AERODYNAMIQUE",
+      "AILERON AERODYNAMIQUE INSTALLE",
+      "SCORPYDE DE SA'PANNA",
+      "RETROVISEUR",
+      "RETROVISEUR INSTALLE",
+      "DISQUES CLOUTES",
+      "DISQUES CLOUTES INSTALLES"
+    ],
+    "goto": 367
+  },
+  "326": {
+    "goto": 596
+  },
+  "327": {
+    "goto": 357
+  },
+  "328": {
+    "conditions": {
+      "22": "LOI-22"
+    },
+    "goto": [
+      101,
+      22
+    ]
+  },
+  "329": {
+    "goto": 558
+  },
+  "330": {
+    "conditions": {
+      "280": "UNE REUSSITE",
+      "290": "DEUX REUSSITES",
+      "308": "TROIS REUSSITES"
+    },
+    "goto": [
+      270,
+      280,
+      290,
+      308
+    ]
+  },
+  "331": {
+    "goto": 83
+  },
+  "332": {
+    "conditions": {
+      "239": "AVIS DE RECHERCHE"
+    },
+    "goto": [
+      239,
+      283,
+      127
+    ]
+  },
+  "333": {
+    "aquire": [
+      "SA'PANNA"
+    ],
+    "goto": 336
+  },
+  "334": {
+    "stats": {
+      "pv": 1
+    },
+    "goto": 215
+  },
+  "335": {
+    "secret": true,
+    "aquire": [
+      "TAMPON JAUNE"
+    ],
+    "stats_cond": {
+      "FILET DE PECHE": {
+        "hab": 1
+      }
+    },
+    "goto": [
+      102,
+      141,
+      191,
+      192
+    ]
+  },
+  "336": {
+    "goto": [
+      215,
+      240
+    ]
+  },
+  "337": {
+    "goto": [
+      230,
+      142
+    ]
+  },
+  "338": {
+    "stats": {
+      "rancune": 1
+    },
+    "goto": 210
+  },
+  "339": {
+    "aquire": [
+      "LOI-299"
+    ],
+    "goto": 209
+  },
+  "340": {
+    "label": "Violence vraie",
+    "aquire": [
+      "SCORPIODROME"
+    ],
+    "conditions": {
+      "364": "KHAZIN",
+      "358": "PLOUF"
+    },
+    "goto": [
+      364,
+      358
+    ]
+  },
+  "341": {
+    "goto": 101
+  },
+  "342": {
+    "goto": 503
+  },
+  "343": {
+    "goto": 594
+  },
+  "344": {
+    "goto": 96
+  },
+  "345": {
+    "stats": {
+      "pv": 5
+    },
+    "conditions": {
+      "519": "FUSEE ECLAIRANTE"
+    },
+    "goto": [
+      519,
+      475
+    ]
+  },
+  "346": {
+    "goto": 384
+  },
+  "347": {
+    "goto": 83
+  },
+  "348": {
+    "goto": 25
+  },
+  "349": {
+    "stats": {
+      "chance": -2
+    },
+    "goto": 303
+  },
+  "350": {
+    "conditions": {
+      "683": "SABRE|COUTEAU CEREMONIAL"
+    },
+    "goto": [
+      683,
+      293,
+      276
+    ]
+  },
+  "351": {
+    "conditions": {
+      "381": "GUERRIER",
+      "327": "PRUDENT",
+      "509": "PAYSAN",
+      "354": "DEBROUILLARD",
+      "497": "FILET DE PECHE",
+      "423": "SEAU"
+    },
+    "goto": [
+      439
+    ]
+  },
+  "352": {
+    "goto": 524
+  },
+  "353": {
+    "aquire": [
+      "DISQUES CLOUTES INSTALLES"
+    ],
+    "goto": [
+      93,
+      372
+    ]
+  },
+  "354": {
+    "goto": 439
+  },
+  "355": {
+    "goto": 437
+  },
+  "356": {
+    "goto": 251
+  },
+  "357": {
+    "stats": {
+      "pv": -2
+    },
+    "conditions": {
+      "476": "KHAZIN",
+      "287": "PLOUF"
+    },
+    "goto": []
+  },
+  "358": {
+    "goto": [
+      363,
+      39
     ]
   },
   "359": {
     "stats": {
-      "pv": 6
+      "pv": 3
     },
-    "goto": [
-      190,
-      318,
-      445
-    ]
+    "goto": 297
   },
   "360": {
-    "goto": 458
-  },
-  "361": {
-    "success": "STARDUST",
-    "stats": {
-      "info": 1,
-      "pv_max": -2,
-      "crit": 3
-    },
-    "goto": 100
-  },
-  "362": {
-    "goto": 475
-  },
-  "363": {
-    "goto": [
-      27,
-      400,
-      340
-    ]
-  },
-  "364": {
-    "aquire": [
-      "DARD EXPLOSIF"
-    ],
-    "goto": 519
-  },
-  "365": {
-    "goto": [
-      555,
-      513
-    ]
-  },
-  "366": {
-    "goto": [
-      136,
-      248,
-      461,
-      389
-    ]
-  },
-  "367": {
-    "stats": {
-      "richesse": 1
-    },
-    "goto": 183
-  },
-  "368": {
-    "conditions": {
-      "215": "KIT DE SOIN|PETIT MEDAILLON"
-    },
-    "stats": {
-      "max_pv": true
-    },
-    "goto": [
-      215,
-      100
-    ]
-  },
-  "369": {
-    "conditions": {
-      "419": "MARMITE"
-    },
-    "goto": [
-      419,
-      75
-    ]
-  },
-  "370": {
-    "combat": {
-      "nom": "SOLDATS DE LA TAVERNE",
-      "hab": 16,
-      "pv": 30,
-      "arm": 0,
-      "deg": 0,
-      "pyro": 4
-    },
-    "goto": 420
-  },
-  "371": {
-    "goto": 100
-  },
-  "372": {
-    "goto": 423
-  },
-  "373": {
-    "goto": 436
-  },
-  "374": {
-    "aquire": [
-      "SANG DE VAMPIRE"
-    ],
-    "goto": 383
-  },
-  "375": {
-    "ending_txt": "TRICHE détectée, bien tenté, mais non.",
-    "ending_id": "TRICHE",
-    "ending": "bad",
-    "goto": 608
-  },
-  "376": {
-    "goto": [
-      591,
-      369
-    ]
-  },
-  "377": {
-    "aquire": [
-      "EFFIGIE DE DUEL"
-    ],
-    "goto": 407
-  },
-  "378": {
-    "stats": {
-      "max_pv": true
-    },
-    "goto": 70
-  },
-  "379": {
-    "remove": [
-      "BAGUE DE RUBIS"
-    ],
-    "goto": [
-      480,
-      62
-    ]
-  },
-  "380": {
-    "goto": 386
-  },
-  "381": {
-    "success": "TEMOINS",
-    "goto": [
-      476,
-      535,
-      578,
-      454
-    ]
-  },
-  "382": {
-    "goto": [
-      433,
-      494
-    ]
-  },
-  "383": {
-    "goto": [
-      409,
-      325
-    ]
-  },
-  "384": {
-    "goto": [
-      205,
-      252
-    ]
-  },
-  "385": {
-    "goto": [
-      398,
-      156
-    ]
-  },
-  "386": {
-    "conditions": {
-      "265": "KIT D'ESCALADE"
-    },
-    "stats": {
-      "pv": 2
-    },
-    "goto": [
-      265,
-      418
-    ]
-  },
-  "387": {
-    "combat": {
-      "nom": "5 BANDITS DE GRAND CHEMIN",
-      "hab": 11,
-      "pv": 15,
-      "arm": 0,
-      "deg": 0,
-      "pyro": 6
-    },
-    "goto": 261
-  },
-  "388": {
-    "remove": [
-      "LIME EN ACIER D'ARKADIE"
-    ],
-    "goto": 480
-  },
-  "389": {
-    "secret": true,
-    "goto": 186
-  },
-  "390": {
-    "goto": 461
-  },
-  "391": {
-    "goto": 452
-  },
-  "392": {
-    "goto": 238
-  },
-  "393": {
-    "conditions": {
-      "517": "GUERRIER"
-    },
-    "goto": [
-      517,
-      488,
-      447,
-      520
-    ]
-  },
-  "394": {
-    "label": "Crypte",
-    "conditions": {
-      "511": "GUERRIER",
-      "299": "PAYSAN",
-      "377": "PRUDENT",
-      "444": "DEBROUILLARD"
-    },
-    "goto": [
-      511,
-      299,
-      377,
-      444
-    ]
-  },
-  "395": {
-    "stats": {
-      "info": 1
-    },
-    "goto": 70
-  },
-  "396": {
-    "goto": 401
-  },
-  "397": {
-    "aquire": [
-      "BOTTES EN FER",
-      "CASQUE EN FER"
-    ],
-    "goto": 430
-  },
-  "398": {
-    "goto": 426
-  },
-  "399": {
-    "stats": {
-      "info": 1
-    },
-    "goto": 70
-  },
-  "400": {
-    "label": "Acte IV, La Forteresse",
-    "goto": [
-      250,
-      363,
-      449,
-      268,
-      580,
-      581,
-      457
-    ]
-  },
-  "401": {
-    "goto": 184
-  },
-  "402": {
-    "goto": 184
-  },
-  "403": {
-    "goto": 581
-  },
-  "405": {
-    "goto": 154
-  },
-  "406": {
-    "aquire": [
-      "ARMEE DE SQUELETTES DETRUITE"
-    ],
-    "stats": {
-      "end": 3
-    },
-    "goto": 25
-  },
-  "407": {
-    "label": "La vampire",
-    "goto": [
-      348,
-      491,
-      145
-    ]
-  },
-  "408": {
-    "success": "OMELETTE",
-    "goto": 469
-  },
-  "409": {
-    "goto": [
-      126,
-      201,
-      309
-    ]
-  },
-  "410": {
-    "success": "CULTURE-PUB",
-    "aquire": [
-      "PRODUITS DE NETTOYAGE"
-    ],
-    "goto": 154
-  },
-  "411": {
-    "stats": {
-      "chance_max": 1
-    },
-    "goto": [
-      191,
-      415,
-      464
-    ]
-  },
-  "412": {
-    "goto": 475
-  },
-  "413": {
-    "conditions": {
-      "463": "PAMPHLET",
-      "217": "MARMITE",
-      "506": "PHILTRE D'AMOUR",
-      "208": "SAC DE GRAINS"
-    },
-    "goto": [
-      463,
-      217,
-      506,
-      208,
-      346,
-      370,
-      64,
-      450
-    ]
-  },
-  "414": {
-    "conditions": {
-      "439": "GUERRIER|PAYSAN"
-    },
-    "goto": [
-      439,
-      50,
-      298,
-      220,
-      481
-    ]
-  },
-  "415": {
-    "aquire": [
-      "BOUTEILLE DE MAGIE PURE"
-    ],
-    "goto": [
-      191,
-      330,
-      464
-    ]
-  },
-  "416": {
-    "remove": [
-      "PETITE BOUTEILLE D'ACIDE"
-    ],
-    "goto": 480
-  },
-  "417": {
-    "stats_cond": {
-      "PRUDENT": {
-        "gloire": 1
-      }
-    },
-    "goto": 436
-  },
-  "418": {
-    "goto": 360
-  },
-  "419": {
     "stats": {
       "hab": 1
     },
-    "goto": 75
+    "goto": [
+      382,
+      127
+    ]
   },
-  "420": {
+  "361": {
     "stats": {
-      "chance": 1
+      "rancune": 1,
+      "pv": 6
     },
-    "stats_cond": {
-      "PRUDENT": {
-        "gloire": 1
-      }
-    },
-    "goto": 489
+    "goto": 366
   },
-  "421": {
-    "combat": {
-      "nom": "CHAMPIONNE TROLLESSE",
-      "hab": 11,
-      "pv": 20,
-      "arm": 0,
-      "deg": 1,
-      "pyro": 0
-    },
-    "goto": [
-      505,
-      548
-    ]
+  "362": {
+    "goto": 202
   },
-  "422": {
-    "combat": {
-      "nom": "ORC ESCLAVAGISTE",
-      "hab": 10,
-      "pv": 10,
-      "arm": 0,
-      "deg": 0,
-      "pyro": 4
-    },
-    "goto": 597
-  },
-  "423": {
-    "goto": 354
-  },
-  "424": {
-    "goto": [
-      191,
-      415,
-      330
-    ]
-  },
-  "425": {
-    "label": "Catacombes",
-    "goto": [
-      25,
-      477
-    ]
-  },
-  "426": {
-    "goto": [
-      293,
-      82
-    ]
-  },
-  "427": {
-    "goto": [
-      476,
-      535,
-      578,
-      454
-    ]
-  },
-  "428": {
-    "goto": 354
-  },
-  "429": {
-    "remove": [
-      "PRODUITS CHIMIQUES HASARDEUX"
-    ],
-    "goto": 475
-  },
-  "430": {
-    "label": "Jardin",
-    "goto": [
-      88,
-      119
-    ]
-  },
-  "431": {
-    "goto": 457
-  },
-  "432": {
-    "goto": [
-      435,
-      510
-    ]
-  },
-  "433": {
-    "goto": 295
-  },
-  "434": {
-    "goto": [
-      521,
-      465
-    ]
-  },
-  "435": {
-    "conditions": {
-      "391": "KIT D'ESCALADE",
-      "56": "FOURCHE",
-      "497": "COTTE DE MAILLES|MARMITE|CASQUE EN FER|BOTTES EN FER"
-    },
-    "goto": [
-      391,
-      56,
-      497,
-      235
-    ]
-  },
-  "436": {
-    "success": "VIE-BELLE",
-    "goto": [
-      496,
-      95,
-      403
-    ]
-  },
-  "437": {
-    "goto": [
-      435,
-      510
-    ]
-  },
-  "438": {
-    "remove": [
-      "ECAILLE DE DRAGON"
-    ],
-    "goto": 480
-  },
-  "439": {
-    "stats": {
-      "pv": 2
-    },
-    "goto": [
-      50,
-      298,
-      220,
-      481
-    ]
-  },
-  "440": {
-    "label": "Vieillard",
-    "conditions": {
-      "72": "PAYSAN|MARMITE",
-      "483": "GEMME MAGIQUE",
-      "179": "GUERRIER|COUTEAU",
-      "319": "PETIT MEDAILLON|BROCHE DOREE|BAGUE DE RUBIS"
-    },
-    "goto": [
-      72,
-      483,
-      179,
-      319
-    ]
-  },
-  "441": {
-    "goto": 500
-  },
-  "442": {
-    "stats_cond": {
-      "PRUDENT|DEBROUILLARD": {
-        "chance": 1
-      },
-      "GUERRIER|PAYSAN": {
-        "pv": 1
-      }
-    },
-    "goto": 414
-  },
-  "443": {
-    "goto": 354
-  },
-  "444": {
+  "363": {
     "aquire": [
-      "EFFIGIE DE DUEL"
+      "SCORPYDE DE SA'PANNA"
     ],
-    "goto": 407
+    "goto": 93
   },
-  "445": {
-    "goto": 468
-  },
-  "446": {
-    "goto": 84
-  },
-  "447": {
-    "label": "Couloir Ouest",
+  "364": {
+    "aquire": [
+      "TROIS COUPS DE FOUET"
+    ],
     "goto": [
-      400,
-      569,
-      461,
-      457,
-      101,
-      551,
-      154
+      363,
+      39
     ]
   },
-  "448": {
+  "365": {
+    "success": "PEU-POUR-ETRE-HEUREUX",
+    "ending": "bad",
+    "ending_txt": "Sa voix..."
+  },
+  "366": {
+    "goto": 400
+  },
+  "367": {
+    "goto": 583
+  },
+  "368": {
+    "conditions": {
+      "403": "GUIDE TOURISTIQUE"
+    },
+    "goto": [
+      415,
+      439
+    ]
+  },
+  "369": {
     "stats": {
-      "1_4_pv_max": true
+      "end": 1
+    },
+    "goto": 127
+  },
+  "370": {
+    "conditions": {
+      "413": "GUERRIER"
+    },
+    "goto": 574
+  },
+  "371": {
+    "conditions": {
+      "269": "LOI-269"
+    },
+    "goto": 202
+  },
+  "372": {
+    "conditions": {
+      "173": "NADEE",
+      "603": "SA'PANNA"
+    },
+    "goto": []
+  },
+  "373": {
+    "success": "COUVERT-GUERRE",
+    "aquire": [
+      "APPEAU"
+    ],
+    "stats": {
+      "hab": 1
+    },
+    "goto": 157
+  },
+  "374": {
+    "stats": {
+      "rancune": 1
     },
     "goto": 150
   },
-  "449": {
-    "goto": [
-      80,
-      587
-    ]
-  },
-  "450": {
-    "goto": [
-      341,
-      148,
-      285,
-      496
-    ]
-  },
-  "451": {
-    "goto": 597
-  },
-  "452": {
+  "375": {
     "aquire": [
-      "FLASQUE D'HUILE"
+      "SCORPION DORE"
     ],
-    "goto": 519
-  },
-  "453": {
-    "goto": 414
-  },
-  "454": {
-    "success": "MEMOIRE-HONOREE",
-    "conditions": {
-      "579": "GUERRIER",
-      "589": "GUERRIER",
-      "585": "PAYSAN",
-      "601": "FER A CHEVAL&TRESSE DE CENTAURESSE",
-      "559": "PRUDENT",
-      "586": "PRUDENT",
-      "590": "DEBROUILLARD",
-      "594": "DEBROUILLARD"
-    },
-    "goto": [
-      579,
-      589,
-      585,
-      601,
-      559,
-      586,
-      590,
-      594
-    ]
-  },
-  "455": {
-    "goto": [
-      451,
-      344
-    ]
-  },
-  "456": {
     "remove": [
-      "EXPLOSIFS"
+      "AILERON AERODYNAMIQUE",
+      "SCORPYDE DE SA'PANNA",
+      "RETROVISEUR",
+      "DISQUES CLOUTES"
     ],
-    "goto": 480
+    "stats": {
+      "richesse": 2,
+      "rancune": 1,
+      "respect": 1
+    },
+    "goto": 367
   },
-  "457": {
-    "label": "Salle de repas",
-    "goto": [
-      462,
-      376,
-      447,
-      400
-    ]
-  },
-  "458": {
-    "label": "Chambre du sorcier",
+  "376": {
     "conditions": {
-      "524": "DEBROUILLARD"
+      "205": "GUIDE TOURISTIQUE"
     },
     "goto": [
-      296,
-      474,
-      524
+      263,
+      215
     ]
   },
-  "459": {
-    "success": "TOUTATIS",
+  "377": {
+    "goto": 96
+  },
+  "378": {
+    "stats": {
+      "respect": 1
+    },
+    "goto": 210
+  },
+  "379": {
     "aquire": [
-      "CASQUE EN FER"
+      "LOI-299",
+      "AUTORISATION SPECIALE"
     ],
-    "goto": 430
+    "remove": [
+      "CARTE GOLD"
+    ],
+    "stats": {
+      "end": 1,
+      "pv": 3
+    },
+    "goto": 209
   },
-  "460": {
+  "380": {
     "goto": [
-      435,
-      510
+      67,
+      74,
+      634,
+      290
     ]
   },
-  "461": {
-    "label": "Couloir Nord",
-    "goto": [
-      447,
-      583,
-      547,
-      226,
-      520,
-      10
-    ]
+  "381": {
+    "goto": 439
   },
-  "462": {
-    "combat": {
-      "nom": "GOBELIN FOU",
-      "hab": 2,
-      "pv": 6,
-      "arm": 0,
-      "deg": 0,
-      "pyro": 0
+  "382": {
+    "conditions": {
+      "103": "BOUTEILLE DE VIN"
     },
     "goto": [
-      58,
-      457
+      153,
+      421,
+      84,
+      401,
+      127
     ]
   },
-  "463": {
+  "383": {
+    "stats": {
+      "rancune": 1
+    },
+    "goto": 282
+  },
+  "384": {
     "goto": [
-      262,
-      518
+      159,
+      196,
+      469
     ]
   },
-  "464": {
-    "goto": 468
+  "385": {
+    "stats": {
+      "pv": 3,
+      "chance": 2
+    },
+    "goto": 366
   },
-  "465": {
-    "ending_txt": "On ne fait pas de bisoux à un Dragon",
-    "ending_id": "SOUFLE",
+  "386": {
+    "conditions": {
+      "397": "NADEE",
+      "346": "SA'PANNA"
+    },
+    "goto": []
+  },
+  "387": {
+    "success": "VENTRE-PLUS-GROS",
     "ending": "bad",
-    "goto": 608
+    "ending_txt": "Fallait pas chercher Mimine ^^",
+    "ending_id": "VENTRE-PLUS-GROS"
   },
-  "466": {
-    "goto": 448
+  "388": {
+    "goto": 245
   },
-  "467": {
-    "aquire": [
-      "ARMEE DE SQUELETTES DETRUITE"
-    ],
-    "remove": [
-      "BOUTEILLE DE MAGIE PURE"
-    ],
-    "goto": 25
-  },
-  "468": {
-    "goto": 323
-  },
-  "469": {
+  "389": {
     "goto": [
-      475,
-      480
+      101
     ]
   },
-  "470": {
-    "goto": 354
+  "390": {
+    "goto": 83
   },
-  "471": {
+  "391": {
+    "goto": [
+      281,
+      152
+    ]
+  },
+  "392": {
+    "goto": 624
+  },
+  "393": {
+    "stats": {
+      "end": -1,
+      "chance_max": -1
+    },
+    "goto": 116
+  },
+  "394": {
+    "success": "MENTIR",
+    "aquire": [
+      "UNE REUSSITE"
+    ],
+    "goto": 330
+  },
+  "395": {
+    "conditions": {
+      "443": "GOURDE SCELLEE|PELUCHE BON MARCHE"
+    },
+    "goto": 286
+  },
+  "396": {
+    "conditions": {
+      "481": "LANCE",
+      "429": "CREME SOLAIRE"
+    },
+    "goto": 321
+  },
+  "397": {
+    "conditions": {
+      "417": "MIROIR FERME"
+    },
+    "goto": 384
+  },
+  "398": {
+    "goto": 483
+  },
+  "399": {
+    "goto": 96
+  },
+  "400": {
+    "label": "Acte IV, La Larme",
+    "conditions": {
+      "407": "NADEE",
+      "416": "SA'PANNA"
+    }
+  },
+  "401": {
+    "goto": [
+      491,
+      216
+    ]
+  },
+  "402": {
+    "stats": {
+      "pv": 1,
+      "chance": 1
+    },
+    "goto": 366
+  },
+  "403": {
+    "stats": {
+      "hab": 1,
+      "chance": -2
+    },
+    "goto": 368
+  },
+  "405": {
+    "goto": 116
+  },
+  "406": {
+    "remove": [
+      "BOUCLIER A PLUMES"
+    ],
+    "stats": {
+      "rancune": 1
+    },
+    "goto": 313
+  },
+  "407": {
+    "conditions": {
+      "392": "KHAZIN",
+      "478": "PLOUF"
+    }
+  },
+  "408": {
+    "goto": [
+      480,
+      458
+    ]
+  },
+  "409": {
+    "conditions": {
+      "424": "GUERRIER",
+      "530": "PAYSAN"
+    },
+    "goto": 523
+  },
+  "410": {
+    "aquire": [
+      "CHLOROGLYCERINE"
+    ],
+    "goto": 408
+  },
+  "411": {
+    "goto": 213
+  },
+  "412": {
+    "conditions": {
+      "403": "GUIDE TOURISTIQUE"
+    },
+    "goto": [
+      450,
+      415,
+      439
+    ]
+  },
+  "413": {
+    "stats": {
+      "richesse": 1
+    },
+    "goto": 462
+  },
+  "414": {
+    "success": "ZIGMAA-MALE",
+    "ending": "bad",
+    "ending_txt": "Excuses acceptées"
+  },
+  "415": {
+    "goto": [
+      506,
+      252,
+      356
+    ]
+  },
+  "416": {
+    "conditions": {
+      "461": "KHAZIN",
+      "479": "PLOUF"
+    }
+  },
+  "417": {
+    "remove": [
+      "MIROIR FERME"
+    ],
+    "stats": {
+      "chance": 2
+    },
+    "conditions": {
+      "471": "LUCIOLES"
+    },
+    "goto": 384
+  },
+  "418": {
+    "aquire": [
+      "FORMULAIRE DE NATIONALITE"
+    ],
+    "conditions": {
+      "445": "GUIDE TOURISTIQUE"
+    },
+    "goto": 555
+  },
+  "419": {
+    "stats": {
+      "chance": -2
+    },
+    "goto": 503
+  },
+  "420": {
+    "success": "VERY-BAD-TRIP",
+    "goto": [
+      241,
+      294,
+      447,
+      271,
+      128,
+      183
+    ]
+  },
+  "421": {
+    "goto": [
+      221,
+      382,
+      127
+    ]
+  },
+  "422": {
+    "goto": 503
+  },
+  "423": {
+    "stats": {
+      "richesse": 1
+    },
+    "goto": 351
+  },
+  "424": {
+    "aquire": [
+      "BRACELET A POINTES"
+    ],
+    "goto": 297
+  },
+  "425": {
+    "conditions": {
+      "446": "DEBROUILLARD"
+    },
+    "goto": 507
+  },
+  "426": {
+    "ending": "bad",
+    "ending_txt": "Oups, les miroirs c'est dangereux"
+  },
+  "427": {
+    "stats": {
+      "pv": 4,
+      "chance_max": 1,
+      "respect": 1
+    },
+    "goto": 366
+  },
+  "428": {
     "remove": [
       "CHLOROGLYCERINE"
     ],
-    "goto": 480
+    "success": "POTION-EXPLOSION",
+    "goto": 350
   },
-  "472": {
-    "goto": [
-      502,
-      285,
-      95
-    ]
+  "429": {
+    "goto": 531
   },
-  "473": {
-    "goto": [
-      487,
-      156
-    ]
-  },
-  "474": {
-    "goto": [
-      534,
-      424
-    ]
-  },
-  "475": {
-    "combat": {
-      "nom": "VIRILUS",
-      "hab": 30,
-      "pv": 40,
-      "arm": 1,
-      "deg": 1,
-      "pyro": 5
-    },
-    "label": "Combat Virilus",
-    "conditions": {
-      "290": "CHLOROGLYCERINE",
-      "328": "LIME EN ACIER D'ARKADIE",
-      "362": "BRACELET DE CONTROLE",
-      "412": "POINT FAIBLE",
-      "429": "PRODUITS CHIMIQUES HASARDEUX",
-      "482": "DARD EXPLOSIF",
-      "485": "TRESSE DE CENTAURESSE",
-      "508": "PETITE BOUTEILLE D'ACIDE",
-      "509": "ICONE DES PALADINS",
-      "532": "EXPLOSIFS",
-      "558": "MEDAILLON D'EDIRE",
-      "565": "FLASQUE D'HUILE",
-      "567": "ARMEE DE SQUELETTES DETRUITE",
-      "568": "BOUTEILLE DE MAGIE PURE",
-      "582": "BOCAL A EPICES",
-      "598": "SANG DE VAMPIRE",
-      "603": "PERROQUET"
-    },
-    "goto": [
-      290,
-      328,
-      362,
-      412,
-      429,
-      482,
-      485,
-      508,
-      509,
-      532,
-      558,
-      565,
-      567,
-      568,
-      582,
-      598,
-      603,
-      607
-    ]
-  },
-  "476": {
-    "conditions": {
-      "579": "GUERRIER",
-      "589": "GUERRIER",
-      "585": "PAYSAN",
-      "601": "PAYSAN",
-      "559": "PRUDENT",
-      "586": "PRUDENT",
-      "590": "DEBROUILLARD"
-    },
-    "goto": [
-      579,
-      589,
-      585,
-      601,
-      559,
-      586,
-      590
-    ]
-  },
-  "477": {
-    "conditions": {
-      "212": "MEDAILLON D'EDIRE"
-    },
-    "goto": [
-      212,
-      349,
-      80
-    ]
-  },
-  "478": {
+  "430": {
     "stats": {
-      "richesse": -1
+      "chance_max": 1,
+      "respect": 1
     },
-    "remove": [
-      "BROCHE DOREE"
-    ],
-    "goto": 480
+    "goto": 439
   },
-  "479": {
-    "goto": 405
+  "431": {
+    "goto": 350
   },
-  "480": {
-    "label": "Combat Chaudron noir",
-    "conditions": {
-      "302": "FLASQUE D'HUILE",
-      "305": "SANG DE VAMPIRE",
-      "331": "BOTTES EN FER",
-      "334": "PRODUITS CHIMIQUES HASARDEUX",
-      "379": "BAGUE DE RUBIS",
-      "388": "LIME EN ACIER D'ARKADIE",
-      "416": "PETITE BOUTEILLE D'ACIDE",
-      "438": "ECAILLE DE DRAGON",
-      "456": "EXPLOSIFS",
-      "471": "CHLOROGLYCERINE",
-      "478": "BROCHE DOREE",
-      "525": "PRODUITS DE NETTOYAGE",
-      "526": "EFFIGIE DE DUEL",
-      "529": "PERROQUET",
-      "539": "BOUTEILLE DE MAGIE PURE",
-      "542": "MEDAILLON D'EDIRE",
-      "557": "TRESSE DE CENTAURESSE",
-      "562": "BOULE A NEIGE",
-      "570": "BOCAL A EPICES",
-      "600": "DARD EXPLOSIF",
-      "606": "ICONE DES PALADINS"
-    },
-    "goto": [
-      302,
-      305,
-      331,
-      334,
-      379,
-      388,
-      416,
-      438,
-      456,
-      471,
-      478,
-      525,
-      526,
-      529,
-      539,
-      542,
-      557,
-      562,
-      570,
-      600,
-      606,
-      607,
-      329
-    ]
-  },
-  "481": {
-    "conditions": {
-      "211": "PRUDENT|DEBROUILLARD",
-      "132": "GUERRIER|PAYSAN"
-    },
-    "goto": [
-      211,
-      132
-    ]
-  },
-  "482": {
-    "remove": [
-      "DARD EXPLOSIF"
-    ],
-    "goto": 475
-  },
-  "483": {
+  "432": {
     "combat": {
-      "nom": "MENDIANT FOU A LIER",
-      "hab": 3,
-      "pv": 8,
-      "arm": 0,
+      "nom": "Creux isolé",
+      "hab": 6,
+      "pv": 6,
+      "arm": 1,
       "deg": 0,
       "pyro": 0
     },
-    "goto": 428
+    "goto": 531
+  },
+  "433": {
+    "goto": 286
+  },
+  "434": {
+    "conditions": {
+      "242": "BON POUR DE L'ARGENT"
+    },
+    "goto": 248
+  },
+  "435": {
+    "goto": 439
+  },
+  "436": {
+    "combat": {
+      "nom": "Creux vizir",
+      "hab": 8,
+      "pv": 8,
+      "arm": 1,
+      "deg": 0,
+      "pyro": 0
+    },
+    "goto": 548
+  },
+  "437": {
+    "conditions": {
+      "586": "KHAZIN",
+      "486": "PLOUF"
+    }
+  },
+  "438": {
+    "goto": 534
+  },
+  "439": {
+    "goto": [
+      255,
+      442,
+      351,
+      365
+    ]
+  },
+  "440": {
+    "goto": 439
+  },
+  "441": {
+    "aquire": [
+      "LOI-269",
+      "DISQUES CLOUTES"
+    ],
+    "goto": [
+      240,
+      226
+    ]
+  },
+  "442": {
+    "conditions": {
+      "449": "ARC",
+      "494": "PIOCHE"
+    },
+    "goto": [
+      451,
+      439
+    ]
+  },
+  "443": {
+    "goto": [
+      464,
+      485
+    ]
+  },
+  "444": {
+    "goto": 213
+  },
+  "445": {
+    "success": "ETALS-LIEUX",
+    "stats": {
+      "chance": 2
+    },
+    "conditions": {
+      "418": "PLOUF"
+    },
+    "goto": 555
+  },
+  "446": {
+    "goto": 507
+  },
+  "447": {
+    "goto": 366
+  },
+  "448": {
+    "goto": 512
+  },
+  "449": {
+    "goto": 315
+  },
+  "450": {
+    "stats": {
+      "pv": 3
+    },
+    "stats_cond": {
+      "DEBROUILLARD": {
+        "deg": 1
+      }
+    },
+    "goto": 368
+  },
+  "451": {
+    "goto": 442
+  },
+  "452": {
+    "goto": [
+      597,
+      569
+    ]
+  },
+  "453": {
+    "aquire": [
+      "LOI-49-3"
+    ],
+    "goto": 525
+  },
+  "454": {
+    "conditions": {
+      "688": "GUERRIER",
+      "678": "PAYSAN",
+      "682": "PRUDENT",
+      "660": "DEBROUILLARD"
+    }
+  },
+  "455": {
+    "goto": 503
+  },
+  "456": {
+    "conditions": {
+      "560": "CARTE GOLD",
+      "329": "SUCRE"
+    },
+    "goto": [
+      482,
+      541,
+      550
+    ]
+  },
+  "457": {
+    "secret_jumps": [
+      111
+    ],
+    "goto": 527
+  },
+  "458": {
+    "goto": [
+      488,
+      405
+    ]
+  },
+  "459": {
+    "goto": [
+      514,
+      323
+    ]
+  },
+  "460": {
+    "goto": 528
+  },
+  "461": {
+    "goto": 233
+  },
+  "462": {
+    "conditions": {
+      "536": "KHAZIN"
+    },
+    "goto": [
+      467,
+      395,
+      433
+    ]
+  },
+  "463": {
+    "stats": {
+      "chance_max": -1
+    },
+    "goto": 296
+  },
+  "464": {
+    "aquire": [
+      "SABLIER PERPETUEL"
+    ],
+    "stats": {
+      "richesse": 1,
+      "chance_max": 1
+    },
+    "goto": 286
+  },
+  "465": {
+    "goto": 548
+  },
+  "466": {
+    "conditions": {
+      "484": "FDCN LU|CONSEIL NE PAS BAISSER LES YEUX",
+      "298": "SAC DE GRAINS",
+      "406": "BOUCLIER A PLUMES",
+      "316": "APPEAU"
+    },
+    "goto": [
+      256,
+      387
+    ]
+  },
+  "467": {
+    "conditions": {
+      "575": "NADEE"
+    },
+    "goto": 286
+  },
+  "468": {
+    "goto": 438
+  },
+  "469": {
+    "conditions": {
+      "427": "PRUDENT",
+      "162": "AVIS DE RECHERCHE",
+      "402": "PELUCHE BON MARCHE"
+    },
+    "goto": [
+      275,
+      384
+    ]
+  },
+  "470": {
+    "goto": 101
+  },
+  "471": {
+    "aquire": [
+      "MIROIR DE NADEE"
+    ],
+    "remove": [
+      "MIROIR FERME"
+    ],
+    "stats": {
+      "chance_max": 2
+    },
+    "goto": 384
+  },
+  "472": {
+    "goto": [
+      554,
+      304,
+      52
+    ]
+  },
+  "473": {
+    "goto": 116
+  },
+  "474": {
+    "combat": {
+      "nom": "Banc de requins des sables",
+      "hab": 10,
+      "pv": 20,
+      "arm": 0,
+      "deg": 2,
+      "pyro": 4
+    },
+    "goto": 350
+  },
+  "475": {
+    "goto": 500
+  },
+  "476": {
+    "goto": 460
+  },
+  "477": {
+    "goto": 213
+  },
+  "478": {
+    "goto": 624
+  },
+  "479": {
+    "goto": 233
+  },
+  "480": {
+    "combat": {
+      "nom": "DEUX INCARNATIONS DU VIDE",
+      "hab": 7,
+      "pv": 7,
+      "arm": 1,
+      "deg": 0,
+      "pyro": 0
+    },
+    "goto": 116
+  },
+  "481": {
+    "combat": {
+      "nom": "CREUX ISOLE",
+      "hab": 6,
+      "pv": 6,
+      "arm": 1,
+      "deg": 0,
+      "pyro": 0
+    },
+    "goto": 531
+  },
+  "482": {
+    "goto": [
+      648,
+      558
+    ]
+  },
+  "483": {
+    "conditions": {
+      "563": "KHAZIN",
+      "547": "PLOUF"
+    }
   },
   "484": {
-    "stats": {
-      "richesse": -1
-    },
-    "goto": [
-      427,
-      501,
-      602,
-      381
-    ]
+    "goto": 313
   },
   "485": {
-    "goto": 475
+    "stats": {
+      "pv": -1,
+      "richesse": 1,
+      "chance_max": 1
+    },
+    "aquire": [
+      "SABLIER PERPETUEL"
+    ],
+    "goto": 286
   },
   "486": {
-    "conditions": {
-      "222": "PRODUITS DE NETTOYAGE",
-      "182": "PALAIS DES PLAISIRS D'YTIA",
-      "202": "BOUTEILLE DE MAGIE PURE"
-    },
-    "goto": [
-      222,
-      574,
-      182,
-      202
-    ]
+    "goto": 556
   },
   "487": {
-    "goto": 426
+    "goto": 326
   },
   "488": {
-    "goto": 573
+    "goto": 480
   },
   "489": {
-    "goto": [
-      64,
-      450,
-      479
-    ]
+    "aquire": [
+      "HALISTAIR SAMRAAT REGISTAAN"
+    ],
+    "goto": 664
   },
   "490": {
     "goto": [
-      496,
-      95,
-      403
+      98,
+      190,
+      348
     ]
   },
   "491": {
     "stats": {
-      "richesse": 1,
-      "chance_max": -2
+      "rancune": 1
     },
-    "aquire": [
-      "LIME EN ACIER D'ARKADIE"
-    ],
-    "goto": 383
-  },
-  "492": {
-    "goto": 466
-  },
-  "493": {
     "goto": [
-      113,
-      315,
-      280,
-      453,
+      382,
       127
     ]
   },
+  "492": {
+    "goto": [
+      513,
+      533
+    ]
+  },
+  "493": {
+    "success": "IZALLGOUD",
+    "ending": "bad",
+    "ending_txt": "Que la fête commence!!!"
+  },
   "494": {
-    "goto": 317
+    "goto": 315
   },
   "495": {
-    "success": "EMEU-PORCELAINE",
-    "goto": 536
+    "goto": 278
   },
   "496": {
-    "label": "Cathédrale",
+    "conditions": {
+      "551": "SCORPION DORE",
+      "578": "CORNE DES SABLES D'IVOIRE"
+    },
     "goto": [
-      531,
-      537,
-      450,
-      157
+      483,
+      564,
+      538
     ]
   },
   "497": {
-    "goto": 452
+    "goto": 357
   },
   "498": {
+    "success": "PHOBIE-ADMINISTRATIVE",
     "aquire": [
-      "ARMEE DE SQUELETTES DETRUITE"
+      "TAMPON VERT"
     ],
-    "goto": 25
-  },
-  "499": {
-    "stats": {
-      "info": 2
-    },
-    "goto": 100
-  },
-  "500": {
-    "label": "Acte Virilus",
-    "goto": [
-      572,
-      343
-    ]
-  },
-  "501": {
-    "goto": [
-      476,
-      535,
-      578,
-      454
-    ]
-  },
-  "502": {
-    "goto": 405
-  },
-  "503": {
-    "goto": [
-      461,
-      101,
-      340
-    ]
-  },
-  "504": {
-    "goto": 168
-  },
-  "505": {
-    "success": "OCTOGONE",
-    "aquire": [
-      "CEINTURE DE CHAMPION"
-    ],
-    "stats": {
-      "pv": 8
-    },
-    "stats_cond": {
-      "GUERRIER": {
-        "gloire": 1
-      }
-    },
-    "goto": 457
-  },
-  "506": {
-    "remove": [
-      "PHILTRE D'AMOUR"
-    ],
-    "goto": 420
-  },
-  "507": {
-    "goto": 531
-  },
-  "508": {
-    "remove": [
-      "PETITE BOUTEILLE D'ACIDE"
-    ],
-    "goto": 475
-  },
-  "509": {
-    "remove": [
-      "ICONE DES PALADINS"
-    ],
-    "stats": {
-      "arm": 1
-    },
-    "goto": 475
-  },
-  "510": {
-    "conditions": {
-      "538": "PHILTRE D'AMOUR",
-      "172": "COUTEAU|EPEE"
-    },
-    "goto": [
-      538,
-      172,
-      240
-    ]
-  },
-  "511": {
-    "goto": 407
-  },
-  "512": {
-    "conditions": {
-      "337": "ECAILLE DE DRAGON",
-      "592": "BOUTEILLE DE MAGIE PURE",
-      "20": "PHILTRE D'AMOUR"
-    },
-    "goto": [
-      337,
-      592,
-      20,
-      434,
-      3,
-      157,
-      64
-    ]
-  },
-  "513": {
-    "success": "PREMIER",
-    "goto": 420
-  },
-  "514": {
-    "goto": 292
-  },
-  "515": {
-    "remove": [
-      "PETITE BOUTEILLE D'ACIDE"
-    ],
-    "goto": 367
-  },
-  "516": {
-    "goto": [
-      403,
-      450,
-      157
-    ]
-  },
-  "517": {
-    "goto": 573
-  },
-  "518": {
-    "combat": {
-      "nom": "SOLDATS DE LA TAVERNE",
-      "hab": 16,
-      "pv": 30,
-      "arm": 0,
-      "deg": 0,
-      "pyro": 4
-    },
-    "goto": 420
-  },
-  "519": {
-    "label": "Pied de la tour",
-    "goto": [
-      260,
-      380
-    ]
-  },
-  "520": {
-    "label": "Salle statues",
-    "conditions": {
-      "503": "EXPLOSIFS|MORGENSTERN"
-    },
-    "goto": [
-      503,
-      340
-    ]
-  },
-  "521": {
-    "conditions": {
-      "337": "ECAILLE DE DRAGON",
-      "592": "BOUTEILLE DE MAGIE PURE",
-      "20": "PHILTRE D'AMOUR"
-    },
-    "goto": [
-      3,
-      337,
-      592,
-      20,
-      157,
-      64
-    ]
-  },
-  "522": {
-    "conditions": {
-      "59": "PASSE-PARTOUT",
-      "373": "COUTEAU",
-      "245": "LIME EN ACIER D'ARKADIE",
-      "321": "DARD EXPLOSIF"
-    },
-    "goto": [
-      59,
-      373,
-      245,
-      321
-    ]
-  },
-  "523": {
-    "goto": [
-      403,
-      450,
-      157
-    ]
-  },
-  "524": {
-    "goto": [
-      296,
-      474
-    ]
-  },
-  "525": {
-    "remove": [
-      "PRODUITS DE NETTOYAGE"
-    ],
-    "goto": 480
-  },
-  "526": {
-    "remove": [
-      "EFFIGIE DE DUEL"
-    ],
-    "goto": 480
-  },
-  "527": {
-    "goto": 484
-  },
-  "528": {
-    "goto": [
-      6,
-      27
-    ]
-  },
-  "529": {
-    "remove": [
-      "PERROQUET"
-    ],
-    "conditions": {
-      "595": "BOUTEILLE DE MAGIE PURE"
-    },
-    "goto": [
-      480,
-      595
-    ]
-  },
-  "530": {
-    "goto": 10
-  },
-  "531": {
-    "goto": [
-      450,
-      157,
-      160,
-      543
-    ]
-  },
-  "532": {
-    "remove": [
-      "EXPLOSIFS"
-    ],
-    "goto": 475
-  },
-  "533": {
-    "stats": {
-      "hab": 1
-    },
-    "goto": 400
-  },
-  "534": {
-    "combat": {
-      "nom": "PANTHERE INVOQUEE",
-      "hab": 8,
-      "pv": 9,
-      "arm": 0,
-      "deg": 0,
-      "pyro": 0
-    },
-    "stats": {
-      "hab": 1
-    },
-    "goto": 52
-  },
-  "535": {
-    "conditions": {
-      "579": "GUERRIER",
-      "589": "GUERRIER",
-      "585": "PAYSAN",
-      "601": "PAYSAN&FER A CHEVAL&TRESSE DE CENTAURESSE",
-      "559": "PRUDENT",
-      "586": "PRUDENT",
-      "590": "DEBROUILLARD"
-    },
-    "goto": [
-      579,
-      589,
-      585,
-      601,
-      559,
-      586,
-      590
-    ]
-  },
-  "536": {
-    "aquire": [
-      "PRODUITS CHIMIQUES HASARDEUX"
-    ],
-    "conditions": {
-      "554": "PAMPHLET"
-    },
-    "goto": [
-      80,
-      554
-    ]
-  },
-  "537": {
-    "conditions": {
-      "504": "EFFIGIE DE DUEL",
-      "549": "MEDAILLON D'EDIRE",
-      "162": "ARC"
-    },
-    "goto": [
-      504,
-      549,
-      162,
-      253,
-      274,
-      450,
-      157
-    ]
-  },
-  "538": {
-    "remove": [
-      "PHILTRE D'AMOUR"
-    ],
-    "goto": 364
-  },
-  "539": {
-    "remove": [
-      "BOUTEILLE DE MAGIE PURE"
-    ],
-    "conditions": {
-      "595": "PERROQUET"
-    },
-    "goto": [
-      480,
-      595
-    ]
-  },
-  "540": {
-    "goto": [
-      6,
-      27
-    ]
-  },
-  "541": {
-    "goto": 420
-  },
-  "542": {
-    "remove": [
-      "MEDAILLON D'EDIRE"
-    ],
-    "stats": {
-      "end": 1,
-      "arm": 1
-    },
-    "goto": 480
-  },
-  "543": {
-    "goto": [
-      450,
-      157
-    ]
-  },
-  "544": {
     "stats": {
       "end": 1
     },
     "goto": [
+      123,
+      141,
       191,
-      415,
-      464
+      192
     ]
   },
-  "545": {
-    "combat": {
-      "nom": "SCORPION GEANT",
-      "hab": 6,
-      "pv": 20,
-      "arm": 3,
-      "deg": 0,
-      "pyro": 4
-    },
-    "goto": 367
+  "499": {
+    "goto": 213
   },
-  "546": {
-    "goto": 436
-  },
-  "547": {
+  "500": {
+    "label": "Le Guide",
     "conditions": {
-      "390": "GROSSE CLE",
-      "550": "CLE A&CLE B"
-    },
-    "goto": [
-      390,
-      550,
-      461
-    ]
+      "504": "KHAZIN",
+      "571": "PLOUF"
+    }
   },
-  "548": {
-    "goto": 457
+  "501": {
+    "label": "Oasis détente",
+    "aquire": [
+      "CREME SOLAIRE"
+    ],
+    "goto": 382
   },
-  "549": {
-    "goto": 168
+  "502": {
+    "goto": 579
   },
-  "550": {
-    "label": "Salle du trône",
-    "goto": [
-      461,
-      281
-    ]
-  },
-  "551": {
-    "label": "Dortoir",
-    "goto": [
-      575,
-      232,
-      154,
-      447,
-      553
-    ]
-  },
-  "552": {
+  "503": {
     "conditions": {
-      "604": "PRUDENT"
+      "445": "GUIDE TOURISTIQUE",
+      "418": "PLOUF"
     },
+    "goto": 555
+  },
+  "504": {
+    "goto": 520
+  },
+  "505": {
+    "goto": 202
+  },
+  "506": {
+    "goto": 251
+  },
+  "507": {
+    "goto": 254
+  },
+  "508": {
+    "goto": 438
+  },
+  "509": {
+    "goto": 439
+  },
+  "510": {
     "goto": [
-      469,
-      604
+      562,
+      587,
+      453
     ]
   },
-  "553": {
-    "label": "Thermes",
-    "goto": [
-      292,
-      486
-    ]
+  "511": {
+    "goto": 566
   },
-  "554": {
-    "stats": {
-      "chance_max": 3
-    },
-    "goto": 80
-  },
-  "555": {
-    "combat": {
-      "nom": "OGRE",
-      "hab": 10,
-      "pv": 20,
-      "arm": 0,
-      "deg": 1,
-      "pyro": 4
-    },
-    "goto": 420
-  },
-  "556": {
-    "success": "SORS",
-    "goto": [
-      366,
-      136,
-      461
-    ]
-  },
-  "557": {
-    "remove": [
-      "TRESSE DE CENTAURESSE"
+  "512": {
+    "aquire": [
+      "BRACELET IOTOS"
     ],
-    "goto": 480
-  },
-  "558": {
-    "remove": [
-      "MEDAILLON D'EDIRE"
-    ],
-    "stats": {
-      "max_pv": true
-    },
-    "goto": 475
-  },
-  "559": {
-    "ending": "good",
-    "success": "VIVANT",
-    "goto": 608
-  },
-  "560": {
-    "success": "FIL-EPEE",
-    "goto": 78
-  },
-  "561": {
-    "goto": 80
-  },
-  "562": {
-    "remove": [
-      "BOULE A NEIGE"
-    ],
-    "goto": 480
-  },
-  "563": {
-    "goto": 357
-  },
-  "564": {
-    "conditions": {
-      "308": "BAGUE DE RUBIS|BROCHE DOREE",
-      "546": "PERROQUET"
-    },
-    "goto": [
-      308,
-      546,
-      522,
-      175,
-      496,
-      95
-    ]
-  },
-  "565": {
-    "stats": {
-      "deg": 1
-    },
-    "goto": 475
-  },
-  "566": {
-    "stats": {
-      "chance": 2,
-      "hab": 10
-    },
-    "goto": [
-      340,
-      400
-    ]
-  },
-  "567": {
-    "goto": 475
-  },
-  "568": {
-    "remove": [
-      "BOUTEILLE DE MAGIE PURE"
-    ],
-    "goto": 475
-  },
-  "569": {
-    "label": "Petite alcôve",
-    "goto": [
-      307,
-      560,
-      571
-    ]
-  },
-  "570": {
-    "remove": [
-      "BOCAL A EPICES"
-    ],
-    "goto": 480
-  },
-  "571": {
-    "goto": [
-      276,
-      447
-    ]
-  },
-  "572": {
-    "goto": [
-      347,
-      552,
-      408
-    ]
-  },
-  "573": {
-    "goto": [
-      447,
-      520
-    ]
-  },
-  "574": {
-    "combat": {
-      "nom": "ELFES NOIRES NUES",
-      "hab": 7,
-      "pv": 10,
-      "arm": 0,
-      "deg": 1,
-      "pyro": 3
-    },
-    "goto": 292
-  },
-  "575": {
-    "combat": {
-      "nom": "GNOLL ENDORMI",
-      "hab": 6,
-      "pv": 12,
-      "arm": 0,
-      "deg": 0,
-      "pyro": 4
-    },
-    "goto": [
-      154,
-      447,
-      553
-    ]
-  },
-  "576": {
-    "combat": {
-      "nom": "CHAMAN FOU",
-      "hab": 6,
-      "pv": 15,
-      "arm": 0,
-      "deg": 1,
-      "pyro": 4
-    },
-    "goto": 536
-  },
-  "577": {
     "stats": {
       "hab": 1
     },
-    "goto": [
-      191,
-      415,
-      464
-    ]
+    "goto": 462
   },
-  "578": {
+  "513": {
+    "goto": 553
+  },
+  "514": {
+    "combat": {
+      "nom": "GARDIEN DE LA NECROPOLE",
+      "hab": 14,
+      "pv": 24,
+      "arm": 1,
+      "deg": 1,
+      "pyro": 4
+    },
+    "goto": 370
+  },
+  "515": {
+    "goto": 512
+  },
+  "516": {
+    "success": "NO-WAY-PAN",
+    "stats": {
+      "pv": 7
+    },
+    "goto": 537
+  },
+  "517": {
+    "remove": [
+      "BOUCLIER A PLUMES"
+    ],
+    "goto": 350
+  },
+  "518": {
+    "goto": 579
+  },
+  "519": {
+    "goto": 500
+  },
+  "520": {
     "conditions": {
-      "579": "GUERRIER",
-      "589": "GUERRIER",
-      "585": "PAYSAN",
-      "601": "PAYSAN&FER A CHEVAL&TRESSE DE CENTAURESSE",
-      "559": "PRUDENT",
-      "586": "PRUDENT",
-      "590": "DEBROUILLARD"
+      "396": "GUERRIER",
+      "222": "PRUDENT",
+      "539": "PAYSAN",
+      "456": "DEBROUILLARD"
+    }
+  },
+  "521": {
+    "success": "PIPAUTAGE-PROFESSIONNEL",
+    "aquire": [
+      "UNE REUSSITE"
+    ],
+    "goto": 303
+  },
+  "522": {
+    "remove": [
+      "GOURDE SCELLEE"
+    ],
+    "goto": 282
+  },
+  "523": {
+    "conditions": {
+      "601": "BOITE DE CRAYONS",
+      "359": "FILET DE PECHE",
+      "228": "GRI-GRI"
+    },
+    "goto": 253
+  },
+  "524": {
+    "conditions": {
+      "496": "SCORPIODROME",
+      "570": "TRIBUNAL"
+    }
+  },
+  "525": {
+    "goto": 567
+  },
+  "526": {
+    "goto": 483
+  },
+  "527": {
+    "conditions": {
+      "535": "RETROVISEUR|MIROIR DE NADEE",
+      "285": "PIOCHE",
+      "508": "NADEE",
+      "559": "PAYSAN"
     },
     "goto": [
-      579,
-      589,
-      585,
-      601,
-      559,
-      586,
+      426,
+      457,
+      468
+    ]
+  },
+  "528": {
+    "secret_jumps": [
+      88
+    ],
+    "goto": [
+      514,
+      323,
+      459
+    ]
+  },
+  "529": {
+    "goto": 579
+  },
+  "530": {
+    "aquire": [
+      "OEUFS DE SCORPYDRE"
+    ],
+    "stats": {
+      "pv_max": 3
+    },
+    "goto": 297
+  },
+  "531": {
+    "conditions": {
+      "570": "TRIBUNAL",
+      "496": "SCORPIODROME"
+    }
+  },
+  "532": {
+    "combat": {
+      "nom": "CREUX DES ECURIES",
+      "hab": 10,
+      "pv": 10,
+      "arm": 1,
+      "deg": 0,
+      "pyro": 4
+    },
+    "goto": 579
+  },
+  "533": {
+    "aquire": [
+      "RETROVISEUR INSTALLE"
+    ],
+    "goto": [
+      93,
+      372
+    ]
+  },
+  "534": {
+    "conditions": {
+      "487": "NADEE",
+      "546": "SA'PANNA"
+    }
+  },
+  "535": {
+    "success": "JE-SUIS-DONC-JE-SUIS",
+    "goto": 438
+  },
+  "536": {
+    "aquire": [
+      "TURBAN POUR KHAZIN"
+    ],
+    "goto": 286
+  },
+  "537": {
+    "aquire": [
+      "FUSEE ECLAIRANTE"
+    ],
+    "goto": 460
+  },
+  "538": {
+    "goto": [
+      398,
+      526
+    ]
+  },
+  "539": {
+    "conditions": {
+      "549": "BOUTEILLE DE VIN",
+      "529": "SAC DE GRAINS",
+      "502": "PELUCHE BON MARCHE"
+    },
+    "goto": [
+      532,
+      585
+    ]
+  },
+  "540": {
+    "goto": 25
+  },
+  "541": {
+    "goto": 548
+  },
+  "542": {
+    "goto": [
+      557,
+      463
+    ]
+  },
+  "543": {
+    "goto": [
+      573,
+      608
+    ]
+  },
+  "544": {
+    "goto": 566
+  },
+  "545": {
+    "conditions": {
+      "688": "GUERRIER",
+      "611": "GUERRIER&BRACELET A POINTES",
+      "678": "PAYSAN",
+      "661": "PAYSAN&AUTORISATION SPECIALE&OEUFS DE SCORPYDRE",
+      "682": "PRUDENT",
+      "677": "PRUDENT&MIROIR DE NADEE",
+      "660": "DEBROUILLARD",
+      "644": "PARI GAGNE"
+    }
+  },
+  "546": {
+    "goto": 326
+  },
+  "547": {
+    "goto": [
+      552,
       590
     ]
   },
-  "579": {
-    "ending": "good",
-    "success": "BULIAAA",
-    "goto": 608
+  "548": {
+    "conditions": {
+      "570": "TRIBUNAL",
+      "496": "SCORPIODROME"
+    }
   },
-  "580": {
+  "549": {
+    "remove": [
+      "BOUTEILLE DE VIN"
+    ],
+    "goto": 579
+  },
+  "550": {
     "goto": [
-      533,
-      400
+      465,
+      436
     ]
   },
-  "581": {
-    "label": "Tour sud",
+  "551": {
+    "goto": 483
+  },
+  "552": {
+    "goto": 567
+  },
+  "553": {
+    "goto": 527
+  },
+  "554": {
+    "goto": 15
+  },
+  "555": {
     "conditions": {
-      "184": "KIT D'ESCALADE"
+      "264": "HALISTAIR SAMRAAT REGISTAAN"
     },
     "goto": [
-      400,
-      184,
-      596
+      513,
+      492
+    ],
+    "secret_jumps": [
+      264
     ]
   },
-  "582": {
-    "remove": [
-      "BOCAL A EPICES"
+  "556": {
+    "conditions": {
+      "409": "AILERON AERODYNAMIQUE",
+      "424": "GUERRIER",
+      "530": "PAYSAN"
+    },
+    "goto": 523
+  },
+  "557": {
+    "goto": 524
+  },
+  "558": {
+    "conditions": {
+      "560": "CARTE GOLD"
+    },
+    "goto": [
+      541,
+      550
+    ]
+  },
+  "559": {
+    "goto": 438
+  },
+  "560": {
+    "goto": 648
+  },
+  "561": {
+    "goto": [
+      312,
+      654
+    ]
+  },
+  "562": {
+    "aquire": [
+      "MECANISME DEESSE DEUX FOIS"
     ],
-    "goto": 475
+    "goto": 525
+  },
+  "563": {
+    "goto": [
+      590,
+      552
+    ]
+  },
+  "564": {
+    "combat": {
+      "nom": "SCORPYDRE A QUATRE QUEUES",
+      "hab": 8,
+      "pv": 12,
+      "arm": 3,
+      "deg": 1,
+      "pyro": 4
+    },
+    "goto": 483
+  },
+  "565": {
+    "goto": 622
+  },
+  "566": {
+    "stats": {
+      "max_pv": true
+    },
+    "conditions": {
+      "591": "APPEAU",
+      "2": "MECANISME DEESSE DEUX FOIS"
+    },
+    "goto": [
+      584,
+      595
+    ],
+    "secret_jumps": [
+      2
+    ]
+  },
+  "567": {
+    "conditions": {
+      "511": "GUERRIER",
+      "577": "PRUDENT",
+      "599": "PAYSAN",
+      "544": "DEBROUILLARD"
+    }
+  },
+  "568": {
+    "conditions": {
+      "576": "CORNE DES SABLES D'IVOIRE"
+    },
+    "goto": 659
+  },
+  "569": {
+    "goto": 483
+  },
+  "570": {
+    "conditions": {
+      "572": "CORNE DES SABLES D'IVOIRE",
+      "581": "FLUTE"
+    },
+    "goto": [
+      483,
+      495,
+      452
+    ]
+  },
+  "571": {
+    "goto": 520
+  },
+  "572": {
+    "goto": 483
+  },
+  "573": {
+    "goto": 510
+  },
+  "574": {
+    "conditions": {
+      "515": "LANCE|FLEAU A GRAINS"
+    },
+    "goto": [
+      448,
+      462
+    ]
+  },
+  "575": {
+    "success": "APPROPRIATION-CULTURELLE",
+    "stats": {
+      "respect": 1
+    },
+    "goto": 286
+  },
+  "576": {
+    "goto": 600
+  },
+  "577": {
+    "goto": 566
+  },
+  "578": {
+    "goto": 483
+  },
+  "579": {
+    "conditions": {
+      "570": "TRIBUNAL",
+      "496": "SCORPIODROME"
+    }
+  },
+  "580": {
+    "stats": {
+      "chance_max": -2
+    },
+    "goto": 532
+  },
+  "581": {
+    "goto": 278
+  },
+  "582": {
+    "goto": 510
   },
   "583": {
-    "label": "Cachots",
     "goto": [
-      461,
-      366,
-      136,
-      248
+      247,
+      243
     ]
   },
   "584": {
-    "goto": [
-      396,
-      157,
-      64
-    ]
+    "combat": {
+      "nom": "ARMEE DE CREUX",
+      "hab": 32,
+      "pv": 32,
+      "arm": 1,
+      "deg": -1,
+      "pyro": 30
+    },
+    "goto": 602
   },
   "585": {
-    "ending": "good",
-    "success": "TRAVAIL-TERMINE",
-    "goto": 608
+    "goto": [
+      518,
+      580
+    ]
   },
   "586": {
-    "ending": "good",
-    "success": "FLEURS",
-    "goto": 608
+    "goto": 556
   },
   "587": {
-    "conditions": {
-      "272": "(ARC&FLECHES EXPLOSIVES)|EXPLOSIFS"
-    },
-    "goto": [
-      447,
-      400,
-      272
-    ]
+    "goto": 525
   },
   "588": {
-    "goto": 367
+    "aquire": [
+      "SECRET DU DOUBLE INFINI"
+    ],
+    "goto": 664
   },
   "589": {
-    "ending": "good",
-    "success": "HONNEUR",
-    "goto": 608
+    "goto": 640
   },
   "590": {
-    "ending": "good",
-    "success": "PERSONNEL",
-    "goto": 608
+    "goto": [
+      614,
+      543,
+      613,
+      592
+    ]
   },
   "591": {
-    "goto": 457
+    "goto": 602
   },
   "592": {
-    "stats": {
-      "richesse": 2
-    },
-    "goto": 584
+    "goto": [
+      629,
+      608
+    ]
   },
   "593": {
-    "goto": 400
+    "goto": 565
   },
   "594": {
-    "ending": "good",
-    "success": "ARSENE",
-    "goto": 608
+    "goto": 646
   },
   "595": {
-    "ending": "good",
-    "success": "METAAAL",
-    "goto": 608
+    "goto": 602
   },
   "596": {
-    "aquire": [
-      "ICONE DES PALADINS"
-    ],
-    "goto": 581
+    "goto": 345
   },
   "597": {
-    "stats": {
-      "pv": 3
-    },
-    "goto": [
-      285,
-      353,
-      496
-    ]
+    "goto": 278
   },
   "598": {
-    "remove": [
-      "SANG DE VAMPIRE"
-    ],
-    "goto": 475
+    "goto": 625
   },
   "599": {
-    "stats": {
-      "adr": 1
-    },
-    "goto": [
-      191,
-      415,
-      464
-    ]
+    "goto": 566
   },
   "600": {
-    "remove": [
-      "DARD EXPLOSIF"
-    ],
-    "goto": 480
+    "label": "Les Sables d'Ivoire",
+    "goto": 690
   },
   "601": {
-    "ending": "good",
-    "success": "SABOT",
-    "goto": 608
+    "stats": {
+      "critique": 2
+    },
+    "goto": 297
   },
   "602": {
-    "goto": [
-      476,
-      535,
-      578,
-      454
-    ]
+    "goto": 606
   },
   "603": {
-    "remove": [
-      "PERROQUET"
-    ],
-    "goto": 475
+    "goto": 320
   },
   "604": {
-    "ending": "good",
-    "success": "TU-QUOQUE-BILLY",
-    "goto": 608
+    "goto": [
+      637,
+      605
+    ]
   },
   "605": {
-    "goto": 430
+    "goto": 641
   },
   "606": {
-    "remove": [
-      "ICONE DES PALADINS"
-    ],
-    "goto": 480
+    "conditions": {
+      "647": "NADEE",
+      "636": "SA'PANNA"
+    }
   },
   "607": {
+    "goto": 625
+  },
+  "608": {
     "combat": {
-      "nom": "VIRILUS",
-      "hab": 24,
-      "pv": 20,
+      "nom": "CREUX DE LA PRISON",
+      "hab": 7,
+      "pv": 7,
+      "arm": 1,
+      "deg": 0,
+      "pyro": 4
+    },
+    "goto": 510
+  },
+  "609": {
+    "goto": 639
+  },
+  "610": {
+    "conditions": {
+      "687": "NADEE"
+    },
+    "goto": 658
+  },
+  "611": {
+    "success": "FULL-THROTTLE",
+    "ending": "good",
+    "ending_txt": "A fond la ... caisse?",
+    "ending_id": "FULL-THROTTLE",
+    "goto": 625
+  },
+  "612": {
+    "goto": 625
+  },
+  "613": {
+    "goto": [
+      608,
+      631
+    ]
+  },
+  "614": {
+    "goto": [
+      582,
+      608
+    ]
+  },
+  "615": {
+    "goto": 609
+  },
+  "616": {
+    "goto": 630
+  },
+  "617": {
+    "goto": 675
+  },
+  "618": {
+    "conditions": {
+      "687": "NADEE"
+    },
+    "goto": 658
+  },
+  "619": {
+    "success": "ME-TOO",
+    "goto": 609
+  },
+  "620": {
+    "conditions": {
+      "680": "CHLOROGLYCERINE",
+      "689": "GUERRIER"
+    },
+    "goto": 649
+  },
+  "621": {
+    "goto": 594
+  },
+  "622": {
+    "goto": 652
+  },
+  "623": {
+    "goto": 667
+  },
+  "624": {
+    "stats": {
+      "pv": 1,
+      "chance": 1
+    },
+    "goto": 232
+  },
+  "625": {
+    "conditions": {
+      "656": "MIROIR DE NADEE",
+      "616": "RETROVISEUR"
+    },
+    "goto": 630
+  },
+  "626": {
+    "success": "FUSIL-TCHEKHOV",
+    "goto": 621
+  },
+  "627": {
+    "goto": 674
+  },
+  "628": {
+    "goto": 623
+  },
+  "629": {
+    "goto": 510
+  },
+  "630": {
+    "combat": {
+      "nom": "L'Usurpatrice",
+      "hab": 16,
+      "pv": 26,
       "arm": 1,
       "deg": 1,
       "pyro": 0
     },
-    "goto": 563
+    "goto": 663
+  },
+  "631": {
+    "goto": 510
+  },
+  "632": {
+    "goto": 691
+  },
+  "633": {
+    "goto": 609
+  },
+  "634": {
+    "goto": 289
+  },
+  "635": {
+    "goto": 665
+  },
+  "636": {
+    "goto": [
+      615,
+      633,
+      619
+    ]
+  },
+  "637": {
+    "goto": 641
+  },
+  "638": {
+    "conditions": {
+      "626": "TONIQUE MYSTERIEUX",
+      "679": "TROMBONE",
+      "681": "SABLIER PERPETUEL"
+    },
+    "goto": [
+      669,
+      620
+    ]
+  },
+  "639": {
+    "conditions": {
+      "612": "NADEE",
+      "598": "SECRET SULTAN SUR SA FILLE"
+    },
+    "goto": 607
+  },
+  "640": {
+    "conditions": {
+      "623": "KHAZIN",
+      "628": "PLOUF"
+    }
+  },
+  "641": {
+    "goto": 651
+  },
+  "642": {
+    "goto": 665
+  },
+  "643": {
+    "success": "RUISSELLEMENT",
+    "goto": 675
+  },
+  "644": {
+    "success": "PYRO-MONTANA",
+    "ending": "good",
+    "ending_txt": "On partage",
+    "ending_id": "PYRO-MONTANA"
+  },
+  "645": {
+    "success": "ORDRE-CHOSES",
+    "goto": 674
+  },
+  "646": {
+    "goto": 650
+  },
+  "647": {
+    "goto": 609
+  },
+  "648": {
+    "goto": 548
+  },
+  "649": {
+    "combat": {
+      "nom": "Zarh du souffle de Zarh",
+      "hab": 40,
+      "pv": 40,
+      "arm": 4,
+      "deg": 4,
+      "pyro": 20
+    },
+    "goto": 343
+  },
+  "650": {
+    "goto": 659
+  },
+  "651": {
+    "goto": [
+      620,
+      638
+    ]
+  },
+  "652": {
+    "goto": 568
+  },
+  "653": {
+    "goto": 675
+  },
+  "654": {
+    "aquire": [
+      "LOI-234",
+      "CONSEIL DE CUSHOM DERRIERE"
+    ],
+    "stats": {
+      "respect": 1
+    },
+    "goto": 215
+  },
+  "655": {
+    "success": "MILLES-ET-UNE-NEIGE",
+    "ending": "bad",
+    "ending_txt": "Délivré, libéré?",
+    "ending_id": "MILLES-ET-UNE-NEIGE"
+  },
+  "656": {
+    "goto": 686
+  },
+  "657": {
+    "success": "POSTERITE-ADMINISTRATIVE",
+    "goto": 674
+  },
+  "658": {
+    "goto": 593
+  },
+  "659": {
+    "goto": [
+      666,
+      642,
+      635,
+      662,
+      676
+    ]
+  },
+  "660": {
+    "success": "BONNE-CHANCE",
+    "goto": 685
+  },
+  "661": {
+    "ending": "good",
+    "ending_txt": "Vivre dignement",
+    "ending_id": "ELEVAGE-ARRANGE",
+    "success": "ELEVAGE-ARRANGE"
+  },
+  "662": {
+    "goto": 665
+  },
+  "663": {
+    "goto": 686
+  },
+  "664": {
+    "conditions": {
+      "236": "KHAZIN",
+      "386": "PLOUF"
+    }
+  },
+  "665": {
+    "goto": [
+      643,
+      653,
+      672,
+      617
+    ]
+  },
+  "666": {
+    "success": "AIME-PAS-LE-SABLE",
+    "goto": 665
+  },
+  "667": {
+    "stats": {
+      "max_pv": true,
+      "max_chance": true
+    },
+    "conditions": {
+      "671": "GUERRIER"
+    },
+    "goto": 604
+  },
+  "668": {
+    "ending": "bad",
+    "ending_txt": "Souffler?",
+    "ending_id": "SOUFFLER"
+  },
+  "669": {
+    "goto": 638
+  },
+  "670": {
+    "conditions": {
+      "618": "GUERRIER",
+      "493": "LOI-49-3"
+    },
+    "goto": 610
+  },
+  "671": {
+    "aquire": [
+      "FLASQUE D'HUILE"
+    ],
+    "goto": 604
+  },
+  "672": {
+    "goto": 675
+  },
+  "673": {
+    "goto": 674
+  },
+  "674": {
+    "conditions": {
+      "545": "SOUFFLE DANS LA CORNE"
+    },
+    "goto": 454
+  },
+  "675": {
+    "conditions": {
+      "645": "TURBAN POUR KHAZIN",
+      "657": "FORMULAIRE DE NATIONALITE"
+    },
+    "goto": [
+      673,
+      627
+    ]
+  },
+  "676": {
+    "success": "CITOYEN-ORDINAIRE",
+    "goto": 665
+  },
+  "677": {
+    "success": "ACE-ATTORNEY",
+    "ending": "good",
+    "ending_txt": "Très bon jeu Ace Attorney d'ailleurs.",
+    "ending_id": "ACE-ATTORNEY"
+  },
+  "678": {
+    "success": "BON-TUTEUR",
+    "goto": 685
+  },
+  "679": {
+    "goto": 612
+  },
+  "680": {
+    "remove": [
+      "CHLOROGLYCERINE"
+    ],
+    "goto": 649
+  },
+  "681": {
+    "remove": [
+      "SABLIER PERPETUEL"
+    ],
+    "goto": 621
+  },
+  "682": {
+    "success": "PLACE-MUSEE",
+    "goto": 685
+  },
+  "683": {
+    "goto": 355
+  },
+  "684": {
+    "goto": 350
+  },
+  "685": {
+    "conditions": {
+      "632": "SOUFFLE DANS LA CORNE"
+    },
+    "goto": 668
+  },
+  "686": {
+    "combat": {
+      "nom": "Avatar de Vetherr",
+      "hab": 0,
+      "pv": 30,
+      "arm": 0,
+      "deg": 0,
+      "pyro": 5
+    },
+    "goto": 670
+  },
+  "687": {
+    "goto": 593
+  },
+  "688": {
+    "success": "NI-GUIDE",
+    "goto": 685
+  },
+  "689": {
+    "combat": {
+      "nom": "Titan des glaces",
+      "hab": 0,
+      "pv": 40,
+      "arm": 0,
+      "deg": 0,
+      "pyro": 0
+    },
+    "goto": [
+      655,
+      343
+    ]
+  },
+  "690": {
+    "aquire": [
+      "SOUFFLE DANS LA CORNE"
+    ],
+    "goto": 589
+  },
+  "691": {
+    "goto": 692
+  },
+  "692": {
+    "ending": "good",
+    "ending_txt": "Vivement La lance de Valkar!",
+    "ending_id": "VALKAR"
   }
 }
