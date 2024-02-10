@@ -1499,7 +1499,21 @@ custom_constants/shadow_offset_x = 0
 custom_constants/shadow_offset_y = 0
 custom_constants/shadow_as_outline = 0
 custom_fonts/font = ExtResource( 2 )
-text = "0.15"
+text = "0.16"
+
+[node name="CDSIBeta" type="Label" parent="About/About/VersionTxt"]
+modulate = Color( 1, 0, 0, 1 )
+self_modulate = Color( 1, 0, 0, 1 )
+margin_left = 65.425
+margin_top = -0.631561
+margin_right = 295.425
+margin_bottom = 30.3684
+custom_colors/font_color = Color( 0, 0.760784, 0.666667, 1 )
+custom_constants/shadow_offset_x = 0
+custom_constants/shadow_offset_y = 0
+custom_constants/shadow_as_outline = 0
+custom_fonts/font = ExtResource( 2 )
+text = "CDSI en Beta :)"
 
 [node name="SrcLabel" type="Label" parent="About/About"]
 margin_left = 15.593
@@ -1521,15 +1535,13 @@ margin_left = 15.3354
 margin_top = 200.984
 margin_right = 354.336
 margin_bottom = 231.984
+rect_pivot_offset = Vector2( 227.935, 35.6174 )
 custom_colors/font_color = Color( 0, 0.760784, 0.666667, 1 )
 custom_constants/shadow_offset_x = 0
 custom_constants/shadow_offset_y = 0
 custom_constants/shadow_as_outline = 0
 custom_fonts/font = ExtResource( 2 )
 text = "https://github.com/naparuba/fdcn"
-__meta__ = {
-"_edit_use_anchors_": false
-}
 
 [node name="ThnksLabel" type="Label" parent="About/About"]
 margin_left = 15.7058
@@ -1562,9 +1574,6 @@ permis à cette application d'exister
 - Anael Closson pour son patch :)
 - Mystorage09 pour son ticket :)
 - Polurax pour ses tickets :)"
-__meta__ = {
-"_edit_use_anchors_": false
-}
 
 [node name="NotesLabel" type="Label" parent="About/About"]
 margin_left = 12.2959

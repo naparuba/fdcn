@@ -1,3 +1,12 @@
 [
+  ["L'Exode", 131, "Prieuré", [181]],
+  ["L'Exode", 45, "Jungle", [181]],
+
+  ["L'Exode", 105, "Fêtes", [127]],
+  ["L'Exode", 501, "Oasis Détente", [127]],
+  ["La Larme", 460, "Nécropole Halistair", [596]],
+
+    ["La Larme", 416, "Avec Sa'panna", [460]],
+  ["La Larme", 407, "Avec Nadee", [460]]
 
 ]

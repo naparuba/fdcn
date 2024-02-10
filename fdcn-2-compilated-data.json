@@ -168,7 +168,7 @@
     "102": {
         "computed": {
             "aquire": [],
-            "arc": null,
+            "arc": "Prieuré",
             "chapter": "L'Exode",
             "combat": null,
             "ending": false,
@@ -195,7 +195,7 @@
     "103": {
         "computed": {
             "aquire": [],
-            "arc": null,
+            "arc": "Oasis Détente",
             "chapter": "L'Exode",
             "combat": null,
             "ending": false,
@@ -236,7 +236,7 @@
     "104": {
         "computed": {
             "aquire": [],
-            "arc": null,
+            "arc": "Jungle",
             "chapter": "L'Exode",
             "combat": null,
             "ending": false,
@@ -261,7 +261,7 @@
     "105": {
         "computed": {
             "aquire": [],
-            "arc": null,
+            "arc": "Fêtes",
             "chapter": "L'Exode",
             "combat": null,
             "ending": false,
@@ -343,7 +343,7 @@
     "108": {
         "computed": {
             "aquire": [],
-            "arc": null,
+            "arc": "Jungle",
             "chapter": "L'Exode",
             "combat": null,
             "ending": false,
@@ -451,7 +451,7 @@
     "110": {
         "computed": {
             "aquire": [],
-            "arc": null,
+            "arc": "Prieuré",
             "chapter": "L'Exode",
             "combat": null,
             "ending": false,
@@ -478,7 +478,7 @@
     "111": {
         "computed": {
             "aquire": [],
-            "arc": null,
+            "arc": "Nécropole Halistair",
             "chapter": "La Larme",
             "combat": null,
             "ending": false,
@@ -545,7 +545,7 @@
         },
         "computed": {
             "aquire": [],
-            "arc": null,
+            "arc": "Jungle",
             "chapter": "L'Exode",
             "combat": {
                 "arm": 0,
@@ -635,7 +635,7 @@
     "115": {
         "computed": {
             "aquire": [],
-            "arc": null,
+            "arc": "Oasis Détente",
             "chapter": "L'Exode",
             "combat": null,
             "ending": false,
@@ -747,7 +747,7 @@
     "118": {
         "computed": {
             "aquire": [],
-            "arc": null,
+            "arc": "Fêtes",
             "chapter": "L'Exode",
             "combat": null,
             "ending": false,
@@ -780,7 +780,7 @@
     "119": {
         "computed": {
             "aquire": [],
-            "arc": null,
+            "arc": "Jungle",
             "chapter": "L'Exode",
             "combat": null,
             "ending": false,
@@ -874,7 +874,7 @@
     "121": {
         "computed": {
             "aquire": [],
-            "arc": null,
+            "arc": "Jungle",
             "chapter": "L'Exode",
             "combat": null,
             "ending": false,
@@ -944,7 +944,7 @@
     "123": {
         "computed": {
             "aquire": [],
-            "arc": null,
+            "arc": "Prieuré",
             "chapter": "L'Exode",
             "combat": null,
             "ending": false,
@@ -1046,7 +1046,7 @@
         },
         "computed": {
             "aquire": [],
-            "arc": null,
+            "arc": "Fêtes",
             "chapter": "L'Exode",
             "combat": {
                 "arm": 1,
@@ -1085,7 +1085,7 @@
         "computed": {
             "aquire": [],
             "arc": null,
-            "chapter": "La Larme",
+            "chapter": "La Palais",
             "combat": null,
             "ending": false,
             "ending_id": null,
@@ -1144,7 +1144,7 @@
         "computed": {
             "aquire": [],
             "arc": null,
-            "chapter": "La Larme",
+            "chapter": "La Palais",
             "combat": null,
             "ending": false,
             "ending_id": null,
@@ -1273,7 +1273,7 @@
     "131": {
         "computed": {
             "aquire": [],
-            "arc": null,
+            "arc": "Prieuré",
             "chapter": "L'Exode",
             "combat": null,
             "ending": false,
@@ -1314,7 +1314,7 @@
     "132": {
         "computed": {
             "aquire": [],
-            "arc": null,
+            "arc": "Prieuré",
             "chapter": "L'Exode",
             "combat": null,
             "ending": false,
@@ -1377,7 +1377,7 @@
     "134": {
         "computed": {
             "aquire": [],
-            "arc": null,
+            "arc": "Prieuré",
             "chapter": "L'Exode",
             "combat": null,
             "ending": false,
@@ -1448,7 +1448,7 @@
             "aquire": [
                 "TAMPON ROUGE"
             ],
-            "arc": null,
+            "arc": "Prieuré",
             "chapter": "L'Exode",
             "combat": null,
             "ending": false,
@@ -1483,7 +1483,7 @@
     "137": {
         "computed": {
             "aquire": [],
-            "arc": null,
+            "arc": "Jungle",
             "chapter": "L'Exode",
             "combat": null,
             "ending": false,
@@ -1510,7 +1510,7 @@
     "138": {
         "computed": {
             "aquire": [],
-            "arc": null,
+            "arc": "Jungle",
             "chapter": "L'Exode",
             "combat": null,
             "ending": false,
@@ -1537,7 +1537,7 @@
     "139": {
         "computed": {
             "aquire": [],
-            "arc": null,
+            "arc": "Jungle",
             "chapter": "L'Exode",
             "combat": null,
             "ending": false,
@@ -1569,7 +1569,7 @@
             "aquire": [
                 "KHAZIN"
             ],
-            "arc": null,
+            "arc": "Jungle",
             "chapter": "L'Exode",
             "combat": null,
             "ending": false,
@@ -1596,7 +1596,7 @@
     "140": {
         "computed": {
             "aquire": [],
-            "arc": null,
+            "arc": "Jungle",
             "chapter": "L'Exode",
             "combat": null,
             "ending": false,
@@ -1645,7 +1645,7 @@
     "141": {
         "computed": {
             "aquire": [],
-            "arc": null,
+            "arc": "Prieuré",
             "chapter": "L'Exode",
             "combat": null,
             "ending": false,
@@ -1750,7 +1750,7 @@
     "144": {
         "computed": {
             "aquire": [],
-            "arc": null,
+            "arc": "Prieuré",
             "chapter": "L'Exode",
             "combat": null,
             "ending": false,
@@ -1811,7 +1811,7 @@
     "146": {
         "computed": {
             "aquire": [],
-            "arc": null,
+            "arc": "Jungle",
             "chapter": "L'Exode",
             "combat": null,
             "ending": false,
@@ -1852,7 +1852,7 @@
             "aquire": [
                 "PLOUF"
             ],
-            "arc": null,
+            "arc": "Prieuré",
             "chapter": "L'Exode",
             "combat": null,
             "ending": false,
@@ -1885,7 +1885,7 @@
     "148": {
         "computed": {
             "aquire": [],
-            "arc": null,
+            "arc": "Fêtes",
             "chapter": "L'Exode",
             "combat": null,
             "ending": false,
@@ -1950,7 +1950,7 @@
     "15": {
         "computed": {
             "aquire": [],
-            "arc": null,
+            "arc": "Prieuré",
             "chapter": "L'Exode",
             "combat": null,
             "ending": false,
@@ -1984,7 +1984,7 @@
         "computed": {
             "aquire": [],
             "arc": null,
-            "chapter": "La Larme",
+            "chapter": "Violence Vraie",
             "combat": null,
             "ending": false,
             "ending_id": null,
@@ -2057,7 +2057,7 @@
         "computed": {
             "aquire": [],
             "arc": null,
-            "chapter": "La Larme",
+            "chapter": "Violence Vraie",
             "combat": null,
             "ending": false,
             "ending_id": null,
@@ -2092,7 +2092,7 @@
     "153": {
         "computed": {
             "aquire": [],
-            "arc": null,
+            "arc": "Oasis Détente",
             "chapter": "L'Exode",
             "combat": null,
             "ending": false,
@@ -2301,7 +2301,7 @@
         "computed": {
             "aquire": [],
             "arc": null,
-            "chapter": "La Larme",
+            "chapter": "La Palais",
             "combat": null,
             "ending": false,
             "ending_id": null,
@@ -2344,7 +2344,7 @@
             "aquire": [
                 "TAMPON ROUGE"
             ],
-            "arc": null,
+            "arc": "Prieuré",
             "chapter": "L'Exode",
             "combat": {
                 "arm": 0,
@@ -2413,7 +2413,7 @@
     "161": {
         "computed": {
             "aquire": [],
-            "arc": null,
+            "arc": "Jungle",
             "chapter": "L'Exode",
             "combat": null,
             "ending": false,
@@ -2468,7 +2468,7 @@
         "computed": {
             "aquire": [],
             "arc": null,
-            "chapter": "La Larme",
+            "chapter": "La Palais",
             "combat": null,
             "ending": false,
             "ending_id": null,
@@ -2523,7 +2523,7 @@
                 "GRI-GRI",
                 "BOUCLIER A PLUMES"
             ],
-            "arc": null,
+            "arc": "Jungle",
             "chapter": "L'Exode",
             "combat": null,
             "ending": false,
@@ -2628,7 +2628,7 @@
         },
         "computed": {
             "aquire": [],
-            "arc": null,
+            "arc": "Jungle",
             "chapter": "L'Exode",
             "combat": {
                 "arm": 1,
@@ -2731,7 +2731,7 @@
     "169": {
         "computed": {
             "aquire": [],
-            "arc": null,
+            "arc": "Jungle",
             "chapter": "L'Exode",
             "combat": null,
             "ending": false,
@@ -2765,7 +2765,7 @@
     "17": {
         "computed": {
             "aquire": [],
-            "arc": null,
+            "arc": "Fêtes",
             "chapter": "L'Exode",
             "combat": null,
             "ending": false,
@@ -2798,7 +2798,7 @@
     "170": {
         "computed": {
             "aquire": [],
-            "arc": null,
+            "arc": "Prieuré",
             "chapter": "L'Exode",
             "combat": null,
             "ending": false,
@@ -2838,7 +2838,7 @@
             "aquire": [
                 "BOUTEILLE DE VIN"
             ],
-            "arc": null,
+            "arc": "Prieuré",
             "chapter": "L'Exode",
             "combat": null,
             "ending": false,
@@ -2892,7 +2892,7 @@
         "computed": {
             "aquire": [],
             "arc": null,
-            "chapter": "La Larme",
+            "chapter": "Violence Vraie",
             "combat": null,
             "ending": false,
             "ending_id": null,
@@ -2919,7 +2919,7 @@
         "computed": {
             "aquire": [],
             "arc": null,
-            "chapter": "La Larme",
+            "chapter": "Violence Vraie",
             "combat": null,
             "ending": false,
             "ending_id": null,
@@ -2950,7 +2950,7 @@
     "174": {
         "computed": {
             "aquire": [],
-            "arc": null,
+            "arc": "Fêtes",
             "chapter": "L'Exode",
             "combat": null,
             "ending": false,
@@ -3015,7 +3015,7 @@
     "175": {
         "computed": {
             "aquire": [],
-            "arc": null,
+            "arc": "Jungle",
             "chapter": "L'Exode",
             "combat": null,
             "ending": false,
@@ -3124,7 +3124,7 @@
         "computed": {
             "aquire": [],
             "arc": null,
-            "chapter": "La Larme",
+            "chapter": "Violence Vraie",
             "combat": null,
             "ending": false,
             "ending_id": null,
@@ -3182,7 +3182,7 @@
     "179": {
         "computed": {
             "aquire": [],
-            "arc": null,
+            "arc": "Jungle",
             "chapter": "L'Exode",
             "combat": null,
             "ending": false,
@@ -3357,7 +3357,7 @@
         "computed": {
             "aquire": [],
             "arc": null,
-            "chapter": "La Larme",
+            "chapter": "Violence Vraie",
             "combat": null,
             "ending": false,
             "ending_id": null,
@@ -3411,7 +3411,7 @@
         "computed": {
             "aquire": [],
             "arc": null,
-            "chapter": "La Larme",
+            "chapter": "La Palais",
             "combat": null,
             "ending": false,
             "ending_id": null,
@@ -3437,7 +3437,7 @@
     "184": {
         "computed": {
             "aquire": [],
-            "arc": null,
+            "arc": "Fêtes",
             "chapter": "L'Exode",
             "combat": null,
             "ending": false,
@@ -3473,7 +3473,7 @@
     "185": {
         "computed": {
             "aquire": [],
-            "arc": null,
+            "arc": "Jungle",
             "chapter": "L'Exode",
             "combat": null,
             "ending": false,
@@ -3539,7 +3539,7 @@
     "187": {
         "computed": {
             "aquire": [],
-            "arc": null,
+            "arc": "Prieuré",
             "chapter": "L'Exode",
             "combat": null,
             "ending": false,
@@ -3572,7 +3572,7 @@
                 "UNE REUSSITE"
             ],
             "arc": null,
-            "chapter": null,
+            "chapter": "Justice Juste",
             "combat": null,
             "ending": false,
             "ending_id": null,
@@ -3631,7 +3631,7 @@
                 "DEUX REUSSITES"
             ],
             "arc": null,
-            "chapter": null,
+            "chapter": "Justice Juste",
             "combat": null,
             "ending": false,
             "ending_id": null,
@@ -3657,7 +3657,7 @@
     "190": {
         "computed": {
             "aquire": [],
-            "arc": null,
+            "arc": "Prieuré",
             "chapter": "L'Exode",
             "combat": null,
             "ending": false,
@@ -3684,7 +3684,7 @@
     "191": {
         "computed": {
             "aquire": [],
-            "arc": null,
+            "arc": "Prieuré",
             "chapter": "L'Exode",
             "combat": null,
             "ending": false,
@@ -3738,7 +3738,7 @@
     "192": {
         "computed": {
             "aquire": [],
-            "arc": null,
+            "arc": "Prieuré",
             "chapter": "L'Exode",
             "combat": null,
             "ending": false,
@@ -3771,7 +3771,7 @@
     "193": {
         "computed": {
             "aquire": [],
-            "arc": null,
+            "arc": "Oasis Détente",
             "chapter": "L'Exode",
             "combat": null,
             "ending": false,
@@ -3834,7 +3834,7 @@
     "195": {
         "computed": {
             "aquire": [],
-            "arc": null,
+            "arc": "Fêtes",
             "chapter": "L'Exode",
             "combat": null,
             "ending": false,
@@ -3874,7 +3874,7 @@
         "computed": {
             "aquire": [],
             "arc": null,
-            "chapter": "La Larme",
+            "chapter": "La Palais",
             "combat": null,
             "ending": false,
             "ending_id": null,
@@ -3928,7 +3928,7 @@
         },
         "computed": {
             "aquire": [],
-            "arc": null,
+            "arc": "Jungle",
             "chapter": "L'Exode",
             "combat": {
                 "arm": 0,
@@ -3962,7 +3962,7 @@
     "198": {
         "computed": {
             "aquire": [],
-            "arc": null,
+            "arc": "Prieuré",
             "chapter": "L'Exode",
             "combat": null,
             "ending": false,
@@ -3993,7 +3993,7 @@
     "199": {
         "computed": {
             "aquire": [],
-            "arc": null,
+            "arc": "Jungle",
             "chapter": "L'Exode",
             "combat": null,
             "ending": false,
@@ -4049,7 +4049,7 @@
     "20": {
         "computed": {
             "aquire": [],
-            "arc": null,
+            "arc": "Jungle",
             "chapter": "L'Exode",
             "combat": null,
             "ending": false,
@@ -4113,7 +4113,7 @@
     "201": {
         "computed": {
             "aquire": [],
-            "arc": null,
+            "arc": "Prieuré",
             "chapter": "L'Exode",
             "combat": null,
             "ending": false,
@@ -4217,7 +4217,7 @@
     "203": {
         "computed": {
             "aquire": [],
-            "arc": null,
+            "arc": "Prieuré",
             "chapter": "L'Exode",
             "combat": null,
             "ending": false,
@@ -4384,7 +4384,7 @@
     "208": {
         "computed": {
             "aquire": [],
-            "arc": null,
+            "arc": "Jungle",
             "chapter": "L'Exode",
             "combat": null,
             "ending": false,
@@ -4584,7 +4584,7 @@
     "212": {
         "computed": {
             "aquire": [],
-            "arc": null,
+            "arc": "Fêtes",
             "chapter": "L'Exode",
             "combat": null,
             "ending": false,
@@ -4670,8 +4670,8 @@
     "214": {
         "computed": {
             "aquire": [],
-            "arc": null,
-            "chapter": null,
+            "arc": "Avec Nadee",
+            "chapter": "La Larme",
             "combat": null,
             "ending": false,
             "ending_id": null,
@@ -4756,7 +4756,7 @@
             "aquire": [
                 "CARTE GOLD"
             ],
-            "arc": null,
+            "arc": "Oasis Détente",
             "chapter": "L'Exode",
             "combat": null,
             "ending": false,
@@ -4788,7 +4788,7 @@
         "computed": {
             "aquire": [],
             "arc": null,
-            "chapter": "La Larme",
+            "chapter": "Violence Vraie",
             "combat": null,
             "ending": false,
             "ending_id": null,
@@ -4846,7 +4846,7 @@
         "computed": {
             "aquire": [],
             "arc": null,
-            "chapter": null,
+            "chapter": "Justice Juste",
             "combat": null,
             "ending": false,
             "ending_id": null,
@@ -4958,7 +4958,7 @@
     "221": {
         "computed": {
             "aquire": [],
-            "arc": null,
+            "arc": "Oasis Détente",
             "chapter": "L'Exode",
             "combat": null,
             "ending": false,
@@ -5086,7 +5086,7 @@
     "224": {
         "computed": {
             "aquire": [],
-            "arc": null,
+            "arc": "Prieuré",
             "chapter": "L'Exode",
             "combat": null,
             "ending": false,
@@ -5122,7 +5122,7 @@
         "computed": {
             "aquire": [],
             "arc": null,
-            "chapter": "La Larme",
+            "chapter": "Violence Vraie",
             "combat": {
                 "arm": 0,
                 "deg": 0,
@@ -5258,7 +5258,7 @@
             "aquire": [
                 "GRI-GRI"
             ],
-            "arc": null,
+            "arc": "Avec Sa'panna",
             "chapter": "La Larme",
             "combat": null,
             "ending": false,
@@ -5290,7 +5290,7 @@
     "229": {
         "computed": {
             "aquire": [],
-            "arc": null,
+            "arc": "Fêtes",
             "chapter": "L'Exode",
             "combat": null,
             "ending": false,
@@ -5375,7 +5375,7 @@
             "aquire": [
                 "CARTE GOLD"
             ],
-            "arc": null,
+            "arc": "Fêtes",
             "chapter": "L'Exode",
             "combat": null,
             "ending": false,
@@ -5411,7 +5411,7 @@
     "232": {
         "computed": {
             "aquire": [],
-            "arc": null,
+            "arc": "Avec Nadee",
             "chapter": "La Larme",
             "combat": null,
             "ending": false,
@@ -5438,7 +5438,7 @@
     "233": {
         "computed": {
             "aquire": [],
-            "arc": null,
+            "arc": "Avec Sa'panna",
             "chapter": "La Larme",
             "combat": null,
             "ending": false,
@@ -5518,7 +5518,7 @@
         "computed": {
             "aquire": [],
             "arc": null,
-            "chapter": "La Larme",
+            "chapter": "Violence Vraie",
             "combat": null,
             "ending": false,
             "ending_id": null,
@@ -5545,7 +5545,7 @@
         "computed": {
             "aquire": [],
             "arc": null,
-            "chapter": "La Larme",
+            "chapter": "La Palais",
             "combat": null,
             "ending": false,
             "ending_id": null,
@@ -5662,7 +5662,7 @@
     "239": {
         "computed": {
             "aquire": [],
-            "arc": null,
+            "arc": "Fêtes",
             "chapter": "L'Exode",
             "combat": null,
             "ending": false,
@@ -5771,7 +5771,7 @@
         "computed": {
             "aquire": [],
             "arc": null,
-            "chapter": "La Larme",
+            "chapter": "La Palais",
             "combat": null,
             "ending": false,
             "ending_id": null,
@@ -5830,7 +5830,7 @@
         "computed": {
             "aquire": [],
             "arc": null,
-            "chapter": "La Larme",
+            "chapter": "Violence Vraie",
             "combat": null,
             "ending": false,
             "ending_id": null,
@@ -5857,7 +5857,7 @@
         "computed": {
             "aquire": [],
             "arc": null,
-            "chapter": "La Larme",
+            "chapter": "Violence Vraie",
             "combat": null,
             "ending": false,
             "ending_id": null,
@@ -5884,7 +5884,7 @@
         "computed": {
             "aquire": [],
             "arc": null,
-            "chapter": "La Larme",
+            "chapter": "La Palais",
             "combat": null,
             "ending": false,
             "ending_id": null,
@@ -5944,7 +5944,7 @@
         "computed": {
             "aquire": [],
             "arc": null,
-            "chapter": "La Larme",
+            "chapter": "Violence Vraie",
             "combat": null,
             "ending": false,
             "ending_id": null,
@@ -6016,7 +6016,7 @@
         "computed": {
             "aquire": [],
             "arc": null,
-            "chapter": "La Larme",
+            "chapter": "La Palais",
             "combat": null,
             "ending": false,
             "ending_id": null,
@@ -6049,7 +6049,7 @@
     "25": {
         "computed": {
             "aquire": [],
-            "arc": null,
+            "arc": "Prieuré",
             "chapter": "L'Exode",
             "combat": null,
             "ending": false,
@@ -6124,7 +6124,7 @@
     "251": {
         "computed": {
             "aquire": [],
-            "arc": null,
+            "arc": "Avec Nadee",
             "chapter": "La Larme",
             "combat": null,
             "ending": false,
@@ -6155,7 +6155,7 @@
     "252": {
         "computed": {
             "aquire": [],
-            "arc": null,
+            "arc": "Avec Nadee",
             "chapter": "La Larme",
             "combat": null,
             "ending": false,
@@ -6182,7 +6182,7 @@
     "253": {
         "computed": {
             "aquire": [],
-            "arc": null,
+            "arc": "Avec Sa'panna",
             "chapter": "La Larme",
             "combat": null,
             "ending": false,
@@ -6215,7 +6215,7 @@
     "254": {
         "computed": {
             "aquire": [],
-            "arc": null,
+            "arc": "Avec Sa'panna",
             "chapter": "La Larme",
             "combat": null,
             "ending": false,
@@ -6276,7 +6276,7 @@
     "255": {
         "computed": {
             "aquire": [],
-            "arc": null,
+            "arc": "Avec Nadee",
             "chapter": "La Larme",
             "combat": null,
             "ending": false,
@@ -6316,7 +6316,7 @@
         "computed": {
             "aquire": [],
             "arc": null,
-            "chapter": "La Larme",
+            "chapter": "Violence Vraie",
             "combat": {
                 "arm": 99,
                 "deg": 99,
@@ -6497,7 +6497,7 @@
     "260": {
         "computed": {
             "aquire": [],
-            "arc": null,
+            "arc": "Jungle",
             "chapter": "L'Exode",
             "combat": null,
             "ending": false,
@@ -6587,7 +6587,7 @@
             "aquire": [
                 "BON POUR DE L'ARGENT"
             ],
-            "arc": null,
+            "arc": "Fêtes",
             "chapter": "L'Exode",
             "combat": null,
             "ending": false,
@@ -6690,7 +6690,7 @@
             "aquire": [
                 "CORNE DES SABLES D'IVOIRE"
             ],
-            "arc": null,
+            "arc": "Nécropole Halistair",
             "chapter": "La Larme",
             "combat": null,
             "ending": false,
@@ -6754,25 +6754,35 @@
             "ending_type": null,
             "id": 266,
             "is_combat": false,
-            "jump_conditions": {},
-            "jump_conditions_txts": {},
+            "jump_conditions": {
+                "22": {
+                    "$end": "LOI-22"
+                }
+            },
+            "jump_conditions_txts": {
+                "22": "LOI-22"
+            },
             "label": null,
             "remove": [],
             "secret": false,
             "secret_jumps": [],
             "sons": [
+                22,
                 101
             ],
             "stats": {},
             "stats_cond": [],
             "success": null
         },
+        "conditions": {
+            "22": "LOI-22"
+        },
         "goto": 101
     },
     "267": {
         "computed": {
             "aquire": [],
-            "arc": null,
+            "arc": "Prieuré",
             "chapter": "L'Exode",
             "combat": null,
             "ending": false,
@@ -6873,7 +6883,7 @@
     "27": {
         "computed": {
             "aquire": [],
-            "arc": null,
+            "arc": "Prieuré",
             "chapter": "L'Exode",
             "combat": null,
             "ending": false,
@@ -6933,7 +6943,7 @@
         "computed": {
             "aquire": [],
             "arc": null,
-            "chapter": "La Larme",
+            "chapter": "La Palais",
             "combat": null,
             "ending": false,
             "ending_id": null,
@@ -7030,7 +7040,7 @@
     "274": {
         "computed": {
             "aquire": [],
-            "arc": null,
+            "arc": "Nécropole Halistair",
             "chapter": "La Larme",
             "combat": null,
             "ending": false,
@@ -7058,7 +7068,7 @@
         "computed": {
             "aquire": [],
             "arc": null,
-            "chapter": "La Larme",
+            "chapter": "La Palais",
             "combat": null,
             "ending": false,
             "ending_id": null,
@@ -7089,7 +7099,7 @@
     "276": {
         "computed": {
             "aquire": [],
-            "arc": null,
+            "arc": "Avec Sa'panna",
             "chapter": "La Larme",
             "combat": null,
             "ending": false,
@@ -7292,7 +7302,7 @@
         "computed": {
             "aquire": [],
             "arc": null,
-            "chapter": "La Larme",
+            "chapter": "Violence Vraie",
             "combat": null,
             "ending": false,
             "ending_id": null,
@@ -7327,7 +7337,7 @@
         "computed": {
             "aquire": [],
             "arc": null,
-            "chapter": "La Larme",
+            "chapter": "Violence Vraie",
             "combat": {
                 "arm": 0,
                 "deg": 0,
@@ -7365,7 +7375,7 @@
     "283": {
         "computed": {
             "aquire": [],
-            "arc": null,
+            "arc": "Fêtes",
             "chapter": "L'Exode",
             "combat": null,
             "ending": false,
@@ -7440,7 +7450,7 @@
     "285": {
         "computed": {
             "aquire": [],
-            "arc": null,
+            "arc": "Nécropole Halistair",
             "chapter": "La Larme",
             "combat": null,
             "ending": false,
@@ -7472,7 +7482,7 @@
     "286": {
         "computed": {
             "aquire": [],
-            "arc": null,
+            "arc": "Nécropole Halistair",
             "chapter": "La Larme",
             "combat": null,
             "ending": false,
@@ -7528,7 +7538,7 @@
     "287": {
         "computed": {
             "aquire": [],
-            "arc": null,
+            "arc": "Avec Nadee",
             "chapter": "La Larme",
             "combat": null,
             "ending": false,
@@ -7571,19 +7581,23 @@
             "secret": false,
             "secret_jumps": [],
             "sons": [
-                101
+                101,
+                188
             ],
             "stats": {},
             "stats_cond": [],
             "success": null
         },
-        "goto": 101
+        "goto": [
+            101,
+            188
+        ]
     },
     "289": {
         "computed": {
             "aquire": [],
             "arc": null,
-            "chapter": "Justice Juste",
+            "chapter": "La cité des Reflets",
             "combat": null,
             "ending": false,
             "ending_id": null,
@@ -7609,7 +7623,7 @@
     "29": {
         "computed": {
             "aquire": [],
-            "arc": null,
+            "arc": "Oasis Détente",
             "chapter": "L'Exode",
             "combat": null,
             "ending": false,
@@ -7648,7 +7662,7 @@
         "computed": {
             "aquire": [],
             "arc": null,
-            "chapter": "Justice Juste",
+            "chapter": "La cité des Reflets",
             "combat": null,
             "ending": false,
             "ending_id": null,
@@ -7680,7 +7694,7 @@
         "computed": {
             "aquire": [],
             "arc": null,
-            "chapter": "La Larme",
+            "chapter": "La Palais",
             "combat": null,
             "ending": false,
             "ending_id": null,
@@ -7707,7 +7721,7 @@
         "computed": {
             "aquire": [],
             "arc": null,
-            "chapter": null,
+            "chapter": "Justice Juste",
             "combat": null,
             "ending": false,
             "ending_id": null,
@@ -7746,7 +7760,7 @@
         },
         "computed": {
             "aquire": [],
-            "arc": null,
+            "arc": "Avec Sa'panna",
             "chapter": "La Larme",
             "combat": {
                 "arm": 0,
@@ -7781,7 +7795,7 @@
         "computed": {
             "aquire": [],
             "arc": null,
-            "chapter": "La Larme",
+            "chapter": "La Palais",
             "combat": null,
             "ending": false,
             "ending_id": null,
@@ -7885,7 +7899,7 @@
     "297": {
         "computed": {
             "aquire": [],
-            "arc": null,
+            "arc": "Avec Sa'panna",
             "chapter": "La Larme",
             "combat": null,
             "ending": false,
@@ -7917,7 +7931,7 @@
         "computed": {
             "aquire": [],
             "arc": null,
-            "chapter": "La Larme",
+            "chapter": "Violence Vraie",
             "combat": null,
             "ending": false,
             "ending_id": null,
@@ -7949,7 +7963,7 @@
                 "UNE REUSSITE"
             ],
             "arc": null,
-            "chapter": null,
+            "chapter": "Justice Juste",
             "combat": null,
             "ending": false,
             "ending_id": null,
@@ -8012,7 +8026,7 @@
     "30": {
         "computed": {
             "aquire": [],
-            "arc": null,
+            "arc": "Prieuré",
             "chapter": "L'Exode",
             "combat": null,
             "ending": false,
@@ -8063,7 +8077,7 @@
         "computed": {
             "aquire": [],
             "arc": null,
-            "chapter": "Justice Juste",
+            "chapter": "La cité des Reflets",
             "combat": null,
             "ending": false,
             "ending_id": null,
@@ -8098,7 +8112,7 @@
             "aquire": [
                 "SUCRE"
             ],
-            "arc": null,
+            "arc": "Fêtes",
             "chapter": "L'Exode",
             "combat": null,
             "ending": false,
@@ -8244,7 +8258,7 @@
     "304": {
         "computed": {
             "aquire": [],
-            "arc": null,
+            "arc": "Prieuré",
             "chapter": "L'Exode",
             "combat": null,
             "ending": false,
@@ -8283,7 +8297,7 @@
                 "AILERON AERODYNAMIQUE INSTALLE"
             ],
             "arc": null,
-            "chapter": "La Larme",
+            "chapter": "Violence Vraie",
             "combat": null,
             "ending": false,
             "ending_id": null,
@@ -8415,7 +8429,7 @@
     "309": {
         "computed": {
             "aquire": [],
-            "arc": null,
+            "arc": "Prieuré",
             "chapter": "L'Exode",
             "combat": null,
             "ending": false,
@@ -8450,7 +8464,7 @@
         },
         "computed": {
             "aquire": [],
-            "arc": null,
+            "arc": "Jungle",
             "chapter": "L'Exode",
             "combat": {
                 "arm": 0,
@@ -8605,7 +8619,7 @@
         "computed": {
             "aquire": [],
             "arc": null,
-            "chapter": "La Larme",
+            "chapter": "Violence Vraie",
             "combat": null,
             "ending": false,
             "ending_id": null,
@@ -8678,7 +8692,7 @@
     "315": {
         "computed": {
             "aquire": [],
-            "arc": null,
+            "arc": "Avec Nadee",
             "chapter": "La Larme",
             "combat": null,
             "ending": false,
@@ -8710,7 +8724,7 @@
         "computed": {
             "aquire": [],
             "arc": null,
-            "chapter": "La Larme",
+            "chapter": "Violence Vraie",
             "combat": null,
             "ending": false,
             "ending_id": null,
@@ -8774,7 +8788,7 @@
         "computed": {
             "aquire": [],
             "arc": null,
-            "chapter": "La Larme",
+            "chapter": "Violence Vraie",
             "combat": null,
             "ending": false,
             "ending_id": null,
@@ -8869,7 +8883,7 @@
         "computed": {
             "aquire": [],
             "arc": null,
-            "chapter": "La Larme",
+            "chapter": "Violence Vraie",
             "combat": null,
             "ending": false,
             "ending_id": null,
@@ -8897,7 +8911,7 @@
         "computed": {
             "aquire": [],
             "arc": null,
-            "chapter": "La Larme",
+            "chapter": "Violence Vraie",
             "combat": null,
             "ending": false,
             "ending_id": null,
@@ -9034,7 +9048,7 @@
         },
         "computed": {
             "aquire": [],
-            "arc": null,
+            "arc": "Nécropole Halistair",
             "chapter": "La Larme",
             "combat": {
                 "arm": 1,
@@ -9070,7 +9084,7 @@
         "computed": {
             "aquire": [],
             "arc": null,
-            "chapter": "La Larme",
+            "chapter": "Violence Vraie",
             "combat": null,
             "ending": false,
             "ending_id": null,
@@ -9101,7 +9115,7 @@
         "computed": {
             "aquire": [],
             "arc": null,
-            "chapter": "La Larme",
+            "chapter": "Violence Vraie",
             "combat": null,
             "ending": false,
             "ending_id": null,
@@ -9144,7 +9158,7 @@
     "326": {
         "computed": {
             "aquire": [],
-            "arc": null,
+            "arc": "Nécropole Halistair",
             "chapter": "La Larme",
             "combat": null,
             "ending": false,
@@ -9171,7 +9185,7 @@
     "327": {
         "computed": {
             "aquire": [],
-            "arc": null,
+            "arc": "Avec Nadee",
             "chapter": "La Larme",
             "combat": null,
             "ending": false,
@@ -9315,7 +9329,7 @@
                 "280": {
                     "$end": "UNE REUSSITE"
                 },
-                "290": {
+                "292": {
                     "$end": "DEUX REUSSITES"
                 },
                 "308": {
@@ -9324,7 +9338,7 @@
             },
             "jump_conditions_txts": {
                 "280": "UNE REUSSITE",
-                "290": "DEUX REUSSITES",
+                "292": "DEUX REUSSITES",
                 "308": "TROIS REUSSITES"
             },
             "label": null,
@@ -9334,7 +9348,7 @@
             "sons": [
                 270,
                 280,
-                290,
+                292,
                 308
             ],
             "stats": {},
@@ -9343,21 +9357,16 @@
         },
         "conditions": {
             "280": "UNE REUSSITE",
-            "290": "DEUX REUSSITES",
+            "292": "DEUX REUSSITES",
             "308": "TROIS REUSSITES"
         },
-        "goto": [
-            270,
-            280,
-            290,
-            308
-        ]
+        "goto": 270
     },
     "331": {
         "computed": {
             "aquire": [],
             "arc": null,
-            "chapter": "La Larme",
+            "chapter": "Violence Vraie",
             "combat": null,
             "ending": false,
             "ending_id": null,
@@ -9383,7 +9392,7 @@
     "332": {
         "computed": {
             "aquire": [],
-            "arc": null,
+            "arc": "Fêtes",
             "chapter": "L'Exode",
             "combat": null,
             "ending": false,
@@ -9494,7 +9503,7 @@
             "aquire": [
                 "TAMPON JAUNE"
             ],
-            "arc": null,
+            "arc": "Prieuré",
             "chapter": "L'Exode",
             "combat": null,
             "ending": false,
@@ -9781,7 +9790,7 @@
     "342": {
         "computed": {
             "aquire": [],
-            "arc": null,
+            "arc": "Nécropole Halistair",
             "chapter": "La Larme",
             "combat": null,
             "ending": false,
@@ -9908,7 +9917,7 @@
         "computed": {
             "aquire": [],
             "arc": null,
-            "chapter": "La Larme",
+            "chapter": "La Palais",
             "combat": null,
             "ending": false,
             "ending_id": null,
@@ -9935,7 +9944,7 @@
         "computed": {
             "aquire": [],
             "arc": null,
-            "chapter": "La Larme",
+            "chapter": "Violence Vraie",
             "combat": null,
             "ending": false,
             "ending_id": null,
@@ -9961,7 +9970,7 @@
     "348": {
         "computed": {
             "aquire": [],
-            "arc": null,
+            "arc": "Prieuré",
             "chapter": "L'Exode",
             "combat": null,
             "ending": false,
@@ -10025,7 +10034,7 @@
             "aquire": [
                 "PELUCHE BON MARCHE"
             ],
-            "arc": null,
+            "arc": "Oasis Détente",
             "chapter": "L'Exode",
             "combat": null,
             "ending": false,
@@ -10056,7 +10065,7 @@
     "350": {
         "computed": {
             "aquire": [],
-            "arc": null,
+            "arc": "Avec Sa'panna",
             "chapter": "La Larme",
             "combat": null,
             "ending": false,
@@ -10105,7 +10114,7 @@
     "351": {
         "computed": {
             "aquire": [],
-            "arc": null,
+            "arc": "Avec Nadee",
             "chapter": "La Larme",
             "combat": null,
             "ending": false,
@@ -10207,7 +10216,7 @@
                 "DISQUES CLOUTES INSTALLES"
             ],
             "arc": null,
-            "chapter": "La Larme",
+            "chapter": "Violence Vraie",
             "combat": null,
             "ending": false,
             "ending_id": null,
@@ -10237,7 +10246,7 @@
     "354": {
         "computed": {
             "aquire": [],
-            "arc": null,
+            "arc": "Avec Nadee",
             "chapter": "La Larme",
             "combat": null,
             "ending": false,
@@ -10264,7 +10273,7 @@
     "355": {
         "computed": {
             "aquire": [],
-            "arc": null,
+            "arc": "Avec Sa'panna",
             "chapter": "La Larme",
             "combat": null,
             "ending": false,
@@ -10291,7 +10300,7 @@
     "356": {
         "computed": {
             "aquire": [],
-            "arc": null,
+            "arc": "Avec Nadee",
             "chapter": "La Larme",
             "combat": null,
             "ending": false,
@@ -10318,7 +10327,7 @@
     "357": {
         "computed": {
             "aquire": [],
-            "arc": null,
+            "arc": "Avec Nadee",
             "chapter": "La Larme",
             "combat": null,
             "ending": false,
@@ -10396,7 +10405,7 @@
     "359": {
         "computed": {
             "aquire": [],
-            "arc": null,
+            "arc": "Avec Sa'panna",
             "chapter": "La Larme",
             "combat": null,
             "ending": false,
@@ -10468,7 +10477,7 @@
     "360": {
         "computed": {
             "aquire": [],
-            "arc": null,
+            "arc": "Oasis Détente",
             "chapter": "L'Exode",
             "combat": null,
             "ending": false,
@@ -10505,7 +10514,7 @@
         "computed": {
             "aquire": [],
             "arc": null,
-            "chapter": "La Larme",
+            "chapter": "La Palais",
             "combat": null,
             "ending": false,
             "ending_id": null,
@@ -10633,7 +10642,7 @@
     "365": {
         "computed": {
             "aquire": [],
-            "arc": null,
+            "arc": "Avec Nadee",
             "chapter": "La Larme",
             "combat": null,
             "ending": false,
@@ -10661,7 +10670,7 @@
         "computed": {
             "aquire": [],
             "arc": null,
-            "chapter": "La Larme",
+            "chapter": "La Palais",
             "combat": null,
             "ending": false,
             "ending_id": null,
@@ -10688,7 +10697,7 @@
         "computed": {
             "aquire": [],
             "arc": null,
-            "chapter": "La Larme",
+            "chapter": "Violence Vraie",
             "combat": null,
             "ending": false,
             "ending_id": null,
@@ -10714,7 +10723,7 @@
     "368": {
         "computed": {
             "aquire": [],
-            "arc": null,
+            "arc": "Avec Nadee",
             "chapter": "La Larme",
             "combat": null,
             "ending": false,
@@ -10755,7 +10764,7 @@
     "369": {
         "computed": {
             "aquire": [],
-            "arc": null,
+            "arc": "Fêtes",
             "chapter": "L'Exode",
             "combat": null,
             "ending": false,
@@ -10824,7 +10833,7 @@
     "370": {
         "computed": {
             "aquire": [],
-            "arc": null,
+            "arc": "Nécropole Halistair",
             "chapter": "La Larme",
             "combat": null,
             "ending": false,
@@ -10899,7 +10908,7 @@
         "computed": {
             "aquire": [],
             "arc": null,
-            "chapter": "La Larme",
+            "chapter": "Violence Vraie",
             "combat": null,
             "ending": false,
             "ending_id": null,
@@ -10979,7 +10988,7 @@
         "computed": {
             "aquire": [],
             "arc": null,
-            "chapter": "La Larme",
+            "chapter": "Violence Vraie",
             "combat": null,
             "ending": false,
             "ending_id": null,
@@ -11016,7 +11025,7 @@
                 "SCORPION DORE"
             ],
             "arc": null,
-            "chapter": "La Larme",
+            "chapter": "Violence Vraie",
             "combat": null,
             "ending": false,
             "ending_id": null,
@@ -11208,7 +11217,7 @@
     "38": {
         "computed": {
             "aquire": [],
-            "arc": null,
+            "arc": "Prieuré",
             "chapter": "L'Exode",
             "combat": null,
             "ending": false,
@@ -11270,7 +11279,7 @@
     "381": {
         "computed": {
             "aquire": [],
-            "arc": null,
+            "arc": "Avec Nadee",
             "chapter": "La Larme",
             "combat": null,
             "ending": false,
@@ -11297,7 +11306,7 @@
     "382": {
         "computed": {
             "aquire": [],
-            "arc": null,
+            "arc": "Oasis Détente",
             "chapter": "L'Exode",
             "combat": null,
             "ending": false,
@@ -11345,7 +11354,7 @@
         "computed": {
             "aquire": [],
             "arc": null,
-            "chapter": "La Larme",
+            "chapter": "Violence Vraie",
             "combat": null,
             "ending": false,
             "ending_id": null,
@@ -11377,7 +11386,7 @@
         "computed": {
             "aquire": [],
             "arc": null,
-            "chapter": "La Larme",
+            "chapter": "La Palais",
             "combat": null,
             "ending": false,
             "ending_id": null,
@@ -11410,7 +11419,7 @@
         "computed": {
             "aquire": [],
             "arc": null,
-            "chapter": "La Larme",
+            "chapter": "La Palais",
             "combat": null,
             "ending": false,
             "ending_id": null,
@@ -11444,7 +11453,7 @@
         "computed": {
             "aquire": [],
             "arc": null,
-            "chapter": "La Larme",
+            "chapter": "La Palais",
             "combat": null,
             "ending": false,
             "ending_id": null,
@@ -11486,7 +11495,7 @@
         "computed": {
             "aquire": [],
             "arc": null,
-            "chapter": "La Larme",
+            "chapter": "Violence Vraie",
             "combat": null,
             "ending": false,
             "ending_id": null,
@@ -11514,7 +11523,7 @@
         "computed": {
             "aquire": [],
             "arc": null,
-            "chapter": "La Larme",
+            "chapter": "La Palais",
             "combat": null,
             "ending": false,
             "ending_id": null,
@@ -11549,18 +11558,28 @@
             "ending_type": null,
             "id": 389,
             "is_combat": false,
-            "jump_conditions": {},
-            "jump_conditions_txts": {},
+            "jump_conditions": {
+                "299": {
+                    "$end": "LOI-299"
+                }
+            },
+            "jump_conditions_txts": {
+                "299": "LOI-299"
+            },
             "label": null,
             "remove": [],
             "secret": false,
             "secret_jumps": [],
             "sons": [
-                101
+                101,
+                299
             ],
             "stats": {},
             "stats_cond": [],
             "success": null
+        },
+        "conditions": {
+            "299": "LOI-299"
         },
         "goto": [
             101
@@ -11597,7 +11616,7 @@
         "computed": {
             "aquire": [],
             "arc": null,
-            "chapter": "La Larme",
+            "chapter": "Violence Vraie",
             "combat": null,
             "ending": false,
             "ending_id": null,
@@ -11624,7 +11643,7 @@
         "computed": {
             "aquire": [],
             "arc": null,
-            "chapter": "La Larme",
+            "chapter": "Violence Vraie",
             "combat": null,
             "ending": false,
             "ending_id": null,
@@ -11654,7 +11673,7 @@
     "392": {
         "computed": {
             "aquire": [],
-            "arc": null,
+            "arc": "Avec Nadee",
             "chapter": "La Larme",
             "combat": null,
             "ending": false,
@@ -11748,7 +11767,7 @@
     "395": {
         "computed": {
             "aquire": [],
-            "arc": null,
+            "arc": "Nécropole Halistair",
             "chapter": "La Larme",
             "combat": null,
             "ending": false,
@@ -11816,10 +11835,13 @@
             "label": null,
             "remove": [],
             "secret": false,
-            "secret_jumps": [],
+            "secret_jumps": [
+                432
+            ],
             "sons": [
                 321,
                 429,
+                432,
                 481
             ],
             "stats": {},
@@ -11830,13 +11852,16 @@
             "429": "CREME SOLAIRE",
             "481": "LANCE"
         },
-        "goto": 321
+        "goto": 321,
+        "secret_jumps": [
+            432
+        ]
     },
     "397": {
         "computed": {
             "aquire": [],
             "arc": null,
-            "chapter": "La Larme",
+            "chapter": "La Palais",
             "combat": null,
             "ending": false,
             "ending_id": null,
@@ -11926,7 +11951,7 @@
     "4": {
         "computed": {
             "aquire": [],
-            "arc": null,
+            "arc": "Prieuré",
             "chapter": "L'Exode",
             "combat": null,
             "ending": false,
@@ -12051,7 +12076,7 @@
     "401": {
         "computed": {
             "aquire": [],
-            "arc": null,
+            "arc": "Oasis Détente",
             "chapter": "L'Exode",
             "combat": null,
             "ending": false,
@@ -12083,7 +12108,7 @@
         "computed": {
             "aquire": [],
             "arc": null,
-            "chapter": "La Larme",
+            "chapter": "La Palais",
             "combat": null,
             "ending": false,
             "ending_id": null,
@@ -12116,7 +12141,7 @@
     "403": {
         "computed": {
             "aquire": [],
-            "arc": null,
+            "arc": "Avec Nadee",
             "chapter": "La Larme",
             "combat": null,
             "ending": false,
@@ -12178,7 +12203,7 @@
         "computed": {
             "aquire": [],
             "arc": null,
-            "chapter": "La Larme",
+            "chapter": "Violence Vraie",
             "combat": null,
             "ending": false,
             "ending_id": null,
@@ -12214,7 +12239,7 @@
     "407": {
         "computed": {
             "aquire": [],
-            "arc": null,
+            "arc": "Avec Nadee",
             "chapter": "La Larme",
             "combat": null,
             "ending": false,
@@ -12286,7 +12311,7 @@
     "409": {
         "computed": {
             "aquire": [],
-            "arc": null,
+            "arc": "Avec Sa'panna",
             "chapter": "La Larme",
             "combat": null,
             "ending": false,
@@ -12329,7 +12354,7 @@
     "41": {
         "computed": {
             "aquire": [],
-            "arc": null,
+            "arc": "Jungle",
             "chapter": "L'Exode",
             "combat": null,
             "ending": false,
@@ -12444,7 +12469,7 @@
     "412": {
         "computed": {
             "aquire": [],
-            "arc": null,
+            "arc": "Avec Nadee",
             "chapter": "La Larme",
             "combat": null,
             "ending": false,
@@ -12487,7 +12512,7 @@
     "413": {
         "computed": {
             "aquire": [],
-            "arc": null,
+            "arc": "Nécropole Halistair",
             "chapter": "La Larme",
             "combat": null,
             "ending": false,
@@ -12546,7 +12571,7 @@
     "415": {
         "computed": {
             "aquire": [],
-            "arc": null,
+            "arc": "Avec Nadee",
             "chapter": "La Larme",
             "combat": null,
             "ending": false,
@@ -12579,7 +12604,7 @@
     "416": {
         "computed": {
             "aquire": [],
-            "arc": null,
+            "arc": "Avec Sa'panna",
             "chapter": "La Larme",
             "combat": null,
             "ending": false,
@@ -12621,7 +12646,7 @@
         "computed": {
             "aquire": [],
             "arc": null,
-            "chapter": "La Larme",
+            "chapter": "La Palais",
             "combat": null,
             "ending": false,
             "ending_id": null,
@@ -12672,7 +12697,7 @@
             "aquire": [
                 "FORMULAIRE DE NATIONALITE"
             ],
-            "arc": null,
+            "arc": "Nécropole Halistair",
             "chapter": "La Larme",
             "combat": null,
             "ending": false,
@@ -12709,7 +12734,7 @@
     "419": {
         "computed": {
             "aquire": [],
-            "arc": null,
+            "arc": "Nécropole Halistair",
             "chapter": "La Larme",
             "combat": null,
             "ending": false,
@@ -12770,7 +12795,7 @@
         "computed": {
             "aquire": [],
             "arc": null,
-            "chapter": "La Larme",
+            "chapter": "La Palais",
             "combat": null,
             "ending": false,
             "ending_id": null,
@@ -12809,7 +12834,7 @@
     "421": {
         "computed": {
             "aquire": [],
-            "arc": null,
+            "arc": "Oasis Détente",
             "chapter": "L'Exode",
             "combat": null,
             "ending": false,
@@ -12842,7 +12867,7 @@
     "422": {
         "computed": {
             "aquire": [],
-            "arc": null,
+            "arc": "Nécropole Halistair",
             "chapter": "La Larme",
             "combat": null,
             "ending": false,
@@ -12869,7 +12894,7 @@
     "423": {
         "computed": {
             "aquire": [],
-            "arc": null,
+            "arc": "Avec Nadee",
             "chapter": "La Larme",
             "combat": null,
             "ending": false,
@@ -12906,7 +12931,7 @@
             "aquire": [
                 "BRACELET A POINTES"
             ],
-            "arc": null,
+            "arc": "Avec Sa'panna",
             "chapter": "La Larme",
             "combat": null,
             "ending": false,
@@ -12933,7 +12958,7 @@
     "425": {
         "computed": {
             "aquire": [],
-            "arc": null,
+            "arc": "Avec Sa'panna",
             "chapter": "La Larme",
             "combat": null,
             "ending": false,
@@ -12970,7 +12995,7 @@
     "426": {
         "computed": {
             "aquire": [],
-            "arc": null,
+            "arc": "Nécropole Halistair",
             "chapter": "La Larme",
             "combat": null,
             "ending": false,
@@ -12997,7 +13022,7 @@
         "computed": {
             "aquire": [],
             "arc": null,
-            "chapter": "La Larme",
+            "chapter": "La Palais",
             "combat": null,
             "ending": false,
             "ending_id": null,
@@ -13032,7 +13057,7 @@
     "428": {
         "computed": {
             "aquire": [],
-            "arc": null,
+            "arc": "Avec Sa'panna",
             "chapter": "La Larme",
             "combat": null,
             "ending": false,
@@ -13134,7 +13159,7 @@
     "430": {
         "computed": {
             "aquire": [],
-            "arc": null,
+            "arc": "Avec Nadee",
             "chapter": "La Larme",
             "combat": null,
             "ending": false,
@@ -13148,8 +13173,11 @@
             "label": null,
             "remove": [],
             "secret": false,
-            "secret_jumps": [],
+            "secret_jumps": [
+                214
+            ],
             "sons": [
+                214,
                 439
             ],
             "stats": {
@@ -13160,6 +13188,9 @@
             "success": null
         },
         "goto": 439,
+        "secret_jumps": [
+            214
+        ],
         "stats": {
             "chance_max": 1,
             "respect": 1
@@ -13168,7 +13199,7 @@
     "431": {
         "computed": {
             "aquire": [],
-            "arc": null,
+            "arc": "Avec Sa'panna",
             "chapter": "La Larme",
             "combat": null,
             "ending": false,
@@ -13204,7 +13235,7 @@
         "computed": {
             "aquire": [],
             "arc": null,
-            "chapter": null,
+            "chapter": "Le Guide",
             "combat": {
                 "arm": 1,
                 "deg": 0,
@@ -13237,7 +13268,7 @@
     "433": {
         "computed": {
             "aquire": [],
-            "arc": null,
+            "arc": "Nécropole Halistair",
             "chapter": "La Larme",
             "combat": null,
             "ending": false,
@@ -13301,7 +13332,7 @@
     "435": {
         "computed": {
             "aquire": [],
-            "arc": null,
+            "arc": "Avec Nadee",
             "chapter": "La Larme",
             "combat": null,
             "ending": false,
@@ -13370,7 +13401,7 @@
     "437": {
         "computed": {
             "aquire": [],
-            "arc": null,
+            "arc": "Avec Sa'panna",
             "chapter": "La Larme",
             "combat": null,
             "ending": false,
@@ -13411,7 +13442,7 @@
     "438": {
         "computed": {
             "aquire": [],
-            "arc": null,
+            "arc": "Nécropole Halistair",
             "chapter": "La Larme",
             "combat": null,
             "ending": false,
@@ -13438,7 +13469,7 @@
     "439": {
         "computed": {
             "aquire": [],
-            "arc": null,
+            "arc": "Avec Nadee",
             "chapter": "La Larme",
             "combat": null,
             "ending": false,
@@ -13504,7 +13535,7 @@
     "440": {
         "computed": {
             "aquire": [],
-            "arc": null,
+            "arc": "Avec Nadee",
             "chapter": "La Larme",
             "combat": null,
             "ending": false,
@@ -13569,7 +13600,7 @@
     "442": {
         "computed": {
             "aquire": [],
-            "arc": null,
+            "arc": "Avec Nadee",
             "chapter": "La Larme",
             "combat": null,
             "ending": false,
@@ -13616,7 +13647,7 @@
     "443": {
         "computed": {
             "aquire": [],
-            "arc": null,
+            "arc": "Nécropole Halistair",
             "chapter": "La Larme",
             "combat": null,
             "ending": false,
@@ -13674,7 +13705,7 @@
     "445": {
         "computed": {
             "aquire": [],
-            "arc": null,
+            "arc": "Nécropole Halistair",
             "chapter": "La Larme",
             "combat": null,
             "ending": false,
@@ -13717,7 +13748,7 @@
     "446": {
         "computed": {
             "aquire": [],
-            "arc": null,
+            "arc": "Avec Sa'panna",
             "chapter": "La Larme",
             "combat": null,
             "ending": false,
@@ -13745,7 +13776,7 @@
         "computed": {
             "aquire": [],
             "arc": null,
-            "chapter": "La Larme",
+            "chapter": "La Palais",
             "combat": null,
             "ending": false,
             "ending_id": null,
@@ -13771,7 +13802,7 @@
     "448": {
         "computed": {
             "aquire": [],
-            "arc": null,
+            "arc": "Nécropole Halistair",
             "chapter": "La Larme",
             "combat": null,
             "ending": false,
@@ -13798,7 +13829,7 @@
     "449": {
         "computed": {
             "aquire": [],
-            "arc": null,
+            "arc": "Avec Nadee",
             "chapter": "La Larme",
             "combat": null,
             "ending": false,
@@ -13825,7 +13856,7 @@
     "45": {
         "computed": {
             "aquire": [],
-            "arc": null,
+            "arc": "Jungle",
             "chapter": "L'Exode",
             "combat": null,
             "ending": false,
@@ -13866,7 +13897,7 @@
     "450": {
         "computed": {
             "aquire": [],
-            "arc": null,
+            "arc": "Avec Nadee",
             "chapter": "La Larme",
             "combat": null,
             "ending": false,
@@ -13913,7 +13944,7 @@
     "451": {
         "computed": {
             "aquire": [],
-            "arc": null,
+            "arc": "Avec Nadee",
             "chapter": "La Larme",
             "combat": null,
             "ending": false,
@@ -13927,15 +13958,21 @@
             "label": null,
             "remove": [],
             "secret": false,
-            "secret_jumps": [],
+            "secret_jumps": [
+                315
+            ],
             "sons": [
+                315,
                 442
             ],
             "stats": {},
             "stats_cond": [],
             "success": null
         },
-        "goto": 442
+        "goto": 442,
+        "secret_jumps": [
+            315
+        ]
     },
     "452": {
         "computed": {
@@ -14004,7 +14041,7 @@
         "computed": {
             "aquire": [],
             "arc": null,
-            "chapter": "Les Sables d'Ivoire",
+            "chapter": "La Fin",
             "combat": null,
             "ending": false,
             "ending_id": null,
@@ -14056,7 +14093,7 @@
     "455": {
         "computed": {
             "aquire": [],
-            "arc": null,
+            "arc": "Nécropole Halistair",
             "chapter": "La Larme",
             "combat": null,
             "ending": false,
@@ -14132,7 +14169,7 @@
     "457": {
         "computed": {
             "aquire": [],
-            "arc": null,
+            "arc": "Nécropole Halistair",
             "chapter": "La Larme",
             "combat": null,
             "ending": false,
@@ -14196,7 +14233,7 @@
     "459": {
         "computed": {
             "aquire": [],
-            "arc": null,
+            "arc": "Nécropole Halistair",
             "chapter": "La Larme",
             "combat": null,
             "ending": false,
@@ -14210,8 +14247,15 @@
             "label": null,
             "remove": [],
             "secret": false,
-            "secret_jumps": [],
+            "secret_jumps": [
+                53,
+                60,
+                66
+            ],
             "sons": [
+                53,
+                60,
+                66,
                 323,
                 514
             ],
@@ -14222,6 +14266,11 @@
         "goto": [
             514,
             323
+        ],
+        "secret_jumps": [
+            53,
+            60,
+            66
         ]
     },
     "46": {
@@ -14232,7 +14281,7 @@
             "aquire": [
                 "TAMPON ROUGE"
             ],
-            "arc": null,
+            "arc": "Prieuré",
             "chapter": "L'Exode",
             "combat": null,
             "ending": false,
@@ -14267,7 +14316,7 @@
     "460": {
         "computed": {
             "aquire": [],
-            "arc": null,
+            "arc": "Nécropole Halistair",
             "chapter": "La Larme",
             "combat": null,
             "ending": false,
@@ -14294,7 +14343,7 @@
     "461": {
         "computed": {
             "aquire": [],
-            "arc": null,
+            "arc": "Avec Sa'panna",
             "chapter": "La Larme",
             "combat": null,
             "ending": false,
@@ -14321,7 +14370,7 @@
     "462": {
         "computed": {
             "aquire": [],
-            "arc": null,
+            "arc": "Nécropole Halistair",
             "chapter": "La Larme",
             "combat": null,
             "ending": false,
@@ -14401,7 +14450,7 @@
             "aquire": [
                 "SABLIER PERPETUEL"
             ],
-            "arc": null,
+            "arc": "Nécropole Halistair",
             "chapter": "La Larme",
             "combat": null,
             "ending": false,
@@ -14463,7 +14512,7 @@
         "computed": {
             "aquire": [],
             "arc": null,
-            "chapter": "La Larme",
+            "chapter": "Violence Vraie",
             "combat": null,
             "ending": false,
             "ending_id": null,
@@ -14528,7 +14577,7 @@
     "467": {
         "computed": {
             "aquire": [],
-            "arc": null,
+            "arc": "Nécropole Halistair",
             "chapter": "La Larme",
             "combat": null,
             "ending": false,
@@ -14565,7 +14614,7 @@
     "468": {
         "computed": {
             "aquire": [],
-            "arc": null,
+            "arc": "Nécropole Halistair",
             "chapter": "La Larme",
             "combat": null,
             "ending": false,
@@ -14593,7 +14642,7 @@
         "computed": {
             "aquire": [],
             "arc": null,
-            "chapter": "La Larme",
+            "chapter": "La Palais",
             "combat": null,
             "ending": false,
             "ending_id": null,
@@ -14681,18 +14730,28 @@
             "ending_type": null,
             "id": 470,
             "is_combat": false,
-            "jump_conditions": {},
-            "jump_conditions_txts": {},
+            "jump_conditions": {
+                "19": {
+                    "$end": "LOI-19"
+                }
+            },
+            "jump_conditions_txts": {
+                "19": "LOI-19"
+            },
             "label": null,
             "remove": [],
             "secret": false,
             "secret_jumps": [],
             "sons": [
+                19,
                 101
             ],
             "stats": {},
             "stats_cond": [],
             "success": null
+        },
+        "conditions": {
+            "19": "LOI-19"
         },
         "goto": 101
     },
@@ -14705,7 +14764,7 @@
                 "MIROIR DE NADEE"
             ],
             "arc": null,
-            "chapter": "La Larme",
+            "chapter": "La Palais",
             "combat": null,
             "ending": false,
             "ending_id": null,
@@ -14741,7 +14800,7 @@
     "472": {
         "computed": {
             "aquire": [],
-            "arc": null,
+            "arc": "Prieuré",
             "chapter": "L'Exode",
             "combat": null,
             "ending": false,
@@ -14809,7 +14868,7 @@
         },
         "computed": {
             "aquire": [],
-            "arc": null,
+            "arc": "Avec Sa'panna",
             "chapter": "La Larme",
             "combat": {
                 "arm": 0,
@@ -14870,7 +14929,7 @@
     "476": {
         "computed": {
             "aquire": [],
-            "arc": null,
+            "arc": "Avec Nadee",
             "chapter": "La Larme",
             "combat": null,
             "ending": false,
@@ -14924,7 +14983,7 @@
     "478": {
         "computed": {
             "aquire": [],
-            "arc": null,
+            "arc": "Avec Nadee",
             "chapter": "La Larme",
             "combat": null,
             "ending": false,
@@ -14951,7 +15010,7 @@
     "479": {
         "computed": {
             "aquire": [],
-            "arc": null,
+            "arc": "Avec Sa'panna",
             "chapter": "La Larme",
             "combat": null,
             "ending": false,
@@ -15169,7 +15228,7 @@
         "computed": {
             "aquire": [],
             "arc": null,
-            "chapter": "La Larme",
+            "chapter": "Violence Vraie",
             "combat": null,
             "ending": false,
             "ending_id": null,
@@ -15200,7 +15259,7 @@
             "aquire": [
                 "SABLIER PERPETUEL"
             ],
-            "arc": null,
+            "arc": "Nécropole Halistair",
             "chapter": "La Larme",
             "combat": null,
             "ending": false,
@@ -15236,7 +15295,7 @@
     "486": {
         "computed": {
             "aquire": [],
-            "arc": null,
+            "arc": "Avec Sa'panna",
             "chapter": "La Larme",
             "combat": null,
             "ending": false,
@@ -15263,7 +15322,7 @@
     "487": {
         "computed": {
             "aquire": [],
-            "arc": null,
+            "arc": "Nécropole Halistair",
             "chapter": "La Larme",
             "combat": null,
             "ending": false,
@@ -15323,7 +15382,7 @@
                 "HALISTAIR SAMRAAT REGISTAAN"
             ],
             "arc": null,
-            "chapter": "La Larme",
+            "chapter": "La Palais",
             "combat": null,
             "ending": false,
             "ending_id": null,
@@ -15349,7 +15408,7 @@
     "49": {
         "computed": {
             "aquire": [],
-            "arc": null,
+            "arc": "Jungle",
             "chapter": "L'Exode",
             "combat": null,
             "ending": false,
@@ -15380,7 +15439,7 @@
     "490": {
         "computed": {
             "aquire": [],
-            "arc": null,
+            "arc": "Prieuré",
             "chapter": "L'Exode",
             "combat": null,
             "ending": false,
@@ -15413,7 +15472,7 @@
     "491": {
         "computed": {
             "aquire": [],
-            "arc": null,
+            "arc": "Oasis Détente",
             "chapter": "L'Exode",
             "combat": null,
             "ending": false,
@@ -15449,7 +15508,7 @@
     "492": {
         "computed": {
             "aquire": [],
-            "arc": null,
+            "arc": "Nécropole Halistair",
             "chapter": "La Larme",
             "combat": null,
             "ending": false,
@@ -15466,7 +15525,7 @@
             "secret_jumps": [],
             "sons": [
                 513,
-                533
+                553
             ],
             "stats": {},
             "stats_cond": [],
@@ -15474,14 +15533,14 @@
         },
         "goto": [
             513,
-            533
+            553
         ]
     },
     "493": {
         "computed": {
             "aquire": [],
             "arc": null,
-            "chapter": "Les Sables d'Ivoire",
+            "chapter": "Le Guide",
             "combat": null,
             "ending": false,
             "ending_id": null,
@@ -15507,7 +15566,7 @@
     "494": {
         "computed": {
             "aquire": [],
-            "arc": null,
+            "arc": "Avec Nadee",
             "chapter": "La Larme",
             "combat": null,
             "ending": false,
@@ -15610,7 +15669,7 @@
     "497": {
         "computed": {
             "aquire": [],
-            "arc": null,
+            "arc": "Avec Nadee",
             "chapter": "La Larme",
             "combat": null,
             "ending": false,
@@ -15642,7 +15701,7 @@
             "aquire": [
                 "TAMPON VERT"
             ],
-            "arc": null,
+            "arc": "Prieuré",
             "chapter": "L'Exode",
             "combat": null,
             "ending": false,
@@ -15741,7 +15800,7 @@
         "computed": {
             "aquire": [],
             "arc": null,
-            "chapter": "La Larme",
+            "chapter": "Violence Vraie",
             "combat": null,
             "ending": false,
             "ending_id": null,
@@ -15814,7 +15873,7 @@
             "aquire": [
                 "CREME SOLAIRE"
             ],
-            "arc": null,
+            "arc": "Oasis Détente",
             "chapter": "L'Exode",
             "combat": null,
             "ending": false,
@@ -15869,7 +15928,7 @@
     "503": {
         "computed": {
             "aquire": [],
-            "arc": null,
+            "arc": "Nécropole Halistair",
             "chapter": "La Larme",
             "combat": null,
             "ending": false,
@@ -15948,25 +16007,35 @@
             "ending_type": null,
             "id": 505,
             "is_combat": false,
-            "jump_conditions": {},
-            "jump_conditions_txts": {},
+            "jump_conditions": {
+                "219": {
+                    "$end": "LOI-19"
+                }
+            },
+            "jump_conditions_txts": {
+                "219": "LOI-19"
+            },
             "label": null,
             "remove": [],
             "secret": false,
             "secret_jumps": [],
             "sons": [
-                202
+                202,
+                219
             ],
             "stats": {},
             "stats_cond": [],
             "success": null
+        },
+        "conditions": {
+            "219": "LOI-19"
         },
         "goto": 202
     },
     "506": {
         "computed": {
             "aquire": [],
-            "arc": null,
+            "arc": "Avec Nadee",
             "chapter": "La Larme",
             "combat": null,
             "ending": false,
@@ -15993,7 +16062,7 @@
     "507": {
         "computed": {
             "aquire": [],
-            "arc": null,
+            "arc": "Avec Sa'panna",
             "chapter": "La Larme",
             "combat": null,
             "ending": false,
@@ -16020,7 +16089,7 @@
     "508": {
         "computed": {
             "aquire": [],
-            "arc": null,
+            "arc": "Nécropole Halistair",
             "chapter": "La Larme",
             "combat": null,
             "ending": false,
@@ -16047,7 +16116,7 @@
     "509": {
         "computed": {
             "aquire": [],
-            "arc": null,
+            "arc": "Avec Nadee",
             "chapter": "La Larme",
             "combat": null,
             "ending": false,
@@ -16079,7 +16148,7 @@
             "aquire": [
                 "GRI-GRI"
             ],
-            "arc": null,
+            "arc": "Jungle",
             "chapter": "L'Exode",
             "combat": null,
             "ending": false,
@@ -16171,7 +16240,7 @@
             "aquire": [
                 "BRACELET IOTOS"
             ],
-            "arc": null,
+            "arc": "Nécropole Halistair",
             "chapter": "La Larme",
             "combat": null,
             "ending": false,
@@ -16203,7 +16272,7 @@
     "513": {
         "computed": {
             "aquire": [],
-            "arc": null,
+            "arc": "Nécropole Halistair",
             "chapter": "La Larme",
             "combat": null,
             "ending": false,
@@ -16238,7 +16307,7 @@
         },
         "computed": {
             "aquire": [],
-            "arc": null,
+            "arc": "Nécropole Halistair",
             "chapter": "La Larme",
             "combat": {
                 "arm": 1,
@@ -16272,7 +16341,7 @@
     "515": {
         "computed": {
             "aquire": [],
-            "arc": null,
+            "arc": "Nécropole Halistair",
             "chapter": "La Larme",
             "combat": null,
             "ending": false,
@@ -16299,7 +16368,7 @@
     "516": {
         "computed": {
             "aquire": [],
-            "arc": null,
+            "arc": "Avec Sa'panna",
             "chapter": "La Larme",
             "combat": null,
             "ending": false,
@@ -16332,7 +16401,7 @@
     "517": {
         "computed": {
             "aquire": [],
-            "arc": null,
+            "arc": "Avec Sa'panna",
             "chapter": "La Larme",
             "combat": null,
             "ending": false,
@@ -16418,7 +16487,7 @@
     "52": {
         "computed": {
             "aquire": [],
-            "arc": null,
+            "arc": "Prieuré",
             "chapter": "L'Exode",
             "combat": null,
             "ending": false,
@@ -16532,7 +16601,7 @@
         "computed": {
             "aquire": [],
             "arc": null,
-            "chapter": "La Larme",
+            "chapter": "Violence Vraie",
             "combat": null,
             "ending": false,
             "ending_id": null,
@@ -16563,7 +16632,7 @@
     "523": {
         "computed": {
             "aquire": [],
-            "arc": null,
+            "arc": "Avec Sa'panna",
             "chapter": "La Larme",
             "combat": null,
             "ending": false,
@@ -16707,7 +16776,7 @@
     "527": {
         "computed": {
             "aquire": [],
-            "arc": null,
+            "arc": "Nécropole Halistair",
             "chapter": "La Larme",
             "combat": null,
             "ending": false,
@@ -16775,7 +16844,7 @@
     "528": {
         "computed": {
             "aquire": [],
-            "arc": null,
+            "arc": "Nécropole Halistair",
             "chapter": "La Larme",
             "combat": null,
             "ending": false,
@@ -16841,8 +16910,8 @@
     "53": {
         "computed": {
             "aquire": [],
-            "arc": null,
-            "chapter": null,
+            "arc": "Nécropole Halistair",
+            "chapter": "La Larme",
             "combat": null,
             "ending": false,
             "ending_id": null,
@@ -16873,7 +16942,7 @@
             "aquire": [
                 "OEUFS DE SCORPYDRE"
             ],
-            "arc": null,
+            "arc": "Avec Sa'panna",
             "chapter": "La Larme",
             "combat": null,
             "ending": false,
@@ -16994,7 +17063,7 @@
                 "RETROVISEUR INSTALLE"
             ],
             "arc": null,
-            "chapter": "La Larme",
+            "chapter": "Violence Vraie",
             "combat": null,
             "ending": false,
             "ending_id": null,
@@ -17024,7 +17093,7 @@
     "534": {
         "computed": {
             "aquire": [],
-            "arc": null,
+            "arc": "Nécropole Halistair",
             "chapter": "La Larme",
             "combat": null,
             "ending": false,
@@ -17065,7 +17134,7 @@
     "535": {
         "computed": {
             "aquire": [],
-            "arc": null,
+            "arc": "Nécropole Halistair",
             "chapter": "La Larme",
             "combat": null,
             "ending": false,
@@ -17098,7 +17167,7 @@
             "aquire": [
                 "TURBAN POUR KHAZIN"
             ],
-            "arc": null,
+            "arc": "Nécropole Halistair",
             "chapter": "La Larme",
             "combat": null,
             "ending": false,
@@ -17130,7 +17199,7 @@
             "aquire": [
                 "FUSEE ECLAIRANTE"
             ],
-            "arc": null,
+            "arc": "Avec Sa'panna",
             "chapter": "La Larme",
             "combat": null,
             "ending": false,
@@ -17281,7 +17350,7 @@
     "540": {
         "computed": {
             "aquire": [],
-            "arc": null,
+            "arc": "Prieuré",
             "chapter": "L'Exode",
             "combat": null,
             "ending": false,
@@ -17425,7 +17494,7 @@
         "computed": {
             "aquire": [],
             "arc": null,
-            "chapter": "Les Sables d'Ivoire",
+            "chapter": "La Fin",
             "combat": null,
             "ending": false,
             "ending_id": null,
@@ -17525,7 +17594,7 @@
     "546": {
         "computed": {
             "aquire": [],
-            "arc": null,
+            "arc": "Nécropole Halistair",
             "chapter": "La Larme",
             "combat": null,
             "ending": false,
@@ -17768,7 +17837,7 @@
     "553": {
         "computed": {
             "aquire": [],
-            "arc": null,
+            "arc": "Nécropole Halistair",
             "chapter": "La Larme",
             "combat": null,
             "ending": false,
@@ -17795,7 +17864,7 @@
     "554": {
         "computed": {
             "aquire": [],
-            "arc": null,
+            "arc": "Prieuré",
             "chapter": "L'Exode",
             "combat": null,
             "ending": false,
@@ -17822,7 +17891,7 @@
     "555": {
         "computed": {
             "aquire": [],
-            "arc": null,
+            "arc": "Nécropole Halistair",
             "chapter": "La Larme",
             "combat": null,
             "ending": false,
@@ -17868,7 +17937,7 @@
     "556": {
         "computed": {
             "aquire": [],
-            "arc": null,
+            "arc": "Avec Sa'panna",
             "chapter": "La Larme",
             "combat": null,
             "ending": false,
@@ -17985,7 +18054,7 @@
     "559": {
         "computed": {
             "aquire": [],
-            "arc": null,
+            "arc": "Nécropole Halistair",
             "chapter": "La Larme",
             "combat": null,
             "ending": false,
@@ -18207,7 +18276,7 @@
         "computed": {
             "aquire": [],
             "arc": null,
-            "chapter": "Les Sables d'Ivoire",
+            "chapter": "Le Guide",
             "combat": null,
             "ending": false,
             "ending_id": null,
@@ -18344,7 +18413,7 @@
         "computed": {
             "aquire": [],
             "arc": null,
-            "chapter": "Les Sables d'Ivoire",
+            "chapter": "Le Guide",
             "combat": null,
             "ending": false,
             "ending_id": null,
@@ -18407,7 +18476,7 @@
     "57": {
         "computed": {
             "aquire": [],
-            "arc": null,
+            "arc": "Jungle",
             "chapter": "L'Exode",
             "combat": null,
             "ending": false,
@@ -18569,7 +18638,7 @@
     "574": {
         "computed": {
             "aquire": [],
-            "arc": null,
+            "arc": "Nécropole Halistair",
             "chapter": "La Larme",
             "combat": null,
             "ending": false,
@@ -18617,7 +18686,7 @@
     "575": {
         "computed": {
             "aquire": [],
-            "arc": null,
+            "arc": "Nécropole Halistair",
             "chapter": "La Larme",
             "combat": null,
             "ending": false,
@@ -18651,7 +18720,7 @@
         "computed": {
             "aquire": [],
             "arc": null,
-            "chapter": "Les Sables d'Ivoire",
+            "chapter": "Le Guide",
             "combat": null,
             "ending": false,
             "ending_id": null,
@@ -18886,7 +18955,7 @@
         "computed": {
             "aquire": [],
             "arc": null,
-            "chapter": "La Larme",
+            "chapter": "Violence Vraie",
             "combat": null,
             "ending": false,
             "ending_id": null,
@@ -18989,7 +19058,7 @@
     "586": {
         "computed": {
             "aquire": [],
-            "arc": null,
+            "arc": "Avec Sa'panna",
             "chapter": "La Larme",
             "combat": null,
             "ending": false,
@@ -19049,7 +19118,7 @@
                 "SECRET DU DOUBLE INFINI"
             ],
             "arc": null,
-            "chapter": "La Larme",
+            "chapter": "La Palais",
             "combat": null,
             "ending": false,
             "ending_id": null,
@@ -19107,7 +19176,7 @@
             "aquire": [
                 "TAMPON ROUGE"
             ],
-            "arc": null,
+            "arc": "Prieuré",
             "chapter": "L'Exode",
             "combat": null,
             "ending": false,
@@ -19236,7 +19305,7 @@
         "computed": {
             "aquire": [],
             "arc": null,
-            "chapter": "Les Sables d'Ivoire",
+            "chapter": "Le Guide",
             "combat": null,
             "ending": false,
             "ending_id": null,
@@ -19461,8 +19530,8 @@
     "60": {
         "computed": {
             "aquire": [],
-            "arc": null,
-            "chapter": null,
+            "arc": "Nécropole Halistair",
+            "chapter": "La Larme",
             "combat": null,
             "ending": false,
             "ending_id": null,
@@ -19516,7 +19585,7 @@
     "601": {
         "computed": {
             "aquire": [],
-            "arc": null,
+            "arc": "Avec Sa'panna",
             "chapter": "La Larme",
             "combat": null,
             "ending": false,
@@ -19576,7 +19645,7 @@
         "computed": {
             "aquire": [],
             "arc": null,
-            "chapter": "La Larme",
+            "chapter": "Violence Vraie",
             "combat": null,
             "ending": false,
             "ending_id": null,
@@ -19797,7 +19866,7 @@
     "61": {
         "computed": {
             "aquire": [],
-            "arc": null,
+            "arc": "Jungle",
             "chapter": "L'Exode",
             "combat": null,
             "ending": false,
@@ -19825,7 +19894,7 @@
         "computed": {
             "aquire": [],
             "arc": null,
-            "chapter": "Les Sables d'Ivoire",
+            "chapter": "Le Guide",
             "combat": null,
             "ending": false,
             "ending_id": null,
@@ -19862,7 +19931,7 @@
         "computed": {
             "aquire": [],
             "arc": null,
-            "chapter": "Les Sables d'Ivoire",
+            "chapter": "La Fin",
             "combat": null,
             "ending": false,
             "ending_id": null,
@@ -19876,9 +19945,7 @@
             "remove": [],
             "secret": false,
             "secret_jumps": [],
-            "sons": [
-                625
-            ],
+            "sons": [],
             "stats": {},
             "stats_cond": [],
             "success": "FULL-THROTTLE"
@@ -19886,14 +19953,13 @@
         "ending": "good",
         "ending_id": "FULL-THROTTLE",
         "ending_txt": "A fond la ... caisse?",
-        "goto": 625,
         "success": "FULL-THROTTLE"
     },
     "612": {
         "computed": {
             "aquire": [],
             "arc": null,
-            "chapter": "Les Sables d'Ivoire",
+            "chapter": "Le Guide",
             "combat": null,
             "ending": false,
             "ending_id": null,
@@ -20009,7 +20075,7 @@
         "computed": {
             "aquire": [],
             "arc": null,
-            "chapter": "Les Sables d'Ivoire",
+            "chapter": "Le Guide",
             "combat": null,
             "ending": false,
             "ending_id": null,
@@ -20036,7 +20102,7 @@
         "computed": {
             "aquire": [],
             "arc": null,
-            "chapter": "Les Sables d'Ivoire",
+            "chapter": "La Fin",
             "combat": null,
             "ending": false,
             "ending_id": null,
@@ -20063,7 +20129,7 @@
         "computed": {
             "aquire": [],
             "arc": null,
-            "chapter": "Les Sables d'Ivoire",
+            "chapter": "Le Guide",
             "combat": null,
             "ending": false,
             "ending_id": null,
@@ -20225,7 +20291,7 @@
         "computed": {
             "aquire": [],
             "arc": null,
-            "chapter": "Les Sables d'Ivoire",
+            "chapter": "Le Guide",
             "combat": null,
             "ending": false,
             "ending_id": null,
@@ -20278,7 +20344,7 @@
     "624": {
         "computed": {
             "aquire": [],
-            "arc": null,
+            "arc": "Avec Nadee",
             "chapter": "La Larme",
             "combat": null,
             "ending": false,
@@ -20313,7 +20379,7 @@
         "computed": {
             "aquire": [],
             "arc": null,
-            "chapter": "Les Sables d'Ivoire",
+            "chapter": "Le Guide",
             "combat": null,
             "ending": false,
             "ending_id": null,
@@ -20384,7 +20450,7 @@
         "computed": {
             "aquire": [],
             "arc": null,
-            "chapter": "Les Sables d'Ivoire",
+            "chapter": "La Fin",
             "combat": null,
             "ending": false,
             "ending_id": null,
@@ -20504,7 +20570,7 @@
         "computed": {
             "aquire": [],
             "arc": null,
-            "chapter": "Les Sables d'Ivoire",
+            "chapter": "Le Guide",
             "combat": {
                 "arm": 1,
                 "deg": 1,
@@ -20565,7 +20631,7 @@
         "computed": {
             "aquire": [],
             "arc": null,
-            "chapter": "Les Sables d'Ivoire",
+            "chapter": "La Fin",
             "combat": null,
             "ending": false,
             "ending_id": null,
@@ -20646,7 +20712,7 @@
         "computed": {
             "aquire": [],
             "arc": null,
-            "chapter": "Les Sables d'Ivoire",
+            "chapter": "La Fin",
             "combat": null,
             "ending": false,
             "ending_id": null,
@@ -20928,7 +20994,7 @@
         "computed": {
             "aquire": [],
             "arc": null,
-            "chapter": "Les Sables d'Ivoire",
+            "chapter": "La Fin",
             "combat": null,
             "ending": false,
             "ending_id": null,
@@ -20955,7 +21021,7 @@
         "computed": {
             "aquire": [],
             "arc": null,
-            "chapter": "Les Sables d'Ivoire",
+            "chapter": "La Fin",
             "combat": null,
             "ending": false,
             "ending_id": null,
@@ -20983,7 +21049,7 @@
         "computed": {
             "aquire": [],
             "arc": null,
-            "chapter": "Les Sables d'Ivoire",
+            "chapter": "La Fin",
             "combat": null,
             "ending": false,
             "ending_id": null,
@@ -21011,7 +21077,7 @@
         "computed": {
             "aquire": [],
             "arc": null,
-            "chapter": "Les Sables d'Ivoire",
+            "chapter": "La Fin",
             "combat": null,
             "ending": false,
             "ending_id": null,
@@ -21274,7 +21340,7 @@
         "computed": {
             "aquire": [],
             "arc": null,
-            "chapter": "Les Sables d'Ivoire",
+            "chapter": "Le Guide",
             "combat": null,
             "ending": false,
             "ending_id": null,
@@ -21301,7 +21367,7 @@
         "computed": {
             "aquire": [],
             "arc": null,
-            "chapter": "Les Sables d'Ivoire",
+            "chapter": "La Fin",
             "combat": null,
             "ending": false,
             "ending_id": null,
@@ -21395,7 +21461,7 @@
         "computed": {
             "aquire": [],
             "arc": null,
-            "chapter": "Les Sables d'Ivoire",
+            "chapter": "Le Guide",
             "combat": null,
             "ending": false,
             "ending_id": null,
@@ -21422,7 +21488,7 @@
         "computed": {
             "aquire": [],
             "arc": null,
-            "chapter": "Les Sables d'Ivoire",
+            "chapter": "La Fin",
             "combat": null,
             "ending": false,
             "ending_id": null,
@@ -21450,7 +21516,7 @@
         "computed": {
             "aquire": [],
             "arc": null,
-            "chapter": "Les Sables d'Ivoire",
+            "chapter": "Le Guide",
             "combat": null,
             "ending": false,
             "ending_id": null,
@@ -21477,7 +21543,7 @@
         "computed": {
             "aquire": [],
             "arc": null,
-            "chapter": "Les Sables d'Ivoire",
+            "chapter": "La Fin",
             "combat": null,
             "ending": false,
             "ending_id": null,
@@ -21513,8 +21579,8 @@
     "66": {
         "computed": {
             "aquire": [],
-            "arc": null,
-            "chapter": null,
+            "arc": "Nécropole Halistair",
+            "chapter": "La Larme",
             "combat": null,
             "ending": false,
             "ending_id": null,
@@ -21541,7 +21607,7 @@
         "computed": {
             "aquire": [],
             "arc": null,
-            "chapter": "Les Sables d'Ivoire",
+            "chapter": "La Fin",
             "combat": null,
             "ending": false,
             "ending_id": null,
@@ -21569,7 +21635,7 @@
         "computed": {
             "aquire": [],
             "arc": null,
-            "chapter": "Les Sables d'Ivoire",
+            "chapter": "La Fin",
             "combat": null,
             "ending": false,
             "ending_id": null,
@@ -21597,7 +21663,7 @@
         "computed": {
             "aquire": [],
             "arc": null,
-            "chapter": "Les Sables d'Ivoire",
+            "chapter": "La Fin",
             "combat": null,
             "ending": false,
             "ending_id": null,
@@ -21624,7 +21690,7 @@
         "computed": {
             "aquire": [],
             "arc": null,
-            "chapter": "Les Sables d'Ivoire",
+            "chapter": "Le Guide",
             "combat": null,
             "ending": false,
             "ending_id": null,
@@ -21651,7 +21717,7 @@
         "computed": {
             "aquire": [],
             "arc": null,
-            "chapter": "La Larme",
+            "chapter": "La Palais",
             "combat": null,
             "ending": false,
             "ending_id": null,
@@ -21692,7 +21758,7 @@
         "computed": {
             "aquire": [],
             "arc": null,
-            "chapter": "Les Sables d'Ivoire",
+            "chapter": "La Fin",
             "combat": null,
             "ending": false,
             "ending_id": null,
@@ -21727,7 +21793,7 @@
         "computed": {
             "aquire": [],
             "arc": null,
-            "chapter": "Les Sables d'Ivoire",
+            "chapter": "La Fin",
             "combat": null,
             "ending": false,
             "ending_id": null,
@@ -21799,7 +21865,7 @@
         "computed": {
             "aquire": [],
             "arc": null,
-            "chapter": "Les Sables d'Ivoire",
+            "chapter": "La Fin",
             "combat": null,
             "ending": false,
             "ending_id": null,
@@ -21839,15 +21905,21 @@
             "label": null,
             "remove": [],
             "secret": false,
-            "secret_jumps": [],
+            "secret_jumps": [
+                7
+            ],
             "sons": [
+                7,
                 638
             ],
             "stats": {},
             "stats_cond": [],
             "success": null
         },
-        "goto": 638
+        "goto": 638,
+        "secret_jumps": [
+            7
+        ]
     },
     "67": {
         "computed": {
@@ -21887,7 +21959,7 @@
         "computed": {
             "aquire": [],
             "arc": null,
-            "chapter": "Les Sables d'Ivoire",
+            "chapter": "Le Guide",
             "combat": null,
             "ending": false,
             "ending_id": null,
@@ -21962,7 +22034,7 @@
         "computed": {
             "aquire": [],
             "arc": null,
-            "chapter": "Les Sables d'Ivoire",
+            "chapter": "La Fin",
             "combat": null,
             "ending": false,
             "ending_id": null,
@@ -21989,7 +22061,7 @@
         "computed": {
             "aquire": [],
             "arc": null,
-            "chapter": "Les Sables d'Ivoire",
+            "chapter": "La Fin",
             "combat": null,
             "ending": false,
             "ending_id": null,
@@ -22016,7 +22088,7 @@
         "computed": {
             "aquire": [],
             "arc": null,
-            "chapter": "Les Sables d'Ivoire",
+            "chapter": "La Fin",
             "combat": null,
             "ending": false,
             "ending_id": null,
@@ -22053,7 +22125,7 @@
         "computed": {
             "aquire": [],
             "arc": null,
-            "chapter": "Les Sables d'Ivoire",
+            "chapter": "La Fin",
             "combat": null,
             "ending": false,
             "ending_id": null,
@@ -22100,7 +22172,7 @@
         "computed": {
             "aquire": [],
             "arc": null,
-            "chapter": "Les Sables d'Ivoire",
+            "chapter": "La Fin",
             "combat": null,
             "ending": false,
             "ending_id": null,
@@ -22128,7 +22200,7 @@
         "computed": {
             "aquire": [],
             "arc": null,
-            "chapter": "Les Sables d'Ivoire",
+            "chapter": "La Fin",
             "combat": null,
             "ending": false,
             "ending_id": null,
@@ -22156,7 +22228,7 @@
         "computed": {
             "aquire": [],
             "arc": null,
-            "chapter": "Les Sables d'Ivoire",
+            "chapter": "La Fin",
             "combat": null,
             "ending": false,
             "ending_id": null,
@@ -22199,13 +22271,13 @@
             "secret": false,
             "secret_jumps": [],
             "sons": [
-                612
+                621
             ],
             "stats": {},
             "stats_cond": [],
             "success": null
         },
-        "goto": 612
+        "goto": 621
     },
     "68": {
         "aquire": [
@@ -22327,7 +22399,7 @@
         "computed": {
             "aquire": [],
             "arc": null,
-            "chapter": "Les Sables d'Ivoire",
+            "chapter": "La Fin",
             "combat": null,
             "ending": false,
             "ending_id": null,
@@ -22354,7 +22426,7 @@
     "683": {
         "computed": {
             "aquire": [],
-            "arc": null,
+            "arc": "Avec Sa'panna",
             "chapter": "La Larme",
             "combat": null,
             "ending": false,
@@ -22381,7 +22453,7 @@
     "684": {
         "computed": {
             "aquire": [],
-            "arc": null,
+            "arc": "Avec Sa'panna",
             "chapter": "La Larme",
             "combat": null,
             "ending": false,
@@ -22409,7 +22481,7 @@
         "computed": {
             "aquire": [],
             "arc": null,
-            "chapter": "Les Sables d'Ivoire",
+            "chapter": "La Fin",
             "combat": null,
             "ending": false,
             "ending_id": null,
@@ -22454,7 +22526,7 @@
         "computed": {
             "aquire": [],
             "arc": null,
-            "chapter": "Les Sables d'Ivoire",
+            "chapter": "Le Guide",
             "combat": {
                 "arm": 0,
                 "deg": 0,
@@ -22488,7 +22560,7 @@
         "computed": {
             "aquire": [],
             "arc": null,
-            "chapter": "Les Sables d'Ivoire",
+            "chapter": "Le Guide",
             "combat": null,
             "ending": false,
             "ending_id": null,
@@ -22515,7 +22587,7 @@
         "computed": {
             "aquire": [],
             "arc": null,
-            "chapter": "Les Sables d'Ivoire",
+            "chapter": "La Fin",
             "combat": null,
             "ending": false,
             "ending_id": null,
@@ -22588,7 +22660,7 @@
     "69": {
         "computed": {
             "aquire": [],
-            "arc": null,
+            "arc": "Avec Sa'panna",
             "chapter": "La Larme",
             "combat": null,
             "ending": false,
@@ -22662,7 +22734,7 @@
         "computed": {
             "aquire": [],
             "arc": null,
-            "chapter": "Les Sables d'Ivoire",
+            "chapter": "La Fin",
             "combat": null,
             "ending": false,
             "ending_id": null,
@@ -22689,7 +22761,7 @@
         "computed": {
             "aquire": [],
             "arc": null,
-            "chapter": "Les Sables d'Ivoire",
+            "chapter": "La Fin",
             "combat": null,
             "ending": false,
             "ending_id": null,
@@ -22716,7 +22788,7 @@
         "computed": {
             "aquire": [],
             "arc": null,
-            "chapter": null,
+            "chapter": "Les Sables d'Ivoire",
             "combat": null,
             "ending": false,
             "ending_id": null,
@@ -22770,7 +22842,7 @@
     "71": {
         "computed": {
             "aquire": [],
-            "arc": null,
+            "arc": "Jungle",
             "chapter": "L'Exode",
             "combat": null,
             "ending": false,
@@ -22797,7 +22869,7 @@
     "72": {
         "computed": {
             "aquire": [],
-            "arc": null,
+            "arc": "Fêtes",
             "chapter": "L'Exode",
             "combat": null,
             "ending": false,
@@ -22916,7 +22988,7 @@
         "computed": {
             "aquire": [],
             "arc": null,
-            "chapter": "La Larme",
+            "chapter": "Violence Vraie",
             "combat": null,
             "ending": false,
             "ending_id": null,
@@ -23007,7 +23079,7 @@
     "78": {
         "computed": {
             "aquire": [],
-            "arc": null,
+            "arc": "Fêtes",
             "chapter": "L'Exode",
             "combat": null,
             "ending": false,
@@ -23073,7 +23145,7 @@
         },
         "computed": {
             "aquire": [],
-            "arc": null,
+            "arc": "Jungle",
             "chapter": "L'Exode",
             "combat": {
                 "arm": 0,
@@ -23198,7 +23270,7 @@
         },
         "computed": {
             "aquire": [],
-            "arc": null,
+            "arc": "Jungle",
             "chapter": "L'Exode",
             "combat": {
                 "arm": 0,
@@ -23233,7 +23305,7 @@
         "computed": {
             "aquire": [],
             "arc": null,
-            "chapter": "La Larme",
+            "chapter": "Violence Vraie",
             "combat": null,
             "ending": false,
             "ending_id": null,
@@ -23260,7 +23332,7 @@
         "computed": {
             "aquire": [],
             "arc": null,
-            "chapter": "La Larme",
+            "chapter": "Violence Vraie",
             "combat": null,
             "ending": false,
             "ending_id": null,
@@ -23334,7 +23406,7 @@
     "84": {
         "computed": {
             "aquire": [],
-            "arc": null,
+            "arc": "Oasis Détente",
             "chapter": "L'Exode",
             "combat": null,
             "ending": false,
@@ -23401,7 +23473,7 @@
     "86": {
         "computed": {
             "aquire": [],
-            "arc": null,
+            "arc": "Prieuré",
             "chapter": "L'Exode",
             "combat": null,
             "ending": false,
@@ -23439,7 +23511,7 @@
             "aquire": [
                 "BOUCLIER A PLUMES"
             ],
-            "arc": null,
+            "arc": "Jungle",
             "chapter": "L'Exode",
             "combat": null,
             "ending": false,
@@ -23466,7 +23538,7 @@
     "88": {
         "computed": {
             "aquire": [],
-            "arc": null,
+            "arc": "Nécropole Halistair",
             "chapter": "La Larme",
             "combat": null,
             "ending": false,
@@ -23521,7 +23593,7 @@
         "computed": {
             "aquire": [],
             "arc": null,
-            "chapter": "La Larme",
+            "chapter": "Violence Vraie",
             "combat": null,
             "ending": false,
             "ending_id": null,
@@ -23583,7 +23655,7 @@
     "91": {
         "computed": {
             "aquire": [],
-            "arc": null,
+            "arc": "Jungle",
             "chapter": "L'Exode",
             "combat": null,
             "ending": false,
@@ -23641,7 +23713,7 @@
     "92": {
         "computed": {
             "aquire": [],
-            "arc": null,
+            "arc": "Jungle",
             "chapter": "L'Exode",
             "combat": null,
             "ending": false,
@@ -23678,7 +23750,7 @@
         "computed": {
             "aquire": [],
             "arc": null,
-            "chapter": "La Larme",
+            "chapter": "Violence Vraie",
             "combat": null,
             "ending": false,
             "ending_id": null,
@@ -23732,7 +23804,7 @@
         "computed": {
             "aquire": [],
             "arc": null,
-            "chapter": "La Larme",
+            "chapter": "Violence Vraie",
             "combat": null,
             "ending": false,
             "ending_id": null,
@@ -23763,7 +23835,7 @@
             "aquire": [
                 "CARTE GOLD"
             ],
-            "arc": null,
+            "arc": "Fêtes",
             "chapter": "L'Exode",
             "combat": null,
             "ending": false,
@@ -23831,7 +23903,7 @@
     "97": {
         "computed": {
             "aquire": [],
-            "arc": null,
+            "arc": "Jungle",
             "chapter": "L'Exode",
             "combat": null,
             "ending": false,
@@ -23863,7 +23935,7 @@
             "aquire": [
                 "TAMPON VERT"
             ],
-            "arc": null,
+            "arc": "Prieuré",
             "chapter": "L'Exode",
             "combat": null,
             "ending": false,

@@ -351,7 +351,7 @@ class Node(object):
         # Loop stop
         if self._sub_arc is not None:
             return nb
-        if nb > 50:
+        if nb > 60:
             err = '[%s] The sub arc is too big, seems NOT normal (%s)' % (sub_arc, nb)
             raise Exception(err)
         # Maybe we did reach the stop point, then... stop! ^^

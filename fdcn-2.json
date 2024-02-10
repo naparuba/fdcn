@@ -2008,6 +2008,9 @@
     "goto": 10
   },
   "266": {
+    "conditions": {
+      "22": "LOI-22"
+    },
     "goto": 101
   },
   "267": {
@@ -2146,7 +2149,10 @@
     "goto": 460
   },
   "288": {
-    "goto": 101
+    "goto": [
+      101,
+      188
+    ]
   },
   "289": {
     "goto": 300
@@ -2480,15 +2486,10 @@
   "330": {
     "conditions": {
       "280": "UNE REUSSITE",
-      "290": "DEUX REUSSITES",
+      "292": "DEUX REUSSITES",
       "308": "TROIS REUSSITES"
     },
-    "goto": [
-      270,
-      280,
-      290,
-      308
-    ]
+    "goto": 270
   },
   "331": {
     "goto": 83
@@ -2879,6 +2880,9 @@
     "goto": 245
   },
   "389": {
+    "conditions": {
+      "299": "LOI-299"
+    },
     "goto": [
       101
     ]
@@ -2920,6 +2924,9 @@
       "481": "LANCE",
       "429": "CREME SOLAIRE"
     },
+    "secret_jumps": [
+      432
+    ],
     "goto": 321
   },
   "397": {
@@ -3128,6 +3135,9 @@
       "chance_max": 1,
       "respect": 1
     },
+    "secret_jumps": [
+      214
+    ],
     "goto": 439
   },
   "431": {
@@ -3250,7 +3260,10 @@
     "goto": 368
   },
   "451": {
-    "goto": 442
+    "goto": 442,
+    "secret_jumps": [
+      315
+    ]
   },
   "452": {
     "goto": [
@@ -3302,6 +3315,11 @@
     "goto": [
       514,
       323
+    ],
+    "secret_jumps": [
+      53,
+      60,
+      66
     ]
   },
   "460": {
@@ -3372,6 +3390,9 @@
     ]
   },
   "470": {
+    "conditions": {
+      "19": "LOI-19"
+    },
     "goto": 101
   },
   "471": {
@@ -3504,7 +3525,7 @@
   "492": {
     "goto": [
       513,
-      533
+      553
     ]
   },
   "493": {
@@ -3578,6 +3599,9 @@
     "goto": 520
   },
   "505": {
+    "conditions": {
+      "219": "LOI-19"
+    },
     "goto": 202
   },
   "506": {
@@ -4160,8 +4184,7 @@
     "success": "FULL-THROTTLE",
     "ending": "good",
     "ending_txt": "A fond la ... caisse?",
-    "ending_id": "FULL-THROTTLE",
-    "goto": 625
+    "ending_id": "FULL-THROTTLE"
   },
   "612": {
     "goto": 625
@@ -4440,7 +4463,10 @@
     "ending_id": "SOUFFLER"
   },
   "669": {
-    "goto": 638
+    "goto": 638,
+    "secret_jumps": [
+      7
+    ]
   },
   "670": {
     "conditions": {
@@ -4492,7 +4518,7 @@
     "goto": 685
   },
   "679": {
-    "goto": 612
+    "goto": 621
   },
   "680": {
     "remove": [
