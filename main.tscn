@@ -1107,9 +1107,13 @@ margin_right = 305.524
 margin_bottom = 36.0026
 custom_fonts/font = ExtResource( 2 )
 text = "Le lore"
-__meta__ = {
-"_edit_use_anchors_": false
-}
+
+[node name="LinkButton" type="LinkButton" parent="Lore/Lore/Header"]
+margin_left = 347.31
+margin_top = 14.6014
+margin_right = 437.31
+margin_bottom = 28.6014
+text = "Plus de LORE?"
 
 [node name="VScrollBar" type="ScrollContainer" parent="Lore/Lore"]
 anchor_right = 1.0
@@ -1499,7 +1503,7 @@ custom_constants/shadow_offset_x = 0
 custom_constants/shadow_offset_y = 0
 custom_constants/shadow_as_outline = 0
 custom_fonts/font = ExtResource( 2 )
-text = "0.16"
+text = "0.17"
 
 [node name="CDSIBeta" type="Label" parent="About/About/VersionTxt"]
 modulate = Color( 1, 0, 0, 1 )
@@ -2740,6 +2744,7 @@ mouse_filter = 1
 [connection signal="pressed" from="Chapitres/AllChapters/Block-600/button" to="." method="jump_to_chapter_600"]
 [connection signal="gui_input" from="Succes" to="." method="_on_main_background_gui_input"]
 [connection signal="gui_input" from="Lore" to="." method="_on_main_background_gui_input"]
+[connection signal="pressed" from="Lore/Lore/Header/LinkButton" to="." method="_on_morelore_button_pressed"]
 [connection signal="gui_input" from="About" to="." method="_on_main_background_gui_input"]
 [connection signal="pressed" from="About/Actions/nouveau_billy/Button" to="." method="_on_button_new_billy"]
 [connection signal="pressed" from="About/Actions/new_bug/Button" to="." method="_on_button_bug"]

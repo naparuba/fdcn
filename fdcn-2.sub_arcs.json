@@ -6,7 +6,45 @@
   ["L'Exode", 501, "Oasis Détente", [127]],
   ["La Larme", 460, "Nécropole Halistair", [596]],
 
-    ["La Larme", 416, "Avec Sa'panna", [460]],
-  ["La Larme", 407, "Avec Nadee", [460]]
+  ["La cité des Reflets", 215, "Grand Bazaar", [226]],
+  ["La cité des Reflets", 240, "Rues de Jehal", [226]],
 
+  ["La cité des Reflets", 223, "Les Thermes", [116]],
+  ["La cité des Reflets", 220, "Palais des 1001 mains", [116]],
+  ["La cité des Reflets", 259, "Les écuries", [116]],
+  ["La cité des Reflets", 434, "Le ministère des Taxes", [116]],
+
+  ["La cité des Reflets", 380, "Le temple de Phûmta", [289]],
+  ["La cité des Reflets", 295, "La taverne", [289]],
+
+    ["La Larme", 416, "Avec Sa'panna", [460]],
+  ["La Larme", 407, "Avec Nadee", [460]],
+
+  ["Violence Vraie", 320, "Le départ", [83, 182]],
+  ["Violence Vraie", 83, "La Poigne Filante", [182, 466]],
+  ["Violence Vraie", 182, "La Torche Dardante", [466]],
+  ["Violence Vraie", 466, "Mimine!!!", [313]],
+  ["Violence Vraie", 313, "Dernier tour", [583]],
+
+    ["Justice Juste", 10, "Debut procès", [101]],
+
+  ["Justice Juste", 101, "Accusation 1", [202,303]],
+  ["Justice Juste", 202, "Accusation 2", [303]],
+  ["Justice Juste", 303, "Accusation 3", [330]],
+
+  ["Le Palais", 469, "Le Harem", [366, 384]],
+  ["Le Palais", 196, "Les cuisines", [366]],
+  ["Le Palais", 159, "La suite", [366]],
+
+  ["Le Guide", 456, "Le ministère des Taxes", [496, 570]],
+  ["Le Guide", 222, "Les sourcières", [496, 570]],
+  ["Le Guide", 539, "Les écuries", [496, 570]],
+  ["Le Guide", 396, "La caserne", [496, 570]],
+
+  ["Le Guide", 570, "Le Tribunal", [483]],
+  ["Le Guide", 496, "Le scorpidrome", [483]],
+
+  ["Le Guide", 590, "La prison", [525]],
+
+  ["Le Guide", 606, "Le palais", [568]]
 ]

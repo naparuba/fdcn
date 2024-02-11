@@ -449,15 +449,9 @@
         "category": "OBJET",
         "in_chapters": [
             1,
+            308,
             417,
             471
-        ],
-        "stats": {}
-    },
-    "MIRROIR FERME": {
-        "category": "OBJET",
-        "in_chapters": [
-            308
         ],
         "stats": {}
     },

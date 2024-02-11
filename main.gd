@@ -821,3 +821,7 @@ func _switch_to_book_cdsi():
 	var sprite2 = $Options/BookSelect/BoolSelectCdsi/sprite
 	sprite2.material.set_shader_param("grayscale", false)
 	self._change_book_number(2)
+
+
+func _on_morelore_button_pressed():
+	OS.shell_open("https://saga-de-billy.fandom.com/fr/wiki/Wiki_Saga_de_Billy");

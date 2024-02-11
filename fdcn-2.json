@@ -257,7 +257,9 @@
   },
   "32": {
     "success": "COUDE",
-    "goto": 150
+    "ending": "bad",
+    "ending_txt": "Oups c'est l'accident ^^",
+    "ending_id": "COUDE"
   },
   "33": {
     "aquire": [
@@ -810,7 +812,13 @@
     "goto": 283
   },
   "106": {
-    "goto": 215
+    "goto": 215,
+    "secret_jumps": [
+      130,
+      34,
+      54,
+      334
+    ]
   },
   "107": {
     "goto": 168
@@ -1704,7 +1712,10 @@
       "deg": 0,
       "pyro": 0
     },
-    "goto": 466
+    "goto": [
+      466,
+      206
+    ]
   },
   "226": {
     "conditions": {
@@ -2260,7 +2271,8 @@
       "277": "PRUDENT"
     },
     "secret_jumps": [
-      234
+      234,
+      120
     ],
     "goto": [
       279,
@@ -2299,7 +2311,7 @@
   },
   "308": {
     "aquire": [
-      "MIRROIR FERME"
+      "MIROIR FERME"
     ],
     "stats": {
       "richesse": 2,

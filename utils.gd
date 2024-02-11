@@ -39,3 +39,9 @@ func delete_children(node):
 func roll_a_dice(minimum, maximum):
 	var roll = randi() % (maximum-minimum+1) + minimum
 	return roll
+
+
+func is_file_exists(path):
+	var file = File.new()
+	return file.file_exists(path)
+	

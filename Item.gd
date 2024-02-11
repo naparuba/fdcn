@@ -8,6 +8,7 @@ var _item_data = {}
 
 var _unkown_icon = null
 var _item_icon = null
+var _sprite_scale = 0.048
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -23,7 +24,15 @@ func load_item_data(item_name, item_data):
 	self._display_stats()
 	var new_style = StyleBoxFlat.new()
 	self.set('custom_styles/panel', new_style)
-	self._item_icon = Utils.load_external_texture('res://images/items/%s.svg' % self._item_name, null)
+	var svg_path = 'res://images/items/%s.svg' % self._item_name
+	var png_path = 'res://images/items/%s.png' % self._item_name
+	if Utils.is_file_exists(svg_path):
+		self._item_icon = Utils.load_external_texture(svg_path, null)
+	elif Utils.is_file_exists(png_path):
+		self._item_icon = Utils.load_external_texture(png_path, null)
+		self._sprite_scale = 1.0
+	else:
+		self._item_icon = null
 	self._unkown_icon = Utils.load_external_texture('res://images/items/question.svg', null)
 	self.refresh()
 
@@ -93,11 +102,15 @@ func refresh():
 	if self._can_item_be_shown():
 		print('ITEM:: ', self._item_name, 'SHOW\n' )
 		$Nom.text = self._item_name
+		$sprite.scale[0] = self._sprite_scale
+		$sprite.scale[1] = self._sprite_scale
 		$sprite.texture = self._item_icon
 	else:
 		print('ITEM:: ', self._item_name, 'HIDE\n' )
 		$Nom.text = ''  # We already have the ? icon
 		$sprite.texture = self._unkown_icon
+		$sprite.scale[0] = 0.048
+		$sprite.scale[1] = 0.048
 
 	#print('STYLE: %s' % _style)
 	if do_have_item:

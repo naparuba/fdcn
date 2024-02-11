@@ -36,7 +36,7 @@
     "10": {
         "computed": {
             "aquire": [],
-            "arc": null,
+            "arc": "Debut procès",
             "chapter": "Justice Juste",
             "combat": null,
             "ending": false,
@@ -113,7 +113,7 @@
     "101": {
         "computed": {
             "aquire": [],
-            "arc": null,
+            "arc": "Accusation 1",
             "chapter": "Justice Juste",
             "combat": null,
             "ending": false,
@@ -289,7 +289,7 @@
     "106": {
         "computed": {
             "aquire": [],
-            "arc": null,
+            "arc": "Grand Bazaar",
             "chapter": "La cité des Reflets",
             "combat": null,
             "ending": false,
@@ -303,15 +303,30 @@
             "label": null,
             "remove": [],
             "secret": false,
-            "secret_jumps": [],
+            "secret_jumps": [
+                130,
+                34,
+                54,
+                334
+            ],
             "sons": [
-                215
+                34,
+                54,
+                130,
+                215,
+                334
             ],
             "stats": {},
             "stats_cond": [],
             "success": null
         },
-        "goto": 215
+        "goto": 215,
+        "secret_jumps": [
+            130,
+            34,
+            54,
+            334
+        ]
     },
     "107": {
         "computed": {
@@ -379,7 +394,7 @@
             "aquire": [
                 "TROMBONE"
             ],
-            "arc": null,
+            "arc": "Grand Bazaar",
             "chapter": "La cité des Reflets",
             "combat": null,
             "ending": false,
@@ -505,7 +520,7 @@
     "112": {
         "computed": {
             "aquire": [],
-            "arc": null,
+            "arc": "Accusation 3",
             "chapter": "Justice Juste",
             "combat": null,
             "ending": false,
@@ -847,8 +862,8 @@
     "120": {
         "computed": {
             "aquire": [],
-            "arc": null,
-            "chapter": null,
+            "arc": "Accusation 3",
+            "chapter": "Justice Juste",
             "combat": null,
             "ending": false,
             "ending_id": null,
@@ -913,7 +928,7 @@
                 "GOURDE SCELLEE",
                 "LOI-22"
             ],
-            "arc": null,
+            "arc": "Rues de Jehal",
             "chapter": "La cité des Reflets",
             "combat": null,
             "ending": false,
@@ -1084,8 +1099,8 @@
     "126": {
         "computed": {
             "aquire": [],
-            "arc": null,
-            "chapter": "La Palais",
+            "arc": "La suite",
+            "chapter": "Le Palais",
             "combat": null,
             "ending": false,
             "ending_id": null,
@@ -1143,8 +1158,8 @@
     "128": {
         "computed": {
             "aquire": [],
-            "arc": null,
-            "chapter": "La Palais",
+            "arc": "La suite",
+            "chapter": "Le Palais",
             "combat": null,
             "ending": false,
             "ending_id": null,
@@ -1202,7 +1217,7 @@
     "13": {
         "computed": {
             "aquire": [],
-            "arc": null,
+            "arc": "Grand Bazaar",
             "chapter": "La cité des Reflets",
             "combat": null,
             "ending": false,
@@ -1246,8 +1261,8 @@
                 "LOI-188",
                 "TROIS COUPS DE FOUET"
             ],
-            "arc": null,
-            "chapter": null,
+            "arc": "Grand Bazaar",
+            "chapter": "La cité des Reflets",
             "combat": null,
             "ending": false,
             "ending_id": null,
@@ -1690,7 +1705,7 @@
             "aquire": [
                 "LOI-234"
             ],
-            "arc": null,
+            "arc": "Les Thermes",
             "chapter": "La cité des Reflets",
             "combat": null,
             "ending": false,
@@ -1717,7 +1732,7 @@
     "143": {
         "computed": {
             "aquire": [],
-            "arc": null,
+            "arc": "Debut procès",
             "chapter": "Justice Juste",
             "combat": null,
             "ending": false,
@@ -1983,7 +1998,7 @@
     "150": {
         "computed": {
             "aquire": [],
-            "arc": null,
+            "arc": "Le départ",
             "chapter": "Violence Vraie",
             "combat": null,
             "ending": false,
@@ -2056,7 +2071,7 @@
     "152": {
         "computed": {
             "aquire": [],
-            "arc": null,
+            "arc": "Le départ",
             "chapter": "Violence Vraie",
             "combat": null,
             "ending": false,
@@ -2241,7 +2256,7 @@
     "157": {
         "computed": {
             "aquire": [],
-            "arc": null,
+            "arc": "Palais des 1001 mains",
             "chapter": "La cité des Reflets",
             "combat": null,
             "ending": false,
@@ -2300,8 +2315,8 @@
     "159": {
         "computed": {
             "aquire": [],
-            "arc": null,
-            "chapter": "La Palais",
+            "arc": "La suite",
+            "chapter": "Le Palais",
             "combat": null,
             "ending": false,
             "ending_id": null,
@@ -2467,8 +2482,8 @@
     "162": {
         "computed": {
             "aquire": [],
-            "arc": null,
-            "chapter": "La Palais",
+            "arc": "Le Harem",
+            "chapter": "Le Palais",
             "combat": null,
             "ending": false,
             "ending_id": null,
@@ -2555,7 +2570,7 @@
             "aquire": [
                 "DEBRIDAGE DE SCORPIONS"
             ],
-            "arc": null,
+            "arc": "Les écuries",
             "chapter": "La cité des Reflets",
             "combat": null,
             "ending": false,
@@ -2891,7 +2906,7 @@
     "172": {
         "computed": {
             "aquire": [],
-            "arc": null,
+            "arc": "La Poigne Filante",
             "chapter": "Violence Vraie",
             "combat": null,
             "ending": false,
@@ -3123,7 +3138,7 @@
     "177": {
         "computed": {
             "aquire": [],
-            "arc": null,
+            "arc": "Le départ",
             "chapter": "Violence Vraie",
             "combat": null,
             "ending": false,
@@ -3155,7 +3170,7 @@
             "aquire": [
                 "UNE REUSSITE"
             ],
-            "arc": null,
+            "arc": "Accusation 2",
             "chapter": "Justice Juste",
             "combat": null,
             "ending": false,
@@ -3276,7 +3291,7 @@
         },
         "computed": {
             "aquire": [],
-            "arc": null,
+            "arc": "Les Thermes",
             "chapter": "La cité des Reflets",
             "combat": {
                 "arm": 1,
@@ -3356,7 +3371,7 @@
     "182": {
         "computed": {
             "aquire": [],
-            "arc": null,
+            "arc": "La Torche Dardante",
             "chapter": "Violence Vraie",
             "combat": null,
             "ending": false,
@@ -3410,8 +3425,8 @@
     "183": {
         "computed": {
             "aquire": [],
-            "arc": null,
-            "chapter": "La Palais",
+            "arc": "La suite",
+            "chapter": "Le Palais",
             "combat": null,
             "ending": false,
             "ending_id": null,
@@ -3571,7 +3586,7 @@
             "aquire": [
                 "UNE REUSSITE"
             ],
-            "arc": null,
+            "arc": "Accusation 1",
             "chapter": "Justice Juste",
             "combat": null,
             "ending": false,
@@ -3630,7 +3645,7 @@
             "aquire": [
                 "DEUX REUSSITES"
             ],
-            "arc": null,
+            "arc": "Accusation 1",
             "chapter": "Justice Juste",
             "combat": null,
             "ending": false,
@@ -3807,7 +3822,7 @@
     "194": {
         "computed": {
             "aquire": [],
-            "arc": null,
+            "arc": "Les écuries",
             "chapter": "La cité des Reflets",
             "combat": null,
             "ending": false,
@@ -3873,8 +3888,8 @@
     "196": {
         "computed": {
             "aquire": [],
-            "arc": null,
-            "chapter": "La Palais",
+            "arc": "Les cuisines",
+            "chapter": "Le Palais",
             "combat": null,
             "ending": false,
             "ending_id": null,
@@ -4166,7 +4181,7 @@
     "202": {
         "computed": {
             "aquire": [],
-            "arc": null,
+            "arc": "Accusation 2",
             "chapter": "Justice Juste",
             "combat": null,
             "ending": false,
@@ -4244,7 +4259,7 @@
     "204": {
         "computed": {
             "aquire": [],
-            "arc": null,
+            "arc": "Le ministère des Taxes",
             "chapter": "La cité des Reflets",
             "combat": null,
             "ending": false,
@@ -4275,7 +4290,7 @@
     "205": {
         "computed": {
             "aquire": [],
-            "arc": null,
+            "arc": "Grand Bazaar",
             "chapter": "La cité des Reflets",
             "combat": null,
             "ending": false,
@@ -4317,8 +4332,8 @@
     "206": {
         "computed": {
             "aquire": [],
-            "arc": null,
-            "chapter": null,
+            "arc": "La Poigne Filante",
+            "chapter": "Violence Vraie",
             "combat": null,
             "ending": false,
             "ending_id": null,
@@ -4448,7 +4463,7 @@
     "209": {
         "computed": {
             "aquire": [],
-            "arc": null,
+            "arc": "Les écuries",
             "chapter": "La cité des Reflets",
             "combat": null,
             "ending": false,
@@ -4526,7 +4541,7 @@
     "210": {
         "computed": {
             "aquire": [],
-            "arc": null,
+            "arc": "Debut procès",
             "chapter": "Justice Juste",
             "combat": null,
             "ending": false,
@@ -4557,7 +4572,7 @@
     "211": {
         "computed": {
             "aquire": [],
-            "arc": null,
+            "arc": "Accusation 3",
             "chapter": "Justice Juste",
             "combat": null,
             "ending": false,
@@ -4716,7 +4731,7 @@
     "215": {
         "computed": {
             "aquire": [],
-            "arc": null,
+            "arc": "Grand Bazaar",
             "chapter": "La cité des Reflets",
             "combat": null,
             "ending": false,
@@ -4787,7 +4802,7 @@
     "217": {
         "computed": {
             "aquire": [],
-            "arc": null,
+            "arc": "La Torche Dardante",
             "chapter": "Violence Vraie",
             "combat": null,
             "ending": false,
@@ -4845,7 +4860,7 @@
     "219": {
         "computed": {
             "aquire": [],
-            "arc": null,
+            "arc": "Accusation 2",
             "chapter": "Justice Juste",
             "combat": null,
             "ending": false,
@@ -4877,7 +4892,7 @@
             "aquire": [
                 "UNE REUSSITE"
             ],
-            "arc": null,
+            "arc": "Accusation 1",
             "chapter": "Justice Juste",
             "combat": null,
             "ending": false,
@@ -4904,7 +4919,7 @@
     "220": {
         "computed": {
             "aquire": [],
-            "arc": null,
+            "arc": "Palais des 1001 mains",
             "chapter": "La cité des Reflets",
             "combat": null,
             "ending": false,
@@ -4997,7 +5012,7 @@
     "222": {
         "computed": {
             "aquire": [],
-            "arc": null,
+            "arc": "Les sourcières",
             "chapter": "Le Guide",
             "combat": null,
             "ending": false,
@@ -5046,7 +5061,7 @@
     "223": {
         "computed": {
             "aquire": [],
-            "arc": null,
+            "arc": "Les Thermes",
             "chapter": "La cité des Reflets",
             "combat": null,
             "ending": false,
@@ -5121,7 +5136,7 @@
         },
         "computed": {
             "aquire": [],
-            "arc": null,
+            "arc": "La Poigne Filante",
             "chapter": "Violence Vraie",
             "combat": {
                 "arm": 0,
@@ -5144,13 +5159,17 @@
             "secret": false,
             "secret_jumps": [],
             "sons": [
+                206,
                 466
             ],
             "stats": {},
             "stats_cond": [],
             "success": null
         },
-        "goto": 466
+        "goto": [
+            466,
+            206
+        ]
     },
     "226": {
         "computed": {
@@ -5221,7 +5240,7 @@
                 "LOI-234",
                 "TROIS COUPS DE FOUET"
             ],
-            "arc": null,
+            "arc": "Les Thermes",
             "chapter": "La cité des Reflets",
             "combat": null,
             "ending": false,
@@ -5343,7 +5362,7 @@
     "230": {
         "computed": {
             "aquire": [],
-            "arc": null,
+            "arc": "Les Thermes",
             "chapter": "La cité des Reflets",
             "combat": null,
             "ending": false,
@@ -5483,7 +5502,7 @@
             "aquire": [
                 "UNE REUSSITE"
             ],
-            "arc": null,
+            "arc": "Accusation 3",
             "chapter": "Justice Juste",
             "combat": {
                 "arm": 1,
@@ -5517,7 +5536,7 @@
     "235": {
         "computed": {
             "aquire": [],
-            "arc": null,
+            "arc": "Le départ",
             "chapter": "Violence Vraie",
             "combat": null,
             "ending": false,
@@ -5545,7 +5564,7 @@
         "computed": {
             "aquire": [],
             "arc": null,
-            "chapter": "La Palais",
+            "chapter": "Le Palais",
             "combat": null,
             "ending": false,
             "ending_id": null,
@@ -5597,7 +5616,7 @@
         },
         "computed": {
             "aquire": [],
-            "arc": null,
+            "arc": "Palais des 1001 mains",
             "chapter": "La cité des Reflets",
             "combat": {
                 "arm": 1,
@@ -5733,7 +5752,7 @@
     "240": {
         "computed": {
             "aquire": [],
-            "arc": null,
+            "arc": "Rues de Jehal",
             "chapter": "La cité des Reflets",
             "combat": null,
             "ending": false,
@@ -5770,8 +5789,8 @@
     "241": {
         "computed": {
             "aquire": [],
-            "arc": null,
-            "chapter": "La Palais",
+            "arc": "La suite",
+            "chapter": "Le Palais",
             "combat": null,
             "ending": false,
             "ending_id": null,
@@ -5797,7 +5816,7 @@
     "242": {
         "computed": {
             "aquire": [],
-            "arc": null,
+            "arc": "Le ministère des Taxes",
             "chapter": "La cité des Reflets",
             "combat": null,
             "ending": false,
@@ -5856,7 +5875,7 @@
     "244": {
         "computed": {
             "aquire": [],
-            "arc": null,
+            "arc": "La Poigne Filante",
             "chapter": "Violence Vraie",
             "combat": null,
             "ending": false,
@@ -5884,7 +5903,7 @@
         "computed": {
             "aquire": [],
             "arc": null,
-            "chapter": "La Palais",
+            "chapter": "Le Palais",
             "combat": null,
             "ending": false,
             "ending_id": null,
@@ -5916,7 +5935,7 @@
     "246": {
         "computed": {
             "aquire": [],
-            "arc": null,
+            "arc": "Accusation 2",
             "chapter": "Justice Juste",
             "combat": null,
             "ending": false,
@@ -5975,7 +5994,7 @@
     "248": {
         "computed": {
             "aquire": [],
-            "arc": null,
+            "arc": "Le ministère des Taxes",
             "chapter": "La cité des Reflets",
             "combat": null,
             "ending": false,
@@ -6015,8 +6034,8 @@
     "249": {
         "computed": {
             "aquire": [],
-            "arc": null,
-            "chapter": "La Palais",
+            "arc": "Les cuisines",
+            "chapter": "Le Palais",
             "combat": null,
             "ending": false,
             "ending_id": null,
@@ -6090,7 +6109,7 @@
         },
         "computed": {
             "aquire": [],
-            "arc": null,
+            "arc": "Les écuries",
             "chapter": "La cité des Reflets",
             "combat": {
                 "arm": 1,
@@ -6315,7 +6334,7 @@
         },
         "computed": {
             "aquire": [],
-            "arc": null,
+            "arc": "Mimine!!!",
             "chapter": "Violence Vraie",
             "combat": {
                 "arm": 99,
@@ -6385,7 +6404,7 @@
                 "LOI-521",
                 "CONSEIL NE PAS BAISSER LES YEUX"
             ],
-            "arc": null,
+            "arc": "Rues de Jehal",
             "chapter": "La cité des Reflets",
             "combat": null,
             "ending": false,
@@ -6416,7 +6435,7 @@
     "259": {
         "computed": {
             "aquire": [],
-            "arc": null,
+            "arc": "Les écuries",
             "chapter": "La cité des Reflets",
             "combat": null,
             "ending": false,
@@ -6618,7 +6637,7 @@
     "263": {
         "computed": {
             "aquire": [],
-            "arc": null,
+            "arc": "Grand Bazaar",
             "chapter": "La cité des Reflets",
             "combat": null,
             "ending": false,
@@ -6745,7 +6764,7 @@
     "266": {
         "computed": {
             "aquire": [],
-            "arc": null,
+            "arc": "Accusation 1",
             "chapter": "Justice Juste",
             "combat": null,
             "ending": false,
@@ -6817,7 +6836,7 @@
         },
         "computed": {
             "aquire": [],
-            "arc": null,
+            "arc": "Les Thermes",
             "chapter": "La cité des Reflets",
             "combat": {
                 "arm": 1,
@@ -6856,7 +6875,7 @@
     "269": {
         "computed": {
             "aquire": [],
-            "arc": null,
+            "arc": "Accusation 2",
             "chapter": "Justice Juste",
             "combat": null,
             "ending": false,
@@ -6942,8 +6961,8 @@
     "271": {
         "computed": {
             "aquire": [],
-            "arc": null,
-            "chapter": "La Palais",
+            "arc": "La suite",
+            "chapter": "Le Palais",
             "combat": null,
             "ending": false,
             "ending_id": null,
@@ -6974,7 +6993,7 @@
             "aquire": [
                 "APPEAU"
             ],
-            "arc": null,
+            "arc": "Palais des 1001 mains",
             "chapter": "La cité des Reflets",
             "combat": null,
             "ending": false,
@@ -7008,7 +7027,7 @@
     "273": {
         "computed": {
             "aquire": [],
-            "arc": null,
+            "arc": "Les sourcières",
             "chapter": "Le Guide",
             "combat": null,
             "ending": false,
@@ -7067,8 +7086,8 @@
     "275": {
         "computed": {
             "aquire": [],
-            "arc": null,
-            "chapter": "La Palais",
+            "arc": "Le Harem",
+            "chapter": "Le Palais",
             "combat": null,
             "ending": false,
             "ending_id": null,
@@ -7126,7 +7145,7 @@
     "277": {
         "computed": {
             "aquire": [],
-            "arc": null,
+            "arc": "Accusation 3",
             "chapter": "Justice Juste",
             "combat": null,
             "ending": false,
@@ -7157,7 +7176,7 @@
     "278": {
         "computed": {
             "aquire": [],
-            "arc": null,
+            "arc": "Le Tribunal",
             "chapter": "Le Guide",
             "combat": null,
             "ending": false,
@@ -7184,7 +7203,7 @@
     "279": {
         "computed": {
             "aquire": [],
-            "arc": null,
+            "arc": "Accusation 3",
             "chapter": "Justice Juste",
             "combat": null,
             "ending": false,
@@ -7301,7 +7320,7 @@
     "281": {
         "computed": {
             "aquire": [],
-            "arc": null,
+            "arc": "Le départ",
             "chapter": "Violence Vraie",
             "combat": null,
             "ending": false,
@@ -7336,7 +7355,7 @@
         },
         "computed": {
             "aquire": [],
-            "arc": null,
+            "arc": "La Torche Dardante",
             "chapter": "Violence Vraie",
             "combat": {
                 "arm": 0,
@@ -7417,7 +7436,7 @@
                 "CHLOROGLYCERINE",
                 "LOI-120"
             ],
-            "arc": null,
+            "arc": "Le ministère des Taxes",
             "chapter": "La cité des Reflets",
             "combat": null,
             "ending": false,
@@ -7565,7 +7584,7 @@
     "288": {
         "computed": {
             "aquire": [],
-            "arc": null,
+            "arc": "Accusation 1",
             "chapter": "Justice Juste",
             "combat": null,
             "ending": false,
@@ -7661,7 +7680,7 @@
     "290": {
         "computed": {
             "aquire": [],
-            "arc": null,
+            "arc": "Le temple de Phûmta",
             "chapter": "La cité des Reflets",
             "combat": null,
             "ending": false,
@@ -7694,7 +7713,7 @@
         "computed": {
             "aquire": [],
             "arc": null,
-            "chapter": "La Palais",
+            "chapter": "Le Palais",
             "combat": null,
             "ending": false,
             "ending_id": null,
@@ -7794,8 +7813,8 @@
     "294": {
         "computed": {
             "aquire": [],
-            "arc": null,
-            "chapter": "La Palais",
+            "arc": "La suite",
+            "chapter": "Le Palais",
             "combat": null,
             "ending": false,
             "ending_id": null,
@@ -7821,7 +7840,7 @@
     "295": {
         "computed": {
             "aquire": [],
-            "arc": null,
+            "arc": "La taverne",
             "chapter": "La cité des Reflets",
             "combat": null,
             "ending": false,
@@ -7865,7 +7884,7 @@
         },
         "computed": {
             "aquire": [],
-            "arc": null,
+            "arc": "Les sourcières",
             "chapter": "Le Guide",
             "combat": {
                 "arm": 1,
@@ -7930,7 +7949,7 @@
     "298": {
         "computed": {
             "aquire": [],
-            "arc": null,
+            "arc": "Mimine!!!",
             "chapter": "Violence Vraie",
             "combat": null,
             "ending": false,
@@ -7962,7 +7981,7 @@
             "aquire": [
                 "UNE REUSSITE"
             ],
-            "arc": null,
+            "arc": "Accusation 1",
             "chapter": "Justice Juste",
             "combat": null,
             "ending": false,
@@ -8177,7 +8196,7 @@
             "aquire": [
                 "LOI-234"
             ],
-            "arc": null,
+            "arc": "Grand Bazaar",
             "chapter": "La cité des Reflets",
             "combat": null,
             "ending": false,
@@ -8209,7 +8228,7 @@
     "303": {
         "computed": {
             "aquire": [],
-            "arc": null,
+            "arc": "Accusation 3",
             "chapter": "Justice Juste",
             "combat": null,
             "ending": false,
@@ -8230,9 +8249,11 @@
             "remove": [],
             "secret": false,
             "secret_jumps": [
-                234
+                234,
+                120
             ],
             "sons": [
+                120,
                 234,
                 277,
                 279,
@@ -8252,7 +8273,8 @@
             234
         ],
         "secret_jumps": [
-            234
+            234,
+            120
         ]
     },
     "304": {
@@ -8332,7 +8354,7 @@
             "aquire": [
                 "UN ECHEC"
             ],
-            "arc": null,
+            "arc": "Accusation 3",
             "chapter": "Justice Juste",
             "combat": null,
             "ending": false,
@@ -8359,7 +8381,7 @@
     "307": {
         "computed": {
             "aquire": [],
-            "arc": null,
+            "arc": "Palais des 1001 mains",
             "chapter": "La cité des Reflets",
             "combat": null,
             "ending": false,
@@ -8389,11 +8411,11 @@
     },
     "308": {
         "aquire": [
-            "MIRROIR FERME"
+            "MIROIR FERME"
         ],
         "computed": {
             "aquire": [
-                "MIRROIR FERME"
+                "MIROIR FERME"
             ],
             "arc": null,
             "chapter": "Justice Juste",
@@ -8584,7 +8606,7 @@
         },
         "computed": {
             "aquire": [],
-            "arc": null,
+            "arc": "Grand Bazaar",
             "chapter": "La cité des Reflets",
             "combat": {
                 "arm": 1,
@@ -8618,7 +8640,7 @@
     "313": {
         "computed": {
             "aquire": [],
-            "arc": null,
+            "arc": "Dernier tour",
             "chapter": "Violence Vraie",
             "combat": null,
             "ending": false,
@@ -8665,7 +8687,7 @@
             "aquire": [
                 "LOI-120"
             ],
-            "arc": null,
+            "arc": "Le ministère des Taxes",
             "chapter": "La cité des Reflets",
             "combat": null,
             "ending": false,
@@ -8723,7 +8745,7 @@
     "316": {
         "computed": {
             "aquire": [],
-            "arc": null,
+            "arc": "Mimine!!!",
             "chapter": "Violence Vraie",
             "combat": null,
             "ending": false,
@@ -8755,7 +8777,7 @@
             "aquire": [
                 "APPEAU"
             ],
-            "arc": null,
+            "arc": "Palais des 1001 mains",
             "chapter": "La cité des Reflets",
             "combat": null,
             "ending": false,
@@ -8787,7 +8809,7 @@
     "318": {
         "computed": {
             "aquire": [],
-            "arc": null,
+            "arc": "Dernier tour",
             "chapter": "Violence Vraie",
             "combat": null,
             "ending": false,
@@ -8851,7 +8873,7 @@
                 "LOI-19",
                 "RETROVISEUR"
             ],
-            "arc": null,
+            "arc": "Rues de Jehal",
             "chapter": "La cité des Reflets",
             "combat": null,
             "ending": false,
@@ -8882,7 +8904,7 @@
     "32": {
         "computed": {
             "aquire": [],
-            "arc": null,
+            "arc": "Le départ",
             "chapter": "Violence Vraie",
             "combat": null,
             "ending": false,
@@ -8897,20 +8919,20 @@
             "remove": [],
             "secret": false,
             "secret_jumps": [],
-            "sons": [
-                150
-            ],
+            "sons": [],
             "stats": {},
             "stats_cond": [],
             "success": "COUDE"
         },
-        "goto": 150,
+        "ending": "bad",
+        "ending_id": "COUDE",
+        "ending_txt": "Oups c'est l'accident ^^",
         "success": "COUDE"
     },
     "320": {
         "computed": {
             "aquire": [],
-            "arc": null,
+            "arc": "Le départ",
             "chapter": "Violence Vraie",
             "combat": null,
             "ending": false,
@@ -8967,7 +8989,7 @@
         },
         "computed": {
             "aquire": [],
-            "arc": null,
+            "arc": "La caserne",
             "chapter": "Le Guide",
             "combat": {
                 "arm": 1,
@@ -9006,7 +9028,7 @@
     "322": {
         "computed": {
             "aquire": [],
-            "arc": null,
+            "arc": "La taverne",
             "chapter": "La cité des Reflets",
             "combat": null,
             "ending": false,
@@ -9083,7 +9105,7 @@
     "324": {
         "computed": {
             "aquire": [],
-            "arc": null,
+            "arc": "Le départ",
             "chapter": "Violence Vraie",
             "combat": null,
             "ending": false,
@@ -9114,7 +9136,7 @@
     "325": {
         "computed": {
             "aquire": [],
-            "arc": null,
+            "arc": "Dernier tour",
             "chapter": "Violence Vraie",
             "combat": null,
             "ending": false,
@@ -9212,7 +9234,7 @@
     "328": {
         "computed": {
             "aquire": [],
-            "arc": null,
+            "arc": "Accusation 1",
             "chapter": "Justice Juste",
             "combat": null,
             "ending": false,
@@ -9252,7 +9274,7 @@
     "329": {
         "computed": {
             "aquire": [],
-            "arc": null,
+            "arc": "Le ministère des Taxes",
             "chapter": "Le Guide",
             "combat": null,
             "ending": false,
@@ -9365,7 +9387,7 @@
     "331": {
         "computed": {
             "aquire": [],
-            "arc": null,
+            "arc": "Le départ",
             "chapter": "Violence Vraie",
             "combat": null,
             "ending": false,
@@ -9466,8 +9488,8 @@
     "334": {
         "computed": {
             "aquire": [],
-            "arc": null,
-            "chapter": null,
+            "arc": "Grand Bazaar",
+            "chapter": "La cité des Reflets",
             "combat": null,
             "ending": false,
             "ending_id": null,
@@ -9585,7 +9607,7 @@
     "337": {
         "computed": {
             "aquire": [],
-            "arc": null,
+            "arc": "Les Thermes",
             "chapter": "La cité des Reflets",
             "combat": null,
             "ending": false,
@@ -9616,7 +9638,7 @@
     "338": {
         "computed": {
             "aquire": [],
-            "arc": null,
+            "arc": "Debut procès",
             "chapter": "Justice Juste",
             "combat": null,
             "ending": false,
@@ -9653,7 +9675,7 @@
             "aquire": [
                 "LOI-299"
             ],
-            "arc": null,
+            "arc": "Les écuries",
             "chapter": "La cité des Reflets",
             "combat": null,
             "ending": false,
@@ -9680,8 +9702,8 @@
     "34": {
         "computed": {
             "aquire": [],
-            "arc": null,
-            "chapter": null,
+            "arc": "Grand Bazaar",
+            "chapter": "La cité des Reflets",
             "combat": null,
             "ending": false,
             "ending_id": null,
@@ -9763,7 +9785,7 @@
     "341": {
         "computed": {
             "aquire": [],
-            "arc": null,
+            "arc": "Debut procès",
             "chapter": "Justice Juste",
             "combat": null,
             "ending": false,
@@ -9917,7 +9939,7 @@
         "computed": {
             "aquire": [],
             "arc": null,
-            "chapter": "La Palais",
+            "chapter": "Le Palais",
             "combat": null,
             "ending": false,
             "ending_id": null,
@@ -9943,7 +9965,7 @@
     "347": {
         "computed": {
             "aquire": [],
-            "arc": null,
+            "arc": "Le départ",
             "chapter": "Violence Vraie",
             "combat": null,
             "ending": false,
@@ -9997,7 +10019,7 @@
     "349": {
         "computed": {
             "aquire": [],
-            "arc": null,
+            "arc": "Accusation 3",
             "chapter": "Justice Juste",
             "combat": null,
             "ending": false,
@@ -10183,7 +10205,7 @@
     "352": {
         "computed": {
             "aquire": [],
-            "arc": null,
+            "arc": "Les sourcières",
             "chapter": "Le Guide",
             "combat": null,
             "ending": false,
@@ -10513,8 +10535,8 @@
     "361": {
         "computed": {
             "aquire": [],
-            "arc": null,
-            "chapter": "La Palais",
+            "arc": "Les cuisines",
+            "chapter": "Le Palais",
             "combat": null,
             "ending": false,
             "ending_id": null,
@@ -10547,7 +10569,7 @@
     "362": {
         "computed": {
             "aquire": [],
-            "arc": null,
+            "arc": "Accusation 1",
             "chapter": "Justice Juste",
             "combat": null,
             "ending": false,
@@ -10670,7 +10692,7 @@
         "computed": {
             "aquire": [],
             "arc": null,
-            "chapter": "La Palais",
+            "chapter": "Le Palais",
             "combat": null,
             "ending": false,
             "ending_id": null,
@@ -10696,7 +10718,7 @@
     "367": {
         "computed": {
             "aquire": [],
-            "arc": null,
+            "arc": "Dernier tour",
             "chapter": "Violence Vraie",
             "combat": null,
             "ending": false,
@@ -10870,7 +10892,7 @@
     "371": {
         "computed": {
             "aquire": [],
-            "arc": null,
+            "arc": "Accusation 2",
             "chapter": "Justice Juste",
             "combat": null,
             "ending": false,
@@ -10954,7 +10976,7 @@
             "aquire": [
                 "APPEAU"
             ],
-            "arc": null,
+            "arc": "Palais des 1001 mains",
             "chapter": "La cité des Reflets",
             "combat": null,
             "ending": false,
@@ -10987,7 +11009,7 @@
     "374": {
         "computed": {
             "aquire": [],
-            "arc": null,
+            "arc": "Le départ",
             "chapter": "Violence Vraie",
             "combat": null,
             "ending": false,
@@ -11024,7 +11046,7 @@
             "aquire": [
                 "SCORPION DORE"
             ],
-            "arc": null,
+            "arc": "Dernier tour",
             "chapter": "Violence Vraie",
             "combat": null,
             "ending": false,
@@ -11071,7 +11093,7 @@
     "376": {
         "computed": {
             "aquire": [],
-            "arc": null,
+            "arc": "Grand Bazaar",
             "chapter": "La cité des Reflets",
             "combat": null,
             "ending": false,
@@ -11139,7 +11161,7 @@
     "378": {
         "computed": {
             "aquire": [],
-            "arc": null,
+            "arc": "Debut procès",
             "chapter": "Justice Juste",
             "combat": null,
             "ending": false,
@@ -11178,7 +11200,7 @@
                 "LOI-299",
                 "AUTORISATION SPECIALE"
             ],
-            "arc": null,
+            "arc": "Les écuries",
             "chapter": "La cité des Reflets",
             "combat": null,
             "ending": false,
@@ -11244,7 +11266,7 @@
     "380": {
         "computed": {
             "aquire": [],
-            "arc": null,
+            "arc": "Le temple de Phûmta",
             "chapter": "La cité des Reflets",
             "combat": null,
             "ending": false,
@@ -11353,7 +11375,7 @@
     "383": {
         "computed": {
             "aquire": [],
-            "arc": null,
+            "arc": "La Torche Dardante",
             "chapter": "Violence Vraie",
             "combat": null,
             "ending": false,
@@ -11386,7 +11408,7 @@
         "computed": {
             "aquire": [],
             "arc": null,
-            "chapter": "La Palais",
+            "chapter": "Le Palais",
             "combat": null,
             "ending": false,
             "ending_id": null,
@@ -11418,8 +11440,8 @@
     "385": {
         "computed": {
             "aquire": [],
-            "arc": null,
-            "chapter": "La Palais",
+            "arc": "Les cuisines",
+            "chapter": "Le Palais",
             "combat": null,
             "ending": false,
             "ending_id": null,
@@ -11453,7 +11475,7 @@
         "computed": {
             "aquire": [],
             "arc": null,
-            "chapter": "La Palais",
+            "chapter": "Le Palais",
             "combat": null,
             "ending": false,
             "ending_id": null,
@@ -11494,7 +11516,7 @@
     "387": {
         "computed": {
             "aquire": [],
-            "arc": null,
+            "arc": "Mimine!!!",
             "chapter": "Violence Vraie",
             "combat": null,
             "ending": false,
@@ -11523,7 +11545,7 @@
         "computed": {
             "aquire": [],
             "arc": null,
-            "chapter": "La Palais",
+            "chapter": "Le Palais",
             "combat": null,
             "ending": false,
             "ending_id": null,
@@ -11549,7 +11571,7 @@
     "389": {
         "computed": {
             "aquire": [],
-            "arc": null,
+            "arc": "Accusation 1",
             "chapter": "Justice Juste",
             "combat": null,
             "ending": false,
@@ -11615,7 +11637,7 @@
     "390": {
         "computed": {
             "aquire": [],
-            "arc": null,
+            "arc": "Le départ",
             "chapter": "Violence Vraie",
             "combat": null,
             "ending": false,
@@ -11642,7 +11664,7 @@
     "391": {
         "computed": {
             "aquire": [],
-            "arc": null,
+            "arc": "Le départ",
             "chapter": "Violence Vraie",
             "combat": null,
             "ending": false,
@@ -11700,7 +11722,7 @@
     "393": {
         "computed": {
             "aquire": [],
-            "arc": null,
+            "arc": "Les écuries",
             "chapter": "La cité des Reflets",
             "combat": null,
             "ending": false,
@@ -11739,7 +11761,7 @@
             "aquire": [
                 "UNE REUSSITE"
             ],
-            "arc": null,
+            "arc": "Accusation 3",
             "chapter": "Justice Juste",
             "combat": null,
             "ending": false,
@@ -11811,7 +11833,7 @@
     "396": {
         "computed": {
             "aquire": [],
-            "arc": null,
+            "arc": "La caserne",
             "chapter": "Le Guide",
             "combat": null,
             "ending": false,
@@ -11861,7 +11883,7 @@
         "computed": {
             "aquire": [],
             "arc": null,
-            "chapter": "La Palais",
+            "chapter": "Le Palais",
             "combat": null,
             "ending": false,
             "ending_id": null,
@@ -11897,7 +11919,7 @@
     "398": {
         "computed": {
             "aquire": [],
-            "arc": null,
+            "arc": "Le scorpidrome",
             "chapter": "Le Guide",
             "combat": null,
             "ending": false,
@@ -12107,8 +12129,8 @@
     "402": {
         "computed": {
             "aquire": [],
-            "arc": null,
-            "chapter": "La Palais",
+            "arc": "Le Harem",
+            "chapter": "Le Palais",
             "combat": null,
             "ending": false,
             "ending_id": null,
@@ -12175,7 +12197,7 @@
     "405": {
         "computed": {
             "aquire": [],
-            "arc": null,
+            "arc": "Le ministère des Taxes",
             "chapter": "La cité des Reflets",
             "combat": null,
             "ending": false,
@@ -12202,7 +12224,7 @@
     "406": {
         "computed": {
             "aquire": [],
-            "arc": null,
+            "arc": "Mimine!!!",
             "chapter": "Violence Vraie",
             "combat": null,
             "ending": false,
@@ -12280,7 +12302,7 @@
     "408": {
         "computed": {
             "aquire": [],
-            "arc": null,
+            "arc": "Le ministère des Taxes",
             "chapter": "La cité des Reflets",
             "combat": null,
             "ending": false,
@@ -12415,7 +12437,7 @@
             "aquire": [
                 "CHLOROGLYCERINE"
             ],
-            "arc": null,
+            "arc": "Le ministère des Taxes",
             "chapter": "La cité des Reflets",
             "combat": null,
             "ending": false,
@@ -12646,7 +12668,7 @@
         "computed": {
             "aquire": [],
             "arc": null,
-            "chapter": "La Palais",
+            "chapter": "Le Palais",
             "combat": null,
             "ending": false,
             "ending_id": null,
@@ -12794,8 +12816,8 @@
     "420": {
         "computed": {
             "aquire": [],
-            "arc": null,
-            "chapter": "La Palais",
+            "arc": "La suite",
+            "chapter": "Le Palais",
             "combat": null,
             "ending": false,
             "ending_id": null,
@@ -13021,8 +13043,8 @@
     "427": {
         "computed": {
             "aquire": [],
-            "arc": null,
-            "chapter": "La Palais",
+            "arc": "Le Harem",
+            "chapter": "Le Palais",
             "combat": null,
             "ending": false,
             "ending_id": null,
@@ -13090,7 +13112,7 @@
     "429": {
         "computed": {
             "aquire": [],
-            "arc": null,
+            "arc": "La caserne",
             "chapter": "Le Guide",
             "combat": null,
             "ending": false,
@@ -13234,7 +13256,7 @@
         },
         "computed": {
             "aquire": [],
-            "arc": null,
+            "arc": "La caserne",
             "chapter": "Le Guide",
             "combat": {
                 "arm": 1,
@@ -13295,7 +13317,7 @@
     "434": {
         "computed": {
             "aquire": [],
-            "arc": null,
+            "arc": "Le ministère des Taxes",
             "chapter": "La cité des Reflets",
             "combat": null,
             "ending": false,
@@ -13367,7 +13389,7 @@
         },
         "computed": {
             "aquire": [],
-            "arc": null,
+            "arc": "Le ministère des Taxes",
             "chapter": "Le Guide",
             "combat": {
                 "arm": 1,
@@ -13569,7 +13591,7 @@
                 "LOI-269",
                 "DISQUES CLOUTES"
             ],
-            "arc": null,
+            "arc": "Rues de Jehal",
             "chapter": "La cité des Reflets",
             "combat": null,
             "ending": false,
@@ -13775,8 +13797,8 @@
     "447": {
         "computed": {
             "aquire": [],
-            "arc": null,
-            "chapter": "La Palais",
+            "arc": "La suite",
+            "chapter": "Le Palais",
             "combat": null,
             "ending": false,
             "ending_id": null,
@@ -13977,7 +13999,7 @@
     "452": {
         "computed": {
             "aquire": [],
-            "arc": null,
+            "arc": "Le Tribunal",
             "chapter": "Le Guide",
             "combat": null,
             "ending": false,
@@ -14013,7 +14035,7 @@
             "aquire": [
                 "LOI-49-3"
             ],
-            "arc": null,
+            "arc": "La prison",
             "chapter": "Le Guide",
             "combat": null,
             "ending": false,
@@ -14120,7 +14142,7 @@
     "456": {
         "computed": {
             "aquire": [],
-            "arc": null,
+            "arc": "Le ministère des Taxes",
             "chapter": "Le Guide",
             "combat": null,
             "ending": false,
@@ -14202,7 +14224,7 @@
     "458": {
         "computed": {
             "aquire": [],
-            "arc": null,
+            "arc": "Le ministère des Taxes",
             "chapter": "La cité des Reflets",
             "combat": null,
             "ending": false,
@@ -14413,7 +14435,7 @@
     "463": {
         "computed": {
             "aquire": [],
-            "arc": null,
+            "arc": "Les sourcières",
             "chapter": "Le Guide",
             "combat": null,
             "ending": false,
@@ -14484,7 +14506,7 @@
     "465": {
         "computed": {
             "aquire": [],
-            "arc": null,
+            "arc": "Le ministère des Taxes",
             "chapter": "Le Guide",
             "combat": null,
             "ending": false,
@@ -14511,7 +14533,7 @@
     "466": {
         "computed": {
             "aquire": [],
-            "arc": null,
+            "arc": "Mimine!!!",
             "chapter": "Violence Vraie",
             "combat": null,
             "ending": false,
@@ -14641,8 +14663,8 @@
     "469": {
         "computed": {
             "aquire": [],
-            "arc": null,
-            "chapter": "La Palais",
+            "arc": "Le Harem",
+            "chapter": "Le Palais",
             "combat": null,
             "ending": false,
             "ending_id": null,
@@ -14721,7 +14743,7 @@
     "470": {
         "computed": {
             "aquire": [],
-            "arc": null,
+            "arc": "Accusation 1",
             "chapter": "Justice Juste",
             "combat": null,
             "ending": false,
@@ -14764,7 +14786,7 @@
                 "MIROIR DE NADEE"
             ],
             "arc": null,
-            "chapter": "La Palais",
+            "chapter": "Le Palais",
             "combat": null,
             "ending": false,
             "ending_id": null,
@@ -14833,7 +14855,7 @@
     "473": {
         "computed": {
             "aquire": [],
-            "arc": null,
+            "arc": "Palais des 1001 mains",
             "chapter": "La cité des Reflets",
             "combat": null,
             "ending": false,
@@ -15079,7 +15101,7 @@
         },
         "computed": {
             "aquire": [],
-            "arc": null,
+            "arc": "Le ministère des Taxes",
             "chapter": "La cité des Reflets",
             "combat": {
                 "arm": 1,
@@ -15121,7 +15143,7 @@
         },
         "computed": {
             "aquire": [],
-            "arc": null,
+            "arc": "La caserne",
             "chapter": "Le Guide",
             "combat": {
                 "arm": 1,
@@ -15155,7 +15177,7 @@
     "482": {
         "computed": {
             "aquire": [],
-            "arc": null,
+            "arc": "Le ministère des Taxes",
             "chapter": "Le Guide",
             "combat": null,
             "ending": false,
@@ -15227,7 +15249,7 @@
     "484": {
         "computed": {
             "aquire": [],
-            "arc": null,
+            "arc": "Mimine!!!",
             "chapter": "Violence Vraie",
             "combat": null,
             "ending": false,
@@ -15349,7 +15371,7 @@
     "488": {
         "computed": {
             "aquire": [],
-            "arc": null,
+            "arc": "Le ministère des Taxes",
             "chapter": "La cité des Reflets",
             "combat": null,
             "ending": false,
@@ -15382,7 +15404,7 @@
                 "HALISTAIR SAMRAAT REGISTAAN"
             ],
             "arc": null,
-            "chapter": "La Palais",
+            "chapter": "Le Palais",
             "combat": null,
             "ending": false,
             "ending_id": null,
@@ -15539,7 +15561,7 @@
     "493": {
         "computed": {
             "aquire": [],
-            "arc": null,
+            "arc": "Le palais",
             "chapter": "Le Guide",
             "combat": null,
             "ending": false,
@@ -15593,7 +15615,7 @@
     "495": {
         "computed": {
             "aquire": [],
-            "arc": null,
+            "arc": "Le Tribunal",
             "chapter": "Le Guide",
             "combat": null,
             "ending": false,
@@ -15620,7 +15642,7 @@
     "496": {
         "computed": {
             "aquire": [],
-            "arc": null,
+            "arc": "Le scorpidrome",
             "chapter": "Le Guide",
             "combat": null,
             "ending": false,
@@ -15799,7 +15821,7 @@
     "50": {
         "computed": {
             "aquire": [],
-            "arc": null,
+            "arc": "Le départ",
             "chapter": "Violence Vraie",
             "combat": null,
             "ending": false,
@@ -15901,7 +15923,7 @@
     "502": {
         "computed": {
             "aquire": [],
-            "arc": null,
+            "arc": "Les écuries",
             "chapter": "Le Guide",
             "combat": null,
             "ending": false,
@@ -15998,7 +16020,7 @@
     "505": {
         "computed": {
             "aquire": [],
-            "arc": null,
+            "arc": "Accusation 2",
             "chapter": "Justice Juste",
             "combat": null,
             "ending": false,
@@ -16175,7 +16197,7 @@
     "510": {
         "computed": {
             "aquire": [],
-            "arc": null,
+            "arc": "La prison",
             "chapter": "Le Guide",
             "combat": null,
             "ending": false,
@@ -16433,7 +16455,7 @@
     "518": {
         "computed": {
             "aquire": [],
-            "arc": null,
+            "arc": "Les écuries",
             "chapter": "Le Guide",
             "combat": null,
             "ending": false,
@@ -16572,7 +16594,7 @@
             "aquire": [
                 "UNE REUSSITE"
             ],
-            "arc": null,
+            "arc": "Accusation 2",
             "chapter": "Justice Juste",
             "combat": null,
             "ending": false,
@@ -16600,7 +16622,7 @@
     "522": {
         "computed": {
             "aquire": [],
-            "arc": null,
+            "arc": "La Torche Dardante",
             "chapter": "Violence Vraie",
             "combat": null,
             "ending": false,
@@ -16681,7 +16703,7 @@
     "524": {
         "computed": {
             "aquire": [],
-            "arc": null,
+            "arc": "Les sourcières",
             "chapter": "Le Guide",
             "combat": null,
             "ending": false,
@@ -16749,7 +16771,7 @@
     "526": {
         "computed": {
             "aquire": [],
-            "arc": null,
+            "arc": "Le scorpidrome",
             "chapter": "Le Guide",
             "combat": null,
             "ending": false,
@@ -16883,7 +16905,7 @@
     "529": {
         "computed": {
             "aquire": [],
-            "arc": null,
+            "arc": "Les écuries",
             "chapter": "Le Guide",
             "combat": null,
             "ending": false,
@@ -16974,7 +16996,7 @@
     "531": {
         "computed": {
             "aquire": [],
-            "arc": null,
+            "arc": "La caserne",
             "chapter": "Le Guide",
             "combat": null,
             "ending": false,
@@ -17023,7 +17045,7 @@
         },
         "computed": {
             "aquire": [],
-            "arc": null,
+            "arc": "Les écuries",
             "chapter": "Le Guide",
             "combat": {
                 "arm": 1,
@@ -17226,7 +17248,7 @@
     "538": {
         "computed": {
             "aquire": [],
-            "arc": null,
+            "arc": "Le scorpidrome",
             "chapter": "Le Guide",
             "combat": null,
             "ending": false,
@@ -17257,7 +17279,7 @@
     "539": {
         "computed": {
             "aquire": [],
-            "arc": null,
+            "arc": "Les écuries",
             "chapter": "Le Guide",
             "combat": null,
             "ending": false,
@@ -17315,8 +17337,8 @@
             "aquire": [
                 "LOI-188"
             ],
-            "arc": null,
-            "chapter": null,
+            "arc": "Grand Bazaar",
+            "chapter": "La cité des Reflets",
             "combat": null,
             "ending": false,
             "ending_id": null,
@@ -17377,7 +17399,7 @@
     "541": {
         "computed": {
             "aquire": [],
-            "arc": null,
+            "arc": "Le ministère des Taxes",
             "chapter": "Le Guide",
             "combat": null,
             "ending": false,
@@ -17404,7 +17426,7 @@
     "542": {
         "computed": {
             "aquire": [],
-            "arc": null,
+            "arc": "Les sourcières",
             "chapter": "Le Guide",
             "combat": null,
             "ending": false,
@@ -17435,7 +17457,7 @@
     "543": {
         "computed": {
             "aquire": [],
-            "arc": null,
+            "arc": "La prison",
             "chapter": "Le Guide",
             "combat": null,
             "ending": false,
@@ -17652,7 +17674,7 @@
     "548": {
         "computed": {
             "aquire": [],
-            "arc": null,
+            "arc": "Le ministère des Taxes",
             "chapter": "Le Guide",
             "combat": null,
             "ending": false,
@@ -17693,7 +17715,7 @@
     "549": {
         "computed": {
             "aquire": [],
-            "arc": null,
+            "arc": "Les écuries",
             "chapter": "Le Guide",
             "combat": null,
             "ending": false,
@@ -17752,7 +17774,7 @@
     "550": {
         "computed": {
             "aquire": [],
-            "arc": null,
+            "arc": "Le ministère des Taxes",
             "chapter": "Le Guide",
             "combat": null,
             "ending": false,
@@ -17783,7 +17805,7 @@
     "551": {
         "computed": {
             "aquire": [],
-            "arc": null,
+            "arc": "Le scorpidrome",
             "chapter": "Le Guide",
             "combat": null,
             "ending": false,
@@ -17986,7 +18008,7 @@
     "557": {
         "computed": {
             "aquire": [],
-            "arc": null,
+            "arc": "Les sourcières",
             "chapter": "Le Guide",
             "combat": null,
             "ending": false,
@@ -18013,7 +18035,7 @@
     "558": {
         "computed": {
             "aquire": [],
-            "arc": null,
+            "arc": "Le ministère des Taxes",
             "chapter": "Le Guide",
             "combat": null,
             "ending": false,
@@ -18112,7 +18134,7 @@
     "560": {
         "computed": {
             "aquire": [],
-            "arc": null,
+            "arc": "Le ministère des Taxes",
             "chapter": "Le Guide",
             "combat": null,
             "ending": false,
@@ -18139,7 +18161,7 @@
     "561": {
         "computed": {
             "aquire": [],
-            "arc": null,
+            "arc": "Grand Bazaar",
             "chapter": "La cité des Reflets",
             "combat": null,
             "ending": false,
@@ -18175,7 +18197,7 @@
             "aquire": [
                 "MECANISME DEESSE DEUX FOIS"
             ],
-            "arc": null,
+            "arc": "La prison",
             "chapter": "Le Guide",
             "combat": null,
             "ending": false,
@@ -18241,7 +18263,7 @@
         },
         "computed": {
             "aquire": [],
-            "arc": null,
+            "arc": "Le scorpidrome",
             "chapter": "Le Guide",
             "combat": {
                 "arm": 3,
@@ -18275,7 +18297,7 @@
     "565": {
         "computed": {
             "aquire": [],
-            "arc": null,
+            "arc": "Le palais",
             "chapter": "Le Guide",
             "combat": null,
             "ending": false,
@@ -18449,7 +18471,7 @@
     "569": {
         "computed": {
             "aquire": [],
-            "arc": null,
+            "arc": "Le Tribunal",
             "chapter": "Le Guide",
             "combat": null,
             "ending": false,
@@ -18508,7 +18530,7 @@
     "570": {
         "computed": {
             "aquire": [],
-            "arc": null,
+            "arc": "Le Tribunal",
             "chapter": "Le Guide",
             "combat": null,
             "ending": false,
@@ -18584,7 +18606,7 @@
     "572": {
         "computed": {
             "aquire": [],
-            "arc": null,
+            "arc": "Le Tribunal",
             "chapter": "Le Guide",
             "combat": null,
             "ending": false,
@@ -18611,7 +18633,7 @@
     "573": {
         "computed": {
             "aquire": [],
-            "arc": null,
+            "arc": "La prison",
             "chapter": "Le Guide",
             "combat": null,
             "ending": false,
@@ -18773,7 +18795,7 @@
     "578": {
         "computed": {
             "aquire": [],
-            "arc": null,
+            "arc": "Le scorpidrome",
             "chapter": "Le Guide",
             "combat": null,
             "ending": false,
@@ -18800,7 +18822,7 @@
     "579": {
         "computed": {
             "aquire": [],
-            "arc": null,
+            "arc": "Les écuries",
             "chapter": "Le Guide",
             "combat": null,
             "ending": false,
@@ -18868,7 +18890,7 @@
     "580": {
         "computed": {
             "aquire": [],
-            "arc": null,
+            "arc": "Les écuries",
             "chapter": "Le Guide",
             "combat": null,
             "ending": false,
@@ -18900,7 +18922,7 @@
     "581": {
         "computed": {
             "aquire": [],
-            "arc": null,
+            "arc": "Le Tribunal",
             "chapter": "Le Guide",
             "combat": null,
             "ending": false,
@@ -18927,7 +18949,7 @@
     "582": {
         "computed": {
             "aquire": [],
-            "arc": null,
+            "arc": "La prison",
             "chapter": "Le Guide",
             "combat": null,
             "ending": false,
@@ -19027,7 +19049,7 @@
     "585": {
         "computed": {
             "aquire": [],
-            "arc": null,
+            "arc": "Les écuries",
             "chapter": "Le Guide",
             "combat": null,
             "ending": false,
@@ -19085,7 +19107,7 @@
     "587": {
         "computed": {
             "aquire": [],
-            "arc": null,
+            "arc": "La prison",
             "chapter": "Le Guide",
             "combat": null,
             "ending": false,
@@ -19118,7 +19140,7 @@
                 "SECRET DU DOUBLE INFINI"
             ],
             "arc": null,
-            "chapter": "La Palais",
+            "chapter": "Le Palais",
             "combat": null,
             "ending": false,
             "ending_id": null,
@@ -19211,7 +19233,7 @@
     "590": {
         "computed": {
             "aquire": [],
-            "arc": null,
+            "arc": "La prison",
             "chapter": "Le Guide",
             "combat": null,
             "ending": false,
@@ -19273,7 +19295,7 @@
     "592": {
         "computed": {
             "aquire": [],
-            "arc": null,
+            "arc": "La prison",
             "chapter": "Le Guide",
             "combat": null,
             "ending": false,
@@ -19304,7 +19326,7 @@
     "593": {
         "computed": {
             "aquire": [],
-            "arc": null,
+            "arc": "Le palais",
             "chapter": "Le Guide",
             "combat": null,
             "ending": false,
@@ -19412,7 +19434,7 @@
     "597": {
         "computed": {
             "aquire": [],
-            "arc": null,
+            "arc": "Le Tribunal",
             "chapter": "Le Guide",
             "combat": null,
             "ending": false,
@@ -19439,7 +19461,7 @@
     "598": {
         "computed": {
             "aquire": [],
-            "arc": null,
+            "arc": "Le palais",
             "chapter": "Le Guide",
             "combat": null,
             "ending": false,
@@ -19729,7 +19751,7 @@
     "606": {
         "computed": {
             "aquire": [],
-            "arc": null,
+            "arc": "Le palais",
             "chapter": "Le Guide",
             "combat": null,
             "ending": false,
@@ -19770,7 +19792,7 @@
     "607": {
         "computed": {
             "aquire": [],
-            "arc": null,
+            "arc": "Le palais",
             "chapter": "Le Guide",
             "combat": null,
             "ending": false,
@@ -19805,7 +19827,7 @@
         },
         "computed": {
             "aquire": [],
-            "arc": null,
+            "arc": "La prison",
             "chapter": "Le Guide",
             "combat": {
                 "arm": 1,
@@ -19839,7 +19861,7 @@
     "609": {
         "computed": {
             "aquire": [],
-            "arc": null,
+            "arc": "Le palais",
             "chapter": "Le Guide",
             "combat": null,
             "ending": false,
@@ -19893,7 +19915,7 @@
     "610": {
         "computed": {
             "aquire": [],
-            "arc": null,
+            "arc": "Le palais",
             "chapter": "Le Guide",
             "combat": null,
             "ending": false,
@@ -19958,7 +19980,7 @@
     "612": {
         "computed": {
             "aquire": [],
-            "arc": null,
+            "arc": "Le palais",
             "chapter": "Le Guide",
             "combat": null,
             "ending": false,
@@ -19985,7 +20007,7 @@
     "613": {
         "computed": {
             "aquire": [],
-            "arc": null,
+            "arc": "La prison",
             "chapter": "Le Guide",
             "combat": null,
             "ending": false,
@@ -20016,7 +20038,7 @@
     "614": {
         "computed": {
             "aquire": [],
-            "arc": null,
+            "arc": "La prison",
             "chapter": "Le Guide",
             "combat": null,
             "ending": false,
@@ -20047,7 +20069,7 @@
     "615": {
         "computed": {
             "aquire": [],
-            "arc": null,
+            "arc": "Le palais",
             "chapter": "Le Guide",
             "combat": null,
             "ending": false,
@@ -20074,7 +20096,7 @@
     "616": {
         "computed": {
             "aquire": [],
-            "arc": null,
+            "arc": "Le palais",
             "chapter": "Le Guide",
             "combat": null,
             "ending": false,
@@ -20128,7 +20150,7 @@
     "618": {
         "computed": {
             "aquire": [],
-            "arc": null,
+            "arc": "Le palais",
             "chapter": "Le Guide",
             "combat": null,
             "ending": false,
@@ -20165,7 +20187,7 @@
     "619": {
         "computed": {
             "aquire": [],
-            "arc": null,
+            "arc": "Le palais",
             "chapter": "Le Guide",
             "combat": null,
             "ending": false,
@@ -20290,7 +20312,7 @@
     "622": {
         "computed": {
             "aquire": [],
-            "arc": null,
+            "arc": "Le palais",
             "chapter": "Le Guide",
             "combat": null,
             "ending": false,
@@ -20378,7 +20400,7 @@
     "625": {
         "computed": {
             "aquire": [],
-            "arc": null,
+            "arc": "Le palais",
             "chapter": "Le Guide",
             "combat": null,
             "ending": false,
@@ -20503,7 +20525,7 @@
     "629": {
         "computed": {
             "aquire": [],
-            "arc": null,
+            "arc": "La prison",
             "chapter": "Le Guide",
             "combat": null,
             "ending": false,
@@ -20530,7 +20552,7 @@
     "63": {
         "computed": {
             "aquire": [],
-            "arc": null,
+            "arc": "Les Thermes",
             "chapter": "La cité des Reflets",
             "combat": null,
             "ending": false,
@@ -20569,7 +20591,7 @@
         },
         "computed": {
             "aquire": [],
-            "arc": null,
+            "arc": "Le palais",
             "chapter": "Le Guide",
             "combat": {
                 "arm": 1,
@@ -20603,7 +20625,7 @@
     "631": {
         "computed": {
             "aquire": [],
-            "arc": null,
+            "arc": "La prison",
             "chapter": "Le Guide",
             "combat": null,
             "ending": false,
@@ -20657,7 +20679,7 @@
     "633": {
         "computed": {
             "aquire": [],
-            "arc": null,
+            "arc": "Le palais",
             "chapter": "Le Guide",
             "combat": null,
             "ending": false,
@@ -20684,7 +20706,7 @@
     "634": {
         "computed": {
             "aquire": [],
-            "arc": null,
+            "arc": "Le temple de Phûmta",
             "chapter": "La cité des Reflets",
             "combat": null,
             "ending": false,
@@ -20738,7 +20760,7 @@
     "636": {
         "computed": {
             "aquire": [],
-            "arc": null,
+            "arc": "Le palais",
             "chapter": "Le Guide",
             "combat": null,
             "ending": false,
@@ -20851,7 +20873,7 @@
     "639": {
         "computed": {
             "aquire": [],
-            "arc": null,
+            "arc": "Le palais",
             "chapter": "Le Guide",
             "combat": null,
             "ending": false,
@@ -21131,7 +21153,7 @@
     "647": {
         "computed": {
             "aquire": [],
-            "arc": null,
+            "arc": "Le palais",
             "chapter": "Le Guide",
             "combat": null,
             "ending": false,
@@ -21158,7 +21180,7 @@
     "648": {
         "computed": {
             "aquire": [],
-            "arc": null,
+            "arc": "Le ministère des Taxes",
             "chapter": "Le Guide",
             "combat": null,
             "ending": false,
@@ -21339,7 +21361,7 @@
     "652": {
         "computed": {
             "aquire": [],
-            "arc": null,
+            "arc": "Le palais",
             "chapter": "Le Guide",
             "combat": null,
             "ending": false,
@@ -21400,7 +21422,7 @@
                 "LOI-234",
                 "CONSEIL DE CUSHOM DERRIERE"
             ],
-            "arc": null,
+            "arc": "Grand Bazaar",
             "chapter": "La cité des Reflets",
             "combat": null,
             "ending": false,
@@ -21460,7 +21482,7 @@
     "656": {
         "computed": {
             "aquire": [],
-            "arc": null,
+            "arc": "Le palais",
             "chapter": "Le Guide",
             "combat": null,
             "ending": false,
@@ -21515,7 +21537,7 @@
     "658": {
         "computed": {
             "aquire": [],
-            "arc": null,
+            "arc": "Le palais",
             "chapter": "Le Guide",
             "combat": null,
             "ending": false,
@@ -21689,7 +21711,7 @@
     "663": {
         "computed": {
             "aquire": [],
-            "arc": null,
+            "arc": "Le palais",
             "chapter": "Le Guide",
             "combat": null,
             "ending": false,
@@ -21717,7 +21739,7 @@
         "computed": {
             "aquire": [],
             "arc": null,
-            "chapter": "La Palais",
+            "chapter": "Le Palais",
             "combat": null,
             "ending": false,
             "ending_id": null,
@@ -21924,7 +21946,7 @@
     "67": {
         "computed": {
             "aquire": [],
-            "arc": null,
+            "arc": "Le temple de Phûmta",
             "chapter": "La cité des Reflets",
             "combat": null,
             "ending": false,
@@ -21958,7 +21980,7 @@
     "670": {
         "computed": {
             "aquire": [],
-            "arc": null,
+            "arc": "Le palais",
             "chapter": "Le Guide",
             "combat": null,
             "ending": false,
@@ -22525,7 +22547,7 @@
         },
         "computed": {
             "aquire": [],
-            "arc": null,
+            "arc": "Le palais",
             "chapter": "Le Guide",
             "combat": {
                 "arm": 0,
@@ -22559,7 +22581,7 @@
     "687": {
         "computed": {
             "aquire": [],
-            "arc": null,
+            "arc": "Le palais",
             "chapter": "Le Guide",
             "combat": null,
             "ending": false,
@@ -22960,7 +22982,7 @@
     "74": {
         "computed": {
             "aquire": [],
-            "arc": null,
+            "arc": "Le temple de Phûmta",
             "chapter": "La cité des Reflets",
             "combat": null,
             "ending": false,
@@ -22987,7 +23009,7 @@
     "75": {
         "computed": {
             "aquire": [],
-            "arc": null,
+            "arc": "La Poigne Filante",
             "chapter": "Violence Vraie",
             "combat": null,
             "ending": false,
@@ -23304,7 +23326,7 @@
     "82": {
         "computed": {
             "aquire": [],
-            "arc": null,
+            "arc": "La Poigne Filante",
             "chapter": "Violence Vraie",
             "combat": null,
             "ending": false,
@@ -23331,7 +23353,7 @@
     "83": {
         "computed": {
             "aquire": [],
-            "arc": null,
+            "arc": "La Poigne Filante",
             "chapter": "Violence Vraie",
             "combat": null,
             "ending": false,
@@ -23446,7 +23468,7 @@
                 "AILERON AERODYNAMIQUE",
                 "LOI-188"
             ],
-            "arc": null,
+            "arc": "Grand Bazaar",
             "chapter": "La cité des Reflets",
             "combat": null,
             "ending": false,
@@ -23592,7 +23614,7 @@
     "9": {
         "computed": {
             "aquire": [],
-            "arc": null,
+            "arc": "La Poigne Filante",
             "chapter": "Violence Vraie",
             "combat": null,
             "ending": false,
@@ -23803,7 +23825,7 @@
     "94": {
         "computed": {
             "aquire": [],
-            "arc": null,
+            "arc": "La Poigne Filante",
             "chapter": "Violence Vraie",
             "combat": null,
             "ending": false,
