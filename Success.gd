@@ -51,7 +51,14 @@ func set_from_success_object(success_object):
 	
 
 func set_success_id(success_id):
-	var texture = Utils.load_external_texture("res://images/success/%s.png" % success_id, null)
+	var png_path = "res://images/success/%s.png" % success_id
+	var svg_path ="res://images/success/%s.svg" % success_id
+	var texture = null
+	if Utils.is_file_exists(svg_path):
+		texture = Utils.load_external_texture(svg_path, null)
+	elif Utils.is_file_exists(png_path):
+		texture = Utils.load_external_texture(png_path, null)
+	
 	$sprite.texture = texture
 	#print('SPRITE LOADED: %s' % success_id)
 

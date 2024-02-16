@@ -16,7 +16,8 @@ func set_enabled(b):
 	self._is_enabled = b
 	if !self._is_enabled:  # Maybe the user is asking for no more sound ^^
 		print('STOPING SOUND')
-		self.player.stop()
+		if self.player != null:
+			self.player.stop()
 
 
 func is_enabled():

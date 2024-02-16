@@ -30,17 +30,14 @@ rect_min_size = Vector2( 0, 50 )
 mouse_filter = 1
 custom_styles/panel = SubResource( 1 )
 script = ExtResource( 1 )
-__meta__ = {
-"_edit_use_anchors_": false
-}
 
 [node name="NBChapitre" type="Label" parent="."]
 margin_left = 337.405
 margin_top = 9.64857
 margin_right = 379.405
 margin_bottom = 74.6486
-custom_fonts/font = ExtResource( 2 )
 custom_colors/font_color = Color( 0, 0, 0, 1 )
+custom_fonts/font = ExtResource( 2 )
 text = "XXX
 "
 __meta__ = {
@@ -52,8 +49,8 @@ margin_left = 91.0
 margin_top = 2.0
 margin_right = 330.0
 margin_bottom = 24.0
-custom_fonts/font = SubResource( 2 )
 custom_colors/font_color = Color( 0, 0.760784, 0.666667, 1 )
+custom_fonts/font = SubResource( 2 )
 text = "XXXXXXX"
 autowrap = true
 __meta__ = {
@@ -65,8 +62,8 @@ margin_left = 90.2508
 margin_top = 25.2238
 margin_right = 329.251
 margin_bottom = 47.2238
-custom_fonts/font = SubResource( 3 )
 custom_colors/font_color = Color( 0, 0, 0, 1 )
+custom_fonts/font = SubResource( 3 )
 text = "XXXXXXXXXXXXXXXXX"
 autowrap = true
 __meta__ = {
@@ -88,8 +85,8 @@ margin_left = 14.856
 margin_top = 4.61726
 margin_right = 54.856
 margin_bottom = 35.6173
-custom_fonts/font = ExtResource( 2 )
 custom_colors/font_color = Color( 0, 0, 0, 1 )
+custom_fonts/font = ExtResource( 2 )
 text = ">"
 __meta__ = {
 "_edit_use_anchors_": false

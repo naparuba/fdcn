@@ -815,7 +815,7 @@ func _switch_to_book_fcdn():
 
 
 func _switch_to_book_cdsi():
-	print('SWITCH TO CDSI BOOK')
+	print('SWITCH TO CDSI BOOK ')
 	var sprite1 = $Options/BookSelect/BoolSelectFcdn/sprite
 	sprite1.material.set_shader_param("grayscale", true)
 	var sprite2 = $Options/BookSelect/BoolSelectCdsi/sprite

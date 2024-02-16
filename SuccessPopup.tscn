@@ -141,7 +141,6 @@ bg_color = Color( 1, 1, 1, 1 )
 border_width_bottom = 2
 
 [node name="SuccessPopup" type="Popup"]
-modulate = Color( 1, 1, 1, 0 )
 margin_left = 2.0
 margin_top = 2.0
 margin_right = 557.0
@@ -181,7 +180,6 @@ color_ramp = SubResource( 4 )
 anim_speed = 5.0
 
 [node name="PanelBorder" type="Panel" parent="wholebackground"]
-modulate = Color( 1, 1, 1, 0 )
 self_modulate = Color( 1, 1, 1, 0.792157 )
 margin_left = 43.0
 margin_top = 440.0
