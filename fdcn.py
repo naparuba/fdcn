@@ -335,7 +335,7 @@ for node_id_str in book_data.keys():
     aquire = set(node.get_aquire())
     remove = set(node.get_remove())
     node_all_objs = aquire | remove
-    print('NODE %s have objects: %s' % (node_id_str, node_all_objs))
+    # print('NODE %s have objects: %s' % (node_id_str, node_all_objs))
     for obj in node_all_objs:
         entry = all_objs[obj]
         in_chapters = entry.get('in_chapters', [])

@@ -141,8 +141,11 @@
             "label": null,
             "remove": [],
             "secret": false,
-            "secret_jumps": [],
+            "secret_jumps": [
+                188
+            ],
             "sons": [
+                188,
                 266,
                 288,
                 328,
@@ -163,6 +166,9 @@
             328,
             266,
             362
+        ],
+        "secret_jumps": [
+            188
         ]
     },
     "102": {
@@ -2324,8 +2330,14 @@
             "ending_type": null,
             "id": 159,
             "is_combat": false,
-            "jump_conditions": {},
-            "jump_conditions_txts": {},
+            "jump_conditions": {
+                "420": {
+                    "$end": "SUCRE"
+                }
+            },
+            "jump_conditions_txts": {
+                "420": "SUCRE"
+            },
             "label": null,
             "remove": [],
             "secret": false,
@@ -2338,10 +2350,10 @@
             "stats_cond": [],
             "success": null
         },
-        "goto": [
-            420,
-            126
-        ]
+        "conditions": {
+            "420": "SUCRE"
+        },
+        "goto": 126
     },
     "16": {
         "aquire": [
@@ -4357,8 +4369,13 @@
         "goto": 182
     },
     "207": {
+        "aquire": [
+            "NADEE"
+        ],
         "computed": {
-            "aquire": [],
+            "aquire": [
+                "NADEE"
+            ],
             "arc": null,
             "chapter": "La cité des Reflets",
             "combat": null,
@@ -13038,6 +13055,7 @@
             "success": null
         },
         "ending": "bad",
+        "ending_id": "MIRROIRS-OVERLOAD",
         "ending_txt": "Oups, les miroirs c'est dangereux"
     },
     "427": {
@@ -16308,15 +16326,21 @@
             "label": null,
             "remove": [],
             "secret": false,
-            "secret_jumps": [],
+            "secret_jumps": [
+                264
+            ],
             "sons": [
+                264,
                 553
             ],
             "stats": {},
             "stats_cond": [],
             "success": null
         },
-        "goto": 553
+        "goto": 553,
+        "secret_jumps": [
+            264
+        ]
     },
     "514": {
         "combat": {
@@ -19105,8 +19129,13 @@
         "goto": 556
     },
     "587": {
+        "aquire": [
+            "SECRET SULTAN SUR SA FILLE"
+        ],
         "computed": {
-            "aquire": [],
+            "aquire": [
+                "SECRET SULTAN SUR SA FILLE"
+            ],
             "arc": "La prison",
             "chapter": "Le Guide",
             "combat": null,

@@ -787,6 +787,9 @@
       328,
       266,
       362
+    ],
+    "secret_jumps": [
+      188
     ]
   },
   "102": {
@@ -1186,10 +1189,10 @@
     "goto": 21
   },
   "159": {
-    "goto": [
-      420,
-      126
-    ]
+    "conditions": {
+      "420": "SUCRE"
+    },
+    "goto": 126
   },
   "160": {
     "goto": 167
@@ -1553,6 +1556,9 @@
     "goto": 182
   },
   "207": {
+    "aquire": [
+      "NADEE"
+    ],
     "conditions": {
       "26": "FDCN LU"
     },
@@ -3122,7 +3128,8 @@
   },
   "426": {
     "ending": "bad",
-    "ending_txt": "Oups, les miroirs c'est dangereux"
+    "ending_txt": "Oups, les miroirs c'est dangereux",
+    "ending_id": "MIRROIRS-OVERLOAD"
   },
   "427": {
     "stats": {
@@ -3648,7 +3655,10 @@
     "goto": 462
   },
   "513": {
-    "goto": 553
+    "goto": 553,
+    "secret_jumps": [
+      264
+    ]
   },
   "514": {
     "combat": {
@@ -4089,6 +4099,9 @@
     "goto": 556
   },
   "587": {
+    "aquire": [
+      "SECRET SULTAN SUR SA FILLE"
+    ],
     "goto": 525
   },
   "588": {
