@@ -825,3 +825,7 @@ func _switch_to_book_cdsi():
 
 func _on_morelore_button_pressed():
 	OS.shell_open("https://saga-de-billy.fandom.com/fr/wiki/Wiki_Saga_de_Billy");
+
+
+func _on_image_author_button_pressed():
+	OS.shell_open("https://twitter.com/DrazielUnicorn");

@@ -1054,9 +1054,6 @@ margin_right = 2334.69
 margin_bottom = 1050.4
 mouse_filter = 1
 custom_styles/panel = SubResource( 1 )
-__meta__ = {
-"_edit_use_anchors_": false
-}
 
 [node name="Left-Back" parent="Lore" instance=ExtResource( 16 )]
 margin_left = -0.755615
@@ -1109,16 +1106,17 @@ custom_fonts/font = ExtResource( 2 )
 text = "Le lore"
 
 [node name="LinkButton" type="LinkButton" parent="Lore/Lore/Header"]
-margin_left = 347.31
-margin_top = 14.6014
-margin_right = 437.31
-margin_bottom = 28.6014
-text = "Plus de LORE?"
+margin_left = 262.0
+margin_top = 15.0
+margin_right = 437.0
+margin_bottom = 29.0
+text = "Plus de LORE? Le WIKI!"
 
 [node name="VScrollBar" type="ScrollContainer" parent="Lore/Lore"]
 anchor_right = 1.0
 anchor_bottom = 1.0
 margin_top = 42.0
+margin_bottom = -40.0
 mouse_filter = 1
 __meta__ = {
 "_edit_use_anchors_": false
@@ -1261,6 +1259,30 @@ margin_bottom = 3209.0
 type_entry = "dieux"
 entry_name = "zarkan"
 titre = "Zarkan"
+
+[node name="LoreAuthor" type="Panel" parent="Lore/Lore"]
+margin_top = 928.601
+margin_right = 442.0
+margin_bottom = 970.601
+mouse_filter = 1
+custom_styles/panel = SubResource( 3 )
+
+[node name="Label" type="Label" parent="Lore/Lore/LoreAuthor"]
+margin_left = 12.31
+margin_top = 4.00003
+margin_right = 196.31
+margin_bottom = 35.0
+custom_fonts/font = ExtResource( 2 )
+text = "Auteur des images:"
+
+[node name="LinkButton" type="LinkButton" parent="Lore/Lore/LoreAuthor"]
+margin_left = 294.31
+margin_top = 3.00002
+margin_right = 384.31
+margin_bottom = 34.0
+focus_mode = 2
+custom_fonts/font = ExtResource( 2 )
+text = "Draziel"
 
 [node name="About" type="Panel" parent="."]
 margin_left = 2367.73
@@ -1504,20 +1526,6 @@ custom_constants/shadow_offset_y = 0
 custom_constants/shadow_as_outline = 0
 custom_fonts/font = ExtResource( 2 )
 text = "0.19"
-
-[node name="CDSIBeta" type="Label" parent="About/About/VersionTxt"]
-modulate = Color( 1, 0, 0, 1 )
-self_modulate = Color( 1, 0, 0, 1 )
-margin_left = 65.425
-margin_top = -0.631561
-margin_right = 295.425
-margin_bottom = 30.3684
-custom_colors/font_color = Color( 0, 0.760784, 0.666667, 1 )
-custom_constants/shadow_offset_x = 0
-custom_constants/shadow_offset_y = 0
-custom_constants/shadow_as_outline = 0
-custom_fonts/font = ExtResource( 2 )
-text = "CDSI en Beta ^^"
 
 [node name="SrcLabel" type="Label" parent="About/About"]
 margin_left = 15.593
@@ -2745,6 +2753,7 @@ mouse_filter = 1
 [connection signal="gui_input" from="Succes" to="." method="_on_main_background_gui_input"]
 [connection signal="gui_input" from="Lore" to="." method="_on_main_background_gui_input"]
 [connection signal="pressed" from="Lore/Lore/Header/LinkButton" to="." method="_on_morelore_button_pressed"]
+[connection signal="pressed" from="Lore/Lore/LoreAuthor/LinkButton" to="." method="_on_image_author_button_pressed"]
 [connection signal="gui_input" from="About" to="." method="_on_main_background_gui_input"]
 [connection signal="pressed" from="About/Actions/nouveau_billy/Button" to="." method="_on_button_new_billy"]
 [connection signal="pressed" from="About/Actions/new_bug/Button" to="." method="_on_button_bug"]
