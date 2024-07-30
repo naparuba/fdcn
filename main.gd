@@ -599,11 +599,14 @@ func jump_to_chapter_500():
 func jump_to_chapter_600():
 	self.jump_to_chapter_100aine(600)	
 	
-
 func _on_button_new_billy():
+	$About/GenericTextPopup.open()
+
+
+func _on_GenericTextPopup_generic_popup_accept():
 	self.launch_new_billy()
-	
-	
+
+
 func launch_new_billy():
 	Player.launch_new_billy()
 	self.go_to_node(1)
@@ -829,3 +832,4 @@ func _on_morelore_button_pressed():
 
 func _on_image_author_button_pressed():
 	OS.shell_open("https://twitter.com/DrazielUnicorn");
+
