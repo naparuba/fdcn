@@ -1573,9 +1573,8 @@ custom_fonts/font = SubResource( 8 )
 text = "- Bob pour cette super oeuvre
 - Les dev de \"Godot\" qui ont
 permis à cette application d'exister
-- Anael Closson pour son patch :)
-- Mystorage09 pour son ticket :)
-- Polurax pour ses tickets :)"
+- Pour leur patchs: Anael Closson & Linklinsse
+- Report de bug: Mystorage09, Polurax"
 
 [node name="NotesLabel" type="Label" parent="About/About"]
 margin_left = 12.2959
