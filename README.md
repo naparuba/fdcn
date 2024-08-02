@@ -1,6 +1,6 @@
 # fdcn
 
-Application permettant de voir les chapitres du livre "La forteresse du Cahudron noir" de Bob Lennon
+Application permettant de voir les chapitres du livre "La forteresse du Chaudron noir" de Bob Lennon
 
 Elle est décomposée en deux parties:
 * partie en Python reposant sur le fichier fdcn-1.json qui permet de générer:
