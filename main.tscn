@@ -1,4 +1,4 @@
-[gd_scene load_steps=74 format=2]
+[gd_scene load_steps=75 format=2]
 
 [ext_resource path="res://main.gd" type="Script" id=1]
 [ext_resource path="res://fonts/amon_font.tres" type="DynamicFont" id=2]
@@ -28,6 +28,7 @@
 [ext_resource path="res://images/billys/paysan.png" type="Texture" id=26]
 [ext_resource path="res://images/billys/guerrier.png" type="Texture" id=27]
 [ext_resource path="res://shaders/gray.gdshader" type="Shader" id=28]
+[ext_resource path="res://scenes/GenericConfirmationPopup.tscn" type="PackedScene" id=29]
 [ext_resource path="res://images/blue-tick.png" type="Texture" id=30]
 [ext_resource path="res://Item.tscn" type="PackedScene" id=31]
 [ext_resource path="res://images/fight.svg" type="Texture" id=32]
@@ -184,10 +185,10 @@ txt = "Tous les chapitres"
 dest = "chapitres"
 
 [node name="top_menu" parent="Background" instance=ExtResource( 10 )]
-margin_left = 1.0
-margin_top = 3.0
-margin_right = 495.0
-margin_bottom = 45.0
+margin_left = 0.0
+margin_top = 0.0
+margin_right = 558.0
+margin_bottom = 42.0
 
 [node name="GlobalCompletion" type="Panel" parent="Background"]
 margin_left = 53.069
@@ -587,10 +588,10 @@ txt = "Les succès"
 dest = "success"
 
 [node name="top_menu" parent="Chapitres" instance=ExtResource( 10 )]
-margin_left = 2.37799
-margin_top = 0.919621
-margin_right = 496.378
-margin_bottom = 42.9196
+margin_left = 0.0
+margin_top = -1.0
+margin_right = 558.0
+margin_bottom = 41.0
 
 [node name="AllChapters" type="Panel" parent="Chapitres"]
 margin_left = 59.0
@@ -975,26 +976,26 @@ __meta__ = {
 }
 
 [node name="Left-Back" parent="Succes" instance=ExtResource( 16 )]
-margin_left = -0.426025
-margin_top = 1015.09
-margin_right = 971.574
-margin_bottom = 1057.09
+margin_left = 0.0
+margin_top = 1008.0
+margin_right = 972.0
+margin_bottom = 1057.0
 txt = "Tous les chapitres"
 dest = "chapitres"
 
 [node name="Right-Next" parent="Succes" instance=ExtResource( 17 )]
-margin_left = 556.933
-margin_top = 31.9712
-margin_right = 1528.93
-margin_bottom = 73.9711
+margin_left = 558.0
+margin_top = 32.0
+margin_right = 1530.0
+margin_bottom = 75.0
 txt = "Lore"
 dest = "lore"
 
 [node name="top_menu" parent="Succes" instance=ExtResource( 10 )]
-margin_left = 0.709999
-margin_top = -0.08038
-margin_right = 443.71
-margin_bottom = 41.9196
+margin_left = -0.290039
+margin_top = -6.08038
+margin_right = 557.71
+margin_bottom = 35.9196
 
 [node name="Success" type="Panel" parent="Succes"]
 margin_left = 56.9229
@@ -1048,10 +1049,10 @@ __meta__ = {
 margin_right = 0.0
 
 [node name="Lore" type="Panel" parent="."]
-margin_left = 1776.69
-margin_top = 4.39856
-margin_right = 2334.69
-margin_bottom = 1050.4
+margin_left = 1777.0
+margin_top = 4.0
+margin_right = 2328.0
+margin_bottom = 1050.0
 mouse_filter = 1
 custom_styles/panel = SubResource( 1 )
 
@@ -1064,18 +1065,18 @@ txt = "Les succès"
 dest = "success"
 
 [node name="Right-Next" parent="Lore" instance=ExtResource( 17 )]
-margin_left = 555.245
-margin_top = 26.5178
-margin_right = 1527.24
-margin_bottom = 68.5177
+margin_left = 559.0
+margin_top = 28.0
+margin_right = 1534.0
+margin_bottom = 70.0
 txt = "A propos"
 dest = "about"
 
 [node name="top_menu" parent="Lore" instance=ExtResource( 10 )]
-margin_left = 0.310101
-margin_top = -0.39856
-margin_right = 443.31
-margin_bottom = 41.6014
+margin_left = -1.0
+margin_top = -4.0
+margin_right = 559.0
+margin_bottom = 38.0
 
 [node name="Lore" type="Panel" parent="Lore"]
 margin_left = 58.0
@@ -1084,9 +1085,6 @@ margin_right = 502.0
 margin_bottom = 1019.0
 mouse_filter = 1
 custom_styles/panel = SubResource( 2 )
-__meta__ = {
-"_edit_use_anchors_": false
-}
 
 [node name="Header" type="Panel" parent="Lore/Lore"]
 margin_right = 442.0
@@ -1291,23 +1289,20 @@ margin_right = 2925.73
 margin_bottom = 1050.4
 mouse_filter = 1
 custom_styles/panel = SubResource( 1 )
-__meta__ = {
-"_edit_use_anchors_": false
-}
 
 [node name="Left-Back" parent="About" instance=ExtResource( 16 )]
-margin_left = -0.755615
-margin_top = 1011.12
-margin_right = 971.245
-margin_bottom = 1053.12
+margin_left = 0.0
+margin_top = 1011.0
+margin_right = 972.0
+margin_bottom = 1052.0
 txt = "Lore"
 dest = "lore"
 
 [node name="top_menu" parent="About" instance=ExtResource( 10 )]
-margin_left = -0.689899
-margin_top = 0.60144
-margin_right = 442.31
-margin_bottom = 42.6014
+margin_left = 0.0
+margin_top = -4.0
+margin_right = 558.0
+margin_bottom = 38.0
 
 [node name="Actions" type="Panel" parent="About"]
 margin_left = 58.0
@@ -1366,9 +1361,6 @@ __meta__ = {
 [node name="Button" type="TextureButton" parent="About/Actions/nouveau_billy"]
 margin_right = 145.0
 margin_bottom = 87.0
-__meta__ = {
-"_edit_use_anchors_": false
-}
 
 [node name="Sprite" type="Sprite" parent="About/Actions/nouveau_billy"]
 position = Vector2( 71.5449, 28.0304 )
@@ -1381,9 +1373,6 @@ margin_top = 51.6637
 margin_right = 440.361
 margin_bottom = 138.664
 custom_styles/panel = SubResource( 6 )
-__meta__ = {
-"_edit_use_anchors_": false
-}
 
 [node name="Label" type="Label" parent="About/Actions/new_bug"]
 margin_left = 0.966107
@@ -1467,6 +1456,7 @@ texture = ExtResource( 22 )
 position = Vector2( 392.257, 88.6701 )
 scale = Vector2( 0.342538, 0.342538 )
 frames = SubResource( 7 )
+frame = 1
 playing = true
 
 [node name="DevLabel" type="Label" parent="About/About"]
@@ -1637,6 +1627,14 @@ et LinkDigitalSpirit."
 __meta__ = {
 "_edit_use_anchors_": false
 }
+
+[node name="GenericTextPopup" parent="About" instance=ExtResource( 29 )]
+margin_left = 16.27
+margin_top = 97.6014
+margin_right = 544.27
+margin_bottom = 417.601
+content = "Cette action vous fera recommencer l'histoire depuis le début et perdre tout vos items.
+Êtes-vous sûr de vouloir continuer ?"
 
 [node name="DEBUG" type="Label" parent="."]
 visible = false
@@ -2091,7 +2089,6 @@ __meta__ = {
 position = Vector2( 349.257, 373.67 )
 scale = Vector2( 0.342538, 0.342538 )
 frames = SubResource( 7 )
-frame = 1
 playing = true
 
 [node name="Options" type="Panel" parent="."]
@@ -2758,6 +2755,7 @@ mouse_filter = 1
 [connection signal="pressed" from="About/Actions/nouveau_billy/Button" to="." method="_on_button_new_billy"]
 [connection signal="pressed" from="About/Actions/new_bug/Button" to="." method="_on_button_bug"]
 [connection signal="pressed" from="About/About/twitter/Button" to="." method="_on_button_pressed_twitter"]
+[connection signal="generic_popup_accept" from="About/GenericTextPopup" to="." method="_on_GenericTextPopup_generic_popup_accept"]
 [connection signal="pressed" from="Combat/IWin/button" to="." method="_on_combat_validate_button_pressed"]
 [connection signal="pressed" from="Combat/dice/button" to="." method="_on_dice_pressed"]
 [connection signal="pressed" from="Options/Header/TabEquipement/button" to="." method="_on_button_show_equipement"]

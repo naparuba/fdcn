@@ -31,7 +31,9 @@ margin_right = 715.893
 margin_bottom = 74.2304
 rect_rotation = 180.0
 custom_fonts/font = ExtResource( 1 )
-text = "XXXXXXXXXXXX"
+text = "unset"
+align = 1
+valign = 1
 __meta__ = {
 "_edit_use_anchors_": false
 }
@@ -44,9 +46,6 @@ margin_bottom = 34.9037
 rect_rotation = 90.4755
 custom_fonts/font = ExtResource( 1 )
 text = "<"
-__meta__ = {
-"_edit_use_anchors_": false
-}
 
 [node name="button" type="TextureButton" parent="."]
 margin_left = 1.48657

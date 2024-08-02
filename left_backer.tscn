@@ -28,7 +28,9 @@ margin_top = 9.43448
 margin_right = 653.475
 margin_bottom = 40.4345
 custom_fonts/font = ExtResource( 1 )
-text = "unset"
+text = "Unset"
+align = 1
+valign = 1
 
 [node name="chevron" type="Label" parent="."]
 margin_left = 564.475
@@ -47,8 +49,5 @@ margin_left = 3.0
 margin_top = -1.0
 margin_right = 969.0
 margin_bottom = 41.0
-__meta__ = {
-"_edit_use_anchors_": false
-}
 
 [connection signal="pressed" from="button" to="." method="_on_button_pressed"]
