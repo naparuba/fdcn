@@ -376,6 +376,7 @@ func launch_new_billy():
 	self.save_session_visited_nodes()
 	self.possessed_items = []
 	self.save_possessed_items()
+	self._fully_reset_our_stats()  # clean ALL stats, even chapters one
 
 
 
@@ -453,6 +454,17 @@ func _reset_our_stats():
 	self.deg_items = 0
 	self.arm_items = 0
 	self.crit_items = 0
+	
+func _fully_reset_our_stats():
+	self._reset_our_stats()
+	
+	# And chapters ones
+	self.adr_chapters = 0
+	self.hab_chapters = 0
+	self.chamax_chapters = 0
+	self.deg_chapters = 0
+	self.arm_chapters = 0
+	self.crit_chapters = 0
 
 
 func get_end():
