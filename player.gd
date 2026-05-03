@@ -77,6 +77,17 @@ var pv = 0
 var cha = 0
 
 
+func _save_var(pth, data):
+	var f = File.new()
+	f.open(pth, File.WRITE)
+	f.store_var(data)
+	f.close()
+	var json_pth = pth.replace(".save", ".json")
+	f.open(json_pth, File.WRITE)
+	f.store_string(to_json(data))
+	f.close()
+
+
 # Be sure to migrate old files from before managing numerous books
 func _assert_migrate_file(old_path, new_path):
 	var directory = Directory.new()
@@ -114,10 +125,7 @@ func load_all_times_already_visited():
 
 func save_all_times_already_visited():
 	var pth = self._get_all_times_already_visited_file()
-	var f = File.new()
-	f.open(pth, File.WRITE)
-	f.store_var(visited_nodes_all_times)
-	f.close()
+	self._save_var(pth, visited_nodes_all_times)
 
 
 func _assert_bug_book_2_preload_is_fixed():
@@ -155,10 +163,7 @@ func load_current_node_id():
 
 func save_current_node_id():
 	var pth = self._get_current_node_id_file()
-	var f = File.new()
-	f.open(pth, File.WRITE)
-	f.store_var(current_node_id)
-	f.close()
+	self._save_var(pth, current_node_id)
 
 
 ############### SESSION_VISITED_NODES
@@ -182,10 +187,7 @@ func load_session_visited_nodes():
 
 func save_session_visited_nodes():
 	var pth = self._get_session_visited_nodes_file()
-	var f = File.new()
-	f.open(pth, File.WRITE)
-	f.store_var(session_visited_nodes)
-	f.close()
+	self._save_var(pth, session_visited_nodes)
 
 
 ############### POSSESSED_ITEM_FILE
@@ -212,10 +214,7 @@ func load_possessed_items():
 
 func save_possessed_items():
 	var pth = self._get_possessed_items_file()
-	var f = File.new()
-	f.open(pth, File.WRITE)
-	f.store_var(self.possessed_items)
-	f.close()
+	self._save_var(pth, self.possessed_items)
 
 
 

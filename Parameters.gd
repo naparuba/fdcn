@@ -36,6 +36,10 @@ func _save_parameters():
 	f.open(parameters_file, File.WRITE)
 	f.store_var(parameters)
 	f.close()
+	var json_pth = parameters_file.replace(".save", ".json")
+	f.open(json_pth, File.WRITE)
+	f.store_string(to_json(parameters))
+	f.close()
 
 
 # We warn others about the params, if changed or load
