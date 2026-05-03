@@ -2,32 +2,31 @@ extends Node
 
 
 # IMPORTANT: need to have load() call to manage android and web
-func load_external_texture(path, logger):	
-	var image_file = load(path);
+func load_external_texture(path, logger):
+	var image_file = load(path)
 	if image_file == null:
 		print('ERROR: cannot load image %s' % path)
 		return null
-	image_file = image_file.get_data();
-	var imgtex = ImageTexture.new()
-	imgtex.create_from_image(image_file)
-	return imgtex
-	
+	return image_file
+
 
 # Load a json file and give null if fail (TODO: kill program)
 func load_json_file(path):
-	"""Loads a JSON file from the given res path and return the loaded JSON object."""
-	var file = File.new()
-	file.open(path, file.READ)
-	var text = file.get_as_text()
-	var result_json = JSON.parse(text)
-	if result_json.error != OK:
-		print("[load_json_file] Error loading JSON file '" + str(path) + "'.")
-		print("\tError: ", result_json.error)
-		print("\tError Line: ", result_json.error_line)
-		print("\tError String: ", result_json.error_string)
+	# En Godot 4, les .json sont importés comme ressources JSON
+	var res = load(path)
+	if res != null and res is JSON:
+		return res.data
+	# Fallback FileAccess (ex: user://)
+	var file = FileAccess.open(path, FileAccess.READ)
+	if file == null:
+		print("[load_json_file] Impossible d'ouvrir: " + path + " err=" + str(FileAccess.get_open_error()))
 		return null
-	var obj = result_json.result
-	return obj
+	var json = JSON.new()
+	var err = json.parse(file.get_as_text())
+	if err != OK:
+		print("[load_json_file] Erreur JSON ligne %d: " % json.get_error_line() + json.get_error_message())
+		return null
+	return json.data
 
 
 func delete_children(node):
@@ -42,6 +41,4 @@ func roll_a_dice(minimum, maximum):
 
 
 func is_file_exists(path):
-	var file = File.new()
-	return file.file_exists(path)
-	
+	return FileAccess.file_exists(path)

@@ -8,19 +8,20 @@ var parameters = {
 	'current_book': 1,  # which book did the user select
 }
 
-func _init():
-	print('Parameters: init')
+func _ready():
+	print('Parameters: ready')
 	self._load_parameters()
 	self._apply_parameters()
 
 
 
 func _load_parameters():
-	var f = File.new()
-	if f.file_exists(parameters_file):
-		f.open(parameters_file, File.READ)
-		var loaded_parameters = f.get_var()
-		f.close()
+	if FileAccess.file_exists(parameters_file):
+		var f = FileAccess.open(parameters_file, FileAccess.READ)
+		var loaded_parameters = JSON.parse_string(f.get_as_text())
+		if not loaded_parameters is Dictionary:
+			print('PARAM: fichier de sauvegarde invalide, réinitialisation')
+			return
 		# NOTE: so we can manage code with new parameters
 		for k in loaded_parameters.keys():
 			var v = loaded_parameters[k]
@@ -32,10 +33,8 @@ func _load_parameters():
 
 
 func _save_parameters():
-	var f = File.new()
-	f.open(parameters_file, File.WRITE)
-	f.store_var(parameters)
-	f.close()
+	var f = FileAccess.open(parameters_file, FileAccess.WRITE)
+	f.store_string(JSON.stringify(parameters))
 
 
 # We warn others about the params, if changed or load
@@ -43,7 +42,7 @@ func _apply_parameters():
 	Sounder.set_enabled(self.parameters['sound'])
 	print('PARAMETERS: _apply_parameters')
 	BookData.do_load_book(self.parameters['current_book'])
-	
+
 
 func are_spoils_ok():
 	return self.parameters['spoils']
@@ -70,8 +69,8 @@ func set_sound(b):
 	self.parameters['sound'] = b
 	self._save_parameters()
 	self._apply_parameters()
-	
-	
+
+
 func get_billy_type():
 	return self.parameters['billy']
 
@@ -94,9 +93,7 @@ func set_book_number(book_number):
 	self._save_parameters()
 	self._apply_parameters()
 	return true
- 
+
 
 func get_book_number():
-	return self.parameters['current_book']
-	
-	
+	return int(self.parameters['current_book'])

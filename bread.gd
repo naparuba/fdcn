@@ -18,9 +18,9 @@ func set_chap_number(nb):
 # The current label should be wihtout the _, so people don't want to click on it
 func _update_label():
 	if !self.is_current:
-		$ElLabel.bbcode_text = '[u]%d[/u]' % self.chap_number
+		$ElLabel.text = '[u]%d[/u]' % self.chap_number
 	else:
-		$ElLabel.bbcode_text = '%d' % self.chap_number
+		$ElLabel.text = '%d' % self.chap_number
 
 
 func _set_color(color):

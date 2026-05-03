@@ -4,7 +4,7 @@ extends Node2D
 # Declare member variables here. Examples:
 # var a = 2
 # var b = "text"
-onready var label_value = $label
+@onready var label_value = $label
 
 
 var radius = 50
@@ -31,12 +31,12 @@ func set_value(value_pct):
 
 func _draw_inside(center, radius):
 	var nb_points = 64
-	var points_arc = PoolVector2Array()
+	var points_arc = PackedVector2Array()
 	points_arc.push_back(center)
-	var colors = PoolColorArray([self.inside_color])
+	var colors = PackedColorArray([self.inside_color])
 
 	for i in range(nb_points + 1):
-		var angle_point = deg2rad(0 + i * (360 ) / nb_points - 90)
+		var angle_point = deg_to_rad(0 + i * (360 ) / nb_points - 90)
 		points_arc.push_back(center + Vector2(cos(angle_point), sin(angle_point)) * radius)
 	draw_polygon(points_arc, colors)
 
@@ -50,12 +50,12 @@ func _draw():
 	#var color = Color('313b47')
 	
 	var nb_points = 64
-	var points_arc = PoolVector2Array()
+	var points_arc = PackedVector2Array()
 	points_arc.push_back(center)
-	var colors = PoolColorArray([self.outside_color])
+	var colors = PackedColorArray([self.outside_color])
 
 	for i in range(nb_points + 1):
-		var angle_point = deg2rad(angle_from + i * (angle_to - angle_from) / nb_points - 90)
+		var angle_point = deg_to_rad(angle_from + i * (angle_to - angle_from) / nb_points - 90)
 		points_arc.push_back(center + Vector2(cos(angle_point), sin(angle_point)) * radius)
 	draw_polygon(points_arc, colors)
 

@@ -1,9 +1,9 @@
 extends Panel
 
 
-onready var already_seen_polygon = $AlreadySeenPolygon
-onready var session_seen_polygon = $SessionSeenPolygon
-onready var combat_polygon = $CombatPolygon
+@onready var already_seen_polygon = $AlreadySeenPolygon
+@onready var session_seen_polygon = $SessionSeenPolygon
+@onready var combat_polygon = $CombatPolygon
 
 
 var COLOR_NOT_SET = Color('e0e2e5')  # very light grey
@@ -83,20 +83,20 @@ func set_condition_txt(condition_txt):
 
 func enable_special_jump():
 	$special.visible = true
-	$special.set("custom_colors/font_color",Color('00c2aa'))
+	$special.set("theme_override_colors/font_color",Color('00c2aa'))
 	$click/special.visible = true
 	$click/special_wrong.visible = false
 
 func enable_special_jump_wrong():
 	$special.visible = true
-	$special.set("custom_colors/font_color",Color(1,0,0))
+	$special.set("theme_override_colors/font_color",Color(1,0,0))
 	$click/special.visible = false	
 	$click/special_wrong.visible = true	
 
 
 func disable_special_jump():
 	$special.visible = false
-	$special.set("custom_colors/font_color",Color(1,0,0))
+	$special.set("theme_override_colors/font_color",Color(1,0,0))
 	$click/special.visible = false	
 	$click/special_wrong.visible = false	
 
@@ -145,7 +145,7 @@ func update_from_son_node(son):
 
 func update_when_in_all_chapters():
 	var chapter_id = self.get_chapter_id()
-	var chapter_data = BookData.get_node(chapter_id)
+	var chapter_data = BookData.get_chapter_node(chapter_id)
 		
 	# Update if spoils need to be shown (or not), can depend if we already seen this node
 	if BookData.is_node_id_freely_full_on_all_chapters(chapter_id):

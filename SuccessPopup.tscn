@@ -2,7 +2,7 @@
 
 [ext_resource path="res://Success.tscn" type="PackedScene" id=1]
 [ext_resource path="res://SuccessPopup.gd" type="Script" id=2]
-[ext_resource path="res://images/particule.png" type="Texture" id=3]
+[ext_resource path="res://images/particule.png" type="Texture2D" id=3]
 
 [sub_resource type="Animation" id=1]
 resource_name = "hide"
@@ -13,8 +13,8 @@ tracks/0/loop_wrap = true
 tracks/0/imported = false
 tracks/0/enabled = true
 tracks/0/keys = {
-"times": PoolRealArray( 0, 1 ),
-"transitions": PoolRealArray( 1, 1 ),
+"times": PackedFloat32Array( 0, 1 ),
+"transitions": PackedFloat32Array( 1, 1 ),
 "update": 0,
 "values": [ Color( 1, 1, 1, 1 ), Color( 1, 1, 1, 0 ) ]
 }
@@ -25,8 +25,8 @@ tracks/1/loop_wrap = true
 tracks/1/imported = false
 tracks/1/enabled = true
 tracks/1/keys = {
-"times": PoolRealArray( 1 ),
-"transitions": PoolRealArray( 1 ),
+"times": PackedFloat32Array( 1 ),
+"transitions": PackedFloat32Array( 1 ),
 "update": 1,
 "values": [ false ]
 }
@@ -37,8 +37,8 @@ tracks/2/loop_wrap = true
 tracks/2/imported = false
 tracks/2/enabled = true
 tracks/2/keys = {
-"times": PoolRealArray( 0, 1 ),
-"transitions": PoolRealArray( 1, 1 ),
+"times": PackedFloat32Array( 0, 1 ),
+"transitions": PackedFloat32Array( 1, 1 ),
 "update": 0,
 "values": [ Color( 1, 1, 1, 1 ), Color( 1, 1, 1, 0 ) ]
 }
@@ -53,8 +53,8 @@ tracks/0/loop_wrap = true
 tracks/0/imported = false
 tracks/0/enabled = true
 tracks/0/keys = {
-"times": PoolRealArray( 0, 2 ),
-"transitions": PoolRealArray( 1, 1 ),
+"times": PackedFloat32Array( 0, 2 ),
+"transitions": PackedFloat32Array( 1, 1 ),
 "update": 0,
 "values": [ Color( 1, 1, 1, 0 ), Color( 1, 1, 1, 1 ) ]
 }
@@ -65,8 +65,8 @@ tracks/1/loop_wrap = true
 tracks/1/imported = false
 tracks/1/enabled = true
 tracks/1/keys = {
-"times": PoolRealArray( 2.4 ),
-"transitions": PoolRealArray( 1 ),
+"times": PackedFloat32Array( 2.4 ),
+"transitions": PackedFloat32Array( 1 ),
 "values": [ {
 "args": [  ],
 "method": "set_already_seen"
@@ -79,8 +79,8 @@ tracks/2/loop_wrap = true
 tracks/2/imported = false
 tracks/2/enabled = false
 tracks/2/keys = {
-"times": PoolRealArray( 0 ),
-"transitions": PoolRealArray( 1 ),
+"times": PackedFloat32Array( 0 ),
+"transitions": PackedFloat32Array( 1 ),
 "values": [ {
 "args": [ Rect2( 0, 0, 0, 0 ) ],
 "method": "popup"
@@ -93,8 +93,8 @@ tracks/3/loop_wrap = true
 tracks/3/imported = false
 tracks/3/enabled = true
 tracks/3/keys = {
-"times": PoolRealArray( 4.9 ),
-"transitions": PoolRealArray( 1 ),
+"times": PackedFloat32Array( 4.9 ),
+"transitions": PackedFloat32Array( 1 ),
 "values": [ {
 "args": [ "\"hide\"", -1, 1.0, false ],
 "method": "play"
@@ -107,20 +107,20 @@ tracks/4/loop_wrap = true
 tracks/4/imported = false
 tracks/4/enabled = true
 tracks/4/keys = {
-"times": PoolRealArray( 0, 0.4 ),
-"transitions": PoolRealArray( 1, 1 ),
+"times": PackedFloat32Array( 0, 0.4 ),
+"transitions": PackedFloat32Array( 1, 1 ),
 "update": 0,
 "values": [ Color( 1, 1, 1, 0 ), Color( 1, 1, 1, 1 ) ]
 }
 tracks/5/type = "value"
-tracks/5/path = NodePath("wholebackground/PanelBorder:rect_scale")
+tracks/5/path = NodePath("wholebackground/PanelBorder:scale")
 tracks/5/interp = 1
 tracks/5/loop_wrap = true
 tracks/5/imported = false
 tracks/5/enabled = true
 tracks/5/keys = {
-"times": PoolRealArray( 0, 2 ),
-"transitions": PoolRealArray( 1, 1 ),
+"times": PackedFloat32Array( 0, 2 ),
+"transitions": PackedFloat32Array( 1, 1 ),
 "update": 0,
 "values": [ Vector2( 0.1, 0.1 ), Vector2( 1, 1 ) ]
 }
@@ -131,7 +131,7 @@ max_value = 360.0
 _data = [ Vector2( 0.0290698, 260.325 ), 0.0, 0.0, 0, 0, Vector2( 1, -263.311 ), 0.0, 0.0, 0, 0 ]
 
 [sub_resource type="Gradient" id=4]
-colors = PoolColorArray( 0, 0.686275, 1, 1, 0.388235, 0.6, 0.815686, 1 )
+colors = PackedColorArray( 0, 0.686275, 1, 1, 0.388235, 0.6, 0.815686, 1 )
 
 [sub_resource type="StyleBoxFlat" id=5]
 bg_color = Color( 0, 0, 0, 1 )
@@ -141,10 +141,10 @@ bg_color = Color( 1, 1, 1, 1 )
 border_width_bottom = 2
 
 [node name="SuccessPopup" type="Popup"]
-margin_left = 2.0
-margin_top = 2.0
-margin_right = 557.0
-margin_bottom = 1047.0
+offset_left = 2.0
+offset_top = 2.0
+offset_right = 557.0
+offset_bottom = 1047.0
 script = ExtResource( 2 )
 __meta__ = {
 "_edit_use_anchors_": false
@@ -156,9 +156,9 @@ anims/show = SubResource( 2 )
 
 [node name="wholebackground" type="Panel" parent="."]
 modulate = Color( 1, 1, 1, 0.862745 )
-margin_top = -2.0
-margin_right = 558.0
-margin_bottom = 1043.0
+offset_top = -2.0
+offset_right = 558.0
+offset_bottom = 1043.0
 __meta__ = {
 "_edit_use_anchors_": false
 }
@@ -181,22 +181,22 @@ anim_speed = 5.0
 
 [node name="PanelBorder" type="Panel" parent="wholebackground"]
 self_modulate = Color( 1, 1, 1, 0.792157 )
-margin_left = 43.0
-margin_top = 440.0
-margin_right = 507.0
-margin_bottom = 514.0
-rect_scale = Vector2( 0.1, 0.1 )
-custom_styles/panel = SubResource( 5 )
+offset_left = 43.0
+offset_top = 440.0
+offset_right = 507.0
+offset_bottom = 514.0
+scale = Vector2( 0.1, 0.1 )
+theme_override_styles/panel = SubResource( 5 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
 [node name="Success" parent="wholebackground/PanelBorder" instance=ExtResource( 1 )]
-margin_left = 8.909
-margin_top = 12.4725
-margin_right = 454.909
-margin_bottom = 62.4725
-custom_styles/panel = SubResource( 6 )
+offset_left = 8.909
+offset_top = 12.4725
+offset_right = 454.909
+offset_bottom = 62.4725
+theme_override_styles/panel = SubResource( 6 )
 
 [node name="AudioPlayer" type="AudioStreamPlayer" parent="."]
 

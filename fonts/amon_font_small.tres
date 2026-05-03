@@ -1,7 +1,5 @@
-[gd_resource type="DynamicFont" load_steps=2 format=2]
+[gd_resource type="FontFile" load_steps=2 format=3]
 
-[ext_resource path="res://fonts/RobotoCondensed-Regular.ttf" type="DynamicFontData" id=1]
+[ext_resource type="FontFile" path="res://fonts/RobotoCondensed-Regular.ttf" id="1"]
 
 [resource]
-size = 11
-font_data = ExtResource( 1 )

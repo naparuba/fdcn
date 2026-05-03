@@ -2,14 +2,18 @@
 
 importer="mp3"
 type="AudioStreamMP3"
-path="res://.import/phumtar.mp3-06c62436425c8ab818c9dbfa8c6cfbc5.mp3str"
+uid="uid://bjlnapjc81l07"
+path="res://.godot/imported/phumtar.mp3-06c62436425c8ab818c9dbfa8c6cfbc5.mp3str"
 
 [deps]
 
 source_file="res://sounds/dieux/1/phumtar.mp3"
-dest_files=[ "res://.import/phumtar.mp3-06c62436425c8ab818c9dbfa8c6cfbc5.mp3str" ]
+dest_files=["res://.godot/imported/phumtar.mp3-06c62436425c8ab818c9dbfa8c6cfbc5.mp3str"]
 
 [params]
 
 loop=false
 loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4

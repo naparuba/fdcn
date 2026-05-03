@@ -1,12 +1,12 @@
-tool
+@tool
 
 extends Panel
 
 
-export var type_entry = 'billys'
-export var entry_name = 'guerrier'
-export var titre = 'XXXX'
-export var book_number = 1
+@export var type_entry = 'billys'
+@export var entry_name = 'guerrier'
+@export var titre = 'XXXX'
+@export var book_number = 1
 
 
 var is_playing = false
@@ -15,7 +15,9 @@ var is_playing = false
 func _ready():
 	$Label.text = titre
 
-	var dir = type_entry
+	if Engine.is_editor_hint():
+		return
+
 	var ext = 'png'  # default for billy
 	if type_entry == 'dieux':
 		ext = 'jpg'
@@ -26,7 +28,7 @@ func _ready():
 	pth += '.%s' % ext
 
 	var texture = Utils.load_external_texture(pth, null)
-	$Sprite.texture = texture
+	$Sprite2D.texture = texture
 
 
 

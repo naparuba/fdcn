@@ -1,6 +1,6 @@
 extends Node
 
-onready var Item = preload('res://Item.tscn')
+@onready var Item = preload('res://Item.tscn')
 
 var _main = null
 var need_force_display_options = false   # if we did guess, show options to show it
@@ -78,14 +78,25 @@ var cha = 0
 
 
 # Be sure to migrate old files from before managing numerous books
+func _load_json_safe(pth):
+	var f = FileAccess.open(pth, FileAccess.READ)
+	var text = f.get_as_text().strip_edges()
+	if text.is_empty():
+		DirAccess.open("user://").remove(pth.replace("user://", ""))
+		return null
+	var data = JSON.parse_string(text)
+	if data == null:
+		print('SAVE: fichier invalide, suppression: %s' % pth)
+		DirAccess.open("user://").remove(pth.replace("user://", ""))
+	return data
+
+
 func _assert_migrate_file(old_path, new_path):
-	var directory = Directory.new()
-	var f = File.new()
-	if !f.file_exists(old_path):
+	if !FileAccess.file_exists(old_path):
 		return
-	# Oups, migration needed!
 	print('Migrating ', old_path, 'to', new_path)
-	directory.rename(old_path, new_path)
+	var dir = DirAccess.open("user://")
+	dir.rename(old_path.replace("user://", ""), new_path.replace("user://", ""))
 		
 
 func _get_all_times_already_visited_file():
@@ -98,12 +109,10 @@ func load_all_times_already_visited():
 	self._assert_bug_book_2_preload_is_fixed()
 	var pth = self._get_all_times_already_visited_file()
 	self._assert_migrate_file(OLD_ALL_TIMES_ALREADY_VISITED_FILE, pth)
-	var f = File.new()
-	if f.file_exists(pth):
+	if FileAccess.file_exists(pth):
 		print('load_all_times_already_visited:: loading file %s' % pth)
-		f.open(pth, File.READ)
-		self.visited_nodes_all_times = f.get_var()
-		f.close()
+		var data = self._load_json_safe(pth)
+		self.visited_nodes_all_times = (data as Array).map(func(x): return int(x)) if data is Array else []
 	else:
 		self.visited_nodes_all_times = []
 	# Seems that the chapter 1 is not stack at the beging of the play, so add it
@@ -114,23 +123,19 @@ func load_all_times_already_visited():
 
 func save_all_times_already_visited():
 	var pth = self._get_all_times_already_visited_file()
-	var f = File.new()
-	f.open(pth, File.WRITE)
-	f.store_var(visited_nodes_all_times)
-	f.close()
+	var f = FileAccess.open(pth, FileAccess.WRITE)
+	f.store_string(JSON.stringify(visited_nodes_all_times))
 
 
 func _assert_bug_book_2_preload_is_fixed():
-	var f = File.new()
 	print("Looking to clean old book2 data that make bugs")
-	if !f.file_exists(TO_CLEAN_ONE_TIME_BOOK_2_FLAG):
+	if !FileAccess.file_exists(TO_CLEAN_ONE_TIME_BOOK_2_FLAG):
+		var dir = DirAccess.open("user://")
 		for to_clean in TO_CLEAN_ONE_TIME_BOOK_2:
-			var dir = Directory.new()
 			print('REMOVING: ', to_clean)
-			dir.remove(to_clean)
-		f.open(TO_CLEAN_ONE_TIME_BOOK_2_FLAG, File.WRITE)
-		f.store_var(true)
-		f.close()	
+			dir.remove(to_clean.replace("user://", ""))
+		var f = FileAccess.open(TO_CLEAN_ONE_TIME_BOOK_2_FLAG, FileAccess.WRITE)
+		f.store_string(JSON.stringify(true))	
 			
 	
 
@@ -142,23 +147,19 @@ func _get_current_node_id_file():
 
 func load_current_node_id():
 	self._assert_bug_book_2_preload_is_fixed()
-	var f = File.new()
 	var pth = self._get_current_node_id_file()
 	self._assert_migrate_file(OLD_CURRENT_NODE_ID_FILE, pth)
-	if f.file_exists(pth):
-		f.open(pth, File.READ)
-		current_node_id = f.get_var()
-		f.close()
+	if FileAccess.file_exists(pth):
+		var data = self._load_json_safe(pth)
+		current_node_id = int(data) if data != null else 1
 	else:
 		current_node_id = 1
 
 
 func save_current_node_id():
 	var pth = self._get_current_node_id_file()
-	var f = File.new()
-	f.open(pth, File.WRITE)
-	f.store_var(current_node_id)
-	f.close()
+	var f = FileAccess.open(pth, FileAccess.WRITE)
+	f.store_string(JSON.stringify(current_node_id))
 
 
 ############### SESSION_VISITED_NODES
@@ -171,21 +172,17 @@ func load_session_visited_nodes():
 	self._assert_bug_book_2_preload_is_fixed()
 	var pth = self._get_session_visited_nodes_file()
 	self._assert_migrate_file(OLD_SESSION_VISITED_NODES_FILE, pth)
-	var f = File.new()
-	if f.file_exists(pth):
-		f.open(pth, File.READ)
-		session_visited_nodes = f.get_var()
-		f.close()
+	if FileAccess.file_exists(pth):
+		var data = self._load_json_safe(pth)
+		session_visited_nodes = (data as Array).map(func(x): return int(x)) if data is Array else []
 	else:
 		session_visited_nodes = []
 
 
 func save_session_visited_nodes():
 	var pth = self._get_session_visited_nodes_file()
-	var f = File.new()
-	f.open(pth, File.WRITE)
-	f.store_var(session_visited_nodes)
-	f.close()
+	var f = FileAccess.open(pth, FileAccess.WRITE)
+	f.store_string(JSON.stringify(session_visited_nodes))
 
 
 ############### POSSESSED_ITEM_FILE
@@ -200,11 +197,9 @@ func load_possessed_items():
 	self.possessed_items = []
 	var pth = self._get_possessed_items_file()
 	self._assert_migrate_file(OLD_POSSESSED_ITEM_FILE, pth)
-	var f = File.new()
-	if f.file_exists(pth):
-		f.open(pth, File.READ)
-		self.possessed_items = f.get_var()
-		f.close()
+	if FileAccess.file_exists(pth):
+		var data = self._load_json_safe(pth)
+		self.possessed_items = data if data is Array else []
 	else:
 		self.guess_after_migration()
 	self._clean_not_existing_items()  # between version migration, don't keep item that don't exits anymore
@@ -212,10 +207,8 @@ func load_possessed_items():
 
 func save_possessed_items():
 	var pth = self._get_possessed_items_file()
-	var f = File.new()
-	f.open(pth, File.WRITE)
-	f.store_var(self.possessed_items)
-	f.close()
+	var f = FileAccess.open(pth, FileAccess.WRITE)
+	f.store_string(JSON.stringify(self.possessed_items))
 
 
 
@@ -280,7 +273,7 @@ func insert_all_objects():
 	var all_objects = BookData.get_all_objects()
 	for obj_name in all_objects.keys():
 		var item_data = all_objects[obj_name]
-		var item = Item.instance()
+		var item = Item.instantiate()
 		item.load_item_data(obj_name, item_data)
 		var is_ok_to_be_shown = item.is_ok_to_be_shown()
 		if is_ok_to_be_shown:
@@ -410,7 +403,7 @@ func get_visited_nodes_all_times():
 
 
 func apply_chapter_items(chapter_id):
-	var node = BookData.get_node(chapter_id)
+	var node = BookData.get_chapter_node(chapter_id)
 	# Apply new items
 	var _really_aquires = []  # Mayve we already have some items
 	var aquires = node.get_aquire()
@@ -684,7 +677,7 @@ func _raw_remove(item_name):
 func _compute_item_by_categories():
 	var items_by_category = {'ARME': [], 'EQUIPEMENT':[], 'OUTIL':[]}
 	for item in self.all_items:
-		var item_name = item.get_name()
+		var item_name = item.get_item_name()
 		if !item_name in self.possessed_items:#.is_enabled():
 			continue
 		var cat = item.get_category()
@@ -735,7 +728,7 @@ func clean_billy_overload(new_option):
 	print('  - ITEM IN CAT: %s' % items_by_category)
 	for cat in categories:
 		for i in items_by_category[cat]:
-			all_billy_equip.append(i.get_name())
+			all_billy_equip.append(i.get_item_name())
 	# Rules:
 	# * Can take 3 max
 	# * if >= 2 in a cat => is this CAT
