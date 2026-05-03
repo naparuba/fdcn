@@ -17,14 +17,6 @@ var possessed_items = []
 
 var all_items = []
 
-# Give something like C:\Users\j.gabes\AppData\Roaming\Godot\app_userdata\fdcn for windows
-var OLD_ALL_TIMES_ALREADY_VISITED_FILE = "user://all_times_already_visited.save"
-var OLD_CURRENT_NODE_ID_FILE = "user://current_node_id.save"
-var OLD_SESSION_VISITED_NODES_FILE  = "user://session_visited_nodes.save"
-var OLD_POSSESSED_ITEM_FILE  = "user://possessed_item.save"
-
-var TO_CLEAN_ONE_TIME_BOOK_2 = ['user://all_times_already_visited-2.save', 'user://current_node_id-2.save', "user://session_visited_nodes-2.save", "user://possessed_item-2.save"]
-var TO_CLEAN_ONE_TIME_BOOK_2_FLAG = 'user://bug_book_2_fixed.flag.save'
 
 # Our stats, based on items or chapters
 var end = 0
@@ -77,7 +69,6 @@ var pv = 0
 var cha = 0
 
 
-# Be sure to migrate old files from before managing numerous books
 func _load_json_safe(pth):
 	var f = FileAccess.open(pth, FileAccess.READ)
 	var text = f.get_as_text().strip_edges()
@@ -91,24 +82,14 @@ func _load_json_safe(pth):
 	return data
 
 
-func _assert_migrate_file(old_path, new_path):
-	if !FileAccess.file_exists(old_path):
-		return
-	print('Migrating ', old_path, 'to', new_path)
-	var dir = DirAccess.open("user://")
-	dir.rename(old_path.replace("user://", ""), new_path.replace("user://", ""))
-		
-
 func _get_all_times_already_visited_file():
 	var book_number = AppParameters.get_book_number()
-	var pth = "user://all_times_already_visited-%s.save" % book_number
+	var pth = "user://all_times_already_visited-%s.json" % book_number
 	return pth
 
 
 func load_all_times_already_visited():
-	self._assert_bug_book_2_preload_is_fixed()
 	var pth = self._get_all_times_already_visited_file()
-	self._assert_migrate_file(OLD_ALL_TIMES_ALREADY_VISITED_FILE, pth)
 	if FileAccess.file_exists(pth):
 		print('load_all_times_already_visited:: loading file %s' % pth)
 		var data = self._load_json_safe(pth)
@@ -127,28 +108,14 @@ func save_all_times_already_visited():
 	f.store_string(JSON.stringify(visited_nodes_all_times))
 
 
-func _assert_bug_book_2_preload_is_fixed():
-	print("Looking to clean old book2 data that make bugs")
-	if !FileAccess.file_exists(TO_CLEAN_ONE_TIME_BOOK_2_FLAG):
-		var dir = DirAccess.open("user://")
-		for to_clean in TO_CLEAN_ONE_TIME_BOOK_2:
-			print('REMOVING: ', to_clean)
-			dir.remove(to_clean.replace("user://", ""))
-		var f = FileAccess.open(TO_CLEAN_ONE_TIME_BOOK_2_FLAG, FileAccess.WRITE)
-		f.store_string(JSON.stringify(true))	
-			
-	
-
 ############### CURRENT NODE ID
 func _get_current_node_id_file():
 	var book_number = AppParameters.get_book_number()
-	var pth = "user://current_node_id-%s.save" % book_number
+	var pth = "user://current_node_id-%s.json" % book_number
 	return pth
 
 func load_current_node_id():
-	self._assert_bug_book_2_preload_is_fixed()
 	var pth = self._get_current_node_id_file()
-	self._assert_migrate_file(OLD_CURRENT_NODE_ID_FILE, pth)
 	if FileAccess.file_exists(pth):
 		var data = self._load_json_safe(pth)
 		current_node_id = int(data) if data != null else 1
@@ -165,13 +132,11 @@ func save_current_node_id():
 ############### SESSION_VISITED_NODES
 func _get_session_visited_nodes_file():
 	var book_number = AppParameters.get_book_number()
-	var pth = "user://session_visited_nodes-%s.save" % book_number
+	var pth = "user://session_visited_nodes-%s.json" % book_number
 	return pth
 	
 func load_session_visited_nodes():
-	self._assert_bug_book_2_preload_is_fixed()
 	var pth = self._get_session_visited_nodes_file()
-	self._assert_migrate_file(OLD_SESSION_VISITED_NODES_FILE, pth)
 	if FileAccess.file_exists(pth):
 		var data = self._load_json_safe(pth)
 		session_visited_nodes = (data as Array).map(func(x): return int(x)) if data is Array else []
@@ -188,15 +153,13 @@ func save_session_visited_nodes():
 ############### POSSESSED_ITEM_FILE
 func _get_possessed_items_file():
 	var book_number = AppParameters.get_book_number()
-	var pth = "user://possessed_item-%s.save" % book_number
+	var pth = "user://possessed_item-%s.json" % book_number
 	return pth
 	
 	
 func load_possessed_items():
-	self._assert_bug_book_2_preload_is_fixed()
 	self.possessed_items = []
 	var pth = self._get_possessed_items_file()
-	self._assert_migrate_file(OLD_POSSESSED_ITEM_FILE, pth)
 	if FileAccess.file_exists(pth):
 		var data = self._load_json_safe(pth)
 		self.possessed_items = data if data is Array else []

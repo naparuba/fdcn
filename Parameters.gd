@@ -1,6 +1,6 @@
 extends Node
 
-var parameters_file  = "user://parameters.save"
+var parameters_file  = "user://parameters.json"
 var parameters = {
 	'billy': 'guerrier',
 	'spoils': true,

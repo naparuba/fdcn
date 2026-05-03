@@ -1,6 +1,3 @@
-res://default_env.tres
-res://main.gd
 res://Parameters.gd
 res://player.gd
-res://BookData.gd
-res://utils.gd
+res://default_env.tres
