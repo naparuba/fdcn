@@ -1,3 +1,6 @@
-res://Parameters.gd
-res://player.gd
+res://ChapterChoice.tscn
 res://default_env.tres
+res://bread.tscn
+res://fonts/amon_font.tres
+res://fonts/amon_font_small.tres
+res://Success.tscn
