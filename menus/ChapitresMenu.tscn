@@ -1,0 +1,296 @@
+[gd_scene format=3 uid="uid://6brl0np1vj8q"]
+
+[ext_resource type="FontFile" uid="uid://dvf02ee6hmyyy" path="res://fonts/amon_font.tres" id="1_8urut"]
+[ext_resource type="PackedScene" path="res://ChapterChoice.tscn" id="2_1i4c4"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_rm2ei"]
+bg_color = Color(0.92549, 0.929412, 0.94902, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_le6h5"]
+bg_color = Color(0.192157, 0.231373, 0.278431, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_p3fb1"]
+bg_color = Color(0.913725, 0.917647, 0.92549, 1)
+
+[node name="Chapitres" type="Panel" unique_id=1167040183]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 1
+theme_override_styles/panel = SubResource("StyleBoxFlat_rm2ei")
+
+[node name="Header" type="Panel" parent="." unique_id=1568400759]
+layout_mode = 0
+offset_left = 59.0
+offset_top = 54.0
+offset_right = 504.0
+offset_bottom = 96.0
+mouse_filter = 1
+theme_override_styles/panel = SubResource("StyleBoxFlat_le6h5")
+
+[node name="Label" type="Label" parent="Header" unique_id=2033309154]
+layout_mode = 0
+offset_left = 121.524
+offset_top = 5.00259
+offset_right = 305.524
+offset_bottom = 36.0026
+theme_override_fonts/font = ExtResource("1_8urut")
+text = "Tous les Chapitres"
+
+[node name="SautLabel" type="Label" parent="." unique_id=515385096]
+layout_mode = 0
+offset_left = 71.2982
+offset_top = 109.7809
+offset_right = 123.2982
+offset_bottom = 143.7809
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_fonts/font = ExtResource("1_8urut")
+text = "Saut"
+
+[node name="Block-1" type="Panel" parent="." unique_id=345744370]
+layout_mode = 0
+offset_left = 128.2867
+offset_top = 104.1101
+offset_right = 171.287
+offset_bottom = 146.1101
+theme_override_styles/panel = SubResource("StyleBoxFlat_p3fb1")
+
+[node name="jump" type="Label" parent="Block-1" unique_id=797588040]
+layout_mode = 0
+offset_left = 6.00751
+offset_top = 5.04086
+offset_right = 18.0075
+offset_bottom = 36.0409
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_fonts/font = ExtResource("1_8urut")
+text = "1"
+
+[node name="button" type="TextureButton" parent="Block-1" unique_id=1884446107]
+layout_mode = 0
+offset_left = -0.740051
+offset_top = -1.0
+offset_right = 44.2599
+offset_bottom = 42.0
+
+[node name="Block-100" type="Panel" parent="." unique_id=5253068]
+layout_mode = 0
+offset_left = 179.943
+offset_top = 104.1101
+offset_right = 222.943
+offset_bottom = 146.1101
+theme_override_styles/panel = SubResource("StyleBoxFlat_p3fb1")
+
+[node name="jump" type="Label" parent="Block-100" unique_id=970582889]
+layout_mode = 0
+offset_left = 3.48773
+offset_top = 5.67082
+offset_right = 39.4877
+offset_bottom = 36.6708
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_fonts/font = ExtResource("1_8urut")
+text = "100"
+
+[node name="button" type="TextureButton" parent="Block-100" unique_id=1190687332]
+layout_mode = 0
+offset_left = -0.740051
+offset_top = -1.0
+offset_right = 44.2599
+offset_bottom = 42.0
+
+[node name="Block-200" type="Panel" parent="." unique_id=1741564937]
+layout_mode = 0
+offset_left = 234.12
+offset_top = 105.369995
+offset_right = 277.12
+offset_bottom = 147.37
+theme_override_styles/panel = SubResource("StyleBoxFlat_p3fb1")
+
+[node name="jump" type="Label" parent="Block-200" unique_id=23338034]
+layout_mode = 0
+offset_left = 4.11761
+offset_top = 5.04086
+offset_right = 40.1176
+offset_bottom = 36.0409
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_fonts/font = ExtResource("1_8urut")
+text = "200"
+
+[node name="button" type="TextureButton" parent="Block-200" unique_id=90892005]
+layout_mode = 0
+offset_left = -0.740051
+offset_top = -1.0
+offset_right = 44.2599
+offset_bottom = 42.0
+
+[node name="Block-300" type="Panel" parent="." unique_id=767328660]
+layout_mode = 0
+offset_left = 287.667
+offset_top = 104.7401
+offset_right = 330.667
+offset_bottom = 146.7401
+theme_override_styles/panel = SubResource("StyleBoxFlat_p3fb1")
+
+[node name="jump" type="Label" parent="Block-300" unique_id=599819486]
+layout_mode = 0
+offset_left = 4.11761
+offset_top = 5.04086
+offset_right = 40.1176
+offset_bottom = 36.0409
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_fonts/font = ExtResource("1_8urut")
+text = "300"
+
+[node name="button" type="TextureButton" parent="Block-300" unique_id=337339435]
+layout_mode = 0
+offset_left = -0.740051
+offset_top = -1.0
+offset_right = 44.2599
+offset_bottom = 42.0
+
+[node name="Block-400" type="Panel" parent="." unique_id=511018176]
+layout_mode = 0
+offset_left = 340.583
+offset_top = 104.7401
+offset_right = 383.583
+offset_bottom = 146.7401
+theme_override_styles/panel = SubResource("StyleBoxFlat_p3fb1")
+
+[node name="jump" type="Label" parent="Block-400" unique_id=1192234230]
+layout_mode = 0
+offset_left = 4.74762
+offset_top = 5.04086
+offset_right = 40.7476
+offset_bottom = 36.0409
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_fonts/font = ExtResource("1_8urut")
+text = "400"
+
+[node name="button" type="TextureButton" parent="Block-400" unique_id=1841632963]
+layout_mode = 0
+offset_left = -0.740051
+offset_top = -1.0
+offset_right = 44.2599
+offset_bottom = 42.0
+
+[node name="Block-500" type="Panel" parent="." unique_id=1640936170]
+layout_mode = 0
+offset_left = 390.98
+offset_top = 105.3701
+offset_right = 433.98
+offset_bottom = 147.3701
+theme_override_styles/panel = SubResource("StyleBoxFlat_p3fb1")
+
+[node name="jump" type="Label" parent="Block-500" unique_id=114482975]
+layout_mode = 0
+offset_left = 4.74762
+offset_top = 5.04086
+offset_right = 40.7476
+offset_bottom = 36.0409
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_fonts/font = ExtResource("1_8urut")
+text = "500"
+
+[node name="button" type="TextureButton" parent="Block-500" unique_id=1361893156]
+layout_mode = 0
+offset_left = -0.740051
+offset_top = -1.0
+offset_right = 44.2599
+offset_bottom = 42.0
+
+[node name="Block-600" type="Panel" parent="." unique_id=1558329121]
+layout_mode = 0
+offset_left = 445.157
+offset_top = 104.1101
+offset_right = 488.157
+offset_bottom = 146.1101
+theme_override_styles/panel = SubResource("StyleBoxFlat_p3fb1")
+
+[node name="jump" type="Label" parent="Block-600" unique_id=1923433492]
+layout_mode = 0
+offset_left = 3.48773
+offset_top = 5.67082
+offset_right = 39.4877
+offset_bottom = 36.6708
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_fonts/font = ExtResource("1_8urut")
+text = "600"
+
+[node name="button" type="TextureButton" parent="Block-600" unique_id=262859392]
+layout_mode = 0
+offset_left = -0.740051
+offset_top = -1.0
+offset_right = 44.2599
+offset_bottom = 42.0
+
+[node name="VScrollBar" type="ScrollContainer" parent="." unique_id=68978054]
+layout_mode = 0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 59.0
+offset_top = 157.0
+offset_right = 59.0
+offset_bottom = 54.0
+
+[node name="Choices" type="VBoxContainer" parent="VScrollBar" unique_id=1558867892]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="ChapterChoice" parent="VScrollBar/Choices" unique_id=775774187 instance=ExtResource("2_1i4c4")]
+layout_mode = 2
+
+[node name="ChapterChoice2" parent="VScrollBar/Choices" unique_id=385537318 instance=ExtResource("2_1i4c4")]
+layout_mode = 2
+
+[node name="ChapterChoice3" parent="VScrollBar/Choices" unique_id=610144502 instance=ExtResource("2_1i4c4")]
+layout_mode = 2
+
+[node name="ChapterChoice4" parent="VScrollBar/Choices" unique_id=5722985 instance=ExtResource("2_1i4c4")]
+layout_mode = 2
+
+[node name="ChapterChoice5" parent="VScrollBar/Choices" unique_id=1060680235 instance=ExtResource("2_1i4c4")]
+layout_mode = 2
+
+[node name="ChapterChoice6" parent="VScrollBar/Choices" unique_id=951338686 instance=ExtResource("2_1i4c4")]
+layout_mode = 2
+
+[node name="ChapterChoice7" parent="VScrollBar/Choices" unique_id=452830645 instance=ExtResource("2_1i4c4")]
+layout_mode = 2
+
+[node name="ChapterChoice8" parent="VScrollBar/Choices" unique_id=1273311419 instance=ExtResource("2_1i4c4")]
+layout_mode = 2
+
+[node name="ChapterChoice9" parent="VScrollBar/Choices" unique_id=1245130410 instance=ExtResource("2_1i4c4")]
+layout_mode = 2
+
+[node name="ChapterChoice10" parent="VScrollBar/Choices" unique_id=1617779312 instance=ExtResource("2_1i4c4")]
+layout_mode = 2
+
+[node name="ChapterChoice11" parent="VScrollBar/Choices" unique_id=1523116267 instance=ExtResource("2_1i4c4")]
+layout_mode = 2
+
+[node name="ChapterChoice12" parent="VScrollBar/Choices" unique_id=240441646 instance=ExtResource("2_1i4c4")]
+layout_mode = 2
+
+[node name="ChapterChoice13" parent="VScrollBar/Choices" unique_id=50907139 instance=ExtResource("2_1i4c4")]
+layout_mode = 2
+
+[node name="ChapterChoice14" parent="VScrollBar/Choices" unique_id=108641963 instance=ExtResource("2_1i4c4")]
+layout_mode = 2
+
+[node name="ChapterChoice15" parent="VScrollBar/Choices" unique_id=1093146265 instance=ExtResource("2_1i4c4")]
+layout_mode = 2
+
+[node name="ChapterChoice16" parent="VScrollBar/Choices" unique_id=1763604544 instance=ExtResource("2_1i4c4")]
+layout_mode = 2
+
+[node name="ChapterChoice17" parent="VScrollBar/Choices" unique_id=243965866 instance=ExtResource("2_1i4c4")]
+layout_mode = 2
+
+[node name="ChapterChoice18" parent="VScrollBar/Choices" unique_id=1918360692 instance=ExtResource("2_1i4c4")]
+layout_mode = 2
+
+[node name="ChapterChoice19" parent="VScrollBar/Choices" unique_id=1728121867 instance=ExtResource("2_1i4c4")]
+layout_mode = 2

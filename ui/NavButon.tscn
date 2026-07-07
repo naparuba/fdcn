@@ -1,0 +1,70 @@
+[gd_scene format=3 uid="uid://hamv8lxytv6g"]
+
+[ext_resource type="Script" uid="uid://ci0dgk7vc5eqh" path="res://ui/nav_buton.gd" id="1_hgrxi"]
+[ext_resource type="FontFile" uid="uid://dvf02ee6hmyyy" path="res://fonts/amon_font.tres" id="1_pmmnv"]
+
+[node name="NavButon" type="Panel" unique_id=128920862]
+anchors_preset = 9
+anchor_bottom = 1.0
+grow_vertical = 2
+pivot_offset = Vector2(0, 480)
+size_flags_horizontal = 0
+script = ExtResource("1_hgrxi")
+
+[node name="poly" type="Polygon2D" parent="." unique_id=1655921991]
+position = Vector2(-2.479553e-05, 479.99994)
+rotation = 1.5707964
+scale = Vector2(0.9149787, 0.958863)
+color = Color(0.192157, 0.231373, 0.278431, 1)
+offset = Vector2(-479.6866, -566.52856)
+polygon = PackedVector2Array(1004.289, 566.5285, 960.5722, 514.3834, 479.6866, 514.3834, -1.1988754, 514.3835, -44.915737, 566.52856, 479.6866, 566.52856)
+
+[node name="txt" type="Label" parent="." unique_id=144038794]
+layout_mode = 1
+anchors_preset = 13
+anchor_left = 0.5
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -440.0832
+offset_top = 429.53427
+offset_right = 440.08307
+offset_bottom = -489.95038
+grow_horizontal = 2
+grow_vertical = 2
+rotation = 1.5707964
+pivot_offset = Vector2(440.08316, 50.000065)
+theme_override_fonts/font = ExtResource("1_pmmnv")
+text = "unset"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="chevron" type="Label" parent="." unique_id=1161125277]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_top = -20.0
+offset_right = 18.0
+offset_bottom = 20.0
+grow_horizontal = 2
+grow_vertical = 2
+pivot_offset = Vector2(0, 20)
+theme_override_fonts/font = ExtResource("1_pmmnv")
+text = "<"
+
+[node name="Button" type="TextureButton" parent="." unique_id=1254326925]
+layout_mode = 1
+anchors_preset = 13
+anchor_left = 0.5
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_top = 40.0
+offset_right = 50.0
+offset_bottom = -40.0
+grow_horizontal = 2
+grow_vertical = 2
+pivot_offset = Vector2(0, 440)
+
+[connection signal="button_down" from="Button" to="." method="_on_button_button_down"]

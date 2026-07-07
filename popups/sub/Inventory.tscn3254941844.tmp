@@ -1,0 +1,110 @@
+[gd_scene format=3 uid="uid://dl8om1ckn2xks"]
+
+[ext_resource type="Script" uid="uid://bucjm3uly80gx" path="res://popups/sub/inventory.gd" id="1_fspqf"]
+[ext_resource type="Texture2D" uid="uid://dpfh3vylax3qp" path="res://images/billys/guerrier.png" id="2_sar11"]
+[ext_resource type="Texture2D" uid="uid://lv7yt42d1b1g" path="res://images/billys/paysan.png" id="3_rjfm5"]
+[ext_resource type="Texture2D" uid="uid://cashxaio2wknw" path="res://images/billys/prudent.png" id="4_lsfe4"]
+[ext_resource type="Texture2D" uid="uid://b5mcl7hdp84lk" path="res://images/billys/debrouillard.png" id="5_glsjr"]
+[ext_resource type="PackedScene" path="res://Item.tscn" id="6_dqggf"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_xv1mr"]
+bg_color = Color(1, 1, 1, 1)
+
+[node name="Inventory" type="Panel" unique_id=1221126853]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 1
+theme_override_styles/panel = SubResource("StyleBoxFlat_xv1mr")
+script = ExtResource("1_fspqf")
+
+[node name="HBoxContainer" type="HBoxContainer" parent="." unique_id=1072375197]
+layout_mode = 1
+anchors_preset = 10
+anchor_right = 1.0
+offset_bottom = 240.0
+grow_horizontal = 2
+
+[node name="BlockGuerrier" type="TextureRect" parent="HBoxContainer" unique_id=411530859]
+layout_mode = 2
+size_flags_horizontal = 3
+texture = ExtResource("2_sar11")
+expand_mode = 5
+stretch_mode = 6
+
+[node name="button" type="TextureButton" parent="HBoxContainer/BlockGuerrier" unique_id=1009425944]
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="BlockPaysan" type="TextureRect" parent="HBoxContainer" unique_id=1845642455]
+layout_mode = 2
+size_flags_horizontal = 3
+texture = ExtResource("3_rjfm5")
+expand_mode = 5
+stretch_mode = 6
+
+[node name="button" type="TextureButton" parent="HBoxContainer/BlockPaysan" unique_id=639446675]
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="BlockPrudent" type="TextureRect" parent="HBoxContainer" unique_id=404353691]
+layout_mode = 2
+size_flags_horizontal = 3
+texture = ExtResource("4_lsfe4")
+expand_mode = 5
+stretch_mode = 6
+
+[node name="button" type="TextureButton" parent="HBoxContainer/BlockPrudent" unique_id=1450227822]
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="BlockDebrouillard" type="TextureRect" parent="HBoxContainer" unique_id=2142019043]
+layout_mode = 2
+size_flags_horizontal = 3
+texture = ExtResource("5_glsjr")
+expand_mode = 5
+stretch_mode = 6
+
+[node name="button" type="TextureButton" parent="HBoxContainer/BlockDebrouillard" unique_id=597889166]
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="ItemsCont" type="ScrollContainer" parent="." unique_id=871601693]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = 260.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Items" type="VBoxContainer" parent="ItemsCont" unique_id=735835187]
+layout_mode = 2
+
+[node name="Panel" parent="ItemsCont/Items" unique_id=1934105114 instance=ExtResource("6_dqggf")]
+layout_mode = 2
+
+[node name="Panel2" parent="ItemsCont/Items" unique_id=374267277 instance=ExtResource("6_dqggf")]
+layout_mode = 2

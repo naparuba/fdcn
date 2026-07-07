@@ -8,11 +8,13 @@ var parameters = {
 	'current_book': 1,  # which book did the user select
 }
 
+signal settings_changed
+signal settings_loaded
+
 func _ready():
 	print('Parameters: ready')
 	self._load_parameters()
 	self._apply_parameters()
-
 
 
 func _load_parameters():
@@ -35,6 +37,7 @@ func _load_parameters():
 func _save_parameters():
 	var f = FileAccess.open(parameters_file, FileAccess.WRITE)
 	f.store_string(JSON.stringify(parameters))
+	settings_changed.emit()
 
 
 # We warn others about the params, if changed or load

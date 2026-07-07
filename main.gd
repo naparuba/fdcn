@@ -26,7 +26,6 @@ var top_menus = []
 func _ready():
 	# Register to Swiper for page move
 	Swiper.register_main(self)
-	Player.register_main(self)
 
 	# Register top_menus so they can call us back
 	self._register_top_menus()

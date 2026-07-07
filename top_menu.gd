@@ -1,36 +1,49 @@
 extends Panel
 
+@export var popup_container: Container
+var _opened_popup: Node
 
+var _settings_open: bool = false
+@onready var popup_settings: PackedScene = preload("res://popups/SettingsPopup.tscn")
 
-var main = null
+func _on_button_options():
+	print('SHOW OPTIONS')
+	if _opened_popup:
+		_opened_popup.queue_free()
 
-
-var fdcn_tex = load("res://images/fdcn_icon.png")
-var cdsi_tex = load("res://images/cdsi_logo.png")
-
-
+	if not _settings_open:
+		_opened_popup = popup_settings.instantiate()
+		popup_container.add_child(_opened_popup)
+		_settings_open = true
+	else:
+		_settings_open = false
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	pass # Replace with function body.
+	if AppParameters.is_node_ready():
+		_apply_settings()
+	else:
+		AppParameters.settings_loaded.connect(_apply_settings)
 
-
-func register_main(main):
-	self.main = main
-
-
-func set_spoils():
-	var b = AppParameters.are_spoils_ok()
-	$SpoilButton.button_pressed = b
-
-
-func set_sound():
-	var b = AppParameters.is_sound_ok()
-	$SoundButton.button_pressed = b
-	
+func _apply_settings() -> void:
+	$HBoxContainer/Spoil/SpoilButton.button_pressed = AppParameters.are_spoils_ok()
+	$HBoxContainer/Sound/SoundButton.button_pressed = AppParameters.is_sound_ok()
 
 func _on_spoil_button_toggled(button_pressed):
-	self.main.change_spoils(button_pressed)
+	AppParameters.set_spoils(button_pressed)
+
+func _on_sound_button_toggled(button_pressed):
+	AppParameters.set_sound(button_pressed)
+
+
+#
+#    TODO
+#
+
+var main = null
+
+var fdcn_tex = load("res://images/fdcn_icon.png")
+var cdsi_tex = load("res://images/cdsi_logo.png")
 
 
 func set_billy():
@@ -124,12 +137,3 @@ func _switch_to_prudent():
 func _switch_to_debrouillard():
 	print('debrouillard')
 	self.main._switch_to_debrouillard()
-
-
-func _on_button_options():
-	print('SHOW OPTIONS')
-	self.main._on_option_btn_pressed()
-
-
-func _on_sound_button_toggled(button_pressed):
-	self.main.change_sound(button_pressed)
