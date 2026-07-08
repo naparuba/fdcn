@@ -1,0 +1,5 @@
+[
+  {"action": "launch_new_billy"},
+  {"action": "wait_frames", "n": 10},
+  {"action": "screenshot", "name": "E1_nouvelle_partie_chapitre_1"}
+]

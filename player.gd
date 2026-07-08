@@ -275,6 +275,14 @@ func do_load():
 
 func insert_all_objects():
 	print('Insert all objects')
+	if !self._main:
+		# When there is a main UI, the previous batch is still owned by
+		# $Options/Equipement/ItemsCont/Items and gets freed right below by
+		# display_all_objects() -> Utils.delete_children(). But without a
+		# main (tests), nobody will ever free them, and Node isn't
+		# refcounted in Godot 3.x, so they would leak forever.
+		for old_item in self.all_items:
+			old_item.free()
 	self.all_items = []  # Always reset the list
 	var all_objects = BookData.get_all_objects()
 	for obj_name in all_objects.keys():
@@ -286,6 +294,8 @@ func insert_all_objects():
 			# Also let the Player know it does exists
 			#print('KNOWN ITEM: %s' % item)
 			self.add_in_all_items(item)
+		else:
+			item.free()  # never kept anywhere else, free it right away
 	if self._main:  # not in tests
 		self._main.display_all_objects()
 
@@ -456,14 +466,17 @@ func _reset_our_stats():
 	
 func _fully_reset_our_stats():
 	self._reset_our_stats()
-	
+
 	# And chapters ones
+	self.end_chapters = 0
 	self.adr_chapters = 0
 	self.hab_chapters = 0
 	self.chamax_chapters = 0
 	self.deg_chapters = 0
 	self.arm_chapters = 0
 	self.crit_chapters = 0
+	self.pv_max_bonus = 0
+	self.nb_infos = 0
 
 
 func get_end():

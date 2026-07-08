@@ -1,0 +1,21 @@
+[
+  {"action": "launch_new_billy"},
+  {"action": "wait_frames", "n": 5},
+  {"action": "show_options"},
+  {"action": "add_item", "name": "EPEE"},
+  {"action": "add_item", "name": "MORGENSTERN"},
+  {"action": "add_item", "name": "KIT DE SOIN"},
+  {"action": "validate_options"},
+  {"action": "go_to_node", "id": 1},
+  {"action": "screenshot", "name": "E6_livre_fdcn"},
+  {"action": "change_book", "book_number": 2},
+  {"action": "show_options"},
+  {"action": "add_item", "name": "SABRE"},
+  {"action": "add_item", "name": "LANCE"},
+  {"action": "add_item", "name": "SEAU"},
+  {"action": "validate_options"},
+  {"action": "go_to_node", "id": 1},
+  {"action": "screenshot", "name": "E6_livre_cdsi"},
+  {"action": "change_book", "book_number": 1},
+  {"action": "screenshot", "name": "E6_retour_livre_fdcn"}
+]

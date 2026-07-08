@@ -1,0 +1,10 @@
+[
+  {"action": "launch_new_billy"},
+  {"action": "wait_frames", "n": 5},
+  {"action": "focus_page", "page": "success"},
+  {"action": "wait_frames", "n": 10},
+  {"action": "screenshot", "name": "E5_ecran_succes"},
+  {"action": "focus_page", "page": "lore"},
+  {"action": "wait_frames", "n": 10},
+  {"action": "screenshot", "name": "E5_ecran_lore"}
+]

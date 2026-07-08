@@ -1,17 +1,21 @@
 extends "res://addons/gut/test.gd"
 func before_each():
 	gut.p("ran setup", 2)
-	Player.insert_all_objects()
 	Player.launch_new_billy()
 	AppParameters.set_billy_type('pegu')
 	Player._recompute_stats()
-	
+
 
 func after_each():
 	gut.p("ran teardown", 2)
 
 func before_all():
 	gut.p("ran run setup", 2)
+	# Le catalogue d'objets ne change pas entre les tests de ce fichier
+	# (meme livre tout du long) : le construire une seule fois evite de
+	# creer/laisser fuiter des dizaines de noeuds Item a chaque test (voir
+	# player.gd::insert_all_objects, Node n'est pas a compteur de references).
+	Player.insert_all_objects()
 
 func after_all():
 	gut.p("ran run teardown", 2)
