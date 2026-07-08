@@ -275,12 +275,15 @@ func do_load():
 
 func insert_all_objects():
 	print('Insert all objects')
-	if !self._main:
-		# When there is a main UI, the previous batch is still owned by
-		# $Options/Equipement/ItemsCont/Items and gets freed right below by
-		# display_all_objects() -> Utils.delete_children(). But without a
-		# main (tests), nobody will ever free them, and Node isn't
-		# refcounted in Godot 3.x, so they would leak forever.
+	if !is_instance_valid(self._main):
+		# When there is a (living) main UI, the previous batch is still
+		# owned by $Options/Equipement/ItemsCont/Items and gets freed right
+		# below by display_all_objects() -> Utils.delete_children(). But
+		# without one (tests, or a main that was freed since it registered
+		# itself), nobody will ever free them, and Node isn't refcounted in
+		# Godot 3.x, so they would leak forever. NOTE: a freed Node
+		# reference stays "truthy" (`!self._main` alone would miss this),
+		# only is_instance_valid() correctly detects it.
 		for old_item in self.all_items:
 			old_item.free()
 	self.all_items = []  # Always reset the list
@@ -296,7 +299,7 @@ func insert_all_objects():
 			self.add_in_all_items(item)
 		else:
 			item.free()  # never kept anywhere else, free it right away
-	if self._main:  # not in tests
+	if is_instance_valid(self._main):  # not in tests
 		self._main.display_all_objects()
 
 
@@ -653,7 +656,7 @@ func add_item_from_options(item_name):
 		self.save_possessed_items()
 		self._recompute_matched_conditions()
 		self._recompute_stats()
-		if self._main:  # miss in test
+		if is_instance_valid(self._main):  # miss in test (or freed by a previous one)
 			self._main.refresh()  # we need to update all items and the billy
 		
 
@@ -682,7 +685,7 @@ func remove_item_from_options(item_name):
 		self.save_possessed_items()
 		self._recompute_matched_conditions()
 		self._recompute_stats()
-		if self._main:  # miss in test
+		if is_instance_valid(self._main):  # miss in test (or freed by a previous one)
 			self._main.refresh()  # we need to update all items and the billy
 
 
@@ -769,7 +772,7 @@ func _switch_to_billy(billy_type):
 	if current_billy == billy_type:  # no need to warn
 		return
 	AppParameters.set_billy_type(billy_type)
-	if self._main:  # miss in test
+	if is_instance_valid(self._main):  # miss in test (or freed by a previous one)
 		self._main.billy_type_is_changed()
 	
 

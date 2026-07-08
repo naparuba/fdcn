@@ -81,6 +81,53 @@ func test_full_do_load_migrates_all_four_old_files_at_once():
 		assert_false(f.file_exists(old_pth), "ancien fichier encore présent: %s" % old_pth)
 
 
+func test_full_do_load_combines_migration_and_guess_after_migration():
+	# Scenario reel encore plus ancien que le precedent : un joueur qui
+	# avait l'app AVANT MEME le suivi des objets (aucun fichier
+	# possessed_item, ni ancien ni nouveau format). do_load() doit a la
+	# fois migrer les 3 autres fichiers ET declencher
+	# guess_after_migration() pour reconstituer un inventaire plausible --
+	# les deux mecanismes s'enchainent dans le MEME appel public.
+	_delete_if_exists(Player.OLD_ALL_TIMES_ALREADY_VISITED_FILE)
+	_delete_if_exists(Player.OLD_CURRENT_NODE_ID_FILE)
+	_delete_if_exists(Player.OLD_SESSION_VISITED_NODES_FILE)
+	_delete_if_exists(Player.OLD_POSSESSED_ITEM_FILE)
+	_delete_if_exists(Player._get_all_times_already_visited_file())
+	_delete_if_exists(Player._get_current_node_id_file())
+	_delete_if_exists(Player._get_session_visited_nodes_file())
+	_delete_if_exists(Player._get_possessed_items_file())
+
+	# noeud 112 du livre 1 : aquire "PALAIS DES PLAISIRS D'YTIA" (cf autres tests)
+	Player._save_var(Player.OLD_ALL_TIMES_ALREADY_VISITED_FILE, [1, 112])
+	Player._save_var(Player.OLD_CURRENT_NODE_ID_FILE, 112)
+	Player._save_var(Player.OLD_SESSION_VISITED_NODES_FILE, [1, 112])
+	# PAS de OLD_POSSESSED_ITEM_FILE : c'est le coeur du scenario
+
+	AppParameters.set_billy_type('guerrier')
+	Player.need_force_display_options = false  # etat propre avant le test
+
+	Player.do_load()
+
+	# Migration des 3 fichiers qui existaient
+	assert_eq(Player.current_node_id, 112)
+	assert_eq(Player.session_visited_nodes, [1, 112])
+	assert_true(112 in Player.visited_nodes_all_times)
+
+	# guess_after_migration() : rejoue l'aquire du noeud 112 ET devine le
+	# kit de depart du guerrier (livre 1)
+	assert_true(Player.have_item("PALAIS DES PLAISIRS D'YTIA"),
+		"l'objet acquis par le chapitre 112 doit etre rejoue")
+	assert_true(Player.have_item('EPEE'))
+	assert_true(Player.have_item('LANCE'))
+	assert_true(Player.have_item('MARMITE'))
+	assert_true(Player.need_force_display_options,
+		"le joueur doit etre invite a valider l'inventaire devine")
+
+	var f = File.new()
+	assert_true(f.file_exists(Player._get_possessed_items_file()),
+		"le nouveau fichier possessed_item doit avoir ete cree par cette premiere sauvegarde")
+
+
 func test_migration_twice_in_a_row_is_idempotent():
 	_delete_if_exists(Player.OLD_CURRENT_NODE_ID_FILE)
 	_delete_if_exists(Player._get_current_node_id_file())

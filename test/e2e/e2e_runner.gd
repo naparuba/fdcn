@@ -20,12 +20,23 @@ extends Node
 #   validate_options  {}         valide l'ecran Options (equivalent bouton "Valider" -- rend
 #                                 $ItemPopups visible, comme un vrai joueur qui a choisi son equipement)
 #   focus_page    {page}         bascule vers "main"|"chapitres"|"success"|"lore"|"about"
+#   real_swipe    {from_x,to_x}  VRAI geste de swipe (InputEventMouseButton presse+relache,
+#                                 converti par Godot en InputEventScreenTouch via
+#                                 pointing/emulate_touch_from_mouse=true) -- traverse tout le
+#                                 vrai pipeline d'input, pas un appel direct a Swiper
 #   toggle_spoils {on}            equivalent du bouton "Spoils" du bandeau superieur
 #   toggle_sound  {on}            equivalent du bouton "Son" du bandeau superieur
 #   change_book   {book_number}  bascule FDCN (1) <-> CDSI (2)
 #   open_new_billy_popup    {}   ouvre le popup de confirmation reset
 #   accept_new_billy_popup  {}   simule le clic "Accepter" du popup reset
 #   screenshot    {name}         capture d'ecran -> <out_dir>/<name>.png
+#   assert_current_node_id {id}  echoue (quit non-zero) si Player.current_node_id != id
+#   assert_has_item {name,has}   echoue si Player.have_item(name) != has (has par defaut true)
+#
+# assert_* est volontairement minimal (pas un framework d'assertions complet) :
+# le but est de verrouiller un scenario multi-PROCESSUS (ex: persistance reelle
+# a travers un vrai redemarrage) avec un resultat pass/fail deterministe, en
+# plus (pas a la place) des captures d'ecran pour la preuve visuelle.
 
 var _main = null
 var _out_dir = "res://test/e2e/screenshots/actual"
@@ -116,6 +127,15 @@ func _run_next_step():
 	elif action == "focus_page":
 		Swiper.go_to_page(step["page"])  # "main" | "chapitres" | "success" | "lore" | "about"
 		_run_next_step()
+	elif action == "real_swipe":
+		# _wait_for_camera_to_settle() ne yield reellement QUE si necessaire
+		# (voir _take_screenshot()) : position fiable seulement une fois la
+		# camera stabilisee, sinon le transform gui_input change a chaque frame.
+		var settle_wait = _wait_for_camera_to_settle()
+		if settle_wait is GDScriptFunctionState:
+			yield(settle_wait, "completed")
+		yield(_real_swipe(float(step["from_x"]), float(step["to_x"]), float(step.get("y", 500.0))), "completed")
+		_run_next_step()
 	elif action == "toggle_spoils":
 		_main.change_spoils(bool(step["on"]))
 		_run_next_step()
@@ -137,9 +157,55 @@ func _run_next_step():
 		# suivante avant que le PNG soit ecrit.
 		yield(_take_screenshot(step.get("name", "step_%s" % _step_index)), "completed")
 		_run_next_step()
+	elif action == "assert_current_node_id":
+		var expected_id = int(step["id"])
+		if Player.current_node_id != expected_id:
+			printerr("E2E ASSERT FAILED: current_node_id is %s, expected %s" % [Player.current_node_id, expected_id])
+			get_tree().quit(1)
+			return
+		print("E2E ASSERT OK: current_node_id == %s" % expected_id)
+		_run_next_step()
+	elif action == "assert_has_item":
+		var item_name = step["name"]
+		var expected_has = step.get("has", true)
+		var actual_has = Player.have_item(item_name)
+		if actual_has != expected_has:
+			printerr("E2E ASSERT FAILED: have_item('%s') is %s, expected %s" % [item_name, actual_has, expected_has])
+			get_tree().quit(1)
+			return
+		print("E2E ASSERT OK: have_item('%s') == %s" % [item_name, expected_has])
+		_run_next_step()
 	else:
 		printerr("E2E: unknown action '%s', skipping" % action)
 		_run_next_step()
+
+
+func _real_swipe(from_x, to_x, y):
+	# VRAI geste de swipe : de vrais InputEventMouseButton presse+relache
+	# injectes via Input.parse_input_event(), convertis par Godot lui-meme
+	# en InputEventScreenTouch (pointing/emulate_touch_from_mouse=true dans
+	# project.godot) puis routes par le vrai pipeline d'input jusqu'a
+	# main._on_main_background_gui_input() -> Swiper.compute_event(). Les
+	# positions DOIVENT rester dans l'ecran reel (0..558) : une position
+	# hors ecran (ex: > largeur fenetre) donne une position recue
+	# incoherente cote release, decouvert en construisant ce runner.
+	var press = InputEventMouseButton.new()
+	press.button_index = BUTTON_LEFT
+	press.position = Vector2(from_x, y)
+	press.global_position = Vector2(from_x, y)
+	press.pressed = true
+	Input.parse_input_event(press)
+	yield(get_tree(), "idle_frame")
+	yield(get_tree(), "idle_frame")
+
+	var release = InputEventMouseButton.new()
+	release.button_index = BUTTON_LEFT
+	release.position = Vector2(to_x, y)
+	release.global_position = Vector2(to_x, y)
+	release.pressed = false
+	Input.parse_input_event(release)
+	yield(get_tree(), "idle_frame")
+	yield(get_tree(), "idle_frame")
 
 
 func _wait_for_camera_to_settle():

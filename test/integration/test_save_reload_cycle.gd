@@ -44,6 +44,15 @@ func _reset_player_memory_to_pristine_state():
 
 
 func test_full_cycle_visit_acquire_save_reload_gives_identical_state():
+	# Un vrai joueur démarre TOUJOURS au chapitre 1 (jamais atteint via un
+	# go_to_node() explicite en jeu réel -- c'est le point d'entrée de
+	# main.tscn). player.gd::load_all_times_already_visited() le sait et
+	# force donc 1 dans visited_nodes_all_times à CHAQUE chargement, même
+	# si la session en cours ne l'a jamais visité explicitement (cf le
+	# commentaire "Seems that the chapter 1 is not stack at the beging of
+	# the play"). Sauter cette étape ici casserait artificiellement la
+	# comparaison avant/après reload sur visited_nodes_all_times.
+	Player.go_to_node(1)
 	Player.go_to_node(NODE_WITH_END_STAT)
 	Player.go_to_node(NODE_WITH_END_HAB_AND_ITEM)
 	Player.add_item_from_options('EPEE')
@@ -91,6 +100,48 @@ func test_reload_is_idempotent_when_called_twice_from_a_pristine_state():
 	Player.do_load()
 	assert_eq(Player.end_chapters, expected_end_chapters,
 		"un second reload depuis une table rase doit redonner exactement le meme total, pas le doubler")
+
+
+func _read_json_mirror(save_path):
+	var json_path = save_path.replace(".save", ".json")
+	var f = File.new()
+	f.open(json_path, File.READ)
+	var text = f.get_as_text()
+	f.close()
+	return _ints_from_json(parse_json(text))
+
+
+func _ints_from_json(value):
+	# JSON n'a pas de type entier distinct : parse_json() renvoie TOUJOURS
+	# des float (ex: 112.0) pour un nombre, y compris pour des id de noeud.
+	# GUT compare les tableaux via DiffTool, qui DESACTIVE explicitement la
+	# tolerance int/float que assert_eq applique normalement aux scalaires
+	# (cf diff_tool.gd::set_should_compare_int_to_float(false)) -- un simple
+	# assert_eq(tableau_json, tableau_reel) echoue donc a tort ("112.0 !=
+	# 112") si on ne reconvertit pas explicitement ici.
+	if typeof(value) == TYPE_REAL:
+		return int(value)
+	elif typeof(value) == TYPE_ARRAY:
+		var out = []
+		for v in value:
+			out.append(_ints_from_json(v))
+		return out
+	return value
+
+
+func test_json_mirror_files_match_the_real_save_content():
+	# player.gd::_save_var() ecrit CHAQUE sauvegarde en double : le .save
+	# binaire (le seul relu par le jeu) et un .json miroir (jamais relu
+	# nulle part dans le code -- pur confort de debug). Verrouille que ce
+	# miroir reste synchronise avec la vraie donnee, pas juste "un fichier
+	# existe".
+	Player.go_to_node(NODE_WITH_END_HAB_AND_ITEM)  # aquire un objet au passage
+	Player.add_item_from_options('EPEE')
+
+	assert_eq(_read_json_mirror(Player._get_current_node_id_file()), Player.current_node_id)
+	assert_eq(_read_json_mirror(Player._get_session_visited_nodes_file()), Player.session_visited_nodes)
+	assert_eq(_read_json_mirror(Player._get_all_times_already_visited_file()), Player.visited_nodes_all_times)
+	assert_eq(_read_json_mirror(Player._get_possessed_items_file()), Player.possessed_items)
 
 
 func test_new_billy_then_reload_does_not_resurrect_previous_billy_chapter_stats():

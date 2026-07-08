@@ -172,11 +172,20 @@ GUT permet d'instancier de vraies scènes (`add_child_autofree`), de mocker des 
 5. Simuler un redémarrage : nouvelle instance logique, `do_load()`
 6. **Assertion** : nœud courant, items possédés, toutes les stats (base/items/chapitres), type de Billy, historique — strictement identiques avant/après reload
 
+**Implémenté** — `test/integration/test_save_reload_cycle.gd` (4 tests, 21 assertions), écrit sur de vrais fichiers `user://` (toujours lancé avec `XDG_DATA_HOME` pointé vers un répertoire temporaire, jamais les vraies données d'un développeur). Deux pièges réels trouvés en l'écrivant, tous les deux de vrais comportements du code de prod plutôt que des artefacts de test :
+
+1. **`player.gd::load_all_times_already_visited()` force toujours le chapitre 1 dans `visited_nodes_all_times`** au chargement (`if !(1 in self.visited_nodes_all_times): self.visited_nodes_all_times.append(1)` — commentaire du code : "Seems that the chapter 1 is not stack at the beging of the play"), alors que le suivi en session via `go_to_node()` ne l'y ajoute que si le joueur passe explicitement par le nœud 1. Un scénario de test qui commence sa navigation directement par un autre nœud (sans jamais appeler `go_to_node(1)`, ce qu'un vrai joueur ne fait jamais puisque `main.tscn` démarre déjà dessus) casse artificiellement la comparaison avant/après reload. Fix côté test : toujours commencer le scénario par `Player.go_to_node(1)`, pour refléter fidèlement ce qu'un vrai joueur fait.
+2. **GUT désactive la tolérance int/float pour les comparaisons de tableaux** : `assert_eq` est tolérant entre `int` et `float` pour un scalaire, mais route les tableaux via `DiffTool`, qui appelle explicitement `set_should_compare_int_to_float(false)` (`addons/gut/diff_tool.gd:64`). Pertinent ici car `parse_json()` ne connaît pas le type entier et renvoie toujours des `float` (`112.0`) — comparer un tableau relu depuis le miroir `.json` à un tableau réel de `Player` (des `int`) échoue donc à tort (`112.0 != 112. Cannot compare Float/Real with Int`) sans une conversion explicite. Voir le test des miroirs JSON ci-dessous.
+
+**Implémenté** — `test/integration/test_save_reload_cycle.gd::test_json_mirror_files_match_the_real_save_content` : `player.gd::_save_var()` écrit chaque sauvegarde en double (le `.save` binaire, seul relu par le jeu, et un `.json` miroir jamais relu nulle part — confort de debug uniquement, confirmé par `grep`). Ce test verrouille que le miroir reste synchronisé avec la vraie donnée (nœud courant, historique de session, historique "tous les temps", objets possédés), pas juste qu'un fichier existe. Convertit explicitement les `float` issus de `parse_json()` en `int` avant comparaison (piège #2 ci-dessus).
+
 ### 4.2 Migration d'ancienne sauvegarde (P0)
 
 1. Poser manuellement d'anciens fichiers `.save` (ancien format, éventuellement sans suffixe de livre) dans le répertoire user
 2. Démarrer le chargement (`do_load`)
 3. Vérifier que l'état migré correspond à ce que l'ancien format représentait, que les anciens fichiers sont nettoyés, et que relancer le chargement une seconde fois ne change plus rien (idempotence)
+
+**Implémenté** — `test/integration/test_migration.gd` (7 tests, 30 assertions) : migration d'un seul fichier, des 4 fichiers d'un coup, idempotence (relancer un chargement déjà migré ne change rien), nettoyage ponctuel des fichiers orphelins livre 2. Inclut `test_full_do_load_combines_migration_and_guess_after_migration` : le scénario le plus ancien possible (un joueur qui avait l'app avant même le suivi des objets — aucun fichier `possessed_item`, ni ancien ni nouveau format) doit à la fois migrer les 3 autres fichiers **et** déclencher `guess_after_migration()` pour reconstituer un inventaire plausible (rejeu des acquisitions de chapitre déjà visités + kit de départ deviné selon le type de Billy) — les deux mécanismes s'enchaînent dans le même appel public `do_load()`.
 
 ### 4.3 Navigation UI bout-en-bout (P0/P1)
 
@@ -218,7 +227,41 @@ GUT permet d'instancier de vraies scènes (`add_child_autofree`), de mocker des 
 3. Son off → se répercute jusqu'à `Sounder.is_enabled() == false` ET empêche réellement une lecture (`Sounder.player.playing == false`), pas juste un flag isolé
 4. Les handlers `_on_spoil_button_toggled`/`_on_sound_button_toggled` (connectés aux vrais signaux des boutons) délèguent bien à `main.change_spoils`/`change_sound`
 
-Piège rencontré : instancier `main.tscn` complet (606 `ChapterChoice` + tout le catalogue d'objets) coûte cher — le faire dans `before_each()` (8 tests) faisait timeout au-delà de 30s. Déplacé en `before_all()`/`after_all()` (une seule instance pour tout le fichier), le reste (spoils/son) réinitialisé en `before_each()`/`after_each()`.
+Piège rencontré : instancier `main.tscn` complet (606 `ChapterChoice` + tout le catalogue d'objets) coûte cher — le faire dans `before_each()` (8 tests) faisait timeout au-delà de 30s. Déplacé en `before_all()`/`after_all()` (une seule instance pour tout le fichier), le reste (spoils/son) réinitialisé en `before_each()`/`after_each()`. Ce pattern (`before_all`/`after_all` + un seul `main.tscn` par fichier) est repris pour tous les tests §4.9-4.13 ci-dessous.
+
+### 4.9 Panneau de combat (P1)
+
+**Implémenté** — `test/integration/test_combat.gd` : panneau masqué hors combat, stats ennemi (nom/PV/habileté/armure/dégât) affichées correctement, bonus Pyro affiché seulement s'il est non nul, stats joueur réelles (`Player.get_*()`) reflétées dans le panneau, lancer de dé (`_on_dice_pressed`) produit toujours une texture valide sur 10 lancers successifs (couvre plusieurs faces sans dépendre d'un résultat précis).
+
+### 4.10 Onglets de l'écran Options : Stats et Sélection de livre (P1)
+
+**Implémenté** — `test/integration/test_options_tabs.gd` : un seul onglet visible à la fois (Équipement/Stats/Sélection livre), les valeurs de l'onglet Stats (PV, END, HAB, ADR, CHA/CHAMAX, CRIT, DEG, ARM + détails base/item/chapitre) correspondent exactement aux getters réels de `Player` et se mettent à jour après un changement (ex. ajout d'objet) suivi de `refresh()`, la bascule FDCN↔CDSI inverse bien le paramètre `grayscale` des deux sprites de sélection de livre.
+
+### 4.11 Déclenchements audio pilotés par `main.gd` (P1)
+
+**Implémenté** — `test/integration/test_audio_triggers.gd` : identifie le son réellement chargé via `Sounder.player.stream.resource_path` (une ressource chargée par `load()` conserve son chemin d'origine). Vérifie l'intro correcte par livre (`intro-fdcn.mp3` / `intro-cdsi.mp3`), les 4 sons de chapitre spéciaux du livre 1 (27/193/216/338), qu'un chapitre non spécial ne change pas le son courant, et que le livre 2/CDSI n'a effectivement aucun chapitre spécial configuré (dict vide côté `main.gd`).
+
+### 4.12 Raccourci de saut par centaine (P1)
+
+**Implémenté** — `test/integration/test_chapter_list_jump.gd`. Piège rencontré : `ChapterChoice.rect_position.y` reste à `0` pour tous les nœuds tant que le `VBoxContainer` de la liste "Tous les chapitres" n'a pas eu au moins une frame pour calculer son layout — un `before_all()` qui `yield`e quelques `idle_frame` après l'instanciation de `main.tscn` corrige ça (et confirme que `before_all()` peut tout à fait être une coroutine sous GUT).
+
+### 4.13 Déclenchement du popup succès (sans fin associée) (P1)
+
+**Implémenté** — `test/integration/test_success_popup_trigger.gd`, nœud 26 du livre 1 (succès "POLIR-LANCE" sans fin, pour ne pas mélanger avec le piège de timing §5.3 des fins qui sont aussi des succès). Découverte en écrivant ce test : le déclenchement (`_check_new_success` dans `main.gd`) dépend de `Player.visited_nodes_all_times` (jamais remis à zéro), **pas** de `session_visited_nodes` (remis à zéro par `launch_new_billy`) — un nouveau Billy qui repasse par un chapitre succès déjà vu par un Billy précédent **ne revoit pas** le popup. Comportement voulu (un succès débloqué une fois reste débloqué), maintenant verrouillé explicitement plutôt que supposé.
+
+### 4.14 Câblage des liens externes (P2 — limite assumée)
+
+**Implémenté**, avec une limite volontaire — `test/integration/test_external_links_wiring.gd` vérifie que chacun des 4 boutons (bug report, twitter auteur, wiki lore, twitter illustratrice) est bien connecté (`is_connected`) au bon handler sur `main`, et que le texte source de `main.gd` contient bien les URLs attendues (détection si une URL change sans mise à jour de la doc). **N'appelle jamais réellement `OS.shell_open`** : ces 4 boutons ne sont donc testés que sur leur câblage, jamais sur l'ouverture effective d'un navigateur — invoquer `OS.shell_open` pendant un test automatisé ouvrirait une vraie fenêtre/ferait une vraie requête réseau selon l'environnement, ce qui n'est jamais souhaitable en CI.
+
+### 4.15 Vrai geste de swipe (pas un appel direct à Swiper) (P1)
+
+**Implémenté** — `test/integration/test_real_swipe_navigation.gd`. Contrairement à `test/unit/test_swipe.gd` (qui appelle `Swiper.compute_event()` directement), ce test injecte un VRAI `InputEventMouseButton` presse+relâche via `Input.parse_input_event()` et laisse le vrai pipeline d'input de Godot faire tout le travail : Viewport → `Control.gui_input` → `main._on_main_background_gui_input()` → `Swiper.compute_event()` → `_calculate_swipe()` → `swipe_to_left/right()`. Trois pièges non triviaux rencontrés :
+
+1. **Caméra en mouvement = position reçue incohérente** : `main.tscn::Camera` a `smoothing_enabled=true` (`smoothing_speed=20`). Tant que la caméra n'a pas fini de glisser vers sa cible, le transform utilisé pour convertir la position brute de l'event en position reçue par `gui_input` change à chaque frame — il faut attendre la stabilisation (même technique que le runner E2E) avant d'injecter l'input, sinon la position reçue est imprévisible.
+2. **`InputEventScreenTouch` brut en position de relâchement = position fausse** : injecter directement un touch (au lieu d'une souris) pour le relâchement donnait une position totalement incohérente (semble lié à l'émulation tactile interne de Godot qui ne gère pas bien un "release" tactile brut sans un "press" tactile brut correspondant côté émulation). Fix : utiliser de VRAIS `InputEventMouseButton` (le projet a `pointing/emulate_touch_from_mouse=true`), que Godot convertit alors lui-même en `InputEventScreenTouch` avec les bonnes coordonnées.
+3. **`Player.need_force_display_options` colle à `true` pour de bon** : une fois déclenché par `guess_after_migration()` (ex. un fichier de test précédent qui bascule sur un livre sans sauvegarde), ce flag n'est jamais remis à `false` — inoffensif en production (un seul boot par processus réel), mais fait rouvrir automatiquement l'écran Options (qui intercepte tous les clics/touches) dès le `_ready()` de n'importe quelle NOUVELLE instance de `main.tscn` créée plus tard dans le même processus de test. Trouvé en constatant que `test_options_tabs.gd` exécuté juste avant faisait échouer ce fichier alors qu'il passait seul. Fix côté test : forcer `Player.need_force_display_options = false` et `$Options.visible = false` dans `before_all()`.
+
+Un scénario E2E équivalent (`vrai_swipe.json`, E-11) apporte la preuve visuelle : capture avant (écran "Tous les chapitres") et après (écran "Chapitre 1") un vrai geste de swipe.
 
 ---
 
@@ -246,16 +289,39 @@ Contrairement à une approche qui se contenterait de l'état logique, on veut ic
 | E-6 | Changement de livre FDCN ↔ CDSI | Assets (icônes, couleurs, titres) bien basculés, pas de résidu visuel de l'autre livre |
 | E-7 | Popup de confirmation reset | Rendu correct, bouton Accept déclenche bien le reset (vérifié à la fois visuellement et sur l'état après) |
 | E-8 | Boutons Spoils / Son du bandeau supérieur | Bouton visuellement ON/OFF, et effet réel : sans spoils, les tags Combat/Fin/Succès/Secret et les labels de chapitre disparaissent de toute la liste "Tous les chapitres" (pas juste sur un secret isolé) |
+| E-9 | Panneau de combat | Stats ennemi/joueur, bonus Pyro, dé, texte "dev en cours" — rendu complet du panneau |
+| E-10 | Popup succès seul (sans fin) | Le popup "succès débloqué" s'affiche correctement pour un chapitre qui n'est pas aussi une fin |
+| E-11 | Vrai geste de swipe (pas un appel direct) | Un vrai `InputEventMouseButton` presse+relâche (converti en touch par Godot) fait bien passer l'écran "Tous les chapitres" à "Chapitre 1", en traversant tout le vrai pipeline d'input |
+| E-12 | Persistance réelle à travers un vrai redémarrage de processus | Deux **processus Godot séparés** (pas une simulation en mémoire dans le même process) partageant le même `XDG_DATA_HOME` temporaire : le 1er joue une partie (nouveau Billy, choix d'équipement, acquisition d'un objet de chapitre) et sauvegarde ; le 2nd démarre à froid (pas de `launch_new_billy`) et doit retrouver exactement le même chapitre courant et le même inventaire, purement via le vrai chemin de démarrage (`main.gd::_ready() → Player.do_load()`) |
 
 ### 5.3 État d'implémentation
 
 Infrastructure posée et vérifiée avec de vraies captures (voir `test/e2e/`) :
-- `test/e2e/e2e_runner.tscn` + `.gd` : instancie le vrai `main.tscn`, joue un scénario JSON, capture des PNG réels via `get_viewport().get_texture()`. Actions disponibles : `wait_frames`, `go_to_node`, `add_item`/`remove_item`, `launch_new_billy`, `show_options`/`validate_options`, `focus_page`, `change_book`, `open_new_billy_popup`/`accept_new_billy_popup`, `screenshot`. Avant chaque capture, le runner attend explicitement (au lieu de deviner un nombre de frames fixe) :
+- `test/e2e/e2e_runner.tscn` + `.gd` : instancie le vrai `main.tscn`, joue un scénario JSON, capture des PNG réels via `get_viewport().get_texture()`. Actions disponibles : `wait_frames`, `go_to_node`, `add_item`/`remove_item`, `launch_new_billy`, `show_options`/`validate_options`, `focus_page`, `real_swipe`, `toggle_spoils`/`toggle_sound`, `change_book`, `open_new_billy_popup`/`accept_new_billy_popup`, `screenshot`, `assert_current_node_id`, `assert_has_item`. Avant chaque capture, le runner attend explicitement (au lieu de deviner un nombre de frames fixe) :
   - que la caméra (smoothing activé sur `main.tscn`, `smoothing_speed=20`) ait fini de glisser vers sa position cible — un `wait_frames` fixe s'est révélé insuffisant pour les grands déplacements (main → succès/lore/à propos), produisant des captures "en pleine transition" ;
   - que `$SuccessPopup` (déclenché par TOUT chapitre qui est à la fois une fin et un succès — c'est le cas de chacune des 11 bonnes fins du livre 1) ait atteint le plateau stable de son animation "show" (5s, fondu sur les 2 premières secondes) plutôt que de capturer en plein fondu.
-- `test/e2e/scenarios/` (8 scénarios, E-1 à E-7) : chacun passe maintenant par l'écran Options + validation (comme un vrai joueur qui choisit son équipement) avant de naviguer, condition nécessaire pour que `$ItemPopups` (caché par défaut dans la scène) soit visible et que les popups d'acquisition d'objet s'affichent réellement. Le chapitre choisi pour la démo d'acquisition d'objet (106) est volontairement un chapitre qui N'EST PAS aussi un succès, pour ne pas être parasité par `$SuccessPopup` (dont l'attente de ~5s ferait sinon disparaître le popup d'objet, qui a son propre timer d'auto-fermeture à 3s).
-- `test/e2e/screenshots/golden/` : 12 images de référence, revues visuellement.
+- Les deux actions `assert_current_node_id`/`assert_has_item` lisent l'état réel de `Player` (peuplé par le vrai chemin `do_load()`) et font échouer le scénario (`quit(1)` + message clair) en cas d'écart — volontairement minimal (pas un framework d'assertions complet), mais permet à un scénario E2E multi-**processus** (E-12) d'avoir un résultat pass/fail déterministe plutôt que de reposer uniquement sur une revue visuelle de screenshot.
+- `test/e2e/scenarios/` (13 scénarios, E-1 à E-12, dont `combat.json`, `succes_seul.json`, `vrai_swipe.json` et les deux scénarios de persistance) : chacun passe par l'écran Options + validation (comme un vrai joueur qui choisit son équipement) avant de naviguer, condition nécessaire pour que `$ItemPopups` (caché par défaut dans la scène) soit visible et que les popups d'acquisition d'objet s'affichent réellement. Le chapitre choisi pour la démo d'acquisition d'objet (106) et pour le succès seul (26) sont volontairement des chapitres qui ne combinent PAS fin+succès, pour ne pas être parasités par `$SuccessPopup` (dont l'attente de ~5s ferait sinon disparaître le popup d'objet, qui a son propre timer d'auto-fermeture à 3s).
+- `test/e2e/screenshots/golden/` : 22 images de référence, revues visuellement.
 - `tests/e2e_compare_screenshots.py` : diff Pillow avec seuil de tolérance, `--update-golden` pour resynchroniser après revue.
+
+**E-12 — Persistance réelle à travers un vrai redémarrage** (`persistence_partie1_avant_redemarrage.json` + `persistence_partie2_apres_redemarrage.json`) : contrairement à `test/integration/test_save_reload_cycle.gd` (§4.1), qui simule un redémarrage en remettant l'état Godot à zéro **dans le même process**, ce scénario lance **deux vrais processus Godot séparés**, l'un après l'autre, partageant le même répertoire `XDG_DATA_HOME` temporaire (jamais les vraies données d'un développeur) :
+1. Processus 1 : `launch_new_billy` → choix d'équipement (EPEE) → validation → `go_to_node(106)` (acquiert "BROCHE DOREE") → assertions sur l'état → capture d'écran → le processus se termine normalement (`get_tree().quit(0)`)
+2. Processus 2, démarré séparément, **sans aucune action `launch_new_billy`** : juste `main.tscn` qui démarre à froid (donc `main.gd::_ready() → Player.do_load() → self.go_to_node(Player.get_current_node_id())`, le vrai chemin de démarrage de l'appli) → assertions : nœud courant toujours `106`, objets `EPEE` et `BROCHE DOREE` toujours possédés → capture d'écran
+
+Les deux captures diffèrent volontairement (la 1ère montre le panneau "Complété" avec la bannière d'acquisition de "BROCHE DOREE" juste obtenue, la 2nde le panneau normal "Position" d'un simple redémarrage sans acquisition en cours) — confirmé par revue visuelle, pas une régression. Commande (voir aussi §0) :
+```bash
+TMPUSERDATA=$(mktemp -d)  # UN SEUL répertoire, partagé par les deux processus
+xvfb-run --auto-servernum --server-args="-screen 0 1920x1080x24" \
+  env XDG_DATA_HOME="$TMPUSERDATA" "$GODOT_BIN" --path . test/e2e/e2e_runner.tscn -- \
+  --e2e-script=res://test/e2e/scenarios/persistence_partie1_avant_redemarrage.json \
+  --e2e-out=res://test/e2e/screenshots/actual
+xvfb-run --auto-servernum --server-args="-screen 0 1920x1080x24" \
+  env XDG_DATA_HOME="$TMPUSERDATA" "$GODOT_BIN" --path . test/e2e/e2e_runner.tscn -- \
+  --e2e-script=res://test/e2e/scenarios/persistence_partie2_apres_redemarrage.json \
+  --e2e-out=res://test/e2e/screenshots/actual
+rm -rf "$TMPUSERDATA"
+```
 
 **Toujours lancer via `xvfb-run`** (voir §0) pour ne jamais voler le focus sur le poste du développeur, avec un écran virtuel explicitement plus grand que la fenêtre du jeu (558×1046) :
 ```bash
@@ -293,11 +359,11 @@ Scénarios E-4 à E-7 (fins, succès/lore, changement de livre, popup de reset) 
 | Côté | Fichiers | Tests |
 |---|---|---|
 | Python (unitaire + intégration pipeline) | `condition_node.py`, `node.py`, `graph.py`, `endings.py` + intégration `fdcn.py` (livre 1 et 2, subprocess) | 88 |
-| GDScript unitaire | 22 fichiers dans `test/unit/` — couvre `player.gd`, `Parameters.gd`, `BookData.gd`, `Item.gd`, `ItemPopup.gd`, `ChapterChoice.gd`, `EndingChoice.gd`, `Success.gd`, `SuccessPopup.gd`, `LoreEntry.gd`, `bread.gd`, `top_menu.gd`, `swipe.gd` (Swiper), `Sounder.gd`, `utils.gd`, `GenericConfirmationPopup.gd`, `gauge_inside_circle.gd`, `going_to_line.gd`, `left_backer.gd` | 157 |
-| GDScript intégration | `test/integration/` : cycle save/reload complet, migration ancienne sauvegarde, boutons Spoils/Son via le vrai `main.tscn` | 17 |
-| E2E visuel | `test/e2e/` : 9 scénarios (E-1 à E-8), 16 golden images | — |
+| GDScript unitaire | 23 fichiers dans `test/unit/` — couvre `player.gd`, `Parameters.gd`, `BookData.gd`, `chapter_data.gd`, `Item.gd`, `ItemPopup.gd`, `ChapterChoice.gd`, `EndingChoice.gd`, `Success.gd`, `SuccessPopup.gd`, `LoreEntry.gd`, `bread.gd`, `top_menu.gd`, `swipe.gd` (Swiper), `Sounder.gd`, `utils.gd`, `GenericConfirmationPopup.gd`, `gauge_inside_circle.gd`, `going_to_line.gd`, `left_backer.gd` | 171 |
+| GDScript intégration | `test/integration/` (10 fichiers) : cycle save/reload complet (+ miroirs `.json`), migration ancienne sauvegarde (dont le scénario combiné migration+`guess_after_migration`), boutons Spoils/Son, panneau de combat + dé, onglets Options (Stats/Sélection livre), déclenchements audio (intro par livre, sons de chapitre spéciaux), raccourci de saut par centaine, déclenchement du popup succès seul, câblage des liens externes, **vrai geste de swipe via de vrais événements input** — tout via le vrai `main.tscn` | 223 tests / 501 assertions (suite complète unit+intégration GDScript) |
+| E2E visuel | `test/e2e/` : 13 scénarios (E-1 à E-12, dont un scénario **multi-processus** pour la persistance réelle), 22 golden images | — |
 
-**Non couvert** : `main.gd` n'a pas de test unitaire dédié (orchestrateur épais, fortement couplé à Player/BookData/Swiper — mocker massivement ces singletons serait nécessaire), mais est maintenant exercé en intégration (boutons Spoils/Son, §4.8) et en E2E. Build Android réel. Timing d'animation frame par frame (sauf le plateau stable de `SuccessPopup`, explicitement attendu par le runner E2E).
+**Non couvert** : `main.gd` n'a pas de test unitaire dédié (orchestrateur épais, fortement couplé à Player/BookData/Swiper — mocker massivement ces singletons serait nécessaire), mais est maintenant exercé en intégration (8 fichiers dédiés, §4.8-4.13) et en E2E. Build Android réel. Timing d'animation frame par frame (sauf le plateau stable de `SuccessPopup`, explicitement attendu par le runner E2E). Liens externes (`OS.shell_open`) : câblage vérifié (bon handler connecté, bonne URL dans le source), mais l'appel réel n'est **jamais** invoqué en test (ouvrirait un vrai navigateur) — voir §4.13.
 
 ### Bugs trouvés en écrivant ces tests
 
@@ -309,8 +375,10 @@ Scénarios E-4 à E-7 (fins, succès/lore, changement de livre, popup de reset) 
 | 4 | `gauge_inside_circle.gd::set_parameters()` fait `self.color = ...`, propriété qui n'existe pas sur `Node2D` → erreur script à l'exécution | Faible (fonction jamais appelée ailleurs, code mort) | Signalé, non corrigé |
 | 5 | `EndingChoice.tscn` : le texte du ruban ("Bonne fin") est codé en dur dans la scène et n'est jamais mis à jour selon le type de fin — seule la couleur change. Une **mauvaise** fin affiche un ruban orange qui dit "Bonne fin" | Cosmétique mais trompeur pour le joueur, trouvé uniquement grâce aux captures E2E | Signalé, non corrigé |
 | 6 | `player.gd::insert_all_objects()` fuyait des nœuds `Item` (Node non comptés par référence en Godot 3.x) à chaque appel sans écran principal (cas des tests) | A rendu la suite de tests complète gourmande en RAM (~plusieurs Go) au point de menacer la machine hôte | **Corrigé** (+ réduction du nombre d'appels côté tests, `before_each` → `before_all` là où c'est possible) |
+| 7 | `player.gd` : plusieurs `if self._main:` (`insert_all_objects`, `add_item_from_chapter/options`, `_switch_to_billy`) traitent une référence `Node` **libérée** (`.free()`) comme toujours "truthy" — `!self._main` ne devient jamais vrai après un `.free()`, seul `is_instance_valid()` le détecte. Réapparu quand plusieurs tests d'intégration ont chacun instancié+libéré leur propre `main.tscn` dans le même process : `Player._main` restait une référence morte, contournant le fix #6 (pic mémoire remonté à ~3,5 Go) | Fuite mémoire, même classe que #6 mais via un chemin différent | **Corrigé** (`is_instance_valid(self._main)` partout) |
+| 8 | `player.gd::_assert_migrate_file()` fait un `directory.rename(old_path, new_path)` **sans jamais vérifier que `new_path` n'existe pas déjà** — si un ancien fichier (pré-migration multi-livres) et un nouveau fichier (déjà migré/déjà sauvegardé) coexistaient sur disque, la migration écraserait silencieusement la sauvegarde actuelle avec la donnée obsolète. Cas très improbable en usage réel (la migration ne se déclenche normalement qu'une seule fois, juste après une mise à jour, avant toute nouvelle sauvegarde), mais aucun garde-fou ne l'empêche | Perte de sauvegarde silencieuse dans un cas limite | Signalé, non corrigé (garde-fou simple : ne renommer que si `!f.file_exists(new_path)`, sinon supprimer l'ancien) |
 
-Pic mémoire mesuré après corrections pour la suite GDScript complète (166 tests) : **~227 Mo**.
+Pic mémoire mesuré (RSS réel du process Godot, pas juste `time -v`) après corrections, suite GDScript complète (221 tests, unit+intégration) : **~2,1 Go** — essentiellement le coût réel de `main.tscn` (grosse scène, ~75 load_steps) instancié 7 fois dans le même process (un par fichier d'intégration qui en a besoin), plus le chargement simultané des DEUX livres lors du test de changement de livre (`BookData.do_load_book()` ne libère jamais l'ancien livre, déjà le cas avant ce plan de test). Confirmé sûr sur une machine à 31 Go de RAM ; reste nettement inférieur à ce qui avait fait planter la machine avant le fix #6.
 
 ### Détail du fix #1/#2 (`fdcn.py`)
 

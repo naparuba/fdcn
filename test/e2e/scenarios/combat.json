@@ -1,0 +1,9 @@
+[
+  {"action": "launch_new_billy"},
+  {"action": "wait_frames", "n": 5},
+  {"action": "show_options"},
+  {"action": "add_item", "name": "EPEE"},
+  {"action": "validate_options"},
+  {"action": "go_to_node", "id": 14},
+  {"action": "screenshot", "name": "E9_combat"}
+]
