@@ -17,6 +17,10 @@ func test_load_external_texture_returns_a_texture_for_a_real_image():
 func test_load_external_texture_returns_null_for_a_missing_image():
 	var tex = Utils.load_external_texture('res://images/success/CECI_NEXISTE_PAS.png', null)
 	assert_null(tex)
+	# GUT 9.x fait echouer un test qui produit une erreur moteur non
+	# reconnue -- ici l'erreur "cannot load image" est le comportement
+	# attendu (chemin d'erreur volontairement teste), pas une regression.
+	assert_engine_error_count(1)
 
 
 func test_load_json_file_parses_a_real_file():

@@ -55,13 +55,13 @@ func test_five_top_menu_instances_are_registered():
 func test_toggling_spoils_from_one_button_syncs_all_five():
 	_main.change_spoils(false)
 	for top_menu in _main.top_menus:
-		assert_false(top_menu.get_node("SpoilButton").pressed,
+		assert_false(top_menu.get_node("SpoilButton").button_pressed,
 			"les 5 instances de top_menu doivent refleter le meme etat de spoils")
 	assert_false(AppParameters.are_spoils_ok())
 
 	_main.change_spoils(true)
 	for top_menu in _main.top_menus:
-		assert_true(top_menu.get_node("SpoilButton").pressed)
+		assert_true(top_menu.get_node("SpoilButton").button_pressed)
 
 
 func test_toggling_spoils_hides_a_secret_chapter_in_the_live_list():
@@ -91,14 +91,14 @@ func test_toggling_spoils_off_then_on_reveals_secret_again_once_marked_seen():
 func test_toggling_sound_from_one_button_syncs_all_five_and_stops_sounder():
 	_main.change_sound(false)
 	for top_menu in _main.top_menus:
-		assert_false(top_menu.get_node("SoundButton").pressed)
+		assert_false(top_menu.get_node("SoundButton").button_pressed)
 	assert_false(AppParameters.is_sound_ok())
 	assert_false(Sounder.is_enabled(),
 		"change_sound doit repercuter jusqu'a Sounder (via AppParameters._apply_parameters)")
 
 	_main.change_sound(true)
 	for top_menu in _main.top_menus:
-		assert_true(top_menu.get_node("SoundButton").pressed)
+		assert_true(top_menu.get_node("SoundButton").button_pressed)
 	assert_true(Sounder.is_enabled())
 
 

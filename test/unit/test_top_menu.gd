@@ -21,10 +21,10 @@ func test_set_spoils_reflects_current_parameter():
 	var tm = TopMenuScene.instantiate()
 	AppParameters.set_spoils(true)
 	tm.set_spoils()
-	assert_true(tm.get_node('SpoilButton').pressed)
+	assert_true(tm.get_node('SpoilButton').button_pressed)
 	AppParameters.set_spoils(false)
 	tm.set_spoils()
-	assert_false(tm.get_node('SpoilButton').pressed)
+	assert_false(tm.get_node('SpoilButton').button_pressed)
 	tm.free()
 
 
@@ -32,10 +32,10 @@ func test_set_sound_reflects_current_parameter():
 	var tm = TopMenuScene.instantiate()
 	AppParameters.set_sound(false)
 	tm.set_sound()
-	assert_false(tm.get_node('SoundButton').pressed)
+	assert_false(tm.get_node('SoundButton').button_pressed)
 	AppParameters.set_sound(true)
 	tm.set_sound()
-	assert_true(tm.get_node('SoundButton').pressed)
+	assert_true(tm.get_node('SoundButton').button_pressed)
 	tm.free()
 
 

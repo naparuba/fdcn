@@ -40,7 +40,7 @@ func test_exists_item_data():
 
 func test_get_item_data_returns_expected_stats():
 	var data = BookData.get_item_data('EPEE')
-	assert_eq_deep(data['stats'], {'hab': 4.0})
+	assert_eq_deep(data['stats'], {'hab': 4})
 
 
 func test_is_node_id_secret():
@@ -88,7 +88,7 @@ func test_match_chapter_conditions_or_matches_on_item_alone():
 
 func test_get_chapter_stats_unconditional_only():
 	var r = BookData.get_chapter_stats(128)  # {'end': 1}, pas de stats_cond
-	assert_eq_deep(r['stats'], {'end': 1.0})
+	assert_eq_deep(r['stats'], {'end': 1})
 	assert_eq(r['stats_conds'], [])
 
 
@@ -96,7 +96,7 @@ func test_get_chapter_stats_applies_only_the_matching_billy_condition():
 	AppParameters.set_billy_type('guerrier')
 	Player._recompute_matched_conditions()
 	var r = BookData.get_chapter_stats(126)
-	assert_eq_deep(r['stats_conds'], [{'hab': 1.0}])
+	assert_eq_deep(r['stats_conds'], [{'hab': 1}])
 
 
 func test_get_chapter_stats_no_condition_matches_for_pegu():

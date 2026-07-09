@@ -19,7 +19,7 @@ func _ready():
 	
 func set_parameters(color, radius, value_pct):
 	self.radius = radius
-	self.color = color
+	self.outside_color = color
 	self.angle_to = 360 * value_pct
 
 

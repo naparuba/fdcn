@@ -52,8 +52,7 @@ func test_clicking_the_button_asks_the_father_to_go_to_the_node():
 	var fake_father = FakeMain.new()
 	line.set_father(fake_father)
 	line._on_Button_pressed()
-	# node.get_id() vient du JSON compile -> c'est un float (128.0), pas un int
-	assert_has(fake_father.calls, ['go_to_node', 128.0])
+	assert_has(fake_father.calls, ['go_to_node', 128])
 	fake_father.free()
 
 

@@ -103,6 +103,14 @@ func set_book_number(book_number):
 	self.parameters['current_book'] = book_number
 	self._save_parameters()
 	self._apply_parameters()
+	# Un objet possede dans un livre peut ne pas exister dans l'autre (ex:
+	# changement FDCN<->CDSI) -- sans ce nettoyage, une stat recalculee sur
+	# un item introuvable dans le nouveau catalogue plante (Nil). Fait ici
+	# (pas dans _apply_parameters(), aussi appelee depuis _init() avant que
+	# l'autoload Player n'existe encore -- AppParameters est initialise
+	# avant Player dans l'ordre des autoloads).
+	Player._clean_not_existing_items()
+	Player._recompute_stats()
 	return true
  
 

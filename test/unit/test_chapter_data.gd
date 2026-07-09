@@ -16,7 +16,7 @@ func before_all():
 
 
 func test_get_id():
-	assert_eq(BookData.get_chapter_data(14).get_id(), 14.0)
+	assert_eq(BookData.get_chapter_data(14).get_id(), 14)
 
 
 func test_combat_simple_dict():
@@ -27,7 +27,7 @@ func test_combat_simple_dict():
 	assert_eq(node.get_combat_pv(), 8.0)
 	assert_eq(node.get_combat_armure(), 0.0)
 	assert_eq(node.get_combat_degat(), 0.0)
-	assert_eq(node.get_combat_pyro(), 4.0)
+	assert_eq(node.get_combat_pyro(), 4)
 
 
 func test_combat_as_list_returns_first_entry():
@@ -67,9 +67,11 @@ func test_success_field():
 
 
 func test_sons_list():
-	# les ids viennent du JSON compile -> ce sont des float (184.0), pas des int
+	# les ids viennent du JSON compile, reconvertis en int par
+	# Utils.load_json_file()/ints_from_json() (JSON n'a pas de type entier
+	# distinct, donc tout nombre y arrive en float sans cette conversion).
 	var sons = BookData.get_chapter_data(10).get_sons()
-	assert_eq_deep(sons, [184.0, 461.0, 530.0])
+	assert_eq_deep(sons, [184, 461, 530])
 
 
 func test_jump_conditions_and_txts():
@@ -79,7 +81,7 @@ func test_jump_conditions_and_txts():
 
 
 func test_stats_and_stats_cond():
-	assert_eq_deep(BookData.get_chapter_data(128).get_stats(), {'end': 1.0})
+	assert_eq_deep(BookData.get_chapter_data(128).get_stats(), {'end': 1})
 	assert_eq(BookData.get_chapter_data(128).get_stats_cond(), [])
 	assert_eq(len(BookData.get_chapter_data(126).get_stats_cond()), 4)
 

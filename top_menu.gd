@@ -30,7 +30,8 @@ func set_sound():
 	
 
 func _on_spoil_button_toggled(button_pressed):
-	self.main.change_spoils(button_pressed)
+	if is_instance_valid(self.main):  # absent dans les tests unitaires qui instancient top_menu.tscn seul
+		self.main.change_spoils(button_pressed)
 
 
 func set_billy():
@@ -132,4 +133,5 @@ func _on_button_options():
 
 
 func _on_sound_button_toggled(button_pressed):
-	self.main.change_sound(button_pressed)
+	if is_instance_valid(self.main):  # absent dans les tests unitaires qui instancient top_menu.tscn seul
+		self.main.change_sound(button_pressed)

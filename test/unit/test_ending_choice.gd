@@ -51,4 +51,8 @@ func test_set_ending_id_with_unknown_id_does_not_crash():
 	var ec = EndingChoiceScene.instantiate()
 	ec.set_ending_id('CECI_NEXISTE_PAS_DU_TOUT')
 	assert_null(ec.get_node('Icone').texture)
+	# GUT 9.x fait echouer un test qui produit une erreur moteur non
+	# reconnue -- ici l'erreur "cannot load image" est le comportement
+	# attendu (chemin d'erreur volontairement teste), pas une regression.
+	assert_engine_error_count(1)
 	ec.free()
