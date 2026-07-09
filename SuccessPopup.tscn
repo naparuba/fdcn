@@ -96,7 +96,7 @@ tracks/3/keys = {
 "times": PackedFloat32Array(4.9),
 "transitions": PackedFloat32Array(1),
 "values": [{
-"args": ["\"hide\"", -1, 1.0, false],
+"args": ["hide", -1, 1.0, false],
 "method": &"play"
 }]
 }
@@ -140,11 +140,13 @@ bg_color = Color(0, 0, 0, 1)
 bg_color = Color(1, 1, 1, 1)
 border_width_bottom = 2
 
-[node name="SuccessPopup" type="Popup"]
+[node name="SuccessPopup" type="Control"]
+visible = false
 offset_left = 2.0
 offset_top = 2.0
 offset_right = 557.0
 offset_bottom = 1047.0
+mouse_filter = 1
 script = ExtResource("2")
 __meta__ = {
 "_edit_use_anchors_": false
