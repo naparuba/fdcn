@@ -19,7 +19,9 @@ func load_json_file(path):
 	var file = File.new()
 	file.open(path, file.READ)
 	var text = file.get_as_text()
-	var result_json = JSON.parse(text)
+	var test_json_conv = JSON.new()
+	test_json_conv.parse(text)
+	var result_json = test_json_conv.get_data()
 	if result_json.error != OK:
 		print("[load_json_file] Error loading JSON file '" + str(path) + "'.")
 		print("\tError: ", result_json.error)

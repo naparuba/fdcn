@@ -12,7 +12,7 @@ func before_all():
 	Player.launch_new_billy()
 
 	var main_scene = load("res://main.tscn")
-	_main = main_scene.instance()
+	_main = main_scene.instantiate()
 	add_child(_main)
 
 
@@ -80,11 +80,11 @@ func test_switch_to_cdsi_grayscales_fdcn_sprite_and_colors_cdsi():
 	_main._switch_to_book_cdsi()
 	var fdcn_sprite = _main.get_node("Options/BookSelect/BoolSelectFcdn/sprite")
 	var cdsi_sprite = _main.get_node("Options/BookSelect/BoolSelectCdsi/sprite")
-	assert_true(fdcn_sprite.material.get_shader_param("grayscale"))
-	assert_false(cdsi_sprite.material.get_shader_param("grayscale"))
+	assert_true(fdcn_sprite.material.get_shader_parameter("grayscale"))
+	assert_false(cdsi_sprite.material.get_shader_parameter("grayscale"))
 	assert_eq(AppParameters.get_book_number(), 2)
 
 	_main._switch_to_book_fcdn()
-	assert_false(fdcn_sprite.material.get_shader_param("grayscale"))
-	assert_true(cdsi_sprite.material.get_shader_param("grayscale"))
+	assert_false(fdcn_sprite.material.get_shader_parameter("grayscale"))
+	assert_true(cdsi_sprite.material.get_shader_parameter("grayscale"))
 	assert_eq(AppParameters.get_book_number(), 1)

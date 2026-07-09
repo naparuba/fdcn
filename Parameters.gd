@@ -38,7 +38,7 @@ func _save_parameters():
 	f.close()
 	var json_pth = parameters_file.replace(".save", ".json")
 	f.open(json_pth, File.WRITE)
-	f.store_string(to_json(parameters))
+	f.store_string(JSON.new().stringify(parameters))
 	f.close()
 
 

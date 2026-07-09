@@ -19,7 +19,7 @@ func before_all():
 	Player.launch_new_billy()
 
 	var main_scene = load("res://main.tscn")
-	_main = main_scene.instance()
+	_main = main_scene.instantiate()
 	add_child(_main)
 
 

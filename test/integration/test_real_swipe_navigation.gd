@@ -49,10 +49,10 @@ func before_all():
 	Player.need_force_display_options = false
 
 	var main_scene = load("res://main.tscn")
-	_main = main_scene.instance()
+	_main = main_scene.instantiate()
 	add_child(_main)
 	for i in range(5):
-		yield(get_tree(), "idle_frame")
+		await get_tree().idle_frame
 	_main.get_node("Options").visible = false
 
 
@@ -65,13 +65,13 @@ func _wait_camera_settled():
 	# retourne TOUJOURS un GDScriptFunctionState, meme si la camera est
 	# deja stabilisee -- sinon yield(_wait_camera_settled(), "completed")
 	# plante au call site quand le retour est synchrone.
-	yield(get_tree(), "idle_frame")
+	await get_tree().idle_frame
 	var cam = _main.camera
 	for i in range(300):  # garde-fou ~5s a 60fps
 		var center = cam.get_camera_screen_center()
 		if abs(center.x - cam.position.x) < 0.5 and abs(center.y - cam.position.y) < 0.5:
 			return
-		yield(get_tree(), "idle_frame")
+		await get_tree().idle_frame
 
 
 func _real_swipe(from_x, to_x, y=500.0):
@@ -79,31 +79,31 @@ func _real_swipe(from_x, to_x, y=500.0):
 	# ecran, DOIVENT rester dans [0, VIEWPORT_WIDTH] -- une position hors
 	# ecran reelle n'a pas de sens et produit un comportement incoherent).
 	var press = InputEventMouseButton.new()
-	press.button_index = BUTTON_LEFT
+	press.button_index = MOUSE_BUTTON_LEFT
 	press.position = Vector2(from_x, y)
 	press.global_position = Vector2(from_x, y)
-	press.pressed = true
+	press.button_pressed = true
 	Input.parse_input_event(press)
-	yield(get_tree(), "idle_frame")
-	yield(get_tree(), "idle_frame")
+	await get_tree().idle_frame
+	await get_tree().idle_frame
 
 	var release = InputEventMouseButton.new()
-	release.button_index = BUTTON_LEFT
+	release.button_index = MOUSE_BUTTON_LEFT
 	release.position = Vector2(to_x, y)
 	release.global_position = Vector2(to_x, y)
-	release.pressed = false
+	release.button_pressed = false
 	Input.parse_input_event(release)
-	yield(get_tree(), "idle_frame")
-	yield(get_tree(), "idle_frame")
+	await get_tree().idle_frame
+	await get_tree().idle_frame
 
 
 func test_swiping_finger_right_goes_from_chapitres_back_to_main():
 	Swiper.focus_to_chapitres()
-	yield(_wait_camera_settled(), "completed")
+	await _wait_camera_settled().completed
 	assert_eq(Swiper.get_current_page(), 'chapitres')
 
-	yield(_real_swipe(50.0, 50.0 + MIN_DRAG_DELTA), "completed")
-	yield(_wait_camera_settled(), "completed")
+	await _real_swipe(50.0, 50.0 + MIN_DRAG_DELTA).completed
+	await _wait_camera_settled().completed
 
 	assert_eq(Swiper.get_current_page(), 'main',
 		"un vrai geste de swipe (doigt vers la droite) doit ramener de chapitres a main")
@@ -111,11 +111,11 @@ func test_swiping_finger_right_goes_from_chapitres_back_to_main():
 
 func test_swiping_finger_left_goes_from_main_to_chapitres():
 	Swiper.focus_to_main()
-	yield(_wait_camera_settled(), "completed")
+	await _wait_camera_settled().completed
 	assert_eq(Swiper.get_current_page(), 'main')
 
-	yield(_real_swipe(VIEWPORT_WIDTH - 50.0, VIEWPORT_WIDTH - 50.0 - MIN_DRAG_DELTA), "completed")
-	yield(_wait_camera_settled(), "completed")
+	await _real_swipe(VIEWPORT_WIDTH - 50.0, VIEWPORT_WIDTH - 50.0 - MIN_DRAG_DELTA).completed
+	await _wait_camera_settled().completed
 
 	assert_eq(Swiper.get_current_page(), 'chapitres',
 		"un vrai geste de swipe (doigt vers la gauche) doit avancer de main a chapitres")
@@ -123,10 +123,10 @@ func test_swiping_finger_left_goes_from_main_to_chapitres():
 
 func test_a_short_drag_below_the_threshold_does_not_change_page():
 	Swiper.focus_to_chapitres()
-	yield(_wait_camera_settled(), "completed")
+	await _wait_camera_settled().completed
 
-	yield(_real_swipe(50.0, 100.0), "completed")  # delta=50 < minimum_drag=100
-	yield(_wait_camera_settled(), "completed")
+	await _real_swipe(50.0, 100.0).completed  # delta=50 < minimum_drag=100
+	await _wait_camera_settled().completed
 
 	assert_eq(Swiper.get_current_page(), 'chapitres',
 		"un glissement trop court ne doit pas declencher de changement de page")
@@ -134,11 +134,11 @@ func test_a_short_drag_below_the_threshold_does_not_change_page():
 
 func test_real_swipe_actually_moves_the_camera():
 	Swiper.focus_to_main()
-	yield(_wait_camera_settled(), "completed")
+	await _wait_camera_settled().completed
 	var camera_before = _main.camera.position.x
 
-	yield(_real_swipe(VIEWPORT_WIDTH - 50.0, VIEWPORT_WIDTH - 50.0 - MIN_DRAG_DELTA), "completed")
-	yield(_wait_camera_settled(), "completed")
+	await _real_swipe(VIEWPORT_WIDTH - 50.0, VIEWPORT_WIDTH - 50.0 - MIN_DRAG_DELTA).completed
+	await _wait_camera_settled().completed
 
 	assert_ne(_main.camera.position.x, camera_before,
 		"le swipe doit reellement deplacer la camera, pas juste changer une variable d'etat")

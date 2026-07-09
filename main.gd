@@ -4,17 +4,17 @@ extends Node2D
 var current_lines = []
 
 
-onready var Bread = preload('res://bread.tscn')
-onready var Choice = preload('res://ChapterChoice.tscn')
-onready var EndingChoice = preload('res://EndingChoice.tscn')
-onready var Success = preload('res://Success.tscn')
-onready var LoreEntry = preload('res://LoreEntry.tscn')
-onready var Item = preload('res://Item.tscn')
-onready var ItemPopup = preload('res://ItemPopup.tscn')
+@onready var Bread = preload('res://bread.tscn')
+@onready var Choice = preload('res://ChapterChoice.tscn')
+@onready var EndingChoice = preload('res://EndingChoice.tscn')
+@onready var Success = preload('res://Success.tscn')
+@onready var LoreEntry = preload('res://LoreEntry.tscn')
+@onready var Item = preload('res://Item.tscn')
+@onready var ItemPopup = preload('res://ItemPopup.tscn')
 
-onready var gauge = $Background/GlobalCompletion/Gauge
+@onready var gauge = $Background/GlobalCompletion/Gauge
 
-onready var camera = $Camera
+@onready var camera = $Camera3D
 
 var current_page = 'main'
 
@@ -212,8 +212,8 @@ func jump_to_chapter_100aine(centaine):
 		# We are not sure the choice is visible, so take the first one that match "at least
 		if chapter_id >= centaine:
 			print('found chapter: %s ' % chapter_id, '%s' % choice)
-			print('Jump to :%s' % choice.rect_position.y)
-			scroll_bar.scroll_vertical = choice.rect_position.y
+			print('Jump to :%s' % choice.position.y)
+			scroll_bar.scroll_vertical = choice.position.y
 			return
 
 
@@ -229,12 +229,12 @@ func insert_all_chapters():
 	Utils.delete_children(all_choices)
 	
 	var chapter_ids = BookData.get_all_nodes().keys()
-	chapter_ids.sort_custom(self, '_sort_all_chapters')
+	chapter_ids.sort_custom(Callable(self, '_sort_all_chapters'))
 	
 	for chapter_id in chapter_ids:
 		var chapter_data = BookData.get_node(chapter_id)
 		
-		var choice = Choice.instance()
+		var choice = Choice.instantiate()
 		choice.set_main(self)
 		choice.set_chapitre(chapter_data.get_id())
 		all_choices.add_child(choice)
@@ -252,7 +252,7 @@ func insert_all_success():
 	Utils.delete_children(all_success)
 	
 	for success in BookData.get_all_success():
-		var s = Success.instance()
+		var s = Success.instantiate()
 		s.set_main(self)
 		s.set_from_success_object(success)
 		all_success.add_child(s)
@@ -304,7 +304,7 @@ func insert_all_lore():
 	var lst = refs.get(book_number)
 	
 	for _def in lst:
-		var s = LoreEntry.instance()
+		var s = LoreEntry.instantiate()
 		s.type_entry = _def['type']
 		s.entry_name = _def['name']
 		s.titre = _def['title']
@@ -349,11 +349,11 @@ func _refresh_options():
 
 
 func __set_sprite_to_grey(sprite):
-	sprite.material.set_shader_param("grayscale", true)
+	sprite.material.set_shader_parameter("grayscale", true)
 	
 	
 func __set_sprite_to_not_grey(sprite):
-	sprite.material.set_shader_param("grayscale", false)
+	sprite.material.set_shader_parameter("grayscale", false)
 
 
 func _refresh_options_book_select_display():
@@ -463,7 +463,7 @@ func refresh():
 	var _nb_lasts = len(last_previous)
 	var _i = 0
 	for previous in last_previous:
-		var bread = Bread.instance()
+		var bread = Bread.instantiate()
 		bread.set_chap_number(previous)
 		bread.set_main(self)
 		if _i == 0:
@@ -494,7 +494,7 @@ func refresh():
 			continue
 		
 		var son = BookData.get_node(son_id)
-		var choice = Choice.instance()
+		var choice = Choice.instantiate()
 		choice.set_main(self)
 		choice.update_from_son_node(son)
 		# Display it
@@ -503,7 +503,7 @@ func refresh():
 				
 	# Maybe we are an ending, then stack a EndingChoice with data
 	if my_node.get_ending():
-		var choice = EndingChoice.instance()
+		var choice = EndingChoice.instantiate()
 		choice.set_main(self)
 		# Need an id for display:
 		# * is a success: take it
@@ -647,7 +647,7 @@ func _on_options_validate_button_pressed():
 	
 	
 func _create_popup_item(item_name):
-	var popup = ItemPopup.instance()
+	var popup = ItemPopup.instantiate()
 	var item_data = BookData.get_item_data(item_name)
 	popup.load_item_data(item_name, item_data)
 	return popup
@@ -673,13 +673,13 @@ func _on_dice_pressed():
 
 
 func __set_tab_not_selected(tab):
-	var _style = tab.get('custom_styles/panel')
+	var _style = tab.get('theme_override_styles/panel')
 	_style.set_bg_color(Color('999999'))  # set to dark blue
 	print('__set_tab_not_selected', tab)
 
 
 func __set_tab_selected(tab):
-	var _style = tab.get('custom_styles/panel')
+	var _style = tab.get('theme_override_styles/panel')
 	_style.set_bg_color(Color('e0e2e5'))  # set to light
 	print('__set_tab_selected', tab)
 
@@ -811,18 +811,18 @@ func _refresh_options_stats():
 func _switch_to_book_fcdn():
 	print('SWITCH TO FCDN BOOK')
 	var sprite1 = $Options/BookSelect/BoolSelectFcdn/sprite
-	sprite1.material.set_shader_param("grayscale", false)
+	sprite1.material.set_shader_parameter("grayscale", false)
 	var sprite2 = $Options/BookSelect/BoolSelectCdsi/sprite
-	sprite2.material.set_shader_param("grayscale", true)
+	sprite2.material.set_shader_parameter("grayscale", true)
 	self._change_book_number(1)
 
 
 func _switch_to_book_cdsi():
 	print('SWITCH TO CDSI BOOK ')
 	var sprite1 = $Options/BookSelect/BoolSelectFcdn/sprite
-	sprite1.material.set_shader_param("grayscale", true)
+	sprite1.material.set_shader_parameter("grayscale", true)
 	var sprite2 = $Options/BookSelect/BoolSelectCdsi/sprite
-	sprite2.material.set_shader_param("grayscale", false)
+	sprite2.material.set_shader_parameter("grayscale", false)
 	self._change_book_number(2)
 
 

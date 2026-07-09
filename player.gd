@@ -1,6 +1,6 @@
 extends Node
 
-onready var Item = preload('res://Item.tscn')
+@onready var Item = preload('res://Item.tscn')
 
 var _main = null
 var need_force_display_options = false   # if we did guess, show options to show it
@@ -84,13 +84,13 @@ func _save_var(pth, data):
 	f.close()
 	var json_pth = pth.replace(".save", ".json")
 	f.open(json_pth, File.WRITE)
-	f.store_string(to_json(data))
+	f.store_string(JSON.new().stringify(data))
 	f.close()
 
 
 # Be sure to migrate old files from before managing numerous books
 func _assert_migrate_file(old_path, new_path):
-	var directory = Directory.new()
+	var directory = DirAccess.new()
 	var f = File.new()
 	if !f.file_exists(old_path):
 		return
@@ -133,7 +133,7 @@ func _assert_bug_book_2_preload_is_fixed():
 	print("Looking to clean old book2 data that make bugs")
 	if !f.file_exists(TO_CLEAN_ONE_TIME_BOOK_2_FLAG):
 		for to_clean in TO_CLEAN_ONE_TIME_BOOK_2:
-			var dir = Directory.new()
+			var dir = DirAccess.new()
 			print('REMOVING: ', to_clean)
 			dir.remove(to_clean)
 		f.open(TO_CLEAN_ONE_TIME_BOOK_2_FLAG, File.WRITE)
@@ -290,7 +290,7 @@ func insert_all_objects():
 	var all_objects = BookData.get_all_objects()
 	for obj_name in all_objects.keys():
 		var item_data = all_objects[obj_name]
-		var item = Item.instance()
+		var item = Item.instantiate()
 		item.load_item_data(obj_name, item_data)
 		var is_ok_to_be_shown = item.is_ok_to_be_shown()
 		if is_ok_to_be_shown:

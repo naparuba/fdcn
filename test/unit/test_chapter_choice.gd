@@ -18,7 +18,7 @@ func before_each():
 
 
 func _make_choice():
-	return ChapterChoiceScene.instance()
+	return ChapterChoiceScene.instantiate()
 
 
 func test_set_chapitre_updates_number_and_getter():

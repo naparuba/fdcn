@@ -16,7 +16,7 @@ func before_all():
 	Player.launch_new_billy()
 
 	var main_scene = load("res://main.tscn")
-	_main = main_scene.instance()
+	_main = main_scene.instantiate()
 	add_child(_main)
 
 
@@ -34,25 +34,25 @@ func _main_source_text():
 
 func test_bug_report_button_is_wired_to_the_right_handler():
 	var button = _main.get_node("About/Actions/new_bug/Button")
-	assert_true(button.is_connected("pressed", _main, "_on_button_bug"))
+	assert_true(button.is_connected("pressed", Callable(_main, "_on_button_bug")))
 	assert_true(_main.has_method("_on_button_bug"))
 
 
 func test_twitter_button_is_wired_to_the_right_handler():
 	var button = _main.get_node("About/About/twitter/Button")
-	assert_true(button.is_connected("pressed", _main, "_on_button_pressed_twitter"))
+	assert_true(button.is_connected("pressed", Callable(_main, "_on_button_pressed_twitter")))
 	assert_true(_main.has_method("_on_button_pressed_twitter"))
 
 
 func test_more_lore_button_is_wired_to_the_right_handler():
 	var button = _main.get_node("Lore/Lore/Header/LinkButton")
-	assert_true(button.is_connected("pressed", _main, "_on_morelore_button_pressed"))
+	assert_true(button.is_connected("pressed", Callable(_main, "_on_morelore_button_pressed")))
 	assert_true(_main.has_method("_on_morelore_button_pressed"))
 
 
 func test_image_author_button_is_wired_to_the_right_handler():
 	var button = _main.get_node("Lore/Lore/LoreAuthor/LinkButton")
-	assert_true(button.is_connected("pressed", _main, "_on_image_author_button_pressed"))
+	assert_true(button.is_connected("pressed", Callable(_main, "_on_image_author_button_pressed")))
 	assert_true(_main.has_method("_on_image_author_button_pressed"))
 
 

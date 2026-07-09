@@ -4,7 +4,7 @@ var GaugeScene = preload('res://gauge.tscn')
 
 
 func _make_gauge():
-	var gauge = GaugeScene.instance()
+	var gauge = GaugeScene.instantiate()
 	add_child_autofree(gauge)  # necessaire: onready var label_value = $label n'est resolu qu'a l'entree dans l'arbre
 	return gauge
 

@@ -68,12 +68,12 @@ func test_compute_event_drag_beyond_threshold_triggers_swipe():
 	Swiper.current_page = 'main'
 	var start_event = InputEventScreenTouch.new()
 	start_event.position = Vector2(0, 0)
-	start_event.pressed = true
+	start_event.button_pressed = true
 	Swiper.compute_event(start_event)
 
 	var end_event = InputEventScreenTouch.new()
 	end_event.position = Vector2(500, 0)
-	end_event.pressed = false
+	end_event.button_pressed = false
 	Swiper.compute_event(end_event)
 
 	# swipe.x = 500 - 0 = 500 (>0) => branche "swipe_to_left()" (le code
@@ -87,12 +87,12 @@ func test_compute_event_drag_below_threshold_does_nothing():
 	Swiper.current_page = 'main'
 	var start_event = InputEventScreenTouch.new()
 	start_event.position = Vector2(10, 0)
-	start_event.pressed = true
+	start_event.button_pressed = true
 	Swiper.compute_event(start_event)
 
 	var end_event = InputEventScreenTouch.new()
 	end_event.position = Vector2(0, 0)
-	end_event.pressed = false
+	end_event.button_pressed = false
 	Swiper.compute_event(end_event)
 
 	assert_eq(fake_main.calls, [])

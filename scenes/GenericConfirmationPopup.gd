@@ -1,8 +1,8 @@
 extends Panel
 
-export(String, MULTILINE) var content = ""
-export(String) var accept_button = "Accepter"
-export(String) var cancel_button = "Annuler"
+@export var content = "" # (String, MULTILINE)
+@export var accept_button: String = "Accepter"
+@export var cancel_button: String = "Annuler"
 
 signal generic_popup_accept()
 

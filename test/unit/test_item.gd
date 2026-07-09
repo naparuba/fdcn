@@ -23,7 +23,7 @@ func after_each():
 
 
 func _make_item(item_name):
-	var item = ItemScene.instance()
+	var item = ItemScene.instantiate()
 	item.load_item_data(item_name, BookData.get_item_data(item_name))
 	return item
 

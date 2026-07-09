@@ -4,7 +4,7 @@ var PopupScene = preload('res://scenes/GenericConfirmationPopup.tscn')
 
 
 func test_ready_applies_exported_texts_and_hides_by_default():
-	var popup = PopupScene.instance()
+	var popup = PopupScene.instantiate()
 	popup.content = 'Etes-vous sur ?'
 	popup.accept_button = 'Oui'
 	popup.cancel_button = 'Non'
@@ -16,14 +16,14 @@ func test_ready_applies_exported_texts_and_hides_by_default():
 
 
 func test_open_shows_the_popup():
-	var popup = PopupScene.instance()
+	var popup = PopupScene.instantiate()
 	add_child_autofree(popup)
 	popup.open()
 	assert_true(popup.visible)
 
 
 func test_accept_emits_signal_and_hides():
-	var popup = PopupScene.instance()
+	var popup = PopupScene.instantiate()
 	add_child_autofree(popup)
 	popup.open()
 	watch_signals(popup)
@@ -33,7 +33,7 @@ func test_accept_emits_signal_and_hides():
 
 
 func test_cancel_hides_without_emitting_signal():
-	var popup = PopupScene.instance()
+	var popup = PopupScene.instantiate()
 	add_child_autofree(popup)
 	popup.open()
 	watch_signals(popup)

@@ -17,7 +17,7 @@ func before_each():
 func _delete_if_exists(pth):
 	var f = File.new()
 	if f.file_exists(pth):
-		var dir = Directory.new()
+		var dir = DirAccess.new()
 		dir.remove(pth)
 
 

@@ -13,13 +13,13 @@ func before_all():
 	Player.launch_new_billy()
 
 	var main_scene = load("res://main.tscn")
-	_main = main_scene.instance()
+	_main = main_scene.instantiate()
 	add_child(_main)
 	# Le VBoxContainer des 606 ChapterChoice n'a pas encore calcule ses
 	# positions (rect_position.y reste a 0 tant qu'un passage de layout ne
 	# s'est pas produit) : attendre quelques frames avant de s'y fier.
 	for i in range(5):
-		yield(get_tree(), "idle_frame")
+		await get_tree().idle_frame
 
 
 func after_all():
@@ -30,7 +30,7 @@ func _expected_scroll_y_for(centaine):
 	var all_choices = _main.get_node("Chapitres/AllChapters/VScrollBar/Choices")
 	for choice in all_choices.get_children():
 		if choice.get_chapter_id() >= centaine:
-			return choice.rect_position.y
+			return choice.position.y
 	return null
 
 

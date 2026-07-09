@@ -1,9 +1,9 @@
 extends Panel
 
 
-onready var already_seen_polygon = $AlreadySeenPolygon
-onready var session_seen_polygon = $SessionSeenPolygon
-onready var combat_polygon = $CombatPolygon
+@onready var already_seen_polygon = $AlreadySeenPolygon
+@onready var session_seen_polygon = $SessionSeenPolygon
+@onready var combat_polygon = $CombatPolygon
 
 
 var COLOR_NOT_SET = Color('e0e2e5')  # very light grey
@@ -83,20 +83,20 @@ func set_condition_txt(condition_txt):
 
 func enable_special_jump():
 	$special.visible = true
-	$special.set("custom_colors/font_color",Color('00c2aa'))
+	$special.set("theme_override_colors/font_color",Color('00c2aa'))
 	$click/special.visible = true
 	$click/special_wrong.visible = false
 
 func enable_special_jump_wrong():
 	$special.visible = true
-	$special.set("custom_colors/font_color",Color(1,0,0))
+	$special.set("theme_override_colors/font_color",Color(1,0,0))
 	$click/special.visible = false	
 	$click/special_wrong.visible = true	
 
 
 func disable_special_jump():
 	$special.visible = false
-	$special.set("custom_colors/font_color",Color(1,0,0))
+	$special.set("theme_override_colors/font_color",Color(1,0,0))
 	$click/special.visible = false	
 	$click/special_wrong.visible = false	
 

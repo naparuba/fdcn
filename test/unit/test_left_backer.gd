@@ -5,7 +5,7 @@ var FakeMain = preload('res://test/unit/fakes/fake_main_ui.gd')
 
 
 func _make_backer(txt, dest):
-	var backer = LeftBackerScene.instance()
+	var backer = LeftBackerScene.instantiate()
 	backer.txt = txt
 	backer.dest = dest
 	add_child_autofree(backer)  # _ready() applique txt sur $txt.text

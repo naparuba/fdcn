@@ -1,0 +1,2111 @@
+digraph G {
+	1 [label=1 color=black fillcolor=white penwidth=1.0 shape=ellipse style=solid]
+	2 [label=2 color=black fillcolor=white penwidth=1.0 shape=ellipse style=solid]
+	3 [label=3 color=black fillcolor=white penwidth=1.0 shape=ellipse style=solid]
+	4 [label=4 color=black fillcolor=white penwidth=1.0 shape=ellipse style=solid]
+	5 [label=5 color=gold fillcolor=white penwidth=3.0 shape=ellipse style=solid]
+	6 [label=6 color=black fillcolor=white penwidth=1.0 shape=ellipse style=solid]
+	7 [label=7 color=gold fillcolor=white penwidth=3.0 shape=ellipse style=solid]
+	8 [label=8 color=black fillcolor=white penwidth=1.0 shape=ellipse style=solid]
+	9 [label=9 color=gold fillcolor=white penwidth=3.0 shape=ellipse style=solid]
+	10 [label=10 color=black fillcolor=white penwidth=1.0 shape=ellipse style=solid]
+	11 [label=<<B><FONT COLOR="red" POINT-SIZE="20">11</FONT></B>> color=black fillcolor=white penwidth=1.0 shape=ellipse style=solid]
+	12 [label=12 color=black fillcolor=white penwidth=1.0 shape=ellipse style=solid]
+	13 [label=13 color=gold fillcolor=white penwidth=3.0 shape=ellipse style=solid]
+	14 [label=14 color=black fillcolor=white penwidth=1.0 shape=ellipse style=solid]
+	15 [label=15 color=black fillcolor=white penwidth=1.0 shape=ellipse style=solid]
+	16 [label=<<B><FONT COLOR="red" POINT-SIZE="20">16</FONT></B>> color=black fillcolor=white penwidth=1.0 shape=ellipse style=solid]
+	17 [label=17 color=gold fillcolor=white penwidth=3.0 shape=ellipse style=solid]
+	18 [label=18 color=black fillcolor=white penwidth=1.0 shape=ellipse style=solid]
+	19 [label=19 color=black fillcolor=white penwidth=1.0 shape=ellipse style=solid]
+	20 [label=20 color=black fillcolor=white penwidth=1.0 shape=ellipse style=solid]
+	21 [label=21 color=black fillcolor=white penwidth=1.0 shape=ellipse style=solid]
+	22 [label=22 color=black fillcolor=white penwidth=1.0 shape=ellipse style=solid]
+	23 [label=23 color=black fillcolor=white penwidth=1.0 shape=ellipse style=solid]
+	24 [label=24 color=black fillcolor=white penwidth=1.0 shape=ellipse style=solid]
+	25 [label=25 color=black fillcolor=white penwidth=1.0 shape=ellipse style=solid]
+	26 [label=26 color=black fillcolor=white penwidth=1.0 shape=ellipse style=solid]
+	27 [label=27 color=black fillcolor=white penwidth=1.0 shape=ellipse style=solid]
+	28 [label=28 color=black fillcolor=white penwidth=1.0 shape=ellipse style=solid]
+	29 [label=29 color=black fillcolor=white penwidth=1.0 shape=ellipse style=solid]
+	30 [label=30 color=gold fillcolor=white penwidth=3.0 shape=ellipse style=solid]
+	31 [label=<<B><FONT COLOR="red" POINT-SIZE="20">31</FONT></B>> color=black fillcolor=white penwidth=1.0 shape=ellipse style=solid]
+	32 [label=32 color=gold fillcolor=white penwidth=3.0 shape=ellipse style=solid]
+	"end-from-32" [label="End (32)" color=gold fillcolor=crimson penwidth=3.0 shape=doubleoctagon style=filled]
+	33 [label=33 color=black fillcolor=white penwidth=1.0 shape=ellipse style=solid]
+	34 [label=34 color=black fillcolor=white penwidth=1.0 shape=ellipse style=solid]
+	35 [label=35 color=black fillcolor=white penwidth=1.0 shape=ellipse style=solid]
+	36 [label=36 color=black fillcolor=white penwidth=1.0 shape=ellipse style=solid]
+	37 [label=37 color=black fillcolor=white penwidth=1.0 shape=ellipse style=solid]
+	38 [label=38 color=black fillcolor=white penwidth=1.0 shape=ellipse style=solid]
+	39 [label=39 color=black fillcolor=white penwidth=1.0 shape=ellipse style=solid]
+	40 [label=<<B><FONT COLOR="red" POINT-SIZE="20">40</FONT></B>> color=black fillcolor=white penwidth=1.0 shape=ellipse style=solid]
+	41 [label=41 color=black fillcolor=white penwidth=1.0 shape=ellipse style=solid]
+	42 [label=42 color=gold fillcolor=white penwidth=3.0 shape=ellipse style=solid]
+	43 [label=<<B><FONT COLOR="red" POINT-SIZE="20">43</FONT></B>> color=black fillcolor=white penwidth=1.0 shape=ellipse style=solid]
+	44 [label=44 color=black fillcolor=white penwidth=1.0 shape=ellipse style=solid]
+	45 [label=<45-<FONT COLOR="blue" POINT-SIZE="20">Jungle</FONT> > color=black fillcolor=white penwidth=1.0 shape=ellipse style=solid]
+	46 [label=46 color=black fillcolor=white penwidth=1.0 shape=ellipse style=solid]
+	47 [label=47 color=black fillcolor=white penwidth=1.0 shape=ellipse style=solid]
+	48 [label=48 color=black fillcolor=white penwidth=1.0 shape=ellipse style=solid]
+	49 [label=49 color=black fillcolor=white penwidth=1.0 shape=ellipse style=solid]
+	50 [label=50 color=black fillcolor=white penwidth=1.0 shape=ellipse style=solid]
+	51 [label=51 color=black fillcolor=white penwidth=1.0 shape=ellipse style=solid]
+	52 [label=52 color=black fillcolor=white penwidth=1.0 shape=ellipse style=solid]
+	53 [label=53 color=black fillcolor=white penwidth=1.0 shape=ellipse style=solid]
+	54 [label=54 color=gold fillcolor=white penwidth=3.0 shape=ellipse style=solid]
+	55 [label=55 color=black fillcolor=white penwidth=1.0 shape=ellipse style=solid]
+	56 [label=56 color=black fillcolor=white penwidth=1.0 shape=ellipse style=solid]
+	57 [label=57 color=black fillcolor=white penwidth=1.0 shape=ellipse style=solid]
+	58 [label=58 color=black fillcolor=white penwidth=1.0 shape=ellipse style=solid]
+	59 [label=59 color=black fillcolor=white penwidth=1.0 shape=ellipse style=solid]
+	60 [label=60 color=black fillcolor=white penwidth=1.0 shape=ellipse style=solid]
+	61 [label=61 color=black fillcolor=white penwidth=1.0 shape=ellipse style=solid]
+	62 [label=62 color=black fillcolor=white penwidth=1.0 shape=ellipse style=solid]
+	63 [label=63 color=black fillcolor=white penwidth=1.0 shape=ellipse style=solid]
+	64 [label=64 color=black fillcolor=white penwidth=1.0 shape=ellipse style=solid]
+	65 [label=65 color=black fillcolor=white penwidth=1.0 shape=ellipse style=solid]
+	66 [label=66 color=black fillcolor=white penwidth=1.0 shape=ellipse style=solid]
+	67 [label=67 color=black fillcolor=white penwidth=1.0 shape=ellipse style=solid]
+	68 [label=<<B><FONT COLOR="red" POINT-SIZE="20">68</FONT></B>> color=black fillcolor=white penwidth=1.0 shape=ellipse style=solid]
+	69 [label=69 color=black fillcolor=white penwidth=1.0 shape=ellipse style=solid]
+	70 [label=70 color=black fillcolor=white penwidth=1.0 shape=ellipse style=solid]
+	71 [label=71 color=black fillcolor=white penwidth=1.0 shape=ellipse style=solid]
+	72 [label=72 color=black fillcolor=white penwidth=1.0 shape=ellipse style=solid]
+	73 [label=<<B><FONT COLOR="red" POINT-SIZE="20">73</FONT></B>> color=black fillcolor=white penwidth=1.0 shape=ellipse style=solid]
+	74 [label=74 color=black fillcolor=white penwidth=1.0 shape=ellipse style=solid]
+	75 [label=75 color=gold fillcolor=white penwidth=3.0 shape=ellipse style=solid]
+	76 [label=76 color=black fillcolor=white penwidth=1.0 shape=ellipse style=solid]
+	77 [label=77 color=black fillcolor=white penwidth=1.0 shape=ellipse style=solid]
+	78 [label=78 color=black fillcolor=white penwidth=1.0 shape=ellipse style=solid]
+	79 [label=<<B><FONT COLOR="red" POINT-SIZE="20">79</FONT></B>> color=black fillcolor=white penwidth=1.0 shape=ellipse style=solid]
+	80 [label=80 color=black fillcolor=white penwidth=1.0 shape=ellipse style=solid]
+	81 [label=<<B><FONT COLOR="red" POINT-SIZE="20">81</FONT></B>> color=black fillcolor=white penwidth=1.0 shape=ellipse style=solid]
+	82 [label=82 color=black fillcolor=white penwidth=1.0 shape=ellipse style=solid]
+	83 [label=83 color=black fillcolor=white penwidth=1.0 shape=ellipse style=solid]
+	84 [label=84 color=black fillcolor=white penwidth=1.0 shape=ellipse style=solid]
+	85 [label=85 color=black fillcolor=white penwidth=1.0 shape=ellipse style=solid]
+	86 [label=86 color=black fillcolor=white penwidth=1.0 shape=ellipse style=solid]
+	87 [label=87 color=black fillcolor=white penwidth=1.0 shape=ellipse style=solid]
+	88 [label=88 color=black fillcolor=white penwidth=1.0 shape=ellipse style=solid]
+	89 [label=89 color=black fillcolor=white penwidth=1.0 shape=ellipse style=solid]
+	90 [label=90 color=black fillcolor=white penwidth=1.0 shape=ellipse style=solid]
+	91 [label=91 color=black fillcolor=white penwidth=1.0 shape=ellipse style=solid]
+	92 [label=92 color=black fillcolor=white penwidth=1.0 shape=ellipse style=solid]
+	93 [label=93 color=black fillcolor=white penwidth=1.0 shape=ellipse style=solid]
+	94 [label=94 color=black fillcolor=white penwidth=1.0 shape=ellipse style=solid]
+	95 [label=95 color=black fillcolor=white penwidth=1.0 shape=ellipse style=solid]
+	96 [label=96 color=black fillcolor=white penwidth=1.0 shape=ellipse style=solid]
+	97 [label=97 color=black fillcolor=white penwidth=1.0 shape=ellipse style=solid]
+	98 [label=98 color=gold fillcolor=white penwidth=3.0 shape=ellipse style=solid]
+	99 [label=99 color=black fillcolor=white penwidth=1.0 shape=ellipse style=solid]
+	100 [label=<100-<FONT COLOR="blue" POINT-SIZE="20">Acte I, L'Exode</FONT> > color=black fillcolor=white penwidth=1.0 shape=ellipse style=solid]
+	101 [label=101 color=black fillcolor=white penwidth=1.0 shape=ellipse style=solid]
+	102 [label=102 color=black fillcolor=white penwidth=1.0 shape=ellipse style=solid]
+	103 [label=103 color=black fillcolor=white penwidth=1.0 shape=ellipse style=solid]
+	104 [label=104 color=black fillcolor=white penwidth=1.0 shape=ellipse style=solid]
+	"end-from-104" [label="End (104)" color=black fillcolor=crimson penwidth=1.0 shape=doubleoctagon style=filled]
+	105 [label=<105-<FONT COLOR="blue" POINT-SIZE="20">Fêtes</FONT> > color=black fillcolor=white penwidth=1.0 shape=ellipse style=solid]
+	106 [label=106 color=black fillcolor=white penwidth=1.0 shape=ellipse style=solid]
+	107 [label=107 color=black fillcolor=white penwidth=1.0 shape=ellipse style=solid]
+	108 [label=108 color=black fillcolor=white penwidth=1.0 shape=ellipse style=solid]
+	109 [label=109 color=gold fillcolor=white penwidth=3.0 shape=ellipse style=solid]
+	110 [label=110 color=black fillcolor=white penwidth=1.0 shape=ellipse style=solid]
+	111 [label=111 color=black fillcolor=white penwidth=1.0 shape=ellipse style=solid]
+	112 [label=112 color=black fillcolor=white penwidth=1.0 shape=ellipse style=solid]
+	113 [label=<<B><FONT COLOR="red" POINT-SIZE="20">113</FONT></B>> color=black fillcolor=white penwidth=1.0 shape=ellipse style=solid]
+	114 [label=114 color=black fillcolor=white penwidth=1.0 shape=ellipse style=solid]
+	115 [label=115 color=black fillcolor=white penwidth=1.0 shape=ellipse style=solid]
+	116 [label=116 color=black fillcolor=white penwidth=1.0 shape=ellipse style=solid]
+	117 [label=117 color=black fillcolor=white penwidth=1.0 shape=ellipse style=solid]
+	118 [label=118 color=black fillcolor=white penwidth=1.0 shape=ellipse style=solid]
+	119 [label=119 color=black fillcolor=white penwidth=1.0 shape=ellipse style=solid]
+	120 [label=120 color=black fillcolor=white penwidth=1.0 shape=ellipse style=solid]
+	121 [label=121 color=black fillcolor=white penwidth=1.0 shape=ellipse style=solid]
+	122 [label=122 color=black fillcolor=white penwidth=1.0 shape=ellipse style=solid]
+	123 [label=123 color=black fillcolor=white penwidth=1.0 shape=ellipse style=solid]
+	124 [label=124 color=black fillcolor=white penwidth=1.0 shape=ellipse style=solid]
+	125 [label=<<B><FONT COLOR="red" POINT-SIZE="20">125</FONT></B>> color=black fillcolor=white penwidth=1.0 shape=ellipse style=solid]
+	126 [label=126 color=black fillcolor=white penwidth=1.0 shape=ellipse style=solid]
+	127 [label=127 color=black fillcolor=white penwidth=1.0 shape=ellipse style=solid]
+	128 [label=128 color=black fillcolor=white penwidth=1.0 shape=ellipse style=solid]
+	129 [label=129 color=black fillcolor=white penwidth=1.0 shape=ellipse style=solid]
+	130 [label=130 color=black fillcolor=white penwidth=1.0 shape=ellipse style=solid]
+	131 [label=<131-<FONT COLOR="blue" POINT-SIZE="20">Prieuré</FONT> > color=black fillcolor=white penwidth=1.0 shape=ellipse style=solid]
+	132 [label=132 color=black fillcolor=white penwidth=1.0 shape=ellipse style=solid]
+	133 [label=133 color=black fillcolor=white penwidth=1.0 shape=ellipse style=solid]
+	134 [label=134 color=black fillcolor=white penwidth=1.0 shape=ellipse style=solid]
+	135 [label=135 color=black fillcolor=white penwidth=1.0 shape=ellipse style=solid]
+	136 [label=136 color=black fillcolor=white penwidth=1.0 shape=ellipse style=solid]
+	137 [label=137 color=black fillcolor=white penwidth=1.0 shape=ellipse style=solid]
+	138 [label=138 color=black fillcolor=white penwidth=1.0 shape=ellipse style=solid]
+	139 [label=139 color=black fillcolor=white penwidth=1.0 shape=ellipse style=solid]
+	140 [label=140 color=black fillcolor=white penwidth=1.0 shape=ellipse style=solid]
+	141 [label=141 color=black fillcolor=white penwidth=1.0 shape=ellipse style=solid]
+	142 [label=142 color=black fillcolor=white penwidth=1.0 shape=ellipse style=solid]
+	143 [label=143 color=gold fillcolor=white penwidth=3.0 shape=ellipse style=solid]
+	144 [label=144 color=black fillcolor=white penwidth=1.0 shape=ellipse style=solid]
+	145 [label=145 color=black fillcolor=white penwidth=1.0 shape=ellipse style=solid]
+	146 [label=146 color=black fillcolor=white penwidth=1.0 shape=ellipse style=solid]
+	147 [label=147 color=black fillcolor=white penwidth=1.0 shape=ellipse style=solid]
+	148 [label=148 color=black fillcolor=white penwidth=1.0 shape=ellipse style=solid]
+	149 [label=149 color=black fillcolor=white penwidth=1.0 shape=ellipse style=solid]
+	150 [label=150 color=black fillcolor=white penwidth=1.0 shape=ellipse style=solid]
+	151 [label=151 color=gold fillcolor=white penwidth=3.0 shape=ellipse style=solid]
+	"end-from-151" [label="End (151)" color=gold fillcolor=crimson penwidth=3.0 shape=doubleoctagon style=filled]
+	152 [label=152 color=black fillcolor=white penwidth=1.0 shape=ellipse style=solid]
+	153 [label=153 color=black fillcolor=white penwidth=1.0 shape=ellipse style=solid]
+	154 [label=154 color=black fillcolor=white penwidth=1.0 shape=ellipse style=solid]
+	155 [label=155 color=black fillcolor=white penwidth=1.0 shape=ellipse style=solid]
+	156 [label=156 color=black fillcolor=white penwidth=1.0 shape=ellipse style=solid]
+	157 [label=157 color=black fillcolor=white penwidth=1.0 shape=ellipse style=solid]
+	158 [label=158 color=black fillcolor=white penwidth=1.0 shape=ellipse style=solid]
+	159 [label=159 color=black fillcolor=white penwidth=1.0 shape=ellipse style=solid]
+	160 [label=160 color=black fillcolor=white penwidth=1.0 shape=ellipse style=solid]
+	161 [label=161 color=black fillcolor=white penwidth=1.0 shape=ellipse style=solid]
+	162 [label=162 color=black fillcolor=white penwidth=1.0 shape=ellipse style=solid]
+	163 [label=163 color=black fillcolor=white penwidth=1.0 shape=ellipse style=solid]
+	164 [label=164 color=black fillcolor=white penwidth=1.0 shape=ellipse style=solid]
+	165 [label=165 color=black fillcolor=white penwidth=1.0 shape=ellipse style=solid]
+	166 [label=<<B><FONT COLOR="red" POINT-SIZE="20">166</FONT></B>> color=gold fillcolor=white penwidth=3.0 shape=ellipse style=solid]
+	167 [label=167 color=black fillcolor=white penwidth=1.0 shape=ellipse style=solid]
+	168 [label=168 color=black fillcolor=white penwidth=1.0 shape=ellipse style=solid]
+	169 [label=169 color=black fillcolor=white penwidth=1.0 shape=ellipse style=solid]
+	170 [label=170 color=black fillcolor=white penwidth=1.0 shape=ellipse style=solid]
+	171 [label=171 color=black fillcolor=white penwidth=1.0 shape=ellipse style=solid]
+	172 [label=172 color=black fillcolor=white penwidth=1.0 shape=ellipse style=solid]
+	173 [label=173 color=black fillcolor=white penwidth=1.0 shape=ellipse style=solid]
+	174 [label=174 color=gold fillcolor=white penwidth=3.0 shape=ellipse style=solid]
+	175 [label=175 color=black fillcolor=white penwidth=1.0 shape=ellipse style=solid]
+	176 [label=176 color=black fillcolor=white penwidth=1.0 shape=ellipse style=solid]
+	177 [label=177 color=black fillcolor=white penwidth=1.0 shape=ellipse style=solid]
+	178 [label=178 color=black fillcolor=white penwidth=1.0 shape=ellipse style=solid]
+	179 [label=179 color=black fillcolor=white penwidth=1.0 shape=ellipse style=solid]
+	180 [label=<<B><FONT COLOR="red" POINT-SIZE="20">180</FONT></B>> color=black fillcolor=white penwidth=1.0 shape=ellipse style=solid]
+	181 [label=<181-<FONT COLOR="blue" POINT-SIZE="20">Desert de Stia</FONT> > color=black fillcolor=white penwidth=1.0 shape=ellipse style=solid]
+	182 [label=182 color=black fillcolor=white penwidth=1.0 shape=ellipse style=solid]
+	183 [label=183 color=black fillcolor=white penwidth=1.0 shape=ellipse style=solid]
+	184 [label=184 color=black fillcolor=white penwidth=1.0 shape=ellipse style=solid]
+	185 [label=185 color=black fillcolor=white penwidth=1.0 shape=ellipse style=solid]
+	186 [label=186 color=black fillcolor=white penwidth=1.0 shape=ellipse style=solid]
+	187 [label=187 color=black fillcolor=white penwidth=1.0 shape=ellipse style=solid]
+	188 [label=188 color=black fillcolor=white penwidth=1.0 shape=ellipse style=solid]
+	189 [label=189 color=black fillcolor=white penwidth=1.0 shape=ellipse style=solid]
+	190 [label=190 color=black fillcolor=white penwidth=1.0 shape=ellipse style=solid]
+	191 [label=191 color=black fillcolor=white penwidth=1.0 shape=ellipse style=solid]
+	192 [label=192 color=black fillcolor=white penwidth=1.0 shape=ellipse style=solid]
+	193 [label=193 color=black fillcolor=white penwidth=1.0 shape=ellipse style=solid]
+	194 [label=194 color=black fillcolor=white penwidth=1.0 shape=ellipse style=solid]
+	195 [label=195 color=black fillcolor=white penwidth=1.0 shape=ellipse style=solid]
+	196 [label=196 color=black fillcolor=white penwidth=1.0 shape=ellipse style=solid]
+	197 [label=<<B><FONT COLOR="red" POINT-SIZE="20">197</FONT></B>> color=black fillcolor=white penwidth=1.0 shape=ellipse style=solid]
+	198 [label=198 color=black fillcolor=white penwidth=1.0 shape=ellipse style=solid]
+	199 [label=199 color=black fillcolor=white penwidth=1.0 shape=ellipse style=solid]
+	200 [label=<200-<FONT COLOR="blue" POINT-SIZE="20">La cité des reflets</FONT> > color=black fillcolor=white penwidth=1.0 shape=ellipse style=solid]
+	201 [label=201 color=black fillcolor=white penwidth=1.0 shape=ellipse style=solid]
+	202 [label=202 color=black fillcolor=white penwidth=1.0 shape=ellipse style=solid]
+	203 [label=203 color=black fillcolor=white penwidth=1.0 shape=ellipse style=solid]
+	204 [label=204 color=black fillcolor=white penwidth=1.0 shape=ellipse style=solid]
+	205 [label=205 color=black fillcolor=white penwidth=1.0 shape=ellipse style=solid]
+	206 [label=206 color=black fillcolor=white penwidth=1.0 shape=ellipse style=solid]
+	207 [label=207 color=black fillcolor=white penwidth=1.0 shape=ellipse style=solid]
+	208 [label=208 color=black fillcolor=white penwidth=1.0 shape=ellipse style=solid]
+	209 [label=209 color=black fillcolor=white penwidth=1.0 shape=ellipse style=solid]
+	210 [label=210 color=black fillcolor=white penwidth=1.0 shape=ellipse style=solid]
+	211 [label=211 color=black fillcolor=white penwidth=1.0 shape=ellipse style=solid]
+	212 [label=212 color=black fillcolor=white penwidth=1.0 shape=ellipse style=solid]
+	213 [label=213 color=black fillcolor=white penwidth=1.0 shape=ellipse style=solid]
+	214 [label=214 color=gold fillcolor=white penwidth=3.0 shape=ellipse style=solid]
+	215 [label=215 color=black fillcolor=white penwidth=1.0 shape=ellipse style=solid]
+	216 [label=216 color=black fillcolor=white penwidth=1.0 shape=ellipse style=solid]
+	217 [label=217 color=black fillcolor=white penwidth=1.0 shape=ellipse style=solid]
+	218 [label=218 color=black fillcolor=white penwidth=1.0 shape=ellipse style=solid]
+	219 [label=219 color=black fillcolor=white penwidth=1.0 shape=ellipse style=solid]
+	220 [label=220 color=black fillcolor=white penwidth=1.0 shape=ellipse style=solid]
+	221 [label=221 color=gold fillcolor=white penwidth=3.0 shape=ellipse style=solid]
+	222 [label=222 color=black fillcolor=white penwidth=1.0 shape=ellipse style=solid]
+	223 [label=223 color=black fillcolor=white penwidth=1.0 shape=ellipse style=solid]
+	224 [label=224 color=black fillcolor=white penwidth=1.0 shape=ellipse style=solid]
+	225 [label=<<B><FONT COLOR="red" POINT-SIZE="20">225</FONT></B>> color=black fillcolor=white penwidth=1.0 shape=ellipse style=solid]
+	226 [label=226 color=black fillcolor=white penwidth=1.0 shape=ellipse style=solid]
+	227 [label=227 color=black fillcolor=white penwidth=1.0 shape=ellipse style=solid]
+	228 [label=228 color=black fillcolor=white penwidth=1.0 shape=ellipse style=solid]
+	229 [label=229 color=black fillcolor=white penwidth=1.0 shape=ellipse style=solid]
+	"end-from-229" [label="End (229)" color=black fillcolor=crimson penwidth=1.0 shape=doubleoctagon style=filled]
+	230 [label=230 color=black fillcolor=white penwidth=1.0 shape=ellipse style=solid]
+	231 [label=231 color=black fillcolor=white penwidth=1.0 shape=ellipse style=solid]
+	232 [label=232 color=black fillcolor=white penwidth=1.0 shape=ellipse style=solid]
+	233 [label=233 color=black fillcolor=white penwidth=1.0 shape=ellipse style=solid]
+	234 [label=<<B><FONT COLOR="red" POINT-SIZE="20">234</FONT></B>> color=black fillcolor=white penwidth=1.0 shape=ellipse style=solid]
+	235 [label=235 color=black fillcolor=white penwidth=1.0 shape=ellipse style=solid]
+	236 [label=236 color=black fillcolor=white penwidth=1.0 shape=ellipse style=solid]
+	237 [label=<<B><FONT COLOR="red" POINT-SIZE="20">237</FONT></B>> color=black fillcolor=white penwidth=1.0 shape=ellipse style=solid]
+	238 [label=238 color=black fillcolor=white penwidth=1.0 shape=ellipse style=solid]
+	239 [label=239 color=black fillcolor=white penwidth=1.0 shape=ellipse style=solid]
+	240 [label=240 color=black fillcolor=white penwidth=1.0 shape=ellipse style=solid]
+	241 [label=241 color=black fillcolor=white penwidth=1.0 shape=ellipse style=solid]
+	242 [label=242 color=black fillcolor=white penwidth=1.0 shape=ellipse style=solid]
+	243 [label=243 color=black fillcolor=white penwidth=1.0 shape=ellipse style=solid]
+	244 [label=244 color=black fillcolor=white penwidth=1.0 shape=ellipse style=solid]
+	245 [label=245 color=black fillcolor=white penwidth=1.0 shape=ellipse style=solid]
+	246 [label=246 color=black fillcolor=white penwidth=1.0 shape=ellipse style=solid]
+	247 [label=247 color=black fillcolor=white penwidth=1.0 shape=ellipse style=solid]
+	248 [label=248 color=black fillcolor=white penwidth=1.0 shape=ellipse style=solid]
+	249 [label=249 color=black fillcolor=white penwidth=1.0 shape=ellipse style=solid]
+	250 [label=<<B><FONT COLOR="red" POINT-SIZE="20">250</FONT></B>> color=black fillcolor=white penwidth=1.0 shape=ellipse style=solid]
+	251 [label=251 color=black fillcolor=white penwidth=1.0 shape=ellipse style=solid]
+	252 [label=252 color=black fillcolor=white penwidth=1.0 shape=ellipse style=solid]
+	253 [label=253 color=gold fillcolor=white penwidth=3.0 shape=ellipse style=solid]
+	254 [label=254 color=black fillcolor=white penwidth=1.0 shape=ellipse style=solid]
+	255 [label=255 color=black fillcolor=white penwidth=1.0 shape=ellipse style=solid]
+	256 [label=<<B><FONT COLOR="red" POINT-SIZE="20">256</FONT></B>> color=black fillcolor=white penwidth=1.0 shape=ellipse style=solid]
+	257 [label=257 color=black fillcolor=white penwidth=1.0 shape=ellipse style=solid]
+	258 [label=258 color=black fillcolor=white penwidth=1.0 shape=ellipse style=solid]
+	259 [label=259 color=black fillcolor=white penwidth=1.0 shape=ellipse style=solid]
+	260 [label=260 color=black fillcolor=white penwidth=1.0 shape=ellipse style=solid]
+	261 [label=261 color=black fillcolor=white penwidth=1.0 shape=ellipse style=solid]
+	262 [label=262 color=black fillcolor=white penwidth=1.0 shape=ellipse style=solid]
+	263 [label=263 color=black fillcolor=white penwidth=1.0 shape=ellipse style=solid]
+	264 [label=264 color=gold fillcolor=white penwidth=3.0 shape=ellipse style=solid]
+	265 [label=265 color=black fillcolor=white penwidth=1.0 shape=ellipse style=solid]
+	266 [label=266 color=black fillcolor=white penwidth=1.0 shape=ellipse style=solid]
+	267 [label=267 color=black fillcolor=white penwidth=1.0 shape=ellipse style=solid]
+	268 [label=<<B><FONT COLOR="red" POINT-SIZE="20">268</FONT></B>> color=black fillcolor=white penwidth=1.0 shape=ellipse style=solid]
+	269 [label=269 color=black fillcolor=white penwidth=1.0 shape=ellipse style=solid]
+	270 [label=270 color=black fillcolor=white penwidth=1.0 shape=ellipse style=solid]
+	271 [label=271 color=black fillcolor=white penwidth=1.0 shape=ellipse style=solid]
+	272 [label=272 color=black fillcolor=white penwidth=1.0 shape=ellipse style=solid]
+	273 [label=273 color=gold fillcolor=white penwidth=3.0 shape=ellipse style=solid]
+	274 [label=274 color=black fillcolor=white penwidth=1.0 shape=ellipse style=solid]
+	275 [label=275 color=black fillcolor=white penwidth=1.0 shape=ellipse style=solid]
+	276 [label=276 color=black fillcolor=white penwidth=1.0 shape=ellipse style=solid]
+	277 [label=277 color=black fillcolor=white penwidth=1.0 shape=ellipse style=solid]
+	278 [label=278 color=black fillcolor=white penwidth=1.0 shape=ellipse style=solid]
+	279 [label=279 color=black fillcolor=white penwidth=1.0 shape=ellipse style=solid]
+	280 [label=280 color=black fillcolor=white penwidth=1.0 shape=ellipse style=solid]
+	281 [label=281 color=black fillcolor=white penwidth=1.0 shape=ellipse style=solid]
+	282 [label=<<B><FONT COLOR="red" POINT-SIZE="20">282</FONT></B>> color=black fillcolor=white penwidth=1.0 shape=ellipse style=solid]
+	283 [label=283 color=black fillcolor=white penwidth=1.0 shape=ellipse style=solid]
+	284 [label=284 color=gold fillcolor=white penwidth=3.0 shape=ellipse style=solid]
+	285 [label=285 color=black fillcolor=white penwidth=1.0 shape=ellipse style=solid]
+	286 [label=286 color=black fillcolor=white penwidth=1.0 shape=ellipse style=solid]
+	287 [label=287 color=black fillcolor=white penwidth=1.0 shape=ellipse style=solid]
+	288 [label=288 color=black fillcolor=white penwidth=1.0 shape=ellipse style=solid]
+	289 [label=289 color=black fillcolor=white penwidth=1.0 shape=ellipse style=solid]
+	290 [label=290 color=black fillcolor=white penwidth=1.0 shape=ellipse style=solid]
+	291 [label=291 color=black fillcolor=white penwidth=1.0 shape=ellipse style=solid]
+	292 [label=292 color=black fillcolor=white penwidth=1.0 shape=ellipse style=solid]
+	293 [label=<<B><FONT COLOR="red" POINT-SIZE="20">293</FONT></B>> color=black fillcolor=white penwidth=1.0 shape=ellipse style=solid]
+	294 [label=294 color=black fillcolor=white penwidth=1.0 shape=ellipse style=solid]
+	295 [label=295 color=black fillcolor=white penwidth=1.0 shape=ellipse style=solid]
+	296 [label=<<B><FONT COLOR="red" POINT-SIZE="20">296</FONT></B>> color=black fillcolor=white penwidth=1.0 shape=ellipse style=solid]
+	297 [label=297 color=black fillcolor=white penwidth=1.0 shape=ellipse style=solid]
+	298 [label=298 color=black fillcolor=white penwidth=1.0 shape=ellipse style=solid]
+	299 [label=299 color=black fillcolor=white penwidth=1.0 shape=ellipse style=solid]
+	300 [label=300 color=black fillcolor=white penwidth=1.0 shape=ellipse style=solid]
+	301 [label=301 color=black fillcolor=white penwidth=1.0 shape=ellipse style=solid]
+	302 [label=302 color=black fillcolor=white penwidth=1.0 shape=ellipse style=solid]
+	303 [label=303 color=black fillcolor=white penwidth=1.0 shape=ellipse style=solid]
+	304 [label=304 color=black fillcolor=white penwidth=1.0 shape=ellipse style=solid]
+	305 [label=305 color=black fillcolor=white penwidth=1.0 shape=ellipse style=solid]
+	306 [label=306 color=black fillcolor=white penwidth=1.0 shape=ellipse style=solid]
+	307 [label=307 color=black fillcolor=white penwidth=1.0 shape=ellipse style=solid]
+	308 [label=308 color=black fillcolor=white penwidth=1.0 shape=ellipse style=solid]
+	309 [label=309 color=black fillcolor=white penwidth=1.0 shape=ellipse style=solid]
+	310 [label=<310-<FONT COLOR="blue" POINT-SIZE="20">Justice juste</FONT> > color=black fillcolor=white penwidth=1.0 shape=ellipse style=solid]
+	311 [label=311 color=black fillcolor=white penwidth=1.0 shape=ellipse style=solid]
+	312 [label=<<B><FONT COLOR="red" POINT-SIZE="20">312</FONT></B>> color=black fillcolor=white penwidth=1.0 shape=ellipse style=solid]
+	313 [label=313 color=black fillcolor=white penwidth=1.0 shape=ellipse style=solid]
+	314 [label=314 color=black fillcolor=white penwidth=1.0 shape=ellipse style=solid]
+	315 [label=315 color=black fillcolor=white penwidth=1.0 shape=ellipse style=solid]
+	316 [label=316 color=black fillcolor=white penwidth=1.0 shape=ellipse style=solid]
+	317 [label=317 color=black fillcolor=white penwidth=1.0 shape=ellipse style=solid]
+	318 [label=318 color=black fillcolor=white penwidth=1.0 shape=ellipse style=solid]
+	319 [label=319 color=black fillcolor=white penwidth=1.0 shape=ellipse style=solid]
+	320 [label=320 color=black fillcolor=white penwidth=1.0 shape=ellipse style=solid]
+	321 [label=<<B><FONT COLOR="red" POINT-SIZE="20">321</FONT></B>> color=black fillcolor=white penwidth=1.0 shape=ellipse style=solid]
+	322 [label=322 color=black fillcolor=white penwidth=1.0 shape=ellipse style=solid]
+	323 [label=<<B><FONT COLOR="red" POINT-SIZE="20">323</FONT></B>> color=gold fillcolor=white penwidth=3.0 shape=ellipse style=solid]
+	324 [label=324 color=black fillcolor=white penwidth=1.0 shape=ellipse style=solid]
+	325 [label=325 color=black fillcolor=white penwidth=1.0 shape=ellipse style=solid]
+	326 [label=326 color=black fillcolor=white penwidth=1.0 shape=ellipse style=solid]
+	327 [label=327 color=black fillcolor=white penwidth=1.0 shape=ellipse style=solid]
+	328 [label=328 color=black fillcolor=white penwidth=1.0 shape=ellipse style=solid]
+	329 [label=329 color=black fillcolor=white penwidth=1.0 shape=ellipse style=solid]
+	330 [label=330 color=black fillcolor=white penwidth=1.0 shape=ellipse style=solid]
+	331 [label=331 color=black fillcolor=white penwidth=1.0 shape=ellipse style=solid]
+	332 [label=332 color=black fillcolor=white penwidth=1.0 shape=ellipse style=solid]
+	333 [label=333 color=black fillcolor=white penwidth=1.0 shape=ellipse style=solid]
+	334 [label=334 color=black fillcolor=white penwidth=1.0 shape=ellipse style=solid]
+	335 [label=<<B><FONT COLOR="orange" POINT-SIZE="20">335</FONT></B>> color=black fillcolor=white penwidth=1.0 shape=ellipse style=solid]
+	336 [label=336 color=black fillcolor=white penwidth=1.0 shape=ellipse style=solid]
+	337 [label=337 color=black fillcolor=white penwidth=1.0 shape=ellipse style=solid]
+	338 [label=338 color=black fillcolor=white penwidth=1.0 shape=ellipse style=solid]
+	339 [label=339 color=black fillcolor=white penwidth=1.0 shape=ellipse style=solid]
+	340 [label=<340-<FONT COLOR="blue" POINT-SIZE="20">Violence vraie</FONT> > color=black fillcolor=white penwidth=1.0 shape=ellipse style=solid]
+	341 [label=341 color=black fillcolor=white penwidth=1.0 shape=ellipse style=solid]
+	342 [label=342 color=black fillcolor=white penwidth=1.0 shape=ellipse style=solid]
+	343 [label=343 color=black fillcolor=white penwidth=1.0 shape=ellipse style=solid]
+	344 [label=344 color=black fillcolor=white penwidth=1.0 shape=ellipse style=solid]
+	345 [label=345 color=black fillcolor=white penwidth=1.0 shape=ellipse style=solid]
+	346 [label=346 color=black fillcolor=white penwidth=1.0 shape=ellipse style=solid]
+	347 [label=347 color=black fillcolor=white penwidth=1.0 shape=ellipse style=solid]
+	348 [label=348 color=black fillcolor=white penwidth=1.0 shape=ellipse style=solid]
+	349 [label=349 color=black fillcolor=white penwidth=1.0 shape=ellipse style=solid]
+	350 [label=350 color=black fillcolor=white penwidth=1.0 shape=ellipse style=solid]
+	351 [label=351 color=black fillcolor=white penwidth=1.0 shape=ellipse style=solid]
+	352 [label=352 color=black fillcolor=white penwidth=1.0 shape=ellipse style=solid]
+	353 [label=353 color=black fillcolor=white penwidth=1.0 shape=ellipse style=solid]
+	354 [label=354 color=black fillcolor=white penwidth=1.0 shape=ellipse style=solid]
+	355 [label=355 color=black fillcolor=white penwidth=1.0 shape=ellipse style=solid]
+	356 [label=356 color=black fillcolor=white penwidth=1.0 shape=ellipse style=solid]
+	357 [label=357 color=black fillcolor=white penwidth=1.0 shape=ellipse style=solid]
+	358 [label=358 color=black fillcolor=white penwidth=1.0 shape=ellipse style=solid]
+	359 [label=359 color=black fillcolor=white penwidth=1.0 shape=ellipse style=solid]
+	360 [label=360 color=black fillcolor=white penwidth=1.0 shape=ellipse style=solid]
+	361 [label=361 color=black fillcolor=white penwidth=1.0 shape=ellipse style=solid]
+	362 [label=362 color=black fillcolor=white penwidth=1.0 shape=ellipse style=solid]
+	363 [label=363 color=black fillcolor=white penwidth=1.0 shape=ellipse style=solid]
+	364 [label=364 color=black fillcolor=white penwidth=1.0 shape=ellipse style=solid]
+	365 [label=365 color=gold fillcolor=white penwidth=3.0 shape=ellipse style=solid]
+	"end-from-365" [label="End (365)" color=gold fillcolor=crimson penwidth=3.0 shape=doubleoctagon style=filled]
+	366 [label=366 color=black fillcolor=white penwidth=1.0 shape=ellipse style=solid]
+	367 [label=367 color=black fillcolor=white penwidth=1.0 shape=ellipse style=solid]
+	368 [label=368 color=black fillcolor=white penwidth=1.0 shape=ellipse style=solid]
+	369 [label=369 color=black fillcolor=white penwidth=1.0 shape=ellipse style=solid]
+	370 [label=370 color=black fillcolor=white penwidth=1.0 shape=ellipse style=solid]
+	371 [label=371 color=black fillcolor=white penwidth=1.0 shape=ellipse style=solid]
+	372 [label=372 color=black fillcolor=white penwidth=1.0 shape=ellipse style=solid]
+	373 [label=373 color=gold fillcolor=white penwidth=3.0 shape=ellipse style=solid]
+	374 [label=374 color=black fillcolor=white penwidth=1.0 shape=ellipse style=solid]
+	375 [label=375 color=black fillcolor=white penwidth=1.0 shape=ellipse style=solid]
+	376 [label=376 color=black fillcolor=white penwidth=1.0 shape=ellipse style=solid]
+	377 [label=377 color=black fillcolor=white penwidth=1.0 shape=ellipse style=solid]
+	378 [label=378 color=black fillcolor=white penwidth=1.0 shape=ellipse style=solid]
+	379 [label=379 color=black fillcolor=white penwidth=1.0 shape=ellipse style=solid]
+	380 [label=380 color=black fillcolor=white penwidth=1.0 shape=ellipse style=solid]
+	381 [label=381 color=black fillcolor=white penwidth=1.0 shape=ellipse style=solid]
+	382 [label=382 color=black fillcolor=white penwidth=1.0 shape=ellipse style=solid]
+	383 [label=383 color=black fillcolor=white penwidth=1.0 shape=ellipse style=solid]
+	384 [label=384 color=black fillcolor=white penwidth=1.0 shape=ellipse style=solid]
+	385 [label=385 color=black fillcolor=white penwidth=1.0 shape=ellipse style=solid]
+	386 [label=386 color=black fillcolor=white penwidth=1.0 shape=ellipse style=solid]
+	387 [label=387 color=gold fillcolor=white penwidth=3.0 shape=ellipse style=solid]
+	"end-from-387" [label="End (387)" color=gold fillcolor=crimson penwidth=3.0 shape=doubleoctagon style=filled]
+	388 [label=388 color=black fillcolor=white penwidth=1.0 shape=ellipse style=solid]
+	389 [label=389 color=black fillcolor=white penwidth=1.0 shape=ellipse style=solid]
+	390 [label=390 color=black fillcolor=white penwidth=1.0 shape=ellipse style=solid]
+	391 [label=391 color=black fillcolor=white penwidth=1.0 shape=ellipse style=solid]
+	392 [label=392 color=black fillcolor=white penwidth=1.0 shape=ellipse style=solid]
+	393 [label=393 color=black fillcolor=white penwidth=1.0 shape=ellipse style=solid]
+	394 [label=394 color=gold fillcolor=white penwidth=3.0 shape=ellipse style=solid]
+	395 [label=395 color=black fillcolor=white penwidth=1.0 shape=ellipse style=solid]
+	396 [label=396 color=black fillcolor=white penwidth=1.0 shape=ellipse style=solid]
+	397 [label=397 color=black fillcolor=white penwidth=1.0 shape=ellipse style=solid]
+	398 [label=398 color=black fillcolor=white penwidth=1.0 shape=ellipse style=solid]
+	399 [label=399 color=black fillcolor=white penwidth=1.0 shape=ellipse style=solid]
+	400 [label=<400-<FONT COLOR="blue" POINT-SIZE="20">Acte IV, La Larme</FONT> > color=black fillcolor=white penwidth=1.0 shape=ellipse style=solid]
+	401 [label=401 color=black fillcolor=white penwidth=1.0 shape=ellipse style=solid]
+	402 [label=402 color=black fillcolor=white penwidth=1.0 shape=ellipse style=solid]
+	403 [label=403 color=black fillcolor=white penwidth=1.0 shape=ellipse style=solid]
+	405 [label=405 color=black fillcolor=white penwidth=1.0 shape=ellipse style=solid]
+	406 [label=406 color=black fillcolor=white penwidth=1.0 shape=ellipse style=solid]
+	407 [label=407 color=black fillcolor=white penwidth=1.0 shape=ellipse style=solid]
+	408 [label=408 color=black fillcolor=white penwidth=1.0 shape=ellipse style=solid]
+	409 [label=409 color=black fillcolor=white penwidth=1.0 shape=ellipse style=solid]
+	410 [label=410 color=black fillcolor=white penwidth=1.0 shape=ellipse style=solid]
+	411 [label=411 color=black fillcolor=white penwidth=1.0 shape=ellipse style=solid]
+	412 [label=412 color=black fillcolor=white penwidth=1.0 shape=ellipse style=solid]
+	413 [label=413 color=black fillcolor=white penwidth=1.0 shape=ellipse style=solid]
+	414 [label=414 color=gold fillcolor=white penwidth=3.0 shape=ellipse style=solid]
+	"end-from-414" [label="End (414)" color=gold fillcolor=crimson penwidth=3.0 shape=doubleoctagon style=filled]
+	415 [label=415 color=black fillcolor=white penwidth=1.0 shape=ellipse style=solid]
+	416 [label=416 color=black fillcolor=white penwidth=1.0 shape=ellipse style=solid]
+	417 [label=417 color=black fillcolor=white penwidth=1.0 shape=ellipse style=solid]
+	418 [label=418 color=black fillcolor=white penwidth=1.0 shape=ellipse style=solid]
+	419 [label=419 color=black fillcolor=white penwidth=1.0 shape=ellipse style=solid]
+	420 [label=420 color=gold fillcolor=white penwidth=3.0 shape=ellipse style=solid]
+	421 [label=421 color=black fillcolor=white penwidth=1.0 shape=ellipse style=solid]
+	422 [label=422 color=black fillcolor=white penwidth=1.0 shape=ellipse style=solid]
+	423 [label=423 color=black fillcolor=white penwidth=1.0 shape=ellipse style=solid]
+	424 [label=424 color=black fillcolor=white penwidth=1.0 shape=ellipse style=solid]
+	425 [label=425 color=black fillcolor=white penwidth=1.0 shape=ellipse style=solid]
+	426 [label=426 color=black fillcolor=white penwidth=1.0 shape=ellipse style=solid]
+	"end-from-426" [label="End (426)" color=black fillcolor=crimson penwidth=1.0 shape=doubleoctagon style=filled]
+	427 [label=427 color=black fillcolor=white penwidth=1.0 shape=ellipse style=solid]
+	428 [label=428 color=gold fillcolor=white penwidth=3.0 shape=ellipse style=solid]
+	429 [label=429 color=black fillcolor=white penwidth=1.0 shape=ellipse style=solid]
+	430 [label=430 color=black fillcolor=white penwidth=1.0 shape=ellipse style=solid]
+	431 [label=431 color=black fillcolor=white penwidth=1.0 shape=ellipse style=solid]
+	432 [label=<<B><FONT COLOR="red" POINT-SIZE="20">432</FONT></B>> color=black fillcolor=white penwidth=1.0 shape=ellipse style=solid]
+	433 [label=433 color=black fillcolor=white penwidth=1.0 shape=ellipse style=solid]
+	434 [label=434 color=black fillcolor=white penwidth=1.0 shape=ellipse style=solid]
+	435 [label=435 color=black fillcolor=white penwidth=1.0 shape=ellipse style=solid]
+	436 [label=<<B><FONT COLOR="red" POINT-SIZE="20">436</FONT></B>> color=black fillcolor=white penwidth=1.0 shape=ellipse style=solid]
+	437 [label=437 color=black fillcolor=white penwidth=1.0 shape=ellipse style=solid]
+	438 [label=438 color=black fillcolor=white penwidth=1.0 shape=ellipse style=solid]
+	439 [label=439 color=black fillcolor=white penwidth=1.0 shape=ellipse style=solid]
+	440 [label=440 color=black fillcolor=white penwidth=1.0 shape=ellipse style=solid]
+	441 [label=441 color=black fillcolor=white penwidth=1.0 shape=ellipse style=solid]
+	442 [label=442 color=black fillcolor=white penwidth=1.0 shape=ellipse style=solid]
+	443 [label=443 color=black fillcolor=white penwidth=1.0 shape=ellipse style=solid]
+	444 [label=444 color=black fillcolor=white penwidth=1.0 shape=ellipse style=solid]
+	445 [label=445 color=gold fillcolor=white penwidth=3.0 shape=ellipse style=solid]
+	446 [label=446 color=black fillcolor=white penwidth=1.0 shape=ellipse style=solid]
+	447 [label=447 color=black fillcolor=white penwidth=1.0 shape=ellipse style=solid]
+	448 [label=448 color=black fillcolor=white penwidth=1.0 shape=ellipse style=solid]
+	449 [label=449 color=black fillcolor=white penwidth=1.0 shape=ellipse style=solid]
+	450 [label=450 color=black fillcolor=white penwidth=1.0 shape=ellipse style=solid]
+	451 [label=451 color=black fillcolor=white penwidth=1.0 shape=ellipse style=solid]
+	452 [label=452 color=black fillcolor=white penwidth=1.0 shape=ellipse style=solid]
+	453 [label=453 color=black fillcolor=white penwidth=1.0 shape=ellipse style=solid]
+	454 [label=454 color=black fillcolor=white penwidth=1.0 shape=ellipse style=solid]
+	455 [label=455 color=black fillcolor=white penwidth=1.0 shape=ellipse style=solid]
+	456 [label=456 color=black fillcolor=white penwidth=1.0 shape=ellipse style=solid]
+	457 [label=457 color=black fillcolor=white penwidth=1.0 shape=ellipse style=solid]
+	458 [label=458 color=black fillcolor=white penwidth=1.0 shape=ellipse style=solid]
+	459 [label=459 color=black fillcolor=white penwidth=1.0 shape=ellipse style=solid]
+	460 [label=460 color=black fillcolor=white penwidth=1.0 shape=ellipse style=solid]
+	461 [label=461 color=black fillcolor=white penwidth=1.0 shape=ellipse style=solid]
+	462 [label=462 color=black fillcolor=white penwidth=1.0 shape=ellipse style=solid]
+	463 [label=463 color=black fillcolor=white penwidth=1.0 shape=ellipse style=solid]
+	464 [label=464 color=black fillcolor=white penwidth=1.0 shape=ellipse style=solid]
+	465 [label=465 color=black fillcolor=white penwidth=1.0 shape=ellipse style=solid]
+	466 [label=466 color=black fillcolor=white penwidth=1.0 shape=ellipse style=solid]
+	467 [label=467 color=black fillcolor=white penwidth=1.0 shape=ellipse style=solid]
+	468 [label=468 color=black fillcolor=white penwidth=1.0 shape=ellipse style=solid]
+	469 [label=469 color=black fillcolor=white penwidth=1.0 shape=ellipse style=solid]
+	470 [label=470 color=black fillcolor=white penwidth=1.0 shape=ellipse style=solid]
+	471 [label=471 color=black fillcolor=white penwidth=1.0 shape=ellipse style=solid]
+	472 [label=472 color=black fillcolor=white penwidth=1.0 shape=ellipse style=solid]
+	473 [label=473 color=black fillcolor=white penwidth=1.0 shape=ellipse style=solid]
+	474 [label=<<B><FONT COLOR="red" POINT-SIZE="20">474</FONT></B>> color=black fillcolor=white penwidth=1.0 shape=ellipse style=solid]
+	475 [label=475 color=black fillcolor=white penwidth=1.0 shape=ellipse style=solid]
+	476 [label=476 color=black fillcolor=white penwidth=1.0 shape=ellipse style=solid]
+	477 [label=477 color=black fillcolor=white penwidth=1.0 shape=ellipse style=solid]
+	478 [label=478 color=black fillcolor=white penwidth=1.0 shape=ellipse style=solid]
+	479 [label=479 color=black fillcolor=white penwidth=1.0 shape=ellipse style=solid]
+	480 [label=<<B><FONT COLOR="red" POINT-SIZE="20">480</FONT></B>> color=black fillcolor=white penwidth=1.0 shape=ellipse style=solid]
+	481 [label=<<B><FONT COLOR="red" POINT-SIZE="20">481</FONT></B>> color=black fillcolor=white penwidth=1.0 shape=ellipse style=solid]
+	482 [label=482 color=black fillcolor=white penwidth=1.0 shape=ellipse style=solid]
+	483 [label=483 color=black fillcolor=white penwidth=1.0 shape=ellipse style=solid]
+	484 [label=484 color=black fillcolor=white penwidth=1.0 shape=ellipse style=solid]
+	485 [label=485 color=black fillcolor=white penwidth=1.0 shape=ellipse style=solid]
+	486 [label=486 color=black fillcolor=white penwidth=1.0 shape=ellipse style=solid]
+	487 [label=487 color=black fillcolor=white penwidth=1.0 shape=ellipse style=solid]
+	488 [label=488 color=black fillcolor=white penwidth=1.0 shape=ellipse style=solid]
+	489 [label=489 color=black fillcolor=white penwidth=1.0 shape=ellipse style=solid]
+	490 [label=490 color=black fillcolor=white penwidth=1.0 shape=ellipse style=solid]
+	491 [label=491 color=black fillcolor=white penwidth=1.0 shape=ellipse style=solid]
+	492 [label=492 color=black fillcolor=white penwidth=1.0 shape=ellipse style=solid]
+	493 [label=493 color=gold fillcolor=white penwidth=3.0 shape=ellipse style=solid]
+	"end-from-493" [label="End (493)" color=gold fillcolor=crimson penwidth=3.0 shape=doubleoctagon style=filled]
+	494 [label=494 color=black fillcolor=white penwidth=1.0 shape=ellipse style=solid]
+	495 [label=495 color=black fillcolor=white penwidth=1.0 shape=ellipse style=solid]
+	496 [label=496 color=black fillcolor=white penwidth=1.0 shape=ellipse style=solid]
+	497 [label=497 color=black fillcolor=white penwidth=1.0 shape=ellipse style=solid]
+	498 [label=498 color=gold fillcolor=white penwidth=3.0 shape=ellipse style=solid]
+	499 [label=499 color=black fillcolor=white penwidth=1.0 shape=ellipse style=solid]
+	500 [label=<500-<FONT COLOR="blue" POINT-SIZE="20">Le Guide</FONT> > color=black fillcolor=white penwidth=1.0 shape=ellipse style=solid]
+	501 [label=<501-<FONT COLOR="blue" POINT-SIZE="20">Oasis détente</FONT> > color=black fillcolor=white penwidth=1.0 shape=ellipse style=solid]
+	502 [label=502 color=black fillcolor=white penwidth=1.0 shape=ellipse style=solid]
+	503 [label=503 color=black fillcolor=white penwidth=1.0 shape=ellipse style=solid]
+	504 [label=504 color=black fillcolor=white penwidth=1.0 shape=ellipse style=solid]
+	505 [label=505 color=black fillcolor=white penwidth=1.0 shape=ellipse style=solid]
+	506 [label=506 color=black fillcolor=white penwidth=1.0 shape=ellipse style=solid]
+	507 [label=507 color=black fillcolor=white penwidth=1.0 shape=ellipse style=solid]
+	508 [label=508 color=black fillcolor=white penwidth=1.0 shape=ellipse style=solid]
+	509 [label=509 color=black fillcolor=white penwidth=1.0 shape=ellipse style=solid]
+	510 [label=510 color=black fillcolor=white penwidth=1.0 shape=ellipse style=solid]
+	511 [label=511 color=black fillcolor=white penwidth=1.0 shape=ellipse style=solid]
+	512 [label=512 color=black fillcolor=white penwidth=1.0 shape=ellipse style=solid]
+	513 [label=513 color=black fillcolor=white penwidth=1.0 shape=ellipse style=solid]
+	514 [label=<<B><FONT COLOR="red" POINT-SIZE="20">514</FONT></B>> color=black fillcolor=white penwidth=1.0 shape=ellipse style=solid]
+	515 [label=515 color=black fillcolor=white penwidth=1.0 shape=ellipse style=solid]
+	516 [label=516 color=gold fillcolor=white penwidth=3.0 shape=ellipse style=solid]
+	517 [label=517 color=black fillcolor=white penwidth=1.0 shape=ellipse style=solid]
+	518 [label=518 color=black fillcolor=white penwidth=1.0 shape=ellipse style=solid]
+	519 [label=519 color=black fillcolor=white penwidth=1.0 shape=ellipse style=solid]
+	520 [label=520 color=black fillcolor=white penwidth=1.0 shape=ellipse style=solid]
+	521 [label=521 color=gold fillcolor=white penwidth=3.0 shape=ellipse style=solid]
+	522 [label=522 color=black fillcolor=white penwidth=1.0 shape=ellipse style=solid]
+	523 [label=523 color=black fillcolor=white penwidth=1.0 shape=ellipse style=solid]
+	524 [label=524 color=black fillcolor=white penwidth=1.0 shape=ellipse style=solid]
+	525 [label=525 color=black fillcolor=white penwidth=1.0 shape=ellipse style=solid]
+	526 [label=526 color=black fillcolor=white penwidth=1.0 shape=ellipse style=solid]
+	527 [label=527 color=black fillcolor=white penwidth=1.0 shape=ellipse style=solid]
+	528 [label=528 color=black fillcolor=white penwidth=1.0 shape=ellipse style=solid]
+	529 [label=529 color=black fillcolor=white penwidth=1.0 shape=ellipse style=solid]
+	530 [label=530 color=black fillcolor=white penwidth=1.0 shape=ellipse style=solid]
+	531 [label=531 color=black fillcolor=white penwidth=1.0 shape=ellipse style=solid]
+	532 [label=<<B><FONT COLOR="red" POINT-SIZE="20">532</FONT></B>> color=black fillcolor=white penwidth=1.0 shape=ellipse style=solid]
+	533 [label=533 color=black fillcolor=white penwidth=1.0 shape=ellipse style=solid]
+	534 [label=534 color=black fillcolor=white penwidth=1.0 shape=ellipse style=solid]
+	535 [label=535 color=gold fillcolor=white penwidth=3.0 shape=ellipse style=solid]
+	536 [label=536 color=black fillcolor=white penwidth=1.0 shape=ellipse style=solid]
+	537 [label=537 color=black fillcolor=white penwidth=1.0 shape=ellipse style=solid]
+	538 [label=538 color=black fillcolor=white penwidth=1.0 shape=ellipse style=solid]
+	539 [label=539 color=black fillcolor=white penwidth=1.0 shape=ellipse style=solid]
+	540 [label=540 color=black fillcolor=white penwidth=1.0 shape=ellipse style=solid]
+	541 [label=541 color=black fillcolor=white penwidth=1.0 shape=ellipse style=solid]
+	542 [label=542 color=black fillcolor=white penwidth=1.0 shape=ellipse style=solid]
+	543 [label=543 color=black fillcolor=white penwidth=1.0 shape=ellipse style=solid]
+	544 [label=544 color=black fillcolor=white penwidth=1.0 shape=ellipse style=solid]
+	545 [label=545 color=black fillcolor=white penwidth=1.0 shape=ellipse style=solid]
+	546 [label=546 color=black fillcolor=white penwidth=1.0 shape=ellipse style=solid]
+	547 [label=547 color=black fillcolor=white penwidth=1.0 shape=ellipse style=solid]
+	548 [label=548 color=black fillcolor=white penwidth=1.0 shape=ellipse style=solid]
+	549 [label=549 color=black fillcolor=white penwidth=1.0 shape=ellipse style=solid]
+	550 [label=550 color=black fillcolor=white penwidth=1.0 shape=ellipse style=solid]
+	551 [label=551 color=black fillcolor=white penwidth=1.0 shape=ellipse style=solid]
+	552 [label=552 color=black fillcolor=white penwidth=1.0 shape=ellipse style=solid]
+	553 [label=553 color=black fillcolor=white penwidth=1.0 shape=ellipse style=solid]
+	554 [label=554 color=black fillcolor=white penwidth=1.0 shape=ellipse style=solid]
+	555 [label=555 color=black fillcolor=white penwidth=1.0 shape=ellipse style=solid]
+	556 [label=556 color=black fillcolor=white penwidth=1.0 shape=ellipse style=solid]
+	557 [label=557 color=black fillcolor=white penwidth=1.0 shape=ellipse style=solid]
+	558 [label=558 color=black fillcolor=white penwidth=1.0 shape=ellipse style=solid]
+	559 [label=559 color=black fillcolor=white penwidth=1.0 shape=ellipse style=solid]
+	560 [label=560 color=black fillcolor=white penwidth=1.0 shape=ellipse style=solid]
+	561 [label=561 color=black fillcolor=white penwidth=1.0 shape=ellipse style=solid]
+	562 [label=562 color=black fillcolor=white penwidth=1.0 shape=ellipse style=solid]
+	563 [label=563 color=black fillcolor=white penwidth=1.0 shape=ellipse style=solid]
+	564 [label=<<B><FONT COLOR="red" POINT-SIZE="20">564</FONT></B>> color=black fillcolor=white penwidth=1.0 shape=ellipse style=solid]
+	565 [label=565 color=black fillcolor=white penwidth=1.0 shape=ellipse style=solid]
+	566 [label=566 color=black fillcolor=white penwidth=1.0 shape=ellipse style=solid]
+	567 [label=567 color=black fillcolor=white penwidth=1.0 shape=ellipse style=solid]
+	568 [label=568 color=black fillcolor=white penwidth=1.0 shape=ellipse style=solid]
+	569 [label=569 color=black fillcolor=white penwidth=1.0 shape=ellipse style=solid]
+	570 [label=570 color=black fillcolor=white penwidth=1.0 shape=ellipse style=solid]
+	571 [label=571 color=black fillcolor=white penwidth=1.0 shape=ellipse style=solid]
+	572 [label=572 color=black fillcolor=white penwidth=1.0 shape=ellipse style=solid]
+	573 [label=573 color=black fillcolor=white penwidth=1.0 shape=ellipse style=solid]
+	574 [label=574 color=black fillcolor=white penwidth=1.0 shape=ellipse style=solid]
+	575 [label=575 color=gold fillcolor=white penwidth=3.0 shape=ellipse style=solid]
+	576 [label=576 color=black fillcolor=white penwidth=1.0 shape=ellipse style=solid]
+	577 [label=577 color=black fillcolor=white penwidth=1.0 shape=ellipse style=solid]
+	578 [label=578 color=black fillcolor=white penwidth=1.0 shape=ellipse style=solid]
+	579 [label=579 color=black fillcolor=white penwidth=1.0 shape=ellipse style=solid]
+	580 [label=580 color=black fillcolor=white penwidth=1.0 shape=ellipse style=solid]
+	581 [label=581 color=black fillcolor=white penwidth=1.0 shape=ellipse style=solid]
+	582 [label=582 color=black fillcolor=white penwidth=1.0 shape=ellipse style=solid]
+	583 [label=583 color=black fillcolor=white penwidth=1.0 shape=ellipse style=solid]
+	584 [label=<<B><FONT COLOR="red" POINT-SIZE="20">584</FONT></B>> color=black fillcolor=white penwidth=1.0 shape=ellipse style=solid]
+	585 [label=585 color=black fillcolor=white penwidth=1.0 shape=ellipse style=solid]
+	586 [label=586 color=black fillcolor=white penwidth=1.0 shape=ellipse style=solid]
+	587 [label=587 color=black fillcolor=white penwidth=1.0 shape=ellipse style=solid]
+	588 [label=588 color=black fillcolor=white penwidth=1.0 shape=ellipse style=solid]
+	589 [label=589 color=black fillcolor=white penwidth=1.0 shape=ellipse style=solid]
+	590 [label=590 color=black fillcolor=white penwidth=1.0 shape=ellipse style=solid]
+	591 [label=591 color=black fillcolor=white penwidth=1.0 shape=ellipse style=solid]
+	592 [label=592 color=black fillcolor=white penwidth=1.0 shape=ellipse style=solid]
+	593 [label=593 color=black fillcolor=white penwidth=1.0 shape=ellipse style=solid]
+	594 [label=594 color=black fillcolor=white penwidth=1.0 shape=ellipse style=solid]
+	595 [label=595 color=black fillcolor=white penwidth=1.0 shape=ellipse style=solid]
+	596 [label=596 color=black fillcolor=white penwidth=1.0 shape=ellipse style=solid]
+	597 [label=597 color=black fillcolor=white penwidth=1.0 shape=ellipse style=solid]
+	598 [label=598 color=black fillcolor=white penwidth=1.0 shape=ellipse style=solid]
+	599 [label=599 color=black fillcolor=white penwidth=1.0 shape=ellipse style=solid]
+	600 [label=<600-<FONT COLOR="blue" POINT-SIZE="20">Les Sables d'Ivoire</FONT> > color=black fillcolor=white penwidth=1.0 shape=ellipse style=solid]
+	601 [label=601 color=black fillcolor=white penwidth=1.0 shape=ellipse style=solid]
+	602 [label=602 color=black fillcolor=white penwidth=1.0 shape=ellipse style=solid]
+	603 [label=603 color=black fillcolor=white penwidth=1.0 shape=ellipse style=solid]
+	604 [label=604 color=black fillcolor=white penwidth=1.0 shape=ellipse style=solid]
+	605 [label=605 color=black fillcolor=white penwidth=1.0 shape=ellipse style=solid]
+	606 [label=606 color=black fillcolor=white penwidth=1.0 shape=ellipse style=solid]
+	607 [label=607 color=black fillcolor=white penwidth=1.0 shape=ellipse style=solid]
+	608 [label=<<B><FONT COLOR="red" POINT-SIZE="20">608</FONT></B>> color=black fillcolor=white penwidth=1.0 shape=ellipse style=solid]
+	609 [label=609 color=black fillcolor=white penwidth=1.0 shape=ellipse style=solid]
+	610 [label=610 color=black fillcolor=white penwidth=1.0 shape=ellipse style=solid]
+	611 [label=611 color=gold fillcolor=white penwidth=3.0 shape=ellipse style=solid]
+	"end-from-611" [label="End (611)" color=gold fillcolor=darkseagreen1 penwidth=3.0 shape=doubleoctagon style=filled]
+	612 [label=612 color=black fillcolor=white penwidth=1.0 shape=ellipse style=solid]
+	613 [label=613 color=black fillcolor=white penwidth=1.0 shape=ellipse style=solid]
+	614 [label=614 color=black fillcolor=white penwidth=1.0 shape=ellipse style=solid]
+	615 [label=615 color=black fillcolor=white penwidth=1.0 shape=ellipse style=solid]
+	616 [label=616 color=black fillcolor=white penwidth=1.0 shape=ellipse style=solid]
+	617 [label=617 color=black fillcolor=white penwidth=1.0 shape=ellipse style=solid]
+	618 [label=618 color=black fillcolor=white penwidth=1.0 shape=ellipse style=solid]
+	619 [label=619 color=gold fillcolor=white penwidth=3.0 shape=ellipse style=solid]
+	620 [label=620 color=black fillcolor=white penwidth=1.0 shape=ellipse style=solid]
+	621 [label=621 color=black fillcolor=white penwidth=1.0 shape=ellipse style=solid]
+	622 [label=622 color=black fillcolor=white penwidth=1.0 shape=ellipse style=solid]
+	623 [label=623 color=black fillcolor=white penwidth=1.0 shape=ellipse style=solid]
+	624 [label=624 color=black fillcolor=white penwidth=1.0 shape=ellipse style=solid]
+	625 [label=625 color=black fillcolor=white penwidth=1.0 shape=ellipse style=solid]
+	626 [label=626 color=gold fillcolor=white penwidth=3.0 shape=ellipse style=solid]
+	627 [label=627 color=black fillcolor=white penwidth=1.0 shape=ellipse style=solid]
+	628 [label=628 color=black fillcolor=white penwidth=1.0 shape=ellipse style=solid]
+	629 [label=629 color=black fillcolor=white penwidth=1.0 shape=ellipse style=solid]
+	630 [label=<<B><FONT COLOR="red" POINT-SIZE="20">630</FONT></B>> color=black fillcolor=white penwidth=1.0 shape=ellipse style=solid]
+	631 [label=631 color=black fillcolor=white penwidth=1.0 shape=ellipse style=solid]
+	632 [label=632 color=black fillcolor=white penwidth=1.0 shape=ellipse style=solid]
+	633 [label=633 color=black fillcolor=white penwidth=1.0 shape=ellipse style=solid]
+	634 [label=634 color=black fillcolor=white penwidth=1.0 shape=ellipse style=solid]
+	635 [label=635 color=black fillcolor=white penwidth=1.0 shape=ellipse style=solid]
+	636 [label=636 color=black fillcolor=white penwidth=1.0 shape=ellipse style=solid]
+	637 [label=637 color=black fillcolor=white penwidth=1.0 shape=ellipse style=solid]
+	638 [label=638 color=black fillcolor=white penwidth=1.0 shape=ellipse style=solid]
+	639 [label=639 color=black fillcolor=white penwidth=1.0 shape=ellipse style=solid]
+	640 [label=640 color=black fillcolor=white penwidth=1.0 shape=ellipse style=solid]
+	641 [label=641 color=black fillcolor=white penwidth=1.0 shape=ellipse style=solid]
+	642 [label=642 color=black fillcolor=white penwidth=1.0 shape=ellipse style=solid]
+	643 [label=643 color=gold fillcolor=white penwidth=3.0 shape=ellipse style=solid]
+	644 [label=644 color=gold fillcolor=white penwidth=3.0 shape=ellipse style=solid]
+	"end-from-644" [label="End (644)" color=gold fillcolor=darkseagreen1 penwidth=3.0 shape=doubleoctagon style=filled]
+	645 [label=645 color=gold fillcolor=white penwidth=3.0 shape=ellipse style=solid]
+	646 [label=646 color=black fillcolor=white penwidth=1.0 shape=ellipse style=solid]
+	647 [label=647 color=black fillcolor=white penwidth=1.0 shape=ellipse style=solid]
+	648 [label=648 color=black fillcolor=white penwidth=1.0 shape=ellipse style=solid]
+	649 [label=<<B><FONT COLOR="red" POINT-SIZE="20">649</FONT></B>> color=black fillcolor=white penwidth=1.0 shape=ellipse style=solid]
+	650 [label=650 color=black fillcolor=white penwidth=1.0 shape=ellipse style=solid]
+	651 [label=651 color=black fillcolor=white penwidth=1.0 shape=ellipse style=solid]
+	652 [label=652 color=black fillcolor=white penwidth=1.0 shape=ellipse style=solid]
+	653 [label=653 color=black fillcolor=white penwidth=1.0 shape=ellipse style=solid]
+	654 [label=654 color=black fillcolor=white penwidth=1.0 shape=ellipse style=solid]
+	655 [label=655 color=gold fillcolor=white penwidth=3.0 shape=ellipse style=solid]
+	"end-from-655" [label="End (655)" color=gold fillcolor=crimson penwidth=3.0 shape=doubleoctagon style=filled]
+	656 [label=656 color=black fillcolor=white penwidth=1.0 shape=ellipse style=solid]
+	657 [label=657 color=gold fillcolor=white penwidth=3.0 shape=ellipse style=solid]
+	658 [label=658 color=black fillcolor=white penwidth=1.0 shape=ellipse style=solid]
+	659 [label=659 color=black fillcolor=white penwidth=1.0 shape=ellipse style=solid]
+	660 [label=660 color=gold fillcolor=white penwidth=3.0 shape=ellipse style=solid]
+	661 [label=661 color=gold fillcolor=white penwidth=3.0 shape=ellipse style=solid]
+	"end-from-661" [label="End (661)" color=gold fillcolor=darkseagreen1 penwidth=3.0 shape=doubleoctagon style=filled]
+	662 [label=662 color=black fillcolor=white penwidth=1.0 shape=ellipse style=solid]
+	663 [label=663 color=black fillcolor=white penwidth=1.0 shape=ellipse style=solid]
+	664 [label=664 color=black fillcolor=white penwidth=1.0 shape=ellipse style=solid]
+	665 [label=665 color=black fillcolor=white penwidth=1.0 shape=ellipse style=solid]
+	666 [label=666 color=gold fillcolor=white penwidth=3.0 shape=ellipse style=solid]
+	667 [label=667 color=black fillcolor=white penwidth=1.0 shape=ellipse style=solid]
+	668 [label=668 color=black fillcolor=white penwidth=1.0 shape=ellipse style=solid]
+	"end-from-668" [label="End (668)" color=black fillcolor=crimson penwidth=1.0 shape=doubleoctagon style=filled]
+	669 [label=669 color=black fillcolor=white penwidth=1.0 shape=ellipse style=solid]
+	670 [label=670 color=black fillcolor=white penwidth=1.0 shape=ellipse style=solid]
+	671 [label=671 color=black fillcolor=white penwidth=1.0 shape=ellipse style=solid]
+	672 [label=672 color=black fillcolor=white penwidth=1.0 shape=ellipse style=solid]
+	673 [label=673 color=black fillcolor=white penwidth=1.0 shape=ellipse style=solid]
+	674 [label=674 color=black fillcolor=white penwidth=1.0 shape=ellipse style=solid]
+	675 [label=675 color=black fillcolor=white penwidth=1.0 shape=ellipse style=solid]
+	676 [label=676 color=gold fillcolor=white penwidth=3.0 shape=ellipse style=solid]
+	677 [label=677 color=gold fillcolor=white penwidth=3.0 shape=ellipse style=solid]
+	"end-from-677" [label="End (677)" color=gold fillcolor=darkseagreen1 penwidth=3.0 shape=doubleoctagon style=filled]
+	678 [label=678 color=gold fillcolor=white penwidth=3.0 shape=ellipse style=solid]
+	679 [label=679 color=black fillcolor=white penwidth=1.0 shape=ellipse style=solid]
+	680 [label=680 color=black fillcolor=white penwidth=1.0 shape=ellipse style=solid]
+	681 [label=681 color=black fillcolor=white penwidth=1.0 shape=ellipse style=solid]
+	682 [label=682 color=gold fillcolor=white penwidth=3.0 shape=ellipse style=solid]
+	683 [label=683 color=black fillcolor=white penwidth=1.0 shape=ellipse style=solid]
+	684 [label=684 color=black fillcolor=white penwidth=1.0 shape=ellipse style=solid]
+	685 [label=685 color=black fillcolor=white penwidth=1.0 shape=ellipse style=solid]
+	686 [label=<<B><FONT COLOR="red" POINT-SIZE="20">686</FONT></B>> color=black fillcolor=white penwidth=1.0 shape=ellipse style=solid]
+	687 [label=687 color=black fillcolor=white penwidth=1.0 shape=ellipse style=solid]
+	688 [label=688 color=gold fillcolor=white penwidth=3.0 shape=ellipse style=solid]
+	689 [label=<<B><FONT COLOR="red" POINT-SIZE="20">689</FONT></B>> color=black fillcolor=white penwidth=1.0 shape=ellipse style=solid]
+	690 [label=690 color=black fillcolor=white penwidth=1.0 shape=ellipse style=solid]
+	691 [label=691 color=black fillcolor=white penwidth=1.0 shape=ellipse style=solid]
+	692 [label=692 color=black fillcolor=white penwidth=1.0 shape=ellipse style=solid]
+	"end-from-692" [label="End (692)" color=black fillcolor=darkseagreen1 penwidth=1.0 shape=doubleoctagon style=filled]
+	89 -> 100
+	156 -> 200
+	243 -> 388
+	280 -> 583
+	292 -> 583
+	300 -> 340
+	300 -> 310
+	308 -> 583
+	366 -> 400
+	475 -> 500
+	519 -> 500
+	568 -> 659
+	576 -> 600
+	650 -> 659
+	subgraph "cluster_Nouvelle-Nouvelle-Azur" {
+		color=lightgrey style=filled
+		1 -> 12
+		3 -> 89
+		5 -> 18
+		6 -> 89
+		8 -> 89
+		11 -> 36
+		12 -> 5
+		12 -> 55
+		18 -> 99
+		18 -> 11
+		18 -> 44
+		18 -> 77
+		33 -> 80
+		36 -> 80
+		36 -> 33
+		37 -> 89
+		40 -> 89
+		43 -> 36
+		44 -> 176
+		44 -> 43
+		55 -> 18
+		56 -> 65
+		56 -> 90
+		65 -> 40
+		65 -> 3
+		65 -> 68
+		65 -> 6
+		68 -> 89
+		73 -> 89
+		76 -> 89
+		77 -> 36
+		80 -> 145
+		80 -> 155
+		80 -> 135
+		90 -> 8
+		90 -> 117
+		90 -> 133
+		99 -> 36
+		117 -> 73
+		117 -> 37
+		133 -> 8
+		133 -> 76
+		135 -> 56
+		145 -> 56
+		151 -> "end-from-151"
+		155 -> 56
+		155 -> 151
+		176 -> 36
+		label="Nouvelle-Nouvelle-Azur"
+		fontcolor=red fontsize=72
+	}
+	subgraph "cluster_L'Exode" {
+		subgraph "cluster_Prieuré" {
+			color=grey style=filled
+			4 -> 170
+			4 -> 198
+			15 -> 267
+			15 -> 540
+			15 -> 86
+			16 -> 192
+			16 -> 123
+			16 -> 141
+			16 -> 102
+			25 -> 472
+			25 -> 27
+			25 -> 203
+			27 -> 15
+			30 -> 144
+			38 -> 15
+			46 -> 192
+			46 -> 123
+			46 -> 141
+			46 -> 102
+			52 -> 15
+			59 -> 192
+			59 -> 123
+			59 -> 141
+			59 -> 102
+			86 -> 490
+			86 -> 187
+			86 -> 309
+			98 -> 192
+			98 -> 123
+			98 -> 141
+			98 -> 191
+			102 -> 15
+			110 -> 144
+			123 -> 191
+			123 -> 141
+			123 -> 102
+			123 -> 335
+			131 -> 147
+			131 -> 134
+			132 -> 144
+			134 -> 147
+			136 -> 192
+			136 -> 123
+			136 -> 141
+			136 -> 102
+			141 -> 192
+			141 -> 123
+			141 -> 102
+			141 -> 191
+			147 -> 170
+			147 -> 4
+			147 -> 198
+			170 -> 123
+			170 -> 141
+			170 -> 102
+			170 -> 191
+			171 -> 132
+			171 -> 30
+			187 -> 25
+			190 -> 25
+			191 -> 16
+			191 -> 59
+			191 -> 136
+			191 -> 46
+			192 -> 201
+			192 -> 171
+			192 -> 110
+			198 -> 170
+			198 -> 4
+			201 -> 132
+			201 -> 30
+			203 -> 15
+			224 -> 15
+			267 -> 25
+			304 -> 224
+			304 -> 498
+			304 -> 38
+			309 -> 25
+			335 -> 192
+			335 -> 141
+			335 -> 102
+			335 -> 191
+			348 -> 25
+			472 -> 304
+			472 -> 554
+			472 -> 52
+			490 -> 98
+			490 -> 348
+			490 -> 190
+			498 -> 192
+			498 -> 123
+			498 -> 141
+			498 -> 191
+			540 -> 25
+			554 -> 15
+			label="Prieuré"
+			fontcolor=red fontsize=72
+		}
+		subgraph cluster_Jungle {
+			color=grey style=filled
+			20 -> 121
+			31 -> 260
+			41 -> 169
+			41 -> 140
+			41 -> 20
+			41 -> 185
+			41 -> 92
+			45 -> 91
+			45 -> 119
+			49 -> 260
+			49 -> 31
+			51 -> 175
+			57 -> 138
+			61 -> 41
+			71 -> 138
+			79 -> 161
+			81 -> 41
+			87 -> 175
+			91 -> 137
+			91 -> 139
+			91 -> 81
+			91 -> 146
+			91 -> 61
+			92 -> 121
+			97 -> 161
+			108 -> 97
+			108 -> 79
+			113 -> 175
+			119 -> 41
+			121 -> 108
+			137 -> 41
+			138 -> 14
+			139 -> 41
+			140 -> 121
+			146 -> 104
+			146 -> 41
+			161 -> 113
+			161 -> 163
+			161 -> 51
+			161 -> 87
+			163 -> 175
+			166 -> 138
+			169 -> 121
+			175 -> 197
+			175 -> 199
+			175 -> 208
+			175 -> 49
+			175 -> 31
+			179 -> 138
+			185 -> 121
+			197 -> 260
+			199 -> 260
+			208 -> 49
+			208 -> 31
+			208 -> 197
+			208 -> 199
+			260 -> 57
+			260 -> 179
+			260 -> 166
+			260 -> 71
+			label=Jungle
+			fontcolor=red fontsize=72
+		}
+		subgraph "cluster_Oasis Détente" {
+			color=grey style=filled
+			29 -> 382
+			35 -> 382
+			84 -> 35
+			84 -> 29
+			84 -> 382
+			103 -> 382
+			115 -> 382
+			153 -> 360
+			153 -> 193
+			153 -> 115
+			193 -> 382
+			216 -> 382
+			221 -> 382
+			360 -> 382
+			382 -> 421
+			382 -> 103
+			382 -> 401
+			382 -> 84
+			382 -> 153
+			401 -> 216
+			401 -> 491
+			421 -> 221
+			421 -> 382
+			491 -> 382
+			501 -> 382
+			label="Oasis Détente"
+			fontcolor=red fontsize=72
+		}
+		subgraph "cluster_Fêtes" {
+			color=grey style=filled
+			78 -> 195
+			78 -> 369
+			78 -> 148
+			78 -> 212
+			78 -> 118
+			95 -> 283
+			105 -> 283
+			118 -> 72
+			118 -> 17
+			125 -> 231
+			125 -> 95
+			148 -> 229
+			148 -> 174
+			184 -> 283
+			231 -> 283
+			239 -> 184
+			239 -> 283
+			239 -> 262
+			262 -> 283
+			283 -> 301
+			283 -> 332
+			283 -> 125
+			301 -> 195
+			301 -> 78
+			301 -> 369
+			301 -> 148
+			301 -> 212
+			301 -> 118
+			332 -> 283
+			332 -> 239
+			label="Fêtes"
+			fontcolor=red fontsize=72
+		}
+		color=lightgrey style=filled
+		14 -> 181
+		17 -> 127
+		21 -> 105
+		21 -> 501
+		24 -> 58
+		24 -> 414
+		29 -> 127
+		35 -> 127
+		42 -> 21
+		47 -> 114
+		48 -> 21
+		58 -> 21
+		64 -> 48
+		64 -> 24
+		70 -> 114
+		72 -> 127
+		78 -> 127
+		95 -> 127
+		96 -> 189
+		100 -> 131
+		100 -> 45
+		103 -> 127
+		104 -> "end-from-104"
+		107 -> 168
+		114 -> 64
+		114 -> 129
+		114 -> 42
+		114 -> 58
+		114 -> 158
+		115 -> 127
+		118 -> 127
+		124 -> 399
+		124 -> 377
+		124 -> 344
+		124 -> 311
+		127 -> 124
+		129 -> 21
+		144 -> 181
+		148 -> 127
+		149 -> 186
+		154 -> 165
+		158 -> 21
+		160 -> 167
+		165 -> 186
+		165 -> 149
+		167 -> 47
+		168 -> 70
+		174 -> 127
+		181 -> 160
+		181 -> 107
+		184 -> 127
+		186 -> 156
+		189 -> 154
+		193 -> 127
+		195 -> 127
+		212 -> 127
+		216 -> 127
+		221 -> 127
+		229 -> "end-from-229"
+		231 -> 127
+		262 -> 127
+		283 -> 127
+		301 -> 127
+		311 -> 96
+		332 -> 127
+		344 -> 96
+		360 -> 127
+		369 -> 127
+		377 -> 96
+		382 -> 127
+		399 -> 96
+		414 -> "end-from-414"
+		421 -> 127
+		491 -> 127
+		label="L'Exode"
+		fontcolor=red fontsize=72
+	}
+	subgraph "cluster_La cité des Reflets" {
+		subgraph "cluster_Grand Bazaar" {
+			color=grey style=filled
+			13 -> 109
+			13 -> 85
+			34 -> 215
+			54 -> 215
+			85 -> 215
+			106 -> 130
+			106 -> 34
+			106 -> 334
+			106 -> 54
+			106 -> 215
+			109 -> 215
+			130 -> 215
+			205 -> 109
+			205 -> 13
+			205 -> 85
+			215 -> 376
+			215 -> 561
+			215 -> 106
+			263 -> 109
+			263 -> 85
+			263 -> 215
+			312 -> 302
+			334 -> 215
+			376 -> 215
+			376 -> 205
+			376 -> 263
+			561 -> 312
+			561 -> 654
+			654 -> 215
+			label="Grand Bazaar"
+			fontcolor=red fontsize=72
+		}
+		subgraph "cluster_Les Thermes" {
+			color=grey style=filled
+			63 -> 180
+			63 -> 268
+			142 -> 63
+			223 -> 337
+			223 -> 227
+			227 -> 63
+			230 -> 63
+			337 -> 142
+			337 -> 230
+			label="Les Thermes"
+			fontcolor=red fontsize=72
+		}
+		subgraph "cluster_Rues de Jehal" {
+			color=grey style=filled
+			122 -> 240
+			240 -> 258
+			240 -> 441
+			240 -> 122
+			240 -> 319
+			258 -> 240
+			319 -> 240
+			441 -> 240
+			label="Rues de Jehal"
+			fontcolor=red fontsize=72
+		}
+		subgraph "cluster_Palais des 1001 mains" {
+			color=grey style=filled
+			157 -> 307
+			220 -> 272
+			220 -> 373
+			220 -> 317
+			220 -> 157
+			272 -> 157
+			307 -> 473
+			307 -> 237
+			317 -> 157
+			373 -> 157
+			label="Palais des 1001 mains"
+			fontcolor=red fontsize=72
+		}
+		subgraph "cluster_Les écuries" {
+			color=grey style=filled
+			164 -> 209
+			209 -> 393
+			209 -> 250
+			209 -> 194
+			259 -> 339
+			259 -> 379
+			259 -> 164
+			339 -> 209
+			379 -> 209
+			label="Les écuries"
+			fontcolor=red fontsize=72
+		}
+		subgraph "cluster_Le ministère des Taxes" {
+			color=grey style=filled
+			204 -> 314
+			204 -> 410
+			242 -> 248
+			248 -> 204
+			248 -> 284
+			284 -> 408
+			314 -> 408
+			408 -> 480
+			408 -> 458
+			410 -> 408
+			434 -> 248
+			434 -> 242
+			458 -> 488
+			458 -> 405
+			488 -> 480
+			label="Le ministère des Taxes"
+			fontcolor=red fontsize=72
+		}
+		subgraph "cluster_La taverne" {
+			color=grey style=filled
+			295 -> 322
+			label="La taverne"
+			fontcolor=red fontsize=72
+		}
+		subgraph "cluster_Le temple de Phûmta" {
+			color=grey style=filled
+			380 -> 74
+			380 -> 67
+			380 -> 290
+			380 -> 634
+			label="Le temple de Phûmta"
+			fontcolor=red fontsize=72
+		}
+		color=lightgrey style=filled
+		23 -> 223
+		26 -> 261
+		28 -> 411
+		28 -> 444
+		28 -> 477
+		28 -> 499
+		62 -> 261
+		67 -> 289
+		74 -> 289
+		116 -> 380
+		116 -> 295
+		122 -> 226
+		180 -> 116
+		194 -> 116
+		200 -> 28
+		207 -> 26
+		207 -> 62
+		213 -> 218
+		213 -> 238
+		215 -> 226
+		218 -> 333
+		218 -> 207
+		226 -> 434
+		226 -> 259
+		226 -> 220
+		226 -> 23
+		237 -> 116
+		238 -> 333
+		238 -> 207
+		240 -> 226
+		250 -> 116
+		258 -> 226
+		261 -> 240
+		261 -> 215
+		268 -> 116
+		289 -> 300
+		290 -> 289
+		295 -> 289
+		302 -> 226
+		319 -> 226
+		322 -> 289
+		333 -> 336
+		336 -> 240
+		336 -> 215
+		393 -> 116
+		405 -> 116
+		411 -> 213
+		441 -> 226
+		444 -> 213
+		473 -> 116
+		477 -> 213
+		480 -> 116
+		499 -> 213
+		634 -> 289
+		label="La cité des Reflets"
+		fontcolor=red fontsize=72
+	}
+	subgraph "cluster_Justice Juste" {
+		subgraph "cluster_Debut procès" {
+			color=grey style=filled
+			10 -> 338
+			10 -> 378
+			210 -> 341
+			210 -> 143
+			338 -> 210
+			378 -> 210
+			label="Debut procès"
+			fontcolor=red fontsize=72
+		}
+		subgraph "cluster_Accusation 1" {
+			color=grey style=filled
+			101 -> 288
+			101 -> 389
+			101 -> 328
+			101 -> 266
+			101 -> 362
+			101 -> 470
+			101 -> 188
+			266 -> 101
+			266 -> 22
+			288 -> 188
+			288 -> 101
+			328 -> 101
+			328 -> 22
+			389 -> 299
+			389 -> 101
+			470 -> 19
+			470 -> 101
+			label="Accusation 1"
+			fontcolor=red fontsize=72
+		}
+		subgraph "cluster_Accusation 2" {
+			color=grey style=filled
+			202 -> 521
+			202 -> 178
+			202 -> 371
+			202 -> 246
+			202 -> 505
+			219 -> 202
+			371 -> 202
+			371 -> 269
+			505 -> 202
+			505 -> 219
+			label="Accusation 2"
+			fontcolor=red fontsize=72
+		}
+		subgraph "cluster_Accusation 3" {
+			color=grey style=filled
+			277 -> 112
+			277 -> 211
+			279 -> 394
+			279 -> 349
+			303 -> 234
+			303 -> 306
+			303 -> 277
+			303 -> 279
+			303 -> 120
+			349 -> 303
+			label="Accusation 3"
+			fontcolor=red fontsize=72
+		}
+		color=lightgrey style=filled
+		19 -> 303
+		22 -> 202
+		112 -> 330
+		120 -> 330
+		143 -> 101
+		178 -> 303
+		188 -> 202
+		211 -> 330
+		234 -> 330
+		246 -> 303
+		257 -> 10
+		265 -> 10
+		269 -> 303
+		270 -> 280
+		299 -> 202
+		306 -> 330
+		310 -> 257
+		310 -> 265
+		330 -> 280
+		330 -> 292
+		330 -> 270
+		330 -> 308
+		341 -> 101
+		362 -> 202
+		394 -> 330
+		521 -> 303
+		label="Justice Juste"
+		fontcolor=red fontsize=72
+	}
+	subgraph "cluster_Violence Vraie" {
+		subgraph "cluster_La Poigne Filante" {
+			color=grey style=filled
+			75 -> 225
+			82 -> 225
+			83 -> 225
+			83 -> 9
+			83 -> 75
+			83 -> 172
+			83 -> 82
+			83 -> 244
+			83 -> 94
+			94 -> 225
+			225 -> 206
+			244 -> 225
+			label="La Poigne Filante"
+			fontcolor=red fontsize=72
+		}
+		subgraph "cluster_Le départ" {
+			color=grey style=filled
+			150 -> 177
+			150 -> 50
+			150 -> 391
+			152 -> 32
+			152 -> 235
+			320 -> 331
+			320 -> 390
+			320 -> 324
+			320 -> 150
+			324 -> 347
+			324 -> 374
+			374 -> 150
+			391 -> 152
+			391 -> 281
+			label="Le départ"
+			fontcolor=red fontsize=72
+		}
+		subgraph "cluster_La Torche Dardante" {
+			color=grey style=filled
+			182 -> 217
+			182 -> 522
+			182 -> 282
+			182 -> 383
+			217 -> 282
+			383 -> 282
+			522 -> 282
+			label="La Torche Dardante"
+			fontcolor=red fontsize=72
+		}
+		subgraph "cluster_Dernier tour" {
+			color=grey style=filled
+			313 -> 325
+			313 -> 318
+			313 -> 375
+			318 -> 367
+			325 -> 367
+			375 -> 367
+			label="Dernier tour"
+			fontcolor=red fontsize=72
+		}
+		subgraph "cluster_Mimine!!!" {
+			color=grey style=filled
+			466 -> 256
+			466 -> 387
+			466 -> 484
+			466 -> 298
+			466 -> 406
+			466 -> 316
+			label="Mimine!!!"
+			fontcolor=red fontsize=72
+		}
+		color=lightgrey style=filled
+		9 -> 466
+		32 -> "end-from-32"
+		39 -> 93
+		50 -> 182
+		93 -> 305
+		93 -> 372
+		93 -> 533
+		93 -> 353
+		172 -> 182
+		173 -> 320
+		177 -> 182
+		206 -> 182
+		225 -> 466
+		235 -> 182
+		247 -> 243
+		256 -> 313
+		281 -> 182
+		282 -> 466
+		298 -> 313
+		305 -> 372
+		305 -> 93
+		316 -> 313
+		331 -> 83
+		340 -> 364
+		340 -> 358
+		347 -> 83
+		353 -> 372
+		353 -> 93
+		358 -> 363
+		358 -> 39
+		363 -> 93
+		364 -> 363
+		364 -> 39
+		367 -> 583
+		372 -> 603
+		372 -> 173
+		387 -> "end-from-387"
+		390 -> 83
+		406 -> 313
+		484 -> 313
+		533 -> 372
+		533 -> 93
+		583 -> 243
+		583 -> 247
+		603 -> 320
+		label="Violence Vraie"
+		fontcolor=red fontsize=72
+	}
+	subgraph "cluster_Le Palais" {
+		subgraph "cluster_La suite" {
+			color=grey style=filled
+			159 -> 420
+			159 -> 126
+			420 -> 128
+			420 -> 294
+			420 -> 271
+			420 -> 241
+			420 -> 183
+			420 -> 447
+			label="La suite"
+			fontcolor=red fontsize=72
+		}
+		subgraph "cluster_Les cuisines" {
+			color=grey style=filled
+			196 -> 361
+			196 -> 385
+			196 -> 249
+			label="Les cuisines"
+			fontcolor=red fontsize=72
+		}
+		subgraph "cluster_Le Harem" {
+			color=grey style=filled
+			469 -> 162
+			469 -> 427
+			469 -> 402
+			469 -> 275
+			label="Le Harem"
+			fontcolor=red fontsize=72
+		}
+		color=lightgrey style=filled
+		126 -> 366
+		128 -> 366
+		162 -> 366
+		183 -> 366
+		236 -> 346
+		236 -> 397
+		241 -> 366
+		245 -> 489
+		245 -> 291
+		245 -> 588
+		249 -> 366
+		271 -> 366
+		275 -> 366
+		291 -> 664
+		294 -> 366
+		346 -> 384
+		361 -> 366
+		384 -> 196
+		384 -> 469
+		384 -> 159
+		385 -> 366
+		386 -> 346
+		386 -> 397
+		388 -> 245
+		397 -> 384
+		397 -> 417
+		402 -> 366
+		417 -> 384
+		417 -> 471
+		427 -> 366
+		447 -> 366
+		469 -> 384
+		471 -> 384
+		489 -> 664
+		588 -> 664
+		664 -> 386
+		664 -> 236
+		label="Le Palais"
+		fontcolor=red fontsize=72
+	}
+	subgraph "cluster_La Larme" {
+		subgraph "cluster_Nécropole Halistair" {
+			color=grey style=filled
+			53 -> 514
+			60 -> 514
+			66 -> 370
+			88 -> 370
+			111 -> 438
+			264 -> 553
+			274 -> 503
+			285 -> 438
+			286 -> 419
+			286 -> 422
+			286 -> 455
+			286 -> 274
+			286 -> 342
+			323 -> 370
+			342 -> 503
+			370 -> 413
+			370 -> 574
+			395 -> 443
+			395 -> 286
+			413 -> 462
+			418 -> 555
+			418 -> 445
+			419 -> 503
+			422 -> 503
+			433 -> 286
+			438 -> 534
+			443 -> 464
+			443 -> 485
+			445 -> 418
+			445 -> 555
+			448 -> 512
+			455 -> 503
+			457 -> 111
+			457 -> 527
+			459 -> 66
+			459 -> 514
+			459 -> 323
+			459 -> 53
+			459 -> 60
+			460 -> 528
+			462 -> 536
+			462 -> 433
+			462 -> 467
+			462 -> 395
+			464 -> 286
+			467 -> 286
+			467 -> 575
+			468 -> 438
+			485 -> 286
+			487 -> 326
+			492 -> 513
+			492 -> 553
+			503 -> 418
+			503 -> 555
+			503 -> 445
+			508 -> 438
+			512 -> 462
+			513 -> 264
+			513 -> 553
+			514 -> 370
+			515 -> 512
+			527 -> 457
+			527 -> 426
+			527 -> 559
+			527 -> 468
+			527 -> 535
+			527 -> 508
+			527 -> 285
+			528 -> 88
+			528 -> 514
+			528 -> 323
+			528 -> 459
+			534 -> 546
+			534 -> 487
+			535 -> 438
+			536 -> 286
+			546 -> 326
+			553 -> 527
+			555 -> 264
+			555 -> 513
+			555 -> 492
+			559 -> 438
+			574 -> 448
+			574 -> 515
+			574 -> 462
+			575 -> 286
+			label="Nécropole Halistair"
+			fontcolor=red fontsize=72
+		}
+		subgraph "cluster_Avec Sa'panna" {
+			color=grey style=filled
+			69 -> 537
+			228 -> 297
+			233 -> 425
+			253 -> 297
+			254 -> 517
+			254 -> 428
+			254 -> 684
+			254 -> 431
+			254 -> 474
+			276 -> 355
+			293 -> 355
+			297 -> 516
+			297 -> 69
+			350 -> 683
+			350 -> 276
+			350 -> 293
+			355 -> 437
+			359 -> 297
+			409 -> 424
+			409 -> 530
+			409 -> 523
+			416 -> 461
+			416 -> 479
+			424 -> 297
+			425 -> 507
+			425 -> 446
+			428 -> 350
+			431 -> 350
+			437 -> 586
+			437 -> 486
+			446 -> 507
+			461 -> 233
+			474 -> 350
+			479 -> 233
+			486 -> 556
+			507 -> 254
+			516 -> 537
+			517 -> 350
+			523 -> 601
+			523 -> 228
+			523 -> 253
+			523 -> 359
+			530 -> 297
+			556 -> 424
+			556 -> 409
+			556 -> 530
+			556 -> 523
+			586 -> 556
+			601 -> 297
+			683 -> 355
+			684 -> 350
+			label="Avec Sa'panna"
+			fontcolor=red fontsize=72
+		}
+		subgraph "cluster_Avec Nadee" {
+			color=grey style=filled
+			214 -> 476
+			214 -> 287
+			232 -> 440
+			251 -> 435
+			251 -> 430
+			252 -> 251
+			255 -> 368
+			255 -> 412
+			315 -> 476
+			315 -> 287
+			327 -> 357
+			351 -> 354
+			351 -> 327
+			351 -> 423
+			351 -> 497
+			351 -> 381
+			351 -> 439
+			351 -> 509
+			354 -> 439
+			356 -> 251
+			357 -> 476
+			357 -> 287
+			368 -> 439
+			368 -> 403
+			368 -> 415
+			381 -> 439
+			392 -> 624
+			403 -> 368
+			407 -> 392
+			407 -> 478
+			412 -> 439
+			412 -> 450
+			412 -> 403
+			412 -> 415
+			415 -> 356
+			415 -> 506
+			415 -> 252
+			423 -> 351
+			430 -> 214
+			430 -> 439
+			435 -> 439
+			439 -> 442
+			439 -> 365
+			439 -> 351
+			439 -> 255
+			440 -> 439
+			442 -> 449
+			442 -> 451
+			442 -> 494
+			442 -> 439
+			449 -> 315
+			450 -> 368
+			451 -> 442
+			451 -> 315
+			478 -> 624
+			494 -> 315
+			497 -> 357
+			506 -> 251
+			509 -> 439
+			624 -> 232
+			label="Avec Nadee"
+			fontcolor=red fontsize=72
+		}
+		color=lightgrey style=filled
+		287 -> 460
+		326 -> 596
+		345 -> 475
+		345 -> 519
+		365 -> "end-from-365"
+		400 -> 416
+		400 -> 407
+		426 -> "end-from-426"
+		476 -> 460
+		537 -> 460
+		596 -> 345
+		label="La Larme"
+		fontcolor=red fontsize=72
+	}
+	subgraph "cluster_Le Guide" {
+		subgraph "cluster_Les sourcières" {
+			color=grey style=filled
+			222 -> 352
+			222 -> 273
+			222 -> 296
+			222 -> 542
+			296 -> 524
+			352 -> 524
+			463 -> 296
+			542 -> 557
+			542 -> 463
+			557 -> 524
+			label="Les sourcières"
+			fontcolor=red fontsize=72
+		}
+		subgraph "cluster_La caserne" {
+			color=grey style=filled
+			321 -> 531
+			396 -> 432
+			396 -> 321
+			396 -> 481
+			396 -> 429
+			429 -> 531
+			432 -> 531
+			481 -> 531
+			label="La caserne"
+			fontcolor=red fontsize=72
+		}
+		subgraph "cluster_Le ministère des Taxes" {
+			color=grey style=filled
+			329 -> 558
+			436 -> 548
+			456 -> 482
+			456 -> 550
+			456 -> 329
+			456 -> 560
+			456 -> 541
+			465 -> 548
+			482 -> 648
+			482 -> 558
+			541 -> 548
+			550 -> 465
+			550 -> 436
+			558 -> 560
+			558 -> 541
+			558 -> 550
+			560 -> 648
+			648 -> 548
+			label="Le ministère des Taxes"
+			fontcolor=red fontsize=72
+		}
+		subgraph "cluster_Le Tribunal" {
+			color=grey style=filled
+			452 -> 569
+			452 -> 597
+			495 -> 278
+			570 -> 452
+			570 -> 581
+			570 -> 495
+			570 -> 572
+			581 -> 278
+			597 -> 278
+			label="Le Tribunal"
+			fontcolor=red fontsize=72
+		}
+		subgraph "cluster_Le scorpidrome" {
+			color=grey style=filled
+			496 -> 578
+			496 -> 551
+			496 -> 564
+			496 -> 538
+			538 -> 398
+			538 -> 526
+			label="Le scorpidrome"
+			fontcolor=red fontsize=72
+		}
+		subgraph "cluster_Les écuries" {
+			color=grey style=filled
+			502 -> 579
+			518 -> 579
+			529 -> 579
+			532 -> 579
+			539 -> 549
+			539 -> 585
+			539 -> 529
+			539 -> 532
+			539 -> 502
+			549 -> 579
+			580 -> 532
+			585 -> 580
+			585 -> 518
+			label="Les écuries"
+			fontcolor=red fontsize=72
+		}
+		subgraph "cluster_La prison" {
+			color=grey style=filled
+			510 -> 562
+			510 -> 587
+			510 -> 453
+			543 -> 608
+			543 -> 573
+			573 -> 510
+			582 -> 510
+			590 -> 592
+			590 -> 613
+			590 -> 614
+			590 -> 543
+			592 -> 608
+			592 -> 629
+			608 -> 510
+			613 -> 608
+			613 -> 631
+			614 -> 608
+			614 -> 582
+			629 -> 510
+			631 -> 510
+			label="La prison"
+			fontcolor=red fontsize=72
+		}
+		subgraph "cluster_Le palais" {
+			color=grey style=filled
+			565 -> 622
+			593 -> 565
+			598 -> 625
+			606 -> 636
+			606 -> 647
+			607 -> 625
+			609 -> 639
+			610 -> 658
+			610 -> 687
+			612 -> 625
+			615 -> 609
+			616 -> 630
+			618 -> 658
+			618 -> 687
+			619 -> 609
+			622 -> 652
+			625 -> 656
+			625 -> 616
+			625 -> 630
+			630 -> 663
+			633 -> 609
+			636 -> 633
+			636 -> 619
+			636 -> 615
+			639 -> 612
+			639 -> 598
+			639 -> 607
+			647 -> 609
+			656 -> 686
+			658 -> 593
+			663 -> 686
+			670 -> 610
+			670 -> 493
+			670 -> 618
+			686 -> 670
+			687 -> 593
+			label="Le palais"
+			fontcolor=red fontsize=72
+		}
+		color=lightgrey style=filled
+		2 -> 602
+		273 -> 496
+		273 -> 570
+		278 -> 483
+		398 -> 483
+		453 -> 525
+		483 -> 547
+		483 -> 563
+		493 -> "end-from-493"
+		496 -> 483
+		500 -> 504
+		500 -> 571
+		504 -> 520
+		511 -> 566
+		520 -> 456
+		520 -> 539
+		520 -> 396
+		520 -> 222
+		524 -> 496
+		524 -> 570
+		525 -> 567
+		526 -> 483
+		531 -> 496
+		531 -> 570
+		544 -> 566
+		547 -> 552
+		547 -> 590
+		548 -> 496
+		548 -> 570
+		551 -> 483
+		552 -> 567
+		562 -> 525
+		563 -> 552
+		563 -> 590
+		564 -> 483
+		566 -> 584
+		566 -> 2
+		566 -> 595
+		566 -> 591
+		567 -> 544
+		567 -> 577
+		567 -> 599
+		567 -> 511
+		568 -> 576
+		569 -> 483
+		570 -> 483
+		571 -> 520
+		572 -> 483
+		577 -> 566
+		578 -> 483
+		579 -> 496
+		579 -> 570
+		584 -> 602
+		587 -> 525
+		591 -> 602
+		595 -> 602
+		599 -> 566
+		602 -> 606
+		652 -> 568
+		label="Le Guide"
+		fontcolor=red fontsize=72
+	}
+	subgraph "cluster_Les Sables d'Ivoire" {
+		color=lightgrey style=filled
+		7 -> 621
+		343 -> 594
+		589 -> 640
+		594 -> 646
+		600 -> 690
+		604 -> 605
+		604 -> 637
+		605 -> 641
+		620 -> 680
+		620 -> 649
+		620 -> 689
+		621 -> 594
+		623 -> 667
+		626 -> 621
+		628 -> 623
+		637 -> 641
+		638 -> 679
+		638 -> 681
+		638 -> 620
+		638 -> 626
+		638 -> 669
+		640 -> 628
+		640 -> 623
+		641 -> 651
+		646 -> 650
+		649 -> 343
+		651 -> 620
+		651 -> 638
+		655 -> "end-from-655"
+		667 -> 604
+		667 -> 671
+		669 -> 638
+		669 -> 7
+		671 -> 604
+		679 -> 621
+		680 -> 649
+		681 -> 621
+		689 -> 343
+		689 -> 655
+		690 -> 589
+		label="Les Sables d'Ivoire"
+		fontcolor=red fontsize=72
+	}
+	subgraph "cluster_La Fin" {
+		color=lightgrey style=filled
+		454 -> 688
+		454 -> 682
+		454 -> 660
+		454 -> 678
+		545 -> 611
+		545 -> 644
+		545 -> 677
+		545 -> 678
+		545 -> 682
+		545 -> 688
+		545 -> 660
+		545 -> 661
+		611 -> "end-from-611"
+		617 -> 675
+		627 -> 674
+		632 -> 691
+		635 -> 665
+		642 -> 665
+		643 -> 675
+		644 -> "end-from-644"
+		645 -> 674
+		653 -> 675
+		657 -> 674
+		659 -> 642
+		659 -> 676
+		659 -> 662
+		659 -> 666
+		659 -> 635
+		660 -> 685
+		661 -> "end-from-661"
+		662 -> 665
+		665 -> 672
+		665 -> 617
+		665 -> 643
+		665 -> 653
+		666 -> 665
+		668 -> "end-from-668"
+		672 -> 675
+		673 -> 674
+		674 -> 545
+		674 -> 454
+		675 -> 673
+		675 -> 657
+		675 -> 627
+		675 -> 645
+		676 -> 665
+		677 -> "end-from-677"
+		678 -> 685
+		682 -> 685
+		685 -> 632
+		685 -> 668
+		688 -> 685
+		691 -> 692
+		692 -> "end-from-692"
+		label="La Fin"
+		fontcolor=red fontsize=72
+	}
+}

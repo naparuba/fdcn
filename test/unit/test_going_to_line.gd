@@ -9,7 +9,7 @@ func before_each():
 
 
 func _make_line():
-	var line = GoingToLineScene.instance()
+	var line = GoingToLineScene.instantiate()
 	add_child_autofree(line)
 	return line
 

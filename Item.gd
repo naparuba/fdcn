@@ -23,7 +23,7 @@ func load_item_data(item_name, item_data):
 	$Nom.text = self._item_name
 	self._display_stats()
 	var new_style = StyleBoxFlat.new()
-	self.set('custom_styles/panel', new_style)
+	self.set('theme_override_styles/panel', new_style)
 	var svg_path = 'res://images/items/%s.svg' % self._item_name
 	var png_path = 'res://images/items/%s.png' % self._item_name
 	if Utils.is_file_exists(svg_path):
@@ -95,7 +95,7 @@ func refresh():
 	#	return
 	self._is_enabled = do_have_item
 	
-	var _style = self.get('custom_styles/panel')
+	var _style = self.get('theme_override_styles/panel')
 	
 	print('ITEM:: ', self._item_name, 'do have item? ',do_have_item )
 	
@@ -119,7 +119,7 @@ func refresh():
 	else:
 		_style.set_bg_color(Color('ffffff'))  # set to light grey
 	# Update the button in the good state
-	$button.pressed = do_have_item
+	$button.button_pressed = do_have_item
 
 
 func _on_button_toggled(button_pressed):

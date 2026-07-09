@@ -4,7 +4,7 @@ var LoreEntryScene = preload('res://LoreEntry.tscn')
 
 
 func _make_entry(type_entry, entry_name, titre, book_number=1):
-	var entry = LoreEntryScene.instance()
+	var entry = LoreEntryScene.instantiate()
 	entry.type_entry = type_entry
 	entry.entry_name = entry_name
 	entry.titre = titre
@@ -20,12 +20,12 @@ func test_ready_sets_the_title_label():
 
 func test_ready_loads_a_real_billy_image():
 	var entry = _make_entry('billys', 'guerrier', 'Le Guerrier')
-	assert_not_null(entry.get_node('Sprite').texture)
+	assert_not_null(entry.get_node('Sprite2D').texture)
 
 
 func test_ready_loads_a_real_dieu_image_with_book_number_subdir():
 	var entry = _make_entry('dieux', 'atella', 'Atella', 1)
-	assert_not_null(entry.get_node('Sprite').texture)
+	assert_not_null(entry.get_node('Sprite2D').texture)
 
 
 func test_play_pressed_toggles_playing_state_when_sound_enabled():

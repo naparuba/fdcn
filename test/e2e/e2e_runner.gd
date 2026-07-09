@@ -56,13 +56,13 @@ func _ready():
 		return
 
 	var main_scene = load("res://main.tscn")
-	_main = main_scene.instance()
+	_main = main_scene.instantiate()
 	add_child(_main)
 
 	# Laisse _ready()/la mise en page initiale se stabiliser avant de jouer
 	# le scenario.
 	for i in range(5):
-		yield(get_tree(), "idle_frame")
+		await get_tree().idle_frame
 	_run_next_step()
 
 
@@ -82,7 +82,9 @@ func _load_scenario():
 		return false
 	var content = f.get_as_text()
 	f.close()
-	var parsed = parse_json(content)
+	var test_json_conv = JSON.new()
+	test_json_conv.parse(content)
+	var parsed = test_json_conv.get_data()
 	if typeof(parsed) != TYPE_ARRAY:
 		printerr("E2E: scenario file must contain a JSON array of steps: %s" % _scenario_path)
 		return false
@@ -103,7 +105,7 @@ func _run_next_step():
 	if action == "wait_frames":
 		var n = step.get("n", 1)
 		for i in range(n):
-			yield(get_tree(), "idle_frame")
+			await get_tree().idle_frame
 		_run_next_step()
 	elif action == "go_to_node":
 		_main.go_to_node(int(step["id"]))
@@ -133,8 +135,8 @@ func _run_next_step():
 		# camera stabilisee, sinon le transform gui_input change a chaque frame.
 		var settle_wait = _wait_for_camera_to_settle()
 		if settle_wait is GDScriptFunctionState:
-			yield(settle_wait, "completed")
-		yield(_real_swipe(float(step["from_x"]), float(step["to_x"]), float(step.get("y", 500.0))), "completed")
+			await settle_wait.completed
+		await _real_swipe(float(step["from_x"]), float(step["to_x"]), float(step.get("y", 500.0))).completed
 		_run_next_step()
 	elif action == "toggle_spoils":
 		_main.change_spoils(bool(step["on"]))
@@ -155,7 +157,7 @@ func _run_next_step():
 		# _take_screenshot() yields internally (attend le rendu du frame) :
 		# il faut explicitement attendre sa fin, sinon on avance a l'etape
 		# suivante avant que le PNG soit ecrit.
-		yield(_take_screenshot(step.get("name", "step_%s" % _step_index)), "completed")
+		await _take_screenshot(step.get("name", "step_%s" % _step_index)).completed
 		_run_next_step()
 	elif action == "assert_current_node_id":
 		var expected_id = int(step["id"])
@@ -190,22 +192,22 @@ func _real_swipe(from_x, to_x, y):
 	# hors ecran (ex: > largeur fenetre) donne une position recue
 	# incoherente cote release, decouvert en construisant ce runner.
 	var press = InputEventMouseButton.new()
-	press.button_index = BUTTON_LEFT
+	press.button_index = MOUSE_BUTTON_LEFT
 	press.position = Vector2(from_x, y)
 	press.global_position = Vector2(from_x, y)
-	press.pressed = true
+	press.button_pressed = true
 	Input.parse_input_event(press)
-	yield(get_tree(), "idle_frame")
-	yield(get_tree(), "idle_frame")
+	await get_tree().idle_frame
+	await get_tree().idle_frame
 
 	var release = InputEventMouseButton.new()
-	release.button_index = BUTTON_LEFT
+	release.button_index = MOUSE_BUTTON_LEFT
 	release.position = Vector2(to_x, y)
 	release.global_position = Vector2(to_x, y)
-	release.pressed = false
+	release.button_pressed = false
 	Input.parse_input_event(release)
-	yield(get_tree(), "idle_frame")
-	yield(get_tree(), "idle_frame")
+	await get_tree().idle_frame
+	await get_tree().idle_frame
 
 
 func _wait_for_camera_to_settle():
@@ -224,7 +226,7 @@ func _wait_for_camera_to_settle():
 		var center = camera.get_camera_screen_center()
 		if abs(center.x - camera.position.x) < 0.5 and abs(center.y - camera.position.y) < 0.5:
 			break
-		yield(get_tree(), "idle_frame")
+		await get_tree().idle_frame
 		frames += 1
 	print("E2E: camera settled after %s frame(s)" % frames)
 
@@ -239,16 +241,16 @@ func _wait_for_success_popup_to_settle():
 	# ou que l'animation soit deja terminee (rien a attendre).
 	var anim_player = _main.get_node("SuccessPopup/AnimationPlayer")
 	var max_wait_ms = 20000  # garde-fou large (show=5s + hide, + marge)
-	var start_ms = OS.get_ticks_msec()
+	var start_ms = Time.get_ticks_msec()
 	while true:
 		if !anim_player.is_playing():
 			break
 		if anim_player.current_animation == "show" and anim_player.current_animation_position >= 3.0:
 			break
-		if OS.get_ticks_msec() - start_ms > max_wait_ms:
+		if Time.get_ticks_msec() - start_ms > max_wait_ms:
 			printerr("E2E: WARNING success popup animation safety cap reached")
 			break
-		yield(get_tree(), "idle_frame")
+		await get_tree().idle_frame
 
 
 func _take_screenshot(name):
@@ -257,15 +259,15 @@ func _take_screenshot(name):
 	# yield() exige un objet valide.
 	var camera_wait = _wait_for_camera_to_settle()
 	if camera_wait is GDScriptFunctionState:
-		yield(camera_wait, "completed")
+		await camera_wait.completed
 	var popup_wait = _wait_for_success_popup_to_settle()
 	if popup_wait is GDScriptFunctionState:
-		yield(popup_wait, "completed")
+		await popup_wait.completed
 	# Laisse le frame en cours vraiment se rendre avant de lire la texture
 	# du viewport (sinon on capture parfois l'etat precedent).
-	yield(get_tree(), "idle_frame")
-	yield(get_tree(), "idle_frame")
-	var dir = Directory.new()
+	await get_tree().idle_frame
+	await get_tree().idle_frame
+	var dir = DirAccess.new()
 	if !dir.dir_exists(_out_dir):
 		dir.make_dir_recursive(_out_dir)
 	var img = get_viewport().get_texture().get_data()

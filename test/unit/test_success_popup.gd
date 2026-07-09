@@ -6,7 +6,7 @@ const REAL_SUCCESS = {'chapter': 26, 'id': 'POLIR-LANCE', 'label': 'Polir la lan
 
 
 func test_update_and_show_fills_the_inner_success_panel():
-	var popup = SuccessPopupScene.instance()
+	var popup = SuccessPopupScene.instantiate()
 	add_child_autofree(popup)  # necessaire pour que popup() fonctionne correctement
 	popup.update_and_show(REAL_SUCCESS)
 	var inner = popup.get_node('wholebackground/PanelBorder/Success')
@@ -15,7 +15,7 @@ func test_update_and_show_fills_the_inner_success_panel():
 
 
 func test_update_and_show_hides_the_chapter_number():
-	var popup = SuccessPopupScene.instance()
+	var popup = SuccessPopupScene.instantiate()
 	add_child_autofree(popup)
 	popup.update_and_show(REAL_SUCCESS)
 	var inner = popup.get_node('wholebackground/PanelBorder/Success')
@@ -24,7 +24,7 @@ func test_update_and_show_hides_the_chapter_number():
 
 func test_play_sound_is_a_noop_when_sound_disabled():
 	Sounder.set_enabled(false)
-	var popup = SuccessPopupScene.instance()
+	var popup = SuccessPopupScene.instantiate()
 	add_child_autofree(popup)
 	popup._new_success_play_sound()  # ne doit pas planter, ne joue rien
 	Sounder.set_enabled(true)
@@ -32,7 +32,7 @@ func test_play_sound_is_a_noop_when_sound_disabled():
 
 func test_play_sound_sets_the_stream_when_sound_enabled():
 	Sounder.set_enabled(true)
-	var popup = SuccessPopupScene.instance()
+	var popup = SuccessPopupScene.instantiate()
 	add_child_autofree(popup)
 	popup._new_success_play_sound()
 	assert_not_null(popup.get_node('AudioPlayer').stream)

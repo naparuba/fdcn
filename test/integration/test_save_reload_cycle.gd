@@ -108,7 +108,9 @@ func _read_json_mirror(save_path):
 	f.open(json_path, File.READ)
 	var text = f.get_as_text()
 	f.close()
-	return _ints_from_json(parse_json(text))
+	var test_json_conv = JSON.new()
+	test_json_conv.parse(text))
+	return _ints_from_json(test_json_conv.get_data()
 
 
 func _ints_from_json(value):
@@ -119,7 +121,7 @@ func _ints_from_json(value):
 	# (cf diff_tool.gd::set_should_compare_int_to_float(false)) -- un simple
 	# assert_eq(tableau_json, tableau_reel) echoue donc a tort ("112.0 !=
 	# 112") si on ne reconvertit pas explicitement ici.
-	if typeof(value) == TYPE_REAL:
+	if typeof(value) == TYPE_FLOAT:
 		return int(value)
 	elif typeof(value) == TYPE_ARRAY:
 		var out = []

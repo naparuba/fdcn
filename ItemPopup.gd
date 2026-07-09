@@ -19,7 +19,7 @@ func load_item_data(item_name, item_data):
 	#print('Loading item data: %s' % self._item_name)
 	$Nom.text = self._item_name
 	var new_style = StyleBoxFlat.new()
-	self.set('custom_styles/panel', new_style)
+	self.set('theme_override_styles/panel', new_style)
 	self._item_icon = Utils.load_external_texture('res://images/items/%s.svg' % self._item_name, null)
 
 
@@ -30,7 +30,7 @@ func set_is_new(b):
 	
 
 func refresh():
-	var _style = self.get('custom_styles/panel')
+	var _style = self.get('theme_override_styles/panel')
 	
 	$Nom.text = self._item_name
 	$sprite.texture = self._item_icon

@@ -1,7 +1,7 @@
 extends Panel
 
 
-onready var already_seen_polygon = $GetPolygon
+@onready var already_seen_polygon = $GetPolygon
 
 var chap_number
 var spoil_enabled = false
