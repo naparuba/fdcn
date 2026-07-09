@@ -68,3 +68,33 @@ numéro de chapitre (`224` bien géant en Godot 3, comme dans le résultat post-
 Diffs pixel obtenus après ce fix (vs golden précédente, non vs Godot 3) : 1.5% à 15.4% selon
 l'écran — nettement plus bas que les 11%-44% de la régénération précédente, cohérent avec le fait
 que cette régénération corrige une vraie divergence visuelle plutôt que d'en accepter une nouvelle.
+
+## 2026-07-09 (ter) — Étiquettes-rubans diagonales décalées ("Déjà Vu", "Ce Billy", "Combat", "Fin",
+"Succès", "Secret", "Bonne fin"/"Mauvaise fin", "Obtenu")
+
+Deuxième signalement utilisateur sur la même golden `E1` : les étiquettes du breadcrumb ont bien le
+bon angle de rotation (déjà vérifié via la Décision `rect_rotation`→`rotation`), mais le texte est
+décalé vers la droite et dépasse de son ruban gris.
+
+Root cause différente des deux précédentes : ces `Label` (8 au total, dans `ChapterChoice.tscn`,
+`EndingChoice.tscn` et `Success.tscn`) n'ont **jamais eu de police explicite**, ni en Godot 3 ni
+après conversion — ils utilisent la police par défaut du moteur, faute d'un thème projet. Or la
+police par défaut intégrée à Godot a changé entre 3.6 et 4.7 (confirmé empiriquement : un `Label`
+sans override affichant "Déjà Vu Test" mesure 80×14px sous Godot 3.6.2 contre 96×23px sous Godot
+4.7 — pas juste une différence de taille, une police différente aux métriques différentes). Le
+texte, non tronqué (`clip_text` désactivé par défaut dans les deux moteurs), déborde donc plus loin
+le long de l'axe de rotation, sortant visuellement du ruban qui avait été ajusté à l'œil pour
+l'ancienne police par défaut.
+
+Pas de police par défaut fiable entre versions de moteur = pas quelque chose qu'on peut se permettre
+de laisser implicite. Fixé en rendant la police explicite (`RobotoCondensed-Regular.ttf`, déjà
+utilisée partout ailleurs dans l'appli, référencée `ExtResource("3")` dans les 3 fichiers) à une
+taille choisie empiriquement (16 — mesuré via une scène de sondage isolée comparant la largeur
+rendue de "Déjà Vu Test" avec `RobotoCondensed` à différentes tailles jusqu'à retrouver ~80px,
+la largeur d'origine Godot 3) sur les 8 nœuds concernés.
+
+Suite GDScript revérifiée après ce fix (33 scripts / 221 passing + 2 Risky préexistants /
+504 assertions, 0 crash, identique à la référence) puis 22/22 golden E2E régénérées après revue
+humaine (diffs 0.04% à 18.9% vs la régénération précédente — le cas à 18.9%, `E6_retour_livre_fdcn`,
+vérifié visuellement identique à l'œil, du bruit d'anti-aliasing sur un écran à beaucoup d'icônes/
+toggles, pas une régression).

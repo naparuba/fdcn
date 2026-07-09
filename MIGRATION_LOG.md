@@ -155,6 +155,30 @@ Suite GDScript revérifiée après ce fix : toujours 33 scripts / 221 passing + 
 bas que la première régénération : cohérent avec la correction d'une vraie divergence visuelle
 plutôt que l'acceptation d'une nouvelle) — détail dans `test/e2e/screenshots/golden/CHANGELOG.md`.
 
+## Phase 7 (ter) — Étiquettes-rubans diagonales décalées, deuxième signalement utilisateur (2026-07-09)
+
+Sur la même golden `E1`, deuxième repérage utilisateur : les étiquettes diagonales du breadcrumb
+("Déjà Vu", "Ce Billy", "Combat", "Fin", "Succès", "Secret") ont le bon angle mais le texte est
+décalé vers la droite et dépasse de son ruban gris.
+
+Root cause distincte des deux précédentes : ces 8 `Label` (6 dans `ChapterChoice.tscn` + "Bonne
+fin"/"Mauvaise fin" dans `EndingChoice.tscn` + "Obtenu" dans `Success.tscn`) n'ont jamais eu de
+police explicite, ni en Godot 3 ni après conversion — ils dépendent de la police par défaut du
+moteur, qui a changé entre Godot 3.6 et 4.7 (vérifié empiriquement : un `Label` sans override
+affichant le même texte mesure 80×14px sous Godot 3.6.2 contre 96×23px sous Godot 4.7 — pas
+juste une taille différente, une police aux métriques différentes). Le texte non tronqué déborde
+donc plus loin le long de l'axe de rotation, sortant du ruban ajusté à l'œil pour l'ancienne police.
+
+Fixé en rendant la police explicite (`RobotoCondensed-Regular.ttf`, déjà utilisée partout ailleurs)
+à une taille choisie empiriquement (16, mesurée via une scène de sondage isolée jusqu'à retrouver
+la largeur d'origine Godot 3 ~80px) sur les 8 nœuds concernés.
+
+Suite GDScript revérifiée (33 scripts / 221 passing + 2 Risky préexistants / 504 assertions,
+0 crash, identique à la référence) puis 22/22 golden E2E régénérées après revue humaine (diffs
+0.04%-18.9% vs la régénération précédente ; le cas à 18.9% vérifié visuellement identique à l'œil,
+bruit d'anti-aliasing sur un écran dense en icônes/toggles, pas une régression) — détail dans
+`test/e2e/screenshots/golden/CHANGELOG.md`.
+
 ## État final (2026-07-09)
 
 - **Suite GDScript** : 33 scripts, 223 tests, 221 passing + 2 Risky préexistants non bloquants,
