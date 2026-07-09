@@ -68,7 +68,7 @@ func _wait_camera_settled():
 	await get_tree().idle_frame
 	var cam = _main.camera
 	for i in range(300):  # garde-fou ~5s a 60fps
-		var center = cam.get_camera_screen_center()
+		var center = cam.get_screen_center_position()
 		if abs(center.x - cam.position.x) < 0.5 and abs(center.y - cam.position.y) < 0.5:
 			return
 		await get_tree().idle_frame

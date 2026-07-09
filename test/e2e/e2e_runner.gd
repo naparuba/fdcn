@@ -62,12 +62,15 @@ func _ready():
 	# Laisse _ready()/la mise en page initiale se stabiliser avant de jouer
 	# le scenario.
 	for i in range(5):
-		await get_tree().idle_frame
+		await get_tree().process_frame
 	_run_next_step()
 
 
 func _parse_args():
-	for arg in OS.get_cmdline_args():
+	# En Godot 4, OS.get_cmdline_args() ne renvoie plus les arguments après
+	# le "--" (contrairement à Godot 3) : il faut la nouvelle méthode dédiée
+	# OS.get_cmdline_user_args() pour ça.
+	for arg in OS.get_cmdline_user_args():
 		if arg.begins_with("--e2e-script="):
 			_scenario_path = arg.substr(len("--e2e-script="))
 		elif arg.begins_with("--e2e-out="):
@@ -75,11 +78,10 @@ func _parse_args():
 
 
 func _load_scenario():
-	var f = File.new()
-	var err = f.open(_scenario_path, File.READ)
-	if err != OK:
-		printerr("E2E: cannot open scenario file: %s (error %s)" % [_scenario_path, err])
+	if !FileAccess.file_exists(_scenario_path):
+		printerr("E2E: cannot open scenario file: %s" % _scenario_path)
 		return false
+	var f = FileAccess.open(_scenario_path, FileAccess.READ)
 	var content = f.get_as_text()
 	f.close()
 	var test_json_conv = JSON.new()
@@ -105,7 +107,7 @@ func _run_next_step():
 	if action == "wait_frames":
 		var n = step.get("n", 1)
 		for i in range(n):
-			await get_tree().idle_frame
+			await get_tree().process_frame
 		_run_next_step()
 	elif action == "go_to_node":
 		_main.go_to_node(int(step["id"]))
@@ -130,13 +132,13 @@ func _run_next_step():
 		Swiper.go_to_page(step["page"])  # "main" | "chapitres" | "success" | "lore" | "about"
 		_run_next_step()
 	elif action == "real_swipe":
-		# _wait_for_camera_to_settle() ne yield reellement QUE si necessaire
-		# (voir _take_screenshot()) : position fiable seulement une fois la
-		# camera stabilisee, sinon le transform gui_input change a chaque frame.
-		var settle_wait = _wait_for_camera_to_settle()
-		if settle_wait is GDScriptFunctionState:
-			await settle_wait.completed
-		await _real_swipe(float(step["from_x"]), float(step["to_x"]), float(step.get("y", 500.0))).completed
+		# Position fiable seulement une fois la camera stabilisee, sinon le
+		# transform gui_input change a chaque frame. En Godot 4, `await` sur
+		# n'importe quel appel fonctionne correctement qu'il suspende
+		# reellement ou retourne de facon synchrone -- plus besoin de
+		# detecter un GDScriptFunctionState comme en Godot 3.
+		await _wait_for_camera_to_settle()
+		await _real_swipe(float(step["from_x"]), float(step["to_x"]), float(step.get("y", 500.0)))
 		_run_next_step()
 	elif action == "toggle_spoils":
 		_main.change_spoils(bool(step["on"]))
@@ -154,10 +156,10 @@ func _run_next_step():
 		_main._on_GenericTextPopup_generic_popup_accept()
 		_run_next_step()
 	elif action == "screenshot":
-		# _take_screenshot() yields internally (attend le rendu du frame) :
-		# il faut explicitement attendre sa fin, sinon on avance a l'etape
+		# _take_screenshot() attend le rendu du frame avant de retourner :
+		# il faut explicitement l'attendre, sinon on avance a l'etape
 		# suivante avant que le PNG soit ecrit.
-		await _take_screenshot(step.get("name", "step_%s" % _step_index)).completed
+		await _take_screenshot(step.get("name", "step_%s" % _step_index))
 		_run_next_step()
 	elif action == "assert_current_node_id":
 		var expected_id = int(step["id"])
@@ -197,8 +199,8 @@ func _real_swipe(from_x, to_x, y):
 	press.global_position = Vector2(from_x, y)
 	press.button_pressed = true
 	Input.parse_input_event(press)
-	await get_tree().idle_frame
-	await get_tree().idle_frame
+	await get_tree().process_frame
+	await get_tree().process_frame
 
 	var release = InputEventMouseButton.new()
 	release.button_index = MOUSE_BUTTON_LEFT
@@ -206,8 +208,8 @@ func _real_swipe(from_x, to_x, y):
 	release.global_position = Vector2(to_x, y)
 	release.button_pressed = false
 	Input.parse_input_event(release)
-	await get_tree().idle_frame
-	await get_tree().idle_frame
+	await get_tree().process_frame
+	await get_tree().process_frame
 
 
 func _wait_for_camera_to_settle():
@@ -223,10 +225,10 @@ func _wait_for_camera_to_settle():
 	var max_frames = 300  # ~5s a 60fps
 	var frames = 0
 	while frames < max_frames:
-		var center = camera.get_camera_screen_center()
+		var center = camera.get_screen_center_position()
 		if abs(center.x - camera.position.x) < 0.5 and abs(center.y - camera.position.y) < 0.5:
 			break
-		await get_tree().idle_frame
+		await get_tree().process_frame
 		frames += 1
 	print("E2E: camera settled after %s frame(s)" % frames)
 
@@ -250,28 +252,22 @@ func _wait_for_success_popup_to_settle():
 		if Time.get_ticks_msec() - start_ms > max_wait_ms:
 			printerr("E2E: WARNING success popup animation safety cap reached")
 			break
-		await get_tree().idle_frame
+		await get_tree().process_frame
 
 
 func _take_screenshot(name):
-	# Ces deux attentes ne yield reellement QUE si necessaire (sinon elles
-	# retournent de façon synchrone, donc pas un GDScriptFunctionState) :
-	# yield() exige un objet valide.
-	var camera_wait = _wait_for_camera_to_settle()
-	if camera_wait is GDScriptFunctionState:
-		await camera_wait.completed
-	var popup_wait = _wait_for_success_popup_to_settle()
-	if popup_wait is GDScriptFunctionState:
-		await popup_wait.completed
+	# En Godot 4, `await` fonctionne correctement que la fonction appelee
+	# suspende reellement ou retourne de facon synchrone -- plus besoin de
+	# detecter un GDScriptFunctionState comme en Godot 3.
+	await _wait_for_camera_to_settle()
+	await _wait_for_success_popup_to_settle()
 	# Laisse le frame en cours vraiment se rendre avant de lire la texture
 	# du viewport (sinon on capture parfois l'etat precedent).
-	await get_tree().idle_frame
-	await get_tree().idle_frame
-	var dir = DirAccess.new()
-	if !dir.dir_exists(_out_dir):
-		dir.make_dir_recursive(_out_dir)
-	var img = get_viewport().get_texture().get_data()
-	img.flip_y()  # Godot 3.x rend les textures de viewport inversees verticalement
+	await get_tree().process_frame
+	await get_tree().process_frame
+	if !DirAccess.dir_exists_absolute(_out_dir):
+		DirAccess.make_dir_recursive_absolute(_out_dir)
+	var img = get_viewport().get_texture().get_image()
 	var pth = "%s/%s.png" % [_out_dir, name]
 	var err = img.save_png(pth)
 	if err == OK:

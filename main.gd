@@ -33,9 +33,9 @@ func _ready():
 	
 	# Load the nodes ids we did already visited in the past
 	self._reload_all_player()
-	
+
 	self._do_load_book_context()
-	
+
 
 func _reload_all_player():
 	# Load the nodes ids we did already visited in the past
