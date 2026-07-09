@@ -1,10 +1,19 @@
 class CallParameters:
 	var p_name = null
 	var default = null
+	var vararg = false
 
-	func _init(n, d):
+	func _init(n,d):
 		p_name = n
 		default = d
+
+	func get_signature():
+		if(vararg):
+			return "...args: Array"
+		else:
+			return str(p_name, "=", default)
+
+
 
 
 # ------------------------------------------------------------------------------
@@ -25,138 +34,36 @@ class CallParameters:
 # 	(usage:7)
 # }]
 # default_args []
-
-var _utils = load('res://addons/gut/utils.gd').get_instance()
-var _lgr = _utils.get_logger()
 const PARAM_PREFIX = 'p_'
 
-# ------------------------------------------------------
-# _supported_defaults
-#
-# This array contains all the data types that are supported for default values.
-# If a value is supported it will contain either an empty string or a prefix
-# that should be used when setting the parameter default value.
-# For example int, real, bool do not need anything func(p1=1, p2=2.2, p3=false)
-# but things like Vectors and Colors do since only the parameters to create a
-# new Vector or Color are included in the metadata.
-# ------------------------------------------------------
-	# TYPE_NIL = 0 — Variable is of type nil (only applied for null).
-	# TYPE_BOOL = 1 — Variable is of type bool.
-	# TYPE_INT = 2 — Variable is of type int.
-	# TYPE_REAL = 3 — Variable is of type float/real.
-	# TYPE_STRING = 4 — Variable is of type String.
-	# TYPE_VECTOR2 = 5 — Variable is of type Vector2.
-	# TYPE_RECT2 = 6 — Variable is of type Rect2.
-	# TYPE_VECTOR3 = 7 — Variable is of type Vector3.
-	# TYPE_COLOR = 14 — Variable is of type Color.
-	# TYPE_OBJECT = 17 — Variable is of type Object.
-	# TYPE_DICTIONARY = 18 — Variable is of type Dictionary.
-	# TYPE_ARRAY = 19 — Variable is of type Array.
-	# TYPE_VECTOR2_ARRAY = 24 — Variable is of type PoolVector2Array.
 
+var _lgr = GutUtils.get_logger()
+static var _func_template = GutUtils.get_file_as_text('res://addons/gut/double_templates/function_template.txt')
+static var _init_template = GutUtils.get_file_as_text('res://addons/gut/double_templates/init_template.txt')
 
-
-# TYPE_TRANSFORM2D = 8 — Variable is of type Transform2D.
-# TYPE_PLANE = 9 — Variable is of type Plane.
-# TYPE_QUAT = 10 — Variable is of type Quat.
-# TYPE_AABB = 11 — Variable is of type AABB.
-# TYPE_BASIS = 12 — Variable is of type Basis.
-# TYPE_TRANSFORM = 13 — Variable is of type Transform.
-# TYPE_NODE_PATH = 15 — Variable is of type NodePath.
-# TYPE_RID = 16 — Variable is of type RID.
-# TYPE_RAW_ARRAY = 20 — Variable is of type PoolByteArray.
-# TYPE_INT_ARRAY = 21 — Variable is of type PoolIntArray.
-# TYPE_REAL_ARRAY = 22 — Variable is of type PoolRealArray.
-# TYPE_STRING_ARRAY = 23 — Variable is of type PoolStringArray.
-# TYPE_VECTOR3_ARRAY = 25 — Variable is of type PoolVector3Array.
-# TYPE_COLOR_ARRAY = 26 — Variable is of type PoolColorArray.
-# TYPE_MAX = 27 — Marker for end of type constants.
-# ------------------------------------------------------
-var _supported_defaults = []
-
-func _init():
-	for _i in range(TYPE_MAX):
-		_supported_defaults.append(null)
-
-	# These types do not require a prefix for defaults
-	_supported_defaults[TYPE_NIL] = ''
-	_supported_defaults[TYPE_BOOL] = ''
-	_supported_defaults[TYPE_INT] = ''
-	_supported_defaults[TYPE_FLOAT] = ''
-	_supported_defaults[TYPE_OBJECT] = ''
-	_supported_defaults[TYPE_ARRAY] = ''
-	_supported_defaults[TYPE_STRING] = ''
-	_supported_defaults[TYPE_DICTIONARY] = ''
-	_supported_defaults[TYPE_PACKED_VECTOR2_ARRAY] = ''
-
-	# These require a prefix for whatever default is provided
-	_supported_defaults[TYPE_VECTOR2] = 'Vector2'
-	_supported_defaults[TYPE_RECT2] = 'Rect2'
-	_supported_defaults[TYPE_VECTOR3] = 'Vector3'
-	_supported_defaults[TYPE_COLOR] = 'Color'
 
 # ###############
 # Private
 # ###############
-var _func_text = _utils.get_file_as_text('res://addons/gut/double_templates/function_template.txt')
-
-func _is_supported_default(type_flag):
-	return type_flag >= 0 and type_flag < _supported_defaults.size() and [type_flag] != null
-
 
 func _make_stub_default(method, index):
-	return str('__gut_default_val("', method, '",', index, ')')
+	return str('__gutdbl.default_val("', method, '",', index, ')')
 
-func _make_arg_array(method_meta, override_size):
+
+func _make_arg_array(method_meta):
 	var to_return = []
-
-	var has_unsupported_defaults = false
-	var dflt_start = method_meta.args.size() - method_meta.default_args.size()
 
 	for i in range(method_meta.args.size()):
 		var pname = method_meta.args[i].name
-		var dflt_text = ''
-
-		if(i < dflt_start):
-			dflt_text = _make_stub_default(method_meta.name, i)
-		else:
-			var dflt_idx = dflt_start - i
-			var t = method_meta.args[i]['type']
-			if(_is_supported_default(t)):
-				# strings are special, they need quotes around the value
-				if(t == TYPE_STRING):
-					dflt_text = str("'", str(method_meta.default_args[dflt_idx]), "'")
-				# Colors need the parens but things like Vector2 and Rect2 don't
-				elif(t == TYPE_COLOR):
-					dflt_text = str(_supported_defaults[t], '(', str(method_meta.default_args[dflt_idx]), ')')
-				elif(t == TYPE_OBJECT):
-					if(str(method_meta.default_args[dflt_idx]) == "[Object:null]"):
-						dflt_text = str(_supported_defaults[t], 'null')
-					else:
-						dflt_text = str(_supported_defaults[t], str(method_meta.default_args[dflt_idx]).to_lower())
-
-				# Everything else puts the prefix (if one is there) form _supported_defaults
-				# in front.  The to_lower is used b/c for some reason the defaults for
-				# null, true, false are all "Null", "True", "False".
-				else:
-					dflt_text = str(_supported_defaults[t], str(method_meta.default_args[dflt_idx]).to_lower())
-			else:
-				_lgr.error(str(
-					'Unsupported default param type:  ',method_meta.name, '-', method_meta.args[i].name, ' ', t, ' = ', method_meta.default_args[dflt_idx]))
-				dflt_text = str('unsupported=',t)
-				has_unsupported_defaults = true
-
-		# Finally add in the parameter
+		var dflt_text = _make_stub_default(method_meta.name, i)
 		to_return.append(CallParameters.new(PARAM_PREFIX + pname, dflt_text))
 
-	# Add in extra parameters from stub settings.
-	if(override_size != null):
-		for i in range(method_meta.args.size(), override_size):
-			var pname = str(PARAM_PREFIX, 'arg', i)
-			var dflt_text = _make_stub_default(method_meta.name, i)
-			to_return.append(CallParameters.new(pname, dflt_text))
+	if(method_meta.flags & METHOD_FLAG_VARARG):
+		var cp = CallParameters.new("args", "")
+		cp.vararg = true
+		to_return.append(cp)
 
-	return [has_unsupported_defaults, to_return];
+	return to_return
 
 
 # Creates a list of parameters with defaults of null unless a default value is
@@ -169,21 +76,36 @@ func _get_arg_text(arg_array):
 	var text = ''
 
 	for i in range(arg_array.size()):
-		text += str(arg_array[i].p_name, '=', arg_array[i].default)
+		text += arg_array[i].get_signature()
 		if(i != arg_array.size() -1):
 			text += ', '
 
 	return text
 
 
-func _get_super_call_text(method_name, args):
+# creates a call to the function in meta in the super's class.
+func _get_super_call_text(parsed_method, singleton):
+	var return_it = ''
+	if(parsed_method.return_type_text != 'void'):
+		return_it = 'return '
+
+	if parsed_method.meta.flags & MethodFlags.METHOD_FLAG_VIRTUAL_REQUIRED != 0:
+		if(return_it != ''):
+			return_it = '; return null'
+		return '__gutdbl.gut_ref.get_ref().get_logger().error(' + \
+			'"Cannot call super() because method %s is abstract.")%s' \
+			% [parsed_method.meta.name, return_it]
+
 	var params = ''
-	for i in range(args.size()):
-		params += args[i].p_name
-		if(i != args.size() -1):
+	for i in range(parsed_method.args.size()):
+		params += PARAM_PREFIX + parsed_method.args[i].name
+		if(i != parsed_method.args.size() -1):
 			params += ', '
 
-	return str('.', method_name, '(', params, ')')
+	if(singleton != null):
+		return str(return_it, 'await __gutdbl.get_singleton().', parsed_method.meta.name, '(', params, ')')
+	else:
+		return str(return_it, 'await super(', params, ')')
 
 
 func _get_spy_call_parameters_text(args):
@@ -199,42 +121,64 @@ func _get_spy_call_parameters_text(args):
 
 	return called_with
 
+
+func _get_init_text(meta, args, method_params, param_array):
+	var text = null
+
+	var decleration = str('func ', meta.name, '(', method_params, ')')
+	var super_params = ''
+	if(args.size() > 0):
+		for i in range(args.size()):
+			super_params += args[i].p_name
+			if(i != args.size() -1):
+				super_params += ', '
+
+	text = _init_template.format({
+		"func_decleration":decleration,
+		"super_params":super_params,
+		"param_array":param_array,
+		"method_name":meta.name,
+	})
+
+	return text
+
 # ###############
 # Public
 # ###############
+
+
 
 # Creates a delceration for a function based off of function metadata.  All
 # types whose defaults are supported will have their values.  If a datatype
 # is not supported and the parameter has a default, a warning message will be
 # printed and the declaration will return null.
-func get_function_text(meta, path=null, override_size=null):
-	var method_params = ''
+func get_function_text(parsed_method, singleton=null):
+	var meta = parsed_method.meta
 	var text = null
-	var result = _make_arg_array(meta, override_size)
-	var has_unsupported = result[0]
-	var args = result[1]
-
+	var args = _make_arg_array(meta)
 	var param_array = _get_spy_call_parameters_text(args)
-
-	if(has_unsupported):
-		# This will cause a runtime error.  This is the most convenient way to
-		# to stop running before the error gets more obscure.  _make_arg_array
-		# generates a gut error when unsupported defaults are found.
-		method_params = null
-	else:
-		method_params = _get_arg_text(args);
+	var method_params = _get_arg_text(args);
 
 	if(param_array == 'null'):
 		param_array = '[]'
 
 	if(method_params != null):
-		var decleration = str('func ', meta.name, '(', method_params, '):')
-		text = _func_text.format({
-			"func_decleration":decleration,
-			"method_name":meta.name,
-			"param_array":param_array,
-			"super_call":_get_super_call_text(meta.name, args)
-		})
+		if(meta.name == '_init'):
+			text =  _get_init_text(meta, args, method_params, param_array)
+		else:
+			var return_it = ''
+			if(parsed_method.return_type_text != 'void'):
+				return_it = 'return '
+
+			var decleration = str('func ', meta.name, '(', method_params, '):')
+			text = _func_template.format({
+				"func_decleration": decleration,
+				"method_name": meta.name,
+				"param_array": param_array,
+				"super_call": _get_super_call_text(parsed_method, singleton),
+				"return_it": return_it
+			})
+
 	return text
 
 
