@@ -186,9 +186,9 @@ color = Color(0.878431, 0.886275, 0.898039, 1)
 polygon = PackedVector2Array(22.4823, 72.5328, 37.1073, 72.564, 58.1034, -0.244655, 41.6874, -0.262193, 22.5453, 67.939)
 
 [node name="Label" type="Label" parent="AlreadySeenPolygon"]
-offset_left = 26.3216
+offset_left = 24.3216
 offset_top = 57.7255
-offset_right = 75.3216
+offset_right = 73.3216
 offset_bottom = 71.7255
 rotation = -1.2788306682042774
 theme_override_fonts/font = ExtResource("3")
@@ -205,9 +205,9 @@ color = Color(0.878431, 0.886275, 0.898039, 1)
 polygon = PackedVector2Array(21.4577, 72.3413, 41.6251, -0.0815163, 58.0468, -0.0815163, 37.1673, 72.4201)
 
 [node name="Label" type="Label" parent="SessionSeenPolygon"]
-offset_left = 25.6534
+offset_left = 23.6534
 offset_top = 57.5028
-offset_right = 74.6534
+offset_right = 72.6534
 offset_bottom = 71.5028
 rotation = -1.2788306682042774
 theme_override_fonts/font = ExtResource("3")
@@ -224,9 +224,9 @@ color = Color(0.878431, 0.886275, 0.898039, 1)
 polygon = PackedVector2Array(21.2241, 72.4153, 41.6251, -0.0815163, 58.0468, -0.0815163, 37.17, 72.494)
 
 [node name="Label" type="Label" parent="CombatPolygon"]
-offset_left = 25.4307
+offset_left = 23.4307
 offset_top = 57.2801
-offset_right = 74.4307
+offset_right = 72.4307
 offset_bottom = 71.2801
 rotation = -1.2788306682042774
 theme_override_fonts/font = ExtResource("3")
@@ -243,9 +243,9 @@ color = Color(0.878431, 0.886275, 0.898039, 1)
 polygon = PackedVector2Array(21.2697, 72.5464, 41.6251, -0.0815163, 58.0468, -0.0815163, 37.2155, 72.507)
 
 [node name="Label" type="Label" parent="EndPolygon"]
-offset_left = 25.6534
+offset_left = 23.6534
 offset_top = 58.6164
-offset_right = 74.6534
+offset_right = 72.6534
 offset_bottom = 72.6164
 rotation = -1.2788306682042774
 theme_override_fonts/font = ExtResource("3")
@@ -262,9 +262,9 @@ color = Color(0.878431, 0.886275, 0.898039, 1)
 polygon = PackedVector2Array(21.2713, 72.3275, 41.6251, -0.0815163, 58.0468, -0.0815163, 37.2565, 72.3669)
 
 [node name="Label" type="Label" parent="SuccessPolygon"]
-offset_left = 26.3216
+offset_left = 24.3216
 offset_top = 56.6119
-offset_right = 75.3216
+offset_right = 73.3216
 offset_bottom = 70.6119
 rotation = -1.2788306682042774
 theme_override_fonts/font = ExtResource("3")
@@ -281,9 +281,9 @@ color = Color(0.878431, 0.886275, 0.898039, 1)
 polygon = PackedVector2Array(20.902, 72.4675, 41.6251, -0.0815163, 58.0468, -0.0815163, 37.2723, 72.4675)
 
 [node name="Label" type="Label" parent="SecretPolygon"]
-offset_left = 26.3805
+offset_left = 24.3805
 offset_top = 57.0445
-offset_right = 75.3805
+offset_right = 73.3805
 offset_bottom = 71.0445
 rotation = -1.2788306682042774
 theme_override_fonts/font = ExtResource("3")

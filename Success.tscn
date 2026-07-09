@@ -133,9 +133,9 @@ color = Color(0.619608, 0.658824, 0.705882, 1)
 polygon = PackedVector2Array(28.1169, 47.9916, 41.6251, -0.0815163, 58.0468, -0.0815163, 44.2124, 48.0062)
 
 [node name="Label" type="Label" parent="GetPolygon"]
-offset_left = 29.217
+offset_left = 27.217
 offset_top = 45.6984
-offset_right = 78.217
+offset_right = 76.217
 offset_bottom = 59.6984
 rotation = -1.2788306682042774
 theme_override_fonts/font = ExtResource("3")

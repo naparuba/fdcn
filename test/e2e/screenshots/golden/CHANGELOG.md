@@ -98,3 +98,16 @@ Suite GDScript revérifiée après ce fix (33 scripts / 221 passing + 2 Risky pr
 humaine (diffs 0.04% à 18.9% vs la régénération précédente — le cas à 18.9%, `E6_retour_livre_fdcn`,
 vérifié visuellement identique à l'œil, du bruit d'anti-aliasing sur un écran à beaucoup d'icônes/
 toggles, pas une régression).
+
+## 2026-07-09 (quater) — Ajustement fin de position des mêmes étiquettes-rubans (1-2px)
+
+Troisième passe sur le même repérage utilisateur : après le fix de police (ter), l'angle et la
+taille étaient corrects mais le texte débordait encore de 1-2px à droite de son ruban gris (le haut
+de chaque lettre dépassait légèrement dans l'espace blanc entre deux rubans). Ajustement empirique
+(pas de calcul de métrique exact possible sans référence Godot 3 pixel-perfect) : `offset_left`/
+`offset_right` décalés de -2px sur les 8 labels concernés (`ChapterChoice.tscn` x6,
+`EndingChoice.tscn` "Bonne fin"/"Mauvaise fin", `Success.tscn` "Obtenu"), vérifié visuellement après
+coup que le texte rentre maintenant entièrement dans son ruban sur `E1`, `E2`, `E4`, `E10`.
+
+Suite GDScript revérifiée (221 passing + 2 Risky préexistants, 504 assertions, 0 crash) puis
+22/22 golden régénérées après revue humaine.
