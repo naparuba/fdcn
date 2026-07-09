@@ -25,7 +25,7 @@ func set_spoil_enabled(b):
 
 func update():
 	var chapter_id = self.get_chapter_id()
-	var chapter_data = BookData.get_node(chapter_id)
+	var chapter_data = BookData.get_chapter_data(chapter_id)
 		
 	# Update if spoils need to be shown (or not), can depend if we already seen this node
 	if BookData.is_node_id_freely_full_on_all_chapters(chapter_id):

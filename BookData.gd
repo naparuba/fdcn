@@ -73,12 +73,12 @@ func get_item_data(item_name):
 func get_all_success():
 	return self.all_success
 
-func get_node(node_id):
+func get_chapter_data(node_id):
 	return self.all_nodes['%s' % node_id]
 	
 
 func get_all_nodes_in_the_same_chapter(node_id):
-	var chapter_data = self.get_node(node_id)
+	var chapter_data = self.get_chapter_data(node_id)
 	var chapter = chapter_data.get_chapter()
 	if chapter == null:
 		return []
@@ -100,7 +100,7 @@ func get_acte_completion(node_id, visited_nodes_all_times):
 
 
 func get_all_nodes_in_the_same_sub_arc(node_id):
-	var chapter_data = self.get_node(node_id)
+	var chapter_data = self.get_chapter_data(node_id)
 	var sub_arc = chapter_data.get_arc()
 	if sub_arc == null:
 		return []
@@ -149,7 +149,7 @@ func get_success_from_chapter(node_id):
 
 
 func get_chapter_stats(node_id):
-	var chapter_data = self.get_node(node_id)
+	var chapter_data = self.get_chapter_data(node_id)
 	var stats = chapter_data.get_stats()
 	var stats_cond_raw = chapter_data.get_stats_cond()
 	var stats_conds = []
@@ -168,7 +168,7 @@ func get_chapter_stats(node_id):
 
 
 func have_chapter_conditions(node_from_id, node_to_id):
-	var chapter_data = self.get_node(node_from_id)
+	var chapter_data = self.get_chapter_data(node_from_id)
 	var node_to_id_str = '%s' % node_to_id
 	var all_jump_conditions = chapter_data.get_jump_conditions()
 	var jump_condition = all_jump_conditions.get(node_to_id_str)
@@ -178,7 +178,7 @@ func have_chapter_conditions(node_from_id, node_to_id):
 	
 
 func match_chapter_conditions(node_from_id, node_to_id):
-	var chapter_data = self.get_node(node_from_id)
+	var chapter_data = self.get_chapter_data(node_from_id)
 	var node_to_id_str = '%s' % node_to_id
 	var all_jump_conditions = chapter_data.get_jump_conditions()
 	var jump_condition = all_jump_conditions.get(node_to_id_str)
@@ -219,7 +219,7 @@ func _check_cond_rec(jump_condition, facts):
  
 
 func get_condition_txt(node_from_id, node_to_id):
-	var chapter_data = self.get_node(node_from_id)
+	var chapter_data = self.get_chapter_data(node_from_id)
 	var node_to_id_str = '%s' % node_to_id
 	var all_txts = chapter_data.get_jump_conditions_txts()
 	var txt = all_txts.get(node_to_id_str)
@@ -234,7 +234,7 @@ func is_node_id_freely_full_on_all_chapters(node_id):
 	if AppParameters.are_spoils_ok():
 			return true
 	# spoils are not known
-	var node = self.get_node(node_id)
+	var node = self.get_chapter_data(node_id)
 	# node is a secret, last hope is if we already see it in the past (not a spoil if already see ^^)
 	if Player.did_all_times_seen(node_id):
 		return true
@@ -252,7 +252,7 @@ func is_node_id_freely_showable(node_id, secret_jumps):
 		return true
 	
 	# spoils are not known
-	var node = BookData.get_node(node_id)
+	var node = BookData.get_chapter_data(node_id)
 	
 	var is_in_secret_jump = node_id in secret_jumps
 	

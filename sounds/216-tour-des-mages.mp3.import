@@ -2,14 +2,18 @@
 
 importer="mp3"
 type="AudioStreamMP3"
-path="res://.import/216-tour-des-mages.mp3-930383dfa82f11c2acf634e445be3dfa.mp3str"
+uid="uid://ptg64wpo2oyg"
+path="res://.godot/imported/216-tour-des-mages.mp3-930383dfa82f11c2acf634e445be3dfa.mp3str"
 
 [deps]
 
 source_file="res://sounds/216-tour-des-mages.mp3"
-dest_files=[ "res://.import/216-tour-des-mages.mp3-930383dfa82f11c2acf634e445be3dfa.mp3str" ]
+dest_files=["res://.godot/imported/216-tour-des-mages.mp3-930383dfa82f11c2acf634e445be3dfa.mp3str"]
 
 [params]
 
 loop=false
 loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4

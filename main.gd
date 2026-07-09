@@ -96,7 +96,7 @@ func go_to_node(node_id):
 		self.popup_remove_item(item_name)
 	
 	# If it's a combat, show it
-	var node = BookData.get_node(node_id)
+	var node = BookData.get_chapter_data(node_id)
 	if node.is_combat():
 		$Combat/Nom.text = node.get_combat_name()
 		$Combat/EnnemiPvValue.text = '%s' % node.get_combat_pv()
@@ -232,7 +232,7 @@ func insert_all_chapters():
 	chapter_ids.sort_custom(Callable(self, '_sort_all_chapters'))
 	
 	for chapter_id in chapter_ids:
-		var chapter_data = BookData.get_node(chapter_id)
+		var chapter_data = BookData.get_chapter_data(chapter_id)
 		
 		var choice = Choice.instantiate()
 		choice.set_main(self)
@@ -403,7 +403,7 @@ func refresh():
 	gauge.set_value(_nb_visited / float(_nb_all_nodes))
 	
 	# Now print my current node
-	var my_node = BookData.get_node(Player.get_current_node_id())
+	var my_node = BookData.get_chapter_data(Player.get_current_node_id())
 	
 	# The act in progress
 	var _acte_label = $Background/Position/Acte
@@ -493,7 +493,7 @@ func refresh():
 		if !BookData.is_node_id_freely_showable(son_id, secret_jumps):
 			continue
 		
-		var son = BookData.get_node(son_id)
+		var son = BookData.get_chapter_data(son_id)
 		var choice = Choice.instantiate()
 		choice.set_main(self)
 		choice.update_from_son_node(son)

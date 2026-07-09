@@ -44,7 +44,7 @@ func _display_stats():
 		s += ('%s=' % k.to_upper()) + str(v) + '    '
 	$Stats.text = s
 
-func get_name():
+func get_item_name():
 	return self._item_name
 
 func is_enabled():

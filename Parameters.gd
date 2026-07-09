@@ -16,29 +16,35 @@ func _init():
 
 
 func _load_parameters():
-	var f = File.new()
-	if f.file_exists(parameters_file):
-		f.open(parameters_file, File.READ)
-		var loaded_parameters = f.get_var()
+	# JSON primaire (depuis le 2026-07-09). Si le miroir JSON n'existe pas
+	# encore -- joueur dont la derniere sauvegarde est anterieure a son
+	# introduction (commit af5c081, 2026-05-03) -- on relit une derniere
+	# fois l'ancien binaire puis on migre immediatement vers JSON.
+	var json_pth = parameters_file.replace(".save", ".json")
+	var loaded_parameters = null
+	if FileAccess.file_exists(json_pth):
+		var f = FileAccess.open(json_pth, FileAccess.READ)
+		var text = f.get_as_text()
 		f.close()
+		loaded_parameters = Utils.ints_from_json(JSON.parse_string(text))
+	elif FileAccess.file_exists(parameters_file):
+		print('_load_parameters:: pas de miroir JSON, fallback lecture binaire unique puis migration')
+		var f = FileAccess.open(parameters_file, FileAccess.READ)
+		loaded_parameters = f.get_var()
+		f.close()
+	if loaded_parameters != null:
 		# NOTE: so we can manage code with new parameters
 		for k in loaded_parameters.keys():
 			var v = loaded_parameters[k]
 			print('PARAM: %s=>' % k, v)
 			parameters[k] = v
-	else:
-		# already created in globals
-		pass
+		self._save_parameters()  # migre vers JSON si on vient de lire le binaire
 
 
 func _save_parameters():
-	var f = File.new()
-	f.open(parameters_file, File.WRITE)
-	f.store_var(parameters)
-	f.close()
 	var json_pth = parameters_file.replace(".save", ".json")
-	f.open(json_pth, File.WRITE)
-	f.store_string(JSON.new().stringify(parameters))
+	var f = FileAccess.open(json_pth, FileAccess.WRITE)
+	f.store_string(JSON.stringify(parameters))
 	f.close()
 
 

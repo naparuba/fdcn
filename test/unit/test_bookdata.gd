@@ -24,7 +24,7 @@ func before_each():
 
 
 func test_get_node_returns_matching_chapter_data():
-	var node = BookData.get_node(10)
+	var node = BookData.get_chapter_data(10)
 	assert_eq(node.get_id(), 10)
 
 

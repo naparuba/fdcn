@@ -2,14 +2,18 @@
 
 importer="mp3"
 type="AudioStreamMP3"
-path="res://.import/atella.mp3-bd097faa1ef775a2c058be8fce80332a.mp3str"
+uid="uid://dao5lkf8qpjfw"
+path="res://.godot/imported/atella.mp3-bd097faa1ef775a2c058be8fce80332a.mp3str"
 
 [deps]
 
 source_file="res://sounds/dieux/1/atella.mp3"
-dest_files=[ "res://.import/atella.mp3-bd097faa1ef775a2c058be8fce80332a.mp3str" ]
+dest_files=["res://.godot/imported/atella.mp3-bd097faa1ef775a2c058be8fce80332a.mp3str"]
 
 [params]
 
 loop=false
 loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4

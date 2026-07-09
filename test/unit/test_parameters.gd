@@ -55,7 +55,7 @@ func test_book_number_roundtrip_and_reloads_bookdata():
 	AppParameters.set_book_number(2)
 	assert_eq(AppParameters.get_book_number(), 2)
 	# BookData doit avoir bascule sur les vraies donnees du livre 2
-	assert_eq(BookData.get_node(1).get_id(), 1)
+	assert_eq(BookData.get_chapter_data(1).get_id(), 1)
 	AppParameters.set_book_number(1)
 	assert_eq(AppParameters.get_book_number(), 1)
 

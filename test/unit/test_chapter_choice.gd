@@ -31,7 +31,7 @@ func test_set_chapitre_updates_number_and_getter():
 func test_update_from_son_node_flags_combat():
 	var cc = _make_choice()
 	Player.current_node_id = 1
-	cc.update_from_son_node(BookData.get_node(14))  # noeud avec combat
+	cc.update_from_son_node(BookData.get_chapter_data(14))  # noeud avec combat
 	assert_eq(cc.get_node('CombatPolygon').color, Color('ff6f04'))
 	cc.free()
 
@@ -39,7 +39,7 @@ func test_update_from_son_node_flags_combat():
 func test_update_from_son_node_does_not_flag_combat_for_non_combat_node():
 	var cc = _make_choice()
 	Player.current_node_id = 1
-	cc.update_from_son_node(BookData.get_node(128))  # pas de combat
+	cc.update_from_son_node(BookData.get_chapter_data(128))  # pas de combat
 	assert_ne(cc.get_node('CombatPolygon').color, Color('ff6f04'))
 	cc.free()
 
@@ -47,7 +47,7 @@ func test_update_from_son_node_does_not_flag_combat_for_non_combat_node():
 func test_update_from_son_node_flags_ending():
 	var cc = _make_choice()
 	Player.current_node_id = 1
-	cc.update_from_son_node(BookData.get_node(96))  # noeud de fin reel
+	cc.update_from_son_node(BookData.get_chapter_data(96))  # noeud de fin reel
 	assert_eq(cc.get_node('EndPolygon').color, Color('00c2aa'))
 	cc.free()
 
@@ -56,7 +56,7 @@ func test_update_from_son_node_flags_session_seen_after_visit():
 	var cc = _make_choice()
 	Player.go_to_node(128)
 	Player.current_node_id = 128
-	cc.update_from_son_node(BookData.get_node(128))
+	cc.update_from_son_node(BookData.get_chapter_data(128))
 	assert_eq(cc.get_node('SessionSeenPolygon').color, Color('00c2aa'))
 	cc.free()
 
@@ -64,7 +64,7 @@ func test_update_from_son_node_flags_session_seen_after_visit():
 func test_update_from_son_node_disables_special_jump_without_condition():
 	var cc = _make_choice()
 	Player.current_node_id = 10
-	cc.update_from_son_node(BookData.get_node(461))  # fils de 10 sans condition
+	cc.update_from_son_node(BookData.get_chapter_data(461))  # fils de 10 sans condition
 	assert_false(cc.get_node('special').visible)
 	cc.free()
 
@@ -73,7 +73,7 @@ func test_update_from_son_node_enables_special_jump_when_condition_matches():
 	var cc = _make_choice()
 	Player.current_node_id = 10
 	Player.add_item_from_options("KIT D'ESCALADE")
-	cc.update_from_son_node(BookData.get_node(184))  # condition: KIT D'ESCALADE
+	cc.update_from_son_node(BookData.get_chapter_data(184))  # condition: KIT D'ESCALADE
 	assert_true(cc.get_node('special').visible)
 	assert_true(cc.get_node('click/special').visible)
 	assert_false(cc.get_node('click/special_wrong').visible)
@@ -83,7 +83,7 @@ func test_update_from_son_node_enables_special_jump_when_condition_matches():
 func test_update_from_son_node_enables_special_jump_wrong_when_condition_unmet():
 	var cc = _make_choice()
 	Player.current_node_id = 10
-	cc.update_from_son_node(BookData.get_node(184))  # condition non remplie
+	cc.update_from_son_node(BookData.get_chapter_data(184))  # condition non remplie
 	assert_true(cc.get_node('special').visible)
 	assert_false(cc.get_node('click/special').visible)
 	assert_true(cc.get_node('click/special_wrong').visible)
