@@ -21,9 +21,20 @@ func _init():
 	print('BookData: init')
 	
 	
-func do_load_book(book_number):	
+func do_load_book(book_number):
 	print('BookData: switch to book:'+str(self._current_book_number))
 	self._current_book_number = book_number
+	# chapter_data.gd derive de Node (pas RefCounted) : chaque appel a
+	# do_load_book() (changement de livre, ou juste relance des tests, qui
+	# rappellent tous set_book_number()) ecrasait les anciennes instances
+	# dans self.all_nodes sans jamais les liberer -- fuite de Node orphelins
+	# qui s'accumule sur toute la suite de tests (des milliers apres 33
+	# fichiers), meme classe de bug que insert_all_objects() deja corrigee.
+	for old_node_id_str in self.all_nodes.keys():
+		var old_chapter_data = self.all_nodes[old_node_id_str]
+		if is_instance_valid(old_chapter_data):
+			old_chapter_data.free()
+	self.all_nodes = {}
 	# Load chapter data in chapter_data class
 	var all_nodes_json = Utils.load_json_file("res://fdcn-"+str(self._current_book_number)+"-compilated-data.json")
 	for node_id_str in all_nodes_json.keys():

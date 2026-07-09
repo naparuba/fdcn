@@ -278,8 +278,16 @@ func insert_all_objects():
 		# Godot 3.x, so they would leak forever. NOTE: a freed Node
 		# reference stays "truthy" (`!self._main` alone would miss this),
 		# only is_instance_valid() correctly detects it.
+		# ATTENTION : si self._main a deja ete libere (ex: _main.free() d'un
+		# fichier de test precedent), ses enfants -- dont potentiellement
+		# ces memes items, reparentes sous Options/.../Items -- sont DEJA
+		# liberes par cette liberation recursive. Un double .free() sur un
+		# Node deja libere ne plantait pas en Godot 3, mais provoque un
+		# crash memoire reel ("double free or corruption") en Godot 4 :
+		# il faut donc aussi verifier chaque item individuellement.
 		for old_item in self.all_items:
-			old_item.free()
+			if is_instance_valid(old_item):
+				old_item.free()
 	self.all_items = []  # Always reset the list
 	var all_objects = BookData.get_all_objects()
 	for obj_name in all_objects.keys():
