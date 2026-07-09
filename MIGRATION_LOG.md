@@ -101,6 +101,42 @@ XDG_DATA_HOME=$(mktemp -d) xvfb-run --auto-servernum --server-args="-screen 0 19
   -gdir=res://test/unit,res://test/integration -ginclude_subdirs \
   -gpre_run_script=res://test/gut_hooks/disable_runner_input_blocking.gd -gexit
 ```
-Reste à faire : Phase 6 (procédure spéciale fixtures figées, en partie déjà couverte par
-`test_migration.gd`), Phase 7 (revue golden E2E), Phase 8 (export Android), Phase 9 (nettoyage
-final + bascule).
+## Phase 7 — Revue golden E2E (2026-07-09)
+
+Suite complète (12 scénarios + paire persistance E-12, 22 captures) rejouée sous Godot 4.7 avec
+un `XDG_DATA_HOME` partagé dans le bon ordre (voir §5.3 TEST_PLAN.md — un scénario "amorce" comme
+`acquisition_objet.json` doit tourner avant les autres pour peupler un inventaire de départ,
+exactement comme un vrai enchaînement de sessions de jeu).
+
+Deux vraies régressions trouvées et corrigées avant toute régénération de golden (jamais pour
+masquer un bug) :
+- `SuccessPopup` invisible (~99% de pixels différents) : `Popup` hérite de `Window` en Godot 4
+  (vraie fenêtre OS séparée) au lieu de `Control` en Godot 3 — reverti vers `Control`. Un bug de
+  données préexistant (argument d'animation malformé, confirmé identique sur `main`) corrigé au
+  passage.
+- `BookData.gd::do_load_book()`/`player.gd::insert_all_objects()` : fuite mémoire + double-free
+  réel (voir commit dédié), qui ne se voyait qu'après plusieurs scénarios enchaînés dans le même
+  process de test.
+
+Après ces corrections : 22/22 captures identiques après régénération consciente (revue humaine
+paire par paire, jamais `--update-golden` en masse sans regard) — détail complet dans
+`test/e2e/screenshots/golden/CHANGELOG.md`. Le "STATS INCONNUE DANS OBJET: pv_max" observé dans
+`changement_livre.json` est confirmé préexistant (identique sur `main`/Godot 3.6.2), hors périmètre
+de cette migration.
+
+## État final (2026-07-09)
+
+- **Suite GDScript** : 33 scripts, 223 tests, 221 passing + 2 Risky préexistants non bloquants,
+  504 assertions (≥ 501 baseline), 0 crash. Commande de référence ci-dessus (§Phase 1).
+- **Suite Python** : inchangée, toujours verte (témoin indépendant de Godot, non affecté par la
+  migration).
+- **E2E** : 22/22 scénarios verts après revue et régénération consciente des golden.
+- **Nettoyage résiduel (Phase 9)** : aucun pattern Godot-3-only résiduel trouvé par grep exhaustif
+  (`GLES2`, `Pool*Array`, `TYPE_REAL`, `.instance()`, `format=2`, `yield(`, `File.`/`Directory.`)
+  hors `addons/gut/` et commentaires explicatifs.
+- **Reste à faire, hors périmètre de ce qui a pu être automatisé dans cette session** :
+  - Phase 8 (export Android) : dépend d'un environnement de build externe (SDK/JDK/Gradle,
+    keystore réel sur la machine) non vérifié dans cette session — voir plan complet pour le détail
+    (chemin keystore Windows à adapter, nouveau "Godot Android Build Environment" de Godot 4.7).
+  - Bascule finale (`migration-godot4` → `main`) : décision à prendre explicitement avec
+    l'utilisateur, pas automatique même avec toutes les suites vertes.
