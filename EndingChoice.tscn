@@ -100,6 +100,7 @@ offset_right = 90.2754
 offset_bottom = 94.8072
 rotation = -3.1287993901726745
 theme_override_fonts/font = SubResource("4")
+theme_override_font_sizes/font_size = 40
 theme_override_colors/font_color = Color(0, 0, 0, 1)
 text = ">"
 
@@ -110,6 +111,7 @@ offset_right = 87.8693
 offset_bottom = 79.9421
 rotation = 0.0121998863780254
 theme_override_fonts/font = SubResource("4")
+theme_override_font_sizes/font_size = 40
 theme_override_colors/font_color = Color(0, 0, 0, 1)
 text = "Oups"
 

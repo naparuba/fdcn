@@ -91,6 +91,7 @@ offset_right = 329.251
 offset_bottom = 47.2238
 theme_override_colors/font_color = Color(0, 0, 0, 1)
 theme_override_fonts/font = SubResource("3")
+theme_override_font_sizes/font_size = 11
 text = "XXXXXXXXXXXXXXXXX"
 autowrap = true
 __meta__ = {

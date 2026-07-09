@@ -54,6 +54,7 @@ offset_right = 209.13
 offset_bottom = 59.6346
 theme_override_colors/font_color = Color(0.466667, 0.423529, 0.423529, 1)
 theme_override_fonts/font = SubResource("2")
+theme_override_font_sizes/font_size = 15
 text = "STATS"
 __meta__ = {
 "_edit_use_anchors_": false

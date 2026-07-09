@@ -39,6 +39,7 @@ offset_right = 75.7507
 offset_bottom = 27.3043
 theme_override_colors/default_color = Color(0, 0, 0, 1)
 bbcode_enabled = true
+scroll_active = false
 text = "Y"
 text = "Y"
 
@@ -49,6 +50,7 @@ offset_right = 68.17
 offset_bottom = 32.6134
 theme_override_colors/default_color = Color(0, 0, 0, 1)
 bbcode_enabled = true
+scroll_active = false
 text = "[u]X[/u]"
 text = "X"
 __meta__ = {

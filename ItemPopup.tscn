@@ -46,6 +46,7 @@ offset_top = 6.57856
 offset_right = 208.678
 offset_bottom = 37.5786
 theme_override_fonts/font = SubResource("2")
+theme_override_font_sizes/font_size = 12
 theme_override_colors/font_color = Color(0, 0, 0, 1)
 text = "NOM DE L'OBJET"
 __meta__ = {

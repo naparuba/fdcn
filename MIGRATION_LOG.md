@@ -124,6 +124,37 @@ paire par paire, jamais `--update-golden` en masse sans regard) — détail comp
 `changement_livre.json` est confirmé préexistant (identique sur `main`/Godot 3.6.2), hors périmètre
 de cette migration.
 
+## Phase 7 (bis) — Régression de police trouvée après coup par revue utilisateur (2026-07-09)
+
+L'utilisateur a repéré à l'œil, sur la golden `E1` déjà "validée" en Phase 7, un bloc gris parasite
+à côté du numéro de chapitre dans le breadcrumb — signe que ma revue humaine de la régénération
+précédente n'avait pas été assez poussée (un diff pixel qui ne råle pas ne veut pas dire que
+l'image est visuellement correcte). Deux bugs réels trouvés en creusant ce signalement, largement
+plus systémique que le seul symptôme rapporté :
+
+- `bread.tscn` : `RichTextLabel.scroll_active` vaut `true` par défaut en Godot 4 (`false` en
+  Godot 3) — le contenu déborde marginalement et fait apparaître un scrollbar-thumb gris. Fixé
+  (`scroll_active = false` sur `Label2`/`ElLabel`).
+- **Toutes les tailles de police explicites (`DynamicFont.size` en Godot 3) sont perdues par la
+  conversion `DynamicFont`→`FontFile`** : Godot 4 a besoin d'un `theme_override_font_sizes/
+  font_size` explicite par nœud consommateur, que ni le convertisseur CLI ni le resave de scènes
+  n'ajoutent — tout retombait silencieusement au défaut Godot 4 (16px). Le cas le plus visible :
+  `NumeroChapitreBig` dans `main.tscn` (censé faire 64px, plus qu'un trait à 16px). Audit exhaustif
+  (grep de tous les `sub_resource type="FontFile"` + tous les nœuds qui les référencent) : 9
+  fichiers touchés (`main.tscn`, `ChapterChoice.tscn`, `EndingChoice.tscn`, `Item.tscn`,
+  `ItemPopup.tscn`, `LoreEntry.tscn`, `Success.tscn`, `scenes/GenericConfirmationPopup.tscn`,
+  `top_menu.tscn`). Fixé nœud par nœud avec la taille exacte lue dans `git show main:<fichier>`.
+- Un cas ambigu (`EndingChoice.tscn`, tampon rotatif "Oups"/">" à taille 40, qui déborde de sa
+  petite case après le fix) a été vérifié — pas supposé — par un rendu réel sous Godot 3.6.2 dans
+  un worktree temporaire sur `main` : confirme que le débordement est le comportement D'ORIGINE, et
+  que c'était la golden précédente (à tort figée à taille 16) qui était fausse.
+
+Suite GDScript revérifiée après ce fix : toujours 33 scripts / 221 passing + 2 Risky préexistants /
+504 assertions, 0 crash — aucune régression introduite par l'ajout des `theme_override_font_sizes`.
+22/22 golden E2E régénérées consciemment une seconde fois (diffs de 1.5% à 15.4%, nettement plus
+bas que la première régénération : cohérent avec la correction d'une vraie divergence visuelle
+plutôt que l'acceptation d'une nouvelle) — détail dans `test/e2e/screenshots/golden/CHANGELOG.md`.
+
 ## État final (2026-07-09)
 
 - **Suite GDScript** : 33 scripts, 223 tests, 221 passing + 2 Risky préexistants non bloquants,

@@ -29,3 +29,42 @@ masquer un bug) :
 
 Pas de régénération en masse sans regard : chaque cas à diff anormalement élevé (>90%) a été
 identifié et sa cause root-causée avant toute mise à jour de golden.
+
+## 2026-07-09 (bis) — Régression de taille de police (`DynamicFont`→`FontFile`)
+
+Régénération complète des 22 golden ci-dessus **corrigée après coup** : l'utilisateur a repéré
+manuellement un bloc gris parasite à côté du "1" dans le breadcrumb de `E1` (golden précédente),
+signalant que ma revue humaine de la première régénération n'avait pas été assez attentive.
+
+Root cause, en deux bugs distincts trouvés en creusant ce signalement :
+- `bread.tscn` (`Label2`/`ElLabel`, des `RichTextLabel`) : `scroll_active` vaut `true` par défaut
+  en Godot 4 (`false` en Godot 3), et le contenu du label dépasse marginalement — d'où le
+  scrollbar-thumb gris parasite. Fixé avec `scroll_active = false` sur les deux nœuds.
+- **Bien plus large** : la conversion `DynamicFont`→`FontFile` du convertisseur CLI ne préserve
+  jamais la taille (`size` en Godot 3, baked dans la ressource de police) — Godot 4 exige un
+  `theme_override_font_sizes/font_size` explicite sur chaque nœud consommateur, que ni le
+  convertisseur ni le resave de scènes n'ajoutent. Toutes les polices concernées retombaient donc
+  silencieusement à 16px (le défaut Godot 4), la plupart de façon peu visible sauf pour les grandes
+  tailles (`NumeroChapitreBig` en `main.tscn`, censé faire 64px, ne faisait plus que 16px — le
+  gros numéro de chapitre teal, censé remplir tout le panneau "Position", devenait un trait à peine
+  visible). Vérifié exhaustivement (`grep` de tous les `sub_resource type="FontFile"` + tous les
+  `theme_override_fonts/*` qui les référencent) sur les 9 fichiers concernés : `main.tscn`,
+  `ChapterChoice.tscn`, `EndingChoice.tscn`, `Item.tscn`, `ItemPopup.tscn`, `LoreEntry.tscn`,
+  `Success.tscn`, `scenes/GenericConfirmationPopup.tscn`, `top_menu.tscn`. Fixé en ajoutant
+  `theme_override_font_sizes/font_size` (ou `normal_font_size` pour le seul `RichTextLabel`
+  concerné) juste après chaque `theme_override_fonts/font`, avec la taille exacte lue dans
+  `git show main:<fichier>` pour chaque `DynamicFont` d'origine.
+
+Vérification, pas juste supposée : un troisième cas (`EndingChoice.tscn`, bouton rotatif "Oups"/">"
+qui se superposent en tampon "griffonné") semblait à première vue être une RÉGRESSION après le fix
+(le texte "Oups" débordait largement de sa petite case grise, alors que la golden précédente le
+montrait bien contenu sur une ligne "Oups <"). Plutôt que de conclure sans preuve, comparaison
+directe avec un rendu réel sous **Godot 3.6.2** (worktree temporaire sur `main`, même scénario
+`fin_bonne.json`, même méthode de capture) : confirme que le débordement/chevauchement "< / Oups"
+est le rendu D'ORIGINE en Godot 3 — c'est la golden précédente (taille 16 au lieu de 40) qui était
+fausse, pas le fix. Cette même comparaison Godot 3 confirme aussi indépendamment le fix du gros
+numéro de chapitre (`224` bien géant en Godot 3, comme dans le résultat post-fix).
+
+Diffs pixel obtenus après ce fix (vs golden précédente, non vs Godot 3) : 1.5% à 15.4% selon
+l'écran — nettement plus bas que les 11%-44% de la régénération précédente, cohérent avec le fait
+que cette régénération corrige une vraie divergence visuelle plutôt que d'en accepter une nouvelle.
