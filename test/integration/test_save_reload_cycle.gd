@@ -104,39 +104,18 @@ func test_reload_is_idempotent_when_called_twice_from_a_pristine_state():
 
 func _read_json_mirror(save_path):
 	var json_path = save_path.replace(".save", ".json")
-	var f = File.new()
-	f.open(json_path, File.READ)
+	var f = FileAccess.open(json_path, FileAccess.READ)
 	var text = f.get_as_text()
 	f.close()
-	var test_json_conv = JSON.new()
-	test_json_conv.parse(text))
-	return _ints_from_json(test_json_conv.get_data()
-
-
-func _ints_from_json(value):
-	# JSON n'a pas de type entier distinct : parse_json() renvoie TOUJOURS
-	# des float (ex: 112.0) pour un nombre, y compris pour des id de noeud.
-	# GUT compare les tableaux via DiffTool, qui DESACTIVE explicitement la
-	# tolerance int/float que assert_eq applique normalement aux scalaires
-	# (cf diff_tool.gd::set_should_compare_int_to_float(false)) -- un simple
-	# assert_eq(tableau_json, tableau_reel) echoue donc a tort ("112.0 !=
-	# 112") si on ne reconvertit pas explicitement ici.
-	if typeof(value) == TYPE_FLOAT:
-		return int(value)
-	elif typeof(value) == TYPE_ARRAY:
-		var out = []
-		for v in value:
-			out.append(_ints_from_json(v))
-		return out
-	return value
+	return Utils.ints_from_json(JSON.parse_string(text))
 
 
 func test_json_mirror_files_match_the_real_save_content():
-	# player.gd::_save_var() ecrit CHAQUE sauvegarde en double : le .save
-	# binaire (le seul relu par le jeu) et un .json miroir (jamais relu
-	# nulle part dans le code -- pur confort de debug). Verrouille que ce
-	# miroir reste synchronise avec la vraie donnee, pas juste "un fichier
-	# existe".
+	# player.gd::_save_var() ecrit desormais le JSON en PRIMAIRE (depuis le
+	# 2026-07-09, voir player.gd::_load_var) -- ce n'est plus un simple
+	# miroir de confort jamais relu, c'est la vraie source de verite au
+	# rechargement. Verrouille que son contenu reste synchronise avec
+	# l'etat live, pas juste "le fichier existe".
 	Player.go_to_node(NODE_WITH_END_HAB_AND_ITEM)  # aquire un objet au passage
 	Player.add_item_from_options('EPEE')
 

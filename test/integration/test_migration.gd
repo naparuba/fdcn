@@ -15,14 +15,33 @@ func before_each():
 
 
 func _delete_if_exists(pth):
-	var f = File.new()
-	if f.file_exists(pth):
-		var dir = DirAccess.new()
-		dir.remove(pth)
+	if FileAccess.file_exists(pth):
+		DirAccess.remove_absolute(pth)
+	# _load_var() lit le miroir .json en priorite (format primaire depuis
+	# le 2026-07-09) : un miroir perime laisse en place ferait ignorer la
+	# migration qu'on vient de tester, meme si le binaire .save fraichement
+	# migre est correct -- toujours nettoyer les deux.
+	var json_pth = pth.replace(".save", ".json")
+	if json_pth != pth and FileAccess.file_exists(json_pth):
+		DirAccess.remove_absolute(json_pth)
+
+
+func _save_old_format_binary(pth, data):
+	# Simule un VRAI vieux fichier de sauvegarde pre-multi-livres, ecrit en
+	# binaire pur (File.store_var d'origine, aucun miroir JSON -- ce
+	# concept n'existait pas encore a l'epoque). Player._save_var() ecrit
+	# desormais en JSON primaire (voir player.gd::_load_var, 2026-07-09) :
+	# l'utiliser ici simulerait un fichier qui n'a jamais existe pour de
+	# vrai, et _assert_migrate_file() ne trouverait jamais l'ancien fichier
+	# a migrer.
+	var f = FileAccess.open(pth, FileAccess.WRITE)
+	f.store_var(data)
+	f.close()
 
 
 func _delete_book2_cleanup_fixtures():
 	_delete_if_exists(Player.TO_CLEAN_ONE_TIME_BOOK_2_FLAG)
+	_delete_if_exists(Player.TO_CLEAN_ONE_TIME_BOOK_2_FLAG.replace(".save", ".json"))
 	for pth in Player.TO_CLEAN_ONE_TIME_BOOK_2:
 		_delete_if_exists(pth)
 
@@ -31,14 +50,13 @@ func test_migrate_current_node_id_from_old_single_book_format():
 	_delete_if_exists(Player.OLD_CURRENT_NODE_ID_FILE)
 	_delete_if_exists(Player._get_current_node_id_file())
 
-	Player._save_var(Player.OLD_CURRENT_NODE_ID_FILE, 77)
+	_save_old_format_binary(Player.OLD_CURRENT_NODE_ID_FILE, 77)
 
 	Player.load_current_node_id()
 
 	assert_eq(Player.current_node_id, 77, "la valeur de l'ancien fichier doit être reprise")
-	var f = File.new()
-	assert_false(f.file_exists(Player.OLD_CURRENT_NODE_ID_FILE), "l'ancien fichier doit être supprimé après migration")
-	assert_true(f.file_exists(Player._get_current_node_id_file()), "le nouveau fichier (par livre) doit exister")
+	assert_false(FileAccess.file_exists(Player.OLD_CURRENT_NODE_ID_FILE), "l'ancien fichier doit être supprimé après migration")
+	assert_true(FileAccess.file_exists(Player._get_current_node_id_file()), "le nouveau fichier (par livre) doit exister")
 
 
 func test_migration_is_a_noop_when_no_old_file_exists():
@@ -63,10 +81,10 @@ func test_full_do_load_migrates_all_four_old_files_at_once():
 	_delete_if_exists(Player._get_session_visited_nodes_file())
 	_delete_if_exists(Player._get_possessed_items_file())
 
-	Player._save_var(Player.OLD_ALL_TIMES_ALREADY_VISITED_FILE, [1, 2, 3, 42])
-	Player._save_var(Player.OLD_CURRENT_NODE_ID_FILE, 42)
-	Player._save_var(Player.OLD_SESSION_VISITED_NODES_FILE, [1, 42])
-	Player._save_var(Player.OLD_POSSESSED_ITEM_FILE, ['EPEE'])
+	_save_old_format_binary(Player.OLD_ALL_TIMES_ALREADY_VISITED_FILE, [1, 2, 3, 42])
+	_save_old_format_binary(Player.OLD_CURRENT_NODE_ID_FILE, 42)
+	_save_old_format_binary(Player.OLD_SESSION_VISITED_NODES_FILE, [1, 42])
+	_save_old_format_binary(Player.OLD_POSSESSED_ITEM_FILE, ['EPEE'])
 
 	Player.do_load()
 
@@ -75,10 +93,9 @@ func test_full_do_load_migrates_all_four_old_files_at_once():
 	assert_true(42 in Player.visited_nodes_all_times)
 	assert_eq(Player.possessed_items, ['EPEE'])
 
-	var f = File.new()
 	for old_pth in [Player.OLD_ALL_TIMES_ALREADY_VISITED_FILE, Player.OLD_CURRENT_NODE_ID_FILE,
 			Player.OLD_SESSION_VISITED_NODES_FILE, Player.OLD_POSSESSED_ITEM_FILE]:
-		assert_false(f.file_exists(old_pth), "ancien fichier encore présent: %s" % old_pth)
+		assert_false(FileAccess.file_exists(old_pth), "ancien fichier encore présent: %s" % old_pth)
 
 
 func test_full_do_load_combines_migration_and_guess_after_migration():
@@ -98,9 +115,9 @@ func test_full_do_load_combines_migration_and_guess_after_migration():
 	_delete_if_exists(Player._get_possessed_items_file())
 
 	# noeud 112 du livre 1 : aquire "PALAIS DES PLAISIRS D'YTIA" (cf autres tests)
-	Player._save_var(Player.OLD_ALL_TIMES_ALREADY_VISITED_FILE, [1, 112])
-	Player._save_var(Player.OLD_CURRENT_NODE_ID_FILE, 112)
-	Player._save_var(Player.OLD_SESSION_VISITED_NODES_FILE, [1, 112])
+	_save_old_format_binary(Player.OLD_ALL_TIMES_ALREADY_VISITED_FILE, [1, 112])
+	_save_old_format_binary(Player.OLD_CURRENT_NODE_ID_FILE, 112)
+	_save_old_format_binary(Player.OLD_SESSION_VISITED_NODES_FILE, [1, 112])
 	# PAS de OLD_POSSESSED_ITEM_FILE : c'est le coeur du scenario
 
 	AppParameters.set_billy_type('guerrier')
@@ -123,15 +140,14 @@ func test_full_do_load_combines_migration_and_guess_after_migration():
 	assert_true(Player.need_force_display_options,
 		"le joueur doit etre invite a valider l'inventaire devine")
 
-	var f = File.new()
-	assert_true(f.file_exists(Player._get_possessed_items_file()),
+	assert_true(FileAccess.file_exists(Player._get_possessed_items_file().replace(".save", ".json")),
 		"le nouveau fichier possessed_item doit avoir ete cree par cette premiere sauvegarde")
 
 
 func test_migration_twice_in_a_row_is_idempotent():
 	_delete_if_exists(Player.OLD_CURRENT_NODE_ID_FILE)
 	_delete_if_exists(Player._get_current_node_id_file())
-	Player._save_var(Player.OLD_CURRENT_NODE_ID_FILE, 99)
+	_save_old_format_binary(Player.OLD_CURRENT_NODE_ID_FILE, 99)
 
 	Player.load_current_node_id()
 	assert_eq(Player.current_node_id, 99)
@@ -143,23 +159,21 @@ func test_migration_twice_in_a_row_is_idempotent():
 func test_book2_one_time_cleanup_removes_orphan_files_and_sets_flag():
 	_delete_book2_cleanup_fixtures()
 	for pth in Player.TO_CLEAN_ONE_TIME_BOOK_2:
-		Player._save_var(pth, true)
+		_save_old_format_binary(pth, true)
 
 	Player._assert_bug_book_2_preload_is_fixed()
 
-	var f = File.new()
-	assert_true(f.file_exists(Player.TO_CLEAN_ONE_TIME_BOOK_2_FLAG), "le flag doit être posé après le nettoyage")
+	assert_true(FileAccess.file_exists(Player.TO_CLEAN_ONE_TIME_BOOK_2_FLAG.replace(".save", ".json")), "le flag doit être posé après le nettoyage")
 	for pth in Player.TO_CLEAN_ONE_TIME_BOOK_2:
-		assert_false(f.file_exists(pth), "fichier orphelin encore présent: %s" % pth)
+		assert_false(FileAccess.file_exists(pth), "fichier orphelin encore présent: %s" % pth)
 
 
 func test_book2_one_time_cleanup_is_a_noop_on_second_call():
 	_delete_book2_cleanup_fixtures()
 	Player._assert_bug_book_2_preload_is_fixed()  # premier appel: pose le flag
-	var f = File.new()
-	assert_true(f.file_exists(Player.TO_CLEAN_ONE_TIME_BOOK_2_FLAG))
+	assert_true(FileAccess.file_exists(Player.TO_CLEAN_ONE_TIME_BOOK_2_FLAG.replace(".save", ".json")))
 
 	# deuxieme appel: le flag existe déjà, ne doit pas planter meme si les
 	# fichiers a nettoyer n'existent plus
 	Player._assert_bug_book_2_preload_is_fixed()
-	assert_true(f.file_exists(Player.TO_CLEAN_ONE_TIME_BOOK_2_FLAG))
+	assert_true(FileAccess.file_exists(Player.TO_CLEAN_ONE_TIME_BOOK_2_FLAG.replace(".save", ".json")))

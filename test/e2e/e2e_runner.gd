@@ -197,7 +197,7 @@ func _real_swipe(from_x, to_x, y):
 	press.button_index = MOUSE_BUTTON_LEFT
 	press.position = Vector2(from_x, y)
 	press.global_position = Vector2(from_x, y)
-	press.button_pressed = true
+	press.pressed = true
 	Input.parse_input_event(press)
 	await get_tree().process_frame
 	await get_tree().process_frame
@@ -206,7 +206,7 @@ func _real_swipe(from_x, to_x, y):
 	release.button_index = MOUSE_BUTTON_LEFT
 	release.position = Vector2(to_x, y)
 	release.global_position = Vector2(to_x, y)
-	release.button_pressed = false
+	release.pressed = false
 	Input.parse_input_event(release)
 	await get_tree().process_frame
 	await get_tree().process_frame

@@ -25,11 +25,7 @@ func after_all():
 
 
 func _main_source_text():
-	var f = File.new()
-	f.open("res://main.gd", File.READ)
-	var text = f.get_as_text()
-	f.close()
-	return text
+	return FileAccess.get_file_as_string("res://main.gd")
 
 
 func test_bug_report_button_is_wired_to_the_right_handler():

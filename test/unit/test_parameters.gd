@@ -69,10 +69,13 @@ func test_set_book_number_returns_true_when_changed_false_when_not():
 
 func test_parameters_are_persisted_to_disk():
 	AppParameters.set_billy_type('paysan')
-	var f = File.new()
-	assert_true(f.file_exists(AppParameters.parameters_file))
-	f.open(AppParameters.parameters_file, File.READ)
-	var saved = f.get_var()
+	# Format JSON primaire depuis le 2026-07-09 (voir player.gd::_load_var) :
+	# le .save binaire n'est plus ecrit, seul le miroir .json l'est desormais.
+	var json_pth = AppParameters.parameters_file.replace(".save", ".json")
+	assert_true(FileAccess.file_exists(json_pth))
+	var f = FileAccess.open(json_pth, FileAccess.READ)
+	var text = f.get_as_text()
 	f.close()
+	var saved = JSON.parse_string(text)
 	assert_eq(saved['billy'], 'paysan')
 	AppParameters.set_billy_type('pegu')
