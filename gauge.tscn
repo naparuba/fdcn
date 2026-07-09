@@ -12,6 +12,7 @@ offset_top = -13.0339
 offset_right = 23.6025
 offset_bottom = 17.9661
 theme_override_fonts/font = ExtResource("2")
+theme_override_font_sizes/font_size = 25
 theme_override_colors/font_color = Color(1, 1, 1, 1)
 text = "90%"
 __meta__ = {

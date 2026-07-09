@@ -31,6 +31,7 @@ offset_right = 715.893
 offset_bottom = 74.2304
 rotation = 3.141592653589793
 theme_override_fonts/font = ExtResource("1")
+theme_override_font_sizes/font_size = 25
 text = "unset"
 align = 1
 valign = 1
@@ -45,6 +46,7 @@ offset_right = 563.51
 offset_bottom = 34.9037
 rotation = 1.5790953673881296
 theme_override_fonts/font = ExtResource("1")
+theme_override_font_sizes/font_size = 25
 text = "<"
 
 [node name="button" type="TextureButton" parent="."]

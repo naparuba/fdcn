@@ -97,6 +97,7 @@ offset_top = 19.7775
 offset_right = 364.267
 offset_bottom = 54.7775
 theme_override_fonts/font = ExtResource("2")
+theme_override_font_sizes/font_size = 25
 theme_override_colors/font_color = Color(0, 0, 0, 1)
 text = "XXX"
 __meta__ = {

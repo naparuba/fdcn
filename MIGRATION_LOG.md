@@ -179,6 +179,33 @@ Suite GDScript revérifiée (33 scripts / 221 passing + 2 Risky préexistants / 
 bruit d'anti-aliasing sur un écran dense en icônes/toggles, pas une régression) — détail dans
 `test/e2e/screenshots/golden/CHANGELOG.md`.
 
+## Phase 7 (quater) — Ajustement fin (1-2px) des mêmes étiquettes-rubans (2026-07-09)
+
+Angle et taille corrects après le fix (ter), mais le texte débordait encore de 1-2px à droite.
+Ajustement empirique de `offset_left`/`offset_right` (-2px) sur les 8 nœuds concernés, vérifié
+visuellement. Suite GDScript revérifiée, 22/22 golden régénérées.
+
+## Phase 7 (quinquies) — Même bug de taille de police via des `.tres` externes (2026-07-09)
+
+Nouveau signalement utilisateur : "Voix du Lennon"/"Spoils" en haut de l'écran, beaucoup trop
+grands, se chevauchant. Même classe de bug que la Phase 7 (bis), mais mon audit précédent n'avait
+grep que les `sub_resource type="DynamicFont"` **inline dans les `.tscn`** — il manquait les
+polices définies dans des fichiers `.tres` **externes** référencés par `ext_resource` :
+`fonts/amon_font.tres` (`size = 25` en Godot 3) et `fonts/amon_font_small.tres` (`size = 11`),
+converties en `FontFile` sans taille comme leurs cousines inline. Référencées par 10 scènes
+(`gauge.tscn`, `Success.tscn`, `right_nexter.tscn`, `going_to_line.tscn`, `ChapterChoice.tscn`,
+`Item.tscn`, `main.tscn` — 42 nœuds à lui seul, `left_backer.tscn`, `EndingChoice.tscn`,
+`top_menu.tscn`). Fixé nœud par nœud (`theme_override_font_sizes/font_size` = 25 ou 11).
+
+Impact visuel large (headers de panneau "Complété"/"Position", titres d'objets comme "ARC" dans
+Options, "Tous les Succès") — diffs 2.7%-22.5% selon l'écran, vérifiés visuellement avant mise à
+jour des golden. Suite GDScript revérifiée (221 passing + 2 Risky préexistants, 504 assertions,
+0 crash) puis 22/22 golden régénérées.
+
+**Leçon retenue** : l'audit "DynamicFont perdu" doit couvrir aussi bien les `sub_resource` inline
+que les `.tres` externes référencés par `ext_resource` — un `grep -rl 'type="DynamicFont"'
+--include="*.tres"` sur `main` aurait trouvé ces deux fichiers dès la première passe.
+
 ## État final (2026-07-09)
 
 - **Suite GDScript** : 33 scripts, 223 tests, 221 passing + 2 Risky préexistants non bloquants,

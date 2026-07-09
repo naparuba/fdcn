@@ -300,6 +300,7 @@ offset_top = 4.0547
 offset_right = 155.1
 offset_bottom = 35.0547
 theme_override_fonts/font = ExtResource("2")
+theme_override_font_sizes/font_size = 25
 text = "Completé"
 __meta__ = {
 "_edit_use_anchors_": false
@@ -323,6 +324,7 @@ theme_override_constants/shadow_offset_x = 0
 theme_override_constants/shadow_offset_y = 0
 theme_override_constants/shadow_outline_size = 0
 theme_override_fonts/font = ExtResource("5")
+theme_override_font_sizes/font_size = 11
 text = "X/606"
 align = 2
 __meta__ = {
@@ -355,6 +357,7 @@ offset_top = 3.68015
 offset_right = 167.862
 offset_bottom = 34.6801
 theme_override_fonts/font = ExtResource("2")
+theme_override_font_sizes/font_size = 25
 text = "Position"
 __meta__ = {
 "_edit_use_anchors_": false
@@ -370,6 +373,7 @@ theme_override_constants/shadow_offset_x = 0
 theme_override_constants/shadow_offset_y = 0
 theme_override_constants/shadow_outline_size = 0
 theme_override_fonts/font = ExtResource("5")
+theme_override_font_sizes/font_size = 11
 text = "Acte"
 __meta__ = {
 "_edit_use_anchors_": false
@@ -385,6 +389,7 @@ theme_override_constants/shadow_offset_x = 0
 theme_override_constants/shadow_offset_y = 0
 theme_override_constants/shadow_outline_size = 0
 theme_override_fonts/font = ExtResource("2")
+theme_override_font_sizes/font_size = 25
 text = "XXX"
 __meta__ = {
 "_edit_use_anchors_": false
@@ -413,6 +418,7 @@ theme_override_constants/shadow_offset_x = 0
 theme_override_constants/shadow_offset_y = 0
 theme_override_constants/shadow_outline_size = 0
 theme_override_fonts/font = ExtResource("5")
+theme_override_font_sizes/font_size = 11
 __meta__ = {
 "_edit_use_anchors_": false
 }
@@ -427,6 +433,7 @@ theme_override_constants/shadow_offset_x = 0
 theme_override_constants/shadow_offset_y = 0
 theme_override_constants/shadow_outline_size = 0
 theme_override_fonts/font = ExtResource("5")
+theme_override_font_sizes/font_size = 11
 text = "Arc"
 __meta__ = {
 "_edit_use_anchors_": false
@@ -442,6 +449,7 @@ theme_override_constants/shadow_offset_x = 0
 theme_override_constants/shadow_offset_y = 0
 theme_override_constants/shadow_outline_size = 0
 theme_override_fonts/font = ExtResource("2")
+theme_override_font_sizes/font_size = 25
 text = "XXX"
 
 [node name="fleche_arc" type="Sprite2D" parent="Background/Position"]
@@ -472,6 +480,7 @@ theme_override_constants/shadow_offset_x = 0
 theme_override_constants/shadow_offset_y = 0
 theme_override_constants/shadow_outline_size = 0
 theme_override_fonts/font = ExtResource("5")
+theme_override_font_sizes/font_size = 11
 __meta__ = {
 "_edit_use_anchors_": false
 }
@@ -486,6 +495,7 @@ theme_override_constants/shadow_offset_x = 0
 theme_override_constants/shadow_offset_y = 0
 theme_override_constants/shadow_outline_size = 0
 theme_override_fonts/font = ExtResource("5")
+theme_override_font_sizes/font_size = 11
 text = "Chapitre"
 __meta__ = {
 "_edit_use_anchors_": false
@@ -501,6 +511,7 @@ theme_override_constants/shadow_offset_x = 0
 theme_override_constants/shadow_offset_y = 0
 theme_override_constants/shadow_outline_size = 0
 theme_override_fonts/font = ExtResource("2")
+theme_override_font_sizes/font_size = 25
 text = "XXX"
 __meta__ = {
 "_edit_use_anchors_": false
@@ -517,6 +528,7 @@ theme_override_constants/shadow_offset_x = 0
 theme_override_constants/shadow_offset_y = 0
 theme_override_constants/shadow_outline_size = 0
 theme_override_fonts/font = ExtResource("5")
+theme_override_font_sizes/font_size = 11
 text = "Chapitre"
 __meta__ = {
 "_edit_use_anchors_": false
@@ -564,6 +576,7 @@ offset_top = 3.04227
 offset_right = 253.576
 offset_bottom = 34.0423
 theme_override_fonts/font = ExtResource("2")
+theme_override_font_sizes/font_size = 25
 text = "Avancé"
 __meta__ = {
 "_edit_use_anchors_": false
@@ -613,6 +626,7 @@ offset_top = 5.00259
 offset_right = 259.601
 offset_bottom = 36.0026
 theme_override_fonts/font = ExtResource("2")
+theme_override_font_sizes/font_size = 25
 text = "Choix"
 __meta__ = {
 "_edit_use_anchors_": false
@@ -704,6 +718,7 @@ offset_top = 5.00259
 offset_right = 305.524
 offset_bottom = 36.0026
 theme_override_fonts/font = ExtResource("2")
+theme_override_font_sizes/font_size = 25
 text = "Tous les Chapitres"
 __meta__ = {
 "_edit_use_anchors_": false
@@ -716,6 +731,7 @@ offset_right = 64.2982
 offset_bottom = 86.7809
 theme_override_colors/font_color = Color(0, 0, 0, 1)
 theme_override_fonts/font = ExtResource("2")
+theme_override_font_sizes/font_size = 25
 text = "Saut"
 __meta__ = {
 "_edit_use_anchors_": false
@@ -738,6 +754,7 @@ offset_right = 18.0075
 offset_bottom = 36.0409
 theme_override_colors/font_color = Color(0, 0, 0, 1)
 theme_override_fonts/font = ExtResource("2")
+theme_override_font_sizes/font_size = 25
 text = "1"
 __meta__ = {
 "_edit_use_anchors_": false
@@ -769,6 +786,7 @@ offset_right = 39.4877
 offset_bottom = 36.6708
 theme_override_colors/font_color = Color(0, 0, 0, 1)
 theme_override_fonts/font = ExtResource("2")
+theme_override_font_sizes/font_size = 25
 text = "100"
 __meta__ = {
 "_edit_use_anchors_": false
@@ -800,6 +818,7 @@ offset_right = 40.1176
 offset_bottom = 36.0409
 theme_override_colors/font_color = Color(0, 0, 0, 1)
 theme_override_fonts/font = ExtResource("2")
+theme_override_font_sizes/font_size = 25
 text = "200"
 __meta__ = {
 "_edit_use_anchors_": false
@@ -831,6 +850,7 @@ offset_right = 40.1176
 offset_bottom = 36.0409
 theme_override_colors/font_color = Color(0, 0, 0, 1)
 theme_override_fonts/font = ExtResource("2")
+theme_override_font_sizes/font_size = 25
 text = "300"
 __meta__ = {
 "_edit_use_anchors_": false
@@ -862,6 +882,7 @@ offset_right = 40.7476
 offset_bottom = 36.0409
 theme_override_colors/font_color = Color(0, 0, 0, 1)
 theme_override_fonts/font = ExtResource("2")
+theme_override_font_sizes/font_size = 25
 text = "400"
 __meta__ = {
 "_edit_use_anchors_": false
@@ -893,6 +914,7 @@ offset_right = 40.7476
 offset_bottom = 36.0409
 theme_override_colors/font_color = Color(0, 0, 0, 1)
 theme_override_fonts/font = ExtResource("2")
+theme_override_font_sizes/font_size = 25
 text = "500"
 __meta__ = {
 "_edit_use_anchors_": false
@@ -924,6 +946,7 @@ offset_right = 39.4877
 offset_bottom = 36.6708
 theme_override_colors/font_color = Color(0, 0, 0, 1)
 theme_override_fonts/font = ExtResource("2")
+theme_override_font_sizes/font_size = 25
 text = "600"
 __meta__ = {
 "_edit_use_anchors_": false
@@ -1108,6 +1131,7 @@ offset_top = 5.00259
 offset_right = 305.524
 offset_bottom = 36.0026
 theme_override_fonts/font = ExtResource("2")
+theme_override_font_sizes/font_size = 25
 text = "Tous les Succès"
 __meta__ = {
 "_edit_use_anchors_": false
@@ -1186,6 +1210,7 @@ offset_top = 5.00259
 offset_right = 305.524
 offset_bottom = 36.0026
 theme_override_fonts/font = ExtResource("2")
+theme_override_font_sizes/font_size = 25
 text = "Le lore"
 
 [node name="LinkButton" type="LinkButton" parent="Lore/Lore/Header"]
@@ -1356,6 +1381,7 @@ offset_top = 4.00003
 offset_right = 196.31
 offset_bottom = 35.0
 theme_override_fonts/font = ExtResource("2")
+theme_override_font_sizes/font_size = 25
 text = "Auteur des images:"
 
 [node name="LinkButton" type="LinkButton" parent="Lore/Lore/LoreAuthor"]
@@ -1365,6 +1391,7 @@ offset_right = 384.31
 offset_bottom = 34.0
 focus_mode = 2
 theme_override_fonts/font = ExtResource("2")
+theme_override_font_sizes/font_size = 25
 text = "Draziel"
 
 [node name="About" type="Panel" parent="."]
@@ -1415,6 +1442,7 @@ offset_top = 5.00259
 offset_right = 305.524
 offset_bottom = 36.0026
 theme_override_fonts/font = ExtResource("2")
+theme_override_font_sizes/font_size = 25
 text = "Actions"
 align = 1
 __meta__ = {
@@ -1438,6 +1466,7 @@ offset_right = 40.9661
 offset_bottom = 87.6047
 theme_override_colors/font_color = Color(0, 0, 0, 1)
 theme_override_fonts/font = ExtResource("2")
+theme_override_font_sizes/font_size = 25
 text = "Nouveau Billy"
 __meta__ = {
 "_edit_use_anchors_": false
@@ -1466,6 +1495,7 @@ offset_right = 40.9661
 offset_bottom = 87.6047
 theme_override_colors/font_color = Color(0, 0, 0, 1)
 theme_override_fonts/font = ExtResource("2")
+theme_override_font_sizes/font_size = 25
 text = "J'ai un bug"
 __meta__ = {
 "_edit_use_anchors_": false
@@ -1509,6 +1539,7 @@ offset_top = 5.00259
 offset_right = 305.524
 offset_bottom = 36.0026
 theme_override_fonts/font = ExtResource("2")
+theme_override_font_sizes/font_size = 25
 text = "A propos"
 align = 1
 __meta__ = {
@@ -1553,6 +1584,7 @@ theme_override_constants/shadow_offset_x = 0
 theme_override_constants/shadow_offset_y = 0
 theme_override_constants/shadow_outline_size = 0
 theme_override_fonts/font = ExtResource("5")
+theme_override_font_sizes/font_size = 11
 text = "Développeur"
 __meta__ = {
 "_edit_use_anchors_": false
@@ -1568,6 +1600,7 @@ theme_override_constants/shadow_offset_x = 0
 theme_override_constants/shadow_offset_y = 0
 theme_override_constants/shadow_outline_size = 0
 theme_override_fonts/font = ExtResource("2")
+theme_override_font_sizes/font_size = 25
 text = "Jean Gabès
 naparuba@gmail.com"
 __meta__ = {
@@ -1584,6 +1617,7 @@ theme_override_constants/shadow_offset_x = 0
 theme_override_constants/shadow_offset_y = 0
 theme_override_constants/shadow_outline_size = 0
 theme_override_fonts/font = ExtResource("5")
+theme_override_font_sizes/font_size = 11
 text = "Version"
 __meta__ = {
 "_edit_use_anchors_": false
@@ -1599,6 +1633,7 @@ theme_override_constants/shadow_offset_x = 0
 theme_override_constants/shadow_offset_y = 0
 theme_override_constants/shadow_outline_size = 0
 theme_override_fonts/font = ExtResource("2")
+theme_override_font_sizes/font_size = 25
 text = "0.19"
 
 [node name="SrcLabel" type="Label" parent="About/About"]
@@ -1611,6 +1646,7 @@ theme_override_constants/shadow_offset_x = 0
 theme_override_constants/shadow_offset_y = 0
 theme_override_constants/shadow_outline_size = 0
 theme_override_fonts/font = ExtResource("5")
+theme_override_font_sizes/font_size = 11
 text = "Sources"
 __meta__ = {
 "_edit_use_anchors_": false
@@ -1627,6 +1663,7 @@ theme_override_constants/shadow_offset_x = 0
 theme_override_constants/shadow_offset_y = 0
 theme_override_constants/shadow_outline_size = 0
 theme_override_fonts/font = ExtResource("2")
+theme_override_font_sizes/font_size = 25
 text = "https://github.com/naparuba/fdcn"
 
 [node name="ThnksLabel" type="Label" parent="About/About"]
@@ -1639,6 +1676,7 @@ theme_override_constants/shadow_offset_x = 0
 theme_override_constants/shadow_offset_y = 0
 theme_override_constants/shadow_outline_size = 0
 theme_override_fonts/font = ExtResource("5")
+theme_override_font_sizes/font_size = 11
 text = "Remerciements"
 __meta__ = {
 "_edit_use_anchors_": false
@@ -1671,6 +1709,7 @@ theme_override_constants/shadow_offset_x = 0
 theme_override_constants/shadow_offset_y = 0
 theme_override_constants/shadow_outline_size = 0
 theme_override_fonts/font = ExtResource("5")
+theme_override_font_sizes/font_size = 11
 text = "Notes"
 __meta__ = {
 "_edit_use_anchors_": false
@@ -1686,6 +1725,7 @@ theme_override_constants/shadow_offset_x = 0
 theme_override_constants/shadow_offset_y = 0
 theme_override_constants/shadow_outline_size = 0
 theme_override_fonts/font = ExtResource("2")
+theme_override_font_sizes/font_size = 25
 text = "Toute aide pour dev ou debugguer
 est la bienvenue ^^"
 __meta__ = {
@@ -1799,6 +1839,7 @@ offset_top = 5.00259
 offset_right = 259.601
 offset_bottom = 36.0026
 theme_override_fonts/font = ExtResource("2")
+theme_override_font_sizes/font_size = 25
 text = "Combat"
 __meta__ = {
 "_edit_use_anchors_": false
@@ -1819,6 +1860,7 @@ theme_override_constants/shadow_offset_x = 0
 theme_override_constants/shadow_offset_y = 0
 theme_override_constants/shadow_outline_size = 0
 theme_override_fonts/font = ExtResource("2")
+theme_override_font_sizes/font_size = 25
 text = "XXX"
 align = 1
 __meta__ = {

@@ -65,6 +65,7 @@ offset_right = 379.405
 offset_bottom = 74.6486
 theme_override_colors/font_color = Color(0, 0, 0, 1)
 theme_override_fonts/font = ExtResource("2")
+theme_override_font_sizes/font_size = 25
 text = "XXX
 "
 __meta__ = {
@@ -115,6 +116,7 @@ offset_right = 54.856
 offset_bottom = 35.6173
 theme_override_colors/font_color = Color(0, 0, 0, 1)
 theme_override_fonts/font = ExtResource("2")
+theme_override_font_sizes/font_size = 25
 text = ">"
 __meta__ = {
 "_edit_use_anchors_": false

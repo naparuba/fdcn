@@ -159,6 +159,7 @@ offset_top = 56.6046
 offset_right = 40.9661
 offset_bottom = 87.6047
 theme_override_fonts/font = ExtResource("2")
+theme_override_font_sizes/font_size = 25
 theme_override_colors/font_color = Color(0, 0, 0, 1)
 text = "Nouveau Billy"
 __meta__ = {

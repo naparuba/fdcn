@@ -111,3 +111,32 @@ coup que le texte rentre maintenant entièrement dans son ruban sur `E1`, `E2`, 
 
 Suite GDScript revérifiée (221 passing + 2 Risky préexistants, 504 assertions, 0 crash) puis
 22/22 golden régénérées après revue humaine.
+
+## 2026-07-09 (quinquies) — Même bug de taille de police, cette fois via des `.tres` externes
+
+Nouveau signalement utilisateur : "Voix du Lennon" et "Spoils" (en haut de l'écran) beaucoup trop
+grands, au point de se chevaucher ("Lenno[Spoils]"). Même classe de bug que le fix "bis"
+(`DynamicFont`→`FontFile` qui perd la taille), mais mon audit précédent avait **grep uniquement les
+`sub_resource type="DynamicFont"` DANS les `.tscn`** — il manquait donc les polices définies dans
+des fichiers `.tres` **externes** et réutilisées par `ext_resource` : `fonts/amon_font.tres`
+(`size = 25` en Godot 3) et `fonts/amon_font_small.tres` (`size = 11` en Godot 3), toutes les deux
+converties en `FontFile` sans taille, comme leurs cousines inline.
+
+Ces deux fichiers sont référencés par **10 scènes** : `gauge.tscn`, `Success.tscn`,
+`right_nexter.tscn`, `going_to_line.tscn`, `ChapterChoice.tscn`, `Item.tscn`, `main.tscn`,
+`left_backer.tscn`, `EndingChoice.tscn`, `top_menu.tscn` — dont `main.tscn` à lui seul avec 42
+nœuds concernés ("Complété", "Position", "Acte", "Arc", tous les libellés de stats Player/Ennemi
+qui utilisent `amon_font`/`amon_font_small` plutôt que les `FontFile` inline déjà corrigées dans le
+fix "bis"). Fixé en ajoutant `theme_override_font_sizes/font_size` (25 ou 11 selon la police) sur
+chaque nœud consommateur qui n'en avait pas déjà un.
+
+Impact visuel bien plus large que les fix précédents (headers de panneau, titres d'objets comme
+"ARC" dans l'écran Options, "Tous les Succès") — diffs pixel 2.7% à 22.5% selon l'écran (attendu,
+vu l'ampleur du changement), vérifiés visuellement écran par écran (`E6`, `E7`, `E9`, `E10`) avant
+mise à jour des golden. Suite GDScript revérifiée (221 passing + 2 Risky préexistants,
+504 assertions, 0 crash) puis 22/22 golden régénérées après revue humaine.
+
+**Leçon retenue pour la suite** : l'audit "DynamicFont perdu" doit couvrir aussi bien les
+`sub_resource` inline que les fichiers `.tres` externes référencés par `ext_resource` — un simple
+`grep -rl "type=\"DynamicFont\"" --include="*.tres"` sur `main` aurait trouvé ces deux fichiers dès
+la première passe.

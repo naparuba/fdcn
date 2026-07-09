@@ -28,6 +28,7 @@ offset_top = 9.43448
 offset_right = 653.475
 offset_bottom = 40.4345
 theme_override_fonts/font = ExtResource("1")
+theme_override_font_sizes/font_size = 25
 text = "Unset"
 align = 1
 valign = 1
@@ -39,6 +40,7 @@ offset_right = 671.475
 offset_bottom = 33.4345
 rotation = 1.5790953673881296
 theme_override_fonts/font = ExtResource("1")
+theme_override_font_sizes/font_size = 25
 text = "<"
 __meta__ = {
 "_edit_use_anchors_": false
