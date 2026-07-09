@@ -1,190 +1,274 @@
-[gd_scene load_steps=75 format=2]
+[gd_scene format=3]
 
-[ext_resource path="res://main.gd" type="Script" id=1]
-[ext_resource path="res://fonts/amon_font.tres" type="FontFile" id=2]
-[ext_resource path="res://ChapterChoice.tscn" type="PackedScene" id=3]
-[ext_resource path="res://images/fdcn_icon_transparent.png" type="Texture2D" id=4]
-[ext_resource path="res://fonts/amon_font_small.tres" type="FontFile" id=5]
-[ext_resource path="res://gauge.tscn" type="PackedScene" id=6]
-[ext_resource path="res://images/bar_fill.png" type="Texture2D" id=7]
-[ext_resource path="res://images/bar_background.png" type="Texture2D" id=8]
-[ext_resource path="res://bread.tscn" type="PackedScene" id=9]
-[ext_resource path="res://top_menu.tscn" type="PackedScene" id=10]
-[ext_resource path="res://images/anim-phumtar-2.png" type="Texture2D" id=11]
-[ext_resource path="res://images/anim-phumtar-1.png" type="Texture2D" id=12]
-[ext_resource path="res://fonts/RobotoCondensed-Regular.ttf" type="FontFile" id=13]
-[ext_resource path="res://images/soon.png" type="Texture2D" id=14]
-[ext_resource path="res://images/fleche_bas_droite.png" type="Texture2D" id=15]
-[ext_resource path="res://left_backer.tscn" type="PackedScene" id=16]
-[ext_resource path="res://right_nexter.tscn" type="PackedScene" id=17]
-[ext_resource path="res://Success.tscn" type="PackedScene" id=18]
-[ext_resource path="res://LoreEntry.tscn" type="PackedScene" id=19]
-[ext_resource path="res://images/new_player.png" type="Texture2D" id=20]
-[ext_resource path="res://images/bug.png" type="Texture2D" id=21]
-[ext_resource path="res://images/twitter.png" type="Texture2D" id=22]
-[ext_resource path="res://SuccessPopup.tscn" type="PackedScene" id=23]
-[ext_resource path="res://images/billys/debrouillard.png" type="Texture2D" id=24]
-[ext_resource path="res://images/billys/prudent.png" type="Texture2D" id=25]
-[ext_resource path="res://images/billys/paysan.png" type="Texture2D" id=26]
-[ext_resource path="res://images/billys/guerrier.png" type="Texture2D" id=27]
-[ext_resource path="res://shaders/gray.gdshader" type="Shader" id=28]
-[ext_resource path="res://scenes/GenericConfirmationPopup.tscn" type="PackedScene" id=29]
-[ext_resource path="res://images/blue-tick.png" type="Texture2D" id=30]
-[ext_resource path="res://Item.tscn" type="PackedScene" id=31]
-[ext_resource path="res://images/fight.svg" type="Texture2D" id=32]
-[ext_resource path="res://images/dice/6-r.svg" type="Texture2D" id=33]
-[ext_resource path="res://images/barbare_icon_white.png" type="Texture2D" id=34]
-[ext_resource path="res://images/backpack.png" type="Texture2D" id=35]
-[ext_resource path="res://images/health.png" type="Texture2D" id=36]
-[ext_resource path="res://images/book_select.png" type="Texture2D" id=37]
-[ext_resource path="res://images/cdsi_book.jpg" type="Texture2D" id=38]
-[ext_resource path="res://images/fdcn_book.jpg" type="Texture2D" id=39]
+[ext_resource type="Script" path="res://main.gd" id="1"]
+[ext_resource type="FontFile" path="res://fonts/amon_font.tres" id="2"]
+[ext_resource type="PackedScene" path="res://ChapterChoice.tscn" id="3"]
+[ext_resource type="Texture2D" path="res://images/fdcn_icon_transparent.png" id="4"]
+[ext_resource type="FontFile" path="res://fonts/amon_font_small.tres" id="5"]
+[ext_resource type="PackedScene" path="res://gauge.tscn" id="6"]
+[ext_resource type="Texture2D" path="res://images/bar_fill.png" id="7"]
+[ext_resource type="Texture2D" path="res://images/bar_background.png" id="8"]
+[ext_resource type="PackedScene" path="res://bread.tscn" id="9"]
+[ext_resource type="PackedScene" path="res://top_menu.tscn" id="10"]
+[ext_resource type="Texture2D" path="res://images/anim-phumtar-2.png" id="11"]
+[ext_resource type="Texture2D" path="res://images/anim-phumtar-1.png" id="12"]
+[ext_resource type="FontFile" path="res://fonts/RobotoCondensed-Regular.ttf" id="13"]
+[ext_resource type="Texture2D" path="res://images/soon.png" id="14"]
+[ext_resource type="Texture2D" path="res://images/fleche_bas_droite.png" id="15"]
+[ext_resource type="PackedScene" path="res://left_backer.tscn" id="16"]
+[ext_resource type="PackedScene" path="res://right_nexter.tscn" id="17"]
+[ext_resource type="PackedScene" path="res://Success.tscn" id="18"]
+[ext_resource type="PackedScene" path="res://LoreEntry.tscn" id="19"]
+[ext_resource type="Texture2D" path="res://images/new_player.png" id="20"]
+[ext_resource type="Texture2D" path="res://images/bug.png" id="21"]
+[ext_resource type="Texture2D" path="res://images/twitter.png" id="22"]
+[ext_resource type="PackedScene" path="res://SuccessPopup.tscn" id="23"]
+[ext_resource type="Texture2D" path="res://images/billys/debrouillard.png" id="24"]
+[ext_resource type="Texture2D" path="res://images/billys/prudent.png" id="25"]
+[ext_resource type="Texture2D" path="res://images/billys/paysan.png" id="26"]
+[ext_resource type="Texture2D" path="res://images/billys/guerrier.png" id="27"]
+[ext_resource type="Shader" path="res://shaders/gray.gdshader" id="28"]
+[ext_resource type="PackedScene" path="res://scenes/GenericConfirmationPopup.tscn" id="29"]
+[ext_resource type="Texture2D" path="res://images/blue-tick.png" id="30"]
+[ext_resource type="PackedScene" path="res://Item.tscn" id="31"]
+[ext_resource type="Texture2D" path="res://images/fight.svg" id="32"]
+[ext_resource type="Texture2D" path="res://images/dice/6-r.svg" id="33"]
+[ext_resource type="Texture2D" path="res://images/barbare_icon_white.png" id="34"]
+[ext_resource type="Texture2D" path="res://images/backpack.png" id="35"]
+[ext_resource type="Texture2D" path="res://images/health.png" id="36"]
+[ext_resource type="Texture2D" path="res://images/book_select.png" id="37"]
+[ext_resource type="Texture2D" path="res://images/cdsi_book.jpg" id="38"]
+[ext_resource type="Texture2D" path="res://images/fdcn_book.jpg" id="39"]
 
-[sub_resource type="StyleBoxFlat" id=1]
-bg_color = Color( 0.92549, 0.929412, 0.94902, 1 )
+[sub_resource type="StyleBoxFlat" id="1"]
+bg_color = Color(0.92549, 0.929412, 0.94902, 1)
 
-[sub_resource type="StyleBoxFlat" id=2]
-bg_color = Color( 1, 1, 1, 1 )
+[sub_resource type="StyleBoxFlat" id="2"]
+bg_color = Color(1, 1, 1, 1)
 
-[sub_resource type="StyleBoxFlat" id=3]
-bg_color = Color( 0.192157, 0.231373, 0.278431, 1 )
+[sub_resource type="StyleBoxFlat" id="3"]
+bg_color = Color(0.192157, 0.231373, 0.278431, 1)
 
-[sub_resource type="FontFile" id=4]
-size = 64
-font_data = ExtResource( 13 )
+[sub_resource type="FontFile" id="4"]
+fallbacks = Array[Font]([ExtResource("13")])
+cache/0/variation_coordinates = {}
+cache/0/face_index = 0
+cache/0/embolden = 0.0
+cache/0/transform = Transform2D(1, 0, 0, 1, 0, 0)
+cache/0/spacing_top = 0
+cache/0/spacing_bottom = 0
+cache/0/spacing_space = 0
+cache/0/spacing_glyph = 0
+cache/0/baseline_offset = 0.0
+cache/0/16/0/ascent = 0.0
+cache/0/16/0/descent = 0.0
+cache/0/16/0/underline_position = 0.0
+cache/0/16/0/underline_thickness = 0.0
+cache/0/16/0/scale = 1.0
 
-[sub_resource type="StyleBoxFlat" id=5]
-bg_color = Color( 0.913725, 0.917647, 0.92549, 1 )
+[sub_resource type="StyleBoxFlat" id="5"]
+bg_color = Color(0.913725, 0.917647, 0.92549, 1)
 
-[sub_resource type="StyleBoxFlat" id=6]
-bg_color = Color( 0.92549, 0.929412, 0.94902, 1 )
+[sub_resource type="StyleBoxFlat" id="6"]
+bg_color = Color(0.92549, 0.929412, 0.94902, 1)
 corner_radius_top_left = 2
 corner_radius_top_right = 2
 corner_radius_bottom_right = 2
 corner_radius_bottom_left = 2
 
-[sub_resource type="SpriteFrames" id=7]
-animations = [ {
-"frames": [ ExtResource( 12 ), ExtResource( 11 ) ],
-"loop": true,
-"name": "default",
+[sub_resource type="SpriteFrames" id="7"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("12")
+}, {
+"duration": 1.0,
+"texture": ExtResource("11")
+}],
+"loop": 1,
+"name": &"default",
 "speed": 16.0
-} ]
+}]
 
-[sub_resource type="FontFile" id=8]
-size = 20
-font_data = ExtResource( 13 )
+[sub_resource type="FontFile" id="8"]
+fallbacks = Array[Font]([ExtResource("13")])
+cache/0/variation_coordinates = {}
+cache/0/face_index = 0
+cache/0/embolden = 0.0
+cache/0/transform = Transform2D(1, 0, 0, 1, 0, 0)
+cache/0/spacing_top = 0
+cache/0/spacing_bottom = 0
+cache/0/spacing_space = 0
+cache/0/spacing_glyph = 0
+cache/0/baseline_offset = 0.0
+cache/0/16/0/ascent = 0.0
+cache/0/16/0/descent = 0.0
+cache/0/16/0/underline_position = 0.0
+cache/0/16/0/underline_thickness = 0.0
+cache/0/16/0/scale = 1.0
 
-[sub_resource type="FontFile" id=9]
-size = 32
-font_data = ExtResource( 13 )
+[sub_resource type="FontFile" id="9"]
+fallbacks = Array[Font]([ExtResource("13")])
+cache/0/variation_coordinates = {}
+cache/0/face_index = 0
+cache/0/embolden = 0.0
+cache/0/transform = Transform2D(1, 0, 0, 1, 0, 0)
+cache/0/spacing_top = 0
+cache/0/spacing_bottom = 0
+cache/0/spacing_space = 0
+cache/0/spacing_glyph = 0
+cache/0/baseline_offset = 0.0
+cache/0/16/0/ascent = 0.0
+cache/0/16/0/descent = 0.0
+cache/0/16/0/underline_position = 0.0
+cache/0/16/0/underline_thickness = 0.0
+cache/0/16/0/scale = 1.0
 
-[sub_resource type="StyleBoxFlat" id=10]
-bg_color = Color( 1, 1, 1, 1 )
+[sub_resource type="StyleBoxFlat" id="10"]
+bg_color = Color(1, 1, 1, 1)
 border_width_top = 3
-border_color = Color( 0.192157, 0.231373, 0.278431, 1 )
+border_color = Color(0.192157, 0.231373, 0.278431, 1)
 
-[sub_resource type="StyleBoxFlat" id=11]
-bg_color = Color( 0.913725, 0.917647, 0.92549, 1 )
+[sub_resource type="StyleBoxFlat" id="11"]
+bg_color = Color(0.913725, 0.917647, 0.92549, 1)
 
-[sub_resource type="FontFile" id=12]
-size = 24
-font_data = ExtResource( 13 )
+[sub_resource type="FontFile" id="12"]
+fallbacks = Array[Font]([ExtResource("13")])
+cache/0/variation_coordinates = {}
+cache/0/face_index = 0
+cache/0/embolden = 0.0
+cache/0/transform = Transform2D(1, 0, 0, 1, 0, 0)
+cache/0/spacing_top = 0
+cache/0/spacing_bottom = 0
+cache/0/spacing_space = 0
+cache/0/spacing_glyph = 0
+cache/0/baseline_offset = 0.0
+cache/0/16/0/ascent = 0.0
+cache/0/16/0/descent = 0.0
+cache/0/16/0/underline_position = 0.0
+cache/0/16/0/underline_thickness = 0.0
+cache/0/16/0/scale = 1.0
 
-[sub_resource type="FontFile" id=13]
-outline_color = Color( 0, 0, 0, 1 )
-font_data = ExtResource( 13 )
+[sub_resource type="FontFile" id="13"]
+fallbacks = Array[Font]([ExtResource("13")])
+cache/0/variation_coordinates = {}
+cache/0/face_index = 0
+cache/0/embolden = 0.0
+cache/0/transform = Transform2D(1, 0, 0, 1, 0, 0)
+cache/0/spacing_top = 0
+cache/0/spacing_bottom = 0
+cache/0/spacing_space = 0
+cache/0/spacing_glyph = 0
+cache/0/baseline_offset = 0.0
+cache/0/16/0/ascent = 0.0
+cache/0/16/0/descent = 0.0
+cache/0/16/0/underline_position = 0.0
+cache/0/16/0/underline_thickness = 0.0
+cache/0/16/0/scale = 1.0
 
-[sub_resource type="FontFile" id=14]
-size = 19
-font_data = ExtResource( 13 )
+[sub_resource type="FontFile" id="14"]
+fallbacks = Array[Font]([ExtResource("13")])
+cache/0/variation_coordinates = {}
+cache/0/face_index = 0
+cache/0/embolden = 0.0
+cache/0/transform = Transform2D(1, 0, 0, 1, 0, 0)
+cache/0/spacing_top = 0
+cache/0/spacing_bottom = 0
+cache/0/spacing_space = 0
+cache/0/spacing_glyph = 0
+cache/0/baseline_offset = 0.0
+cache/0/16/0/ascent = 0.0
+cache/0/16/0/descent = 0.0
+cache/0/16/0/underline_position = 0.0
+cache/0/16/0/underline_thickness = 0.0
+cache/0/16/0/scale = 1.0
 
-[sub_resource type="StyleBoxFlat" id=15]
-bg_color = Color( 0.92549, 0.929412, 0.94902, 1 )
+[sub_resource type="StyleBoxFlat" id="15"]
+bg_color = Color(0.92549, 0.929412, 0.94902, 1)
 corner_radius_top_left = 2
 corner_radius_top_right = 2
 corner_radius_bottom_right = 2
 corner_radius_bottom_left = 2
 
-[sub_resource type="StyleBoxFlat" id=35]
-bg_color = Color( 1, 1, 1, 1 )
+[sub_resource type="StyleBoxFlat" id="35"]
+bg_color = Color(1, 1, 1, 1)
 
-[sub_resource type="StyleBoxFlat" id=17]
-bg_color = Color( 0.192157, 0.231373, 0.278431, 1 )
+[sub_resource type="StyleBoxFlat" id="17"]
+bg_color = Color(0.192157, 0.231373, 0.278431, 1)
 
-[sub_resource type="StyleBoxFlat" id=29]
+[sub_resource type="StyleBoxFlat" id="29"]
 
-[sub_resource type="StyleBoxFlat" id=30]
-bg_color = Color( 0.878431, 0.886275, 0.898039, 1 )
+[sub_resource type="StyleBoxFlat" id="30"]
+bg_color = Color(0.878431, 0.886275, 0.898039, 1)
 
-[sub_resource type="StyleBoxFlat" id=31]
+[sub_resource type="StyleBoxFlat" id="31"]
 
-[sub_resource type="StyleBoxFlat" id=32]
-bg_color = Color( 1, 1, 1, 1 )
+[sub_resource type="StyleBoxFlat" id="32"]
+bg_color = Color(1, 1, 1, 1)
 
-[sub_resource type="StyleBoxEmpty" id=21]
+[sub_resource type="StyleBoxEmpty" id="21"]
 
-[sub_resource type="ShaderMaterial" id=39]
-shader = ExtResource( 28 )
-shader_param/grayscale = false
+[sub_resource type="ShaderMaterial" id="39"]
+shader = ExtResource("28")
+shader_parameter/grayscale = false
 
-[sub_resource type="StyleBoxEmpty" id=22]
+[sub_resource type="StyleBoxEmpty" id="22"]
 
-[sub_resource type="ShaderMaterial" id=23]
-shader = ExtResource( 28 )
-shader_param/grayscale = false
+[sub_resource type="ShaderMaterial" id="23"]
+shader = ExtResource("28")
+shader_parameter/grayscale = false
 
-[sub_resource type="StyleBoxEmpty" id=24]
+[sub_resource type="StyleBoxEmpty" id="24"]
 
-[sub_resource type="ShaderMaterial" id=25]
-shader = ExtResource( 28 )
-shader_param/grayscale = false
+[sub_resource type="ShaderMaterial" id="25"]
+shader = ExtResource("28")
+shader_parameter/grayscale = false
 
-[sub_resource type="StyleBoxEmpty" id=26]
+[sub_resource type="StyleBoxEmpty" id="26"]
 
-[sub_resource type="ShaderMaterial" id=27]
-shader = ExtResource( 28 )
-shader_param/grayscale = false
+[sub_resource type="ShaderMaterial" id="27"]
+shader = ExtResource("28")
+shader_parameter/grayscale = false
 
-[sub_resource type="StyleBoxFlat" id=33]
-bg_color = Color( 1, 1, 1, 1 )
+[sub_resource type="StyleBoxFlat" id="33"]
+bg_color = Color(1, 1, 1, 1)
 
-[sub_resource type="StyleBoxFlat" id=34]
-bg_color = Color( 1, 1, 1, 1 )
+[sub_resource type="StyleBoxFlat" id="34"]
+bg_color = Color(1, 1, 1, 1)
 
-[sub_resource type="StyleBoxFlat" id=36]
-bg_color = Color( 1, 1, 1, 1 )
+[sub_resource type="StyleBoxFlat" id="36"]
+bg_color = Color(1, 1, 1, 1)
 
-[sub_resource type="ShaderMaterial" id=37]
-shader = ExtResource( 28 )
-shader_param/grayscale = false
+[sub_resource type="ShaderMaterial" id="37"]
+shader = ExtResource("28")
+shader_parameter/grayscale = false
 
-[sub_resource type="ShaderMaterial" id=38]
-shader = ExtResource( 28 )
-shader_param/grayscale = false
+[sub_resource type="ShaderMaterial" id="38"]
+shader = ExtResource("28")
+shader_parameter/grayscale = false
 
-[sub_resource type="StyleBoxEmpty" id=28]
+[sub_resource type="StyleBoxEmpty" id="28"]
 
 [node name="main" type="Node2D"]
-script = ExtResource( 1 )
+script = ExtResource("1")
 
 [node name="Background" type="Panel" parent="."]
 offset_left = 1.0
 offset_right = 559.0
 offset_bottom = 1046.0
 mouse_filter = 1
-theme_override_styles/panel = SubResource( 1 )
+theme_override_styles/panel = SubResource("1")
 
-[node name="Left-Back" parent="Background" instance=ExtResource( 16 )]
+[node name="Left-Back" parent="Background" instance=ExtResource("16")]
 txt = "Chapitre précédent"
 dest = "BACK"
 is_disabled = true
 
-[node name="Right-Next" parent="Background" instance=ExtResource( 17 )]
+[node name="Right-Next" parent="Background" instance=ExtResource("17")]
 txt = "Tous les chapitres"
 dest = "chapitres"
 
-[node name="top_menu" parent="Background" instance=ExtResource( 10 )]
+[node name="top_menu" parent="Background" instance=ExtResource("10")]
 offset_left = 0.0
 offset_top = 0.0
 offset_right = 558.0
@@ -196,7 +280,7 @@ offset_top = 58.3134
 offset_right = 242.069
 offset_bottom = 240.314
 mouse_filter = 1
-theme_override_styles/panel = SubResource( 2 )
+theme_override_styles/panel = SubResource("2")
 __meta__ = {
 "_edit_use_anchors_": false
 }
@@ -205,7 +289,7 @@ __meta__ = {
 offset_right = 188.0
 offset_bottom = 42.0
 mouse_filter = 1
-theme_override_styles/panel = SubResource( 3 )
+theme_override_styles/panel = SubResource("3")
 __meta__ = {
 "_edit_use_anchors_": false
 }
@@ -215,30 +299,30 @@ offset_left = 48.0997
 offset_top = 4.0547
 offset_right = 155.1
 offset_bottom = 35.0547
-theme_override_fonts/font = ExtResource( 2 )
+theme_override_fonts/font = ExtResource("2")
 text = "Completé"
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
 [node name="fdcn" type="Sprite2D" parent="Background/GlobalCompletion/Header"]
-position = Vector2( 22.2236, 20.9834 )
-scale = Vector2( 0.103378, 0.0980473 )
-texture = ExtResource( 4 )
+position = Vector2(22.2236, 20.9834)
+scale = Vector2(0.103378, 0.0980473)
+texture = ExtResource("4")
 
-[node name="Gauge" parent="Background/GlobalCompletion" instance=ExtResource( 6 )]
-position = Vector2( 88.3884, 97.9343 )
+[node name="Gauge" parent="Background/GlobalCompletion" instance=ExtResource("6")]
+position = Vector2(88.3884, 97.9343)
 
 [node name="footnode" type="Label" parent="Background/GlobalCompletion"]
 offset_left = 142.403
 offset_top = 164.985
 offset_right = 185.403
 offset_bottom = 178.985
-theme_override_colors/font_color = Color( 0, 0, 0, 1 )
+theme_override_colors/font_color = Color(0, 0, 0, 1)
 theme_override_constants/shadow_offset_x = 0
 theme_override_constants/shadow_offset_y = 0
 theme_override_constants/shadow_outline_size = 0
-theme_override_fonts/font = ExtResource( 5 )
+theme_override_fonts/font = ExtResource("5")
 text = "X/606"
 align = 2
 __meta__ = {
@@ -251,7 +335,7 @@ offset_top = 57.3182
 offset_right = 497.909
 offset_bottom = 242.318
 mouse_filter = 1
-theme_override_styles/panel = SubResource( 2 )
+theme_override_styles/panel = SubResource("2")
 __meta__ = {
 "_edit_use_anchors_": false
 }
@@ -260,7 +344,7 @@ __meta__ = {
 offset_right = 241.0
 offset_bottom = 42.0
 mouse_filter = 1
-theme_override_styles/panel = SubResource( 3 )
+theme_override_styles/panel = SubResource("3")
 __meta__ = {
 "_edit_use_anchors_": false
 }
@@ -270,7 +354,7 @@ offset_left = 85.8616
 offset_top = 3.68015
 offset_right = 167.862
 offset_bottom = 34.6801
-theme_override_fonts/font = ExtResource( 2 )
+theme_override_fonts/font = ExtResource("2")
 text = "Position"
 __meta__ = {
 "_edit_use_anchors_": false
@@ -281,11 +365,11 @@ offset_left = 45.2576
 offset_top = 47.7458
 offset_right = 115.258
 offset_bottom = 61.7458
-theme_override_colors/font_color = Color( 0, 0, 0, 1 )
+theme_override_colors/font_color = Color(0, 0, 0, 1)
 theme_override_constants/shadow_offset_x = 0
 theme_override_constants/shadow_offset_y = 0
 theme_override_constants/shadow_outline_size = 0
-theme_override_fonts/font = ExtResource( 5 )
+theme_override_fonts/font = ExtResource("5")
 text = "Acte"
 __meta__ = {
 "_edit_use_anchors_": false
@@ -296,11 +380,11 @@ offset_left = 45.0
 offset_top = 61.4703
 offset_right = 207.0
 offset_bottom = 92.4703
-theme_override_colors/font_color = Color( 0, 0.760784, 0.666667, 1 )
+theme_override_colors/font_color = Color(0, 0.760784, 0.666667, 1)
 theme_override_constants/shadow_offset_x = 0
 theme_override_constants/shadow_offset_y = 0
 theme_override_constants/shadow_outline_size = 0
-theme_override_fonts/font = ExtResource( 2 )
+theme_override_fonts/font = ExtResource("2")
 text = "XXX"
 __meta__ = {
 "_edit_use_anchors_": false
@@ -311,9 +395,9 @@ offset_left = 27.7206
 offset_top = 51.0676
 offset_right = 37.7206
 offset_bottom = 91.0676
-scale = Vector2( 1, 0.839999 )
-texture_under = ExtResource( 8 )
-texture_progress = ExtResource( 7 )
+scale = Vector2(1, 0.839999)
+texture_under = ExtResource("8")
+texture_progress = ExtResource("7")
 fill_mode = 3
 __meta__ = {
 "_edit_use_anchors_": false
@@ -324,11 +408,11 @@ offset_left = 5.0
 offset_top = 72.2054
 offset_right = 28.0
 offset_bottom = 86.2054
-theme_override_colors/font_color = Color( 0, 0, 0, 1 )
+theme_override_colors/font_color = Color(0, 0, 0, 1)
 theme_override_constants/shadow_offset_x = 0
 theme_override_constants/shadow_offset_y = 0
 theme_override_constants/shadow_outline_size = 0
-theme_override_fonts/font = ExtResource( 5 )
+theme_override_fonts/font = ExtResource("5")
 __meta__ = {
 "_edit_use_anchors_": false
 }
@@ -338,11 +422,11 @@ offset_left = 73.4753
 offset_top = 92.7138
 offset_right = 143.476
 offset_bottom = 106.714
-theme_override_colors/font_color = Color( 0, 0, 0, 1 )
+theme_override_colors/font_color = Color(0, 0, 0, 1)
 theme_override_constants/shadow_offset_x = 0
 theme_override_constants/shadow_offset_y = 0
 theme_override_constants/shadow_outline_size = 0
-theme_override_fonts/font = ExtResource( 5 )
+theme_override_fonts/font = ExtResource("5")
 text = "Arc"
 __meta__ = {
 "_edit_use_anchors_": false
@@ -353,26 +437,26 @@ offset_left = 73.2177
 offset_top = 106.438
 offset_right = 235.218
 offset_bottom = 137.438
-theme_override_colors/font_color = Color( 0, 0.760784, 0.666667, 1 )
+theme_override_colors/font_color = Color(0, 0.760784, 0.666667, 1)
 theme_override_constants/shadow_offset_x = 0
 theme_override_constants/shadow_offset_y = 0
 theme_override_constants/shadow_outline_size = 0
-theme_override_fonts/font = ExtResource( 2 )
+theme_override_fonts/font = ExtResource("2")
 text = "XXX"
 
 [node name="fleche_arc" type="Sprite2D" parent="Background/Position"]
-position = Vector2( 41.105, 102.211 )
-scale = Vector2( 0.184088, 0.184088 )
-texture = ExtResource( 15 )
+position = Vector2(41.105, 102.211)
+scale = Vector2(0.184088, 0.184088)
+texture = ExtResource("15")
 
 [node name="fill_bar_arc" type="TextureProgressBar" parent="Background/Position"]
 offset_left = 55.9383
 offset_top = 96.0356
 offset_right = 65.9383
 offset_bottom = 136.036
-scale = Vector2( 1, 0.839999 )
-texture_under = ExtResource( 8 )
-texture_progress = ExtResource( 7 )
+scale = Vector2(1, 0.839999)
+texture_under = ExtResource("8")
+texture_progress = ExtResource("7")
 fill_mode = 3
 __meta__ = {
 "_edit_use_anchors_": false
@@ -383,11 +467,11 @@ offset_left = 33.2177
 offset_top = 117.173
 offset_right = 56.2177
 offset_bottom = 131.173
-theme_override_colors/font_color = Color( 0, 0, 0, 1 )
+theme_override_colors/font_color = Color(0, 0, 0, 1)
 theme_override_constants/shadow_offset_x = 0
 theme_override_constants/shadow_offset_y = 0
 theme_override_constants/shadow_outline_size = 0
-theme_override_fonts/font = ExtResource( 5 )
+theme_override_fonts/font = ExtResource("5")
 __meta__ = {
 "_edit_use_anchors_": false
 }
@@ -397,11 +481,11 @@ offset_left = 165.822
 offset_top = 137.314
 offset_right = 235.822
 offset_bottom = 151.314
-theme_override_colors/font_color = Color( 0, 0, 0, 1 )
+theme_override_colors/font_color = Color(0, 0, 0, 1)
 theme_override_constants/shadow_offset_x = 0
 theme_override_constants/shadow_offset_y = 0
 theme_override_constants/shadow_outline_size = 0
-theme_override_fonts/font = ExtResource( 5 )
+theme_override_fonts/font = ExtResource("5")
 text = "Chapitre"
 __meta__ = {
 "_edit_use_anchors_": false
@@ -412,11 +496,11 @@ offset_left = 165.898
 offset_top = 147.842
 offset_right = 212.898
 offset_bottom = 178.842
-theme_override_colors/font_color = Color( 0, 0.760784, 0.666667, 1 )
+theme_override_colors/font_color = Color(0, 0.760784, 0.666667, 1)
 theme_override_constants/shadow_offset_x = 0
 theme_override_constants/shadow_offset_y = 0
 theme_override_constants/shadow_outline_size = 0
-theme_override_fonts/font = ExtResource( 2 )
+theme_override_fonts/font = ExtResource("2")
 text = "XXX"
 __meta__ = {
 "_edit_use_anchors_": false
@@ -428,11 +512,11 @@ offset_left = 134.459
 offset_top = 102.699
 offset_right = 204.459
 offset_bottom = 116.699
-theme_override_colors/font_color = Color( 0, 0, 0, 1 )
+theme_override_colors/font_color = Color(0, 0, 0, 1)
 theme_override_constants/shadow_offset_x = 0
 theme_override_constants/shadow_offset_y = 0
 theme_override_constants/shadow_outline_size = 0
-theme_override_fonts/font = ExtResource( 5 )
+theme_override_fonts/font = ExtResource("5")
 text = "Chapitre"
 __meta__ = {
 "_edit_use_anchors_": false
@@ -444,11 +528,11 @@ offset_left = 132.754
 offset_top = 111.445
 offset_right = 237.754
 offset_bottom = 187.445
-theme_override_colors/font_color = Color( 0, 0.760784, 0.666667, 1 )
+theme_override_colors/font_color = Color(0, 0.760784, 0.666667, 1)
 theme_override_constants/shadow_offset_x = 0
 theme_override_constants/shadow_offset_y = 0
 theme_override_constants/shadow_outline_size = 0
-theme_override_fonts/font = SubResource( 4 )
+theme_override_fonts/font = SubResource("4")
 text = "XXX"
 __meta__ = {
 "_edit_use_anchors_": false
@@ -459,7 +543,7 @@ offset_left = 54.115
 offset_top = 260.0
 offset_right = 499.115
 offset_bottom = 342.0
-theme_override_styles/panel = SubResource( 2 )
+theme_override_styles/panel = SubResource("2")
 __meta__ = {
 "_edit_use_anchors_": false
 }
@@ -468,7 +552,7 @@ __meta__ = {
 offset_right = 445.0
 offset_bottom = 42.0
 mouse_filter = 1
-theme_override_styles/panel = SubResource( 3 )
+theme_override_styles/panel = SubResource("3")
 __meta__ = {
 "_edit_use_anchors_": false
 }
@@ -478,7 +562,7 @@ offset_left = 180.576
 offset_top = 3.04227
 offset_right = 253.576
 offset_bottom = 34.0423
-theme_override_fonts/font = ExtResource( 2 )
+theme_override_fonts/font = ExtResource("2")
 text = "Avancé"
 __meta__ = {
 "_edit_use_anchors_": false
@@ -493,11 +577,11 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="bread" parent="Background/Dreadcumb/breads" instance=ExtResource( 9 )]
+[node name="bread" parent="Background/Dreadcumb/breads" instance=ExtResource("9")]
 offset_right = 70.0
 offset_bottom = 0.0
 
-[node name="bread2" parent="Background/Dreadcumb/breads" instance=ExtResource( 9 )]
+[node name="bread2" parent="Background/Dreadcumb/breads" instance=ExtResource("9")]
 offset_left = 74.0
 offset_right = 144.0
 offset_bottom = 0.0
@@ -508,7 +592,7 @@ offset_top = 377.0
 offset_right = 501.0
 offset_bottom = 1011.0
 mouse_filter = 1
-theme_override_styles/panel = SubResource( 2 )
+theme_override_styles/panel = SubResource("2")
 __meta__ = {
 "_edit_use_anchors_": false
 }
@@ -517,7 +601,7 @@ __meta__ = {
 offset_right = 445.0
 offset_bottom = 42.0
 mouse_filter = 1
-theme_override_styles/panel = SubResource( 3 )
+theme_override_styles/panel = SubResource("3")
 __meta__ = {
 "_edit_use_anchors_": false
 }
@@ -527,7 +611,7 @@ offset_left = 189.601
 offset_top = 5.00259
 offset_right = 259.601
 offset_bottom = 36.0026
-theme_override_fonts/font = ExtResource( 2 )
+theme_override_fonts/font = ExtResource("2")
 text = "Choix"
 __meta__ = {
 "_edit_use_anchors_": false
@@ -552,10 +636,10 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="ChapterChoice" parent="Background/Next/ScrollContainer/Choices" instance=ExtResource( 3 )]
+[node name="ChapterChoice" parent="Background/Next/ScrollContainer/Choices" instance=ExtResource("3")]
 offset_right = 445.0
 
-[node name="ChapterChoice2" parent="Background/Next/ScrollContainer/Choices" instance=ExtResource( 3 )]
+[node name="ChapterChoice2" parent="Background/Next/ScrollContainer/Choices" instance=ExtResource("3")]
 offset_top = 79.0
 offset_right = 445.0
 offset_bottom = 154.0
@@ -566,12 +650,12 @@ offset_top = 2.08038
 offset_right = 1155.62
 offset_bottom = 1048.08
 mouse_filter = 1
-theme_override_styles/panel = SubResource( 1 )
+theme_override_styles/panel = SubResource("1")
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Left-Back" parent="Chapitres" instance=ExtResource( 16 )]
+[node name="Left-Back" parent="Chapitres" instance=ExtResource("16")]
 offset_left = 0.272339
 offset_top = 1009.19
 offset_right = 972.272
@@ -579,7 +663,7 @@ offset_bottom = 1051.19
 txt = "Aventure"
 dest = "main"
 
-[node name="Right-Next" parent="Chapitres" instance=ExtResource( 17 )]
+[node name="Right-Next" parent="Chapitres" instance=ExtResource("17")]
 offset_left = 557.631
 offset_top = 26.0717
 offset_right = 1529.63
@@ -587,7 +671,7 @@ offset_bottom = 68.0716
 txt = "Les succès"
 dest = "success"
 
-[node name="top_menu" parent="Chapitres" instance=ExtResource( 10 )]
+[node name="top_menu" parent="Chapitres" instance=ExtResource("10")]
 offset_left = 0.0
 offset_top = -1.0
 offset_right = 558.0
@@ -599,7 +683,7 @@ offset_top = 54.0
 offset_right = 504.0
 offset_bottom = 1022.0
 mouse_filter = 1
-theme_override_styles/panel = SubResource( 2 )
+theme_override_styles/panel = SubResource("2")
 __meta__ = {
 "_edit_use_anchors_": false
 }
@@ -608,7 +692,7 @@ __meta__ = {
 offset_right = 445.0
 offset_bottom = 42.0
 mouse_filter = 1
-theme_override_styles/panel = SubResource( 3 )
+theme_override_styles/panel = SubResource("3")
 __meta__ = {
 "_edit_use_anchors_": false
 }
@@ -618,7 +702,7 @@ offset_left = 121.524
 offset_top = 5.00259
 offset_right = 305.524
 offset_bottom = 36.0026
-theme_override_fonts/font = ExtResource( 2 )
+theme_override_fonts/font = ExtResource("2")
 text = "Tous les Chapitres"
 __meta__ = {
 "_edit_use_anchors_": false
@@ -629,8 +713,8 @@ offset_left = 12.2982
 offset_top = 55.7809
 offset_right = 64.2982
 offset_bottom = 86.7809
-theme_override_colors/font_color = Color( 0, 0, 0, 1 )
-theme_override_fonts/font = ExtResource( 2 )
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_fonts/font = ExtResource("2")
 text = "Saut"
 __meta__ = {
 "_edit_use_anchors_": false
@@ -641,7 +725,7 @@ offset_left = 69.2867
 offset_top = 50.1101
 offset_right = 112.287
 offset_bottom = 92.1101
-theme_override_styles/panel = SubResource( 5 )
+theme_override_styles/panel = SubResource("5")
 __meta__ = {
 "_edit_use_anchors_": false
 }
@@ -651,8 +735,8 @@ offset_left = 6.00751
 offset_top = 5.04086
 offset_right = 18.0075
 offset_bottom = 36.0409
-theme_override_colors/font_color = Color( 0, 0, 0, 1 )
-theme_override_fonts/font = ExtResource( 2 )
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_fonts/font = ExtResource("2")
 text = "1"
 __meta__ = {
 "_edit_use_anchors_": false
@@ -672,7 +756,7 @@ offset_left = 120.943
 offset_top = 50.1101
 offset_right = 163.943
 offset_bottom = 92.1101
-theme_override_styles/panel = SubResource( 5 )
+theme_override_styles/panel = SubResource("5")
 __meta__ = {
 "_edit_use_anchors_": false
 }
@@ -682,8 +766,8 @@ offset_left = 3.48773
 offset_top = 5.67082
 offset_right = 39.4877
 offset_bottom = 36.6708
-theme_override_colors/font_color = Color( 0, 0, 0, 1 )
-theme_override_fonts/font = ExtResource( 2 )
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_fonts/font = ExtResource("2")
 text = "100"
 __meta__ = {
 "_edit_use_anchors_": false
@@ -703,7 +787,7 @@ offset_left = 175.12
 offset_top = 51.37
 offset_right = 218.12
 offset_bottom = 93.37
-theme_override_styles/panel = SubResource( 5 )
+theme_override_styles/panel = SubResource("5")
 __meta__ = {
 "_edit_use_anchors_": false
 }
@@ -713,8 +797,8 @@ offset_left = 4.11761
 offset_top = 5.04086
 offset_right = 40.1176
 offset_bottom = 36.0409
-theme_override_colors/font_color = Color( 0, 0, 0, 1 )
-theme_override_fonts/font = ExtResource( 2 )
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_fonts/font = ExtResource("2")
 text = "200"
 __meta__ = {
 "_edit_use_anchors_": false
@@ -734,7 +818,7 @@ offset_left = 228.667
 offset_top = 50.7401
 offset_right = 271.667
 offset_bottom = 92.7401
-theme_override_styles/panel = SubResource( 5 )
+theme_override_styles/panel = SubResource("5")
 __meta__ = {
 "_edit_use_anchors_": false
 }
@@ -744,8 +828,8 @@ offset_left = 4.11761
 offset_top = 5.04086
 offset_right = 40.1176
 offset_bottom = 36.0409
-theme_override_colors/font_color = Color( 0, 0, 0, 1 )
-theme_override_fonts/font = ExtResource( 2 )
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_fonts/font = ExtResource("2")
 text = "300"
 __meta__ = {
 "_edit_use_anchors_": false
@@ -765,7 +849,7 @@ offset_left = 281.583
 offset_top = 50.7401
 offset_right = 324.583
 offset_bottom = 92.7401
-theme_override_styles/panel = SubResource( 5 )
+theme_override_styles/panel = SubResource("5")
 __meta__ = {
 "_edit_use_anchors_": false
 }
@@ -775,8 +859,8 @@ offset_left = 4.74762
 offset_top = 5.04086
 offset_right = 40.7476
 offset_bottom = 36.0409
-theme_override_colors/font_color = Color( 0, 0, 0, 1 )
-theme_override_fonts/font = ExtResource( 2 )
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_fonts/font = ExtResource("2")
 text = "400"
 __meta__ = {
 "_edit_use_anchors_": false
@@ -796,7 +880,7 @@ offset_left = 331.98
 offset_top = 51.3701
 offset_right = 374.98
 offset_bottom = 93.3701
-theme_override_styles/panel = SubResource( 5 )
+theme_override_styles/panel = SubResource("5")
 __meta__ = {
 "_edit_use_anchors_": false
 }
@@ -806,8 +890,8 @@ offset_left = 4.74762
 offset_top = 5.04086
 offset_right = 40.7476
 offset_bottom = 36.0409
-theme_override_colors/font_color = Color( 0, 0, 0, 1 )
-theme_override_fonts/font = ExtResource( 2 )
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_fonts/font = ExtResource("2")
 text = "500"
 __meta__ = {
 "_edit_use_anchors_": false
@@ -827,7 +911,7 @@ offset_left = 386.157
 offset_top = 50.1101
 offset_right = 429.157
 offset_bottom = 92.1101
-theme_override_styles/panel = SubResource( 5 )
+theme_override_styles/panel = SubResource("5")
 __meta__ = {
 "_edit_use_anchors_": false
 }
@@ -837,8 +921,8 @@ offset_left = 3.48773
 offset_top = 5.67082
 offset_right = 39.4877
 offset_bottom = 36.6708
-theme_override_colors/font_color = Color( 0, 0, 0, 1 )
-theme_override_fonts/font = ExtResource( 2 )
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_fonts/font = ExtResource("2")
 text = "600"
 __meta__ = {
 "_edit_use_anchors_": false
@@ -871,95 +955,95 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="ChapterChoice" parent="Chapitres/AllChapters/VScrollBar/Choices" instance=ExtResource( 3 )]
+[node name="ChapterChoice" parent="Chapitres/AllChapters/VScrollBar/Choices" instance=ExtResource("3")]
 offset_right = 433.0
 
-[node name="ChapterChoice2" parent="Chapitres/AllChapters/VScrollBar/Choices" instance=ExtResource( 3 )]
+[node name="ChapterChoice2" parent="Chapitres/AllChapters/VScrollBar/Choices" instance=ExtResource("3")]
 offset_top = 79.0
 offset_right = 433.0
 offset_bottom = 154.0
 
-[node name="ChapterChoice3" parent="Chapitres/AllChapters/VScrollBar/Choices" instance=ExtResource( 3 )]
+[node name="ChapterChoice3" parent="Chapitres/AllChapters/VScrollBar/Choices" instance=ExtResource("3")]
 offset_top = 158.0
 offset_right = 433.0
 offset_bottom = 233.0
 
-[node name="ChapterChoice4" parent="Chapitres/AllChapters/VScrollBar/Choices" instance=ExtResource( 3 )]
+[node name="ChapterChoice4" parent="Chapitres/AllChapters/VScrollBar/Choices" instance=ExtResource("3")]
 offset_top = 237.0
 offset_right = 433.0
 offset_bottom = 312.0
 
-[node name="ChapterChoice5" parent="Chapitres/AllChapters/VScrollBar/Choices" instance=ExtResource( 3 )]
+[node name="ChapterChoice5" parent="Chapitres/AllChapters/VScrollBar/Choices" instance=ExtResource("3")]
 offset_top = 316.0
 offset_right = 433.0
 offset_bottom = 391.0
 
-[node name="ChapterChoice6" parent="Chapitres/AllChapters/VScrollBar/Choices" instance=ExtResource( 3 )]
+[node name="ChapterChoice6" parent="Chapitres/AllChapters/VScrollBar/Choices" instance=ExtResource("3")]
 offset_top = 395.0
 offset_right = 433.0
 offset_bottom = 470.0
 
-[node name="ChapterChoice7" parent="Chapitres/AllChapters/VScrollBar/Choices" instance=ExtResource( 3 )]
+[node name="ChapterChoice7" parent="Chapitres/AllChapters/VScrollBar/Choices" instance=ExtResource("3")]
 offset_top = 474.0
 offset_right = 433.0
 offset_bottom = 549.0
 
-[node name="ChapterChoice8" parent="Chapitres/AllChapters/VScrollBar/Choices" instance=ExtResource( 3 )]
+[node name="ChapterChoice8" parent="Chapitres/AllChapters/VScrollBar/Choices" instance=ExtResource("3")]
 offset_top = 553.0
 offset_right = 433.0
 offset_bottom = 628.0
 
-[node name="ChapterChoice9" parent="Chapitres/AllChapters/VScrollBar/Choices" instance=ExtResource( 3 )]
+[node name="ChapterChoice9" parent="Chapitres/AllChapters/VScrollBar/Choices" instance=ExtResource("3")]
 offset_top = 632.0
 offset_right = 433.0
 offset_bottom = 707.0
 
-[node name="ChapterChoice10" parent="Chapitres/AllChapters/VScrollBar/Choices" instance=ExtResource( 3 )]
+[node name="ChapterChoice10" parent="Chapitres/AllChapters/VScrollBar/Choices" instance=ExtResource("3")]
 offset_top = 711.0
 offset_right = 433.0
 offset_bottom = 786.0
 
-[node name="ChapterChoice11" parent="Chapitres/AllChapters/VScrollBar/Choices" instance=ExtResource( 3 )]
+[node name="ChapterChoice11" parent="Chapitres/AllChapters/VScrollBar/Choices" instance=ExtResource("3")]
 offset_top = 790.0
 offset_right = 433.0
 offset_bottom = 865.0
 
-[node name="ChapterChoice12" parent="Chapitres/AllChapters/VScrollBar/Choices" instance=ExtResource( 3 )]
+[node name="ChapterChoice12" parent="Chapitres/AllChapters/VScrollBar/Choices" instance=ExtResource("3")]
 offset_top = 869.0
 offset_right = 433.0
 offset_bottom = 944.0
 
-[node name="ChapterChoice13" parent="Chapitres/AllChapters/VScrollBar/Choices" instance=ExtResource( 3 )]
+[node name="ChapterChoice13" parent="Chapitres/AllChapters/VScrollBar/Choices" instance=ExtResource("3")]
 offset_top = 948.0
 offset_right = 433.0
 offset_bottom = 1023.0
 
-[node name="ChapterChoice14" parent="Chapitres/AllChapters/VScrollBar/Choices" instance=ExtResource( 3 )]
+[node name="ChapterChoice14" parent="Chapitres/AllChapters/VScrollBar/Choices" instance=ExtResource("3")]
 offset_top = 1027.0
 offset_right = 433.0
 offset_bottom = 1102.0
 
-[node name="ChapterChoice15" parent="Chapitres/AllChapters/VScrollBar/Choices" instance=ExtResource( 3 )]
+[node name="ChapterChoice15" parent="Chapitres/AllChapters/VScrollBar/Choices" instance=ExtResource("3")]
 offset_top = 1106.0
 offset_right = 433.0
 offset_bottom = 1181.0
 
-[node name="ChapterChoice16" parent="Chapitres/AllChapters/VScrollBar/Choices" instance=ExtResource( 3 )]
+[node name="ChapterChoice16" parent="Chapitres/AllChapters/VScrollBar/Choices" instance=ExtResource("3")]
 offset_top = 1185.0
 offset_right = 433.0
 offset_bottom = 1260.0
 
-[node name="ChapterChoice17" parent="Chapitres/AllChapters/VScrollBar/Choices" instance=ExtResource( 3 )]
+[node name="ChapterChoice17" parent="Chapitres/AllChapters/VScrollBar/Choices" instance=ExtResource("3")]
 offset_top = 1264.0
 offset_right = 433.0
 offset_bottom = 1339.0
 
-[node name="ChapterChoice18" parent="Chapitres/AllChapters/VScrollBar/Choices" instance=ExtResource( 3 )]
+[node name="ChapterChoice18" parent="Chapitres/AllChapters/VScrollBar/Choices" instance=ExtResource("3")]
 offset_top = 1343.0
 offset_right = 433.0
 offset_bottom = 1418.0
 
-[node name="ChapterChoice19" parent="Chapitres/AllChapters/VScrollBar/Choices" instance=ExtResource( 3 )]
+[node name="ChapterChoice19" parent="Chapitres/AllChapters/VScrollBar/Choices" instance=ExtResource("3")]
 offset_top = 1422.0
 offset_right = 433.0
 offset_bottom = 1497.0
@@ -970,12 +1054,12 @@ offset_top = 6.08038
 offset_right = 1750.29
 offset_bottom = 1052.08
 mouse_filter = 1
-theme_override_styles/panel = SubResource( 1 )
+theme_override_styles/panel = SubResource("1")
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Left-Back" parent="Succes" instance=ExtResource( 16 )]
+[node name="Left-Back" parent="Succes" instance=ExtResource("16")]
 offset_left = 0.0
 offset_top = 1008.0
 offset_right = 972.0
@@ -983,7 +1067,7 @@ offset_bottom = 1057.0
 txt = "Tous les chapitres"
 dest = "chapitres"
 
-[node name="Right-Next" parent="Succes" instance=ExtResource( 17 )]
+[node name="Right-Next" parent="Succes" instance=ExtResource("17")]
 offset_left = 558.0
 offset_top = 32.0
 offset_right = 1530.0
@@ -991,7 +1075,7 @@ offset_bottom = 75.0
 txt = "Lore"
 dest = "lore"
 
-[node name="top_menu" parent="Succes" instance=ExtResource( 10 )]
+[node name="top_menu" parent="Succes" instance=ExtResource("10")]
 offset_left = -0.290039
 offset_top = -6.08038
 offset_right = 557.71
@@ -1003,7 +1087,7 @@ offset_top = 52.0
 offset_right = 501.923
 offset_bottom = 1020.0
 mouse_filter = 1
-theme_override_styles/panel = SubResource( 2 )
+theme_override_styles/panel = SubResource("2")
 __meta__ = {
 "_edit_use_anchors_": false
 }
@@ -1012,7 +1096,7 @@ __meta__ = {
 offset_right = 445.0
 offset_bottom = 42.0
 mouse_filter = 1
-theme_override_styles/panel = SubResource( 3 )
+theme_override_styles/panel = SubResource("3")
 __meta__ = {
 "_edit_use_anchors_": false
 }
@@ -1022,7 +1106,7 @@ offset_left = 121.524
 offset_top = 5.00259
 offset_right = 305.524
 offset_bottom = 36.0026
-theme_override_fonts/font = ExtResource( 2 )
+theme_override_fonts/font = ExtResource("2")
 text = "Tous les Succès"
 __meta__ = {
 "_edit_use_anchors_": false
@@ -1045,7 +1129,7 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Success" parent="Succes/Success/VScrollBar/Success" instance=ExtResource( 18 )]
+[node name="Success" parent="Succes/Success/VScrollBar/Success" instance=ExtResource("18")]
 offset_right = 0.0
 
 [node name="Lore" type="Panel" parent="."]
@@ -1054,9 +1138,9 @@ offset_top = 4.0
 offset_right = 2328.0
 offset_bottom = 1050.0
 mouse_filter = 1
-theme_override_styles/panel = SubResource( 1 )
+theme_override_styles/panel = SubResource("1")
 
-[node name="Left-Back" parent="Lore" instance=ExtResource( 16 )]
+[node name="Left-Back" parent="Lore" instance=ExtResource("16")]
 offset_left = -0.755615
 offset_top = 1011.12
 offset_right = 971.245
@@ -1064,7 +1148,7 @@ offset_bottom = 1053.12
 txt = "Les succès"
 dest = "success"
 
-[node name="Right-Next" parent="Lore" instance=ExtResource( 17 )]
+[node name="Right-Next" parent="Lore" instance=ExtResource("17")]
 offset_left = 559.0
 offset_top = 28.0
 offset_right = 1534.0
@@ -1072,7 +1156,7 @@ offset_bottom = 70.0
 txt = "A propos"
 dest = "about"
 
-[node name="top_menu" parent="Lore" instance=ExtResource( 10 )]
+[node name="top_menu" parent="Lore" instance=ExtResource("10")]
 offset_left = -1.0
 offset_top = -4.0
 offset_right = 559.0
@@ -1084,13 +1168,13 @@ offset_top = 51.0
 offset_right = 502.0
 offset_bottom = 1019.0
 mouse_filter = 1
-theme_override_styles/panel = SubResource( 2 )
+theme_override_styles/panel = SubResource("2")
 
 [node name="Header" type="Panel" parent="Lore/Lore"]
 offset_right = 442.0
 offset_bottom = 42.0
 mouse_filter = 1
-theme_override_styles/panel = SubResource( 3 )
+theme_override_styles/panel = SubResource("3")
 __meta__ = {
 "_edit_use_anchors_": false
 }
@@ -1100,7 +1184,7 @@ offset_left = 121.524
 offset_top = 5.00259
 offset_right = 305.524
 offset_bottom = 36.0026
-theme_override_fonts/font = ExtResource( 2 )
+theme_override_fonts/font = ExtResource("2")
 text = "Le lore"
 
 [node name="LinkButton" type="LinkButton" parent="Lore/Lore/Header"]
@@ -1129,32 +1213,32 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="BillyGuerrier" parent="Lore/Lore/VScrollBar/persos" instance=ExtResource( 19 )]
+[node name="BillyGuerrier" parent="Lore/Lore/VScrollBar/persos" instance=ExtResource("19")]
 offset_right = 432.0
 titre = "Billy Guerrier"
 
-[node name="BillyPaysan" parent="Lore/Lore/VScrollBar/persos" instance=ExtResource( 19 )]
+[node name="BillyPaysan" parent="Lore/Lore/VScrollBar/persos" instance=ExtResource("19")]
 offset_top = 189.0
 offset_right = 432.0
 offset_bottom = 374.0
 entry_name = "paysan"
 titre = "Billy Paysan"
 
-[node name="BillyPrudent" parent="Lore/Lore/VScrollBar/persos" instance=ExtResource( 19 )]
+[node name="BillyPrudent" parent="Lore/Lore/VScrollBar/persos" instance=ExtResource("19")]
 offset_top = 378.0
 offset_right = 432.0
 offset_bottom = 563.0
 entry_name = "prudent"
 titre = "Billy Prudent"
 
-[node name="BillyDebrouillard" parent="Lore/Lore/VScrollBar/persos" instance=ExtResource( 19 )]
+[node name="BillyDebrouillard" parent="Lore/Lore/VScrollBar/persos" instance=ExtResource("19")]
 offset_top = 567.0
 offset_right = 432.0
 offset_bottom = 752.0
 entry_name = "debrouillard"
 titre = "Billy Debrouillard"
 
-[node name="DieuxAtella" parent="Lore/Lore/VScrollBar/persos" instance=ExtResource( 19 )]
+[node name="DieuxAtella" parent="Lore/Lore/VScrollBar/persos" instance=ExtResource("19")]
 offset_top = 756.0
 offset_right = 432.0
 offset_bottom = 941.0
@@ -1162,7 +1246,7 @@ type_entry = "dieux"
 entry_name = "atella"
 titre = "Atella"
 
-[node name="DieuxBlathnat" parent="Lore/Lore/VScrollBar/persos" instance=ExtResource( 19 )]
+[node name="DieuxBlathnat" parent="Lore/Lore/VScrollBar/persos" instance=ExtResource("19")]
 offset_top = 945.0
 offset_right = 432.0
 offset_bottom = 1130.0
@@ -1170,7 +1254,7 @@ type_entry = "dieux"
 entry_name = "blathnat"
 titre = "Blathnat"
 
-[node name="DieuxEdire" parent="Lore/Lore/VScrollBar/persos" instance=ExtResource( 19 )]
+[node name="DieuxEdire" parent="Lore/Lore/VScrollBar/persos" instance=ExtResource("19")]
 offset_top = 1134.0
 offset_right = 432.0
 offset_bottom = 1319.0
@@ -1178,7 +1262,7 @@ type_entry = "dieux"
 entry_name = "edire"
 titre = "Edire"
 
-[node name="DieuxMutra" parent="Lore/Lore/VScrollBar/persos" instance=ExtResource( 19 )]
+[node name="DieuxMutra" parent="Lore/Lore/VScrollBar/persos" instance=ExtResource("19")]
 offset_top = 1323.0
 offset_right = 432.0
 offset_bottom = 1508.0
@@ -1186,7 +1270,7 @@ type_entry = "dieux"
 entry_name = "mutra"
 titre = "Mutra"
 
-[node name="DieuxMelene" parent="Lore/Lore/VScrollBar/persos" instance=ExtResource( 19 )]
+[node name="DieuxMelene" parent="Lore/Lore/VScrollBar/persos" instance=ExtResource("19")]
 offset_top = 1512.0
 offset_right = 432.0
 offset_bottom = 1697.0
@@ -1194,7 +1278,7 @@ type_entry = "dieux"
 entry_name = "melene"
 titre = "Melene"
 
-[node name="DieuxNeit" parent="Lore/Lore/VScrollBar/persos" instance=ExtResource( 19 )]
+[node name="DieuxNeit" parent="Lore/Lore/VScrollBar/persos" instance=ExtResource("19")]
 offset_top = 1701.0
 offset_right = 432.0
 offset_bottom = 1886.0
@@ -1202,7 +1286,7 @@ type_entry = "dieux"
 entry_name = "neit"
 titre = "Neit"
 
-[node name="DieuxNyses" parent="Lore/Lore/VScrollBar/persos" instance=ExtResource( 19 )]
+[node name="DieuxNyses" parent="Lore/Lore/VScrollBar/persos" instance=ExtResource("19")]
 offset_top = 1890.0
 offset_right = 432.0
 offset_bottom = 2075.0
@@ -1210,7 +1294,7 @@ type_entry = "dieux"
 entry_name = "nyses"
 titre = "Nyses"
 
-[node name="DieuxPhumtar" parent="Lore/Lore/VScrollBar/persos" instance=ExtResource( 19 )]
+[node name="DieuxPhumtar" parent="Lore/Lore/VScrollBar/persos" instance=ExtResource("19")]
 offset_top = 2079.0
 offset_right = 432.0
 offset_bottom = 2264.0
@@ -1218,7 +1302,7 @@ type_entry = "dieux"
 entry_name = "phumtar"
 titre = "Phumtar"
 
-[node name="DieuxRunir" parent="Lore/Lore/VScrollBar/persos" instance=ExtResource( 19 )]
+[node name="DieuxRunir" parent="Lore/Lore/VScrollBar/persos" instance=ExtResource("19")]
 offset_top = 2268.0
 offset_right = 432.0
 offset_bottom = 2453.0
@@ -1226,7 +1310,7 @@ type_entry = "dieux"
 entry_name = "runir"
 titre = "Runir"
 
-[node name="DieuxVetherr" parent="Lore/Lore/VScrollBar/persos" instance=ExtResource( 19 )]
+[node name="DieuxVetherr" parent="Lore/Lore/VScrollBar/persos" instance=ExtResource("19")]
 offset_top = 2457.0
 offset_right = 432.0
 offset_bottom = 2642.0
@@ -1234,7 +1318,7 @@ type_entry = "dieux"
 entry_name = "vetherr"
 titre = "Vetherr"
 
-[node name="DieuxVirilus" parent="Lore/Lore/VScrollBar/persos" instance=ExtResource( 19 )]
+[node name="DieuxVirilus" parent="Lore/Lore/VScrollBar/persos" instance=ExtResource("19")]
 offset_top = 2646.0
 offset_right = 432.0
 offset_bottom = 2831.0
@@ -1242,7 +1326,7 @@ type_entry = "dieux"
 entry_name = "virilus"
 titre = "Virilus"
 
-[node name="DieuxYtia" parent="Lore/Lore/VScrollBar/persos" instance=ExtResource( 19 )]
+[node name="DieuxYtia" parent="Lore/Lore/VScrollBar/persos" instance=ExtResource("19")]
 offset_top = 2835.0
 offset_right = 432.0
 offset_bottom = 3020.0
@@ -1250,7 +1334,7 @@ type_entry = "dieux"
 entry_name = "ytia"
 titre = "Ytia"
 
-[node name="DieuxZarkan" parent="Lore/Lore/VScrollBar/persos" instance=ExtResource( 19 )]
+[node name="DieuxZarkan" parent="Lore/Lore/VScrollBar/persos" instance=ExtResource("19")]
 offset_top = 3024.0
 offset_right = 432.0
 offset_bottom = 3209.0
@@ -1263,14 +1347,14 @@ offset_top = 928.601
 offset_right = 442.0
 offset_bottom = 970.601
 mouse_filter = 1
-theme_override_styles/panel = SubResource( 3 )
+theme_override_styles/panel = SubResource("3")
 
 [node name="Label" type="Label" parent="Lore/Lore/LoreAuthor"]
 offset_left = 12.31
 offset_top = 4.00003
 offset_right = 196.31
 offset_bottom = 35.0
-theme_override_fonts/font = ExtResource( 2 )
+theme_override_fonts/font = ExtResource("2")
 text = "Auteur des images:"
 
 [node name="LinkButton" type="LinkButton" parent="Lore/Lore/LoreAuthor"]
@@ -1279,7 +1363,7 @@ offset_top = 3.00002
 offset_right = 384.31
 offset_bottom = 34.0
 focus_mode = 2
-theme_override_fonts/font = ExtResource( 2 )
+theme_override_fonts/font = ExtResource("2")
 text = "Draziel"
 
 [node name="About" type="Panel" parent="."]
@@ -1288,9 +1372,9 @@ offset_top = 4.39856
 offset_right = 2925.73
 offset_bottom = 1050.4
 mouse_filter = 1
-theme_override_styles/panel = SubResource( 1 )
+theme_override_styles/panel = SubResource("1")
 
-[node name="Left-Back" parent="About" instance=ExtResource( 16 )]
+[node name="Left-Back" parent="About" instance=ExtResource("16")]
 offset_left = 0.0
 offset_top = 1011.0
 offset_right = 972.0
@@ -1298,7 +1382,7 @@ offset_bottom = 1052.0
 txt = "Lore"
 dest = "lore"
 
-[node name="top_menu" parent="About" instance=ExtResource( 10 )]
+[node name="top_menu" parent="About" instance=ExtResource("10")]
 offset_left = 0.0
 offset_top = -4.0
 offset_right = 558.0
@@ -1310,7 +1394,7 @@ offset_top = 51.0
 offset_right = 540.0
 offset_bottom = 203.0
 mouse_filter = 1
-theme_override_styles/panel = SubResource( 2 )
+theme_override_styles/panel = SubResource("2")
 __meta__ = {
 "_edit_use_anchors_": false
 }
@@ -1319,7 +1403,7 @@ __meta__ = {
 offset_right = 482.0
 offset_bottom = 42.0
 mouse_filter = 1
-theme_override_styles/panel = SubResource( 3 )
+theme_override_styles/panel = SubResource("3")
 __meta__ = {
 "_edit_use_anchors_": false
 }
@@ -1329,7 +1413,7 @@ offset_left = 121.524
 offset_top = 5.00259
 offset_right = 305.524
 offset_bottom = 36.0026
-theme_override_fonts/font = ExtResource( 2 )
+theme_override_fonts/font = ExtResource("2")
 text = "Actions"
 align = 1
 __meta__ = {
@@ -1341,7 +1425,7 @@ offset_left = 37.0
 offset_top = 53.0
 offset_right = 182.0
 offset_bottom = 140.0
-theme_override_styles/panel = SubResource( 6 )
+theme_override_styles/panel = SubResource("6")
 __meta__ = {
 "_edit_use_anchors_": false
 }
@@ -1351,8 +1435,8 @@ offset_left = 0.966107
 offset_top = 56.6046
 offset_right = 40.9661
 offset_bottom = 87.6047
-theme_override_colors/font_color = Color( 0, 0, 0, 1 )
-theme_override_fonts/font = ExtResource( 2 )
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_fonts/font = ExtResource("2")
 text = "Nouveau Billy"
 __meta__ = {
 "_edit_use_anchors_": false
@@ -1363,24 +1447,24 @@ offset_right = 145.0
 offset_bottom = 87.0
 
 [node name="Sprite2D" type="Sprite2D" parent="About/Actions/nouveau_billy"]
-position = Vector2( 71.5449, 28.0304 )
-scale = Vector2( 0.0996552, 0.0996552 )
-texture = ExtResource( 20 )
+position = Vector2(71.5449, 28.0304)
+scale = Vector2(0.0996552, 0.0996552)
+texture = ExtResource("20")
 
 [node name="new_bug" type="Panel" parent="About/Actions"]
 offset_left = 295.361
 offset_top = 51.6637
 offset_right = 440.361
 offset_bottom = 138.664
-theme_override_styles/panel = SubResource( 6 )
+theme_override_styles/panel = SubResource("6")
 
 [node name="Label" type="Label" parent="About/Actions/new_bug"]
 offset_left = 0.966107
 offset_top = 56.6046
 offset_right = 40.9661
 offset_bottom = 87.6047
-theme_override_colors/font_color = Color( 0, 0, 0, 1 )
-theme_override_fonts/font = ExtResource( 2 )
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_fonts/font = ExtResource("2")
 text = "J'ai un bug"
 __meta__ = {
 "_edit_use_anchors_": false
@@ -1394,9 +1478,9 @@ __meta__ = {
 }
 
 [node name="Sprite2D" type="Sprite2D" parent="About/Actions/new_bug"]
-position = Vector2( 71.5449, 28.0304 )
-scale = Vector2( 0.0996552, 0.0996552 )
-texture = ExtResource( 21 )
+position = Vector2(71.5449, 28.0304)
+scale = Vector2(0.0996552, 0.0996552)
+texture = ExtResource("21")
 
 [node name="About" type="Panel" parent="About"]
 offset_left = 59.0
@@ -1404,7 +1488,7 @@ offset_top = 212.0
 offset_right = 541.0
 offset_bottom = 1012.0
 mouse_filter = 1
-theme_override_styles/panel = SubResource( 2 )
+theme_override_styles/panel = SubResource("2")
 __meta__ = {
 "_edit_use_anchors_": false
 }
@@ -1413,7 +1497,7 @@ __meta__ = {
 offset_right = 482.0
 offset_bottom = 42.0
 mouse_filter = 1
-theme_override_styles/panel = SubResource( 3 )
+theme_override_styles/panel = SubResource("3")
 __meta__ = {
 "_edit_use_anchors_": false
 }
@@ -1423,7 +1507,7 @@ offset_left = 121.524
 offset_top = 5.00259
 offset_right = 305.524
 offset_bottom = 36.0026
-theme_override_fonts/font = ExtResource( 2 )
+theme_override_fonts/font = ExtResource("2")
 text = "A propos"
 align = 1
 __meta__ = {
@@ -1435,7 +1519,7 @@ offset_left = 251.412
 offset_top = 75.301
 offset_right = 278.412
 offset_bottom = 101.301
-theme_override_styles/panel = SubResource( 6 )
+theme_override_styles/panel = SubResource("6")
 __meta__ = {
 "_edit_use_anchors_": false
 }
@@ -1448,14 +1532,14 @@ __meta__ = {
 }
 
 [node name="Sprite2D" type="Sprite2D" parent="About/About/twitter"]
-position = Vector2( 14.1465, 12.6797 )
-scale = Vector2( 0.0996552, 0.0996552 )
-texture = ExtResource( 22 )
+position = Vector2(14.1465, 12.6797)
+scale = Vector2(0.0996552, 0.0996552)
+texture = ExtResource("22")
 
 [node name="phumtar" type="AnimatedSprite2D" parent="About/About"]
-position = Vector2( 392.257, 88.6701 )
-scale = Vector2( 0.342538, 0.342538 )
-frames = SubResource( 7 )
+position = Vector2(392.257, 88.6701)
+scale = Vector2(0.342538, 0.342538)
+frames = SubResource("7")
 playing = true
 
 [node name="DevLabel" type="Label" parent="About/About"]
@@ -1463,11 +1547,11 @@ offset_left = 12.7327
 offset_top = 57.4765
 offset_right = 82.7331
 offset_bottom = 71.4765
-theme_override_colors/font_color = Color( 0, 0, 0, 1 )
+theme_override_colors/font_color = Color(0, 0, 0, 1)
 theme_override_constants/shadow_offset_x = 0
 theme_override_constants/shadow_offset_y = 0
 theme_override_constants/shadow_outline_size = 0
-theme_override_fonts/font = ExtResource( 5 )
+theme_override_fonts/font = ExtResource("5")
 text = "Développeur"
 __meta__ = {
 "_edit_use_anchors_": false
@@ -1478,11 +1562,11 @@ offset_left = 12.4751
 offset_top = 71.2005
 offset_right = 242.475
 offset_bottom = 102.2
-theme_override_colors/font_color = Color( 0, 0.760784, 0.666667, 1 )
+theme_override_colors/font_color = Color(0, 0.760784, 0.666667, 1)
 theme_override_constants/shadow_offset_x = 0
 theme_override_constants/shadow_offset_y = 0
 theme_override_constants/shadow_outline_size = 0
-theme_override_fonts/font = ExtResource( 2 )
+theme_override_fonts/font = ExtResource("2")
 text = "Jean Gabès
 naparuba@gmail.com"
 __meta__ = {
@@ -1494,11 +1578,11 @@ offset_left = 13.1025
 offset_top = 135.209
 offset_right = 83.103
 offset_bottom = 149.209
-theme_override_colors/font_color = Color( 0, 0, 0, 1 )
+theme_override_colors/font_color = Color(0, 0, 0, 1)
 theme_override_constants/shadow_offset_x = 0
 theme_override_constants/shadow_offset_y = 0
 theme_override_constants/shadow_outline_size = 0
-theme_override_fonts/font = ExtResource( 5 )
+theme_override_fonts/font = ExtResource("5")
 text = "Version"
 __meta__ = {
 "_edit_use_anchors_": false
@@ -1509,11 +1593,11 @@ offset_left = 12.8449
 offset_top = 155.233
 offset_right = 242.845
 offset_bottom = 186.233
-theme_override_colors/font_color = Color( 0, 0.760784, 0.666667, 1 )
+theme_override_colors/font_color = Color(0, 0.760784, 0.666667, 1)
 theme_override_constants/shadow_offset_x = 0
 theme_override_constants/shadow_offset_y = 0
 theme_override_constants/shadow_outline_size = 0
-theme_override_fonts/font = ExtResource( 2 )
+theme_override_fonts/font = ExtResource("2")
 text = "0.19"
 
 [node name="SrcLabel" type="Label" parent="About/About"]
@@ -1521,11 +1605,11 @@ offset_left = 15.593
 offset_top = 187.26
 offset_right = 85.5938
 offset_bottom = 201.26
-theme_override_colors/font_color = Color( 0, 0, 0, 1 )
+theme_override_colors/font_color = Color(0, 0, 0, 1)
 theme_override_constants/shadow_offset_x = 0
 theme_override_constants/shadow_offset_y = 0
 theme_override_constants/shadow_outline_size = 0
-theme_override_fonts/font = ExtResource( 5 )
+theme_override_fonts/font = ExtResource("5")
 text = "Sources"
 __meta__ = {
 "_edit_use_anchors_": false
@@ -1536,12 +1620,12 @@ offset_left = 15.3354
 offset_top = 200.984
 offset_right = 354.336
 offset_bottom = 231.984
-pivot_offset = Vector2( 227.935, 35.6174 )
-theme_override_colors/font_color = Color( 0, 0.760784, 0.666667, 1 )
+pivot_offset = Vector2(227.935, 35.6174)
+theme_override_colors/font_color = Color(0, 0.760784, 0.666667, 1)
 theme_override_constants/shadow_offset_x = 0
 theme_override_constants/shadow_offset_y = 0
 theme_override_constants/shadow_outline_size = 0
-theme_override_fonts/font = ExtResource( 2 )
+theme_override_fonts/font = ExtResource("2")
 text = "https://github.com/naparuba/fdcn"
 
 [node name="ThnksLabel" type="Label" parent="About/About"]
@@ -1549,11 +1633,11 @@ offset_left = 15.7058
 offset_top = 238.83
 offset_right = 85.7061
 offset_bottom = 252.83
-theme_override_colors/font_color = Color( 0, 0, 0, 1 )
+theme_override_colors/font_color = Color(0, 0, 0, 1)
 theme_override_constants/shadow_offset_x = 0
 theme_override_constants/shadow_offset_y = 0
 theme_override_constants/shadow_outline_size = 0
-theme_override_fonts/font = ExtResource( 5 )
+theme_override_fonts/font = ExtResource("5")
 text = "Remerciements"
 __meta__ = {
 "_edit_use_anchors_": false
@@ -1564,11 +1648,11 @@ offset_left = 15.0
 offset_top = 253.0
 offset_right = 362.0
 offset_bottom = 427.0
-theme_override_colors/font_color = Color( 0, 0.760784, 0.666667, 1 )
+theme_override_colors/font_color = Color(0, 0.760784, 0.666667, 1)
 theme_override_constants/shadow_offset_x = 0
 theme_override_constants/shadow_offset_y = 0
 theme_override_constants/shadow_outline_size = 0
-theme_override_fonts/font = SubResource( 8 )
+theme_override_fonts/font = SubResource("8")
 text = "- Bob pour cette super oeuvre
 - Les dev de \"Godot\" qui ont
 permis à cette application d'exister
@@ -1580,11 +1664,11 @@ offset_left = 12.2959
 offset_top = 448.107
 offset_right = 82.2967
 offset_bottom = 462.107
-theme_override_colors/font_color = Color( 0, 0, 0, 1 )
+theme_override_colors/font_color = Color(0, 0, 0, 1)
 theme_override_constants/shadow_offset_x = 0
 theme_override_constants/shadow_offset_y = 0
 theme_override_constants/shadow_outline_size = 0
-theme_override_fonts/font = ExtResource( 5 )
+theme_override_fonts/font = ExtResource("5")
 text = "Notes"
 __meta__ = {
 "_edit_use_anchors_": false
@@ -1595,11 +1679,11 @@ offset_left = 12.0383
 offset_top = 461.831
 offset_right = 351.039
 offset_bottom = 628.831
-theme_override_colors/font_color = Color( 0, 0.760784, 0.666667, 1 )
+theme_override_colors/font_color = Color(0, 0.760784, 0.666667, 1)
 theme_override_constants/shadow_offset_x = 0
 theme_override_constants/shadow_offset_y = 0
 theme_override_constants/shadow_outline_size = 0
-theme_override_fonts/font = ExtResource( 2 )
+theme_override_fonts/font = ExtResource("2")
 text = "Toute aide pour dev ou debugguer
 est la bienvenue ^^"
 __meta__ = {
@@ -1611,11 +1695,11 @@ offset_left = 15.1111
 offset_top = 555.179
 offset_right = 440.111
 offset_bottom = 798.179
-theme_override_colors/font_color = Color( 0.760784, 0.447059, 0, 1 )
+theme_override_colors/font_color = Color(0.760784, 0.447059, 0, 1)
 theme_override_constants/shadow_offset_x = 0
 theme_override_constants/shadow_offset_y = 0
 theme_override_constants/shadow_outline_size = 0
-theme_override_fonts/font = SubResource( 9 )
+theme_override_fonts/font = SubResource("9")
 text = "IMPORTANT:
 Ceci est une application
 FAN MADE, NON OFFICIELLE
@@ -1626,7 +1710,7 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="GenericTextPopup" parent="About" instance=ExtResource( 29 )]
+[node name="GenericTextPopup" parent="About" instance=ExtResource("29")]
 offset_left = 16.27
 offset_top = 97.6014
 offset_right = 544.27
@@ -1640,27 +1724,27 @@ offset_left = 55.3588
 offset_top = 357.418
 offset_right = 101.359
 offset_bottom = 371.418
-theme_override_colors/font_color = Color( 0, 0, 0, 1 )
+theme_override_colors/font_color = Color(0, 0, 0, 1)
 text = "DEBUG"
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
 [node name="Camera3D" type="Camera2D" parent="."]
-position = Vector2( 279.498, 524.498 )
+position = Vector2(279.498, 524.498)
 current = true
 position_smoothing_enabled = true
 position_smoothing_speed = 20.0
 
 [node name="soon3" type="Sprite2D" parent="."]
 visible = false
-position = Vector2( 2022.44, 445.881 )
+position = Vector2(2022.44, 445.881)
 rotation = -0.448674
-texture = ExtResource( 14 )
+texture = ExtResource("14")
 
 [node name="AudioPlayer" type="AudioStreamPlayer2D" parent="."]
 
-[node name="SuccessPopup" parent="." instance=ExtResource( 23 )]
+[node name="SuccessPopup" parent="." instance=ExtResource("23")]
 
 [node name="Combat" type="Panel" parent="."]
 visible = false
@@ -1669,7 +1753,7 @@ offset_top = 376.0
 offset_right = 504.0
 offset_bottom = 1012.0
 mouse_filter = 1
-theme_override_styles/panel = SubResource( 10 )
+theme_override_styles/panel = SubResource("10")
 __meta__ = {
 "_edit_use_anchors_": false
 }
@@ -1679,15 +1763,15 @@ offset_left = 143.0
 offset_top = 520.0
 offset_right = 283.0
 offset_bottom = 605.0
-theme_override_styles/panel = SubResource( 11 )
+theme_override_styles/panel = SubResource("11")
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
 [node name="tick" type="Sprite2D" parent="Combat/IWin"]
-position = Vector2( 74.7039, 41.7168 )
-scale = Vector2( 0.0922094, 0.0922094 )
-texture = ExtResource( 30 )
+position = Vector2(74.7039, 41.7168)
+scale = Vector2(0.0922094, 0.0922094)
+texture = ExtResource("30")
 
 [node name="button" type="TextureButton" parent="Combat/IWin"]
 offset_left = -1.0
@@ -1701,7 +1785,7 @@ offset_top = 0.179749
 offset_right = 445.059
 offset_bottom = 42.1797
 mouse_filter = 1
-theme_override_styles/panel = SubResource( 3 )
+theme_override_styles/panel = SubResource("3")
 __meta__ = {
 "_edit_use_anchors_": false
 }
@@ -1711,27 +1795,27 @@ offset_left = 189.601
 offset_top = 5.00259
 offset_right = 259.601
 offset_bottom = 36.0026
-theme_override_fonts/font = ExtResource( 2 )
+theme_override_fonts/font = ExtResource("2")
 text = "Combat"
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
 [node name="Icone" type="Sprite2D" parent="Combat"]
-position = Vector2( 42.3232, 83.9219 )
-scale = Vector2( 0.0226782, 0.0226782 )
-texture = ExtResource( 32 )
+position = Vector2(42.3232, 83.9219)
+scale = Vector2(0.0226782, 0.0226782)
+texture = ExtResource("32")
 
 [node name="Nom" type="Label" parent="Combat"]
 offset_left = 97.0
 offset_top = 46.0
 offset_right = 373.0
 offset_bottom = 77.0
-theme_override_colors/font_color = Color( 0, 0.760784, 0.666667, 1 )
+theme_override_colors/font_color = Color(0, 0.760784, 0.666667, 1)
 theme_override_constants/shadow_offset_x = 0
 theme_override_constants/shadow_offset_y = 0
 theme_override_constants/shadow_outline_size = 0
-theme_override_fonts/font = ExtResource( 2 )
+theme_override_fonts/font = ExtResource("2")
 text = "XXX"
 align = 1
 __meta__ = {
@@ -1743,11 +1827,11 @@ offset_left = 62.0932
 offset_top = 90.1375
 offset_right = 144.093
 offset_bottom = 121.137
-theme_override_colors/font_color = Color( 0, 0, 0, 1 )
+theme_override_colors/font_color = Color(0, 0, 0, 1)
 theme_override_constants/shadow_offset_x = 0
 theme_override_constants/shadow_offset_y = 0
 theme_override_constants/shadow_outline_size = 0
-theme_override_fonts/font = SubResource( 12 )
+theme_override_fonts/font = SubResource("12")
 text = "Billy"
 align = 1
 __meta__ = {
@@ -1759,11 +1843,11 @@ offset_left = 54.7972
 offset_top = 158.046
 offset_right = 136.797
 offset_bottom = 189.046
-theme_override_colors/font_color = Color( 0, 0, 0, 1 )
+theme_override_colors/font_color = Color(0, 0, 0, 1)
 theme_override_constants/shadow_offset_x = 0
 theme_override_constants/shadow_offset_y = 0
 theme_override_constants/shadow_outline_size = 0
-theme_override_fonts/font = SubResource( 13 )
+theme_override_fonts/font = SubResource("13")
 text = "PV:"
 align = 1
 __meta__ = {
@@ -1775,11 +1859,11 @@ offset_left = 109.695
 offset_top = 155.22
 offset_right = 191.695
 offset_bottom = 186.22
-theme_override_colors/font_color = Color( 0, 0, 0, 1 )
+theme_override_colors/font_color = Color(0, 0, 0, 1)
 theme_override_constants/shadow_offset_x = 0
 theme_override_constants/shadow_offset_y = 0
 theme_override_constants/shadow_outline_size = 0
-theme_override_fonts/font = SubResource( 14 )
+theme_override_fonts/font = SubResource("14")
 text = "XXX"
 align = 1
 __meta__ = {
@@ -1791,11 +1875,11 @@ offset_left = 58.0991
 offset_top = 128.345
 offset_right = 140.099
 offset_bottom = 159.345
-theme_override_colors/font_color = Color( 0, 0, 0, 1 )
+theme_override_colors/font_color = Color(0, 0, 0, 1)
 theme_override_constants/shadow_offset_x = 0
 theme_override_constants/shadow_offset_y = 0
 theme_override_constants/shadow_outline_size = 0
-theme_override_fonts/font = SubResource( 13 )
+theme_override_fonts/font = SubResource("13")
 text = "Hab:"
 align = 1
 __meta__ = {
@@ -1807,11 +1891,11 @@ offset_left = 113.704
 offset_top = 129.054
 offset_right = 195.704
 offset_bottom = 160.054
-theme_override_colors/font_color = Color( 0, 0, 0, 1 )
+theme_override_colors/font_color = Color(0, 0, 0, 1)
 theme_override_constants/shadow_offset_x = 0
 theme_override_constants/shadow_offset_y = 0
 theme_override_constants/shadow_outline_size = 0
-theme_override_fonts/font = SubResource( 14 )
+theme_override_fonts/font = SubResource("14")
 text = "XXX"
 align = 1
 __meta__ = {
@@ -1823,11 +1907,11 @@ offset_left = 69.8583
 offset_top = 182.571
 offset_right = 151.859
 offset_bottom = 213.571
-theme_override_colors/font_color = Color( 0, 0, 0, 1 )
+theme_override_colors/font_color = Color(0, 0, 0, 1)
 theme_override_constants/shadow_offset_x = 0
 theme_override_constants/shadow_offset_y = 0
 theme_override_constants/shadow_outline_size = 0
-theme_override_fonts/font = SubResource( 13 )
+theme_override_fonts/font = SubResource("13")
 text = "Armure:"
 align = 1
 __meta__ = {
@@ -1839,11 +1923,11 @@ offset_left = 114.857
 offset_top = 183.28
 offset_right = 196.857
 offset_bottom = 214.28
-theme_override_colors/font_color = Color( 0, 0, 0, 1 )
+theme_override_colors/font_color = Color(0, 0, 0, 1)
 theme_override_constants/shadow_offset_x = 0
 theme_override_constants/shadow_offset_y = 0
 theme_override_constants/shadow_outline_size = 0
-theme_override_fonts/font = SubResource( 14 )
+theme_override_fonts/font = SubResource("14")
 text = "XXX"
 align = 1
 __meta__ = {
@@ -1855,11 +1939,11 @@ offset_left = 64.9085
 offset_top = 205.905
 offset_right = 146.909
 offset_bottom = 236.905
-theme_override_colors/font_color = Color( 0, 0, 0, 1 )
+theme_override_colors/font_color = Color(0, 0, 0, 1)
 theme_override_constants/shadow_offset_x = 0
 theme_override_constants/shadow_offset_y = 0
 theme_override_constants/shadow_outline_size = 0
-theme_override_fonts/font = SubResource( 13 )
+theme_override_fonts/font = SubResource("13")
 text = "Dégat:"
 align = 1
 __meta__ = {
@@ -1871,11 +1955,11 @@ offset_left = 113.443
 offset_top = 210.15
 offset_right = 195.443
 offset_bottom = 241.15
-theme_override_colors/font_color = Color( 0, 0, 0, 1 )
+theme_override_colors/font_color = Color(0, 0, 0, 1)
 theme_override_constants/shadow_offset_x = 0
 theme_override_constants/shadow_offset_y = 0
 theme_override_constants/shadow_outline_size = 0
-theme_override_fonts/font = SubResource( 14 )
+theme_override_fonts/font = SubResource("14")
 text = "XXX"
 align = 1
 __meta__ = {
@@ -1887,11 +1971,11 @@ offset_left = 319.698
 offset_top = 89.5762
 offset_right = 401.698
 offset_bottom = 120.576
-theme_override_colors/font_color = Color( 0, 0, 0, 1 )
+theme_override_colors/font_color = Color(0, 0, 0, 1)
 theme_override_constants/shadow_offset_x = 0
 theme_override_constants/shadow_offset_y = 0
 theme_override_constants/shadow_outline_size = 0
-theme_override_fonts/font = SubResource( 12 )
+theme_override_fonts/font = SubResource("12")
 text = "Ennemi"
 align = 1
 __meta__ = {
@@ -1903,11 +1987,11 @@ offset_left = 296.301
 offset_top = 153.992
 offset_right = 378.301
 offset_bottom = 184.992
-theme_override_colors/font_color = Color( 0, 0, 0, 1 )
+theme_override_colors/font_color = Color(0, 0, 0, 1)
 theme_override_constants/shadow_offset_x = 0
 theme_override_constants/shadow_offset_y = 0
 theme_override_constants/shadow_outline_size = 0
-theme_override_fonts/font = SubResource( 13 )
+theme_override_fonts/font = SubResource("13")
 text = "PV:"
 align = 1
 __meta__ = {
@@ -1919,11 +2003,11 @@ offset_left = 366.755
 offset_top = 151.873
 offset_right = 448.755
 offset_bottom = 182.873
-theme_override_colors/font_color = Color( 0, 0, 0, 1 )
+theme_override_colors/font_color = Color(0, 0, 0, 1)
 theme_override_constants/shadow_offset_x = 0
 theme_override_constants/shadow_offset_y = 0
 theme_override_constants/shadow_outline_size = 0
-theme_override_fonts/font = SubResource( 14 )
+theme_override_fonts/font = SubResource("14")
 text = "XXX"
 align = 1
 __meta__ = {
@@ -1935,11 +2019,11 @@ offset_left = 300.009
 offset_top = 128.3
 offset_right = 382.009
 offset_bottom = 159.3
-theme_override_colors/font_color = Color( 0, 0, 0, 1 )
+theme_override_colors/font_color = Color(0, 0, 0, 1)
 theme_override_constants/shadow_offset_x = 0
 theme_override_constants/shadow_offset_y = 0
 theme_override_constants/shadow_outline_size = 0
-theme_override_fonts/font = SubResource( 13 )
+theme_override_fonts/font = SubResource("13")
 text = "Hab:"
 align = 1
 __meta__ = {
@@ -1951,11 +2035,11 @@ offset_left = 366.755
 offset_top = 127.77
 offset_right = 448.755
 offset_bottom = 158.77
-theme_override_colors/font_color = Color( 0, 0, 0, 1 )
+theme_override_colors/font_color = Color(0, 0, 0, 1)
 theme_override_constants/shadow_offset_x = 0
 theme_override_constants/shadow_offset_y = 0
 theme_override_constants/shadow_outline_size = 0
-theme_override_fonts/font = SubResource( 14 )
+theme_override_fonts/font = SubResource("14")
 text = "XXX"
 align = 1
 __meta__ = {
@@ -1967,11 +2051,11 @@ offset_left = 311.134
 offset_top = 181.152
 offset_right = 393.134
 offset_bottom = 212.152
-theme_override_colors/font_color = Color( 0, 0, 0, 1 )
+theme_override_colors/font_color = Color(0, 0, 0, 1)
 theme_override_constants/shadow_offset_x = 0
 theme_override_constants/shadow_offset_y = 0
 theme_override_constants/shadow_outline_size = 0
-theme_override_fonts/font = SubResource( 13 )
+theme_override_fonts/font = SubResource("13")
 text = "Armure:"
 align = 1
 __meta__ = {
@@ -1983,11 +2067,11 @@ offset_left = 366.755
 offset_top = 181.152
 offset_right = 448.755
 offset_bottom = 212.152
-theme_override_colors/font_color = Color( 0, 0, 0, 1 )
+theme_override_colors/font_color = Color(0, 0, 0, 1)
 theme_override_constants/shadow_offset_x = 0
 theme_override_constants/shadow_offset_y = 0
 theme_override_constants/shadow_outline_size = 0
-theme_override_fonts/font = SubResource( 14 )
+theme_override_fonts/font = SubResource("14")
 text = "XXX"
 align = 1
 __meta__ = {
@@ -1999,11 +2083,11 @@ offset_left = 306.366
 offset_top = 209.228
 offset_right = 388.366
 offset_bottom = 240.228
-theme_override_colors/font_color = Color( 0, 0, 0, 1 )
+theme_override_colors/font_color = Color(0, 0, 0, 1)
 theme_override_constants/shadow_offset_x = 0
 theme_override_constants/shadow_offset_y = 0
 theme_override_constants/shadow_outline_size = 0
-theme_override_fonts/font = SubResource( 13 )
+theme_override_fonts/font = SubResource("13")
 text = "Dégat:"
 align = 1
 __meta__ = {
@@ -2015,11 +2099,11 @@ offset_left = 368.345
 offset_top = 209.228
 offset_right = 450.345
 offset_bottom = 240.228
-theme_override_colors/font_color = Color( 0, 0, 0, 1 )
+theme_override_colors/font_color = Color(0, 0, 0, 1)
 theme_override_constants/shadow_offset_x = 0
 theme_override_constants/shadow_offset_y = 0
 theme_override_constants/shadow_outline_size = 0
-theme_override_fonts/font = SubResource( 14 )
+theme_override_fonts/font = SubResource("14")
 text = "XXX"
 align = 1
 __meta__ = {
@@ -2031,35 +2115,35 @@ offset_left = 13.8042
 offset_top = 157.055
 offset_right = 70.8042
 offset_bottom = 214.055
-theme_override_styles/panel = SubResource( 15 )
+theme_override_styles/panel = SubResource("15")
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
 [node name="sprite" type="Sprite2D" parent="Combat/dice"]
-position = Vector2( 27.5508, 27.4023 )
-scale = Vector2( 0.0770419, 0.0770419 )
-texture = ExtResource( 33 )
+position = Vector2(27.5508, 27.4023)
+scale = Vector2(0.0770419, 0.0770419)
+texture = ExtResource("33")
 
 [node name="button" type="TextureButton" parent="Combat/dice"]
 offset_right = 57.0
 offset_bottom = 58.0
 
 [node name="SpritePyro" type="Sprite2D" parent="Combat"]
-position = Vector2( 279.661, 189.214 )
-scale = Vector2( 0.300072, 0.300072 )
-texture = ExtResource( 34 )
+position = Vector2(279.661, 189.214)
+scale = Vector2(0.300072, 0.300072)
+texture = ExtResource("34")
 
 [node name="PyroHab" type="Label" parent="Combat"]
 offset_left = 183.054
 offset_top = 169.669
 offset_right = 265.054
 offset_bottom = 200.669
-theme_override_colors/font_color = Color( 0, 0, 0, 1 )
+theme_override_colors/font_color = Color(0, 0, 0, 1)
 theme_override_constants/shadow_offset_x = 0
 theme_override_constants/shadow_offset_y = 0
 theme_override_constants/shadow_outline_size = 0
-theme_override_fonts/font = SubResource( 14 )
+theme_override_fonts/font = SubResource("14")
 text = "XXX"
 align = 1
 __meta__ = {
@@ -2071,11 +2155,11 @@ offset_left = 18.805
 offset_top = 344.238
 offset_right = 255.805
 offset_bottom = 385.238
-theme_override_colors/font_color = Color( 0, 0, 0, 1 )
+theme_override_colors/font_color = Color(0, 0, 0, 1)
 theme_override_constants/shadow_offset_x = 0
 theme_override_constants/shadow_offset_y = 0
 theme_override_constants/shadow_outline_size = 0
-theme_override_fonts/font = SubResource( 13 )
+theme_override_fonts/font = SubResource("13")
 text = "Les combats ne sont pas encore fini,
  dev en cours ^^"
 align = 1
@@ -2084,9 +2168,9 @@ __meta__ = {
 }
 
 [node name="phumtar" type="AnimatedSprite2D" parent="Combat"]
-position = Vector2( 349.257, 373.67 )
-scale = Vector2( 0.342538, 0.342538 )
-frames = SubResource( 7 )
+position = Vector2(349.257, 373.67)
+scale = Vector2(0.342538, 0.342538)
+frames = SubResource("7")
 playing = true
 
 [node name="Options" type="Panel" parent="."]
@@ -2095,23 +2179,23 @@ offset_left = 5.0
 offset_top = 51.0
 offset_right = 553.0
 offset_bottom = 1028.0
-theme_override_styles/panel = SubResource( 35 )
+theme_override_styles/panel = SubResource("35")
 
 [node name="Header" type="Panel" parent="Options"]
 offset_right = 93.0
 offset_bottom = 986.0
 mouse_filter = 1
-theme_override_styles/panel = SubResource( 17 )
+theme_override_styles/panel = SubResource("17")
 
 [node name="TabEquipement" type="Panel" parent="Options/Header"]
 offset_right = 92.0
 offset_bottom = 194.0
-theme_override_styles/panel = SubResource( 29 )
+theme_override_styles/panel = SubResource("29")
 
 [node name="EquipementSprite" type="Sprite2D" parent="Options/Header/TabEquipement"]
-position = Vector2( 47, 106 )
-scale = Vector2( 0.307692, 0.292169 )
-texture = ExtResource( 35 )
+position = Vector2(47, 106)
+scale = Vector2(0.307692, 0.292169)
+texture = ExtResource("35")
 
 [node name="button" type="TextureButton" parent="Options/Header/TabEquipement"]
 offset_left = -1.0
@@ -2123,12 +2207,12 @@ offset_bottom = 194.0
 offset_top = 198.0
 offset_right = 91.0
 offset_bottom = 434.0
-theme_override_styles/panel = SubResource( 30 )
+theme_override_styles/panel = SubResource("30")
 
 [node name="StatsSprite" type="Sprite2D" parent="Options/Header/TabStats"]
-position = Vector2( 47, 105 )
-scale = Vector2( 0.715606, 0.871041 )
-texture = ExtResource( 36 )
+position = Vector2(47, 105)
+scale = Vector2(0.715606, 0.871041)
+texture = ExtResource("36")
 
 [node name="button" type="TextureButton" parent="Options/Header/TabStats"]
 offset_left = 4.0
@@ -2140,12 +2224,12 @@ offset_bottom = 235.0
 offset_top = 439.0
 offset_right = 92.0
 offset_bottom = 633.0
-theme_override_styles/panel = SubResource( 31 )
+theme_override_styles/panel = SubResource("31")
 
 [node name="SelectBookSprite" type="Sprite2D" parent="Options/Header/TabSelectBook"]
-position = Vector2( 45, 99 )
-scale = Vector2( 0.158966, 0.199014 )
-texture = ExtResource( 37 )
+position = Vector2(45, 99)
+scale = Vector2(0.158966, 0.199014)
+texture = ExtResource("37")
 
 [node name="button" type="TextureButton" parent="Options/Header/TabSelectBook"]
 offset_left = -1.0
@@ -2158,20 +2242,20 @@ offset_left = 95.0
 offset_right = 547.0
 offset_bottom = 981.0
 mouse_filter = 1
-theme_override_styles/panel = SubResource( 32 )
+theme_override_styles/panel = SubResource("32")
 
 [node name="BlockGuerrier" type="Panel" parent="Options/Equipement"]
 offset_left = -2.0
 offset_right = 159.0
 offset_bottom = 451.0
-scale = Vector2( 0.7, 0.7 )
-theme_override_styles/panel = SubResource( 21 )
+scale = Vector2(0.7, 0.7)
+theme_override_styles/panel = SubResource("21")
 
 [node name="sprite" type="Sprite2D" parent="Options/Equipement/BlockGuerrier"]
-material = SubResource( 39 )
-position = Vector2( 74.416, 198.723 )
-scale = Vector2( 0.822243, 0.908078 )
-texture = ExtResource( 27 )
+material = SubResource("39")
+position = Vector2(74.416, 198.723)
+scale = Vector2(0.822243, 0.908078)
+texture = ExtResource("27")
 
 [node name="button" type="TextureButton" parent="Options/Equipement/BlockGuerrier"]
 visible = false
@@ -2187,14 +2271,14 @@ offset_left = 113.0
 offset_top = 4.0
 offset_right = 280.0
 offset_bottom = 400.0
-scale = Vector2( 0.7, 0.7 )
-theme_override_styles/panel = SubResource( 22 )
+scale = Vector2(0.7, 0.7)
+theme_override_styles/panel = SubResource("22")
 
 [node name="sprite" type="Sprite2D" parent="Options/Equipement/BlockPaysan"]
-material = SubResource( 23 )
-position = Vector2( 64.0526, 194.537 )
-scale = Vector2( 0.864614, 0.907562 )
-texture = ExtResource( 26 )
+material = SubResource("23")
+position = Vector2(64.0526, 194.537)
+scale = Vector2(0.864614, 0.907562)
+texture = ExtResource("26")
 
 [node name="button" type="TextureButton" parent="Options/Equipement/BlockPaysan"]
 visible = false
@@ -2211,14 +2295,14 @@ offset_left = 232.0
 offset_top = 2.00001
 offset_right = 386.0
 offset_bottom = 407.0
-scale = Vector2( 0.7, 0.7 )
-theme_override_styles/panel = SubResource( 24 )
+scale = Vector2(0.7, 0.7)
+theme_override_styles/panel = SubResource("24")
 
 [node name="sprite" type="Sprite2D" parent="Options/Equipement/BlockPrudent"]
-material = SubResource( 25 )
-position = Vector2( 51.1954, 199.538 )
-scale = Vector2( 0.8289, 0.917414 )
-texture = ExtResource( 25 )
+material = SubResource("25")
+position = Vector2(51.1954, 199.538)
+scale = Vector2(0.8289, 0.917414)
+texture = ExtResource("25")
 
 [node name="button" type="TextureButton" parent="Options/Equipement/BlockPrudent"]
 visible = false
@@ -2235,17 +2319,17 @@ offset_left = 328.0
 offset_top = 10.0
 offset_right = 504.0
 offset_bottom = 415.0
-scale = Vector2( 0.7, 0.7 )
-theme_override_styles/panel = SubResource( 26 )
+scale = Vector2(0.7, 0.7)
+theme_override_styles/panel = SubResource("26")
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
 [node name="sprite" type="Sprite2D" parent="Options/Equipement/BlockDebrouillard"]
-material = SubResource( 27 )
-position = Vector2( 82.4091, 187.981 )
-scale = Vector2( 0.836486, 0.923395 )
-texture = ExtResource( 24 )
+material = SubResource("27")
+position = Vector2(82.4091, 187.981)
+scale = Vector2(0.836486, 0.923395)
+texture = ExtResource("24")
 
 [node name="button" type="TextureButton" parent="Options/Equipement/BlockDebrouillard"]
 visible = false
@@ -2269,9 +2353,9 @@ offset_bottom = 5.0
 offset_right = 450.0
 offset_bottom = 104.0
 
-[node name="Panel" parent="Options/Equipement/ItemsCont/Items" instance=ExtResource( 31 )]
+[node name="Panel" parent="Options/Equipement/ItemsCont/Items" instance=ExtResource("31")]
 
-[node name="Panel2" parent="Options/Equipement/ItemsCont/Items" instance=ExtResource( 31 )]
+[node name="Panel2" parent="Options/Equipement/ItemsCont/Items" instance=ExtResource("31")]
 offset_top = 54.0
 offset_bottom = 104.0
 
@@ -2282,18 +2366,18 @@ offset_top = 41.0
 offset_right = 547.0
 offset_bottom = 981.0
 mouse_filter = 1
-theme_override_styles/panel = SubResource( 33 )
+theme_override_styles/panel = SubResource("33")
 
 [node name="WarningText" type="Label" parent="Options/Stats"]
 offset_left = 26.0
 offset_top = -22.0
 offset_right = 353.0
 offset_bottom = 8.99951
-theme_override_colors/font_color = Color( 1, 0.419608, 0, 1 )
+theme_override_colors/font_color = Color(1, 0.419608, 0, 1)
 theme_override_constants/shadow_offset_x = 0
 theme_override_constants/shadow_offset_y = 0
 theme_override_constants/shadow_outline_size = 0
-theme_override_fonts/font = SubResource( 13 )
+theme_override_fonts/font = SubResource("13")
 text = "Attention: fonctionalité non finie, bugs possibles :)"
 align = 1
 
@@ -2302,11 +2386,11 @@ offset_left = 55.3231
 offset_top = 95.3025
 offset_right = 137.323
 offset_bottom = 126.302
-theme_override_colors/font_color = Color( 0, 0, 0, 1 )
+theme_override_colors/font_color = Color(0, 0, 0, 1)
 theme_override_constants/shadow_offset_x = 0
 theme_override_constants/shadow_offset_y = 0
 theme_override_constants/shadow_outline_size = 0
-theme_override_fonts/font = SubResource( 13 )
+theme_override_fonts/font = SubResource("13")
 text = "PV:"
 align = 1
 
@@ -2315,11 +2399,11 @@ offset_left = 110.221
 offset_top = 92.4763
 offset_right = 192.221
 offset_bottom = 123.476
-theme_override_colors/font_color = Color( 0, 0, 0, 1 )
+theme_override_colors/font_color = Color(0, 0, 0, 1)
 theme_override_constants/shadow_offset_x = 0
 theme_override_constants/shadow_offset_y = 0
 theme_override_constants/shadow_outline_size = 0
-theme_override_fonts/font = SubResource( 14 )
+theme_override_fonts/font = SubResource("14")
 text = "XXX"
 align = 1
 __meta__ = {
@@ -2331,11 +2415,11 @@ offset_left = 55.3231
 offset_top = 63.8044
 offset_right = 137.323
 offset_bottom = 94.8039
-theme_override_colors/font_color = Color( 0, 0, 0, 1 )
+theme_override_colors/font_color = Color(0, 0, 0, 1)
 theme_override_constants/shadow_offset_x = 0
 theme_override_constants/shadow_offset_y = 0
 theme_override_constants/shadow_outline_size = 0
-theme_override_fonts/font = SubResource( 13 )
+theme_override_fonts/font = SubResource("13")
 text = "Endurance:"
 align = 1
 __meta__ = {
@@ -2347,11 +2431,11 @@ offset_left = 110.221
 offset_top = 60.9783
 offset_right = 192.221
 offset_bottom = 91.978
-theme_override_colors/font_color = Color( 0, 0, 0, 1 )
+theme_override_colors/font_color = Color(0, 0, 0, 1)
 theme_override_constants/shadow_offset_x = 0
 theme_override_constants/shadow_offset_y = 0
 theme_override_constants/shadow_outline_size = 0
-theme_override_fonts/font = SubResource( 14 )
+theme_override_fonts/font = SubResource("14")
 text = "XXX"
 align = 1
 __meta__ = {
@@ -2363,11 +2447,11 @@ offset_left = 170.289
 offset_top = 62.3131
 offset_right = 252.289
 offset_bottom = 93.3128
-theme_override_colors/font_color = Color( 0, 0, 0, 1 )
+theme_override_colors/font_color = Color(0, 0, 0, 1)
 theme_override_constants/shadow_offset_x = 0
 theme_override_constants/shadow_offset_y = 0
 theme_override_constants/shadow_outline_size = 0
-theme_override_fonts/font = SubResource( 14 )
+theme_override_fonts/font = SubResource("14")
 text = "XXX"
 align = 1
 __meta__ = {
@@ -2379,11 +2463,11 @@ offset_left = 54.0632
 offset_top = 31.0465
 offset_right = 136.063
 offset_bottom = 62.046
-theme_override_colors/font_color = Color( 0, 0, 0, 1 )
+theme_override_colors/font_color = Color(0, 0, 0, 1)
 theme_override_constants/shadow_offset_x = 0
 theme_override_constants/shadow_offset_y = 0
 theme_override_constants/shadow_outline_size = 0
-theme_override_fonts/font = SubResource( 13 )
+theme_override_fonts/font = SubResource("13")
 text = "Habilité:"
 align = 1
 __meta__ = {
@@ -2395,11 +2479,11 @@ offset_left = 108.961
 offset_top = 28.2203
 offset_right = 190.961
 offset_bottom = 59.22
-theme_override_colors/font_color = Color( 0, 0, 0, 1 )
+theme_override_colors/font_color = Color(0, 0, 0, 1)
 theme_override_constants/shadow_offset_x = 0
 theme_override_constants/shadow_offset_y = 0
 theme_override_constants/shadow_outline_size = 0
-theme_override_fonts/font = SubResource( 14 )
+theme_override_fonts/font = SubResource("14")
 text = "XXX"
 align = 1
 __meta__ = {
@@ -2411,11 +2495,11 @@ offset_left = 171.698
 offset_top = 28.2203
 offset_right = 253.698
 offset_bottom = 59.22
-theme_override_colors/font_color = Color( 0, 0, 0, 1 )
+theme_override_colors/font_color = Color(0, 0, 0, 1)
 theme_override_constants/shadow_offset_x = 0
 theme_override_constants/shadow_offset_y = 0
 theme_override_constants/shadow_outline_size = 0
-theme_override_fonts/font = SubResource( 14 )
+theme_override_fonts/font = SubResource("14")
 text = "XXX"
 align = 1
 __meta__ = {
@@ -2427,11 +2511,11 @@ offset_left = 56.583
 offset_top = 135.62
 offset_right = 138.583
 offset_bottom = 166.619
-theme_override_colors/font_color = Color( 0, 0, 0, 1 )
+theme_override_colors/font_color = Color(0, 0, 0, 1)
 theme_override_constants/shadow_offset_x = 0
 theme_override_constants/shadow_offset_y = 0
 theme_override_constants/shadow_outline_size = 0
-theme_override_fonts/font = SubResource( 13 )
+theme_override_fonts/font = SubResource("13")
 text = "Adresse:"
 align = 1
 __meta__ = {
@@ -2443,11 +2527,11 @@ offset_left = 111.481
 offset_top = 132.794
 offset_right = 193.481
 offset_bottom = 163.793
-theme_override_colors/font_color = Color( 0, 0, 0, 1 )
+theme_override_colors/font_color = Color(0, 0, 0, 1)
 theme_override_constants/shadow_offset_x = 0
 theme_override_constants/shadow_offset_y = 0
 theme_override_constants/shadow_outline_size = 0
-theme_override_fonts/font = SubResource( 14 )
+theme_override_fonts/font = SubResource("14")
 text = "XXX"
 align = 1
 __meta__ = {
@@ -2459,11 +2543,11 @@ offset_left = 168.879
 offset_top = 134.129
 offset_right = 250.879
 offset_bottom = 165.128
-theme_override_colors/font_color = Color( 0, 0, 0, 1 )
+theme_override_colors/font_color = Color(0, 0, 0, 1)
 theme_override_constants/shadow_offset_x = 0
 theme_override_constants/shadow_offset_y = 0
 theme_override_constants/shadow_outline_size = 0
-theme_override_fonts/font = SubResource( 14 )
+theme_override_fonts/font = SubResource("14")
 text = "XXX"
 align = 1
 __meta__ = {
@@ -2475,11 +2559,11 @@ offset_left = 56.583
 offset_top = 175.937
 offset_right = 138.583
 offset_bottom = 206.937
-theme_override_colors/font_color = Color( 0, 0, 0, 1 )
+theme_override_colors/font_color = Color(0, 0, 0, 1)
 theme_override_constants/shadow_offset_x = 0
 theme_override_constants/shadow_offset_y = 0
 theme_override_constants/shadow_outline_size = 0
-theme_override_fonts/font = SubResource( 13 )
+theme_override_fonts/font = SubResource("13")
 text = "Chance:"
 align = 1
 __meta__ = {
@@ -2491,11 +2575,11 @@ offset_left = 111.481
 offset_top = 173.111
 offset_right = 193.481
 offset_bottom = 204.111
-theme_override_colors/font_color = Color( 0, 0, 0, 1 )
+theme_override_colors/font_color = Color(0, 0, 0, 1)
 theme_override_constants/shadow_offset_x = 0
 theme_override_constants/shadow_offset_y = 0
 theme_override_constants/shadow_outline_size = 0
-theme_override_fonts/font = SubResource( 14 )
+theme_override_fonts/font = SubResource("14")
 text = "XXX"
 align = 1
 __meta__ = {
@@ -2507,11 +2591,11 @@ offset_left = 168.879
 offset_top = 173.111
 offset_right = 250.879
 offset_bottom = 204.111
-theme_override_colors/font_color = Color( 0, 0, 0, 1 )
+theme_override_colors/font_color = Color(0, 0, 0, 1)
 theme_override_constants/shadow_offset_x = 0
 theme_override_constants/shadow_offset_y = 0
 theme_override_constants/shadow_outline_size = 0
-theme_override_fonts/font = SubResource( 14 )
+theme_override_fonts/font = SubResource("14")
 text = "XXX"
 align = 1
 __meta__ = {
@@ -2523,11 +2607,11 @@ offset_left = 55.3231
 offset_top = 222.555
 offset_right = 137.323
 offset_bottom = 253.554
-theme_override_colors/font_color = Color( 0, 0, 0, 1 )
+theme_override_colors/font_color = Color(0, 0, 0, 1)
 theme_override_constants/shadow_offset_x = 0
 theme_override_constants/shadow_offset_y = 0
 theme_override_constants/shadow_outline_size = 0
-theme_override_fonts/font = SubResource( 13 )
+theme_override_fonts/font = SubResource("13")
 text = "Critique:"
 align = 1
 __meta__ = {
@@ -2539,11 +2623,11 @@ offset_left = 110.221
 offset_top = 219.728
 offset_right = 192.221
 offset_bottom = 250.728
-theme_override_colors/font_color = Color( 0, 0, 0, 1 )
+theme_override_colors/font_color = Color(0, 0, 0, 1)
 theme_override_constants/shadow_offset_x = 0
 theme_override_constants/shadow_offset_y = 0
 theme_override_constants/shadow_outline_size = 0
-theme_override_fonts/font = SubResource( 14 )
+theme_override_fonts/font = SubResource("14")
 text = "XXX"
 align = 1
 __meta__ = {
@@ -2555,11 +2639,11 @@ offset_left = 166.284
 offset_top = 219.728
 offset_right = 248.284
 offset_bottom = 250.728
-theme_override_colors/font_color = Color( 0, 0, 0, 1 )
+theme_override_colors/font_color = Color(0, 0, 0, 1)
 theme_override_constants/shadow_offset_x = 0
 theme_override_constants/shadow_offset_y = 0
 theme_override_constants/shadow_outline_size = 0
-theme_override_fonts/font = SubResource( 14 )
+theme_override_fonts/font = SubResource("14")
 text = "XXX"
 align = 1
 __meta__ = {
@@ -2571,11 +2655,11 @@ offset_left = 57.8429
 offset_top = 269.172
 offset_right = 139.843
 offset_bottom = 300.171
-theme_override_colors/font_color = Color( 0, 0, 0, 1 )
+theme_override_colors/font_color = Color(0, 0, 0, 1)
 theme_override_constants/shadow_offset_x = 0
 theme_override_constants/shadow_offset_y = 0
 theme_override_constants/shadow_outline_size = 0
-theme_override_fonts/font = SubResource( 13 )
+theme_override_fonts/font = SubResource("13")
 text = "Dégâts:"
 align = 1
 __meta__ = {
@@ -2587,11 +2671,11 @@ offset_left = 112.741
 offset_top = 266.345
 offset_right = 194.741
 offset_bottom = 297.345
-theme_override_colors/font_color = Color( 0, 0, 0, 1 )
+theme_override_colors/font_color = Color(0, 0, 0, 1)
 theme_override_constants/shadow_offset_x = 0
 theme_override_constants/shadow_offset_y = 0
 theme_override_constants/shadow_outline_size = 0
-theme_override_fonts/font = SubResource( 14 )
+theme_override_fonts/font = SubResource("14")
 text = "XXX"
 align = 1
 __meta__ = {
@@ -2603,11 +2687,11 @@ offset_left = 164.8
 offset_top = 265.01
 offset_right = 246.8
 offset_bottom = 296.01
-theme_override_colors/font_color = Color( 0, 0, 0, 1 )
+theme_override_colors/font_color = Color(0, 0, 0, 1)
 theme_override_constants/shadow_offset_x = 0
 theme_override_constants/shadow_offset_y = 0
 theme_override_constants/shadow_outline_size = 0
-theme_override_fonts/font = SubResource( 14 )
+theme_override_fonts/font = SubResource("14")
 text = "XXX"
 align = 1
 __meta__ = {
@@ -2619,11 +2703,11 @@ offset_left = 56.583
 offset_top = 305.709
 offset_right = 138.583
 offset_bottom = 336.709
-theme_override_colors/font_color = Color( 0, 0, 0, 1 )
+theme_override_colors/font_color = Color(0, 0, 0, 1)
 theme_override_constants/shadow_offset_x = 0
 theme_override_constants/shadow_offset_y = 0
 theme_override_constants/shadow_outline_size = 0
-theme_override_fonts/font = SubResource( 13 )
+theme_override_fonts/font = SubResource("13")
 text = "Armure:"
 align = 1
 __meta__ = {
@@ -2635,11 +2719,11 @@ offset_left = 111.481
 offset_top = 302.883
 offset_right = 193.481
 offset_bottom = 333.883
-theme_override_colors/font_color = Color( 0, 0, 0, 1 )
+theme_override_colors/font_color = Color(0, 0, 0, 1)
 theme_override_constants/shadow_offset_x = 0
 theme_override_constants/shadow_offset_y = 0
 theme_override_constants/shadow_outline_size = 0
-theme_override_fonts/font = SubResource( 14 )
+theme_override_fonts/font = SubResource("14")
 text = "XXX"
 align = 1
 __meta__ = {
@@ -2651,11 +2735,11 @@ offset_left = 166.209
 offset_top = 301.548
 offset_right = 248.209
 offset_bottom = 332.548
-theme_override_colors/font_color = Color( 0, 0, 0, 1 )
+theme_override_colors/font_color = Color(0, 0, 0, 1)
 theme_override_constants/shadow_offset_x = 0
 theme_override_constants/shadow_offset_y = 0
 theme_override_constants/shadow_outline_size = 0
-theme_override_fonts/font = SubResource( 14 )
+theme_override_fonts/font = SubResource("14")
 text = "XXX"
 align = 1
 __meta__ = {
@@ -2669,21 +2753,21 @@ offset_top = 1.0
 offset_right = 550.0
 offset_bottom = 941.0
 mouse_filter = 1
-theme_override_styles/panel = SubResource( 34 )
+theme_override_styles/panel = SubResource("34")
 
 [node name="BoolSelectFcdn" type="Panel" parent="Options/BookSelect"]
 offset_left = 74.0
 offset_top = 89.0
 offset_right = 505.0
 offset_bottom = 630.0
-scale = Vector2( 0.7, 0.7 )
-theme_override_styles/panel = SubResource( 36 )
+scale = Vector2(0.7, 0.7)
+theme_override_styles/panel = SubResource("36")
 
 [node name="sprite" type="Sprite2D" parent="Options/BookSelect/BoolSelectFcdn"]
-material = SubResource( 37 )
-position = Vector2( 213.571, 265.736 )
-scale = Vector2( 0.184632, 0.217434 )
-texture = ExtResource( 39 )
+material = SubResource("37")
+position = Vector2(213.571, 265.736)
+scale = Vector2(0.184632, 0.217434)
+texture = ExtResource("39")
 
 [node name="button" type="TextureButton" parent="Options/BookSelect/BoolSelectFcdn"]
 offset_left = 26.0
@@ -2696,14 +2780,14 @@ offset_left = 72.0
 offset_top = 508.0
 offset_right = 503.0
 offset_bottom = 1049.0
-scale = Vector2( 0.7, 0.7 )
-theme_override_styles/panel = SubResource( 36 )
+scale = Vector2(0.7, 0.7)
+theme_override_styles/panel = SubResource("36")
 
 [node name="sprite" type="Sprite2D" parent="Options/BookSelect/BoolSelectCdsi"]
-material = SubResource( 38 )
-position = Vector2( 221.423, 298.373 )
-scale = Vector2( 0.742878, 0.856293 )
-texture = ExtResource( 38 )
+material = SubResource("38")
+position = Vector2(221.423, 298.373)
+scale = Vector2(0.742878, 0.856293)
+texture = ExtResource("38")
 
 [node name="button" type="TextureButton" parent="Options/BookSelect/BoolSelectCdsi"]
 offset_left = 33.0
@@ -2720,7 +2804,7 @@ offset_top = 53.0
 offset_right = 260.0
 offset_bottom = 53.0
 mouse_filter = 1
-theme_override_styles/panel = SubResource( 28 )
+theme_override_styles/panel = SubResource("28")
 __meta__ = {
 "_edit_use_anchors_": false
 }

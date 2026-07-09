@@ -1,76 +1,89 @@
-[gd_scene load_steps=29 format=2]
+[gd_scene format=3]
 
-[ext_resource path="res://images/success.png" type="Texture2D" id=1]
-[ext_resource path="res://fonts/amon_font_small.tres" type="FontFile" id=2]
-[ext_resource path="res://images/fork.png" type="Texture2D" id=3]
-[ext_resource path="res://images/backpack.png" type="Texture2D" id=4]
-[ext_resource path="res://images/caution.png" type="Texture2D" id=5]
-[ext_resource path="res://images/sword.png" type="Texture2D" id=6]
-[ext_resource path="res://images/pantheon.png" type="Texture2D" id=7]
-[ext_resource path="res://images/chemin.png" type="Texture2D" id=8]
-[ext_resource path="res://images/chapter.png" type="Texture2D" id=9]
-[ext_resource path="res://top_menu.gd" type="Script" id=10]
-[ext_resource path="res://images/items/backpack.svg" type="Texture2D" id=11]
-[ext_resource path="res://fonts/RobotoCondensed-Regular.ttf" type="FontFile" id=12]
-[ext_resource path="res://images/options.png" type="Texture2D" id=13]
-[ext_resource path="res://images/fdcn_icon.png" type="Texture2D" id=14]
-[ext_resource path="res://images/cdsi_logo.png" type="Texture2D" id=15]
-[ext_resource path="res://images/cdsi_title.png" type="Texture2D" id=16]
-[ext_resource path="res://images/fdcn_title.png" type="Texture2D" id=17]
+[ext_resource type="Texture2D" path="res://images/success.png" id="1"]
+[ext_resource type="FontFile" path="res://fonts/amon_font_small.tres" id="2"]
+[ext_resource type="Texture2D" path="res://images/fork.png" id="3"]
+[ext_resource type="Texture2D" path="res://images/backpack.png" id="4"]
+[ext_resource type="Texture2D" path="res://images/caution.png" id="5"]
+[ext_resource type="Texture2D" path="res://images/sword.png" id="6"]
+[ext_resource type="Texture2D" path="res://images/pantheon.png" id="7"]
+[ext_resource type="Texture2D" path="res://images/chemin.png" id="8"]
+[ext_resource type="Texture2D" path="res://images/chapter.png" id="9"]
+[ext_resource type="Script" path="res://top_menu.gd" id="10"]
+[ext_resource type="Texture2D" path="res://images/items/backpack.svg" id="11"]
+[ext_resource type="FontFile" path="res://fonts/RobotoCondensed-Regular.ttf" id="12"]
+[ext_resource type="Texture2D" path="res://images/options.png" id="13"]
+[ext_resource type="Texture2D" path="res://images/fdcn_icon.png" id="14"]
+[ext_resource type="Texture2D" path="res://images/cdsi_logo.png" id="15"]
+[ext_resource type="Texture2D" path="res://images/cdsi_title.png" id="16"]
+[ext_resource type="Texture2D" path="res://images/fdcn_title.png" id="17"]
 
-[sub_resource type="StyleBoxFlat" id=1]
-bg_color = Color( 1, 1, 1, 1 )
+[sub_resource type="StyleBoxFlat" id="1"]
+bg_color = Color(1, 1, 1, 1)
 
-[sub_resource type="StyleBoxFlat" id=3]
-bg_color = Color( 0.913725, 0.917647, 0.92549, 1 )
+[sub_resource type="StyleBoxFlat" id="3"]
+bg_color = Color(0.913725, 0.917647, 0.92549, 1)
 
-[sub_resource type="StyleBoxFlat" id=2]
-bg_color = Color( 1, 1, 1, 1 )
+[sub_resource type="StyleBoxFlat" id="2"]
+bg_color = Color(1, 1, 1, 1)
 
-[sub_resource type="StyleBoxFlat" id=6]
-bg_color = Color( 0.913725, 0.917647, 0.92549, 1 )
+[sub_resource type="StyleBoxFlat" id="6"]
+bg_color = Color(0.913725, 0.917647, 0.92549, 1)
 
-[sub_resource type="StyleBoxFlat" id=4]
-bg_color = Color( 0.913725, 0.917647, 0.92549, 1 )
+[sub_resource type="StyleBoxFlat" id="4"]
+bg_color = Color(0.913725, 0.917647, 0.92549, 1)
 
-[sub_resource type="StyleBoxFlat" id=5]
-bg_color = Color( 0.913725, 0.917647, 0.92549, 1 )
+[sub_resource type="StyleBoxFlat" id="5"]
+bg_color = Color(0.913725, 0.917647, 0.92549, 1)
 
-[sub_resource type="FontFile" id=7]
-size = 12
-font_data = ExtResource( 12 )
+[sub_resource type="FontFile" id="7"]
+fallbacks = Array[Font]([ExtResource("12")])
+cache/0/variation_coordinates = {}
+cache/0/face_index = 0
+cache/0/embolden = 0.0
+cache/0/transform = Transform2D(1, 0, 0, 1, 0, 0)
+cache/0/spacing_top = 0
+cache/0/spacing_bottom = 0
+cache/0/spacing_space = 0
+cache/0/spacing_glyph = 0
+cache/0/baseline_offset = 0.0
+cache/0/16/0/ascent = 0.0
+cache/0/16/0/descent = 0.0
+cache/0/16/0/underline_position = 0.0
+cache/0/16/0/underline_thickness = 0.0
+cache/0/16/0/scale = 1.0
 
-[sub_resource type="StyleBoxFlat" id=8]
-bg_color = Color( 0.913725, 0.917647, 0.92549, 1 )
+[sub_resource type="StyleBoxFlat" id="8"]
+bg_color = Color(0.913725, 0.917647, 0.92549, 1)
 
-[sub_resource type="StyleBoxFlat" id=9]
-bg_color = Color( 0.913725, 0.917647, 0.92549, 1 )
+[sub_resource type="StyleBoxFlat" id="9"]
+bg_color = Color(0.913725, 0.917647, 0.92549, 1)
 
-[sub_resource type="StyleBoxFlat" id=10]
-bg_color = Color( 0.913725, 0.917647, 0.92549, 1 )
+[sub_resource type="StyleBoxFlat" id="10"]
+bg_color = Color(0.913725, 0.917647, 0.92549, 1)
 
-[sub_resource type="StyleBoxFlat" id=11]
-bg_color = Color( 0.913725, 0.917647, 0.92549, 1 )
+[sub_resource type="StyleBoxFlat" id="11"]
+bg_color = Color(0.913725, 0.917647, 0.92549, 1)
 
 [node name="top_menu" type="Panel"]
 offset_left = 3.0
 offset_top = 9.0
 offset_right = 497.0
 offset_bottom = 51.0
-theme_override_styles/panel = SubResource( 1 )
-script = ExtResource( 10 )
+theme_override_styles/panel = SubResource("1")
+script = ExtResource("10")
 
 [node name="OptionsBtn" type="Panel" parent="."]
 offset_left = 4.55624
 offset_top = 3.11881
 offset_right = 41.5563
 offset_bottom = 40.1188
-theme_override_styles/panel = SubResource( 3 )
+theme_override_styles/panel = SubResource("3")
 
 [node name="sprite" type="Sprite2D" parent="OptionsBtn"]
-position = Vector2( 18.8495, 18.2999 )
-scale = Vector2( 0.0734101, 0.0733971 )
-texture = ExtResource( 13 )
+position = Vector2(18.8495, 18.2999)
+scale = Vector2(0.0734101, 0.0733971)
+texture = ExtResource("13")
 
 [node name="button" type="TextureButton" parent="OptionsBtn"]
 offset_left = -0.177032
@@ -83,24 +96,24 @@ offset_left = 51.2695
 offset_top = 1.67555
 offset_right = 241.27
 offset_bottom = 41.6756
-theme_override_styles/panel = SubResource( 2 )
+theme_override_styles/panel = SubResource("2")
 
 [node name="BookDisplayFdcn" type="Panel" parent="BookSelection"]
 offset_left = -6.0
 offset_top = 2.0
 offset_right = 101.0
 offset_bottom = 39.0
-theme_override_styles/panel = SubResource( 6 )
+theme_override_styles/panel = SubResource("6")
 
 [node name="logo" type="Sprite2D" parent="BookSelection/BookDisplayFdcn"]
-position = Vector2( 18.8931, 18.841 )
-scale = Vector2( 0.0664966, 0.0664849 )
-texture = ExtResource( 14 )
+position = Vector2(18.8931, 18.841)
+scale = Vector2(0.0664966, 0.0664849)
+texture = ExtResource("14")
 
 [node name="title" type="Sprite2D" parent="BookSelection/BookDisplayFdcn"]
-position = Vector2( 70.7305, 18.3244 )
-scale = Vector2( 0.20995, 0.209877 )
-texture = ExtResource( 17 )
+position = Vector2(70.7305, 18.3244)
+scale = Vector2(0.20995, 0.209877)
+texture = ExtResource("17")
 
 [node name="BookDisplayCdsi" type="Panel" parent="BookSelection"]
 visible = false
@@ -108,17 +121,17 @@ offset_left = -3.0
 offset_top = 1.0
 offset_right = 104.0
 offset_bottom = 38.0
-theme_override_styles/panel = SubResource( 6 )
+theme_override_styles/panel = SubResource("6")
 
 [node name="logo" type="Sprite2D" parent="BookSelection/BookDisplayCdsi"]
-position = Vector2( 15.7305, 18.3244 )
-scale = Vector2( 0.122885, 0.122863 )
-texture = ExtResource( 15 )
+position = Vector2(15.7305, 18.3244)
+scale = Vector2(0.122885, 0.122863)
+texture = ExtResource("15")
 
 [node name="title" type="Sprite2D" parent="BookSelection/BookDisplayCdsi"]
-position = Vector2( 70.7305, 18.3244 )
-scale = Vector2( 0.20995, 0.209877 )
-texture = ExtResource( 16 )
+position = Vector2(70.7305, 18.3244)
+scale = Vector2(0.20995, 0.209877)
+texture = ExtResource("16")
 
 [node name="Pages" type="Panel" parent="."]
 visible = false
@@ -126,19 +139,19 @@ offset_left = 51.2695
 offset_top = 1.67555
 offset_right = 241.27
 offset_bottom = 41.6756
-theme_override_styles/panel = SubResource( 2 )
+theme_override_styles/panel = SubResource("2")
 
 [node name="BlockMain" type="Panel" parent="Pages"]
 offset_left = 4.64337
 offset_top = 1.22163
 offset_right = 41.6434
 offset_bottom = 38.2216
-theme_override_styles/panel = SubResource( 3 )
+theme_override_styles/panel = SubResource("3")
 
 [node name="sprite" type="Sprite2D" parent="Pages/BlockMain"]
-position = Vector2( 18.8495, 18.2999 )
-scale = Vector2( 0.0734101, 0.0733971 )
-texture = ExtResource( 8 )
+position = Vector2(18.8495, 18.2999)
+scale = Vector2(0.0734101, 0.0733971)
+texture = ExtResource("8")
 
 [node name="button" type="TextureButton" parent="Pages/BlockMain"]
 offset_left = -0.177032
@@ -151,12 +164,12 @@ offset_left = 55.2391
 offset_top = 0.971634
 offset_right = 92.2391
 offset_bottom = 37.9716
-theme_override_styles/panel = SubResource( 4 )
+theme_override_styles/panel = SubResource("4")
 
 [node name="sprite" type="Sprite2D" parent="Pages/BlockChapitres"]
-position = Vector2( 19.9269, 19.1324 )
-scale = Vector2( 0.0616825, 0.0616715 )
-texture = ExtResource( 9 )
+position = Vector2(19.9269, 19.1324)
+scale = Vector2(0.0616825, 0.0616715)
+texture = ExtResource("9")
 
 [node name="button" type="TextureButton" parent="Pages/BlockChapitres"]
 offset_right = 37.0
@@ -167,12 +180,12 @@ offset_left = 105.207
 offset_top = 1.06625
 offset_right = 142.208
 offset_bottom = 38.0663
-theme_override_styles/panel = SubResource( 5 )
+theme_override_styles/panel = SubResource("5")
 
 [node name="sprite" type="Sprite2D" parent="Pages/BlockSuccess"]
-position = Vector2( 19.2058, 18.6945 )
-scale = Vector2( 0.0667377, 0.0667257 )
-texture = ExtResource( 1 )
+position = Vector2(19.2058, 18.6945)
+scale = Vector2(0.0667377, 0.0667257)
+texture = ExtResource("1")
 
 [node name="button" type="TextureButton" parent="Pages/BlockSuccess"]
 offset_left = 0.418823
@@ -185,12 +198,12 @@ offset_left = 150.557
 offset_top = 0.596634
 offset_right = 187.557
 offset_bottom = 37.5966
-theme_override_styles/panel = SubResource( 6 )
+theme_override_styles/panel = SubResource("6")
 
 [node name="sprite" type="Sprite2D" parent="Pages/BlockLore"]
-position = Vector2( 18.8931, 18.841 )
-scale = Vector2( 0.0664966, 0.0664849 )
-texture = ExtResource( 7 )
+position = Vector2(18.8931, 18.841)
+scale = Vector2(0.0664966, 0.0664849)
+texture = ExtResource("7")
 
 [node name="button" type="TextureButton" parent="Pages/BlockLore"]
 offset_left = -0.873657
@@ -204,18 +217,18 @@ offset_left = 249.634
 offset_top = 0.773258
 offset_right = 490.634
 offset_bottom = 40.7732
-theme_override_styles/panel = SubResource( 2 )
+theme_override_styles/panel = SubResource("2")
 
 [node name="BillyTypeLabel" type="Label" parent="Billys"]
 offset_left = 5.0
 offset_top = 20.0
 offset_right = 65.0
 offset_bottom = 36.0
-theme_override_colors/font_color = Color( 0, 0.760784, 0.666667, 1 )
+theme_override_colors/font_color = Color(0, 0.760784, 0.666667, 1)
 theme_override_constants/shadow_offset_x = 0
 theme_override_constants/shadow_offset_y = 0
 theme_override_constants/shadow_outline_size = 0
-theme_override_fonts/font = SubResource( 7 )
+theme_override_fonts/font = SubResource("7")
 text = "Débrouillard"
 align = 2
 
@@ -225,15 +238,15 @@ offset_left = 4.64337
 offset_top = 1.22163
 offset_right = 41.6434
 offset_bottom = 38.2216
-theme_override_styles/panel = SubResource( 8 )
+theme_override_styles/panel = SubResource("8")
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
 [node name="sprite" type="Sprite2D" parent="Billys/BlockGuerrier"]
-position = Vector2( 18.3771, 18.301 )
-scale = Vector2( 0.0974027, 0.0973855 )
-texture = ExtResource( 6 )
+position = Vector2(18.3771, 18.301)
+scale = Vector2(0.0974027, 0.0973855)
+texture = ExtResource("6")
 
 [node name="button" type="TextureButton" parent="Billys/BlockGuerrier"]
 offset_left = -0.177032
@@ -250,15 +263,15 @@ offset_left = 46.6832
 offset_top = 0.971634
 offset_right = 83.6832
 offset_bottom = 37.9716
-theme_override_styles/panel = SubResource( 9 )
+theme_override_styles/panel = SubResource("9")
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
 [node name="sprite" type="Sprite2D" parent="Billys/BlockPaysan"]
-position = Vector2( 17.5646, 18.338 )
-scale = Vector2( 0.214251, 0.214213 )
-texture = ExtResource( 3 )
+position = Vector2(17.5646, 18.338)
+scale = Vector2(0.214251, 0.214213)
+texture = ExtResource("3")
 
 [node name="button" type="TextureButton" parent="Billys/BlockPaysan"]
 offset_right = 37.0
@@ -273,15 +286,15 @@ offset_left = 88.7785
 offset_top = 1.06625
 offset_right = 125.779
 offset_bottom = 38.0663
-theme_override_styles/panel = SubResource( 10 )
+theme_override_styles/panel = SubResource("10")
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
 [node name="sprite" type="Sprite2D" parent="Billys/BlockPrudent"]
-position = Vector2( 18.812, 18.7755 )
-scale = Vector2( 0.116261, 0.11624 )
-texture = ExtResource( 5 )
+position = Vector2(18.812, 18.7755)
+scale = Vector2(0.116261, 0.11624)
+texture = ExtResource("5")
 
 [node name="button" type="TextureButton" parent="Billys/BlockPrudent"]
 offset_left = 0.418823
@@ -298,15 +311,15 @@ offset_left = 128.423
 offset_top = 0.596634
 offset_right = 165.423
 offset_bottom = 37.5966
-theme_override_styles/panel = SubResource( 11 )
+theme_override_styles/panel = SubResource("11")
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
 [node name="sprite" type="Sprite2D" parent="Billys/BlockDebrouillard"]
-position = Vector2( 18.4995, 17.5037 )
-scale = Vector2( 0.097564, 0.0975468 )
-texture = ExtResource( 4 )
+position = Vector2(18.4995, 17.5037)
+scale = Vector2(0.097564, 0.0975468)
+texture = ExtResource("4")
 
 [node name="button" type="TextureButton" parent="Billys/BlockDebrouillard"]
 offset_left = -0.873657
@@ -322,12 +335,12 @@ offset_left = 68.319
 offset_top = 1.30374
 offset_right = 105.319
 offset_bottom = 38.3037
-theme_override_styles/panel = SubResource( 11 )
+theme_override_styles/panel = SubResource("11")
 
 [node name="sprite" type="Sprite2D" parent="Billys/BlockOptions"]
-position = Vector2( 17.9156, 18.7244 )
-scale = Vector2( 0.367587, 0.367522 )
-texture = ExtResource( 11 )
+position = Vector2(17.9156, 18.7244)
+scale = Vector2(0.367587, 0.367522)
+texture = ExtResource("11")
 
 [node name="button" type="TextureButton" parent="Billys/BlockOptions"]
 offset_left = -0.165741
@@ -340,11 +353,11 @@ offset_left = 448.849
 offset_top = -0.777222
 offset_right = 518.849
 offset_bottom = 13.2228
-theme_override_colors/font_color = Color( 0, 0, 0, 1 )
+theme_override_colors/font_color = Color(0, 0, 0, 1)
 theme_override_constants/shadow_offset_x = 0
 theme_override_constants/shadow_offset_y = 0
 theme_override_constants/shadow_outline_size = 0
-theme_override_fonts/font = ExtResource( 2 )
+theme_override_fonts/font = ExtResource("2")
 text = "Spoils"
 
 [node name="SpoilButton" type="CheckButton" parent="."]
@@ -361,11 +374,11 @@ offset_left = 365.057
 offset_top = -2.19142
 offset_right = 435.057
 offset_bottom = 11.8086
-theme_override_colors/font_color = Color( 0, 0, 0, 1 )
+theme_override_colors/font_color = Color(0, 0, 0, 1)
 theme_override_constants/shadow_offset_x = 0
 theme_override_constants/shadow_offset_y = 0
 theme_override_constants/shadow_outline_size = 0
-theme_override_fonts/font = ExtResource( 2 )
+theme_override_fonts/font = ExtResource("2")
 text = "Voix du Lennon"
 
 [node name="SoundButton" type="CheckButton" parent="."]

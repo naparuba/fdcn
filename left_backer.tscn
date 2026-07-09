@@ -1,9 +1,9 @@
-[gd_scene load_steps=4 format=2]
+[gd_scene format=3]
 
-[ext_resource path="res://fonts/amon_font.tres" type="FontFile" id=1]
-[ext_resource path="res://left_backer.gd" type="Script" id=3]
+[ext_resource type="FontFile" path="res://fonts/amon_font.tres" id="1"]
+[ext_resource type="Script" path="res://left_backer.gd" id="3"]
 
-[sub_resource type="StyleBoxEmpty" id=1]
+[sub_resource type="StyleBoxEmpty" id="1"]
 
 [node name="Left-Back" type="Panel"]
 offset_left = 0.429886
@@ -12,22 +12,22 @@ offset_right = 972.43
 offset_bottom = 1053.95
 rotation = -1.5707963267948966
 mouse_filter = 1
-theme_override_styles/panel = SubResource( 1 )
-script = ExtResource( 3 )
+theme_override_styles/panel = SubResource("1")
+script = ExtResource("3")
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
 [node name="poly" type="Polygon2D" parent="."]
-color = Color( 0.192157, 0.231373, 0.278431, 1 )
-polygon = PackedVector2Array( 1011.8, -0.354608, 971.897, 41.3246, 0.236511, 41.4079, -34.1299, -0.374651 )
+color = Color(0.192157, 0.231373, 0.278431, 1)
+polygon = PackedVector2Array(1011.8, -0.354608, 971.897, 41.3246, 0.236511, 41.4079, -34.1299, -0.374651)
 
 [node name="txt" type="Label" parent="."]
 offset_left = 465.475
 offset_top = 9.43448
 offset_right = 653.475
 offset_bottom = 40.4345
-theme_override_fonts/font = ExtResource( 1 )
+theme_override_fonts/font = ExtResource("1")
 text = "Unset"
 align = 1
 valign = 1
@@ -38,7 +38,7 @@ offset_top = 2.43448
 offset_right = 671.475
 offset_bottom = 33.4345
 rotation = 1.5790953673881296
-theme_override_fonts/font = ExtResource( 1 )
+theme_override_fonts/font = ExtResource("1")
 text = "<"
 __meta__ = {
 "_edit_use_anchors_": false
