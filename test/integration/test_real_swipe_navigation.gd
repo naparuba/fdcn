@@ -22,13 +22,12 @@ extends "res://addons/gut/test.gd"
 #    InputEventMouseButton (presse puis relache) resout ca proprement :
 #    Godot les convertit alors correctement en InputEventScreenTouch avec
 #    les bonnes positions.
-# 3. Une fonction qui contient un yield() ne retourne un
-#    GDScriptFunctionState QUE si elle a reellement suspendu au moins une
-#    fois : si la camera est deja stabilisee, _wait_camera_settled()
-#    risquait de retourner de facon synchrone, rendant tout
-#    yield(fn(), "completed") appelant invalide ("First argument of
-#    yield() not of type object"). Fixe en forcant TOUJOURS au moins un
-#    yield au debut de la fonction, quel que soit l'etat de la camera.
+# 3. [Godot 3 -> 4] Ce piege n'existe plus avec `await` (contrairement a
+#    `yield()` + GDScriptFunctionState en Godot 3, `await fn()` fonctionne
+#    correctement que fn() suspende reellement ou retourne de facon
+#    synchrone) -- garde neanmoins un yield/await inconditionnel au debut
+#    de _wait_camera_settled() par habitude defensive, sans que ce soit
+#    strictement necessaire desormais.
 
 var _main = null
 
@@ -61,10 +60,6 @@ func after_all():
 
 
 func _wait_camera_settled():
-	# Yield inconditionnel au moins une fois : garantit que cette fonction
-	# retourne TOUJOURS un GDScriptFunctionState, meme si la camera est
-	# deja stabilisee -- sinon yield(_wait_camera_settled(), "completed")
-	# plante au call site quand le retour est synchrone.
 	await get_tree().process_frame
 	var cam = _main.camera
 	for i in range(300):  # garde-fou ~5s a 60fps
