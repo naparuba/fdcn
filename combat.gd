@@ -50,6 +50,21 @@ extends RefCounted
 # critique cote adversaire (mentionnee en prose pour certains ennemis,
 # mais chapter_data.gd n'expose aucune ADRESSE/CRITIQUE d'adversaire pour
 # l'appliquer -- a activer si cette donnee est un jour sourcee).
+#
+# --- Contrat avec l'appelant (important pour l'integration future dans
+# main.gd/player.gd) :
+# - Cette classe ne detient JAMAIS de reference a Player ni a aucun noeud
+#   de la scene -- seulement des valeurs numeriques copiees a la creation
+#   (hab/pv/armure/adresse/critique). Rejouer, annuler des tours ou
+#   abandonner le combat ne modifie donc jamais l'etat reel du joueur.
+# - Tant que l'appelant n'appelle pas explicitement get_pv_delta_billy()
+#   (ou n'importe quelle info du combat) pour l'appliquer lui-meme a
+#   Player, rien de ce combat n'est "reel" -- exactement ce qu'il faut
+#   pour permettre un ecran de resume ("valider" / "annuler tout le
+#   combat") avant integration definitive.
+# - undo_last_turn() permet a l'UI de proposer un "annuler ce tour, le
+#   rejouer" ; appelable plusieurs fois de suite pour revenir sur
+#   plusieurs tours.
 
 const SITUATION_TABLE = {
 	-7: [[0, 12], [0, 9], [1, 8], [2, 6], [2, 5], [3, 4]],
@@ -118,24 +133,63 @@ static func resolve_round(hab_billy, hab_adversaire, die_roll):
 	return {"degats_billy": pair[0], "degats_adversaire": pair[1], "diff": diff}
 
 
-# Composant "combat en cours" : suit les PV des deux cotes tour par tour,
+# Etat (copie) d'un seul combattant a un instant du combat. Minimal pour
+# l'instant (seuls les PV changent tour apres tour dans les regles
+# sourcees) -- prevu pour accueillir plus tard des effets temporaires
+# (ex: Habileté divisee par les gnolls, cf le Guide detaille) sans casser
+# l'API si une regle numerique est un jour sourcee pour ca.
+class EtatCombattant:
+	var pv: int
+
+	func _init(p_pv):
+		self.pv = p_pv
+
+	func copie():
+		return EtatCombattant.new(self.pv)
+
+
+# Un tour joue = une entree de la pile. Contient une COPIE de l'etat des
+# deux combattants APRES ce tour, jamais une reference partagee -- deux
+# EtatTour de la pile ne pointent donc jamais sur le meme EtatCombattant.
+class EtatTour:
+	var tour: int
+	var billy: EtatCombattant
+	var adversaire: EtatCombattant
+	var attack_die_roll = null
+	var esquive_die_roll = null
+	var esquive := false
+	var contre_attaque_critique := false
+	var degats_billy := 0
+	var degats_adversaire := 0
+
+	func _init(p_tour, p_billy, p_adversaire):
+		self.tour = p_tour
+		self.billy = p_billy
+		self.adversaire = p_adversaire
+
+
+# Composant "combat en cours" : une PILE d'EtatTour (un par tour joue),
 # comme la Feuille de Combat officielle (colonnes PV/Billy/Adv., une ligne
-# par Tour). Reste volontairement decouple de Player/BookData -- l'appelant
-# (plus tard main.gd) est responsable de lui fournir les valeurs de depart
+# par Tour) mais avec de vrais objets plutot que des colonnes. L'etat
+# courant est toujours le sommet de la pile (ou l'etat initial si aucun
+# tour n'a encore ete joue) -- annuler un tour = depiler, et l'etat
+# courant redevient automatiquement celui d'avant, sans recalcul.
+#
+# Reste volontairement decouple de Player/BookData -- l'appelant (plus
+# tard main.gd) est responsable de lui fournir les valeurs de depart
 # (dont le bonus du Pyro-Barbare, deja ajoute a l'Habileté de Billy quand
 # c'est pertinent) et de lire les resultats.
 var hab_billy = 0
 var hab_adversaire = 0
-var pv_billy = 0
-var pv_adversaire = 0
 var armure_billy = 0
 var armure_adversaire = 0
 var adresse_billy = 0
 var critique_billy = 0
 var pyro_bonus = 0
 var plafond_degats_subis_billy = null  # ex: 3 pour un Billy PAYSAN
-var tour = 0
-var historique = []
+
+var _etat_initial: EtatTour
+var pile: Array = []  # Array[EtatTour], un par tour joue, empile dans l'ordre
 
 
 # opts (toutes optionnelles, defaut = aucun effet) :
@@ -147,13 +201,30 @@ func _init(p_hab_billy, p_hab_adversaire, p_pv_billy, p_pv_adversaire, opts = {}
 	self.pyro_bonus = opts.get('pyro_bonus', 0)
 	self.hab_billy = p_hab_billy + self.pyro_bonus
 	self.hab_adversaire = p_hab_adversaire
-	self.pv_billy = p_pv_billy
-	self.pv_adversaire = p_pv_adversaire
 	self.armure_billy = opts.get('armure_billy', 0)
 	self.armure_adversaire = opts.get('armure_adversaire', 0)
 	self.adresse_billy = opts.get('adresse_billy', 0)
 	self.critique_billy = opts.get('critique_billy', 0)
 	self.plafond_degats_subis_billy = opts.get('plafond_degats_subis_billy', null)
+	self._etat_initial = EtatTour.new(0, EtatCombattant.new(p_pv_billy), EtatCombattant.new(p_pv_adversaire))
+
+
+# L'etat courant est toujours le sommet de la pile, ou l'etat initial si
+# aucun tour n'a encore ete joue -- jamais recalcule, juste lu.
+func etat_courant() -> EtatTour:
+	if len(self.pile) > 0:
+		return self.pile[-1]
+	return self._etat_initial
+
+
+var pv_billy: int:
+	get: return self.etat_courant().billy.pv
+
+var pv_adversaire: int:
+	get: return self.etat_courant().adversaire.pv
+
+var tour: int:
+	get: return self.etat_courant().tour
 
 
 func is_over():
@@ -177,17 +248,48 @@ func peut_esquiver():
 	return self.adresse_billy >= 2
 
 
+func peut_annuler_dernier_tour():
+	return len(self.pile) > 0
+
+
+# Difference entre les PV de depart et les PV courants -- c'est la SEULE
+# chose que l'appelant a besoin de lire pour integrer (ou pas) l'effet du
+# combat sur le vrai Player (ex: Player.pv += combat.get_pv_delta_billy()).
+# Reflete l'etat courant, donc APRES d'eventuels undo_last_turn().
+func get_pv_delta_billy():
+	return self.pv_billy - self._etat_initial.billy.pv
+
+
+func get_pv_delta_adversaire():
+	return self.pv_adversaire - self._etat_initial.adversaire.pv
+
+
+# Annule le dernier tour joue : depile. L'etat courant (pv_billy,
+# pv_adversaire, tour) redevient automatiquement celui du nouveau sommet
+# de pile (ou l'etat initial si la pile est vide), sans rien recalculer.
+# Pensé pour une UI "annuler ce tour / le rejouer" -- rappelable plusieurs
+# fois de suite pour revenir sur plusieurs tours. Retourne l'EtatTour
+# depile, ou null s'il n'y en a aucun.
+func undo_last_turn() -> EtatTour:
+	if !self.peut_annuler_dernier_tour():
+		push_error("Combat.undo_last_turn: aucun tour a annuler")
+		return null
+	return self.pile.pop_back()
+
+
 # Joue un tour complet : jet d'attaque, puis jet d'esquive de Billy si son
 # ADRESSE le permet, application de l'Armure et du plafond de degats subis
 # (PAYSAN). Les deux jets sont optionnels (roll_die() par defaut) pour
-# permettre des tours deterministes en test.
-func play_turn(attack_die_roll = null, esquive_die_roll = null):
+# permettre des tours deterministes en test. Empile un nouvel EtatTour
+# (copie de l'etat precedent + les degats de ce tour) -- ne modifie jamais
+# un EtatTour deja empile.
+func play_turn(attack_die_roll = null, esquive_die_roll = null) -> EtatTour:
 	if self.is_over():
 		push_error("Combat.play_turn: le combat est deja termine")
 		return null
 	if attack_die_roll == null:
 		attack_die_roll = roll_die()
-	self.tour += 1
+	var precedent = self.etat_courant()
 
 	var base = resolve_round(self.hab_billy, self.hab_adversaire, attack_die_roll)
 	var degats_billy_bruts = base['degats_billy']  # subis par l'adversaire
@@ -216,19 +318,15 @@ func play_turn(attack_die_roll = null, esquive_die_roll = null):
 	if self.plafond_degats_subis_billy != null:
 		degats_adversaire_final = mini(degats_adversaire_final, self.plafond_degats_subis_billy)
 
-	self.pv_adversaire = maxi(0, self.pv_adversaire - degats_billy_final)
-	self.pv_billy = maxi(0, self.pv_billy - degats_adversaire_final)
+	var nouveau_billy = EtatCombattant.new(maxi(0, precedent.billy.pv - degats_adversaire_final))
+	var nouvel_adversaire = EtatCombattant.new(maxi(0, precedent.adversaire.pv - degats_billy_final))
+	var nouveau_tour = EtatTour.new(precedent.tour + 1, nouveau_billy, nouvel_adversaire)
+	nouveau_tour.attack_die_roll = attack_die_roll
+	nouveau_tour.esquive_die_roll = esquive_die_roll
+	nouveau_tour.esquive = esquive
+	nouveau_tour.contre_attaque_critique = contre_attaque_critique
+	nouveau_tour.degats_billy = degats_billy_final
+	nouveau_tour.degats_adversaire = degats_adversaire_final
 
-	var result = {
-		"tour": self.tour,
-		"attack_die_roll": attack_die_roll,
-		"esquive_die_roll": esquive_die_roll,
-		"esquive": esquive,
-		"contre_attaque_critique": contre_attaque_critique,
-		"degats_billy": degats_billy_final,
-		"degats_adversaire": degats_adversaire_final,
-		"pv_billy": self.pv_billy,
-		"pv_adversaire": self.pv_adversaire,
-	}
-	self.historique.append(result)
-	return result
+	self.pile.append(nouveau_tour)
+	return nouveau_tour
