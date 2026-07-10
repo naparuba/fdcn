@@ -45,6 +45,17 @@ extends RefCounted
 # - Pyro-Barbare : bonus plat d'Habileté pour Billy pendant le combat (cf
 #   chapter_data.gd::get_combat_pyro(), affiche "+N" en jeu) -- fourni en
 #   entree de Combat plutot que devine.
+# - DEGATS : bonus plat AJOUTE aux degats infliges par une attaque normale
+#   (symetrique de l'ARMURE, qui les REDUIT) -- PAS sourcee par une citation
+#   directe comme l'Armure, mais inferee par symetrie : "DEGATS" est liste
+#   comme stat secondaire sur la fiche officielle exactement au meme rang
+#   qu'ARMURE/CRITIQUE/PV MAX, et player.gd/chapter_data.gd la trackent de
+#   la meme maniere (self.deg/deg_items/deg_chapters, node.get_combat_degat())
+#   qu'ARMURE (self.arm/...) et CRITIQUE (self.crit/...). Ne s'ajoute PAS a
+#   la contre-attaque critique (la formule sourcee pour celle-ci ne
+#   mentionne que "degats maximum + Critique", rien de plus) ; ne s'ajoute
+#   pas non plus au cote qui vient d'esquiver (une esquive reussie annule
+#   integralement l'attaque, DEGATS inclus).
 #
 # PAS COUVERT (aucune donnee/formule sourcee) : esquive ou contre-attaque
 # critique cote adversaire (mentionnee en prose pour certains ennemis,
@@ -185,6 +196,8 @@ var armure_billy = 0
 var armure_adversaire = 0
 var adresse_billy = 0
 var critique_billy = 0
+var deg_billy = 0
+var deg_adversaire = 0
 var pyro_bonus = 0
 var plafond_degats_subis_billy = null  # ex: 3 pour un Billy PAYSAN
 
@@ -194,9 +207,9 @@ var pile: Array = []  # Array[EtatTour], un par tour joue, empile dans l'ordre
 
 # opts (toutes optionnelles, defaut = aucun effet) :
 #   armure_billy, armure_adversaire, adresse_billy, critique_billy,
-#   pyro_bonus (ajoute a p_hab_billy pour toute la duree du combat),
-#   plafond_degats_subis_billy (ex: 3 pour un Billy PAYSAN, applique
-#   apres l'Armure).
+#   deg_billy, deg_adversaire, pyro_bonus (ajoute a p_hab_billy pour toute
+#   la duree du combat), plafond_degats_subis_billy (ex: 3 pour un Billy
+#   PAYSAN, applique apres l'Armure).
 func _init(p_hab_billy, p_hab_adversaire, p_pv_billy, p_pv_adversaire, opts = {}):
 	self.pyro_bonus = opts.get('pyro_bonus', 0)
 	self.hab_billy = p_hab_billy + self.pyro_bonus
@@ -205,6 +218,8 @@ func _init(p_hab_billy, p_hab_adversaire, p_pv_billy, p_pv_adversaire, opts = {}
 	self.armure_adversaire = opts.get('armure_adversaire', 0)
 	self.adresse_billy = opts.get('adresse_billy', 0)
 	self.critique_billy = opts.get('critique_billy', 0)
+	self.deg_billy = opts.get('deg_billy', 0)
+	self.deg_adversaire = opts.get('deg_adversaire', 0)
 	self.plafond_degats_subis_billy = opts.get('plafond_degats_subis_billy', null)
 	self._etat_initial = EtatTour.new(0, EtatCombattant.new(p_pv_billy), EtatCombattant.new(p_pv_adversaire))
 
@@ -309,6 +324,14 @@ func play_turn(attack_die_roll = null, esquive_die_roll = null) -> EtatTour:
 				degats_billy_bruts = degats_max + self.critique_billy
 	else:
 		esquive_die_roll = null  # pas de tentative -- ignore un jet fourni par erreur
+
+	# DEGATS : bonus plat sur une attaque normale uniquement -- ni sur la
+	# contre-attaque critique (formule sourcee = degats max + Critique,
+	# rien de plus), ni sur le cote qui vient d'esquiver (0 reste 0).
+	if !contre_attaque_critique:
+		degats_billy_bruts += self.deg_billy
+	if !esquive:
+		degats_adversaire_bruts += self.deg_adversaire
 
 	# La contre-attaque critique ignore l'Armure adverse (regle sourcee) ;
 	# une attaque normale la subit normalement.
