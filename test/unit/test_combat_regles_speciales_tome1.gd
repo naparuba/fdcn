@@ -725,3 +725,182 @@ func test_node534_immunite_totale_a_la_contre_attaque_critique():
 	var combat = CombatScript.new(8, 8, 20, 9, {"adresse_billy": 3, "critique_billy": 10, "modificateurs": [mod]})
 	var t = combat.play_turn(3, 1)
 	assert_eq(t.degats_billy, 0, "immunisee, meme sur une contre-attaque critique de Billy")
+
+
+# =========================================================================
+# UNDO + MODIFICATEURS -- le retour en arriere est une fonctionnalite de
+# base (cf combat.gd), elle DOIT rester correcte meme combinee aux regles
+# speciales. Risque concret : un Modificateur qui compte les tours ou les
+# degats cumules via un COMPTEUR INTERNE (plutot que de LIRE combat.tour/
+# combat.get_pv_delta_adversaire() a chaque appel) se desynchronise dès
+# qu'on annule un tour -- ces tests visent precisement ce bug de classe.
+# =========================================================================
+
+func test_undo_puis_rejoue_limite_de_tours_ne_compte_pas_le_tour_annule():
+	# nœud 36/97 : la limite de tours ne doit se declencher qu'au vrai
+	# NUMERO de tour, pas au nombre d'appels a play_turn() (annulation
+	# comprise).
+	var mod = Mods.LimiteDeTours.new(3, "adversaire")
+	var combat = CombatScript.new(1, 20, 20, 100, {"modificateurs": [mod]})
+	combat.play_turn(3)  # tour 1
+	combat.play_turn(3)  # tour 2
+	combat.undo_last_turn()  # retour au tour 1 -- le joueur n'est pas content du tour 2
+	assert_false(combat.is_over(), "revenu au tour 1, loin de la limite de 3")
+	combat.play_turn(4)  # rejoue le tour 2 differemment (3eme appel a play_turn, mais 2eme TOUR)
+	assert_false(combat.is_over(), "toujours le tour 2 apres le rejeu, pas encore la limite")
+	combat.play_turn(5)  # tour 3 pour de vrai
+	assert_true(combat.is_over(), "le vrai 3eme tour atteint la limite")
+	assert_eq(combat.get_winner(), "adversaire")
+
+
+func test_undo_puis_rejoue_sans_attaque_tour_reste_correct():
+	# nœud 321/349 : apres annulation+rejeu du tour 1, on est TOUJOURS au
+	# tour 1 -- l'absence d'attaque doit continuer a s'appliquer, pas
+	# disparaitre parce qu'on a "deja" appele play_turn() une fois avant.
+	var mod = Mods.SansAttaqueTour.new(1)
+	var combat = CombatScript.new(9, 9, 20, 6, {"modificateurs": [mod]})
+	var t1 = combat.play_turn(3)
+	assert_eq(t1.degats_adversaire, 0, "tour 1, pas d'attaque adverse")
+	combat.undo_last_turn()
+	var t1_rejoue = combat.play_turn(4)  # rejoue le MEME tour 1 avec un jet different
+	assert_eq(t1_rejoue.degats_adversaire, 0, "toujours le tour 1 apres le rejeu -- toujours pas d'attaque adverse")
+	var t2 = combat.play_turn(3)  # cette fois un vrai tour 2
+	assert_gt(t2.degats_adversaire, 0, "vrai tour 2 -- attaque normale de retour")
+
+
+func test_undo_empeche_un_brasier_premature_du_a_un_tour_rejoue():
+	# nœud 97 : si le joueur annule le tour 2 et le rejoue, le brasier
+	# (tous les 3 TOURS) ne doit pas se declencher sur ce tour 2 rejoue --
+	# meme si c'est le 3eme APPEL a play_turn() en comptant l'annulation.
+	var mod = Mods.DegatsPeriodiques.new(3, 3, "billy", false, false)
+	var combat = CombatScript.new(9, 12, 30, 20, {"modificateurs": [mod]})
+	combat.play_turn(3)  # tour 1
+	combat.play_turn(3)  # tour 2 (mauvais jet, le joueur n'est pas content)
+	combat.undo_last_turn()
+	var t2_rejoue = combat.play_turn(5)  # rejoue le tour 2, 3eme appel a play_turn()
+	assert_eq(t2_rejoue.tour, 2, "toujours le tour 2 apres annulation+rejeu")
+	assert_eq(t2_rejoue.degats_supplementaires_adversaire, 0,
+		"le brasier (tous les 3 TOURS) ne doit pas se declencher sur un tour 2, meme rejoue")
+	var t3 = combat.play_turn(3)  # le vrai tour 3
+	assert_eq(t3.degats_supplementaires_adversaire, 3, "le vrai tour 3 declenche bien le brasier")
+
+
+func test_undo_retire_les_degats_cumules_pour_la_decroissance_dhabilete():
+	# nœud 76/155/231/370/518 : annuler un tour qui avait fait franchir le
+	# seuil de degats cumules doit faire disparaitre la decroissance
+	# d'Habileté qui en decoulait. Structure en 3 temps : (1) franchir le
+	# seuil et VERIFIER que la baisse est bien active (sinon le test ne
+	# prouverait rien -- un modificateur jamais implemente donnerait le
+	# meme resultat "pas de baisse" avant ET apres une annulation), puis
+	# (2) annuler et verifier le retour a "pas de baisse".
+	var mod = Mods.HabiliteAdverseDegressiveParDegatsCumules.new(4, 1)
+	var combat = CombatScript.new(9, 12, 30, 100, {"modificateurs": [mod]})
+	var t1 = combat.play_turn(6)  # diff=-3, die=6 -> table[-3][5]=[4,3] : 4 degats (seuil de 4 atteint)
+	assert_eq(t1.degats_billy, 4)
+	# (1) la baisse doit etre ACTIVE ici : die=5 -> diff=-3 donnerait 3,
+	# diff=-2 (baisse active) donne 4.
+	var t2 = combat.play_turn(5)
+	assert_eq(t2.degats_billy, 4, "seuil atteint -- l'Habileté adverse effective a baisse de 1 (diff -3 -> -2)")
+	combat.undo_last_turn()  # annule le tour de verification
+	combat.undo_last_turn()  # annule aussi le tour qui avait fait franchir le seuil
+	assert_eq(combat.get_pv_delta_adversaire(), 0, "apres double annulation, plus aucun degat cumule")
+	# (2) meme jet (die=5) qu'a l'etape "active" -- doit redonner 3
+	# maintenant (diff=-3, plus de baisse), pas 4.
+	var t3 = combat.play_turn(5)
+	assert_eq(t3.degats_billy, 3, "la baisse d'Habileté a disparu avec le tour qui l'avait declenchee")
+
+
+func test_undo_retire_le_gain_dadresse_pour_la_progression_par_degats_cumules():
+	# nœud 370/518 : meme logique que ci-dessus, cote gain d'Adresse de
+	# Billy plutot que perte d'Habileté adverse. Choisi pour que
+	# l'annulation fasse bien REDESCENDRE d'un palier (2 -> 1), pas juste
+	# rester sous un seuil qui n'aurait jamais ete depasse de toute facon.
+	var mod = Mods.AdresseBillyProgressiveParDegatsCumules.new(10, 1)
+	var combat = CombatScript.new(9, 16, 200, 100, {"adresse_billy": 0, "modificateurs": [mod]})
+	for i in range(7):
+		combat.play_turn(6)  # diff=-7, die=6 -> 3 degats/tour, 7 tours = 21 PV cumules (2 paliers de 10 -> adresse effective = 2)
+	var t_avec_esquive = combat.play_turn(3, 2)
+	assert_true(t_avec_esquive.esquive, "21 PV cumules, 2 paliers de 10 -> adresse effective = 2, esquive possible")
+	combat.undo_last_turn()  # annule ce tour de verification (qui a aussi inflige 1 PV, cf table[-7][2])
+	combat.undo_last_turn()  # annule aussi le 7eme tour de degats -- redescend a 18 PV cumules (1 seul palier)
+	var apres = -combat.get_pv_delta_adversaire()
+	assert_true(apres >= 10 and apres < 20, "apres cette double annulation, un seul palier de 10 doit rester")
+	var t_sans_esquive = combat.play_turn(3, 2)  # meme jet d'esquive=2 qu'avant
+	assert_false(t_sans_esquive.esquive, "un seul palier de 10 (adresse effective=1) -- l'esquive redevient impossible")
+
+
+func test_undo_retire_le_malus_dhabilete_si_le_coup_qui_lavait_declenche_est_annule():
+	# nœud 421 : annuler le tour ou Billy a ete touche doit faire
+	# disparaitre le malus d'Habileté qui en decoulait pour la suite.
+	# Meme structure "activer puis annuler" que le test precedent, pour
+	# la meme raison (sinon "pas de malus apres annulation" coinciderait
+	# avec un modificateur jamais implemente).
+	var mod = Mods.MalusHabiliteBillyParCoupRecu.new(1)
+	var combat = CombatScript.new(9, 11, 20, 20, {"modificateurs": [mod]})
+	combat.play_turn(3)  # tour 1, diff=-2, die=3 -> table[-2][2]=[2,4] : Billy touche (4 PV), le malus doit s'activer
+	# (1) le malus doit etre ACTIF ici : die=5 -> diff=-2 donnerait 4,
+	# diff=-3 (malus actif) donne 3.
+	var t2 = combat.play_turn(5)
+	assert_eq(t2.degats_billy, 3, "apres avoir ete touche, l'Habileté de Billy a baisse de 1 (diff -2 -> -3)")
+	combat.undo_last_turn()  # annule le tour de verification
+	combat.undo_last_turn()  # annule aussi le coup qui avait declenche le malus
+	# (2) meme jet (die=5) qu'a l'etape "actif" -- doit redonner 4
+	# maintenant (diff=-2, plus de malus).
+	var t3 = combat.play_turn(5)
+	assert_eq(t3.degats_billy, 4, "le malus a disparu avec le coup qui l'avait declenche")
+
+
+func test_undo_annule_correctement_lattaque_posthume():
+	# nœud 462 : annuler le tour qui a tue l'adversaire doit aussi
+	# annuler l'attaque posthume qui en decoulait.
+	var mod = Mods.AttaquePosthume.new()
+	var combat = CombatScript.new(9, 2, 20, 6, {"modificateurs": [mod]})
+	var t = combat.play_turn(6)  # tue le gobelin -> attaque posthume
+	assert_gt(t.degats_supplementaires_adversaire, 0)
+	combat.undo_last_turn()
+	assert_false(combat.is_over(), "apres annulation, le gobelin n'est plus mort, le combat continue")
+	assert_eq(combat.pv_billy, 20, "l'attaque posthume annulee aussi, PV de Billy restaures a l'etat initial")
+
+
+func test_undo_puis_rejoue_malus_degats_progressif_intangible_recompte_le_bon_tour():
+	# nœud 534 : le malus decroissant (-3/-2/-1/0) suit le NUMERO de tour,
+	# pas le nombre d'appels a play_turn() -- une annulation+rejeu du
+	# tour 2 doit rester au malus du tour 2 (-2), pas glisser au tour 3 (-1).
+	var mod = Mods.Intangible.new(3, 1)
+	var combat = CombatScript.new(8, 8, 20, 30, {"modificateurs": [mod]})
+	var normal = CombatScript.resolve_round(8, 8, 3)['degats_billy']
+	combat.play_turn(3)  # tour 1, malus -3
+	combat.play_turn(3)  # tour 2, malus -2
+	combat.undo_last_turn()  # revient au tour 1
+	var t2_rejoue = combat.play_turn(3)  # rejoue le tour 2
+	assert_eq(t2_rejoue.degats_billy, maxi(0, normal - 2),
+		"toujours le tour 2 apres le rejeu -- malus -2, pas -1 comme si c'etait le tour 3")
+
+
+func test_undo_apres_une_mort_simultanee_tranchee_annule_le_resultat():
+	# nœud 114/422 : annuler le tour qui avait declenche une mort
+	# simultanee doit remettre le combat en cours, pas laisser un vainqueur
+	# "fantome".
+	var mod = Mods.TrancheEgaliteSurMortSimultanee.new("adversaire")
+	var combat = CombatScript.new(9, 10, 3, 3, {"modificateurs": [mod]})
+	combat.play_turn(1)
+	assert_true(combat.is_over())
+	combat.undo_last_turn()
+	assert_false(combat.is_over(), "apres annulation, plus personne n'est mort")
+	assert_null(combat.get_winner())
+
+
+func test_undo_repete_plusieurs_fois_avec_un_modificateur_a_etat():
+	# Rappelable plusieurs fois de suite (deja verrouille sans
+	# modificateur dans test_combat_resolver.gd) -- ici combine a une
+	# regle qui depend des degats cumules, pour verifier que CHAQUE
+	# annulation successive desactive bien le palier correspondant.
+	var mod = Mods.HabiliteAdverseDegressiveParDegatsCumules.new(4, 1)
+	var combat = CombatScript.new(9, 12, 30, 100, {"modificateurs": [mod]})
+	combat.play_turn(6)  # tour 1 : 4 degats cumules (seuil atteint)
+	combat.play_turn(6)  # tour 2 : 8 degats cumules (2eme palier)
+	combat.undo_last_turn()  # revient a 4 PV cumules (1 palier)
+	combat.undo_last_turn()  # revient a 0 PV cumules (aucun palier)
+	assert_eq(combat.get_pv_delta_adversaire(), 0, "deux annulations de suite -- retour complet a l'etat initial")
+	var t = combat.play_turn(5)  # diff=-3 (aucune baisse, aucun palier) -> table[-3][4]=[3,3]
+	assert_eq(t.degats_billy, 3, "sans aucun palier atteint (tout annule), pas de baisse d'Habileté adverse")
