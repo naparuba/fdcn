@@ -173,40 +173,46 @@ func test_node607_victoire_si_billy_survit_8_tours():
 
 func test_node76_habilete_squelettes_baisse_tous_les_4_pv_infliges():
 	# "Tous les 4 PV retirés à l'adversaire, l'ennemi perd 1 HABILETE."
+	# PV adversaire volontairement genereux (100) pour que le combat ne se
+	# termine jamais tout seul pendant qu'on verifie la mecanique.
 	var mod = Mods.HabiliteAdverseDegressiveParDegatsCumules.new(4, 1)
-	var combat = CombatScript.new(9, 12, 30, 20, {"modificateurs": [mod]})
-	# On force manuellement des degats cumules en jouant des tours ; on
-	# verifie que le hab_adversaire EFFECTIF (celui utilise par la table,
-	# pas le hab_adversaire de depart qui doit rester constant) baisse.
+	var combat = CombatScript.new(9, 12, 30, 100, {"modificateurs": [mod]})
 	var hab_avant = combat.hab_adversaire
-	for i in range(4):
-		combat.play_turn(6)  # die=6, bons degats, pour cumuler du dommage rapidement
-	var degats_cumules = -combat.get_pv_delta_adversaire()
-	assert_true(degats_cumules >= 4, "au moins 4 PV infliges apres 4 tours a die=6")
-	# Le champ permanent ne doit jamais changer (contrat documente) :
-	assert_eq(combat.hab_adversaire, hab_avant)
-	# Mais le PROCHAIN tour doit utiliser une Habileté adverse effective
-	# plus basse -- verifiable indirectement via un jet identique donnant
-	# un resultat plus favorable a Billy qu'au tout premier tour.
+	# diff=-3, die=6 -> table[-3][5]=[4,3] : 4 degats infliges en un seul
+	# tour, exactement le seuil (pas besoin de plusieurs tours).
+	var t1 = combat.play_turn(6)
+	assert_eq(t1.degats_billy, 4)
+	assert_eq(combat.hab_adversaire, hab_avant, "le champ permanent ne change jamais")
+	# Jet DIFFERENT choisi pour que diff=-3 et diff=-2 donnent des
+	# degats_billy DIFFERENTS (3 contre 4) -- sans quoi un squelette de test
+	# non implemente (qui ne fait jamais baisser l'Habileté) pourrait
+	# donner par coincidence le meme chiffre que la version implementee.
+	var t2 = combat.play_turn(5)  # sans baisse : table[-3][4]=[3,3]->3 ; avec 1 palier : table[-2][4]=[4,3]->4
+	assert_eq(t2.degats_billy, 4,
+		"apres >=4 PV cumules infliges, l'Habileté adverse effective a baisse de 1 (diff -3 -> -2)")
 
 
 func test_node231_meme_mecanique_hommes_darmes():
 	# Meme regle que 76/155, nœud different ("4 HOMMES D'ARMES").
 	var mod = Mods.HabiliteAdverseDegressiveParDegatsCumules.new(4, 1)
-	var combat = CombatScript.new(9, 11, 30, 16, {"deg_billy": 2, "modificateurs": [mod]})
-	for i in range(4):
-		combat.play_turn(6)
-	assert_true(-combat.get_pv_delta_adversaire() >= 4)
+	var combat = CombatScript.new(9, 11, 30, 100, {"deg_billy": 2, "modificateurs": [mod]})
+	var t1 = combat.play_turn(6)  # diff=-2, die=6 -> table[-2][5]=[5,3] + 2 DEGATS = 7 (>= seuil de 4)
+	assert_eq(t1.degats_billy, 7)
+	# Jet=1 choisi pour distinguer sans ambiguite diff=-2 (table[-2][0]=2)
+	# de diff=-1 (table[-1][0]=3), une fois le DEGATS (+2) ajoute : 4 contre 5.
+	var t2 = combat.play_turn(1)
+	assert_eq(t2.degats_billy, 5, "l'Habileté adverse effective a baisse d'au moins 1 apres les degats cumules")
 
 
 func test_node370_habilete_baisse_tous_les_2_pv():
 	# "tous les 2 PV perdus par l'ennemi lui fait perdre 1 point habileté"
 	# -- meme mecanique que 76, pas different (2 au lieu de 4).
 	var mod = Mods.HabiliteAdverseDegressiveParDegatsCumules.new(2, 1)
-	var combat = CombatScript.new(9, 16, 30, 30, {"modificateurs": [mod]})
-	for i in range(3):
-		combat.play_turn(6)
-	assert_true(-combat.get_pv_delta_adversaire() >= 2)
+	var combat = CombatScript.new(9, 16, 30, 100, {"modificateurs": [mod]})
+	var t1 = combat.play_turn(6)  # diff=-7, die=6 -> table[-7][5]=[3,4] : 3 degats infliges (>= seuil de 2)
+	assert_eq(t1.degats_billy, 3)
+	var t2 = combat.play_turn(1)  # sans baisse : diff=-7, table[-7][0]=[0,12]->0 ; avec 1 palier : diff=-6, table[-6][0]=[1,8]->1
+	assert_eq(t2.degats_billy, 1, "apres >=2 PV cumules, l'Habileté adverse effective a baisse de 1 (diff -7 -> -6)")
 
 
 # =========================================================================
@@ -215,17 +221,26 @@ func test_node370_habilete_baisse_tous_les_2_pv():
 
 func test_node370_adresse_regagnee_tous_les_10_pv_infliges():
 	# "regagnez 1 adresse tous les 10 PVs perdus par l'ennemi" (en plus du
-	# malus -3 initial d'encerclement, cote appelant).
+	# malus -3 initial d'encerclement, cote appelant). Ici adresse_billy de
+	# base = 0 (deja sous le seuil de 2 necessaire a l'esquive) : il faut
+	# 2 paliers de 10 PV (20 PV cumules) pour que l'esquive redevienne
+	# possible -- verifiable sans ambiguite via un jet d'esquive fourni.
 	var mod = Mods.AdresseBillyProgressiveParDegatsCumules.new(10, 1)
-	var combat = CombatScript.new(9, 16, 30, 30, {"adresse_billy": 0, "modificateurs": [mod]})
+	# pv_billy tres genereux (200) : le diff est defavorable a Billy (-7),
+	# donc il encaisse aussi beaucoup en attendant d'accumuler 20 PV
+	# infliges.
+	var combat = CombatScript.new(9, 16, 200, 100, {"adresse_billy": 0, "modificateurs": [mod]})
 	var adresse_avant = combat.adresse_billy
-	for i in range(6):
-		combat.play_turn(6)
-	assert_true(-combat.get_pv_delta_adversaire() >= 10, "au moins 10 PV infliges")
+	for i in range(4):
+		combat.play_turn(6)  # diff=-7, die=6 -> 3 degats/tour, 4 tours = 12 PV cumules (1 palier de 10 atteint)
+	assert_true(-combat.get_pv_delta_adversaire() >= 10 and -combat.get_pv_delta_adversaire() < 20)
 	assert_eq(combat.adresse_billy, adresse_avant, "le champ permanent ne change jamais")
-	# L'Adresse EFFECTIVE du tour suivant doit avoir augmente d'au moins 1 --
-	# verifiable en observant qu'une esquive redevient possible (adresse
-	# effective >= 2) alors que adresse_billy de base etait a 0.
+	var t_pas_encore = combat.play_turn(3, 2)  # jet d'esquive=2 ; adresse effective = 0+1 = 1, encore <2
+	assert_false(t_pas_encore.esquive, "un seul palier de 10 atteint (adresse effective=1), pas encore d'esquive possible")
+	for i in range(3):
+		combat.play_turn(6)  # 3 tours supplementaires = 9 PV de plus, total >=20 PV cumules (2 paliers)
+	var t_esquive = combat.play_turn(3, 2)  # meme jet d'esquive=2 ; adresse effective = 0+2 = 2 desormais
+	assert_true(t_esquive.esquive, "apres >=20 PV cumules infliges, l'Adresse effective de Billy = 2, l'esquive redevient possible")
 
 
 # =========================================================================
@@ -258,19 +273,41 @@ func test_node97_brasier_touche_meme_un_paysan_malgre_son_plafond():
 	assert_eq(t3.degats_supplementaires_adversaire, 3, "le brasier n'est pas plafonne par le pouvoir du PAYSAN")
 
 
-func test_node97_brasier_esquivable_mais_sans_contre_attaque_critique():
-	# "Vous pouvez tenter de l'esquiver comme une attaque normale si vous
-	# disposez d'assez d'adresse SANS TOUTEFOIS pouvoir effectuer de
-	# contre attaque critique sur cette esquive."
+func test_node97_brasier_esquive_ratee_inflige_les_degats():
+	# Contrepartie indispensable du test "esquive reussie" ci-dessous :
+	# sans un cas ou l'esquive du brasier RATE, impossible de distinguer
+	# "le brasier est bien esquivable" de "le brasier ne s'applique jamais".
 	var mod = Mods.DegatsPeriodiques.new(3, 3, "billy", true, false)
 	var combat = CombatScript.new(9, 12, 30, 20, {"adresse_billy": 3, "modificateurs": [mod]})
 	combat.play_turn(3, 3)
 	combat.play_turn(3, 3)
-	# jet d'esquive du brasier = 1 (reussirait normalement une
-	# contre-attaque critique sur l'esquive PRINCIPALE, mais pas ici)
-	var t3 = combat.play_turn(3, 3)
-	assert_eq(t3.degats_supplementaires_adversaire, 0, "esquive du brasier reussie")
-	assert_eq(t3.degats_supplementaires_billy, 0, "jamais de contre-attaque critique sur ce jet-la")
+	var t3 = combat.play_turn(3, 5)  # jet d'esquive du brasier = 5 > Adresse (3) -> rate
+	assert_eq(t3.degats_supplementaires_adversaire, 3, "esquive du brasier ratee, les 3 PV s'appliquent")
+
+
+func test_node97_brasier_esquive_reussie_annule_les_degats():
+	# "Vous pouvez tenter de l'esquiver comme une attaque normale si vous
+	# disposez d'assez d'adresse."
+	var mod = Mods.DegatsPeriodiques.new(3, 3, "billy", true, false)
+	var combat = CombatScript.new(9, 12, 30, 20, {"adresse_billy": 3, "modificateurs": [mod]})
+	combat.play_turn(3, 3)
+	combat.play_turn(3, 3)
+	var t3 = combat.play_turn(3, 2)  # jet d'esquive du brasier = 2 <= Adresse (3) -> reussi
+	assert_eq(t3.degats_supplementaires_adversaire, 0, "esquive du brasier reussie, aucun degat")
+
+
+func test_node97_brasier_esquive_reussie_sur_un_1_ne_donne_jamais_de_contre_attaque_critique():
+	# "SANS TOUTEFOIS pouvoir effectuer de contre attaque critique sur
+	# cette esquive" -- meme un jet de 1 (qui declenche normalement une
+	# contre-attaque critique sur l'esquive PRINCIPALE) ne doit rien
+	# infliger de plus ici.
+	var mod = Mods.DegatsPeriodiques.new(3, 3, "billy", true, false)
+	var combat = CombatScript.new(9, 12, 30, 20, {"adresse_billy": 3, "modificateurs": [mod]})
+	combat.play_turn(3, 3)
+	combat.play_turn(3, 3)
+	var t3 = combat.play_turn(3, 1)  # jet d'esquive du brasier = 1
+	assert_eq(t3.degats_supplementaires_adversaire, 0, "esquive reussie")
+	assert_eq(t3.degats_supplementaires_billy, 0, "jamais de contre-attaque critique sur ce jet-la, meme sur un 1")
 
 
 func test_node286_1pv_perdu_automatiquement_chaque_tour():
@@ -359,13 +396,17 @@ func test_node240_guepe_fin_de_combat_a_3pv_ou_moins():
 
 
 func test_node350_dragon_fin_de_combat_a_20pv_ou_moins():
+	# diff=9+3(pyro)-15=-3, die=6 -> table[-3][5]=[4,3] : 4 degats/tour.
+	# 5 tours = exactement 20 PV infliges sur les 40 du dragon -- SANS le
+	# modificateur, il resterait 20 PV (>0, combat pas fini). Le seuil
+	# doit forcer la fin ici, pas une depletion naturelle (qui prendrait
+	# 10 tours) : la boucle s'arrete volontairement a 5, bien avant.
 	var mod = Mods.SeuilPV.new(20, "fin_combat_victoire")
 	var combat = CombatScript.new(9, 15, 40, 40, {"pyro_bonus": 3, "modificateurs": [mod]})
-	for i in range(10):
-		if combat.is_over():
-			break
+	for i in range(5):
 		combat.play_turn(6)
-	assert_true(combat.is_over())
+	assert_eq(combat.pv_adversaire, 20, "exactement au seuil, PAS a 0 -- la fin doit venir du seuil, pas des PV")
+	assert_true(combat.is_over(), "le seuil de 20 PV doit forcer la fin du combat des ce tour")
 	assert_eq(combat.get_winner(), "billy")
 
 
@@ -414,26 +455,32 @@ func test_node162_contre_attaque_critique_sans_le_bonus_de_critique():
 
 func test_node339_vampiresse_regenere_sur_1_ou_2():
 	# "Si votre dé fait un 1 ou un 2 durant votre phase d'attaque, elle ne
-	# prends aucun dégât et regnère 1 point de vie."
+	# prends aucun dégât et regnère 1 point de vie." -- hab choisis pour
+	# que degats_billy soit NATURELLEMENT non-nul sur ce jet (diff=7,
+	# die=1 -> table[7][0]=4), pour que "0 degat" prouve reellement que la
+	# regeneration a coupe l'attaque, pas juste une coincidence de table.
 	var mod = Mods.RegenerationSurDe.new([1, 2], 1, false)
-	var combat = CombatScript.new(9, 20, 20, 20, {"modificateurs": [mod]})
+	var combat = CombatScript.new(15, 5, 20, 20, {"modificateurs": [mod]})
 	var t = combat.play_turn(1)
-	assert_eq(t.degats_billy, 0)
-	assert_eq(combat.pv_adversaire, 21, "regenere 1 PV au lieu d'en perdre")
+	assert_eq(t.degats_billy, 0, "die=1 -> regeneration, alors que 4 degats seraient infliges normalement")
+	assert_eq(combat.pv_adversaire, 21, "regenere 1 PV au lieu d'en perdre 4")
 
 
 func test_node339_regeneration_desactivee_par_le_medaillon():
 	# "si vous avez le petit medaillon d'Atella ou le medallon de RUNIR,
-	# sa régénération est annulée."
+	# sa régénération est annulée." -- avec la desactivation, le
+	# comportement doit redevenir un combat tout a fait normal (4 degats
+	# infliges, pas de regen), pas juste "different de 21".
 	var mod = Mods.RegenerationSurDe.new([1, 2], 1, true)  # desactivee=true (le joueur a le medaillon)
-	var combat = CombatScript.new(9, 20, 20, 20, {"modificateurs": [mod]})
+	var combat = CombatScript.new(15, 5, 20, 20, {"modificateurs": [mod]})
 	var t = combat.play_turn(1)
-	assert_ne(combat.pv_adversaire, 21, "pas de regeneration, medaillon possede")
+	assert_eq(t.degats_billy, 4, "medaillon possede : degats normaux (4), pas de regeneration")
+	assert_eq(combat.pv_adversaire, 16, "PV bien reduits de 4, pas de regen malgre le jet de 1")
 
 
 func test_node339_pas_de_regeneration_sur_un_autre_jet():
 	var mod = Mods.RegenerationSurDe.new([1, 2], 1, false)
-	var combat = CombatScript.new(9, 20, 20, 20, {"modificateurs": [mod]})
+	var combat = CombatScript.new(15, 5, 20, 20, {"modificateurs": [mod]})
 	var t = combat.play_turn(5)
 	assert_gt(t.degats_billy, 0, "jet de 5 -> degats normaux, pas de regeneration")
 
@@ -501,12 +548,18 @@ func test_node575_habilete_normale_a_partir_du_deuxieme_tour():
 
 func test_node421_habilete_de_billy_baisse_a_chaque_coup_recu():
 	# "chaque fois que vous recevez des dégâts, -1 Habileté pour ce combat."
+	# Jet=5 choisi pour le tour 2 : table[-2][4]=[4,3] (degats_billy=4)
+	# contre table[-3][4]=[3,3] (degats_billy=3) -- les deux DIFFERENT,
+	# contrairement au jet=3 utilise initialement ou table[-2][2] et
+	# table[-3][2] valent toutes les deux 2 (coincidence qui rendait ce
+	# test vert sans que le malus soit reellement applique).
 	var mod = Mods.MalusHabiliteBillyParCoupRecu.new(1)
 	var combat = CombatScript.new(9, 11, 20, 20, {"modificateurs": [mod]})
-	combat.play_turn(3)  # devrait infliger des degats a Billy -> -1 Habileté effective ensuite
-	var t2 = combat.play_turn(3)
-	# diff attendu au tour 2 : hab_billy=9-1=8 vs hab_adversaire=11 -> diff=-3
-	assert_eq(t2.degats_billy, CombatScript.SITUATION_TABLE[-3][2][0])
+	var t1 = combat.play_turn(3)  # diff=-2 (aucun malus encore), die=3 -> table[-2][2]=[2,4] : Billy subit 4 PV
+	assert_gt(t1.degats_adversaire, 0, "le premier coup doit bien toucher Billy pour declencher le malus")
+	var t2 = combat.play_turn(5)
+	assert_eq(t2.degats_billy, 3,
+		"apres avoir ete touche une fois, l'Habileté de Billy a baisse de 1 (diff -2 -> -3, table[-3][4]=3 au lieu de table[-2][4]=4)")
 
 
 func test_node421_billy_ne_meurt_jamais_dans_ce_combat():
