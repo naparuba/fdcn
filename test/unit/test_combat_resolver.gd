@@ -134,4 +134,91 @@ func test_play_turn_after_the_end_returns_null_and_logs_an_error():
 func test_play_turn_without_a_die_roll_uses_a_random_one_in_range():
 	var combat = CombatScript.new(5, 5, 100, 100)
 	var r = combat.play_turn()
-	assert_true(r['die_roll'] >= 1 and r['die_roll'] <= 6)
+	assert_true(r['attack_die_roll'] >= 1 and r['attack_die_roll'] <= 6)
+
+
+# --- Armure, Esquive, Contre-Attaque Critique, plafond PAYSAN, Pyro-Barbare
+
+func test_armure_reduces_incoming_damage_one_for_one():
+	var combat = CombatScript.new(5, 5, 20, 20, {"armure_billy": 2})
+	var r = combat.play_turn(1)  # diff=0, die=1 => brut 3--5, Billy a 2 Armure
+	assert_eq(r['degats_adversaire'], 3, "5 degats bruts - 2 Armure = 3")
+	assert_eq(r['degats_billy'], 3, "l'Armure de Billy ne change pas ce qu'il infligé")
+
+
+func test_armure_never_makes_damage_negative():
+	var combat = CombatScript.new(5, 5, 20, 20, {"armure_billy": 99})
+	var r = combat.play_turn(1)
+	assert_eq(r['degats_adversaire'], 0)
+
+
+func test_armure_adversaire_reduces_billys_outgoing_damage():
+	var combat = CombatScript.new(5, 5, 20, 20, {"armure_adversaire": 2})
+	var r = combat.play_turn(1)  # brut 3--5
+	assert_eq(r['degats_billy'], 1, "3 degats bruts - 2 Armure = 1")
+
+
+func test_esquive_is_not_attempted_below_2_adresse():
+	var combat = CombatScript.new(5, 5, 20, 20, {"adresse_billy": 1})
+	assert_false(combat.peut_esquiver())
+	var r = combat.play_turn(1, 1)  # jet d'esquive fourni par erreur, doit etre ignore
+	assert_false(r['esquive'])
+	assert_null(r['esquive_die_roll'])
+	assert_eq(r['degats_adversaire'], 5, "sans esquive possible, les degats bruts s'appliquent normalement")
+
+
+func test_esquive_succeeds_when_the_roll_is_at_or_under_adresse():
+	var combat = CombatScript.new(5, 5, 20, 20, {"adresse_billy": 3})
+	var r = combat.play_turn(1, 3)  # jet d'esquive = 3 <= Adresse (3)
+	assert_true(r['esquive'])
+	assert_eq(r['degats_adversaire'], 0)
+	assert_false(r['contre_attaque_critique'])
+
+
+func test_esquive_fails_when_the_roll_is_over_adresse():
+	var combat = CombatScript.new(5, 5, 20, 20, {"adresse_billy": 2})
+	var r = combat.play_turn(1, 4)  # jet d'esquive = 4 > Adresse (2)
+	assert_false(r['esquive'])
+	assert_eq(r['degats_adversaire'], 5, "brut normal, l'esquive a echoue")
+
+
+func test_esquive_roll_of_1_triggers_a_critical_counter_attack():
+	# diff=0 (hab 5 vs 5) : degats max (die=6) => 5--3, +2 de Critique
+	var combat = CombatScript.new(5, 5, 20, 20, {"adresse_billy": 3, "critique_billy": 2})
+	var r = combat.play_turn(1, 1)  # jet d'esquive = 1
+	assert_true(r['esquive'])
+	assert_true(r['contre_attaque_critique'])
+	assert_eq(r['degats_adversaire'], 0, "l'esquive s'applique toujours, aucun degat subi")
+	assert_eq(r['degats_billy'], 7, "degats max (5) + Critique (2) = 7")
+
+
+func test_critical_counter_attack_ignores_the_adversaires_armure():
+	var combat = CombatScript.new(5, 5, 20, 20, {
+		"adresse_billy": 3, "critique_billy": 2, "armure_adversaire": 99,
+	})
+	var r = combat.play_turn(1, 1)
+	assert_eq(r['degats_billy'], 7, "l'Armure adverse (99) est ignoree par la contre-attaque critique")
+
+
+func test_plafond_degats_subis_caps_incoming_damage_after_armure():
+	# diff=-7, die=1 => brut 0--12. 2 Armure -> 10. Plafond PAYSAN (3) -> 3.
+	var combat = CombatScript.new(1, 8, 20, 20, {"armure_billy": 2, "plafond_degats_subis_billy": 3})
+	var r = combat.play_turn(1)
+	assert_eq(r['degats_adversaire'], 3, "le plafond s'applique APRES l'Armure (12-2=10, plafonne a 3)")
+
+
+func test_plafond_degats_subis_does_not_raise_damage_below_it():
+	var combat = CombatScript.new(5, 5, 20, 20, {"plafond_degats_subis_billy": 3})
+	var r = combat.play_turn(3)  # diff=0, die=3 => brut 3--3
+	assert_eq(r['degats_adversaire'], 3, "deja sous le plafond, rien ne change")
+
+
+func test_pyro_bonus_is_added_to_billys_habilete_for_the_whole_combat():
+	# Sans bonus, hab_billy=1 vs hab_adversaire=5 => diff=-4. Avec +4 de
+	# Pyro-Barbare, hab_billy effectif=5 => diff=0.
+	var combat = CombatScript.new(1, 5, 20, 20, {"pyro_bonus": 4})
+	assert_eq(combat.hab_billy, 5)
+	var r = combat.play_turn(1)  # diff=0, die=1 => 3--5
+	assert_eq(r['degats_billy'], 3)
+	assert_eq(r['degats_adversaire'], 5)
+	assert_eq(CombatScript.clamp_diff(combat.hab_billy - combat.hab_adversaire), 0)
