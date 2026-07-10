@@ -505,3 +505,57 @@ func test_full_combat_debrouillard_arc_marmite_kit_descalade_vs_sergent_darme():
 	assert_eq(combat.get_winner(), "billy")
 	assert_eq(combat.pv_billy, 9, "esquive integrale sur les 4 tours -- aucun degat subi de bout en bout")
 	assert_eq(combat.tour, 4)
+
+
+# --- Et quand Billy PERD : deux mecaniques differentes, deux archetypes
+# differents. Le combat ne garantit jamais la victoire -- ces tests
+# verrouillent que la defaite marche correctement (get_winner, PV a 0)
+# tout autant que la victoire.
+
+func test_full_combat_debrouillard_loses_to_two_failed_dodges_in_a_row():
+	# Meme DEBROUILLARD que le test precedent (adresse=5, donc 5/6 de
+	# chances d'esquiver chaque tour), mais desormais malchanceux : deux
+	# jets d'esquive a 6 de suite (le seul echec possible) sur des jets
+	# d'attaque faibles (die=1, table diff=-3 => 2--6). Documente
+	# precisement ce que le guide decrit ("le vent tourne en sa
+	# defaveur... une attaque finit par passer... lui arrachant la moitie
+	# voire la totalite de ses PV") : sa reserve de PV (9, la plus basse
+	# des 5 archetypes) ne pardonne pas deux echecs consecutifs.
+	var combat = CombatScript.new(5, 8, 9, 12, {
+		"adresse_billy": 5, "critique_billy": 4, "armure_billy": 1,
+		"armure_adversaire": 1, "deg_adversaire": 1,
+	})
+	var t1 = combat.play_turn(1, 6)  # esquive ratee (6 > 5)
+	assert_false(t1.esquive)
+	assert_eq(t1.degats_adversaire, 6, "table(diff=-3,die=1)=6, +1 DEGATS adverse -1 Armure = 6")
+	assert_eq(combat.pv_billy, 3)
+
+	var t2 = combat.play_turn(1, 6)  # esquive ratee une seconde fois
+	assert_false(t2.esquive)
+	assert_true(combat.is_over())
+	assert_eq(combat.get_winner(), "adversaire",
+		"9 PV ne survivent pas a deux echecs d'esquive consecutifs, malgre 5/6 de reussite par tour")
+	assert_eq(combat.pv_billy, 0)
+
+
+func test_full_combat_guerrier_loses_to_virilus_without_the_pyro_barbare():
+	# Meme GUERRIER equipe (Epee+Morgenstern+Marmite, hab=9) que le test de
+	# victoire, mais desormais face a VIRILUS (noeud 607, le seigneur noir,
+	# hab=24, pv=20, arm=1, deg=1) SANS l'aide du Pyro-Barbare sur ce
+	# combat precis (pyro=0 pour ce noeud). diff=-15, plafonne a -7
+	# (Desavantage Lourd) : exactement la situation inverse de la
+	# DOMINATION que le GUERRIER inflige d'habitude -- ici il la subit.
+	# N'ayant ni Adresse suffisante pour esquiver (1 < 2) ni de plafond de
+	# degats subis (contrairement au PAYSAN), rien ne le protege.
+	var combat = CombatScript.new(9, 24, 15, 20, {"deg_billy": 2, "armure_billy": 1, "armure_adversaire": 1})
+	assert_eq(CombatScript.clamp_diff(combat.hab_billy - combat.hab_adversaire), -7)
+	assert_false(combat.peut_esquiver(), "hab=9 mais Adresse=1 (jamais boostee sur ce build) -- aucune protection")
+
+	combat.play_turn(3)
+	combat.play_turn(5)
+	combat.play_turn(2)
+	assert_true(combat.is_over())
+	assert_eq(combat.get_winner(), "adversaire",
+		"le meme GUERRIER qui ecrasait les Orcs en 2 tours se fait ecraser a son tour sans le Pyro-Barbare")
+	assert_eq(combat.pv_billy, 0)
+	assert_eq(combat.pv_adversaire, 14, "Virilus finit le combat a 14/20 PV, largement invaincu")
