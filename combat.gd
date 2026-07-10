@@ -1,5 +1,7 @@
 extends RefCounted
 
+const CombatModificateurs = preload('res://combat_modificateurs.gd')
+
 # Composant de resolution de combat, base sur la "Table des Situations"
 # officielle du livre-jeu (fiche PDF/PNG fournie par l'auteur, cf
 # https://saga-de-billy.fandom.com/fr/wiki/Fichier:SDB_Table_des_Situations.png
@@ -57,10 +59,22 @@ extends RefCounted
 #   pas non plus au cote qui vient d'esquiver (une esquive reussie annule
 #   integralement l'attaque, DEGATS inclus).
 #
-# PAS COUVERT (aucune donnee/formule sourcee) : esquive ou contre-attaque
-# critique cote adversaire (mentionnee en prose pour certains ennemis,
-# mais chapter_data.gd n'expose aucune ADRESSE/CRITIQUE d'adversaire pour
-# l'appliquer -- a activer si cette donnee est un jour sourcee).
+# PAS COUVERT PAR DEFAUT (aucune donnee generique sourcee) : esquive ou
+# contre-attaque critique cote adversaire -- mais voir "Modificateurs"
+# ci-dessous, qui couvrent ces cas nœud par nœud une fois sourcees.
+#
+# --- Modificateurs (regles SPECIFIQUES a un combat precis, cf
+# COMBATS_REGLES_SPECIALES.md) : contrairement aux mecaniques ci-dessus
+# (universelles, valables partout), le Tome 1 a 42 combats sur 45 avec au
+# moins une regle propre (gnoll qui divise l'Habileté, adversaire qui
+# esquive sur un jet pair, effet declenche tous les 3 tours...). Plutot
+# qu'une sous-classe de Combat par nœud (autant de quasi-doublons de
+# play_turn()), chaque regle est un petit objet Modificateur (cf
+# combat_modificateurs.gd) attache via opts.modificateurs, appele a des
+# points d'accroche fixes dans play_turn()/is_over()/get_winner(). Les
+# memes classes se reutilisent tel quel entre plusieurs combats (ex.
+# EsquiveAdverseSurDe couvre 6 nœuds differents avec un predicat different
+# a chaque fois).
 #
 # --- Contrat avec l'appelant (important pour l'integration future dans
 # main.gd/player.gd) :
@@ -172,6 +186,13 @@ class EtatTour:
 	var contre_attaque_critique := false
 	var degats_billy := 0
 	var degats_adversaire := 0
+	# Degats supplementaires appliques par un Modificateur APRES la
+	# resolution normale du tour (ex: brasier periodique tous les 3
+	# tours) -- distincts de degats_billy/degats_adversaire pour qu'un
+	# test puisse verifier separement "le tour normal" et "l'effet
+	# special", cf DegatsPeriodiques dans combat_modificateurs.gd.
+	var degats_supplementaires_billy := 0
+	var degats_supplementaires_adversaire := 0
 
 	func _init(p_tour, p_billy, p_adversaire):
 		self.tour = p_tour
@@ -200,6 +221,7 @@ var deg_billy = 0
 var deg_adversaire = 0
 var pyro_bonus = 0
 var plafond_degats_subis_billy = null  # ex: 3 pour un Billy PAYSAN
+var modificateurs: Array = []  # Array[Modificateur], cf combat_modificateurs.gd
 
 var _etat_initial: EtatTour
 var pile: Array = []  # Array[EtatTour], un par tour joue, empile dans l'ordre
@@ -209,7 +231,9 @@ var pile: Array = []  # Array[EtatTour], un par tour joue, empile dans l'ordre
 #   armure_billy, armure_adversaire, adresse_billy, critique_billy,
 #   deg_billy, deg_adversaire, pyro_bonus (ajoute a p_hab_billy pour toute
 #   la duree du combat), plafond_degats_subis_billy (ex: 3 pour un Billy
-#   PAYSAN, applique apres l'Armure).
+#   PAYSAN, applique apres l'Armure), modificateurs (Array d'instances
+#   Modificateur, cf combat_modificateurs.gd, pour les regles specifiques
+#   a CE combat precis).
 func _init(p_hab_billy, p_hab_adversaire, p_pv_billy, p_pv_adversaire, opts = {}):
 	self.pyro_bonus = opts.get('pyro_bonus', 0)
 	self.hab_billy = p_hab_billy + self.pyro_bonus
@@ -221,6 +245,7 @@ func _init(p_hab_billy, p_hab_adversaire, p_pv_billy, p_pv_adversaire, opts = {}
 	self.deg_billy = opts.get('deg_billy', 0)
 	self.deg_adversaire = opts.get('deg_adversaire', 0)
 	self.plafond_degats_subis_billy = opts.get('plafond_degats_subis_billy', null)
+	self.modificateurs = opts.get('modificateurs', [])
 	self._etat_initial = EtatTour.new(0, EtatCombattant.new(p_pv_billy), EtatCombattant.new(p_pv_adversaire))
 
 
@@ -242,16 +267,42 @@ var tour: int:
 	get: return self.etat_courant().tour
 
 
+func _billy_peut_perdre():
+	for m in self.modificateurs:
+		if !m.billy_peut_perdre(self):
+			return false
+	return true
+
+
+func _vainqueur_force_par_modificateur():
+	for m in self.modificateurs:
+		var force = m.vainqueur_force(self)
+		if force != null:
+			return force
+	return null
+
+
 func is_over():
-	return self.pv_billy <= 0 or self.pv_adversaire <= 0
+	if self.pv_adversaire <= 0:
+		return true
+	if self.pv_billy <= 0 and self._billy_peut_perdre():
+		return true
+	return self._vainqueur_force_par_modificateur() != null
 
 
 # Retourne "billy", "adversaire", "egalite" (les deux tombent le meme
 # tour) ou null si le combat n'est pas encore termine.
 func get_winner():
+	var force = self._vainqueur_force_par_modificateur()
+	if force != null:
+		return force
 	if !self.is_over():
 		return null
 	if self.pv_billy <= 0 and self.pv_adversaire <= 0:
+		for m in self.modificateurs:
+			var tranche = m.tranche_egalite(self)
+			if tranche != null:
+				return tranche
 		return "egalite"
 	elif self.pv_adversaire <= 0:
 		return "billy"
@@ -292,9 +343,11 @@ func undo_last_turn() -> EtatTour:
 	return self.pile.pop_back()
 
 
-# Joue un tour complet : jet d'attaque, puis jet d'esquive de Billy si son
-# ADRESSE le permet, application de l'Armure et du plafond de degats subis
-# (PAYSAN). Les deux jets sont optionnels (roll_die() par defaut) pour
+# Joue un tour complet : recalcul des stats effectives du tour (via les
+# Modificateurs), jet d'attaque, esquive adverse eventuelle, esquive de
+# Billy si son ADRESSE le permet, application de l'Armure et du plafond
+# de degats subis (PAYSAN), puis effets apres-tour (brasiers periodiques,
+# etc.). Les deux jets sont optionnels (roll_die() par defaut) pour
 # permettre des tours deterministes en test. Empile un nouvel EtatTour
 # (copie de l'etat precedent + les degats de ce tour) -- ne modifie jamais
 # un EtatTour deja empile.
@@ -305,33 +358,78 @@ func play_turn(attack_die_roll = null, esquive_die_roll = null) -> EtatTour:
 	if attack_die_roll == null:
 		attack_die_roll = roll_die()
 	var precedent = self.etat_courant()
+	var numero_tour = precedent.tour + 1
 
-	var base = resolve_round(self.hab_billy, self.hab_adversaire, attack_die_roll)
-	var degats_billy_bruts = base['degats_billy']  # subis par l'adversaire
+	# Stats effectives POUR CE TOUR SEULEMENT (les modificateurs peuvent
+	# les faire varier tour apres tour -- ex: Habileté adverse qui
+	# decroit avec les degats cumules -- sans jamais modifier les champs
+	# permanents hab_billy/hab_adversaire/adresse_billy).
+	var hab_billy_tour = self.hab_billy
+	var hab_adversaire_tour = self.hab_adversaire
+	var adresse_billy_tour = self.adresse_billy
+	for m in self.modificateurs:
+		hab_billy_tour = m.hab_billy_pour_ce_tour(self, hab_billy_tour, numero_tour)
+		hab_adversaire_tour = m.hab_adversaire_pour_ce_tour(self, hab_adversaire_tour, numero_tour)
+		adresse_billy_tour = m.adresse_billy_pour_ce_tour(self, adresse_billy_tour, numero_tour)
+
+	var adversaire_esquive_normale = false
+	for m in self.modificateurs:
+		if m.adversaire_esquive_attaque_normale(self, attack_die_roll, numero_tour):
+			adversaire_esquive_normale = true
+
+	var base = resolve_round(hab_billy_tour, hab_adversaire_tour, attack_die_roll)
+	var degats_billy_bruts = 0 if adversaire_esquive_normale else base['degats_billy']  # subis par l'adversaire
 	var degats_adversaire_bruts = base['degats_adversaire']  # subis par Billy
+
+	var traitement_critique = CombatModificateurs.Modificateur.CRITIQUE_NORMAL
+	for m in self.modificateurs:
+		var t = m.traitement_critique(self, numero_tour)
+		if t != CombatModificateurs.Modificateur.CRITIQUE_NORMAL:
+			traitement_critique = t
 
 	var esquive = false
 	var contre_attaque_critique = false
-	if self.peut_esquiver():
+	if adresse_billy_tour >= 2:
 		if esquive_die_roll == null:
 			esquive_die_roll = roll_die()
-		if esquive_die_roll <= self.adresse_billy:
+		if esquive_die_roll <= adresse_billy_tour:
 			esquive = true
 			degats_adversaire_bruts = 0
-			if esquive_die_roll == 1:
-				contre_attaque_critique = true
-				var degats_max = resolve_round(self.hab_billy, self.hab_adversaire, 6)['degats_billy']
-				degats_billy_bruts = degats_max + self.critique_billy
+			if esquive_die_roll == 1 and !adversaire_esquive_normale:
+				var degats_max = resolve_round(hab_billy_tour, hab_adversaire_tour, 6)['degats_billy']
+				match traitement_critique:
+					CombatModificateurs.Modificateur.CRITIQUE_IMMUNITE_TOTALE:
+						degats_billy_bruts = 0
+					CombatModificateurs.Modificateur.CRITIQUE_SANS_BONUS:
+						contre_attaque_critique = true
+						degats_billy_bruts = degats_max
+					_:
+						contre_attaque_critique = true
+						degats_billy_bruts = degats_max + self.critique_billy
 	else:
 		esquive_die_roll = null  # pas de tentative -- ignore un jet fourni par erreur
 
 	# DEGATS : bonus plat sur une attaque normale uniquement -- ni sur la
 	# contre-attaque critique (formule sourcee = degats max + Critique,
 	# rien de plus), ni sur le cote qui vient d'esquiver (0 reste 0).
-	if !contre_attaque_critique:
+	if !contre_attaque_critique and !adversaire_esquive_normale:
 		degats_billy_bruts += self.deg_billy
 	if !esquive:
 		degats_adversaire_bruts += self.deg_adversaire
+
+	# Point d'accroche des Modificateurs restants (bonus/malus divers sur
+	# les degats bruts : bonus sur un jet precis, seuil de PV, absence
+	# d'attaque un tour donne, regeneration conditionnelle, intangibilite...).
+	# Applique APRES tout ce qui precede, AVANT Armure/plafond.
+	var contexte = {
+		"attack_die_roll": attack_die_roll, "esquive_die_roll": esquive_die_roll,
+		"esquive": esquive, "contre_attaque_critique": contre_attaque_critique,
+		"adversaire_esquive_normale": adversaire_esquive_normale, "tour": numero_tour,
+	}
+	for m in self.modificateurs:
+		var paire = m.modifie_degats_bruts(self, degats_billy_bruts, degats_adversaire_bruts, contexte)
+		degats_billy_bruts = paire[0]
+		degats_adversaire_bruts = paire[1]
 
 	# La contre-attaque critique ignore l'Armure adverse (regle sourcee) ;
 	# une attaque normale la subit normalement.
@@ -343,7 +441,7 @@ func play_turn(attack_die_roll = null, esquive_die_roll = null) -> EtatTour:
 
 	var nouveau_billy = EtatCombattant.new(maxi(0, precedent.billy.pv - degats_adversaire_final))
 	var nouvel_adversaire = EtatCombattant.new(maxi(0, precedent.adversaire.pv - degats_billy_final))
-	var nouveau_tour = EtatTour.new(precedent.tour + 1, nouveau_billy, nouvel_adversaire)
+	var nouveau_tour = EtatTour.new(numero_tour, nouveau_billy, nouvel_adversaire)
 	nouveau_tour.attack_die_roll = attack_die_roll
 	nouveau_tour.esquive_die_roll = esquive_die_roll
 	nouveau_tour.esquive = esquive
@@ -352,4 +450,16 @@ func play_turn(attack_die_roll = null, esquive_die_roll = null) -> EtatTour:
 	nouveau_tour.degats_adversaire = degats_adversaire_final
 
 	self.pile.append(nouveau_tour)
+
+	# Effets apres-tour (brasiers periodiques, attaque posthume...) :
+	# peuvent infliger des degats SUPPLEMENTAIRES, distincts du tour
+	# normal ci-dessus, une fois celui-ci deja empile.
+	for m in self.modificateurs:
+		var extra = m.effet_apres_tour(self, nouveau_tour)
+		if extra != null:
+			nouveau_tour.degats_supplementaires_billy += extra.get('billy', 0)
+			nouveau_tour.degats_supplementaires_adversaire += extra.get('adversaire', 0)
+			nouvel_adversaire.pv = maxi(0, nouvel_adversaire.pv - extra.get('billy', 0))
+			nouveau_billy.pv = maxi(0, nouveau_billy.pv - extra.get('adversaire', 0))
+
 	return nouveau_tour
