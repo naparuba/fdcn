@@ -127,7 +127,12 @@ func test_node36_defaite_si_massacre_pas_vaincu_en_5_tours():
 	# "Si non surpris, vous ne disposez que de 5 tours. À l'issue de cette
 	# limite de temps, ses renforts vous encerclent et vous achèvent."
 	var mod = Mods.LimiteDeTours.new(5, "adversaire")
-	var combat = CombatScript.new(1, 20, 20, 100, {"modificateurs": [mod]})  # adversaire increvable ici (100 PV), pour isoler la limite de tours
+	# pv_billy=200 (au lieu de 20) : avec hab_billy=1/hab_adversaire=20
+	# (diff=-19, clampe a -7), die=3 -> table[-7][2] infligent 8 PV/tour a
+	# Billy -- sans cette marge, Billy meurt de degats normaux avant le
+	# 5eme tour, ce qui masquerait completement la limite de tours testee
+	# ici (pv_adversaire=100 le rend increvable de son cote).
+	var combat = CombatScript.new(1, 20, 200, 100, {"modificateurs": [mod]})
 	for i in range(5):
 		combat.play_turn(3)
 	assert_true(combat.is_over())
@@ -136,7 +141,7 @@ func test_node36_defaite_si_massacre_pas_vaincu_en_5_tours():
 
 func test_node36_pas_de_defaite_avant_la_limite():
 	var mod = Mods.LimiteDeTours.new(5, "adversaire")
-	var combat = CombatScript.new(1, 20, 20, 100, {"modificateurs": [mod]})
+	var combat = CombatScript.new(1, 20, 200, 100, {"modificateurs": [mod]})
 	for i in range(4):
 		combat.play_turn(3)
 	assert_false(combat.is_over(), "pas encore au 5eme tour")
@@ -147,7 +152,7 @@ func test_node36_8_tours_si_massacre_surpris():
 	# tours" -- meme mecanique, parametre different (calcule cote
 	# appelant selon si le joueur a assez d'INFOS).
 	var mod = Mods.LimiteDeTours.new(8, "adversaire")
-	var combat = CombatScript.new(1, 20, 20, 100, {"modificateurs": [mod]})
+	var combat = CombatScript.new(1, 20, 200, 100, {"modificateurs": [mod]})
 	for i in range(7):
 		combat.play_turn(3)
 	assert_false(combat.is_over(), "surpris, la limite est repoussee a 8 tours")
@@ -585,13 +590,18 @@ func test_node421_le_combat_se_termine_normalement_si_ladversaire_meurt():
 
 func test_node462_gobelin_possede_attaque_une_derniere_fois_apres_0_pv():
 	# "quand ses PV atteignent 0, il joue un tour supplémentaire et
-	# attaque une dernière fois avant de vraiment mourir."
+	# attaque une dernière fois avant de vraiment mourir." PV adversaire
+	# (2, comme le vrai gobelin) choisis pour mourir en un coup quel que
+	# soit le die (table[7] billy >= 4 partout), et die=1 choisi pour
+	# l'attaque posthume (implementee en rejouant le meme jet) car
+	# table[7][0] adversaire=3 (non nul) -- un die=5 ou 6 y donnerait 0,
+	# rendant le test non-discriminant.
 	var mod = Mods.AttaquePosthume.new()
-	var combat = CombatScript.new(9, 2, 20, 6, {"modificateurs": [mod]})
-	var t = combat.play_turn(6)  # devrait tuer le gobelin (2 hab, tres faible)
+	var combat = CombatScript.new(9, 2, 20, 2, {"modificateurs": [mod]})
+	var t = combat.play_turn(1)  # diff=7, die=1 -> table[7][0]=[4,3] : tue le gobelin (2 PV)
 	assert_eq(combat.pv_adversaire, 0)
-	assert_gt(t.degats_supplementaires_adversaire, 0,
-		"une derniere attaque posthume doit quand meme toucher Billy")
+	assert_eq(t.degats_supplementaires_adversaire, 3,
+		"attaque posthume (meme jet reutilise, die=1) : table[7][0] adversaire=3")
 
 
 # =========================================================================
@@ -611,16 +621,17 @@ func test_node346_habilete_adverse_suit_la_formule_1_plus_1d6_fois_2():
 
 func test_node346_habilete_adverse_baisse_de_1_a_partir_du_deuxieme_tour():
 	# "à chaque tour après le premier, retirez 1 point d'Habileté à
-	# l'adversaire" -- se cumule AU-DESSUS de la formule aleatoire.
-	var mod_hab = Mods.HabiliteAdverseAleatoire.new(func(): return 9)  # formule fixe pour isoler l'effet
-	var mod_decay = Mods.HabiliteAdverseDegressiveParDegatsCumules.new(1, 0)  # non pertinent ici, cf modificateur dedie ci-dessous
-	# Utilise directement hab_adversaire_pour_ce_tour du modificateur
-	# aleatoire au tour 1, puis verifie qu'un DEUXIEME modificateur
-	# (proprement dedie a "chaque tour apres le premier") reduit encore
-	# la valeur au tour 2.
-	var combat = CombatScript.new(5, 1, 20, 18, {"modificateurs": [mod_hab]})
+	# l'adversaire" -- decroit par NUMERO DE TOUR, pas par degats cumules
+	# (ecart identifie en ecrivant ces tests, cf COMBATS_REGLES_SPECIALES.md
+	# -- HabiliteAdverseDecroissanteParTour est le modificateur dedie,
+	# distinct de HabiliteAdverseDegressiveParDegatsCumules). Se cumule
+	# AU-DESSUS de la formule aleatoire (mod_hab, fixee ici pour isoler
+	# l'effet de decroissance).
+	var mod_hab = Mods.HabiliteAdverseAleatoire.new(func(): return 9)
+	var mod_decay = Mods.HabiliteAdverseDecroissanteParTour.new(1, 2)  # -1/tour a partir du tour 2
+	var combat = CombatScript.new(5, 1, 20, 18, {"modificateurs": [mod_hab, mod_decay]})
 	var t1 = combat.play_turn(3)
-	assert_eq(t1.degats_billy, CombatScript.SITUATION_TABLE[-4][2][0], "tour 1 : hab adverse = 9 (formule), diff=-4")
+	assert_eq(t1.degats_billy, CombatScript.SITUATION_TABLE[-4][2][0], "tour 1 : hab adverse = 9 (formule), pas encore de decroissance, diff=-4")
 	var t2 = combat.play_turn(3)
 	# tour 2 : hab adverse = 9 (formule, toujours fixe ici) - 1 (decroissance) = 8 -> diff=-3
 	assert_eq(t2.degats_billy, CombatScript.SITUATION_TABLE[-3][2][0],
@@ -702,21 +713,23 @@ func test_node534_intangible_ignore_larmure_de_billy():
 func test_node534_malus_degats_3_au_premier_tour_puis_decroissant():
 	# "elle vous inflige -3 dégâts au premier tour, malus qui remonte de
 	# +1 par tour jusqu'à atteindre 0 (dégâts pleins à partir du 4e tour)."
+	# "elle vous inflige" = c'est la PANTHERE qui deale moins -- porte sur
+	# degats_adversaire (ce que Billy RECOIT), pas degats_billy.
 	var mod = Mods.Intangible.new(3, 1)
 	# PV adversaire volontairement genereux (30, pas les 9 PV reels du
 	# nœud) pour que les 4 tours s'enchainent meme si le malus n'est pas
 	# encore applique (stub) -- la valeur reelle de PV n'affecte pas la
 	# mecanique testee ici.
 	var combat = CombatScript.new(8, 8, 20, 30, {"modificateurs": [mod]})
-	var normal = CombatScript.resolve_round(8, 8, 3)['degats_billy']
+	var normal = CombatScript.resolve_round(8, 8, 3)['degats_adversaire']
 	var t1 = combat.play_turn(3)
-	assert_eq(t1.degats_billy, maxi(0, normal - 3), "tour 1 : malus plein (-3)")
+	assert_eq(t1.degats_adversaire, maxi(0, normal - 3), "tour 1 : malus plein (-3)")
 	var t2 = combat.play_turn(3)
-	assert_eq(t2.degats_billy, maxi(0, normal - 2), "tour 2 : malus (-2)")
+	assert_eq(t2.degats_adversaire, maxi(0, normal - 2), "tour 2 : malus (-2)")
 	var t3 = combat.play_turn(3)
-	assert_eq(t3.degats_billy, maxi(0, normal - 1), "tour 3 : malus (-1)")
+	assert_eq(t3.degats_adversaire, maxi(0, normal - 1), "tour 3 : malus (-1)")
 	var t4 = combat.play_turn(3)
-	assert_eq(t4.degats_billy, normal, "tour 4 : malus resorbe, degats pleins")
+	assert_eq(t4.degats_adversaire, normal, "tour 4 : malus resorbe, degats pleins")
 
 
 func test_node534_immunite_totale_a_la_contre_attaque_critique():
@@ -852,11 +865,14 @@ func test_undo_retire_le_malus_dhabilete_si_le_coup_qui_lavait_declenche_est_ann
 
 func test_undo_annule_correctement_lattaque_posthume():
 	# nœud 462 : annuler le tour qui a tue l'adversaire doit aussi
-	# annuler l'attaque posthume qui en decoulait.
+	# annuler l'attaque posthume qui en decoulait. Meme fixture que
+	# test_node462... (pv_adversaire=2, die=1) : table[7][0] adversaire=3
+	# (non nul), contrairement a die=6 qui donnerait 0 sur cette ligne et
+	# rendrait ce test non-discriminant.
 	var mod = Mods.AttaquePosthume.new()
-	var combat = CombatScript.new(9, 2, 20, 6, {"modificateurs": [mod]})
-	var t = combat.play_turn(6)  # tue le gobelin -> attaque posthume
-	assert_gt(t.degats_supplementaires_adversaire, 0)
+	var combat = CombatScript.new(9, 2, 20, 2, {"modificateurs": [mod]})
+	var t = combat.play_turn(1)  # tue le gobelin -> attaque posthume
+	assert_eq(t.degats_supplementaires_adversaire, 3)
 	combat.undo_last_turn()
 	assert_false(combat.is_over(), "apres annulation, le gobelin n'est plus mort, le combat continue")
 	assert_eq(combat.pv_billy, 20, "l'attaque posthume annulee aussi, PV de Billy restaures a l'etat initial")
@@ -868,12 +884,12 @@ func test_undo_puis_rejoue_malus_degats_progressif_intangible_recompte_le_bon_to
 	# tour 2 doit rester au malus du tour 2 (-2), pas glisser au tour 3 (-1).
 	var mod = Mods.Intangible.new(3, 1)
 	var combat = CombatScript.new(8, 8, 20, 30, {"modificateurs": [mod]})
-	var normal = CombatScript.resolve_round(8, 8, 3)['degats_billy']
+	var normal = CombatScript.resolve_round(8, 8, 3)['degats_adversaire']
 	combat.play_turn(3)  # tour 1, malus -3
 	combat.play_turn(3)  # tour 2, malus -2
 	combat.undo_last_turn()  # revient au tour 1
 	var t2_rejoue = combat.play_turn(3)  # rejoue le tour 2
-	assert_eq(t2_rejoue.degats_billy, maxi(0, normal - 2),
+	assert_eq(t2_rejoue.degats_adversaire, maxi(0, normal - 2),
 		"toujours le tour 2 apres le rejeu -- malus -2, pas -1 comme si c'etait le tour 3")
 
 

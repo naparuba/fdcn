@@ -18,13 +18,10 @@ extends RefCounted
 # ex: EsquiveAdverseSurDe couvre a lui seul les nœuds 173, 175, 240, 320,
 # 321 et 574, juste avec un predicat different.
 #
-# STATUT ACTUEL : SQUELETTES SEULEMENT. Chaque methode a la bonne
-# signature et est appelee au bon moment par combat.gd, mais ne fait PAS
-# encore le calcul reel (cf TODO dans chaque corps) -- les tests dans
-# test/unit/test_combat_regles_speciales_tome1.gd sont ecrits AVANT
-# l'implementation (rouge intentionnel), pour verrouiller le comportement
-# attendu avant de coder quoi que ce soit. Ne pas s'etonner qu'ils
-# echouent tant que ce fichier n'est pas rempli pour de vrai.
+# Implemente pour de vrai (plus de squelettes) -- les tests dans
+# test/unit/test_combat_regles_speciales_tome1.gd ont ete ecrits AVANT
+# cette implementation (rouge intentionnel), pour verrouiller le
+# comportement attendu avant de coder quoi que ce soit.
 #
 # CE QUI N'A PAS BESOIN D'UN MODIFICATEUR ICI (deja possible avec les
 # opts existants de combat.gd, cote APPELANT, pas cote Combat) : tout
@@ -128,8 +125,7 @@ class EsquiveAdverseSurDe extends Modificateur:
 		self.predicat = p_predicat
 
 	func adversaire_esquive_attaque_normale(combat, attack_die_roll, tour):
-		# TODO: return self.predicat.call(attack_die_roll)
-		return false
+		return self.predicat.call(attack_die_roll)
 
 
 # Nœuds 574 (die=1 -> +3), 320 (die=1 -> +2, cumule avec une esquive ce
@@ -144,7 +140,8 @@ class BonusDegatsAdversaireSurDe extends Modificateur:
 		self.bonus = p_bonus
 
 	func modifie_degats_bruts(combat, degats_billy, degats_adversaire, contexte):
-		# TODO: si contexte['attack_die_roll'] in self.valeurs_de: degats_adversaire += self.bonus
+		if contexte['attack_die_roll'] in self.valeurs_de:
+			degats_adversaire += self.bonus
 		return [degats_billy, degats_adversaire]
 
 
@@ -160,7 +157,8 @@ class LimiteDeTours extends Modificateur:
 		self.resultat = p_resultat
 
 	func vainqueur_force(combat):
-		# TODO: if combat.tour >= self.n: return self.resultat
+		if combat.tour >= self.n:
+			return self.resultat
 		return null
 
 
@@ -176,9 +174,9 @@ class HabiliteAdverseDegressiveParDegatsCumules extends Modificateur:
 		self.perte = p_perte
 
 	func hab_adversaire_pour_ce_tour(combat, hab_adversaire_actuelle, tour):
-		# TODO: degats_cumules = -combat.get_pv_delta_adversaire()
-		# TODO: return maxi(0, hab_adversaire_actuelle - (degats_cumules / self.pas) * self.perte)
-		return hab_adversaire_actuelle
+		var degats_cumules = -combat.get_pv_delta_adversaire()
+		var paliers = int(degats_cumules / self.pas)
+		return maxi(0, hab_adversaire_actuelle - paliers * self.perte)
 
 
 # Nœuds 370, 518 : Billy regagne de l'Adresse au fur et a mesure des
@@ -193,9 +191,9 @@ class AdresseBillyProgressiveParDegatsCumules extends Modificateur:
 		self.gain = p_gain
 
 	func adresse_billy_pour_ce_tour(combat, adresse_billy_actuelle, tour):
-		# TODO: degats_cumules = -combat.get_pv_delta_adversaire()
-		# TODO: return adresse_billy_actuelle + (degats_cumules / self.pas) * self.gain
-		return adresse_billy_actuelle
+		var degats_cumules = -combat.get_pv_delta_adversaire()
+		var paliers = int(degats_cumules / self.pas)
+		return adresse_billy_actuelle + paliers * self.gain
 
 
 # Nœuds 97 (tous les 3 tours, 3 PV, esquivable sans possibilite de
@@ -220,11 +218,19 @@ class DegatsPeriodiques extends Modificateur:
 		self.une_seule_fois = p_une_seule_fois
 
 	func effet_apres_tour(combat, etat_tour):
-		# TODO: declenche tous les self.intervalle tours (ou une seule
-		# fois si self.une_seule_fois), applique self.degats a self.cible,
-		# en tenant compte de self.esquivable (jet d'esquive dedie, sans
-		# jamais autoriser de contre-attaque critique sur ce jet-la).
-		return null
+		var declenche = false
+		if self.une_seule_fois:
+			declenche = etat_tour.tour == self.intervalle
+		else:
+			declenche = etat_tour.tour % self.intervalle == 0
+		if !declenche:
+			return null
+		if self.esquivable:
+			var jet = etat_tour.esquive_die_roll
+			if jet != null and jet <= combat.adresse_billy:
+				return null
+		var cle = "adversaire" if self.cible == "billy" else "billy"
+		return {cle: self.degats}
 
 
 # Nœuds 232 (PV<=10 -> double degats), 555 (PV<10 -> double degats), 240
@@ -241,11 +247,13 @@ class SeuilPV extends Modificateur:
 		self.cible = p_cible
 
 	func modifie_degats_bruts(combat, degats_billy, degats_adversaire, contexte):
-		# TODO: si self.effet == "double_degats_adversaire" et pv adversaire <= seuil: degats_adversaire *= 2
+		if self.effet == "double_degats_adversaire" and combat.pv_adversaire <= self.seuil:
+			degats_adversaire *= 2
 		return [degats_billy, degats_adversaire]
 
 	func vainqueur_force(combat):
-		# TODO: si self.effet == "fin_combat_victoire" et pv adversaire <= seuil: return "billy"
+		if self.effet == "fin_combat_victoire" and combat.pv_adversaire <= self.seuil:
+			return "billy"
 		return null
 
 
@@ -254,16 +262,14 @@ class SeuilPV extends Modificateur:
 # meme sur un jet d'esquive de 1).
 class ImmuniteContreAttaqueCritique extends Modificateur:
 	func traitement_critique(combat, tour):
-		# TODO: return Modificateur.CRITIQUE_IMMUNITE_TOTALE
-		return Modificateur.CRITIQUE_NORMAL
+		return Modificateur.CRITIQUE_IMMUNITE_TOTALE
 
 
 # Nœud 162 : la contre-attaque critique de Billy a toujours lieu (degats
 # maximum de la situation), mais sans le bonus de son score de CRITIQUE.
 class ContreAttaqueCritiqueSansBonusCritique extends Modificateur:
 	func traitement_critique(combat, tour):
-		# TODO: return Modificateur.CRITIQUE_SANS_BONUS
-		return Modificateur.CRITIQUE_NORMAL
+		return Modificateur.CRITIQUE_SANS_BONUS
 
 
 # Nœud 339 (vampiresse) : sur un jet d'attaque parmi "valeurs_de",
@@ -280,9 +286,16 @@ class RegenerationSurDe extends Modificateur:
 		self.desactivee = p_desactivee
 
 	func modifie_degats_bruts(combat, degats_billy, degats_adversaire, contexte):
-		# TODO: si contexte['attack_die_roll'] in self.valeurs_de et pas contre-attaque critique:
-		#   degats_billy = -self.regen si !self.desactivee else 0 (regen = "degats negatifs")
+		if !self.desactivee and !contexte['contre_attaque_critique'] \
+				and contexte['attack_die_roll'] in self.valeurs_de:
+			degats_billy = 0
 		return [degats_billy, degats_adversaire]
+
+	func effet_apres_tour(combat, etat_tour):
+		if !self.desactivee and !etat_tour.contre_attaque_critique \
+				and etat_tour.attack_die_roll in self.valeurs_de:
+			return {"billy": -self.regen}
+		return null
 
 
 # Nœuds 321, 349 : l'adversaire ne porte aucune attaque lors d'un tour
@@ -294,7 +307,8 @@ class SansAttaqueTour extends Modificateur:
 		self.numero_tour = p_numero_tour
 
 	func modifie_degats_bruts(combat, degats_billy, degats_adversaire, contexte):
-		# TODO: si combat.tour == self.numero_tour: degats_adversaire = 0
+		if contexte['tour'] == self.numero_tour:
+			degats_adversaire = 0
 		return [degats_billy, degats_adversaire]
 
 
@@ -307,7 +321,8 @@ class MalusHabiliteAdversePremierTourSeulement extends Modificateur:
 		self.malus = p_malus
 
 	func hab_adversaire_pour_ce_tour(combat, hab_adversaire_actuelle, tour):
-		# TODO: si tour == 1: return maxi(0, hab_adversaire_actuelle - self.malus)
+		if tour == 1:
+			return maxi(0, hab_adversaire_actuelle - self.malus)
 		return hab_adversaire_actuelle
 
 
@@ -320,23 +335,27 @@ class MalusHabiliteBillyParCoupRecu extends Modificateur:
 		self.malus_par_coup = p_malus_par_coup
 
 	func hab_billy_pour_ce_tour(combat, hab_billy_actuelle, tour):
-		# TODO: compter les tours passes ou degats_adversaire > 0 dans combat.pile, appliquer le malus cumule
-		return hab_billy_actuelle
+		var coups_recus = 0
+		for etat in combat.pile:
+			if etat.degats_adversaire > 0:
+				coups_recus += 1
+		return maxi(0, hab_billy_actuelle - coups_recus * self.malus_par_coup)
 
 
 # Nœud 421 : Billy ne peut pas perdre ce combat (0 PV n'est pas une
 # defaite).
 class Increvable extends Modificateur:
 	func billy_peut_perdre(combat):
-		# TODO: return false
-		return true
+		return false
 
 
 # Nœud 462 : l'adversaire porte une derniere attaque APRES avoir atteint
 # 0 PV, avant que le combat ne se termine reellement.
 class AttaquePosthume extends Modificateur:
 	func effet_apres_tour(combat, etat_tour):
-		# TODO: si etat_tour.adversaire.pv <= 0 et pas encore joue : forcer un tour d'attaque adverse supplementaire
+		if etat_tour.adversaire.pv <= 0:
+			var resultat = combat.resolve_round(combat.hab_billy, combat.hab_adversaire, etat_tour.attack_die_roll)
+			return {"adversaire": resultat['degats_adversaire']}
 		return null
 
 
@@ -351,8 +370,24 @@ class HabiliteAdverseAleatoire extends Modificateur:
 		self.formule = p_formule
 
 	func hab_adversaire_pour_ce_tour(combat, hab_adversaire_actuelle, tour):
-		# TODO: return self.formule.call()
-		return hab_adversaire_actuelle
+		return self.formule.call()
+
+
+# Nœud 306/346 : l'Habileté adverse baisse de "perte_par_tour" a partir du
+# tour "tour_de_debut" (inclus), un palier de plus par tour ecoule --
+# distinct de HabiliteAdverseDegressiveParDegatsCumules (qui decroit avec
+# les degats CUMULES infliges, pas avec le simple NUMERO de tour).
+class HabiliteAdverseDecroissanteParTour extends Modificateur:
+	var perte_par_tour: int
+	var tour_de_debut: int
+
+	func _init(p_perte_par_tour: int, p_tour_de_debut: int):
+		self.perte_par_tour = p_perte_par_tour
+		self.tour_de_debut = p_tour_de_debut
+
+	func hab_adversaire_pour_ce_tour(combat, hab_adversaire_actuelle, tour):
+		var decrements = maxi(0, tour - self.tour_de_debut + 1)
+		return maxi(0, hab_adversaire_actuelle - decrements * self.perte_par_tour)
 
 
 # Nœud 387 : si une condition externe est vraie (ex: Jet de Chance rate,
@@ -367,7 +402,8 @@ class AttaqueBonusSiConditionExterne extends Modificateur:
 		self.degats_bonus = p_degats_bonus
 
 	func modifie_degats_bruts(combat, degats_billy, degats_adversaire, contexte):
-		# TODO: si self.condition_vraie: degats_adversaire += self.degats_bonus (marquer non-esquivable si besoin)
+		if self.condition_vraie:
+			degats_adversaire += self.degats_bonus
 		return [degats_billy, degats_adversaire]
 
 
@@ -380,8 +416,7 @@ class TrancheEgaliteSurMortSimultanee extends Modificateur:
 		self.gagnant = p_gagnant
 
 	func tranche_egalite(combat):
-		# TODO: return self.gagnant
-		return null
+		return self.gagnant
 
 
 # Nœud 534 (panthère invoquée) : l'adversaire ignore l'Armure de Billy
@@ -398,15 +433,15 @@ class Intangible extends Modificateur:
 		self.reduction_par_tour = p_reduction_par_tour
 
 	func traitement_critique(combat, tour):
-		# TODO: return Modificateur.CRITIQUE_IMMUNITE_TOTALE
-		return Modificateur.CRITIQUE_NORMAL
+		return Modificateur.CRITIQUE_IMMUNITE_TOTALE
 
 	func modifie_degats_bruts(combat, degats_billy, degats_adversaire, contexte):
-		# TODO: 1) ignorer l'Armure de Billy pour les degats_adversaire (le malus Armure de Billy
-		#          a deja ete applique en amont dans play_turn -- ce modificateur doit donc
-		#          re-ajouter l'equivalent de armure_billy pour l'annuler, cf note dans combat.gd)
-		# TODO: 2) malus = maxi(0, self.malus_initial - self.reduction_par_tour * (combat.tour - 1))
-		#          degats_billy = maxi(0, degats_billy - malus)
+		# play_turn soustrait armure_billy APRES ce hook -- on l'ajoute ici
+		# pour que la soustraction s'annule et que l'Armure de Billy
+		# n'ait au final aucun effet sur les degats_adversaire.
+		degats_adversaire += combat.armure_billy
+		var malus = maxi(0, self.malus_initial - self.reduction_par_tour * (contexte['tour'] - 1))
+		degats_adversaire = maxi(0, degats_adversaire - malus)
 		return [degats_billy, degats_adversaire]
 
 
@@ -424,5 +459,8 @@ class DeSupplementaireParTour extends Modificateur:
 		self.effets = p_effets
 
 	func effet_apres_tour(combat, etat_tour):
-		# TODO: valeur = self.de_roll.call() ; trouver la tranche dans self.effets et appliquer son Callable
+		var valeur = self.de_roll.call()
+		for tranche in self.effets:
+			if valeur in tranche:
+				return self.effets[tranche].call(combat, etat_tour)
 		return null
