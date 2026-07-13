@@ -55,10 +55,25 @@ func test_jump_to_600_scrolls_further_than_jump_to_100():
 
 
 func test_all_seven_shortcuts_do_not_crash():
-	_main.jump_to_chapter_1()
-	_main.jump_to_chapter_100()
-	_main.jump_to_chapter_200()
-	_main.jump_to_chapter_300()
-	_main.jump_to_chapter_400()
-	_main.jump_to_chapter_500()
-	_main.jump_to_chapter_600()
+	# Verifie non seulement l'absence de crash, mais que chaque raccourci
+	# scrolle bien au bon endroit ET que les sept destinations sont
+	# strictement croissantes (sinon un raccourci pourrait silencieusement
+	# ne rien faire, ou tous pointer par coincidence au meme endroit, sans
+	# qu'aucune assertion ne le remarque).
+	var scroll_bar = _main.get_node("Chapitres/AllChapters/VScrollBar")
+	var centaines = [1, 100, 200, 300, 400, 500, 600]
+	var precedent = null
+	for centaine in centaines:
+		_main.call("jump_to_chapter_%d" % centaine)
+		# scroll_vertical est un Range -- toute valeur au-dela de
+		# max_value-page est automatiquement clampee par le moteur (cas du
+		# dernier chapitre, trop proche de la fin de la liste pour que sa
+		# position.y brute soit atteignable) : on compare donc a la meme
+		# valeur clampee, pas a choice.position.y brut.
+		var v_scroll_bar = scroll_bar.get_v_scroll_bar()
+		var attendu = clampf(_expected_scroll_y_for(centaine), v_scroll_bar.min_value, v_scroll_bar.max_value - v_scroll_bar.page)
+		assert_eq(scroll_bar.scroll_vertical, attendu, "jump_to_chapter_%d scrolle au mauvais endroit" % centaine)
+		if precedent != null:
+			assert_true(scroll_bar.scroll_vertical > precedent,
+				"jump_to_chapter_%d devrait scroller plus loin que le raccourci precedent" % centaine)
+		precedent = scroll_bar.scroll_vertical

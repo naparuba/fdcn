@@ -26,7 +26,10 @@ func test_play_sound_is_a_noop_when_sound_disabled():
 	Sounder.set_enabled(false)
 	var popup = SuccessPopupScene.instantiate()
 	add_child_autofree(popup)
-	popup._new_success_play_sound()  # ne doit pas planter, ne joue rien
+	popup._new_success_play_sound()
+	var player = popup.get_node('AudioPlayer')
+	assert_null(player.stream, "son desactive -- le stream ne doit jamais etre charge")
+	assert_false(player.playing, "son desactive -- rien ne doit etre en train de jouer")
 	Sounder.set_enabled(true)
 
 
