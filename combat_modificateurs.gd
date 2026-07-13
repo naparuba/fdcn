@@ -208,21 +208,27 @@ class DegatsPeriodiques extends Modificateur:
 	var cible: String  # "billy" ou "adversaire"
 	var esquivable: bool
 	var une_seule_fois: bool
+	var tour_de_debut: int
 
 	func _init(p_intervalle: int, p_degats: int, p_cible: String = "billy",
-			p_esquivable: bool = false, p_une_seule_fois: bool = false):
+			p_esquivable: bool = false, p_une_seule_fois: bool = false, p_tour_de_debut: int = 1):
 		self.intervalle = p_intervalle
 		self.degats = p_degats
 		self.cible = p_cible
 		self.esquivable = p_esquivable
 		self.une_seule_fois = p_une_seule_fois
+		self.tour_de_debut = p_tour_de_debut
 
 	func effet_apres_tour(combat, etat_tour):
 		var declenche = false
 		if self.une_seule_fois:
 			declenche = etat_tour.tour == self.intervalle
 		else:
-			declenche = etat_tour.tour % self.intervalle == 0
+			# tour_de_debut=1 (defaut) redonne exactement l'ancienne formule
+			# "tour % intervalle == 0" -- Nœud 256 (Tome 2) a besoin de
+			# "chaque tour a partir du 2eme" (intervalle=1, tour_de_debut=2).
+			declenche = etat_tour.tour >= self.tour_de_debut \
+				and (etat_tour.tour - self.tour_de_debut + 1) % self.intervalle == 0
 		if !declenche:
 			return null
 		if self.esquivable:
@@ -302,12 +308,17 @@ class RegenerationSurDe extends Modificateur:
 # precis (typiquement le premier -- "LENT" ou "entree spectaculaire").
 class SansAttaqueTour extends Modificateur:
 	var numero_tour: int
+	var duree: int
 
-	func _init(p_numero_tour: int = 1):
+	func _init(p_numero_tour: int = 1, p_duree: int = 1):
 		self.numero_tour = p_numero_tour
+		self.duree = p_duree
 
 	func modifie_degats_bruts(combat, degats_billy, degats_adversaire, contexte):
-		if contexte['tour'] == self.numero_tour:
+		# duree=1 (defaut) redonne exactement l'ancienne condition d'egalite
+		# stricte -- Nœud 323 (Tome 2) a besoin de "pas d'attaque pendant 2
+		# tours consecutifs" (numero_tour=1, duree=2).
+		if contexte['tour'] >= self.numero_tour and contexte['tour'] < self.numero_tour + self.duree:
 			degats_adversaire = 0
 		return [degats_billy, degats_adversaire]
 
@@ -464,3 +475,410 @@ class DeSupplementaireParTour extends Modificateur:
 			if valeur in tranche:
 				return self.effets[tranche].call(combat, etat_tour)
 		return null
+
+
+# =========================================================================
+# Tome 2 (La Corne des Sables d'Ivoire) -- cf COMBATS_REGLES_SPECIALES_TOME2.md
+# pour le detail nœud par nœud de qui utilise quoi.
+# =========================================================================
+
+
+# Nœuds 436 (Tome 2) : ajuste hab_billy/hab_adversaire/adresse_billy d'un
+# delta (+/-) tant que le tour courant est <= dernier_tour. Generalise
+# MalusHabiliteAdversePremierTourSeulement (Tome 1, dernier_tour fixe a 1)
+# a une fenetre de tours et a 3 cibles possibles.
+class AjustementTemporaireParTour extends Modificateur:
+	var cible: String  # "hab_billy", "hab_adversaire" ou "adresse_billy"
+	var delta: int
+	var dernier_tour: int
+
+	func _init(p_cible: String, p_delta: int, p_dernier_tour: int):
+		self.cible = p_cible
+		self.delta = p_delta
+		self.dernier_tour = p_dernier_tour
+
+	func hab_billy_pour_ce_tour(combat, hab_billy_actuelle, tour):
+		if self.cible == "hab_billy" and tour <= self.dernier_tour:
+			return maxi(0, hab_billy_actuelle + self.delta)
+		return hab_billy_actuelle
+
+	func hab_adversaire_pour_ce_tour(combat, hab_adversaire_actuelle, tour):
+		if self.cible == "hab_adversaire" and tour <= self.dernier_tour:
+			return maxi(0, hab_adversaire_actuelle + self.delta)
+		return hab_adversaire_actuelle
+
+	func adresse_billy_pour_ce_tour(combat, adresse_billy_actuelle, tour):
+		if self.cible == "adresse_billy" and tour <= self.dernier_tour:
+			return maxi(0, adresse_billy_actuelle + self.delta)
+		return adresse_billy_actuelle
+
+
+# Nœuds 31/40 (tous les tours), 197 (tous les 2 tours), 649 (adversaire,
+# tous les 3 tours) : reduit hab_billy OU hab_adversaire de "perte" tous
+# les "intervalle" tours, INDEPENDAMMENT des degats infliges -- distinct de
+# HabiliteAdverseDegressiveParDegatsCumules (qui suit les degats cumules,
+# pas le numero de tour) et de HabiliteAdverseDecroissanteParTour (qui
+# decroit a partir d'un tour de debut donne, pas de facon periodique).
+class DecroissanceParIntervalle extends Modificateur:
+	var cible: String  # "hab_billy" ou "hab_adversaire"
+	var perte: int
+	var intervalle: int
+
+	func _init(p_cible: String, p_perte: int, p_intervalle: int):
+		self.cible = p_cible
+		self.perte = p_perte
+		self.intervalle = p_intervalle
+
+	func hab_billy_pour_ce_tour(combat, hab_billy_actuelle, tour):
+		if self.cible == "hab_billy":
+			# (tour-1) et non tour : "a la fin de chaque tour" (nœud 31) veut
+			# dire qu'aucune baisse n'affecte le tour 1 lui-meme, seulement
+			# les tours suivants -- decrements=0 tant que tour<=intervalle.
+			var decrements = int((tour - 1) / self.intervalle)
+			return maxi(0, hab_billy_actuelle - decrements * self.perte)
+		return hab_billy_actuelle
+
+	func hab_adversaire_pour_ce_tour(combat, hab_adversaire_actuelle, tour):
+		if self.cible == "hab_adversaire":
+			var decrements = int((tour - 1) / self.intervalle)
+			return maxi(0, hab_adversaire_actuelle - decrements * self.perte)
+		return hab_adversaire_actuelle
+
+
+# Nœud 11 (malus d'Habileté adverse permanent une fois l'ennemi sous un
+# seuil de PV) et nœud 234 (malus d'Adresse de Billy actif seulement AVANT
+# le seuil, retire une fois le seuil franchi) : ajuste hab_billy/
+# hab_adversaire/adresse_billy d'un delta, actif avant OU apres le
+# franchissement d'un seuil de PV adverses (au choix via avant_seuil).
+class AjustementSeuilPV extends Modificateur:
+	var seuil: int
+	var cible: String  # "hab_billy", "hab_adversaire" ou "adresse_billy"
+	var delta: int
+	var avant_seuil: bool
+
+	func _init(p_seuil: int, p_cible: String, p_delta: int, p_avant_seuil: bool = false):
+		self.seuil = p_seuil
+		self.cible = p_cible
+		self.delta = p_delta
+		self.avant_seuil = p_avant_seuil
+
+	func _actif(combat):
+		var sous_seuil = combat.pv_adversaire <= self.seuil
+		return sous_seuil if !self.avant_seuil else !sous_seuil
+
+	func hab_billy_pour_ce_tour(combat, hab_billy_actuelle, tour):
+		if self.cible == "hab_billy" and self._actif(combat):
+			return maxi(0, hab_billy_actuelle + self.delta)
+		return hab_billy_actuelle
+
+	func hab_adversaire_pour_ce_tour(combat, hab_adversaire_actuelle, tour):
+		if self.cible == "hab_adversaire" and self._actif(combat):
+			return maxi(0, hab_adversaire_actuelle + self.delta)
+		return hab_adversaire_actuelle
+
+	func adresse_billy_pour_ce_tour(combat, adresse_billy_actuelle, tour):
+		if self.cible == "adresse_billy" and self._actif(combat):
+			return maxi(0, adresse_billy_actuelle + self.delta)
+		return adresse_billy_actuelle
+
+
+# Nœud 234 : une fois l'ennemi sous la moitie de ses PV, le garde restant
+# inflige un bonus de degats permanent (deg_adversaire n'a pas de hook
+# per-tour dedie comme hab/adresse -- on passe donc par modifie_degats_bruts).
+class BonusDegatsAdversaireApresSeuilPV extends Modificateur:
+	var seuil: int
+	var bonus: int
+
+	func _init(p_seuil: int, p_bonus: int):
+		self.seuil = p_seuil
+		self.bonus = p_bonus
+
+	func modifie_degats_bruts(combat, degats_billy, degats_adversaire, contexte):
+		if !contexte['esquive'] and combat.pv_adversaire <= self.seuil:
+			degats_adversaire += self.bonus
+		return [degats_billy, degats_adversaire]
+
+
+# Nœud 113 : une fois l'Elfe-panthère sous la moitie de ses PV, elle
+# n'infligé plus son bonus de degats de base (deg_adversaire).
+class SupprimeDegAdversaireApresSeuilPV extends Modificateur:
+	var seuil: int
+
+	func _init(p_seuil: int):
+		self.seuil = p_seuil
+
+	func modifie_degats_bruts(combat, degats_billy, degats_adversaire, contexte):
+		if !contexte['esquive'] and combat.pv_adversaire <= self.seuil:
+			degats_adversaire = maxi(0, degats_adversaire - combat.deg_adversaire)
+		return [degats_billy, degats_adversaire]
+
+
+# Nœud 113 : variante seuil-PV de EsquiveAdverseSurDe -- l'adversaire
+# n'esquive l'attaque normale de Billy qu'une fois sous le seuil de PV.
+class EsquiveAdverseSurDeApresSeuilPV extends Modificateur:
+	var seuil: int
+	var predicat: Callable
+
+	func _init(p_seuil: int, p_predicat: Callable):
+		self.seuil = p_seuil
+		self.predicat = p_predicat
+
+	func adversaire_esquive_attaque_normale(combat, attack_die_roll, tour):
+		return combat.pv_adversaire <= self.seuil and self.predicat.call(attack_die_roll)
+
+
+# Nœuds 180, 268 (tout le combat), 321 (premier tour seulement) : les
+# degats supplementaires de Billy (deg_billy) se transforment en MALUS au
+# lieu d'un bonus -- l'horreur/l'aberration du combat le perturbe. deg_billy
+# est deja ajoute a degats_billy par play_turn AVANT ce hook (sauf
+# contre-attaque critique ou esquive adverse normale) ; on retire donc 2x
+# deg_billy pour transformer +N en -N.
+class BonusDegatsBillyDevientMalus extends Modificateur:
+	var numero_tour  # int ou null (null = actif tout le combat)
+
+	func _init(p_numero_tour = null):
+		self.numero_tour = p_numero_tour
+
+	func modifie_degats_bruts(combat, degats_billy, degats_adversaire, contexte):
+		if self.numero_tour != null and contexte['tour'] != self.numero_tour:
+			return [degats_billy, degats_adversaire]
+		if !contexte['contre_attaque_critique'] and !contexte['adversaire_esquive_normale']:
+			degats_billy = maxi(0, degats_billy - 2 * combat.deg_billy)
+		return [degats_billy, degats_adversaire]
+
+
+# Nœud 225 : La Poigne Filante ne reçoit de degats que si l'attaque de
+# Billy est comprise entre min_deg et max_deg INCLUS -- immunite totale en
+# dehors de cette plage (pas un plafonnement/clampage).
+class ImmuniteHorsPlageDegats extends Modificateur:
+	var min_deg: int
+	var max_deg: int
+
+	func _init(p_min_deg: int, p_max_deg: int):
+		self.min_deg = p_min_deg
+		self.max_deg = p_max_deg
+
+	func modifie_degats_bruts(combat, degats_billy, degats_adversaire, contexte):
+		if degats_billy < self.min_deg or degats_billy > self.max_deg:
+			degats_billy = 0
+		return [degats_billy, degats_adversaire]
+
+
+# Nœud 474 : si "condition" (typiquement un test de reflexes 2d6 <=
+# Habileté, injecte par l'appelant/test) est vraie ce tour, le requin abattu
+# ne porte pas son coup -- annule degats_adversaire pour ce tour uniquement.
+class AdversaireNAttaquePasSiConditionParTour extends Modificateur:
+	var condition: Callable  # Callable(tour) -> bool
+
+	func _init(p_condition: Callable):
+		self.condition = p_condition
+
+	func modifie_degats_bruts(combat, degats_billy, degats_adversaire, contexte):
+		if self.condition.call(contexte['tour']):
+			degats_adversaire = 0
+		return [degats_billy, degats_adversaire]
+
+
+# Nœud 474 : plafonne les degats INFLIGES par Billy (symetrique de
+# plafond_degats_subis_billy, deja existant sur Combat, mais cote sortant).
+class PlafondDegatsInflige extends Modificateur:
+	var plafond: int
+
+	func _init(p_plafond: int):
+		self.plafond = p_plafond
+
+	func modifie_degats_bruts(combat, degats_billy, degats_adversaire, contexte):
+		degats_billy = mini(degats_billy, self.plafond)
+		return [degats_billy, degats_adversaire]
+
+
+# Nœuds 250 (tout le combat), 282 (pose conditionnelle si les flammes ne
+# sont pas neutralisees) : l'Armure de Billy n'a aucun effet contre cet
+# adversaire. play_turn soustrait armure_billy APRES modifie_degats_bruts --
+# on la rajoute donc ici pour annuler cette soustraction (meme technique que
+# Intangible au Tome 1, extraite en classe autonome et reutilisable seule).
+class IgnoreArmureBilly extends Modificateur:
+	func modifie_degats_bruts(combat, degats_billy, degats_adversaire, contexte):
+		degats_adversaire += combat.armure_billy
+		return [degats_billy, degats_adversaire]
+
+
+# Nœuds 630 (cible="adversaire" : degats infliges par Billy divises par 2
+# sur un jet impair), 689 (cible="billy" : tous les degats subis par Billy
+# divises par 2, sans condition) -- division entiere (floor), meme
+# convention cible que DegatsPeriodiques (cible="billy" affecte ce que
+# Billy REÇOIT, cible="adversaire" affecte ce que Billy INFLIGE).
+class DivisionDegats extends Modificateur:
+	var cible: String  # "billy" ou "adversaire"
+	var diviseur: int
+	var condition  # Callable(attack_die_roll) -> bool, ou null = toujours actif
+
+	func _init(p_cible: String, p_diviseur: int, p_condition = null):
+		self.cible = p_cible
+		self.diviseur = p_diviseur
+		self.condition = p_condition
+
+	func modifie_degats_bruts(combat, degats_billy, degats_adversaire, contexte):
+		if self.condition != null and !self.condition.call(contexte['attack_die_roll']):
+			return [degats_billy, degats_adversaire]
+		if self.cible == "adversaire":
+			degats_billy = degats_billy / self.diviseur
+		else:
+			degats_adversaire = degats_adversaire / self.diviseur
+		return [degats_billy, degats_adversaire]
+
+
+# Nœud 514 : Frère Plouf arbitre le combat et permet de suspendre, au choix
+# de Billy au debut de chaque tour, UNE des 3 regles du Gardien -- plutot que
+# de dupliquer chaque regle en variante "suspendable", ce decorateur rend
+# N'IMPORTE QUEL Modificateur existant activable/desactivable tour par tour.
+# "condition" recoit (combat, tour) et renvoie true si le Modificateur
+# interieur doit s'appliquer CE tour (false = comportement neutre, comme si
+# le Modificateur interieur etait absent).
+class ModificateurConditionnel extends Modificateur:
+	var interieur: Modificateur
+	var condition: Callable
+
+	func _init(p_interieur: Modificateur, p_condition: Callable):
+		self.interieur = p_interieur
+		self.condition = p_condition
+
+	func hab_adversaire_pour_ce_tour(combat, hab_adversaire_actuelle, tour):
+		if self.condition.call(combat, tour):
+			return self.interieur.hab_adversaire_pour_ce_tour(combat, hab_adversaire_actuelle, tour)
+		return hab_adversaire_actuelle
+
+	func adresse_billy_pour_ce_tour(combat, adresse_billy_actuelle, tour):
+		if self.condition.call(combat, tour):
+			return self.interieur.adresse_billy_pour_ce_tour(combat, adresse_billy_actuelle, tour)
+		return adresse_billy_actuelle
+
+	func hab_billy_pour_ce_tour(combat, hab_billy_actuelle, tour):
+		if self.condition.call(combat, tour):
+			return self.interieur.hab_billy_pour_ce_tour(combat, hab_billy_actuelle, tour)
+		return hab_billy_actuelle
+
+	func adversaire_esquive_attaque_normale(combat, attack_die_roll, tour):
+		if self.condition.call(combat, tour):
+			return self.interieur.adversaire_esquive_attaque_normale(combat, attack_die_roll, tour)
+		return false
+
+	func modifie_degats_bruts(combat, degats_billy, degats_adversaire, contexte):
+		if self.condition.call(combat, contexte['tour']):
+			return self.interieur.modifie_degats_bruts(combat, degats_billy, degats_adversaire, contexte)
+		return [degats_billy, degats_adversaire]
+
+	func traitement_critique(combat, tour):
+		if self.condition.call(combat, tour):
+			return self.interieur.traitement_critique(combat, tour)
+		return Modificateur.CRITIQUE_NORMAL
+
+	func effet_apres_tour(combat, etat_tour):
+		if self.condition.call(combat, etat_tour.tour):
+			return self.interieur.effet_apres_tour(combat, etat_tour)
+		return null
+
+	func vainqueur_force(combat):
+		if self.condition.call(combat, combat.tour):
+			return self.interieur.vainqueur_force(combat)
+		return null
+
+	func tranche_egalite(combat):
+		if self.condition.call(combat, combat.tour):
+			return self.interieur.tranche_egalite(combat)
+		return null
+
+	func billy_peut_perdre(combat):
+		if self.condition.call(combat, combat.tour):
+			return self.interieur.billy_peut_perdre(combat)
+		return true
+
+
+# Nœud 256 (Mimine) : Mimine cesse le combat (victoire de Billy) dès que
+# "n_requis" tours consecutifs ont un attack_die_roll de la meme parite --
+# derive de combat.pile (donc undo-safe), pas d'un compteur interne.
+class FinCombatSurParitesConsecutives extends Modificateur:
+	var n_requis: int
+
+	func _init(p_n_requis: int = 3):
+		self.n_requis = p_n_requis
+
+	func vainqueur_force(combat):
+		var pile = combat.pile
+		if pile.size() < self.n_requis:
+			return null
+		var derniere_parite = pile[pile.size() - 1].attack_die_roll % 2
+		for i in range(1, self.n_requis):
+			if pile[pile.size() - 1 - i].attack_die_roll % 2 != derniere_parite:
+				return null
+		return "billy"
+
+
+# Nœud 323 (Gardien surpris) : un jet de de DEDIE (injecte par callable,
+# comme HabiliteAdverseAleatoire) est lance avant chaque phase d'attaque et
+# pilote 4 branches. Mis en cache par NUMERO DE TOUR (pas par comptage
+# d'appels) pour que les 3 hooks de ce meme tour (Habileté de Billy, degats,
+# effet apres tour) voient la MEME valeur -- limite connue : si le tour est
+# annule puis rejoue, ce cache renvoie la valeur de la 1ere tentative plutot
+# que d'en tirer une nouvelle (acceptable ici : la seule utilisation prevue
+# est un callable deterministe de test, jamais un vrai de aleatoire rejoue).
+class EvenementAleatoireGardienSurpris extends Modificateur:
+	var de_roll: Callable
+	var _cache_tour: int = -1
+	var _cache_valeur: int = 0
+
+	func _init(p_de_roll: Callable):
+		self.de_roll = p_de_roll
+
+	func _valeur_pour_tour(tour):
+		if self._cache_tour != tour:
+			self._cache_tour = tour
+			self._cache_valeur = self.de_roll.call()
+		return self._cache_valeur
+
+	func hab_billy_pour_ce_tour(combat, hab_billy_actuelle, tour):
+		var v = self._valeur_pour_tour(tour)
+		if v == 2 or v == 3:
+			return maxi(0, hab_billy_actuelle - 2)
+		elif v == 4 or v == 5:
+			return hab_billy_actuelle + 2
+		return hab_billy_actuelle
+
+	func modifie_degats_bruts(combat, degats_billy, degats_adversaire, contexte):
+		var v = self._valeur_pour_tour(contexte['tour'])
+		if v == 6:
+			degats_billy += 2
+			degats_adversaire = 0
+		return [degats_billy, degats_adversaire]
+
+	func effet_apres_tour(combat, etat_tour):
+		var v = self._valeur_pour_tour(etat_tour.tour)
+		if v == 1:
+			return {"adversaire": 2}
+		return null
+
+
+# Nœud 225 (La Poigne Filante) : l'adversaire attaque DEUX fois par tour,
+# "2 fois les mêmes dommages" -- la 2eme attaque reutilise donc le MEME
+# montant que la 1ere (etat_tour.degats_adversaire, deja finalise :
+# esquive/Armure/plafond de la 1ere attaque deja appliques), mais avec sa
+# PROPRE esquive independante (chacune esquivable separement) et JAMAIS de
+# contre-attaque critique (pas de jet de 1 traite ici, contrairement a la
+# 1ere attaque). Le jet d'esquive dedie est injecte via un Callable (comme
+# EvenementAleatoireGardienSurpris) plutot que d'etendre la signature de
+# play_turn() avec un second parametre -- simplification retenue plutot
+# que deux jets d'attaque bruts totalement independants, fidele au texte
+# ("memes dommages") qui rend cette simplification exacte, pas approximative.
+class DoubleAttaqueAdverse extends Modificateur:
+	var esquive_die_roll: Callable  # Callable()->int, jet d'esquive DEDIE a la 2eme attaque
+
+	func _init(p_esquive_die_roll: Callable):
+		self.esquive_die_roll = p_esquive_die_roll
+
+	func effet_apres_tour(combat, etat_tour):
+		if etat_tour.degats_adversaire <= 0:
+			return null
+		var jet = self.esquive_die_roll.call()
+		if jet <= combat.adresse_billy:
+			return null
+		return {"adversaire": etat_tour.degats_adversaire}
