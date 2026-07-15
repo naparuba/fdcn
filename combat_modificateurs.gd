@@ -490,25 +490,34 @@ class DeSupplementaireParTour extends Modificateur:
 class AjustementTemporaireParTour extends Modificateur:
 	var cible: String  # "hab_billy", "hab_adversaire" ou "adresse_billy"
 	var delta: int
-	var dernier_tour: int
+	var dernier_tour  # int ou null (null = pas de borne haute)
+	var premier_tour  # int ou null (null = actif depuis le tour 1 -- nœud 73 : premier_tour=2, dernier_tour=null pour un malus PERMANENT a partir du tour 2)
 
-	func _init(p_cible: String, p_delta: int, p_dernier_tour: int):
+	func _init(p_cible: String, p_delta: int, p_dernier_tour = null, p_premier_tour = null):
 		self.cible = p_cible
 		self.delta = p_delta
 		self.dernier_tour = p_dernier_tour
+		self.premier_tour = p_premier_tour
+
+	func _actif(tour):
+		if self.premier_tour != null and tour < self.premier_tour:
+			return false
+		if self.dernier_tour != null and tour > self.dernier_tour:
+			return false
+		return true
 
 	func hab_billy_pour_ce_tour(combat, hab_billy_actuelle, tour):
-		if self.cible == "hab_billy" and tour <= self.dernier_tour:
+		if self.cible == "hab_billy" and self._actif(tour):
 			return maxi(0, hab_billy_actuelle + self.delta)
 		return hab_billy_actuelle
 
 	func hab_adversaire_pour_ce_tour(combat, hab_adversaire_actuelle, tour):
-		if self.cible == "hab_adversaire" and tour <= self.dernier_tour:
+		if self.cible == "hab_adversaire" and self._actif(tour):
 			return maxi(0, hab_adversaire_actuelle + self.delta)
 		return hab_adversaire_actuelle
 
 	func adresse_billy_pour_ce_tour(combat, adresse_billy_actuelle, tour):
-		if self.cible == "adresse_billy" and tour <= self.dernier_tour:
+		if self.cible == "adresse_billy" and self._actif(tour):
 			return maxi(0, adresse_billy_actuelle + self.delta)
 		return adresse_billy_actuelle
 
@@ -816,28 +825,27 @@ class FinCombatSurParitesConsecutives extends Modificateur:
 
 # Nœud 323 (Gardien surpris) : un jet de de DEDIE (injecte par callable,
 # comme HabiliteAdverseAleatoire) est lance avant chaque phase d'attaque et
-# pilote 4 branches. Mis en cache par NUMERO DE TOUR (pas par comptage
-# d'appels) pour que les 3 hooks de ce meme tour (Habileté de Billy, degats,
-# effet apres tour) voient la MEME valeur -- limite connue : si le tour est
-# annule puis rejoue, ce cache renvoie la valeur de la 1ere tentative plutot
-# que d'en tirer une nouvelle (acceptable ici : la seule utilisation prevue
-# est un callable deterministe de test, jamais un vrai de aleatoire rejoue).
+# pilote 4 branches. Les 3 hooks utilises pour un meme tour (Habileté de
+# Billy, degats, effet apres tour) doivent voir la MEME valeur -- mais
+# l'undo/rejeu doit quand meme provoquer un VRAI nouveau jet, pas la valeur
+# figee de la tentative precedente. Solution : hab_billy_pour_ce_tour est
+# le PREMIER hook appele par play_turn() a CHAQUE invocation reelle (rejeu
+# ou pas) -- c'est donc lui, et lui seul, qui relance le de et met a jour
+# _valeur_courante ; les 2 hooks suivants (modifie_degats_bruts,
+# effet_apres_tour) ne font que LIRE cette valeur pour rester coherents
+# avec le meme tirage DANS le meme appel a play_turn(). Contrairement a un
+# cache par numero de tour, ceci relance bien a chaque appel reel, y
+# compris un rejeu apres annulation.
 class EvenementAleatoireGardienSurpris extends Modificateur:
 	var de_roll: Callable
-	var _cache_tour: int = -1
-	var _cache_valeur: int = 0
+	var _valeur_courante: int = 0
 
 	func _init(p_de_roll: Callable):
 		self.de_roll = p_de_roll
 
-	func _valeur_pour_tour(tour):
-		if self._cache_tour != tour:
-			self._cache_tour = tour
-			self._cache_valeur = self.de_roll.call()
-		return self._cache_valeur
-
 	func hab_billy_pour_ce_tour(combat, hab_billy_actuelle, tour):
-		var v = self._valeur_pour_tour(tour)
+		self._valeur_courante = self.de_roll.call()
+		var v = self._valeur_courante
 		if v == 2 or v == 3:
 			return maxi(0, hab_billy_actuelle - 2)
 		elif v == 4 or v == 5:
@@ -845,15 +853,13 @@ class EvenementAleatoireGardienSurpris extends Modificateur:
 		return hab_billy_actuelle
 
 	func modifie_degats_bruts(combat, degats_billy, degats_adversaire, contexte):
-		var v = self._valeur_pour_tour(contexte['tour'])
-		if v == 6:
+		if self._valeur_courante == 6:
 			degats_billy += 2
 			degats_adversaire = 0
 		return [degats_billy, degats_adversaire]
 
 	func effet_apres_tour(combat, etat_tour):
-		var v = self._valeur_pour_tour(etat_tour.tour)
-		if v == 1:
+		if self._valeur_courante == 1:
 			return {"adversaire": 2}
 		return null
 
@@ -882,3 +888,104 @@ class DoubleAttaqueAdverse extends Modificateur:
 		if jet <= combat.adresse_billy:
 			return null
 		return {"adversaire": etat_tour.degats_adversaire}
+
+
+# Nœud 16 : l'ennemi commence le combat avec un malus d'Habileté qui se
+# resorbe au fil des tours (miroir de Intangible/nœud 534 -- decroissance
+# lineaire par NUMERO de tour -- mais applique a l'Habileté adverse, pas
+# aux degats). Formule live (tour parametre direct), undo-safe par
+# construction : aucun compteur interne.
+class HabiliteAdverseMalusDecroissantParTour extends Modificateur:
+	var malus_initial: int
+	var reduction_par_tour: int
+
+	func _init(p_malus_initial: int, p_reduction_par_tour: int):
+		self.malus_initial = p_malus_initial
+		self.reduction_par_tour = p_reduction_par_tour
+
+	func hab_adversaire_pour_ce_tour(combat, hab_adversaire_actuelle, tour):
+		var malus = maxi(0, self.malus_initial - self.reduction_par_tour * (tour - 1))
+		return maxi(0, hab_adversaire_actuelle - malus)
+
+
+# Nœud 68 : le bonus du Pyro-Barbare (deja ajoute a hab_billy a la
+# construction de Combat, cf pyro_bonus) est suspendu pour UN tour precis.
+class SansBonusPyroTour extends Modificateur:
+	var numero_tour: int
+
+	func _init(p_numero_tour: int):
+		self.numero_tour = p_numero_tour
+
+	func hab_billy_pour_ce_tour(combat, hab_billy_actuelle, tour):
+		if tour == self.numero_tour:
+			return maxi(0, hab_billy_actuelle - combat.pyro_bonus)
+		return hab_billy_actuelle
+
+
+# Nœud 649 (bénédiction de Neit) : Billy esquive TOTALEMENT les degats
+# adverses ce tour si le jet d'ATTAQUE (pas un jet d'esquive dedie) verifie
+# le predicat -- contrairement a EsquiveAdverseSurDe (qui annule les degats
+# de BILLY quand l'ADVERSAIRE esquive), cette classe annule les degats
+# subis PAR Billy, sans jamais passer par le mecanisme d'esquive normal
+# (adresse_billy/esquive_die_roll).
+class BillyEsquiveAttaqueSurDe extends Modificateur:
+	var predicat: Callable
+
+	func _init(p_predicat: Callable):
+		self.predicat = p_predicat
+
+	func modifie_degats_bruts(combat, degats_billy, degats_adversaire, contexte):
+		if self.predicat.call(contexte['attack_die_roll']):
+			degats_adversaire = 0
+		return [degats_billy, degats_adversaire]
+
+
+# Nœud 686 (Avatar de Vetherr) : quand le rayon touche (degats_adversaire
+# bruts > 0), il infligé un montant FIXE "absolu" a la place de la valeur de
+# la Table des Situations (au lieu d'esquiver completement quand il rate).
+class DegatsAdverseFixesSiTouche extends Modificateur:
+	var montant: int
+
+	func _init(p_montant: int):
+		self.montant = p_montant
+
+	func modifie_degats_bruts(combat, degats_billy, degats_adversaire, contexte):
+		if degats_adversaire > 0:
+			degats_adversaire = self.montant
+		return [degats_billy, degats_adversaire]
+
+
+# Nœud 514 (règle des "lames dentelées", rendue suspendable par Frère
+# Plouf via ModificateurConditionnel) : bonus de degats_adversaire FIXE et
+# inconditionnel (hors esquive), distinct de BonusDegatsAdversaireApresSeuilPV
+# qui necessite un seuil de PV -- ici aucune condition, juste "+bonus" tant
+# que Billy n'esquive pas.
+class BonusDegatsAdversaireFixe extends Modificateur:
+	var bonus: int
+
+	func _init(p_bonus: int):
+		self.bonus = p_bonus
+
+	func modifie_degats_bruts(combat, degats_billy, degats_adversaire, contexte):
+		if !contexte['esquive']:
+			degats_adversaire += self.bonus
+		return [degats_billy, degats_adversaire]
+
+
+# Nœud 584 (PRUDENT) : si une condition externe (typiquement un Jet de
+# Chance, hors combat.gd) reussit CE TOUR (verifiee a CHAQUE tour, pas une
+# seule fois pour tout le combat -- contrairement a
+# AttaqueBonusSiConditionExterne qui prend un booleen fixe a la
+# construction), les degats infliges par Billy sont multiplies.
+class MultiplieDegatsSiConditionExterne extends Modificateur:
+	var condition: Callable  # Callable(tour) -> bool
+	var multiplicateur: int
+
+	func _init(p_condition: Callable, p_multiplicateur: int):
+		self.condition = p_condition
+		self.multiplicateur = p_multiplicateur
+
+	func modifie_degats_bruts(combat, degats_billy, degats_adversaire, contexte):
+		if self.condition.call(contexte['tour']):
+			degats_billy *= self.multiplicateur
+		return [degats_billy, degats_adversaire]

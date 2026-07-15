@@ -45,6 +45,55 @@ Règles spéciales : dictée directe du livre physique par l'utilisateur (2026-0
   retour (le requin abattu ne porte pas son coup) -- c'est ça, "l'ennemi diminué" : moins de
   requins qui ressortent du sable pour attaquer, pas un décompte de PV/Habileté séparé. Plafond
   de 4 dégâts/tour infligés par Billy inchangé, dans les deux cas (réussite ou échec du test).
+- **584 (Armée de Creux)** : confirmé (2026-07-13, revue) -- le jet de Chance du PRUDENT
+  ("quadruple ses dégâts sur un jet de Chance réussi") est vérifié à CHAQUE tour, pas une seule
+  fois pour tout le combat. Ce n'est donc PAS côté appelant comme supposé initialement : voir
+  `MultiplieDegatsSiConditionExterne` ci-dessous.
+
+## Revue de couverture (2026-07-13) : trous trouvés et corrigés
+
+Une relecture complète du catalogue contre `test_combat_regles_speciales_tome2.gd`, nœud par
+nœud, a trouvé plusieurs mécaniques conçues pendant le design mais jamais réellement codées ni
+testées. Toutes corrigées dans cette même passe (voir sections ci-dessous pour le détail des
+classes) :
+- **16** : aucune classe n'existait pour le malus d'Habileté adverse démarrant à -3 et se
+  résorbant de +1/tour -- ajouté `HabiliteAdverseMalusDecroissantParTour`.
+- **68** : aucune classe pour "le Pyro-Barbare est absent pendant 1 tour" -- ajouté
+  `SansBonusPyroTour`.
+- **73** : aucune classe pour l'événement du tour 2 (3 PV + malus permanent) -- couvert par
+  `AjustementTemporaireParTour` étendu (`premier_tour`) + `DegatsPeriodiques` (une_seule_fois).
+- **225** : la clause "s'il n'est pas vaincu en 3 tours, il s'échappe" n'était pas testée --
+  `LimiteDeTours` la couvre déjà nativement (accepte n'importe quelle chaîne de résultat),
+  ajouté un test avec `resultat="fuite"`.
+- **514** : aucun test du tout. La branche Khazin (`DegatsPeriodiques` avec `cible="adversaire"`)
+  était une branche de code JAMAIS exercée par aucun test (Tome 1 ou Tome 2, seul `cible="billy"`
+  l'était) -- trou de couverture sur du code déjà écrit, pas juste un nœud non testé. La branche
+  Frère Plouf n'était testée qu'avec un exemple synthétique générique -- ajouté un test avec les
+  3 VRAIES règles du Gardien, chacune suspendable indépendamment (voir `BonusDegatsAdversaireFixe`
+  ci-dessous, nécessaire pour rendre la règle des "lames dentelées" suspendable).
+- **630** : la branche PAYSAN (djinns de terre, même branche `cible="adversaire"` que Khazin)
+  n'était pas testée -- ajouté. Les branches archétype restent essentiellement côté appelant
+  (voir correction du traitement du Critique ci-dessous).
+- **649** : la bénédiction de Neit ("esquive tous les dommages sur un dé impair, sans phase
+  d'esquive") n'avait ni classe ni test -- ajouté `BillyEsquiveAttaqueSurDe`.
+- **686** : "4 dégâts absolus s'il touche" n'avait ni classe ni test -- ajouté
+  `DegatsAdverseFixesSiTouche`.
+- **630 (correction)** : le tableau reuse listait à tort `ImmuniteContreAttaqueCritique` pour ce
+  nœud. Erreur d'analyse : "votre Critique est réduit à 0" est le score de CRITIQUE de Billy mis
+  à 0 (`critique_billy=0` côté appelant -- un critique a toujours lieu, juste sans bonus, exactement
+  l'effet de `ContreAttaqueCritiqueSansBonusCritique`, voire aucun Modificateur du tout puisque
+  `critique_billy=0` suffit), PAS une immunité qui annule le critique lui-même. `DÉBROUILLARD`
+  restaure `critique_billy` à sa valeur normale +2, toujours côté appelant.
+- **`EvenementAleatoireGardienSurpris` (323)** : la mise en cache par NUMÉRO DE TOUR (limite
+  documentée à l'origine) a été remplacée par un cache invalidé à CHAQUE appel réel de
+  `hab_billy_pour_ce_tour` (le 1er hook appelé par tour, systématiquement, rejeu ou pas) --
+  supprime la limite : un rejeu après annulation relance bien le dé, au lieu de renvoyer la
+  valeur de la tentative précédente.
+
+Tous les cas d'annulation/rejeu des nouvelles mécaniques ont des tests dédiés, en particulier
+pour les mécanismes pilotés par une condition CONTRÔLÉE PAR L'APPELANT (Frère Plouf, Chance du
+PRUDENT) : annuler un tour puis le rejouer avec un choix DIFFÉRENT doit refléter le nouveau
+choix, pas un résultat figé de la tentative annulée.
 
 ## Architecture retenue (2026-07-13) : classes réutilisées vs nouvelles
 
@@ -63,6 +112,12 @@ ou système hors `combat.gd` (Chance/Domination/fuite, choix narratif).
   l'ancienne `tour % intervalle == 0` quand tour_de_debut=1).
 - **`SansAttaqueTour`** *(+`duree=1`)* : permet "pas d'attaque pendant N tours consécutifs"
   (323 : numero_tour=1, duree=2) au lieu d'un seul tour fixe.
+- **`AjustementTemporaireParTour`** *(+`premier_tour=null`, revue 2026-07-13)* : `dernier_tour`
+  et `premier_tour` acceptent désormais `null` (= pas de borne). `dernier_tour=null,
+  premier_tour=X` donne un malus PERMANENT à partir du tour X (73), `dernier_tour=null,
+  premier_tour=null` donne un ajustement actif tout le combat, utile combiné à
+  `ModificateurConditionnel` (514, Frère Plouf) puisqu'un `AjustementTemporaireParTour`
+  "toujours actif" devient alors "actif sauf les tours où Plouf le suspend".
 
 ### Nouvelles classes génériques (réutilisées sur plusieurs nœuds)
 
@@ -111,14 +166,39 @@ ou système hors `combat.gd` (Chance/Domination/fuite, choix narratif).
 - **`FinCombatSurParitesConsecutives(n_requis=3)`** -- force `vainqueur_force` en faveur de
   Billy dès que `n_requis` tours consécutifs ont le même die d'attaque de même parité (dérivé de
   `combat.pile`, donc undo-safe). Couvre 256.
+- **`HabiliteAdverseMalusDecroissantParTour(malus_initial, reduction_par_tour)`** -- malus
+  d'Habileté adverse qui se résorbe linéairement par NUMÉRO de tour (miroir de `Intangible` du
+  Tome 1, mais appliqué à l'Habileté plutôt qu'aux dégâts). Couvre 16.
+- **`SansBonusPyroTour(numero_tour)`** -- suspend `pyro_bonus` (déjà ajouté à `hab_billy` à la
+  construction) pour UN tour précis. Couvre 68.
+- **`BillyEsquiveAttaqueSurDe(predicat)`** -- Billy esquive TOTALEMENT les dégâts adverses ce
+  tour si le jet d'ATTAQUE (pas un jet d'esquive dédié) vérifie le prédicat -- contrairement à
+  `EsquiveAdverseSurDe` (l'ADVERSAIRE esquive l'attaque de Billy), celle-ci annule les dégâts
+  SUBIS par Billy, sans passer par le mécanisme d'esquive normal. Couvre 649 (bénédiction de
+  Neit).
+- **`DegatsAdverseFixesSiTouche(montant)`** -- remplace `degats_adversaire` par un montant fixe
+  quand l'attaque touche (`degats_adversaire > 0` avant remplacement). Couvre 686.
+- **`BonusDegatsAdversaireFixe(bonus)`** -- bonus de `degats_adversaire` fixe et inconditionnel
+  (hors esquive), sans seuil de PV -- distinct de `BonusDegatsAdversaireApresSeuilPV`. Rend la
+  règle des "lames dentelées" du nœud 514 suspendable via `ModificateurConditionnel` (Frère
+  Plouf).
+- **`MultiplieDegatsSiConditionExterne(condition: Callable, multiplicateur)`** -- comme
+  `AttaqueBonusSiConditionExterne`, mais la condition est un Callable réévalué à CHAQUE tour
+  (`condition.call(tour)`) plutôt qu'un booléen fixé une fois à la construction -- nécessaire
+  quand la condition externe (ex. un Jet de Chance) peut changer d'un tour à l'autre. Couvre 584
+  (PRUDENT).
 
 ### Classes réutilisées telles quelles (Tome 1)
 
-`LimiteDeTours` (166 : survie 3 tours ; 293 : victoire immédiate tour 1 -- `LimiteDeTours(1,
-"billy")` ; 480 : PB arrive tour 3 ; 608 : défaite si pas gagné en 2 tours), `SansAttaqueTour`
-(180 premier tour), `ImmuniteContreAttaqueCritique` (480, 514, 630 -- "critique réduit à 0" est
-le même effet mécanique que "l'adversaire est immunisé au critique"), `HabiliteAdverseDegressiveParDegatsCumules`
-(630 : -1 Hab tous les 3 PV perdus), `DegatsPeriodiques` (79, 81, 282, 630 -- bloc de marbre),
+`LimiteDeTours` (166 : survie 3 tours ; 225 : `resultat="fuite"` si pas vaincu en 3 tours ; 293 :
+victoire immédiate tour 1 -- `LimiteDeTours(1, "billy")` ; 480 : PB arrive tour 3 ; 608 : défaite
+si pas gagné en 2 tours), `SansAttaqueTour` (180 premier tour), `ImmuniteContreAttaqueCritique`
+(480, 514 -- "les coups critiques ne lui infligent aucun dommage" est le même effet mécanique
+que "l'adversaire est immunisé au critique" ; **PAS 630**, cf correction dans "Revue de
+couverture" -- 630 met `critique_billy` à 0 côté appelant, ce n'est pas une immunité),
+`HabiliteAdverseDegressiveParDegatsCumules` (630 : -1 Hab tous les 3 PV perdus),
+`DegatsPeriodiques` (79, 81, 282, 630 -- bloc de marbre ; cible="adversaire" pour 514/Khazin et
+630/PAYSAN, branche vérifiée par un test dédié depuis la revue de couverture),
 `AttaqueBonusSiConditionExterne` (686 -- encaisser volontairement pour +4 dégâts, réutilisé à
 l'identique du nœud 387).
 

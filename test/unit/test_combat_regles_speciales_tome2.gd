@@ -475,6 +475,229 @@ func test_node608_defaite_forcee_si_pas_vaincu_en_2_tours():
 
 
 # =========================================================================
+# HabiliteAdverseMalusDecroissantParTour -- nœud 16 (Jeune Kränelornien
+# épuisé)
+# =========================================================================
+
+func test_node16_malus_habilete_adverse_se_resorbe_au_fil_des_tours():
+	# "il commence le combat avec -3 Habileté, mais regagne 1 point à la
+	# fin de chaque tour." die=5 choisi car diff=2 (tour1, malus plein) et
+	# diff=-1 (malus resorbe, si le malus etait reste a 3) donnent 5 puis 4
+	# (differents) -- et die=1 choisi pour le tour final car diff=0 (s'il
+	# restait encore 1 point de malus) et diff=-1 (totalement resorbe)
+	# donnent 5 puis 6 (differents) sur degats_adversaire.
+	var mod = Mods.HabiliteAdverseMalusDecroissantParTour.new(3, 1)
+	# hab_adversaire=10 est la valeur NORMALE (colonne Hab du nœud 16) --
+	# le modificateur retire le malus PAR-DESSUS cette base (10-3=7 au tour1).
+	var combat = CombatScript.new(9, 10, 20, 50, {"modificateurs": [mod]})
+	var t1 = combat.play_turn(5)  # tour1 : malus plein (3), hab_adversaire eff=10-3=7, diff=2
+	assert_eq(t1.degats_billy, 5, "tour1 : malus plein actif, diff=2")
+	combat.play_turn(3)
+	combat.play_turn(3)
+	var t4 = combat.play_turn(1)  # tour4 : malus totalement resorbe (3-1*3=0)
+	assert_eq(t4.degats_adversaire, 6, "tour4 : malus totalement resorbe -- s'il restait 1 point, on aurait 5")
+
+
+# =========================================================================
+# SansBonusPyroTour -- nœud 68 (Chasseurs de primes)
+# =========================================================================
+
+func test_node68_bonus_pyro_barbare_suspendu_un_seul_tour():
+	# "Le Pyro-Barbare est absent pendant 1 tour."
+	var mod = Mods.SansBonusPyroTour.new(1)
+	var combat = CombatScript.new(6, 9, 50, 20, {"pyro_bonus": 4, "modificateurs": [mod]})
+	var t1 = combat.play_turn(3)  # tour1 : pyro_bonus suspendu, hab_billy eff=6, diff=-3
+	assert_eq(t1.degats_billy, 2, "tour1 : Pyro-Barbare absent, diff=-3")
+	var t2 = combat.play_turn(3)  # tour2 : pyro_bonus revenu, hab_billy eff=10, diff=1
+	assert_eq(t2.degats_billy, 3, "tour2 : Pyro-Barbare de retour, diff=1")
+
+
+# =========================================================================
+# AjustementTemporaireParTour (premier_tour) + DegatsPeriodiques
+# (une_seule_fois, cible=adversaire) -- nœud 73 (Chasseurs de primes
+# surpris)
+# =========================================================================
+
+func test_node73_pb_assomme_un_chasseur_au_tour_2_degats_et_malus_permanent():
+	# "À la fin du 2ᵉ tour, le Pyro-Barbare assomme un des Chasseurs : 3 PV
+	# infligés à l'ennemi et -2 Habileté adverse [permanent, pas juste ce
+	# tour-là]."
+	var mod_hab = Mods.AjustementTemporaireParTour.new("hab_adversaire", -2, null, 2)
+	var mod_dmg = Mods.DegatsPeriodiques.new(2, 3, "adversaire", false, true)
+	var combat = CombatScript.new(9, 9, 20, 50, {"modificateurs": [mod_hab, mod_dmg]})
+	var t1 = combat.play_turn(4)  # tour1 : malus pas encore actif (premier_tour=2), pas de declenchement (intervalle=2)
+	assert_eq(t1.degats_billy, 3, "tour1 : pas encore de malus, diff=0")
+	assert_eq(t1.degats_supplementaires_billy, 0, "tour1 : pas encore d'evenement")
+	var t2 = combat.play_turn(4)  # tour2 : malus actif desormais, evenement declenche
+	assert_eq(t2.degats_billy, 4, "tour2 : malus actif (-2 Hab adverse), diff=2")
+	assert_eq(t2.degats_supplementaires_billy, 3, "tour2 : le Pyro-Barbare assomme un chasseur, +3 degats")
+	var t3 = combat.play_turn(4)  # tour3 : malus toujours actif (permanent), pas de nouveau declenchement
+	assert_eq(t3.degats_billy, 4, "tour3 : malus permanent toujours actif")
+	assert_eq(t3.degats_supplementaires_billy, 0, "tour3 : une seule fois, pas de second declenchement")
+
+
+# =========================================================================
+# BillyEsquiveAttaqueSurDe -- nœud 649 (bénédiction de Neit, Zarh du
+# souffle de Zarh)
+# =========================================================================
+
+func test_node649_benediction_de_neit_esquive_totale_sur_de_impair():
+	# "La bénédiction de Neit vous fait esquiver tous les dommages si vous
+	# obtenez un dé impair durant votre phase d'attaque, sans même passer
+	# par une phase d'esquive."
+	var mod = Mods.BillyEsquiveAttaqueSurDe.new(func(d): return d % 2 == 1)
+	var combat = CombatScript.new(9, 9, 50, 20, {"modificateurs": [mod]})
+	var t1 = combat.play_turn(1)  # die impair
+	assert_eq(t1.degats_adversaire, 0, "die impair -- esquive totale, sans jet d'esquive dedie")
+	var t2 = combat.play_turn(2)  # die pair
+	assert_eq(t2.degats_adversaire, 4, "die pair -- degats normaux (table[0][1]=4)")
+
+
+# =========================================================================
+# DegatsAdverseFixesSiTouche + AttaqueBonusSiConditionExterne (reuse) --
+# nœud 686 (Avatar de Vetherr)
+# =========================================================================
+
+func test_node686_rayon_absolu_de_4_degats_sil_touche():
+	# "il tire un unique trait d'énergie pure qui vous inflige 4 dommages
+	# absolus s'il vous touche."
+	var mod = Mods.DegatsAdverseFixesSiTouche.new(4)
+	var combat = CombatScript.new(9, 0, 50, 30, {"modificateurs": [mod]})
+	var t1 = combat.play_turn(1)  # diff=7 (clampe), die1 -> table[7][0] adversaire=3 (touche, non nul)
+	assert_eq(t1.degats_adversaire, 4, "le rayon touche -- remplace par 4 degats absolus fixes (pas 3)")
+	var t2 = combat.play_turn(5)  # die5 -> table[7][4] adversaire=0 (rate)
+	assert_eq(t2.degats_adversaire, 0, "le rayon rate -- pas de degats fixes (0 reste 0)")
+
+
+func test_node686_encaisser_volontairement_ajoute_un_bonus_de_4():
+	# "Vous pouvez choisir d'encaisser volontairement son rayon [...] pour
+	# un bonus de 4 dégâts." -- reutilise AttaqueBonusSiConditionExterne
+	# a l'identique du nœud 387 (Tome 1).
+	var mod_fixe = Mods.DegatsAdverseFixesSiTouche.new(4)
+	var mod_bonus = Mods.AttaqueBonusSiConditionExterne.new(true, 4)
+	var combat = CombatScript.new(9, 0, 50, 30, {"modificateurs": [mod_fixe, mod_bonus]})
+	var t = combat.play_turn(1)
+	assert_eq(t.degats_adversaire, 8, "rayon absolu (4) + bonus volontaire (+4) = 8")
+
+
+# =========================================================================
+# DegatsPeriodiques (cible="adversaire") -- nœud 514 (Khazin), nœud 630
+# (djinns de terre du PAYSAN) -- branche du code JAMAIS exercee par un
+# test avant cette revue (seul cible="billy" etait teste, Tome 1 et Tome 2)
+# =========================================================================
+
+func test_node514_khazin_inflige_2pv_par_tour_a_lennemi():
+	# "Si Khazin vous accompagne : il inflige 2 PV de dégâts par tour à
+	# l'ennemi."
+	var mod = Mods.DegatsPeriodiques.new(1, 2, "adversaire", false, false)
+	var combat = CombatScript.new(9, 9, 50, 20, {"modificateurs": [mod]})
+	var t = combat.play_turn(3)  # normal : table[0][2]=[3,3]
+	assert_eq(t.degats_supplementaires_billy, 2, "Khazin inflige 2 PV/tour supplementaires, EN PLUS des degats normaux de Billy")
+	assert_eq(combat.pv_adversaire, 20 - 3 - 2, "3 (attaque normale) + 2 (Khazin) = 5 PV perdus ce tour")
+
+
+func test_node630_djinns_de_terre_du_paysan_renvoient_1pv_par_tour():
+	# "PAYSAN → vos djinns de terre bloquent et renvoient les projectiles,
+	# 1 PV/tour infligé à l'adversaire."
+	var mod = Mods.DegatsPeriodiques.new(1, 1, "adversaire", false, false)
+	var combat = CombatScript.new(9, 9, 50, 20, {"modificateurs": [mod]})
+	var t = combat.play_turn(3)
+	assert_eq(t.degats_supplementaires_billy, 1, "djinns de terre : 1 PV/tour supplementaire infligé a l'adversaire")
+
+
+# =========================================================================
+# MultiplieDegatsSiConditionExterne -- nœud 584 (PRUDENT, Armée de Creux) --
+# condition externe VERIFIEE A CHAQUE TOUR (pas une seule fois pour tout
+# le combat, contrairement a AttaqueBonusSiConditionExterne)
+# =========================================================================
+
+func test_node584_prudent_quadruple_ses_degats_sur_jet_de_chance_reussi_chaque_tour():
+	# "PRUDENT → quadruple ses dégâts sur un jet de Chance réussi" -- verifie
+	# ici que la condition est bien re-evaluee CHAQUE tour (pas figee a la
+	# construction) : reussie au tour 2 seulement dans ce test.
+	var mod = Mods.MultiplieDegatsSiConditionExterne.new(func(tour): return tour == 2, 4)
+	var combat = CombatScript.new(9, 9, 50, 50, {"modificateurs": [mod]})
+	var t1 = combat.play_turn(3)  # tour1 : jet de Chance non tente/rate ce tour
+	assert_eq(t1.degats_billy, 3, "tour1 : degats normaux")
+	var t2 = combat.play_turn(3)  # tour2 : jet de Chance reussi CE tour
+	assert_eq(t2.degats_billy, 12, "tour2 : degats quadruples (3*4)")
+	var t3 = combat.play_turn(3)  # tour3 : de nouveau rate -- la condition est re-evaluee, pas figee a 'toujours actif' depuis le tour2
+	assert_eq(t3.degats_billy, 3, "tour3 : redevenu normal -- preuve que ce n'est pas 'actif pour toujours' une fois declenche")
+
+
+# =========================================================================
+# LimiteDeTours avec un resultat narratif arbitraire -- nœud 225 (La
+# Poigne Filante s'echappe si non vaincue en 3 tours)
+# =========================================================================
+
+func test_node225_sechappe_si_pas_vaincu_en_3_tours():
+	# "Si vous ne l'avez pas vaincu en 3 tours, il s'échappe vers le module
+	# 206." -- LimiteDeTours accepte n'importe quelle chaine de resultat
+	# (pas seulement "billy"/"adversaire") : get_winner() renvoie
+	# litteralement ce qui a ete passe, a l'appelant de l'interpreter
+	# (ici "fuite", pour rediriger vers le module 206 plutot qu'un vrai
+	# gain/perte).
+	var mod = Mods.LimiteDeTours.new(3, "fuite")
+	var combat = CombatScript.new(1, 9, 200, 100, {"modificateurs": [mod]})
+	combat.play_turn(3)
+	combat.play_turn(3)
+	assert_false(combat.is_over(), "pas encore au 3eme tour")
+	combat.play_turn(3)
+	assert_true(combat.is_over())
+	assert_eq(combat.get_winner(), "fuite", "resultat narratif arbitraire, distinct de billy/adversaire/egalite")
+
+
+# =========================================================================
+# ModificateurConditionnel x3 -- nœud 514 (Frère Plouf suspend, au choix de
+# Billy au début de chaque tour, UNE des 3 règles du Gardien) -- test avec
+# les 3 VRAIES règles du nœud (pas un exemple synthetique), verifiant que
+# CHACUNE peut etre suspendue independamment.
+# =========================================================================
+
+func test_node514_frere_plouf_peut_suspendre_chacune_des_3_regles_independamment():
+	# Les 3 règles du Gardien : (1) -1 Adresse pour Billy, (2) immunite
+	# totale a la contre-attaque critique, (3) +1 degat_adversaire fixe
+	# (les "lames dentelées"). "regle_suspendue" est une boite mutable
+	# (Array a 1 case) representant le choix de Billy au debut de CHAQUE
+	# tour -- exactement le canal par lequel l'appelant (main.gd)
+	# communiquerait ce choix au combat en jeu reel.
+	var regle_suspendue = [null]
+	var mod_adresse = Mods.ModificateurConditionnel.new(
+		Mods.AjustementTemporaireParTour.new("adresse_billy", -1, null, null),
+		func(combat, tour): return regle_suspendue[0] != "adresse")
+	var mod_critique = Mods.ModificateurConditionnel.new(
+		Mods.ImmuniteContreAttaqueCritique.new(),
+		func(combat, tour): return regle_suspendue[0] != "critique")
+	var mod_bonus = Mods.ModificateurConditionnel.new(
+		Mods.BonusDegatsAdversaireFixe.new(1),
+		func(combat, tour): return regle_suspendue[0] != "bonus")
+	var combat = CombatScript.new(9, 9, 50, 50, {
+		"adresse_billy": 3, "critique_billy": 10,
+		"modificateurs": [mod_adresse, mod_critique, mod_bonus],
+	})
+
+	# Tour 1 : rien suspendu -- les 3 regles actives.
+	var t1 = combat.play_turn(6, 3)  # Adresse eff=3-1=2, esquive(3<=2)=false
+	assert_false(t1.esquive, "regle Adresse active (rien suspendu) -- Adresse eff=2, esquive ratee")
+	assert_eq(t1.degats_adversaire, 4, "regle bonus active -- table[0][5]=3 + 1 = 4")
+
+	# Tour 2 : Adresse suspendue -- Adresse pleine (3), esquive reussie.
+	regle_suspendue[0] = "adresse"
+	var t2 = combat.play_turn(6, 3)
+	assert_true(t2.esquive, "regle Adresse suspendue par Plouf -- Adresse pleine (3), esquive reussie")
+
+	# Tour 3 : critique suspendue -- la contre-attaque critique s'applique normalement.
+	regle_suspendue[0] = "critique"
+	var t3 = combat.play_turn(6, 1)  # Adresse eff=2 (regle 1 de nouveau active), esquive(1<=2)=true -> critique
+	assert_eq(t3.degats_billy, 15, "regle critique suspendue par Plouf -- degats max (5) + bonus Critique (10) = 15")
+
+	# Tour 4 : bonus suspendu -- pas de +1 degat_adversaire ce tour.
+	regle_suspendue[0] = "bonus"
+	var t4 = combat.play_turn(6, 3)  # Adresse eff=2, esquive(3<=2)=false
+	assert_eq(t4.degats_adversaire, 3, "regle bonus suspendue par Plouf -- table[0][5]=3, pas de +1")
+
+
+# =========================================================================
 # UNDO + MODIFICATEURS -- meme exigence qu'au Tome 1 : le retour en
 # arriere est une fonctionnalite de base, elle DOIT rester correcte meme
 # combinee aux nouvelles regles speciales du Tome 2.
@@ -539,3 +762,92 @@ func test_undo_puis_rejoue_malus_degats_bruts_devient_malus_recompte_le_bon_tour
 	assert_eq(t1_replay.degats_billy, 1, "tour 1 rejoue avec un autre jet -- le malus (numero de tour 1) est toujours actif")
 	var t2 = combat.play_turn(3)  # vrai tour 2
 	assert_eq(t2.degats_billy, 5, "vrai tour 2 -- le malus a disparu, degats normaux (3+2)")
+
+
+func test_undo_puis_rejoue_malus_habilete_decroissant_recompte_le_bon_tour():
+	# nœud 16 : le malus lit "tour" en direct (aucun compteur interne) --
+	# annuler+rejouer le tour 2 doit rester coherent avec le NIVEAU de
+	# malus du tour 2 (2 points resorbes), pas glisser vers celui du tour 3.
+	var mod = Mods.HabiliteAdverseMalusDecroissantParTour.new(3, 1)
+	var combat = CombatScript.new(9, 10, 20, 50, {"modificateurs": [mod]})
+	combat.play_turn(5)  # tour1 : malus=3, hab_adversaire eff=7, diff=2
+	var t2 = combat.play_turn(4)  # tour2 : malus=2, hab_adversaire eff=8, diff=1 -> table[1][3]=[4,3]
+	assert_eq(t2.degats_adversaire, 3, "malus=2 actif au tour 2 (da=3, pas 2 comme si le malus etait reste a 3)")
+	combat.undo_last_turn()  # revient au tour 1
+	var t2_replay = combat.play_turn(6)  # rejoue le tour 2 avec un autre jet -- malus=2, diff=1 -> table[1][5]=[6,3]
+	assert_eq(t2_replay.degats_billy, 6, "tour 2 rejoue avec un autre jet -- malus=2 toujours actif (pas 1, qui donnerait 5)")
+
+
+func test_undo_puis_rejoue_evenement_declenche_a_tour_fixe_ne_se_declenche_pas_en_avance():
+	# nœud 73 : meme piege que le nœud 97 du Tome 1 -- l'evenement (3 PV +
+	# malus permanent) declenche au tour 2 doit rester au tour 2 apres
+	# annulation+rejeu, ne pas glisser au tour 3 ni disparaitre.
+	var mod_hab = Mods.AjustementTemporaireParTour.new("hab_adversaire", -2, null, 2)
+	var mod_dmg = Mods.DegatsPeriodiques.new(2, 3, "adversaire", false, true)
+	var combat = CombatScript.new(9, 9, 20, 50, {"modificateurs": [mod_hab, mod_dmg]})
+	combat.play_turn(4)  # tour1
+	combat.play_turn(5)  # tour2 (mauvais jet, le joueur n'est pas content)
+	combat.undo_last_turn()  # annule le tour2
+	var t2_rejoue = combat.play_turn(4)  # rejoue le tour2, 3eme appel a play_turn()
+	assert_eq(t2_rejoue.tour, 2, "toujours le tour 2 apres annulation+rejeu")
+	assert_eq(t2_rejoue.degats_supplementaires_billy, 3, "l'evenement (tour 2 exactement) se declenche bien sur ce rejeu")
+	assert_eq(t2_rejoue.degats_billy, 4, "malus permanent actif au tour 2")
+	# Annule aussi ce tour 2 rejoue ET le tour 1 -- retour total a l'etat initial.
+	combat.undo_last_turn()
+	combat.undo_last_turn()
+	var t1_replay = combat.play_turn(4)
+	assert_eq(t1_replay.degats_billy, 3, "de retour au tour 1 -- malus pas encore actif (premier_tour=2)")
+	assert_eq(t1_replay.degats_supplementaires_billy, 0, "de retour au tour 1 -- pas encore d'evenement (intervalle=2)")
+
+
+func test_undo_puis_rejoue_avec_condition_externe_changee_noeud_584():
+	# nœud 584 (PRUDENT) : la condition externe (jet de Chance, controlee
+	# par l'appelant/le joueur) peut changer entre la 1ere tentative d'un
+	# tour et son rejeu apres annulation -- le Modificateur doit refleter
+	# la valeur ACTUELLE de la condition, jamais un resultat figé de la
+	# tentative annulee.
+	var chance_reussie = [true]
+	var mod = Mods.MultiplieDegatsSiConditionExterne.new(func(tour): return chance_reussie[0], 4)
+	var combat = CombatScript.new(9, 9, 50, 50, {"modificateurs": [mod]})
+	var t1 = combat.play_turn(3)
+	assert_eq(t1.degats_billy, 12, "1ere tentative : Chance reussie, degats quadruples")
+	combat.undo_last_turn()
+	chance_reussie[0] = false  # le joueur retente ce tour, cette fois le jet de Chance echoue
+	var t1_replay = combat.play_turn(3)
+	assert_eq(t1_replay.degats_billy, 3, "rejeu du meme tour avec Chance ratee -- degats normaux, pas figes a l'ancien resultat")
+
+
+func test_undo_puis_rejoue_avec_regle_suspendue_differente_noeud_514():
+	# nœud 514 : le choix de Frère Plouf (quelle regle suspendre) est fait
+	# par le joueur au debut de CHAQUE tour -- s'il annule et rejoue avec
+	# un choix different, le combat doit refleter le NOUVEAU choix.
+	var regle_suspendue = [null]
+	var mod_adresse = Mods.ModificateurConditionnel.new(
+		Mods.AjustementTemporaireParTour.new("adresse_billy", -1, null, null),
+		func(combat, tour): return regle_suspendue[0] != "adresse")
+	var mod_critique = Mods.ModificateurConditionnel.new(
+		Mods.ImmuniteContreAttaqueCritique.new(),
+		func(combat, tour): return regle_suspendue[0] != "critique")
+	var combat = CombatScript.new(9, 9, 50, 50, {
+		"adresse_billy": 3, "critique_billy": 10,
+		"modificateurs": [mod_adresse, mod_critique],
+	})
+	regle_suspendue[0] = "adresse"
+	var t1 = combat.play_turn(6, 3)  # adresse suspendue -- pleine (3), esquive(3<=3)=true
+	assert_true(t1.esquive, "1ere tentative : Adresse suspendue, esquive reussie")
+	combat.undo_last_turn()
+	regle_suspendue[0] = "critique"  # le joueur change d'avis apres l'annulation
+	var t1_replay = combat.play_turn(6, 3)  # adresse de nouveau active (2), esquive(3<=2)=false
+	assert_false(t1_replay.esquive, "rejeu avec un AUTRE choix de Plouf -- Adresse de nouveau active, esquive ratee")
+
+
+func test_undo_retire_les_degats_supplementaires_cible_adversaire():
+	# nœud 630 (PAYSAN) : DegatsPeriodiques avec cible="adversaire" (branche
+	# du code jamais testee avant cette revue) doit rester undo-safe comme
+	# toute autre configuration de cette classe.
+	var mod = Mods.DegatsPeriodiques.new(1, 1, "adversaire", false, false)
+	var combat = CombatScript.new(9, 9, 50, 20, {"modificateurs": [mod]})
+	combat.play_turn(3)
+	assert_eq(combat.pv_adversaire, 20 - 3 - 1, "degats normaux + degats supplementaires (cible=adversaire)")
+	combat.undo_last_turn()
+	assert_eq(combat.pv_adversaire, 20, "annulation retire aussi les degats supplementaires cible=adversaire")
