@@ -21,7 +21,13 @@ jobs:
         with:
           python-version: "3.11"
 
-      - name: Installe les dependances
+      # Le paquet pip "graphviz" n'est qu'un wrapper autour du binaire
+      # systeme "dot" (fdcn.py appelle display_graph.render()) -- absent
+      # par defaut sur les runners GitHub, present sur les postes de dev.
+      - name: Installe Graphviz (binaire systeme "dot")
+        run: sudo apt-get update && sudo apt-get install -y graphviz
+
+      - name: Installe les dependances Python
         run: pip install pytest -r requirements.txt
 
       - name: Lance les tests Python
