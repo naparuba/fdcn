@@ -90,6 +90,34 @@ classes) :
   supprime la limite : un rejeu après annulation relance bien le dé, au lieu de renvoyer la
   valeur de la tentative précédente.
 
+## Deuxième relecture (2026-07-13) : mot à mot, pas juste la liste des classes
+
+Une 2ᵉ relecture, cette fois du texte EXACT de chaque règle (pas seulement de la liste des
+classes déjà écrites), a trouvé une nuance manquée et trois combinaisons de paramètres jamais
+directement exercées :
+
+- **630 (PRUDENT), correction réelle** : "vos djinns d'eau [...] lui retirant SES PROJECTILES ET
+  SA PROTECTION lors de vos lancers impairs" avait été lu comme "ne pas attacher `DivisionDegats`
+  pour PRUDENT" -- correct pour "sa protection" (division de dégâts, qui ne s'applique déjà que
+  sur dé impair, donc ne pas l'attacher revient exactement à la retirer sur dé impair). MAIS "ses
+  projectiles" désigne le bloc de marbre (`DegatsPeriodiques`), qui lui n'a PAS de suppression
+  conditionnelle par défaut -- omission réelle. Corrigé en enveloppant le bloc de marbre dans un
+  `ModificateurConditionnel` dont la condition lit la parité du dernier `attack_die_roll` empilé,
+  aucune nouvelle classe nécessaire.
+- **`ModificateurConditionnel`, mise en garde ajoutée** : en écrivant le test ci-dessus, une
+  condition qui lit `combat.pile` a fait planter le moteur au 1ᵉʳ tour (pile encore vide avant
+  l'empilement du nouvel `EtatTour`) -- parce que le décorateur transmet TOUS les hooks vers
+  `condition`, y compris ceux que le Modificateur intérieur n'implémente même pas.
+  Documenté dans le code : toute condition doit être défensive (vérifier `pile.size() > 0`),
+  pas supposer qu'elle n'est appelée que depuis le hook qui nous intéresse.
+- **282, 630, 480** : trois nœuds où les classes utilisées étaient prouvées ailleurs mais jamais
+  avec CES paramètres précis ni sur CE nœud précis (282 : `DegatsPeriodiques` intervalle=2, jamais
+  testé directement, seuls intervalle=1/3 l'avaient été ; 630 : `HabiliteAdverseDegressiveParDegatsCumules`
+  avec pas=3, seuls pas=2/4 l'avaient été ; 480 : `ImmuniteContreAttaqueCritique` +
+  `LimiteDeTours` jamais combinés ensemble sur ce nœud). Ajoutés par prudence -- aucune de ces
+  vérifications n'a révélé de bug, mais fermer la boucle sur des paramètres/combinaisons jamais
+  directement exercés vaut mieux que de compter sur une extrapolation, même raisonnable.
+
 Tous les cas d'annulation/rejeu des nouvelles mécaniques ont des tests dédiés, en particulier
 pour les mécanismes pilotés par une condition CONTRÔLÉE PAR L'APPELANT (Frère Plouf, Chance du
 PRUDENT) : annuler un tour puis le rejouer avec un choix DIFFÉRENT doit refléter le nouveau

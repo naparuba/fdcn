@@ -851,3 +851,85 @@ func test_undo_retire_les_degats_supplementaires_cible_adversaire():
 	assert_eq(combat.pv_adversaire, 20 - 3 - 1, "degats normaux + degats supplementaires (cible=adversaire)")
 	combat.undo_last_turn()
 	assert_eq(combat.pv_adversaire, 20, "annulation retire aussi les degats supplementaires cible=adversaire")
+
+
+# =========================================================================
+# Re-relecture (2026-07-13) : cas a la marge trouves en relisant le texte
+# EXACT de chaque regle mot a mot, pas juste la liste des classes deja
+# ecrites.
+# =========================================================================
+
+func test_node630_prudent_retire_aussi_le_bloc_de_marbre_sur_de_impair():
+	# Relecture du texte dicte pour 630 (PRUDENT) : "vos djinns d'eau [...]
+	# lui retirant SES PROJECTILES ET SA PROTECTION lors de vos lancers
+	# impairs." "sa protection" = la division de degats (deja modelisee en
+	# ne PAS attachant DivisionDegats pour PRUDENT, ce qui revient au meme
+	# puisque DivisionDegats ne s'applique QUE sur un de impair de toute
+	# facon). Mais "ses projectiles" = le bloc de marbre periodique
+	# (DegatsPeriodiques) N'AVAIT PAS cette suppression conditionnelle --
+	# omission trouvee en relisant le texte mot a mot. Corrige en
+	# enveloppant le bloc de marbre dans un ModificateurConditionnel qui le
+	# suspend precisement sur un de impair (reutilise le mecanisme
+	# existant, aucune nouvelle classe necessaire).
+	# La condition est aussi appelee (sans consequence) par les hooks
+	# PRE-tour de ModificateurConditionnel (hab_billy_pour_ce_tour, etc.)
+	# que DegatsPeriodiques n'implemente meme pas -- pile peut donc etre
+	# encore vide (tour 1, avant l'empilement du nouvel EtatTour) : garde
+	# defensive necessaire, le resultat de ces appels-la est ignore.
+	var mod_marbre_prudent = Mods.ModificateurConditionnel.new(
+		Mods.DegatsPeriodiques.new(1, 2, "billy", false, false),
+		func(combat, tour): return combat.pile.size() > 0 and combat.pile[combat.pile.size() - 1].attack_die_roll % 2 == 0)
+	var combat = CombatScript.new(9, 9, 50, 20, {"modificateurs": [mod_marbre_prudent]})
+	var t1 = combat.play_turn(3)  # die impair -- projectiles retires, bloc de marbre suspendu
+	assert_eq(t1.degats_supplementaires_adversaire, 0, "PRUDENT, die impair -- le bloc de marbre ne se declenche pas non plus")
+	var t2 = combat.play_turn(4)  # die pair -- protection ET projectiles reviennent
+	assert_eq(t2.degats_supplementaires_adversaire, 2, "die pair -- bloc de marbre normal (2 PV)")
+
+
+func test_node282_boule_de_feu_tous_les_2_tours():
+	# nœud 282 (Torche dardante) : "tous les 2 tours" (intervalle=2,
+	# tour_de_debut=1 implicite) -- combinaison de DegatsPeriodiques jamais
+	# exercee directement par un test avant cette relecture (Tome 1 et Tome
+	# 2 n'avaient teste que intervalle=1 ou intervalle=3, jamais intervalle=2
+	# avec tour_de_debut=1 par defaut).
+	var mod = Mods.DegatsPeriodiques.new(2, 2, "billy", false, false)
+	var combat = CombatScript.new(9, 9, 50, 20, {"modificateurs": [mod]})
+	var t1 = combat.play_turn(3)
+	assert_eq(t1.degats_supplementaires_adversaire, 0, "tour 1 -- pas encore de boule de feu")
+	var t2 = combat.play_turn(3)
+	assert_eq(t2.degats_supplementaires_adversaire, 2, "tour 2 -- boule de feu (tous les 2 tours)")
+	var t3 = combat.play_turn(3)
+	assert_eq(t3.degats_supplementaires_adversaire, 0, "tour 3 -- pas encore le prochain declenchement")
+	var t4 = combat.play_turn(3)
+	assert_eq(t4.degats_supplementaires_adversaire, 2, "tour 4 -- nouveau declenchement")
+
+
+func test_node630_habilete_adverse_baisse_tous_les_3pv_perdus():
+	# nœud 630 : "elle perd 1 point d'Habileté tous les 3 PV perdus" --
+	# reutilise HabiliteAdverseDegressiveParDegatsCumules (Tome 1) avec les
+	# parametres EXACTS de ce nœud (pas=3), jamais exerces directement dans
+	# un contexte Tome 2 (seul pas=4 et pas=2 avaient ete testes au Tome 1).
+	var mod = Mods.HabiliteAdverseDegressiveParDegatsCumules.new(3, 1)
+	var combat = CombatScript.new(9, 12, 30, 100, {"modificateurs": [mod]})
+	var t1 = combat.play_turn(6)  # diff=-3, die6 -> table[-3][5]=[4,3] : 4 degats (seuil de 3 franchi -- 1 palier)
+	assert_eq(t1.degats_billy, 4)
+	var t2 = combat.play_turn(5)  # palier atteint -- hab_adversaire=11, diff=-2 -> table[-2][4]=[4,3]
+	assert_eq(t2.degats_billy, 4, "1 palier de 3 PV perdus -- Habileté adverse a baisse de 1 (diff -3 -> -2)")
+
+
+func test_node480_immunite_critique_et_limite_de_tours_combinees():
+	# nœud 480 (Deux incarnations du vide) : les 2 mecanismes reutilises
+	# (ImmuniteContreAttaqueCritique, LimiteDeTours) sont prouves
+	# separement ailleurs, mais jamais ENSEMBLE sur ce nœud precis --
+	# verifie ici que les deux fonctionnent correctement une fois combines.
+	var mod_critique = Mods.ImmuniteContreAttaqueCritique.new()
+	var mod_limite = Mods.LimiteDeTours.new(3, "billy")
+	var combat = CombatScript.new(9, 9, 20, 8, {"adresse_billy": 3, "critique_billy": 10, "modificateurs": [mod_critique, mod_limite]})
+	var t1 = combat.play_turn(3, 1)  # esquive=1 -- devrait normalement declencher une contre-attaque critique
+	assert_true(t1.esquive)
+	assert_eq(t1.degats_billy, 0, "immunite totale au critique -- meme le degat de base est annule")
+	assert_false(combat.is_over(), "pas encore au tour 3")
+	combat.play_turn(3)
+	combat.play_turn(3)
+	assert_true(combat.is_over(), "le Pyro-Barbare met fin au combat au tour 3")
+	assert_eq(combat.get_winner(), "billy")

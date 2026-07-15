@@ -744,6 +744,17 @@ class DivisionDegats extends Modificateur:
 # "condition" recoit (combat, tour) et renvoie true si le Modificateur
 # interieur doit s'appliquer CE tour (false = comportement neutre, comme si
 # le Modificateur interieur etait absent).
+#
+# ATTENTION (trouve en ecrivant les tests) : ce decorateur transmet TOUS les
+# hooks vers "condition", meme ceux que le Modificateur interieur n'implemente
+# meme pas (ex: envelopper un DegatsPeriodiques -- qui n'override QUE
+# effet_apres_tour -- appelle quand meme condition() depuis
+# hab_billy_pour_ce_tour/modifie_degats_bruts/etc, sans consequence sur le
+# resultat mais l'APPEL a lieu). "condition" doit donc etre ecrite de facon
+# DEFENSIVE (ex: verifier combat.pile.size() > 0 avant de lire
+# combat.pile[combat.pile.size()-1]) plutot que de supposer qu'elle n'est
+# invoquee que depuis le hook qui nous interesse -- au 1er tour, avant que le
+# nouvel EtatTour ne soit empile, combat.pile peut encore etre vide.
 class ModificateurConditionnel extends Modificateur:
 	var interieur: Modificateur
 	var condition: Callable
