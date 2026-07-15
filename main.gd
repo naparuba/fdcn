@@ -831,4 +831,3 @@ func _on_morelore_button_pressed():
 
 func _on_image_author_button_pressed():
 	OS.shell_open("https://twitter.com/DrazielUnicorn");
-
