@@ -54,6 +54,20 @@ func before_all():
 		await get_tree().process_frame
 	_main.get_node("Options").visible = false
 
+	# Le panneau de rapport de GUT (GutRunner/GutLayer, CanvasLayer de layer
+	# 128 -- donc rendu AU-DESSUS de tout, y compris _main) capte et avale
+	# tous les clics/touches avant qu'ils n'atteignent Background : verifie
+	# empiriquement que get_viewport().gui_get_hovered_control() resout sur
+	# le TestOutput (RichTextLabel) de GUT, jamais sur Background, meme avec
+	# un rect/mouse_filter/camera/focus fenetre tous corrects par ailleurs.
+	# GUT n'expose pas de flag CLI pour desactiver son propre GUI (gexit ne
+	# fait que fermer le process a la fin, pas le cacher pendant) -- on le
+	# neutralise donc localement, uniquement pour ce fichier qui a besoin
+	# d'un vrai clic/touch traversant tout le pipeline d'input.
+	var gut_layer = get_tree().root.get_node_or_null("GutRunner/GutLayer")
+	if gut_layer:
+		gut_layer.visible = false
+
 
 func after_all():
 	_main.free()
