@@ -16,6 +16,12 @@ extends "res://addons/gut/test.gd"
 # seuil pourra être resserré avec plus de recul, mais ne doit jamais
 # redescendre à 0% sous peine de faux positifs permanents.
 #
+# 8% et non 3% (2026-07-15, apres plusieurs runs locaux) : sous charge
+# machine variable, le bruit de rendu seul est monte jusqu'a ~6% sur
+# certaines captures (nombreuses icones/scrollbar), avec un pic ponctuel
+# a bug reel toujours >= 45%. Large marge de securite entre bruit et vraie
+# regression -- 8% reste tres loin des vrais bugs deja observes.
+#
 # LENT PAR NATURE : chaque test lance un VRAI process Godot (boot complet
 # du moteur + import des ressources + rendu). Attendu et accepté (cf
 # demande explicite d'intégrer ceci aux tests "normaux" plutôt qu'un
@@ -41,7 +47,7 @@ extends "res://addons/gut/test.gd"
 const GOLDEN_DIR = "res://test/e2e/screenshots/golden/"
 const ACTUAL_DIR = "res://test/e2e/screenshots/actual/"
 const SCENARIOS_DIR = "res://test/e2e/scenarios/"
-const MAX_PERCENT_DIFF = 3.0
+const MAX_PERCENT_DIFF = 8.0
 const PER_CHANNEL_THRESHOLD = 24  # tolère l'anti-aliasing/le bruit de police, pas un vrai changement visuel
 
 
