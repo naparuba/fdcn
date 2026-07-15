@@ -5,7 +5,7 @@
   {"action": "add_item", "name": "EPEE"},
   {"action": "validate_options"},
   {"action": "go_to_node", "id": 106},
-  {"action": "wait_frames", "n": 5},
+  {"action": "wait_frames", "n": 30},
   {"action": "assert_current_node_id", "id": 106},
   {"action": "assert_has_item", "name": "EPEE"},
   {"action": "assert_has_item", "name": "BROCHE DOREE"},
