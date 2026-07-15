@@ -375,8 +375,7 @@ func refresh():
 	
 	# Update the top menu with parameters
 	for top_menu in self.top_menus:
-		top_menu.set_spoils()	
-		top_menu.set_billy()
+		top_menu.set_spoils()
 		top_menu.set_sound()
 		top_menu.set_book_context()
 		

@@ -2313,15 +2313,6 @@ position = Vector2(74.416, 198.723)
 scale = Vector2(0.822243, 0.908078)
 texture = ExtResource("27")
 
-[node name="button" type="TextureButton" parent="Options/Equipement/BlockGuerrier"]
-visible = false
-offset_left = -1.0
-offset_right = 162.0
-offset_bottom = 443.0
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
 [node name="BlockPaysan" type="Panel" parent="Options/Equipement"]
 offset_left = 113.0
 offset_top = 4.0
@@ -2336,16 +2327,6 @@ position = Vector2(64.0526, 194.537)
 scale = Vector2(0.864614, 0.907562)
 texture = ExtResource("26")
 
-[node name="button" type="TextureButton" parent="Options/Equipement/BlockPaysan"]
-visible = false
-offset_left = 9.0
-offset_top = 6.0
-offset_right = 187.0
-offset_bottom = 448.0
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
 [node name="BlockPrudent" type="Panel" parent="Options/Equipement"]
 offset_left = 232.0
 offset_top = 2.00001
@@ -2359,16 +2340,6 @@ material = SubResource("25")
 position = Vector2(51.1954, 199.538)
 scale = Vector2(0.8289, 0.917414)
 texture = ExtResource("25")
-
-[node name="button" type="TextureButton" parent="Options/Equipement/BlockPrudent"]
-visible = false
-offset_left = 9.0
-offset_top = 3.0
-offset_right = 188.0
-offset_bottom = 447.0
-__meta__ = {
-"_edit_use_anchors_": false
-}
 
 [node name="BlockDebrouillard" type="Panel" parent="Options/Equipement"]
 offset_left = 328.0
@@ -2387,15 +2358,6 @@ position = Vector2(82.4091, 187.981)
 scale = Vector2(0.836486, 0.923395)
 texture = ExtResource("24")
 
-[node name="button" type="TextureButton" parent="Options/Equipement/BlockDebrouillard"]
-visible = false
-offset_left = -4.0
-offset_top = 6.0
-offset_right = 201.0
-offset_bottom = 453.0
-__meta__ = {
-"_edit_use_anchors_": false
-}
 
 [node name="ItemsCont" type="ScrollContainer" parent="Options/Equipement"]
 anchor_right = 1.0
@@ -2914,9 +2876,5 @@ mouse_filter = 1
 [connection signal="pressed" from="Options/Header/TabEquipement/button" to="." method="_on_button_show_equipement"]
 [connection signal="pressed" from="Options/Header/TabStats/button" to="." method="_on_button_show_stats"]
 [connection signal="pressed" from="Options/Header/TabSelectBook/button" to="." method="_on_button_show_book_select"]
-[connection signal="pressed" from="Options/Equipement/BlockGuerrier/button" to="." method="_switch_to_guerrier"]
-[connection signal="pressed" from="Options/Equipement/BlockPaysan/button" to="." method="_switch_to_paysan"]
-[connection signal="pressed" from="Options/Equipement/BlockPrudent/button" to="." method="_switch_to_prudent"]
-[connection signal="pressed" from="Options/Equipement/BlockDebrouillard/button" to="." method="_switch_to_debrouillard"]
 [connection signal="pressed" from="Options/BookSelect/BoolSelectFcdn/button" to="." method="_switch_to_book_fcdn"]
 [connection signal="pressed" from="Options/BookSelect/BoolSelectCdsi/button" to="." method="_switch_to_book_cdsi"]

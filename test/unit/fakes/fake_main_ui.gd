@@ -34,17 +34,5 @@ func change_spoils(b):
 func change_sound(b):
 	_record('change_sound', b)
 
-func _switch_to_guerrier():
-	_record('_switch_to_guerrier')
-
-func _switch_to_paysan():
-	_record('_switch_to_paysan')
-
-func _switch_to_prudent():
-	_record('_switch_to_prudent')
-
-func _switch_to_debrouillard():
-	_record('_switch_to_debrouillard')
-
 func _on_option_btn_pressed():
 	_record('_on_option_btn_pressed')

@@ -39,25 +39,6 @@ func test_set_sound_reflects_current_parameter():
 	tm.free()
 
 
-func test_set_billy_highlights_the_current_billy_block():
-	var tm = TopMenuScene.instantiate()
-	AppParameters.set_billy_type('guerrier')
-	tm.set_billy()
-	assert_eq(tm.get_node('Billys/BlockGuerrier').get('theme_override_styles/panel').bg_color, Color('9ea8b4'))
-	assert_eq(tm.get_node('Billys/BlockPaysan').get('theme_override_styles/panel').bg_color, Color('e9eaec'))
-	assert_eq(tm.get_node('Billys/BillyTypeLabel').text, 'Guerrier')
-	tm.free()
-
-
-func test_set_billy_pegu_highlights_nothing():
-	var tm = TopMenuScene.instantiate()
-	AppParameters.set_billy_type('pegu')
-	tm.set_billy()
-	assert_eq(tm.get_node('Billys/BlockGuerrier').get('theme_override_styles/panel').bg_color, Color('e9eaec'))
-	assert_eq(tm.get_node('Billys/BillyTypeLabel').text, 'Pegu!!')
-	tm.free()
-
-
 func test_set_page_highlights_the_current_page():
 	var tm = TopMenuScene.instantiate()
 	tm.set_page('chapitres')
@@ -101,16 +82,6 @@ func test_sound_button_toggled_delegates_to_main():
 	tm.register_main(fake_main)
 	tm._on_sound_button_toggled(false)
 	assert_has(fake_main.calls, ['change_sound', false])
-	tm.free()
-	fake_main.free()
-
-
-func test_switch_to_guerrier_delegates_to_main():
-	var tm = TopMenuScene.instantiate()
-	var fake_main = FakeMain.new()
-	tm.register_main(fake_main)
-	tm._switch_to_guerrier()
-	assert_has(fake_main.calls, ['_switch_to_guerrier', null])
 	tm.free()
 	fake_main.free()
 

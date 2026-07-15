@@ -34,32 +34,6 @@ func _on_spoil_button_toggled(button_pressed):
 		self.main.change_spoils(button_pressed)
 
 
-func set_billy():
-	var type_billy = AppParameters.get_billy_type()
-	var billys = {'guerrier': $Billys/BlockGuerrier,
-	'paysan':$Billys/BlockPaysan,
-	'prudent':$Billys/BlockPrudent,
-	'debrouillard':$Billys/BlockDebrouillard
-	}
-	
-	for billy in billys.keys():
-		var panel = billys[billy]
-		var _style = panel.get('theme_override_styles/panel')
-		#print('STYLE: %s' % _style)
-		_style.set_bg_color(Color('e9eaec'))  # set to light grey
-	if type_billy != 'pegu':
-		billys[type_billy].get('theme_override_styles/panel').set_bg_color(Color('9ea8b4'))  # set to dark grey
-	
-	var billy_strings = {
-		'guerrier': 'Guerrier',
-		'paysan': 'Paysan',
-		'prudent': 'Prudent',
-		'debrouillard': 'Débrouillard',
-		'pegu': 'Pegu!!'
-	}
-	$Billys/BillyTypeLabel.text = billy_strings[type_billy]
-
-
 func set_page(page_name):
 	var pages = {'main': $Pages/BlockMain,
 	'chapitres':$Pages/BlockChapitres,
@@ -105,26 +79,6 @@ func focus_to_lore():
 	Swiper.focus_to_lore()
 	
 # NOTE: page about do NOT have a button
-
-
-func _switch_to_guerrier():
-	print('guerrier')
-	self.main._switch_to_guerrier()
-
-
-func _switch_to_paysan():
-	print('paysan')
-	self.main._switch_to_paysan()
-
-
-func _switch_to_prudent():
-	print('prudent')
-	self.main._switch_to_prudent()
-
-
-func _switch_to_debrouillard():
-	print('debrouillard')
-	self.main._switch_to_debrouillard()
 
 
 func _on_button_options():
