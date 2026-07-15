@@ -1,6 +1,7 @@
 extends Node
 
 @onready var Item = preload('res://Item.tscn')
+const Godot3VariantDecoder = preload('res://godot3_variant_decoder.gd')
 
 var _main = null
 var need_force_display_options = false   # if we did guess, show options to show it
@@ -90,6 +91,16 @@ func _save_var(pth, data):
 # tout joueur actuel -- on relit une derniere fois l'ancien binaire
 # (File.store_var d'origine) puis on migre immediatement vers JSON pour la
 # suite. Retourne null si ni l'un ni l'autre n'existe.
+#
+# ATTENTION : la lecture de l'ancien binaire NE PEUT PAS passer par
+# FileAccess.get_var() -- verifie en testant une vraie sauvegarde Godot
+# 3.6.2 sous Godot 4 (cf test/fixtures/save_formats_godot3/README.md),
+# get_var() lit ARRAY/DICTIONARY comme des PROJECTION/TRANSFORM3D (les
+# identifiants numeriques de Variant::Type ont ete decales entre les deux
+# versions du moteur) -- soit une erreur ERR_INVALID_DATA, soit, pire, un
+# decodage SILENCIEUX en valeurs absurdes. D'ou Godot3VariantDecoder, un
+# decodeur manuel du format Godot 3.6.2 (cf ce fichier pour le detail du
+# format, verifie octet par octet sur de vraies fixtures).
 func _load_var(pth):
 	var json_pth = pth.replace(".save", ".json")
 	if FileAccess.file_exists(json_pth):
@@ -100,8 +111,9 @@ func _load_var(pth):
 	if FileAccess.file_exists(pth):
 		print('_load_var:: pas de miroir JSON, fallback lecture binaire unique puis migration: %s' % pth)
 		var f = FileAccess.open(pth, FileAccess.READ)
-		var data = f.get_var()
+		var bytes = f.get_buffer(f.get_length())
 		f.close()
+		var data = Godot3VariantDecoder.decode(bytes)
 		self._save_var(pth, data)
 		return data
 	return null

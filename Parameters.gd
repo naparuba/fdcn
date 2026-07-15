@@ -1,5 +1,7 @@
 extends Node
 
+const Godot3VariantDecoder = preload('res://godot3_variant_decoder.gd')
+
 var parameters_file  = "user://parameters.save"
 var parameters = {
 	'billy': 'guerrier',
@@ -20,6 +22,10 @@ func _load_parameters():
 	# encore -- joueur dont la derniere sauvegarde est anterieure a son
 	# introduction (commit af5c081, 2026-05-03) -- on relit une derniere
 	# fois l'ancien binaire puis on migre immediatement vers JSON.
+	#
+	# ATTENTION : FileAccess.get_var() ne peut PAS lire ce binaire Godot
+	# 3.6.2 (cf player.gd::_load_var pour le detail du bug) -- passe par
+	# Godot3VariantDecoder, un decodeur manuel du format d'origine.
 	var json_pth = parameters_file.replace(".save", ".json")
 	var loaded_parameters = null
 	if FileAccess.file_exists(json_pth):
@@ -30,8 +36,9 @@ func _load_parameters():
 	elif FileAccess.file_exists(parameters_file):
 		print('_load_parameters:: pas de miroir JSON, fallback lecture binaire unique puis migration')
 		var f = FileAccess.open(parameters_file, FileAccess.READ)
-		loaded_parameters = f.get_var()
+		var bytes = f.get_buffer(f.get_length())
 		f.close()
+		loaded_parameters = Godot3VariantDecoder.decode(bytes)
 	if loaded_parameters != null:
 		# NOTE: so we can manage code with new parameters
 		for k in loaded_parameters.keys():

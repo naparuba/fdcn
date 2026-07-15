@@ -33,7 +33,13 @@ current_node_id        = 112
 visited_nodes_all_times = [1, 128, 112]
 session_visited_nodes   = [1, 128, 112]
 possessed_items         = ["PALAIS DES PLAISIRS D'YTIA", "EPEE"]
+parameters              = {"billy": "pegu", "spoils": true, "sound": true, "current_book": 1}
 ```
+
+("pegu" pour `billy`, pas "guerrier" le défaut compilé : c'est le choix de
+personnage appliqué par défaut par le jeu au premier lancement, PAS une
+valeur choisie arbitrairement pour le contrat -- ne pas "corriger" en
+"guerrier" sans revérifier.)
 
 (`PALAIS DES PLAISIRS D'YTIA` est acquis automatiquement en visitant le
 nœud 112, cf sa colonne `aquire` dans les données de chapitre -- ce n'est
@@ -49,13 +55,34 @@ pas un objet ajouté manuellement.)
 
 Le `-1` dans les noms correspond au livre n°1 (FDCN/Tome 1).
 
-## Usage prévu (Phase 6 du plan de migration)
+## Usage (Phase 6 du plan de migration -- FAIT)
 
-Écrire un test qui copie ces fichiers dans un `user://` isolé
-(`XDG_DATA_HOME` temporaire), appelle `Player.do_load()` avec le code
-Godot 4, et vérifie que les valeurs chargées correspondent exactement au
-contrat ci-dessus -- PUIS vérifie qu'un miroir `.json` a bien été écrit à
-côté. Ce test ne doit jamais "sauvegarder puis recharger avec le même
-code Godot 4" en boucle fermée (c'est déjà couvert par
-`test_save_reload_cycle.gd`) : sa valeur ajoutée est justement de partir
-d'un binaire figé, écrit par un AUTRE moteur (Godot 3.6.2 réel).
+`test/integration/test_load_legacy_godot3_save.gd` copie ces fichiers dans
+un `user://` isolé (`XDG_DATA_HOME` temporaire), appelle
+`Player.do_load()`/`AppParameters._load_parameters()` avec le code Godot 4,
+et vérifie que les valeurs chargées correspondent exactement au contrat
+ci-dessus -- PUIS que le miroir `.json` a bien été écrit à côté. Ce test ne
+fait jamais "sauvegarder puis recharger avec le même code Godot 4" en
+boucle fermée (déjà couvert par `test_save_reload_cycle.gd`) : sa valeur
+ajoutée est justement de partir d'un binaire figé, écrit par un AUTRE
+moteur (Godot 3.6.2 réel).
+
+Ce test a immédiatement révélé un bug réel : `FileAccess.get_var()` de
+Godot 4 ne peut PAS lire ce binaire (Array → `ERR_INVALID_DATA`,
+Dictionary → décodé SILENCIEUSEMENT en `Transform3D` absurde, cf
+`godot3_variant_decoder.gd` pour le détail complet). Corrigé en écrivant
+un décodeur manuel du format Godot 3.6.2, branché dans
+`player.gd::_load_var()` et `Parameters.gd::_load_parameters()`.
+
+## Dossier `probes/`
+
+Fixtures isolées (une valeur connue par fichier : int positif/négatif/
+&gt;2^31, bool, float, string vide/accentuée, array vide/imbriqué/de
+strings, dict...), générées de la même façon (vrai binaire Godot 3.6.2)
+pour reverse-engineer le format octet par octet -- cf
+`test/unit/test_godot3_variant_decoder.gd`. C'est CE hexdump-la, pas la
+mémoire du format Godot 3, qui a déterminé chaque détail du décodeur
+(notamment le padding des chaînes à un multiple de 4 octets, et le fait
+que `DICTIONARY`=18/`ARRAY`=19 en numérotation Godot 3.6.2 alors que ces
+mêmes identifiants pointent vers `TRANSFORM3D`/`PROJECTION` en Godot 4 --
+la cause exacte du bug).

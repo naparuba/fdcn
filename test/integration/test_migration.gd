@@ -5,6 +5,9 @@ extends "res://addons/gut/test.gd"
 # format par livre. Écrit de vrais fichiers user:// : lancer uniquement
 # avec XDG_DATA_HOME pointé vers un répertoire temporaire.
 
+var Godot3VariantDecoder = preload('res://godot3_variant_decoder.gd')
+
+
 func before_all():
 	AppParameters.set_book_number(1)
 	Player.insert_all_objects()
@@ -27,15 +30,18 @@ func _delete_if_exists(pth):
 
 
 func _save_old_format_binary(pth, data):
-	# Simule un VRAI vieux fichier de sauvegarde pre-multi-livres, ecrit en
-	# binaire pur (File.store_var d'origine, aucun miroir JSON -- ce
-	# concept n'existait pas encore a l'epoque). Player._save_var() ecrit
-	# desormais en JSON primaire (voir player.gd::_load_var, 2026-07-09) :
-	# l'utiliser ici simulerait un fichier qui n'a jamais existe pour de
-	# vrai, et _assert_migrate_file() ne trouverait jamais l'ancien fichier
-	# a migrer.
+	# Simule un VRAI vieux fichier de sauvegarde pre-multi-livres, au VRAI
+	# format binaire Godot 3.6.2 (Godot3VariantDecoder.encode -- PAS
+	# FileAccess.store_var() de Godot 4, qui numerote les types Variant
+	# differemment et ne produirait donc PAS un fichier representatif d'un
+	# vrai vieux fichier joueur, cf godot3_variant_decoder.gd et
+	# test/fixtures/save_formats_godot3/README.md pour le detail du bug que
+	# cette distinction a revele). Player._save_var() ecrit desormais en
+	# JSON primaire (voir player.gd::_load_var, 2026-07-09) : l'utiliser ici
+	# simulerait un fichier qui n'a jamais existe pour de vrai, et
+	# _assert_migrate_file() ne trouverait jamais l'ancien fichier a migrer.
 	var f = FileAccess.open(pth, FileAccess.WRITE)
-	f.store_var(data)
+	f.store_buffer(Godot3VariantDecoder.encode(data))
 	f.close()
 
 
