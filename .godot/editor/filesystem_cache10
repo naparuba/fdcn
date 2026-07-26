@@ -1,5 +1,5 @@
 9cad1ddce9e5a63143ba340c9520626b
-::res://::1784129546
+::res://::1785075740
 .gut_editor_config.json::JSON::-1::1784129047::0::1::::<><><>0<>0<><>::
 .gut_editor_shortcuts.cfg::TextFile::-1::1687683309::0::1::::<><><>0<>0<><>::
 all-success-1.json::JSON::-1::1687683309::0::1::::<><><>0<>0<><>::
@@ -15,10 +15,10 @@ combat.gd::GDScript::7768316832891428545::1784129047::0::1::::<>RefCounted<><>0<
 COMBATS_REGLES_SPECIALES.md::TextFile::-1::1784129047::0::1::::<><><>0<>0<><>::
 COMBATS_REGLES_SPECIALES_TOME2.md::TextFile::-1::1784129047::0::1::::<><><>0<>0<><>::
 combat_modificateurs.gd::GDScript::4915456499078946181::1784129047::0::1::::<>RefCounted<><>0<>0<><>::
-default_env.tres::Environment::837695483607362455::1784129539::0::1::::<><><>0<>0<><>::
+default_env.tres::Environment::837695483607362455::1784318150::0::1::::<><><>0<>0<><>::
 EndingChoice.gd::GDScript::249421129100656131::1777811315::0::1::::<>Panel<><>0<>0<><>::
 EndingChoice.tscn::PackedScene::-1::1784129047::0::1::::<><><>0<>0<><>::res://EndingChoice.gd<>res://fonts/amon_font.tres<>res://fonts/RobotoCondensed-Regular.ttf<>res://images/new_player.png<>res://images/endings/SOUFLE.png
-export_presets.cfg::TextFile::-1::1784129047::0::1::::<><><>0<>0<><>::
+export_presets.cfg::TextFile::-1::1785075699::0::1::::<><><>0<>0<><>::
 fdcn-1-compilated-all-objects.json::JSON::-1::1695480967::0::1::::<><><>0<>0<><>::
 fdcn-1-compilated-bad-endings.json::JSON::-1::1695480967::0::1::::<><><>0<>0<><>::
 fdcn-1-compilated-combats.json::JSON::-1::1695480967::0::1::::<><><>0<>0<><>::
@@ -252,7 +252,7 @@ yellow.png::CompressedTexture2D::1043265824178416429::1784129047::1784129154::1:
 ::res://android/::1784129253
 ::res://android_old_46/::1762805050
 ::res://android_old_46/plugins/::1762805050
-::res://builds/::1762861557
+::res://builds/::1784318049
 ::res://builds/web/::1784129154
 index.apple-touch-icon.png::CompressedTexture2D::8997404391735749762::1708632087::1784129154::1::::<><><>0<>0<>e959d90842c82f806ea94a68aa67045b<>res://.godot/imported/index.apple-touch-icon.png-829bd6566b1ab329ce6e0fe101c50e36.ctex::
 index.icon.png::CompressedTexture2D::688453286716157343::1708632087::1784129154::1::::<><><>0<>0<>d365c951d2847fea5c1a75a487e1620f<>res://.godot/imported/index.icon.png-1d537cdb021c40f184d1277d96fd0f0f.ctex::
