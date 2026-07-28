@@ -1,0 +1,43 @@
+name: Test Android Build
+
+# Workflow d'essai (branche separee test-android-ci-build) : reprend
+# l'approche de https://github.com/abarichello/godot-ci (image Docker qui
+# embarque Godot + templates d'export + SDK Android + JDK deja configures,
+# aucun chemin editor_settings a fournir soi-meme). Corrige un bug repere
+# dans un essai precedent sur un autre projet : le chemin du JDK avait ete
+# ecrit dans le reglage android_sdk_path (qui attend le SDK Android, pas
+# Java) -- avec cette image, aucun des deux n'est a configurer manuellement.
+#
+# --export-debug utilise le keystore de debug integre par defaut de Godot
+# si aucun n'est configure -- pas besoin de generer/fournir un keystore
+# pour ce test.
+
+on:
+  push:
+    branches: [test-android-ci-build]
+  workflow_dispatch:
+
+jobs:
+  android-debug:
+    name: Export Android (debug)
+    runs-on: ubuntu-latest
+    container:
+      image: barichello/godot-ci:4.7
+
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v7
+
+      - name: Export APK Android (debug)
+        run: |
+          mkdir -v -p build/android
+          godot --headless --verbose --export-debug "Android apk" build/android/fdcn-debug.apk
+
+      - name: Liste des fichiers produits
+        run: ls -la build/android/
+
+      - name: Upload de l'APK en artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: fdcn-android-debug
+          path: build/android/
