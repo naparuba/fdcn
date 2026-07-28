@@ -44,8 +44,15 @@ jobs:
           godot --headless --verbose --export-debug "Android apk" build/android/fdcn-debug.apk
 
       - name: Export AAB Android (debug)
+        # Le preset "Android" (contrairement a "Android apk") passe par un
+        # vrai build Gradle (gradle_build/use_gradle_build=true, requis pour
+        # produire un .aab) -- --install-android-build-template genere le
+        # projet Gradle (android/build/) avant l'export. Teste localement :
+        # ce flag ne se termine jamais seul en headless (bloque en boucle
+        # d'evenements), il doit etre combine avec --export-debug dans la
+        # meme invocation.
         run: |
-          godot --headless --verbose --export-debug "Android" build/android/fdcn-debug.aab
+          godot --headless --verbose --install-android-build-template --export-debug "Android" build/android/fdcn-debug.aab
 
       - name: Liste des fichiers produits
         run: ls -la build/android/
