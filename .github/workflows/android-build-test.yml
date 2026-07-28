@@ -1,20 +1,20 @@
 name: Test Android Build
 
-# Workflow d'essai (branche separee test-android-ci-build) : reprend
-# l'approche de https://github.com/abarichello/godot-ci (image Docker qui
-# embarque Godot + templates d'export + SDK Android + JDK deja configures,
-# aucun chemin editor_settings a fournir soi-meme). Corrige un bug repere
-# dans un essai precedent sur un autre projet : le chemin du JDK avait ete
-# ecrit dans le reglage android_sdk_path (qui attend le SDK Android, pas
-# Java) -- avec cette image, aucun des deux n'est a configurer manuellement.
+# Garde en reference, declenchement manuel uniquement (pas de "on: push") --
+# c'etait un essai (branche test-android-ci-build) pour valider l'export
+# Android en CI via l'image Docker barichello/godot-ci. Reprend l'approche
+# de https://github.com/abarichello/godot-ci (image qui embarque Godot +
+# templates d'export + SDK Android + JDK deja configures). Corrige un bug
+# repere dans un essai precedent sur un autre projet : le chemin du JDK
+# avait ete ecrit dans le reglage android_sdk_path (qui attend le SDK
+# Android, pas Java) -- avec cette image, aucun des deux n'est a configurer
+# manuellement.
 #
 # --export-debug utilise le keystore de debug integre par defaut de Godot
 # si aucun n'est configure -- pas besoin de generer/fournir un keystore
 # pour ce test.
 
 on:
-  push:
-    branches: [test-android-ci-build]
   workflow_dispatch:
 
 jobs:
