@@ -28,6 +28,35 @@ jobs:
       - name: Checkout repo
         uses: actions/checkout@v7
 
+      - name: Diagnostic (chemins Java / SDK Android / templates dans l'image)
+        run: |
+          echo "--- HOME / whoami ---"
+          echo "HOME=$HOME"
+          whoami
+
+          echo "--- variables d'env liees a Java/Android ---"
+          env | grep -iE "java|android|jdk|jre" || echo "(aucune variable trouvee)"
+
+          echo "--- which java / javac ---"
+          which java || echo "java introuvable dans PATH"
+          which javac || echo "javac introuvable dans PATH"
+          java -version 2>&1 || true
+
+          echo "--- recherche des JDK installes ---"
+          find / -maxdepth 6 -iname "*jdk*" -not -path "*/proc/*" 2>/dev/null || true
+
+          echo "--- recherche du SDK Android (cmdline-tools / platforms / build-tools) ---"
+          find / -maxdepth 6 -iname "cmdline-tools" -not -path "*/proc/*" 2>/dev/null || true
+          find / -maxdepth 6 -iname "platform-tools" -not -path "*/proc/*" 2>/dev/null || true
+          find / -maxdepth 8 -type d -iname "build-tools" -not -path "*/proc/*" 2>/dev/null || true
+
+          echo "--- recherche des templates d'export Godot ---"
+          find / -maxdepth 8 -iname "android_debug.apk" -not -path "*/proc/*" 2>/dev/null || true
+          find / -maxdepth 6 -type d -iname "export_templates" -not -path "*/proc/*" 2>/dev/null || true
+
+          echo "--- recherche des editor_settings baked dans l'image ---"
+          find / -maxdepth 6 -iname "editor_settings*" -not -path "*/proc/*" 2>/dev/null || true
+
       - name: Export APK Android (debug)
         run: |
           mkdir -v -p build/android
