@@ -43,11 +43,21 @@ jobs:
           mkdir -v -p build/android
           godot --headless --verbose --export-debug "Android apk" build/android/fdcn-debug.apk
 
+      - name: Export AAB Android (debug)
+        run: |
+          godot --headless --verbose --export-debug "Android" build/android/fdcn-debug.aab
+
       - name: Liste des fichiers produits
         run: ls -la build/android/
 
       - name: Upload de l'APK en artifact
         uses: actions/upload-artifact@v4
         with:
-          name: fdcn-android-debug
-          path: build/android/
+          name: fdcn-android-debug-apk
+          path: build/android/*.apk*
+
+      - name: Upload de l'AAB en artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: fdcn-android-debug-aab
+          path: build/android/*.aab*
