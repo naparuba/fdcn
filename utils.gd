@@ -2,15 +2,29 @@
 extends Node
 
 
+var _texture_cache = {}
+
+
 # IMPORTANT: need to have load() call to manage android and web
+#
+# Mis en cache par chemin : toujours appele en lecture seule (assigne a une
+# texture de Sprite2D/TextureRect, jamais mute ensuite -- verifie sur les 9
+# appelants), donc partager la meme instance entre plusieurs noeuds est sur.
+# Evite de recreer une texture GPU identique a chaque fois qu'un meme item/
+# portrait est affiche (ex: LoreEntry recharge les memes ~18-29 portraits a
+# chaque instanciation de main.tscn).
 func load_external_texture(path, logger):
+	if _texture_cache.has(path):
+		return _texture_cache[path]
 	var image_file = load(path);
 	if image_file == null:
 		print('ERROR: cannot load image %s' % path)
 		return null
 	image_file = image_file.get_image();
-	return ImageTexture.create_from_image(image_file)
-	
+	var texture = ImageTexture.create_from_image(image_file)
+	_texture_cache[path] = texture
+	return texture
+
 
 # Load a json file and give null if fail (TODO: kill program)
 func load_json_file(path):
