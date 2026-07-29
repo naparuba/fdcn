@@ -171,26 +171,51 @@ Dans les trois cas, l'overlay de résolution propose un CTA principal ("Continue
 un lien secondaire ("Revenir en arrière") qui annule le dernier tour joué (ou simplement rouvre la
 main sur le combat si aucun tour n'a encore été joué).
 
-## 8. Identité visuelle (reprise de l'app existante, pas une nouvelle charte)
+## 8. Identité visuelle — audit du réel (remplace les valeurs inventées pour la maquette HTML)
 
-**Priorité : coller au reste de l'app telle qu'elle existe déjà**, pas à cette liste. Les valeurs
-ci-dessous viennent de `main.tscn` et servent de point de départ documenté, mais l'implémentation
-Godot doit se réconcilier avec les vraies ressources du projet au fur et à mesure (StyleBox/Theme
-existants, styles déjà en place sur les autres écrans) plutôt que les traiter comme figées —
-notamment la teinte "or" du critique, choisie pour le prototype, sans équivalent connu ailleurs
-dans l'app à ce stade.
+**Il n'existe aucun `Theme` Godot global dans ce projet** (pas de `theme=` sur project.godot ni
+sur un nœud racine — vérifié). Le style est fait à la main, panneau par panneau, via des
+`StyleBoxFlat` inline dupliqués d'une scène à l'autre. Le nouvel écran Combat doit suivre la même
+convention (StyleBoxFlat inline + `theme_override_*` par nœud), pas introduire de `.tres` Theme.
 
-- **Police** : RobotoCondensed (seule police réellement utilisée dans l'app — `Pancis-Regular`
-  présent dans `fonts/` mais jamais référencé dans le code, à ne pas introduire).
-- **Couleurs** (extraites de `main.tscn`, valeurs `Color()` réelles) :
-  - Navy `#313B47` — chrome/en-têtes.
-  - Cyan `#01BCDB` — accent, esquive.
-  - Or `#E0A52C` — critique (nouvelle teinte, cohérente avec le sens donné au critique ; à
-    valider dans la palette Godot si elle diffère).
-  - Corail `#F45858` — dégât subi/défaite.
-  - Vert `#2F9E63`/mint `#4FCF8C` — dégât infligé/victoire.
-  - Orange `#C27200` — dés, événements périodiques/environnementaux.
-  - Gris clairs `#E0E2E5`/`#E9EAEC`/`#ECEDF2` — fonds de carte/page.
+**Correction importante** : la maquette HTML utilisait un cyan `#01BCDB` inventé pour l'accent —
+la vraie couleur d'accent de l'app est un **teal `#00C2AA`** (`Color(0,0.760784,0.666667,1)`),
+utilisé partout où une valeur est mise en avant (Acte, Arc, numéro de chapitre). Les autres
+teintes de la maquette (or critique, vert victoire) n'ont pas d'équivalent existant dans l'app à
+ce stade — décision à prendre en implémentation, pas figée ici (cf. §"on verra" plus haut).
+
+- **Police** : une seule police réellement chargée dans tout le projet,
+  `res://fonts/RobotoCondensed-Regular.ttf` — `amon_font.tres`/`amon_font_small.tres` ne sont que
+  des `FontFile` wrappers qui `fallback` sur elle (pas des polices distinctes). `Pancis-Regular`
+  présent dans `fonts/` mais jamais référencé — à ne pas introduire.
+- **Tailles de police réutilisées ailleurs** : 25 (titre de carte/header), 24 (nom de combattant,
+  déjà utilisé par `Combat/PlayerLabel`/`EnnemiLabel`), 19 (valeur de stat, déjà utilisé par
+  `Combat/PlayerPvValue` etc.), ~16 (label par défaut, sans override), 11-12 (label secondaire),
+  64 (gros chiffre hero, ex. numéro de chapitre).
+- **Couleurs réellement en usage** (`main.tscn`) :
+  - `#313B47` — header de carte (bandeau titre foncé, 42px de haut), bordures.
+  - `#ECEDF2` — fond de panneau racine.
+  - Blanc `#FFFFFF` — corps de carte.
+  - `#E9E9EC` — fond des éléments secondaires (dé, bouton "IWin" actuel, onglets inactifs).
+  - `#00C2AA` (teal) — accent/valeur mise en avant.
+  - `#F45858` (rouge) — seul état d'échec déjà en usage (ChapterChoice, "mauvaise réponse").
+  - Coins : `corner_radius = 2` sur les petites pastilles seulement (dé, blocs) ; les grandes
+    cartes ont des coins droits, pas de rayon.
+- **Pattern de carte à réutiliser tel quel** : header StyleBoxFlat `#313B47` de 42px + corps
+  blanc, coins droits — c'est déjà exactement l'habillage du panneau `Combat` actuel
+  (`main.tscn`, `SubResource("3")`/`("10")`), seul le contenu doit être refait, pas le
+  conteneur/header.
+- **Pattern de bouton à réutiliser** : `TextureButton` invisible (zone de clic) superposé à un
+  `Panel`(StyleBoxFlat)+`Sprite2D`/`Label` pour le visuel — convention systématique de tout le
+  projet (`Combat/IWin/button`, `Combat/dice/button`, `left_backer`/`right_nexter`...), **aucun
+  état hover/pressed natif nulle part**. À suivre pour rester cohérent (l'ajout d'un retour visuel
+  au tap serait une amélioration délibérée, pas juste "recoller" à l'existant — à décider en
+  implémentation, pas supposé ici).
+- **Barres de PV** : ne pas réutiliser `gauge.tscn`/`gauge_inside_circle.gd` — c'est une jauge
+  *circulaire* en %, déjà utilisée ailleurs pour "Complété X%", pas pensée pour une barre linéaire.
+  Pour les barres de PV, copier le pattern déjà en place dans `Background/Position`
+  (`TextureProgressBar` natif + `images/bar_background.png`/`images/bar_fill.png`), pas un
+  nouveau composant.
 - **Icônes réutilisées telles quelles** : `res://images/fight.svg` (épées croisées), `res://
   images/tick.png` (bouton "J'ai gagné"), sprites de dés existants (`res://images/dice/*.svg`,
   modulate orange).
