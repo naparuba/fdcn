@@ -64,6 +64,9 @@ var _turns_strip: HBoxContainer
 var _last_turn_line: Label
 
 var _preview_cells := []  # Array[Dictionary{root, give, take}], index 0 = face 1
+var _attack_die_rect: TextureRect
+var _esquive_die_rect: TextureRect
+var _esquive_die_box: Control
 var _roll_button: Button
 var _roll_sub_label: Label
 var _undo_button: Button
@@ -124,6 +127,9 @@ func start_combat(enemy_name: String, hab_billy: int, hab_adversaire: int,
 	self._last_turn_line.text = "Le combat commence. Lancez le dé pour jouer le tour 1."
 	self._resolution_overlay.visible = false
 	self._roll_button.disabled = false
+	self._esquive_die_box.visible = self._controller.peut_esquiver()
+	self._set_die_face(self._attack_die_rect, 6)
+	self._set_die_face(self._esquive_die_rect, 6)
 
 	self._refresh_bars()
 	self._refresh_preview()
@@ -236,6 +242,18 @@ func _build_ui():
 	preview_wrap.add_child(preview_row)
 	for face in range(1, 7):
 		self._preview_cells.append(self._build_preview_cell(preview_row, face))
+
+	var dice_row = HBoxContainer.new()
+	dice_row.add_theme_constant_override("separation", 16)
+	dice_row.alignment = BoxContainer.ALIGNMENT_CENTER
+	layout.add_child(dice_row)
+	var attack_die_box = self._build_die_display("Attaque")
+	self._attack_die_rect = attack_die_box['die']
+	dice_row.add_child(attack_die_box['root'])
+	var esquive_die_box = self._build_die_display("Esquive")
+	self._esquive_die_rect = esquive_die_box['die']
+	self._esquive_die_box = esquive_die_box['root']
+	dice_row.add_child(esquive_die_box['root'])
 
 	var action_row = HBoxContainer.new()
 	action_row.add_theme_constant_override("separation", 10)
@@ -422,6 +440,67 @@ func _build_preview_cell(parent: HBoxContainer, face: int) -> Dictionary:
 	return {"root": cell, "give": give, "take": take}
 
 
+# Dé visuel (icone reelle du projet, res://images/dice/*.svg, modulate
+# orange -- meme convention que l'ancien panneau Combat/dice). Deux
+# instances : un pour le jet d'attaque, un pour le jet d'esquive --
+# affiches separement, jamais un seul de qui servirait aux deux (cf
+# SPEC_ECRAN_COMBAT.md #2 : deux des reels, un seul geste).
+func _build_die_display(libelle: String) -> Dictionary:
+	var root = VBoxContainer.new()
+	root.alignment = BoxContainer.ALIGNMENT_CENTER
+	var label = Label.new()
+	label.text = libelle.to_upper()
+	label.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
+	label.add_theme_font_size_override("font_size", 10)
+	label.add_theme_color_override("font_color", COL_INK_SOFT)
+	root.add_child(label)
+	var die = TextureRect.new()
+	die.custom_minimum_size = Vector2(34, 34)
+	die.stretch_mode = TextureRect.STRETCH_KEEP_ASPECT_CENTERED
+	die.expand_mode = TextureRect.EXPAND_IGNORE_SIZE  # sans ca, la taille native du SVG (~550px) ecrase custom_minimum_size
+	die.self_modulate = COL_ORANGE
+	die.texture = load("res://images/dice/6-b.svg")
+	die.size_flags_horizontal = Control.SIZE_SHRINK_CENTER
+	root.add_child(die)
+	return {"root": root, "die": die}
+
+
+func _set_die_face(rect: TextureRect, face: int) -> void:
+	rect.texture = load("res://images/dice/%d-b.svg" % face)
+
+
+# "Roule" quelques faces au hasard avant de se figer sur le resultat reel
+# (deja connu -- le RNG a deja eu lieu cote moteur, ceci n'est qu'une
+# revelation dramatisee). skip_animations : fixe directement le resultat.
+func _roll_die_animation(rect: TextureRect, final_face: int) -> void:
+	if self.skip_animations:
+		self._set_die_face(rect, final_face)
+		return
+	for i in range(5):
+		self._set_die_face(rect, 1 + randi() % 6)
+		await self.get_tree().create_timer(0.06).timeout
+	self._set_die_face(rect, final_face)
+
+
+# Surligne brievement la case de la bande de previsualisation qui
+# correspondait a la face d'attaque reellement tiree.
+func _flash_preview_face(face: int) -> void:
+	if self.skip_animations or face < 1 or face > 6:
+		return
+	var cell = self._preview_cells[face - 1]['root']
+	var normal = cell.get_theme_stylebox("panel").duplicate()
+	var actif = normal.duplicate()
+	actif.bg_color = COL_CARD
+	actif.border_width_left = 2
+	actif.border_width_right = 2
+	actif.border_width_top = 2
+	actif.border_width_bottom = 2
+	actif.border_color = COL_NAVY
+	cell.add_theme_stylebox_override("panel", actif)
+	await self._delay(1.0)
+	cell.add_theme_stylebox_override("panel", normal)
+
+
 func _build_resolution_overlay():
 	self._resolution_overlay = Panel.new()
 	self._resolution_overlay.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
@@ -453,6 +532,7 @@ func _build_resolution_overlay():
 	self._resolution_icon = TextureRect.new()
 	self._resolution_icon.custom_minimum_size = Vector2(36, 36)
 	self._resolution_icon.stretch_mode = TextureRect.STRETCH_KEEP_ASPECT_CENTERED
+	self._resolution_icon.expand_mode = TextureRect.EXPAND_IGNORE_SIZE
 	self._resolution_icon.size_flags_horizontal = Control.SIZE_SHRINK_CENTER
 	v.add_child(self._resolution_icon)
 
@@ -650,6 +730,11 @@ func _play_turn(attack_die = null, esquive_die = null):
 	if nouveau_tour == null:
 		self._rolling = false
 		return null
+
+	await self._roll_die_animation(self._attack_die_rect, nouveau_tour.attack_die_roll)
+	if nouveau_tour.esquive_die_roll != null:
+		await self._roll_die_animation(self._esquive_die_rect, nouveau_tour.esquive_die_roll)
+	self._flash_preview_face(nouveau_tour.attack_die_roll)
 
 	if nouveau_tour.esquive:
 		await self._lunge(self._enemy_card, Vector2(0, 18))
