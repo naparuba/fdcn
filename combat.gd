@@ -193,6 +193,15 @@ class EtatTour:
 	# special", cf DegatsPeriodiques dans combat_modificateurs.gd.
 	var degats_supplementaires_billy := 0
 	var degats_supplementaires_adversaire := 0
+	# Stats EFFECTIVES de ce tour precis (apres application des Modificateurs
+	# type HabiliteAdverseDegressiveParDegatsCumules) -- distinctes des
+	# champs permanents hab_billy/hab_adversaire/adresse_billy de Combat, qui
+	# ne varient jamais eux-memes. Persistees ici pour qu'un appelant (l'UI)
+	# puisse les afficher/reconstruire sans dupliquer la logique des hooks
+	# hab_billy_pour_ce_tour/hab_adversaire_pour_ce_tour/adresse_billy_pour_ce_tour.
+	var hab_billy_tour: int
+	var hab_adversaire_tour: int
+	var adresse_billy_tour: int
 
 	func _init(p_tour, p_billy, p_adversaire):
 		self.tour = p_tour
@@ -247,6 +256,12 @@ func _init(p_hab_billy, p_hab_adversaire, p_pv_billy, p_pv_adversaire, opts = {}
 	self.plafond_degats_subis_billy = opts.get('plafond_degats_subis_billy', null)
 	self.modificateurs = opts.get('modificateurs', [])
 	self._etat_initial = EtatTour.new(0, EtatCombattant.new(p_pv_billy), EtatCombattant.new(p_pv_adversaire))
+	# Avant le premier tour, les stats "effectives" sont simplement les
+	# stats de base -- permet a l'appelant de lire etat_courant().hab_*_tour
+	# sans condition particuliere meme quand aucun tour n'a encore ete joue.
+	self._etat_initial.hab_billy_tour = self.hab_billy
+	self._etat_initial.hab_adversaire_tour = self.hab_adversaire
+	self._etat_initial.adresse_billy_tour = self.adresse_billy
 
 
 # L'etat courant est toujours le sommet de la pile, ou l'etat initial si
@@ -448,6 +463,9 @@ func play_turn(attack_die_roll = null, esquive_die_roll = null) -> EtatTour:
 	nouveau_tour.contre_attaque_critique = contre_attaque_critique
 	nouveau_tour.degats_billy = degats_billy_final
 	nouveau_tour.degats_adversaire = degats_adversaire_final
+	nouveau_tour.hab_billy_tour = hab_billy_tour
+	nouveau_tour.hab_adversaire_tour = hab_adversaire_tour
+	nouveau_tour.adresse_billy_tour = adresse_billy_tour
 
 	self.pile.append(nouveau_tour)
 

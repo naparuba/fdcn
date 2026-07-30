@@ -197,6 +197,20 @@ func test_node76_habilete_squelettes_baisse_tous_les_4_pv_infliges():
 		"apres >=4 PV cumules infliges, l'Habileté adverse effective a baisse de 1 (diff -3 -> -2)")
 
 
+func test_node76_etat_tour_expose_lhabilete_adverse_effective():
+	# EtatTour.hab_adversaire_tour doit refleter la baisse causee par le
+	# Modificateur, pour qu'un appelant (l'ecran de combat) puisse l'afficher
+	# sans recalculer lui-meme la logique du hook.
+	var mod = Mods.HabiliteAdverseDegressiveParDegatsCumules.new(4, 1)
+	var combat = CombatScript.new(9, 12, 30, 100, {"modificateurs": [mod]})
+	assert_eq(combat.etat_courant().hab_adversaire_tour, 12,
+		"avant le 1er tour, l'etat initial expose deja les stats de base")
+	var t1 = combat.play_turn(6)  # inflige exactement 4 PV, le seuil
+	assert_eq(t1.hab_adversaire_tour, 12, "pas encore de palier franchi PENDANT ce tour-la")
+	var t2 = combat.play_turn(5)
+	assert_eq(t2.hab_adversaire_tour, 11, "1 palier franchi -> Habileté effective du tour = 11")
+
+
 func test_node231_meme_mecanique_hommes_darmes():
 	# Meme regle que 76/155, nœud different ("4 HOMMES D'ARMES").
 	var mod = Mods.HabiliteAdverseDegressiveParDegatsCumules.new(4, 1)
