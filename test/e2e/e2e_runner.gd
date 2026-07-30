@@ -109,6 +109,15 @@ func _run_next_step():
 		for i in range(n):
 			await get_tree().process_frame
 		_run_next_step()
+	elif action == "wait_seconds":
+		# Temps REEL (Timer), pas un compte de frames -- indispensable pour
+		# attendre la fin d'une animation a duree fixe (ex: AnimationPlayer
+		# du SuccessPopup, 5.9s). Sous Xvfb, sans limitation vsync fiable,
+		# un nombre de frames fixe peut s'ecouler en bien moins de temps reel
+		# que prevu -- vu en pratique sur E4_fin_bonne (500 frames pas
+		# toujours suffisantes pour laisser le popup de succes disparaitre).
+		await get_tree().create_timer(step.get("n", 1.0)).timeout
+		_run_next_step()
 	elif action == "go_to_node":
 		_main.go_to_node(int(step["id"]))
 		_run_next_step()
