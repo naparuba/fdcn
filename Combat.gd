@@ -319,8 +319,6 @@ func _build_combatant_card(role: String, accent: Color) -> Dictionary:
 	var style = StyleBoxFlat.new()
 	style.bg_color = COL_CARD
 	style.set_corner_radius_all(12)
-	style.border_width_left = 5
-	style.border_color = accent
 	style.shadow_color = Color(0.05, 0.08, 0.12, 0.10)
 	style.shadow_size = 6
 	style.content_margin_left = 14
@@ -329,6 +327,30 @@ func _build_combatant_card(role: String, accent: Color) -> Dictionary:
 	style.content_margin_bottom = 10
 	card.add_theme_stylebox_override("panel", style)
 	card.custom_minimum_size = Vector2(0, 100)
+	card.clip_contents = false
+
+	# Barre d'accent independante plutot qu'une bordure asymetrique sur le
+	# StyleBoxFlat de la carte : un border_width_left seul combine a un
+	# corner_radius sur les 4 coins rend mal dans Godot (la bordure ne suit
+	# pas la courbe du coin -- vu en pratique, retour utilisateur). Ici une
+	# petite pilule (ses propres coins arrondis, independants de ceux de la
+	# carte) inseree depuis le haut/bas -- ne touche jamais la zone courbee
+	# de la carte, donc rien a faire correspondre.
+	var accent_bar = Panel.new()
+	var accent_style = StyleBoxFlat.new()
+	accent_style.bg_color = accent
+	accent_style.set_corner_radius_all(3)
+	accent_bar.add_theme_stylebox_override("panel", accent_style)
+	accent_bar.anchor_top = 0.0
+	accent_bar.anchor_bottom = 1.0
+	accent_bar.anchor_left = 0.0
+	accent_bar.anchor_right = 0.0
+	accent_bar.offset_top = 12
+	accent_bar.offset_bottom = -12
+	accent_bar.offset_left = 5
+	accent_bar.offset_right = 10
+	accent_bar.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	card.add_child(accent_bar)
 
 	var floaters = Control.new()
 	floaters.mouse_filter = Control.MOUSE_FILTER_IGNORE
