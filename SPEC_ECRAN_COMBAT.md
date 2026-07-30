@@ -238,15 +238,15 @@ ce stade — décision à prendre en implémentation, pas figée ici (cf. §"on 
 - Ajouter le bouton "Fuite" (coût en Points de Chance, `combat.gd::FUITE_COST`) — mentionné dans
   le moteur mais absent de l'écran actuel, à statuer si le MVP le couvre ou pas.
 
-## 10. Animations restant à rattraper (maquette HTML vs implémentation Godot)
+## 10. Animations (maquette HTML vs implémentation Godot)
 
-Écran fonctionnel et branché, mais plusieurs animations de la maquette n'ont pas encore été
-portées (suivies aussi dans la todo-list de session, tâches #37-#41) :
+Toutes portées (tâches de session #37-#41, toutes complétées) :
 
-- Dé visuel animé (aucun widget de dé actuellement, le résultat n'apparaît qu'en texte).
-- Pulse + delta flottant sur un changement de stat effective (ex. Habileté dégressive) — le texte
-  se met à jour silencieusement aujourd'hui.
-- Animation d'esquive distincte (déplacement + flash cyan) — seul un texte flottant "ESQUIVE !"
-  existe, pas de réaction visuelle propre au panneau de Billy.
-- Secousse d'écran globale pour les gros coups/critiques (seule la carte touchée bouge).
-- Surlignage de la case de prévisualisation correspondant à la face réellement tirée.
+- ~~Dé visuel animé~~ — deux `TextureRect` (attaque + esquive), icônes réelles du projet
+  (`res://images/dice/*.svg`), "roule" 5 faces avant de se figer sur le résultat réel.
+- ~~Pulse + delta flottant sur un changement de stat effective~~ — `_animate_stat_change()`.
+- ~~Animation d'esquive distincte~~ — `_dodge_panel()` (déplacement + flash cyan), jamais le même
+  mouvement/la même couleur que `_hit_panel()`.
+- ~~Secousse d'écran globale pour les gros coups/critiques~~ — `_screen_shake()`/
+  `_maybe_screen_shake()`, seuil ≥4 dégâts ou critique systématique.
+- ~~Surlignage de la case de prévisualisation~~ — `_flash_preview_face()`.
