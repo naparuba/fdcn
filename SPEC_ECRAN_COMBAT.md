@@ -227,10 +227,26 @@ ce stade — décision à prendre en implémentation, pas figée ici (cf. §"on 
 
 ## 9. Chantiers d'intégration (au-delà de l'écran lui-même)
 
-- Étendre `EtatTour` pour persister les stats effectives par tour (§4).
-- Brancher réellement `combat.gd` depuis `main.gd`/`chapter_data.gd` — aujourd'hui `is_combat()`
-  ne fait qu'afficher des stats statiques, jamais instancier `Combat`.
-- Choisir le premier nœud de combat réel à brancher pour valider l'intégration bout-en-bout
-  (privilégier un combat simple du Tome 1 sans modificateur avant les familles A/C/I).
+- ~~Étendre `EtatTour` pour persister les stats effectives par tour (§4).~~ Fait
+  (`stats_effectives_pour_tour`, `combat.gd`).
+- ~~Brancher réellement `combat.gd` depuis `main.gd`/`chapter_data.gd`.~~ Fait
+  (`Combat.start_combat()`, appelé depuis `go_to_node`).
+- Choisir le premier nœud de combat réel à brancher **avec ses règles spéciales** pour valider
+  l'intégration bout-en-bout des familles A/C/I (aujourd'hui `opts.modificateurs`/`regles_speciales`
+  ne sont jamais renseignés par `go_to_node` — aucune donnée par nœud dans le JSON compilé, cf
+  gap déjà connu).
 - Ajouter le bouton "Fuite" (coût en Points de Chance, `combat.gd::FUITE_COST`) — mentionné dans
-  le moteur mais absent du prototype actuel, à statuer si le MVP le couvre ou pas.
+  le moteur mais absent de l'écran actuel, à statuer si le MVP le couvre ou pas.
+
+## 10. Animations restant à rattraper (maquette HTML vs implémentation Godot)
+
+Écran fonctionnel et branché, mais plusieurs animations de la maquette n'ont pas encore été
+portées (suivies aussi dans la todo-list de session, tâches #37-#41) :
+
+- Dé visuel animé (aucun widget de dé actuellement, le résultat n'apparaît qu'en texte).
+- Pulse + delta flottant sur un changement de stat effective (ex. Habileté dégressive) — le texte
+  se met à jour silencieusement aujourd'hui.
+- Animation d'esquive distincte (déplacement + flash cyan) — seul un texte flottant "ESQUIVE !"
+  existe, pas de réaction visuelle propre au panneau de Billy.
+- Secousse d'écran globale pour les gros coups/critiques (seule la carte touchée bouge).
+- Surlignage de la case de prévisualisation correspondant à la face réellement tirée.
