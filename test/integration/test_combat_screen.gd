@@ -261,3 +261,27 @@ func test_scenario_ennemi_nattaque_pas_au_premier_tour():
 	assert_eq(t2.degats_adversaire, 1, "a partir du tour 2, l'ennemi riposte normalement")
 	assert_eq(_combat._controller.etat_courant().billy.pv, 19)
 	assert_eq(_combat._controller.etat_courant().adversaire.pv, 8, "20 - 6 - 6")
+
+
+func test_scenario_habilete_adverse_degressive_affichee_a_lecran():
+	# Nœud 76 : -1 Habileté tous les 4 PV cumules infliges. Hab 9 vs 12
+	# (diff=-3), face 6 chaque tour -- verifie que l'affichage de la stat
+	# (pas seulement le controleur/moteur) suit la baisse au bon moment.
+	var Mods = preload('res://combat_modificateurs.gd')
+	var degressive = Mods.HabiliteAdverseDegressiveParDegatsCumules.new(4, 1)
+	_combat.start_combat("Guerriers Squelettes", 9, 12, 30, 100, {"modificateurs": [degressive]})
+	assert_eq(_combat._enemy_stat_hab.text, "12")
+
+	var t1 = await _combat._play_turn(6)  # diff=-3, table[-3][5]=[4,3]
+	assert_eq(t1.degats_billy, 4)
+	assert_eq(_combat._enemy_stat_hab.text, "12", "seuil pas encore franchi PENDANT ce tour")
+
+	var t2 = await _combat._play_turn(6)  # 4 PV cumules -> 1 palier franchi -> diff passe a -2
+	assert_eq(t2.hab_adversaire_tour, 11)
+	assert_eq(t2.degats_billy, 5, "table[-2][5]=[5,3] : Billy inflige plus, l'ennemi est affaibli")
+	assert_eq(_combat._enemy_stat_hab.text, "11", "l'affichage doit refleter la baisse, pas juste le moteur")
+
+	# Revenir en arriere doit aussi corriger l'affichage (silencieusement,
+	# pas de pulse pour un retour dans le temps).
+	_combat._on_turn_chip_pressed(2)
+	assert_eq(_combat._enemy_stat_hab.text, "12", "de retour avant le seuil franchi")

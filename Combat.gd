@@ -132,6 +132,7 @@ func start_combat(enemy_name: String, hab_billy: int, hab_adversaire: int,
 	self._set_die_face(self._esquive_die_rect, 6)
 
 	self._refresh_bars()
+	self._enemy_stat_hab.text = str(self._controller.etat_courant().hab_adversaire_tour)
 	self._refresh_preview()
 	self._append_next_chip()
 	self.visible = true
@@ -399,6 +400,34 @@ func _make_stat_chip(parent: HBoxContainer, libelle: String, couleur_valeur: Col
 	return v
 
 
+# Change le texte d'une stat chip (cf _make_stat_chip) en l'annonçant
+# clairement si la valeur bouge -- pulse colore + delta flottant +N/-N,
+# jamais un texte qui change silencieusement (meme piege que les degats
+# hors-echange). Sans effet si la valeur ne change pas (rien a annoncer).
+func _animate_stat_change(label: Label, nouvelle_valeur: int, floaters: Control) -> void:
+	var ancienne_valeur = label.text.to_int()
+	var nouveau_texte = str(nouvelle_valeur)
+	if label.text == nouveau_texte:
+		return
+	var delta = nouvelle_valeur - ancienne_valeur
+	label.text = nouveau_texte
+	if self.skip_animations:
+		return
+
+	var box = label.get_parent().get_parent()
+	if box is PanelContainer:
+		var normal = box.get_theme_stylebox("panel").duplicate()
+		var pulse = normal.duplicate()
+		pulse.bg_color = (Color(0.18, 0.62, 0.39) if delta > 0 else COL_CORAIL).lightened(0.55)
+		box.add_theme_stylebox_override("panel", pulse)
+		var tween = create_tween()
+		tween.tween_interval(0.6)
+		tween.tween_callback(func(): box.add_theme_stylebox_override("panel", normal))
+
+	var couleur = Color(0.18, 0.62, 0.39) if delta > 0 else COL_CORAIL
+	self._spawn_float(floaters, ("+%d" % delta) if delta > 0 else str(delta), couleur, 15)
+
+
 func _make_tag_label(txt: String, bg: Color, fg: Color) -> Label:
 	var l = Label.new()
 	l.text = txt
@@ -586,7 +615,11 @@ func _refresh_bars():
 	self._roll_sub_label.text = "Tour %d" % self._controller.prochain_tour()
 	self._enemy_hp_label.text = "%d / %d" % [maxi(etat.adversaire.pv, 0), self._pv_adversaire_max]
 	self._player_hp_label.text = "%d / %d" % [maxi(etat.billy.pv, 0), self._pv_billy_max]
-	self._enemy_stat_hab.text = str(etat.hab_adversaire_tour)
+	# La stat Habileté ennemie n'est PAS mise a jour ici : elle est soit
+	# figee directement (initialisation, retour en arriere -- rien a
+	# annoncer), soit animee explicitement dans _play_turn() (cf
+	# _animate_stat_change) -- jamais les deux en meme temps, sinon le
+	# texte est deja identique quand l'animation verifie s'il a change.
 	self._resize_bar(self._enemy_hp_fill, float(maxi(etat.adversaire.pv, 0)) / maxf(self._pv_adversaire_max, 1))
 	self._resize_bar(self._player_hp_fill, float(maxi(etat.billy.pv, 0)) / maxf(self._pv_billy_max, 1))
 	self._undo_button.disabled = !self._controller.peut_annuler()
@@ -777,6 +810,7 @@ func _play_turn(attack_die = null, esquive_die = null):
 				COL_ORANGE, 16 + nouveau_tour.degats_supplementaires_adversaire * 4)
 
 	self._refresh_bars()
+	self._animate_stat_change(self._enemy_stat_hab, nouveau_tour.hab_adversaire_tour, self._enemy_floaters)
 	self._refresh_preview()
 
 	var entry = {
@@ -806,6 +840,7 @@ func _on_undo_pressed():
 	self._resolved_manually = false
 	self._resolution_overlay.visible = false
 	self._refresh_bars()
+	self._enemy_stat_hab.text = str(self._controller.etat_courant().hab_adversaire_tour)
 	self._refresh_preview()
 	self._roll_button.disabled = false
 
@@ -832,6 +867,7 @@ func _on_turn_chip_pressed(numero_tour: int):
 	self._resolved_manually = false
 	self._resolution_overlay.visible = false
 	self._refresh_bars()
+	self._enemy_stat_hab.text = str(self._controller.etat_courant().hab_adversaire_tour)
 	self._refresh_preview()
 	self._roll_button.disabled = false
 	self._last_turn_line.text = "Retour effectué — rejouez le tour %d quand vous êtes prêt." % self._controller.prochain_tour()
