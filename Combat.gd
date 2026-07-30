@@ -27,6 +27,11 @@ const COL_ORANGE = Color(0.760784, 0.447059, 0)  # #C27200, dice/evenements peri
 const COL_INK = Color(0, 0, 0)
 const COL_INK_SOFT = Color(0.45, 0.45, 0.45)
 
+# Seuil "PV critiques" -- sous ce ratio du max, le tag d'alerte s'affiche
+# (cf tache "low-PV visual warning" : une barre qui retrecit ne suffit pas
+# a signaler un danger, facile a manquer en plein echange de coups).
+const LOW_PV_RATIO = 0.25
+
 var _controller = null
 var _enemy_name := ""
 var _enemy_hab_base := 0
@@ -48,6 +53,7 @@ var _enemy_stat_arm: Label
 var _enemy_stat_deg: Label
 var _enemy_floaters: Control
 var _enemy_card: Panel
+var _enemy_danger_tag: Label
 
 var _player_hp_label: Label
 var _player_hp_fill: ColorRect
@@ -59,10 +65,12 @@ var _player_stat_crit: Label
 var _player_pyro_tag: Label
 var _player_floaters: Control
 var _player_card: Panel
+var _player_danger_tag: Label
 
 var _turns_strip: HBoxContainer
 var _last_turn_line: Label
 
+var _preview_title: Label
 var _preview_cells := []  # Array[Dictionary{root, give, take}], index 0 = face 1
 var _attack_die_rect: TextureRect
 var _esquive_die_rect: TextureRect
@@ -128,6 +136,12 @@ func start_combat(enemy_name: String, hab_billy: int, hab_adversaire: int,
 	self._resolution_overlay.visible = false
 	self._roll_button.disabled = false
 	self._esquive_die_box.visible = self._controller.peut_esquiver()
+	# "Si vous n'esquivez pas" n'a de sens que si esquiver est possible --
+	# sous Adresse 2, le resultat affiche est GARANTI, pas conditionnel, et
+	# garder ce "si" serait trompeur (cf audit UX du panneau de combat).
+	self._preview_title.text = ("SI VOUS N'ESQUIVEZ PAS, SELON LE DÉ D'ATTAQUE"
+		if self._controller.peut_esquiver()
+		else "SELON LE DÉ D'ATTAQUE")
 	self._set_die_face(self._attack_die_rect, 6)
 	self._set_die_face(self._esquive_die_rect, 6)
 
@@ -192,6 +206,7 @@ func _build_ui():
 	self._enemy_stat_arm = enemy['stat_arm']
 	self._enemy_stat_deg = enemy['stat_deg']
 	self._enemy_floaters = enemy['floaters']
+	self._enemy_danger_tag = enemy['danger_tag']
 	combatants.add_child(enemy['card'])
 
 	var player = self._build_combatant_card("Billy", COL_TEAL)
@@ -202,6 +217,7 @@ func _build_ui():
 	self._player_stat_arm = player['stat_arm']
 	self._player_stat_deg = player['stat_deg']
 	self._player_floaters = player['floaters']
+	self._player_danger_tag = player['danger_tag']
 	combatants.add_child(player['card'])
 
 	self._player_stat_adr = self._make_stat_chip(player['stats_row'], "Adresse", COL_CYAN)
@@ -218,6 +234,16 @@ func _build_ui():
 	turns_title.add_theme_font_size_override("font_size", 10)
 	turns_title.add_theme_color_override("font_color", COL_INK_SOFT)
 	turns_wrap.add_child(turns_title)
+
+	# Legende statique des pastilles de couleur -- toujours visible (pas un
+	# hover/tooltip, inutile sur mobile) : un vieux tour scrolle hors champ
+	# doit rester comprehensible sans avoir a l'annuler pour le revoir.
+	var legend = Label.new()
+	legend.text = "🟢 vous frappez  🔴 vous êtes touché  🩵 esquive  🟡 critique"
+	legend.add_theme_font_size_override("font_size", 9)
+	legend.add_theme_color_override("font_color", COL_INK_SOFT)
+	legend.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
+	turns_wrap.add_child(legend)
 
 	var turns_scroll = ScrollContainer.new()
 	turns_scroll.custom_minimum_size = Vector2(0, 56)
@@ -251,11 +277,10 @@ func _build_ui():
 	var preview_wrap = VBoxContainer.new()
 	preview_wrap.add_theme_constant_override("separation", 4)
 	layout.add_child(preview_wrap)
-	var preview_title = Label.new()
-	preview_title.text = "SI VOUS N'ESQUIVEZ PAS, SELON LE DÉ D'ATTAQUE"
-	preview_title.add_theme_font_size_override("font_size", 10)
-	preview_title.add_theme_color_override("font_color", COL_INK_SOFT)
-	preview_wrap.add_child(preview_title)
+	self._preview_title = Label.new()
+	self._preview_title.add_theme_font_size_override("font_size", 10)
+	self._preview_title.add_theme_color_override("font_color", COL_INK_SOFT)
+	preview_wrap.add_child(self._preview_title)
 	var preview_row = HBoxContainer.new()
 	preview_row.add_theme_constant_override("separation", 4)
 	preview_wrap.add_child(preview_row)
@@ -279,13 +304,31 @@ func _build_ui():
 	layout.add_child(action_row)
 
 	self._undo_button = Button.new()
-	self._undo_button.text = "↺"
-	self._undo_button.add_theme_font_size_override("font_size", 20)
-	self._undo_button.custom_minimum_size = Vector2(52, 52)
+	self._undo_button.custom_minimum_size = Vector2(60, 52)
 	self._undo_button.disabled = true
 	self._style_solid_button(self._undo_button, COL_CARD, COL_NAVY)
 	self._undo_button.pressed.connect(self._on_undo_pressed)
 	action_row.add_child(self._undo_button)
+	# Legende sous l'icone plutot qu'un tooltip (jamais visible au toucher,
+	# cf roll_button ci-dessous qui suit deja ce meme principe) : le sens
+	# de "↺" seul n'est pas garanti evident pour un premier joueur.
+	var undo_label_box = VBoxContainer.new()
+	undo_label_box.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	undo_label_box.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
+	undo_label_box.alignment = BoxContainer.ALIGNMENT_CENTER
+	self._undo_button.add_child(undo_label_box)
+	var undo_icon = Label.new()
+	undo_icon.text = "↺"
+	undo_icon.add_theme_font_size_override("font_size", 18)
+	undo_icon.add_theme_color_override("font_color", COL_NAVY)
+	undo_icon.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
+	undo_label_box.add_child(undo_icon)
+	var undo_caption = Label.new()
+	undo_caption.text = "Annuler"
+	undo_caption.add_theme_font_size_override("font_size", 9)
+	undo_caption.add_theme_color_override("font_color", COL_INK_SOFT)
+	undo_caption.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
+	undo_label_box.add_child(undo_caption)
 
 	self._roll_button = Button.new()
 	self._roll_button.size_flags_horizontal = Control.SIZE_EXPAND_FILL
@@ -372,6 +415,17 @@ func _build_combatant_card(role: String, accent: Color) -> Dictionary:
 	tags_box.add_theme_constant_override("separation", 2)
 	v.add_child(tags_box)
 
+	# Alerte PV bas -- toujours visible (jamais un hover/tooltip, inutile
+	# sur mobile), togglee depuis _refresh_bars() selon le seuil. Sibling de
+	# tags_box, PAS dedans : start_combat() vide entierement tags_box a
+	# chaque combat (regles speciales), ce qui liberait ce Label aussi.
+	var danger_tag = Label.new()
+	danger_tag.text = "⚠ PV CRITIQUES"
+	danger_tag.visible = false
+	danger_tag.add_theme_font_size_override("font_size", 11)
+	danger_tag.add_theme_color_override("font_color", COL_CORAIL)
+	v.add_child(danger_tag)
+
 	var bar_bg = Panel.new()
 	bar_bg.custom_minimum_size = Vector2(0, 10)
 	var bar_bg_style = StyleBoxFlat.new()
@@ -402,7 +456,7 @@ func _build_combatant_card(role: String, accent: Color) -> Dictionary:
 		"card": card, "name_label": name_label, "tags_box": tags_box,
 		"hp_label": hp_label, "hp_fill": hp_fill, "hp_bg": bar_bg,
 		"stat_hab": stat_hab, "stat_arm": stat_arm, "stat_deg": stat_deg,
-		"stats_row": stats_row, "floaters": floaters,
+		"stats_row": stats_row, "floaters": floaters, "danger_tag": danger_tag,
 	}
 
 
@@ -631,7 +685,7 @@ func _build_resolution_overlay():
 	cta.text = "CONTINUER L'AVENTURE"
 	cta.custom_minimum_size = Vector2(0, 40)
 	self._style_solid_button(cta, COL_NAVY, Color(1, 1, 1))
-	cta.pressed.connect(func(): self._resolution_overlay.visible = false)
+	cta.pressed.connect(self._on_continue_pressed)
 	v.add_child(cta)
 
 	var secondary = Button.new()
@@ -674,7 +728,13 @@ func _refresh_bars():
 	# texte est deja identique quand l'animation verifie s'il a change.
 	self._resize_bar(self._enemy_hp_fill, float(maxi(etat.adversaire.pv, 0)) / maxf(self._pv_adversaire_max, 1))
 	self._resize_bar(self._player_hp_fill, float(maxi(etat.billy.pv, 0)) / maxf(self._pv_billy_max, 1))
+	self._enemy_danger_tag.visible = self._est_en_pv_critiques(etat.adversaire.pv, self._pv_adversaire_max)
+	self._player_danger_tag.visible = self._est_en_pv_critiques(etat.billy.pv, self._pv_billy_max)
 	self._undo_button.disabled = !self._controller.peut_annuler()
+
+
+func _est_en_pv_critiques(pv: int, pv_max: int) -> bool:
+	return pv > 0 and pv <= ceili(maxf(pv_max, 1) * LOW_PV_RATIO)
 
 
 func _resize_bar(fill: ColorRect, pct: float):
@@ -758,7 +818,10 @@ func _push_turn_chip(entry: Dictionary):
 	v.alignment = BoxContainer.ALIGNMENT_CENTER
 	chip.add_child(v)
 	var num = Label.new()
-	num.text = str(entry['tour'])
+	# Tour ET dé d'attaque sur 2 lignes -- toujours visible (pas un
+	# hover/tooltip, inutile sur mobile) : reconstituer ce qui s'est passe
+	# sur un vieux tour sans avoir a l'annuler pour le revoir.
+	num.text = "%d\nd%d" % [entry['tour'], entry['face']]
 	num.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
 	num.add_theme_font_size_override("font_size", 10)
 	num.add_theme_color_override("font_color", COL_INK_SOFT)
@@ -950,6 +1013,16 @@ func _on_manual_win_pressed():
 	self._resolved_manually = true
 	self._roll_button.disabled = true
 	self._show_resolution(true, true)
+
+
+# Ferme tout le panneau (pas seulement la carte de resolution) : c'est
+# lui qui recouvre les vrais choix de la suite (Background/Next dans
+# main.tscn), en mouse_filter=STOP -- sans ca le joueur reste bloque sur
+# cet ecran pour toujours, meme le combat "termine". L'ancien panneau
+# (avant la refonte) le faisait via _on_combat_validate_button_pressed().
+func _on_continue_pressed():
+	self._resolution_overlay.visible = false
+	self.visible = false
 
 
 func _on_resolution_rewind_pressed():

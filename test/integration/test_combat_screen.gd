@@ -32,11 +32,56 @@ func test_start_combat_affiche_le_panneau_et_les_stats():
 	assert_false(_combat.is_resolved())
 
 
+func test_bouton_annuler_a_une_legende_visible_pas_seulement_un_tooltip():
+	# Un tooltip ne s'affiche jamais au toucher (mobile) -- l'icone seule
+	# ("↺") ne suffit donc pas, il faut un texte toujours visible.
+	_start()
+	var found = false
+	for child in _combat._undo_button.get_children():
+		for grand_child in child.get_children():
+			if grand_child is Label and grand_child.text == "Annuler":
+				found = true
+	assert_true(found, "le bouton annuler doit porter une legende visible en permanence")
+
+
+func test_titre_previsualisation_sans_le_si_quand_esquive_impossible():
+	_start()  # adresse_billy par defaut = 0, peut_esquiver() == false
+	assert_false(_combat._controller.peut_esquiver())
+	assert_eq(_combat._preview_title.text, "SELON LE DÉ D'ATTAQUE",
+		"le resultat affiche est garanti ici, pas conditionnel -- pas de 'si' trompeur")
+
+
+func test_titre_previsualisation_avec_le_si_quand_esquive_possible():
+	_start({"adresse_billy": 3})
+	assert_true(_combat._controller.peut_esquiver())
+	assert_eq(_combat._preview_title.text, "SI VOUS N'ESQUIVEZ PAS, SELON LE DÉ D'ATTAQUE")
+
+
+func test_alerte_pv_critiques_saffiche_sous_le_seuil_et_disparait_sinon():
+	_start({"pv_billy_max": 20})  # pv_billy=20 (defaut _start) -> pas critique au depart
+	assert_false(_combat._player_danger_tag.visible)
+	_combat.start_combat("Guerriers Orcs", 9, 5, 3, 24, {"pv_billy_max": 20})  # 3/20 = 15%
+	assert_true(_combat._player_danger_tag.visible, "sous le seuil, l'alerte doit etre visible")
+	_combat.start_combat("Guerriers Orcs", 9, 5, 20, 24, {"pv_billy_max": 20})  # de retour au max
+	assert_false(_combat._player_danger_tag.visible, "au-dessus du seuil, l'alerte doit disparaitre")
+
+
 func test_lancer_le_de_joue_un_tour_reel_via_le_moteur():
 	_start()
 	await _combat._on_roll_pressed()
 	assert_eq(_combat._controller.prochain_tour(), 2, "un tour a bien ete joue")
 	assert_false(_combat._undo_button.disabled, "annuler devient possible apres 1 tour")
+
+
+func test_pastille_de_tour_affiche_le_de_tire_sans_avoir_a_annuler():
+	# Une vieille tuile scrollee hors champ doit rester comprehensible sans
+	# tooltip (inutile au toucher) ni annulation destructive -- le de tire
+	# doit donc etre visible directement sur la tuile.
+	_start()
+	await _combat._play_turn(6)
+	var chip = _combat._turns_strip.get_child(0)
+	var num = chip.get_child(1).get_child(0)  # v -> num (cf _push_turn_chip)
+	assert_eq(num.text, "1\nd6")
 
 
 func test_plusieurs_tours_font_baisser_les_pv_affiches():
@@ -82,6 +127,18 @@ func test_bouton_jai_gagne_termine_le_combat_avant_meme_un_tour():
 	assert_true(_combat.is_resolved())
 	assert_true(_combat._resolution_overlay.visible)
 	assert_eq(_combat._resolution_title.text, "Victoire")
+
+
+func test_continuer_l_aventure_ferme_tout_le_panneau_pas_seulement_la_carte():
+	# Regression : "CONTINUER L'AVENTURE" ne fermait que la petite carte de
+	# resolution, jamais le panneau Combat lui-meme -- qui recouvre en
+	# vrai les choix de la suite dans main.tscn (mouse_filter=STOP), donc
+	# bloquait le joueur indefiniment apres tout combat termine.
+	_start()
+	_combat._on_manual_win_pressed()
+	_combat._on_continue_pressed()
+	assert_false(_combat._resolution_overlay.visible)
+	assert_false(_combat.visible, "le panneau entier doit disparaitre, pas seulement l'overlay")
 
 
 func test_revenir_en_arriere_depuis_la_resolution_manuelle_sans_tour_joue():

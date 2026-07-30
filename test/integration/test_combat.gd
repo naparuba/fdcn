@@ -98,3 +98,21 @@ func test_bouton_jai_gagne_disponible_immediatement_depuis_main():
 	assert_false(combat.is_resolved())
 	combat._on_manual_win_pressed()
 	assert_true(combat.is_resolved())
+
+
+func test_continuer_l_aventure_liberte_le_vrai_choix_de_suite_sous_le_panneau():
+	# Regression grave : le panneau Combat (quasi plein ecran,
+	# mouse_filter=STOP) recouvre Background/Next (les vrais choix de
+	# suite) -- "CONTINUER L'AVENTURE" ne fermait que la petite carte de
+	# resolution, jamais le panneau entier, donc bloquait le joueur pour
+	# toujours apres n'importe quel combat. Verifie ici via le vrai
+	# main.tscn, pas juste Combat.tscn isole, puisque c'est justement le
+	# recouvrement d'un AUTRE noeud du meme arbre qui etait en cause.
+	_main.go_to_node(COMBAT_NODE_WITH_PYRO)
+	var combat = _main.get_node("Combat")
+	combat._on_manual_win_pressed()
+	combat._on_continue_pressed()
+	assert_false(combat.visible, "le panneau de combat doit disparaitre completement")
+	var choices = _main.get_node("Background/Next/ScrollContainer/Choices")
+	assert_gt(choices.get_child_count(), 0,
+		"le vrai choix de suite existe et doit redevenir accessible (rien ne doit plus le recouvrir)")
