@@ -121,6 +121,31 @@ func _run_next_step():
 	elif action == "go_to_node":
 		_main.go_to_node(int(step["id"]))
 		_run_next_step()
+	elif action == "combat_play_turn":
+		# Force les des plutot que de cliquer le vrai bouton -- un scenario
+		# E2E doit rester reproductible, jamais a la merci d'un jet aleatoire
+		# (meme technique que test_combat_screen.gd::_play_turn()). Le JSON
+		# ne connait que le type "float" pour les nombres -- reconverti en
+		# int explicitement, combat.gd indexant SITUATION_TABLE avec ces
+		# valeurs.
+		var attack_die = step.get("attack_die")
+		var esquive_die = step.get("esquive_die")
+		await _main.get_node("Combat")._play_turn(
+			int(attack_die) if attack_die != null else null,
+			int(esquive_die) if esquive_die != null else null
+		)
+		_run_next_step()
+	elif action == "heal_billy_full":
+		# Un Billy tout neuf a 0 PV courants (jamais mis a jour avant qu'un
+		# chapitre du livre ne le fasse) -- combat.gd le traiterait alors,
+		# a raison, comme deja mort avant le 1er tour. Sans equivalent
+		# "chapitre de soin" simple a rejouer ici, on fixe directement les
+		# PV au max pour un scenario de combat qui a un sens.
+		Player.pv = Player.pv_max
+		_run_next_step()
+	elif action == "combat_manual_win":
+		_main.get_node("Combat")._on_manual_win_pressed()
+		_run_next_step()
 	elif action == "add_item":
 		Player.add_item_from_options(step["name"])
 		_run_next_step()

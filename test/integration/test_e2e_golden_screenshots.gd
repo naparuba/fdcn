@@ -216,7 +216,10 @@ func test_boutons_spoils_son():
 
 
 func test_combat():
-	_run_and_assert("combat.json", ["E9_combat"])
+	# 3 temps du VRAI ecran interactif (des forces via combat_play_turn,
+	# jamais le vrai bouton -- sinon un jet aleatoire rendrait le scenario
+	# non reproductible) : etat initial, apres un tour reel joue, victoire.
+	_run_and_assert("combat.json", ["E9_combat_debut", "E9_combat_apres_tour1", "E9_combat_victoire"])
 
 
 func test_succes_seul():

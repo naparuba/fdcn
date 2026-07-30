@@ -4,6 +4,14 @@
   {"action": "show_options"},
   {"action": "add_item", "name": "EPEE"},
   {"action": "validate_options"},
+  {"action": "heal_billy_full"},
   {"action": "go_to_node", "id": 14},
-  {"action": "screenshot", "name": "E9_combat"}
+  {"action": "wait_frames", "n": 5},
+  {"action": "screenshot", "name": "E9_combat_debut"},
+  {"action": "combat_play_turn", "attack_die": 6},
+  {"action": "wait_seconds", "n": 2},
+  {"action": "screenshot", "name": "E9_combat_apres_tour1"},
+  {"action": "combat_play_turn", "attack_die": 6},
+  {"action": "wait_seconds", "n": 2},
+  {"action": "screenshot", "name": "E9_combat_victoire"}
 ]
