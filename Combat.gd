@@ -771,11 +771,13 @@ func _play_turn(attack_die = null, esquive_die = null):
 
 	if nouveau_tour.esquive:
 		await self._lunge(self._enemy_card, Vector2(0, 18))
+		self._dodge_panel(self._player_card)
 		if nouveau_tour.contre_attaque_critique:
 			self._spawn_float(self._player_floaters, "CRITIQUE !", COL_GOLD, 20)
 			await self._delay(0.3)
 			await self._lunge(self._player_card, Vector2(0, -18))
 			self._hit_panel(self._enemy_card, nouveau_tour.degats_billy)
+			self._maybe_screen_shake(nouveau_tour.degats_billy, true)
 			self._spawn_float(self._enemy_floaters, "-%d" % nouveau_tour.degats_billy, COL_GOLD, 20 + nouveau_tour.degats_billy * 4)
 		else:
 			self._spawn_float(self._player_floaters, "ESQUIVE !", COL_CYAN, 18)
@@ -783,6 +785,7 @@ func _play_turn(attack_die = null, esquive_die = null):
 		await self._lunge(self._player_card, Vector2(0, -18))
 		if nouveau_tour.degats_billy > 0:
 			self._hit_panel(self._enemy_card, nouveau_tour.degats_billy)
+			self._maybe_screen_shake(nouveau_tour.degats_billy)
 			self._spawn_float(self._enemy_floaters, "-%d" % nouveau_tour.degats_billy, COL_CORAIL, 18 + nouveau_tour.degats_billy * 4)
 		else:
 			self._spawn_float(self._enemy_floaters, "0", COL_INK_SOFT, 14)
@@ -790,6 +793,7 @@ func _play_turn(attack_die = null, esquive_die = null):
 		await self._lunge(self._enemy_card, Vector2(0, 18))
 		if nouveau_tour.degats_adversaire > 0:
 			self._hit_panel(self._player_card, nouveau_tour.degats_adversaire)
+			self._maybe_screen_shake(nouveau_tour.degats_adversaire)
 			self._spawn_float(self._player_floaters, "-%d" % nouveau_tour.degats_adversaire, COL_CORAIL, 18 + nouveau_tour.degats_adversaire * 4)
 		else:
 			self._spawn_float(self._player_floaters, "0", COL_INK_SOFT, 14)
@@ -949,6 +953,50 @@ func _hit_panel(panel: Control, magnitude: int) -> void:
 		var restore = create_tween()
 		restore.tween_interval(0.05)
 		restore.tween_callback(func(): panel.add_theme_stylebox_override("panel", original))
+
+
+# Reaction distincte de l'esquive reussie -- jamais le meme mouvement/la
+# meme couleur que _hit_panel (rouge, "j'encaisse"), pour que "esquivé" se
+# distingue clairement de "bloqué" ou "touché" (cf SPEC #7, semantique des
+# couleurs). Pas d'amplitude proportionnelle : une esquive reste une
+# esquive, quelle que soit la situation.
+func _dodge_panel(panel: Control) -> void:
+	if self.skip_animations:
+		return
+	var origine = panel.position
+	var tween = create_tween()
+	tween.tween_property(panel, "position", origine + Vector2(10, 0), 0.12).set_trans(Tween.TRANS_SINE)
+	tween.tween_property(panel, "position", origine + Vector2(-4, 0), 0.10).set_trans(Tween.TRANS_SINE)
+	tween.tween_property(panel, "position", origine, 0.10).set_trans(Tween.TRANS_SINE)
+	var style = panel.get_theme_stylebox("panel")
+	if style is StyleBoxFlat:
+		var original = style.duplicate()
+		var flash = style.duplicate()
+		flash.bg_color = Color(COL_CYAN.r, COL_CYAN.g, COL_CYAN.b, 0.3)
+		panel.add_theme_stylebox_override("panel", flash)
+		var restore = create_tween()
+		restore.tween_interval(0.15)
+		restore.tween_callback(func(): panel.add_theme_stylebox_override("panel", original))
+
+
+# Secousse de tout l'ecran de combat -- reservee aux gros coups/critiques
+# (cf tache #40), en plus de la secousse locale de _hit_panel, pour que
+# l'intensite se sente vraiment a l'ecran et pas seulement sur la carte
+# touchee.
+func _screen_shake() -> void:
+	if self.skip_animations:
+		return
+	var origine = self.position
+	var tween = create_tween()
+	tween.tween_property(self, "position", origine + Vector2(-6, 0), 0.04)
+	tween.tween_property(self, "position", origine + Vector2(5, 0), 0.04)
+	tween.tween_property(self, "position", origine + Vector2(-3, 0), 0.04)
+	tween.tween_property(self, "position", origine, 0.04)
+
+
+func _maybe_screen_shake(magnitude: int, force: bool = false) -> void:
+	if force or magnitude >= 4:
+		self._screen_shake()
 
 
 func _spawn_float(container: Control, texte: String, couleur: Color, taille: int) -> void:
