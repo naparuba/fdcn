@@ -1,0 +1,534 @@
+[gd_scene load_steps=17 format=3]
+
+[ext_resource type="FontFile" path="res://fonts/amon_font.tres" id="1_combat"]
+[ext_resource type="Texture2D" path="res://images/blue-tick.png" id="2_combat"]
+[ext_resource type="Texture2D" path="res://images/fight.svg" id="3_combat"]
+[ext_resource type="Texture2D" path="res://images/dice/6-r.svg" id="4_combat"]
+[ext_resource type="Texture2D" path="res://images/barbare_icon_white.png" id="5_combat"]
+[ext_resource type="FontFile" path="res://fonts/RobotoCondensed-Regular.ttf" id="6_combat"]
+[ext_resource type="Texture2D" path="res://images/anim-phumtar-2.png" id="7_combat"]
+[ext_resource type="Texture2D" path="res://images/anim-phumtar-1.png" id="8_combat"]
+
+[sub_resource type="StyleBoxFlat" id="header_style"]
+bg_color = Color(0.192157, 0.231373, 0.278431, 1)
+
+[sub_resource type="StyleBoxFlat" id="panel_style"]
+bg_color = Color(1, 1, 1, 1)
+border_width_top = 3
+border_color = Color(0.192157, 0.231373, 0.278431, 1)
+
+[sub_resource type="StyleBoxFlat" id="iwin_style"]
+bg_color = Color(0.913725, 0.917647, 0.92549, 1)
+
+[sub_resource type="FontFile" id="font_name"]
+fallbacks = Array[Font]([ExtResource("6_combat")])
+cache/0/variation_coordinates = {}
+cache/0/face_index = 0
+cache/0/embolden = 0.0
+cache/0/transform = Transform2D(1, 0, 0, 1, 0, 0)
+cache/0/spacing_top = 0
+cache/0/spacing_bottom = 0
+cache/0/spacing_space = 0
+cache/0/spacing_glyph = 0
+cache/0/baseline_offset = 0.0
+cache/0/16/0/ascent = 0.0
+cache/0/16/0/descent = 0.0
+cache/0/16/0/underline_position = 0.0
+cache/0/16/0/underline_thickness = 0.0
+cache/0/16/0/scale = 1.0
+
+[sub_resource type="FontFile" id="font_label"]
+fallbacks = Array[Font]([ExtResource("6_combat")])
+cache/0/variation_coordinates = {}
+cache/0/face_index = 0
+cache/0/embolden = 0.0
+cache/0/transform = Transform2D(1, 0, 0, 1, 0, 0)
+cache/0/spacing_top = 0
+cache/0/spacing_bottom = 0
+cache/0/spacing_space = 0
+cache/0/spacing_glyph = 0
+cache/0/baseline_offset = 0.0
+cache/0/16/0/ascent = 0.0
+cache/0/16/0/descent = 0.0
+cache/0/16/0/underline_position = 0.0
+cache/0/16/0/underline_thickness = 0.0
+cache/0/16/0/scale = 1.0
+
+[sub_resource type="FontFile" id="font_value"]
+fallbacks = Array[Font]([ExtResource("6_combat")])
+cache/0/variation_coordinates = {}
+cache/0/face_index = 0
+cache/0/embolden = 0.0
+cache/0/transform = Transform2D(1, 0, 0, 1, 0, 0)
+cache/0/spacing_top = 0
+cache/0/spacing_bottom = 0
+cache/0/spacing_space = 0
+cache/0/spacing_glyph = 0
+cache/0/baseline_offset = 0.0
+cache/0/16/0/ascent = 0.0
+cache/0/16/0/descent = 0.0
+cache/0/16/0/underline_position = 0.0
+cache/0/16/0/underline_thickness = 0.0
+cache/0/16/0/scale = 1.0
+
+[sub_resource type="StyleBoxFlat" id="dice_style"]
+bg_color = Color(0.92549, 0.929412, 0.94902, 1)
+corner_radius_top_left = 2
+corner_radius_top_right = 2
+corner_radius_bottom_right = 2
+corner_radius_bottom_left = 2
+
+[sub_resource type="SpriteFrames" id="phumtar_frames"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("8_combat")
+}, {
+"duration": 1.0,
+"texture": ExtResource("7_combat")
+}],
+"loop": 1,
+"name": &"default",
+"speed": 16.0
+}]
+
+[node name="Combat" type="Panel"]
+visible = false
+offset_left = 58.0
+offset_top = 376.0
+offset_right = 504.0
+offset_bottom = 1012.0
+mouse_filter = 1
+theme_override_styles/panel = SubResource("panel_style")
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="IWin" type="Panel" parent="."]
+offset_left = 143.0
+offset_top = 520.0
+offset_right = 283.0
+offset_bottom = 605.0
+theme_override_styles/panel = SubResource("iwin_style")
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="tick" type="Sprite2D" parent="IWin"]
+position = Vector2(74.7039, 41.7168)
+scale = Vector2(0.0922094, 0.0922094)
+texture = ExtResource("2_combat")
+
+[node name="button" type="TextureButton" parent="IWin"]
+offset_left = -1.0
+offset_top = -2.0
+offset_right = 138.0
+offset_bottom = 87.0
+
+[node name="Header" type="Panel" parent="."]
+offset_left = 0.0594482
+offset_top = 0.179749
+offset_right = 445.059
+offset_bottom = 42.1797
+mouse_filter = 1
+theme_override_styles/panel = SubResource("header_style")
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Label" type="Label" parent="Header"]
+offset_left = 189.601
+offset_top = 5.00259
+offset_right = 259.601
+offset_bottom = 36.0026
+theme_override_fonts/font = ExtResource("1_combat")
+theme_override_font_sizes/font_size = 25
+text = "Combat"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Icone" type="Sprite2D" parent="."]
+position = Vector2(42.3232, 83.9219)
+scale = Vector2(0.0226782, 0.0226782)
+texture = ExtResource("3_combat")
+
+[node name="Nom" type="Label" parent="."]
+offset_left = 97.0
+offset_top = 46.0
+offset_right = 373.0
+offset_bottom = 77.0
+theme_override_colors/font_color = Color(0, 0.760784, 0.666667, 1)
+theme_override_constants/shadow_offset_x = 0
+theme_override_constants/shadow_offset_y = 0
+theme_override_constants/shadow_outline_size = 0
+theme_override_fonts/font = ExtResource("1_combat")
+theme_override_font_sizes/font_size = 25
+text = "XXX"
+align = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="PlayerLabel" type="Label" parent="."]
+offset_left = 62.0932
+offset_top = 90.1375
+offset_right = 144.093
+offset_bottom = 121.137
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_constants/shadow_offset_x = 0
+theme_override_constants/shadow_offset_y = 0
+theme_override_constants/shadow_outline_size = 0
+theme_override_fonts/font = SubResource("font_name")
+theme_override_font_sizes/font_size = 24
+text = "Billy"
+align = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="PlayerPvLabel" type="Label" parent="."]
+offset_left = 54.7972
+offset_top = 158.046
+offset_right = 136.797
+offset_bottom = 189.046
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_constants/shadow_offset_x = 0
+theme_override_constants/shadow_offset_y = 0
+theme_override_constants/shadow_outline_size = 0
+theme_override_fonts/font = SubResource("font_label")
+text = "PV:"
+align = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="PlayerPvValue" type="Label" parent="."]
+offset_left = 109.695
+offset_top = 155.22
+offset_right = 191.695
+offset_bottom = 186.22
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_constants/shadow_offset_x = 0
+theme_override_constants/shadow_offset_y = 0
+theme_override_constants/shadow_outline_size = 0
+theme_override_fonts/font = SubResource("font_value")
+theme_override_font_sizes/font_size = 19
+text = "XXX"
+align = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="PlayerHabLabel" type="Label" parent="."]
+offset_left = 58.0991
+offset_top = 128.345
+offset_right = 140.099
+offset_bottom = 159.345
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_constants/shadow_offset_x = 0
+theme_override_constants/shadow_offset_y = 0
+theme_override_constants/shadow_outline_size = 0
+theme_override_fonts/font = SubResource("font_label")
+text = "Hab:"
+align = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="PlayerHabValue" type="Label" parent="."]
+offset_left = 113.704
+offset_top = 129.054
+offset_right = 195.704
+offset_bottom = 160.054
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_constants/shadow_offset_x = 0
+theme_override_constants/shadow_offset_y = 0
+theme_override_constants/shadow_outline_size = 0
+theme_override_fonts/font = SubResource("font_value")
+theme_override_font_sizes/font_size = 19
+text = "XXX"
+align = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="PlayerArmLabel" type="Label" parent="."]
+offset_left = 69.8583
+offset_top = 182.571
+offset_right = 151.859
+offset_bottom = 213.571
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_constants/shadow_offset_x = 0
+theme_override_constants/shadow_offset_y = 0
+theme_override_constants/shadow_outline_size = 0
+theme_override_fonts/font = SubResource("font_label")
+text = "Armure:"
+align = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="PlayerArmValue" type="Label" parent="."]
+offset_left = 114.857
+offset_top = 183.28
+offset_right = 196.857
+offset_bottom = 214.28
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_constants/shadow_offset_x = 0
+theme_override_constants/shadow_offset_y = 0
+theme_override_constants/shadow_outline_size = 0
+theme_override_fonts/font = SubResource("font_value")
+theme_override_font_sizes/font_size = 19
+text = "XXX"
+align = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="PlayerDegLabel" type="Label" parent="."]
+offset_left = 64.9085
+offset_top = 205.905
+offset_right = 146.909
+offset_bottom = 236.905
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_constants/shadow_offset_x = 0
+theme_override_constants/shadow_offset_y = 0
+theme_override_constants/shadow_outline_size = 0
+theme_override_fonts/font = SubResource("font_label")
+text = "Dégat:"
+align = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="PlayerDegValue" type="Label" parent="."]
+offset_left = 113.443
+offset_top = 210.15
+offset_right = 195.443
+offset_bottom = 241.15
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_constants/shadow_offset_x = 0
+theme_override_constants/shadow_offset_y = 0
+theme_override_constants/shadow_outline_size = 0
+theme_override_fonts/font = SubResource("font_value")
+theme_override_font_sizes/font_size = 19
+text = "XXX"
+align = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="EnnemiLabel" type="Label" parent="."]
+offset_left = 319.698
+offset_top = 89.5762
+offset_right = 401.698
+offset_bottom = 120.576
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_constants/shadow_offset_x = 0
+theme_override_constants/shadow_offset_y = 0
+theme_override_constants/shadow_outline_size = 0
+theme_override_fonts/font = SubResource("font_name")
+theme_override_font_sizes/font_size = 24
+text = "Ennemi"
+align = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="EnnemiPvLabel" type="Label" parent="."]
+offset_left = 296.301
+offset_top = 153.992
+offset_right = 378.301
+offset_bottom = 184.992
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_constants/shadow_offset_x = 0
+theme_override_constants/shadow_offset_y = 0
+theme_override_constants/shadow_outline_size = 0
+theme_override_fonts/font = SubResource("font_label")
+text = "PV:"
+align = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="EnnemiPvValue" type="Label" parent="."]
+offset_left = 366.755
+offset_top = 151.873
+offset_right = 448.755
+offset_bottom = 182.873
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_constants/shadow_offset_x = 0
+theme_override_constants/shadow_offset_y = 0
+theme_override_constants/shadow_outline_size = 0
+theme_override_fonts/font = SubResource("font_value")
+theme_override_font_sizes/font_size = 19
+text = "XXX"
+align = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="EnnemiHabLabel" type="Label" parent="."]
+offset_left = 300.009
+offset_top = 128.3
+offset_right = 382.009
+offset_bottom = 159.3
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_constants/shadow_offset_x = 0
+theme_override_constants/shadow_offset_y = 0
+theme_override_constants/shadow_outline_size = 0
+theme_override_fonts/font = SubResource("font_label")
+text = "Hab:"
+align = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="EnnemiHabValue" type="Label" parent="."]
+offset_left = 366.755
+offset_top = 127.77
+offset_right = 448.755
+offset_bottom = 158.77
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_constants/shadow_offset_x = 0
+theme_override_constants/shadow_offset_y = 0
+theme_override_constants/shadow_outline_size = 0
+theme_override_fonts/font = SubResource("font_value")
+theme_override_font_sizes/font_size = 19
+text = "XXX"
+align = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="EnnemiArmLabel" type="Label" parent="."]
+offset_left = 311.134
+offset_top = 181.152
+offset_right = 393.134
+offset_bottom = 212.152
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_constants/shadow_offset_x = 0
+theme_override_constants/shadow_offset_y = 0
+theme_override_constants/shadow_outline_size = 0
+theme_override_fonts/font = SubResource("font_label")
+text = "Armure:"
+align = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="EnnemiArmValue" type="Label" parent="."]
+offset_left = 366.755
+offset_top = 181.152
+offset_right = 448.755
+offset_bottom = 212.152
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_constants/shadow_offset_x = 0
+theme_override_constants/shadow_offset_y = 0
+theme_override_constants/shadow_outline_size = 0
+theme_override_fonts/font = SubResource("font_value")
+theme_override_font_sizes/font_size = 19
+text = "XXX"
+align = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="EnnemiDegLabel" type="Label" parent="."]
+offset_left = 306.366
+offset_top = 209.228
+offset_right = 388.366
+offset_bottom = 240.228
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_constants/shadow_offset_x = 0
+theme_override_constants/shadow_offset_y = 0
+theme_override_constants/shadow_outline_size = 0
+theme_override_fonts/font = SubResource("font_label")
+text = "Dégat:"
+align = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="EnnemiDegValue" type="Label" parent="."]
+offset_left = 368.345
+offset_top = 209.228
+offset_right = 450.345
+offset_bottom = 240.228
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_constants/shadow_offset_x = 0
+theme_override_constants/shadow_offset_y = 0
+theme_override_constants/shadow_outline_size = 0
+theme_override_fonts/font = SubResource("font_value")
+theme_override_font_sizes/font_size = 19
+text = "XXX"
+align = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="dice" type="Panel" parent="."]
+offset_left = 13.8042
+offset_top = 157.055
+offset_right = 70.8042
+offset_bottom = 214.055
+theme_override_styles/panel = SubResource("dice_style")
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="sprite" type="Sprite2D" parent="dice"]
+position = Vector2(27.5508, 27.4023)
+scale = Vector2(0.0770419, 0.0770419)
+texture = ExtResource("4_combat")
+
+[node name="button" type="TextureButton" parent="dice"]
+offset_right = 57.0
+offset_bottom = 58.0
+
+[node name="SpritePyro" type="Sprite2D" parent="."]
+position = Vector2(279.661, 189.214)
+scale = Vector2(0.300072, 0.300072)
+texture = ExtResource("5_combat")
+
+[node name="PyroHab" type="Label" parent="."]
+offset_left = 183.054
+offset_top = 169.669
+offset_right = 265.054
+offset_bottom = 200.669
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_constants/shadow_offset_x = 0
+theme_override_constants/shadow_offset_y = 0
+theme_override_constants/shadow_outline_size = 0
+theme_override_fonts/font = SubResource("font_value")
+theme_override_font_sizes/font_size = 19
+text = "XXX"
+align = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="NotFinish" type="Label" parent="."]
+offset_left = 18.805
+offset_top = 344.238
+offset_right = 255.805
+offset_bottom = 385.238
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_constants/shadow_offset_x = 0
+theme_override_constants/shadow_offset_y = 0
+theme_override_constants/shadow_outline_size = 0
+theme_override_fonts/font = SubResource("font_label")
+text = "Les combats ne sont pas encore fini,
+ dev en cours ^^"
+align = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="phumtar" type="AnimatedSprite2D" parent="."]
+position = Vector2(349.257, 373.67)
+scale = Vector2(0.342538, 0.342538)
+frames = SubResource("phumtar_frames")
+playing = true
+

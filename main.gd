@@ -30,11 +30,18 @@ func _ready():
 
 	# Register top_menus so they can call us back
 	self._register_top_menus()
-	
+
 	# Load the nodes ids we did already visited in the past
 	self._reload_all_player()
 
 	self._do_load_book_context()
+
+	# Combat.tscn est une scene a part (extraite pour pouvoir la tester
+	# isolement) -- une connexion statique depuis un noeud enfant d'une
+	# instance vers cette scene racine ne survit pas a l'edition/sauvegarde
+	# de main.tscn, donc on la reconnecte ici plutot qu'en editeur.
+	$Combat/dice/button.pressed.connect(self._on_dice_pressed)
+	$Combat/IWin/button.pressed.connect(self._on_combat_validate_button_pressed)
 
 
 func _reload_all_player():
