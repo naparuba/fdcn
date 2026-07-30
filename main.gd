@@ -36,13 +36,6 @@ func _ready():
 
 	self._do_load_book_context()
 
-	# Combat.tscn est une scene a part (extraite pour pouvoir la tester
-	# isolement) -- une connexion statique depuis un noeud enfant d'une
-	# instance vers cette scene racine ne survit pas a l'edition/sauvegarde
-	# de main.tscn, donc on la reconnecte ici plutot qu'en editeur.
-	$Combat/dice/button.pressed.connect(self._on_dice_pressed)
-	$Combat/IWin/button.pressed.connect(self._on_combat_validate_button_pressed)
-
 
 func _reload_all_player():
 	# Load the nodes ids we did already visited in the past
@@ -105,33 +98,20 @@ func go_to_node(node_id):
 	# If it's a combat, show it
 	var node = BookData.get_chapter_data(node_id)
 	if node.is_combat():
-		$Combat/Nom.text = node.get_combat_name()
-		$Combat/EnnemiPvValue.text = '%s' % node.get_combat_pv()
-		$Combat/EnnemiArmValue.text = '%s' % node.get_combat_armure()
-		$Combat/EnnemiHabValue.text = '%s' % node.get_combat_hab()
-		$Combat/EnnemiDegValue.text = '%s' % node.get_combat_degat()
-		# We display the Pyro only if he help us
-		var hab_pyro = node.get_combat_pyro()
-		if hab_pyro != 0:
-			$Combat/SpritePyro.visible = true
-			$Combat/PyroHab.visible = true
-			$Combat/PyroHab.text = '+%s' % hab_pyro
-		else:  # he is not helping us
-			$Combat/SpritePyro.visible = false
-			$Combat/PyroHab.visible = false
-		# Update the billy stats
-		self._update_billy_in_combat()
-		# Display the whole combat panel
-		$Combat.visible = true
+		$Combat.start_combat(
+			node.get_combat_name(),
+			Player.get_hab(), node.get_combat_hab(),
+			Player.get_pv(), node.get_combat_pv(),
+			{
+				"pv_billy_max": Player.pv_max,
+				"armure_billy": Player.get_arm(), "armure_adversaire": node.get_combat_armure(),
+				"deg_billy": Player.get_deg(), "deg_adversaire": node.get_combat_degat(),
+				"adresse_billy": Player.get_adr(), "critique_billy": Player.get_crit(),
+				"pyro_bonus": node.get_combat_pyro(),
+			}
+		)
 	else:
 		$Combat.visible = false
-
-
-func _update_billy_in_combat():
-	$Combat/PlayerPvValue.text = '%s' % Player.get_pv()
-	$Combat/PlayerHabValue.text = '%s' % Player.get_hab()
-	$Combat/PlayerArmValue.text = '%s' % Player.get_arm()
-	$Combat/PlayerDegValue.text = '%s' % Player.get_deg()
 
 
 # We are in a new node, check if it's a success.
@@ -671,12 +651,6 @@ func popup_remove_item(item_name):
 	$ItemPopups/ScrollContainer/ItemPopupsCont.add_child(popup)
 
 
-func _on_dice_pressed():
-	var res = Utils.roll_a_dice(1, 6)
-	print('Dice roll %s' % res)
-	$Combat/dice/sprite.texture = Utils.load_external_texture('res://images/dice/%s-b.svg' % res, null)
-	
-
 
 func __set_tab_not_selected(tab):
 	var _style = tab.get('theme_override_styles/panel')
@@ -782,11 +756,6 @@ func _on_button_show_book_select():
 func _on_button_show_stats():
 	print('_on_button_show_stats')
 	self._options_show_stats()
-
-
-# The user ask to close the combat dialog
-func _on_combat_validate_button_pressed():
-	$Combat.visible = false
 
 
 func _refresh_options_stats():

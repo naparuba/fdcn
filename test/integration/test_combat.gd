@@ -1,7 +1,14 @@
 extends "res://addons/gut/test.gd"
 
-# Test d'integration sur le panneau de combat, via le VRAI main.tscn (pas
-# de double). Fixtures reelles du livre 1 :
+# Test d'integration sur le CABLAGE combat, via le VRAI main.tscn (pas de
+# double) : go_to_node() doit appeler $Combat.start_combat() avec les
+# bonnes valeurs (livre + joueur reel) et afficher/masquer le panneau au
+# bon moment. Le comportement interactif du panneau lui-meme (tours,
+# esquive, retour en arriere...) est teste separement et plus en detail
+# dans test_combat_screen.gd, directement sur Combat.tscn -- exactement ce
+# que son extraction en scene a part est censee permettre.
+#
+# Fixtures reelles du livre 1 :
 # - noeud 14 : combat simple, pyro=4 (bonus allie visible)
 # - noeud 276 : combat (liste), pyro=0 (bonus allie masque)
 # - noeud 1 : pas de combat
@@ -39,39 +46,49 @@ func test_combat_panel_hidden_on_non_combat_node():
 
 func test_combat_panel_shows_enemy_stats():
 	_main.go_to_node(COMBAT_NODE_WITH_PYRO)
-	assert_true(_main.get_node("Combat").visible)
-	assert_eq(_main.get_node("Combat/Nom").text, 'GUERRIERS ORCS')
-	assert_eq(_main.get_node("Combat/EnnemiPvValue").text, '8')
-	assert_eq(_main.get_node("Combat/EnnemiHabValue").text, '5')
-	assert_eq(_main.get_node("Combat/EnnemiArmValue").text, '0')
-	assert_eq(_main.get_node("Combat/EnnemiDegValue").text, '0')
+	var combat = _main.get_node("Combat")
+	assert_true(combat.visible)
+	assert_eq(combat._enemy_name_label.text, 'GUERRIERS ORCS')
+	var etat = combat._controller.etat_courant()
+	assert_eq(etat.adversaire.pv, 8)
+	assert_eq(etat.hab_adversaire_tour, 5)
+	assert_eq(combat._enemy_stat_arm.text, '0')
+	assert_eq(combat._enemy_stat_deg.text, '0')
 
 
 func test_combat_panel_shows_pyro_bonus_when_nonzero():
 	_main.go_to_node(COMBAT_NODE_WITH_PYRO)
-	assert_true(_main.get_node("Combat/SpritePyro").visible)
-	assert_true(_main.get_node("Combat/PyroHab").visible)
-	assert_eq(_main.get_node("Combat/PyroHab").text, '+4')
+	var combat = _main.get_node("Combat")
+	assert_true(combat._player_pyro_tag.visible)
+	assert_eq(combat._player_pyro_tag.text, '+4 Pyro-Barbare (Habileté)')
 
 
 func test_combat_panel_hides_pyro_bonus_when_zero():
 	_main.go_to_node(COMBAT_NODE_NO_PYRO)
-	assert_false(_main.get_node("Combat/SpritePyro").visible)
-	assert_false(_main.get_node("Combat/PyroHab").visible)
+	assert_false(_main.get_node("Combat")._player_pyro_tag.visible)
 
 
 func test_combat_panel_shows_real_player_stats():
 	AppParameters.set_billy_type('guerrier')
 	Player._recompute_stats()
 	_main.go_to_node(COMBAT_NODE_WITH_PYRO)
-	assert_eq(_main.get_node("Combat/PlayerHabValue").text, '%s' % Player.get_hab())
-	assert_eq(_main.get_node("Combat/PlayerArmValue").text, '%s' % Player.get_arm())
-	assert_eq(_main.get_node("Combat/PlayerDegValue").text, '%s' % Player.get_deg())
-	assert_eq(_main.get_node("Combat/PlayerPvValue").text, '%s' % Player.get_pv())
+	var combat = _main.get_node("Combat")
+	assert_eq(combat._player_stat_arm.text, '%s' % Player.get_arm())
+	assert_eq(combat._player_stat_deg.text, '%s' % Player.get_deg())
+	assert_eq(combat._player_stat_adr.text, '%s' % Player.get_adr())
+	assert_eq(combat._player_stat_crit.text, '%s' % Player.get_crit())
+	assert_eq(combat._controller.etat_courant().billy.pv, Player.get_pv())
+	assert_eq(combat._pv_billy_max, Player.pv_max,
+		"la barre de PV de Billy doit se caler sur son vrai max, pas sur son PV d'entree en combat")
 
 
-func test_dice_roll_sets_a_valid_texture():
+func test_bouton_jai_gagne_disponible_immediatement_depuis_main():
+	# Le cablage complet du bouton "J'ai gagne" (cf Combat.gd) est deja
+	# teste en detail dans test_combat_screen.gd -- ici on verifie juste
+	# qu'il reste bien accessible une fois le panneau affiche via le vrai
+	# go_to_node(), pas seulement en instanciant Combat.tscn seul.
 	_main.go_to_node(COMBAT_NODE_WITH_PYRO)
-	for i in range(10):  # plusieurs lancers pour couvrir plusieurs faces
-		_main._on_dice_pressed()
-		assert_not_null(_main.get_node("Combat/dice/sprite").texture)
+	var combat = _main.get_node("Combat")
+	assert_false(combat.is_resolved())
+	combat._on_manual_win_pressed()
+	assert_true(combat.is_resolved())
