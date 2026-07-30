@@ -193,6 +193,12 @@ class EtatTour:
 	# special", cf DegatsPeriodiques dans combat_modificateurs.gd.
 	var degats_supplementaires_billy := 0
 	var degats_supplementaires_adversaire := 0
+	# true si un Modificateur a signale que l'adversaire n'attaque pas DU
+	# TOUT ce tour (ex: SansAttaqueTour) -- distinct d'un degats_adversaire
+	# naturellement a 0 (Table des Situations), pour que l'UI puisse
+	# afficher un message explicite plutot qu'un "0" qui ressemblerait a un
+	# bug.
+	var sans_attaque_adversaire := false
 	# Stats EFFECTIVES de ce tour precis (apres application des Modificateurs
 	# type HabiliteAdverseDegressiveParDegatsCumules) -- distinctes des
 	# champs permanents hab_billy/hab_adversaire/adresse_billy de Combat, qui
@@ -407,6 +413,11 @@ func play_turn(attack_die_roll = null, esquive_die_roll = null) -> EtatTour:
 		if m.adversaire_esquive_attaque_normale(self, attack_die_roll, numero_tour):
 			adversaire_esquive_normale = true
 
+	var adversaire_n_attaque_pas = false
+	for m in self.modificateurs:
+		if m.adversaire_n_attaque_pas_ce_tour(self, numero_tour):
+			adversaire_n_attaque_pas = true
+
 	var base = resolve_round(hab_billy_tour, hab_adversaire_tour, attack_die_roll)
 	var degats_billy_bruts = 0 if adversaire_esquive_normale else base['degats_billy']  # subis par l'adversaire
 	var degats_adversaire_bruts = base['degats_adversaire']  # subis par Billy
@@ -481,6 +492,7 @@ func play_turn(attack_die_roll = null, esquive_die_roll = null) -> EtatTour:
 	nouveau_tour.hab_billy_tour = hab_billy_tour
 	nouveau_tour.hab_adversaire_tour = hab_adversaire_tour
 	nouveau_tour.adresse_billy_tour = adresse_billy_tour
+	nouveau_tour.sans_attaque_adversaire = adversaire_n_attaque_pas
 
 	self.pile.append(nouveau_tour)
 

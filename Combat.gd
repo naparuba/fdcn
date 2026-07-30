@@ -853,6 +853,10 @@ func _play_turn(attack_die = null, esquive_die = null):
 			self._hit_panel(self._player_card, nouveau_tour.degats_adversaire)
 			self._maybe_screen_shake(nouveau_tour.degats_adversaire)
 			self._spawn_float(self._player_floaters, "-%d" % nouveau_tour.degats_adversaire, COL_CORAIL, 18 + nouveau_tour.degats_adversaire * 4)
+		elif nouveau_tour.sans_attaque_adversaire:
+			# Sans ce message distinct, ce "0" ressemblerait a un bug plutot
+			# qu'a la regle speciale qui l'explique (cf commentaire ci-dessus).
+			self._spawn_float(self._player_floaters, "N'ATTAQUE PAS", COL_INK_SOFT, 15)
 		else:
 			self._spawn_float(self._player_floaters, "0", COL_INK_SOFT, 14)
 
@@ -905,6 +909,7 @@ func _on_undo_pressed():
 	self._enemy_stat_hab.text = str(self._controller.etat_courant().hab_adversaire_tour)
 	self._refresh_preview()
 	self._roll_button.disabled = false
+	self._last_turn_line.text = "Retour effectué — rejouez le tour %d quand vous êtes prêt." % self._controller.prochain_tour()
 
 
 func _remove_turn_chip(numero_tour: int):

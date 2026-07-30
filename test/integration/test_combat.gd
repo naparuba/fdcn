@@ -24,6 +24,12 @@ func before_all():
 	AppParameters.set_book_number(1)
 	Player.insert_all_objects()
 	Player.launch_new_billy()
+	# launch_new_billy() ne calcule/soigne jamais les PV (dans le vrai jeu,
+	# c'est toujours un chapitre qui les fixe avant le premier combat) --
+	# sans ça Player.pv reste a 0 et tout combat demarre deja "resolu",
+	# meme piege que heal_billy_full en E2E (cf e2e_runner.gd).
+	Player._recompute_stats()
+	Player.pv = Player.pv_max
 
 	var main_scene = load("res://main.tscn")
 	_main = main_scene.instantiate()

@@ -61,6 +61,8 @@ func test_annuler_le_dernier_tour_restaure_pv_et_tour():
 	assert_eq(_combat._controller.prochain_tour(), 2)
 	assert_eq(_combat._controller.etat_courant().billy.pv, pv_billy_t1)
 	assert_eq(_combat._controller.etat_courant().adversaire.pv, pv_adv_t1)
+	assert_true(_combat._last_turn_line.text.contains("Retour effectué"),
+		"la ligne de resume doit refleter l'annulation, pas rester sur le texte du tour annule")
 
 
 func test_revenir_avant_un_tour_du_milieu_via_la_strip():
@@ -255,10 +257,13 @@ func test_scenario_ennemi_nattaque_pas_au_premier_tour():
 	var t1 = await _combat._play_turn(6)
 	assert_eq(t1.degats_billy, 6, "Billy attaque normalement, seule la riposte adverse est supprimee")
 	assert_eq(t1.degats_adversaire, 0, "l'ennemi surpris ne riposte pas ce tour")
+	assert_true(t1.sans_attaque_adversaire,
+		"doit etre distingue d'un simple 0 naturel, pour que l'ecran affiche un message plutot qu'un 0 muet")
 	assert_eq(_combat._controller.etat_courant().billy.pv, 20, "aucun degat subi malgre une table qui en promettait 1")
 
 	var t2 = await _combat._play_turn(6)  # le malus ne couvre que le tour 1
 	assert_eq(t2.degats_adversaire, 1, "a partir du tour 2, l'ennemi riposte normalement")
+	assert_false(t2.sans_attaque_adversaire, "le malus ne couvre que le tour 1")
 	assert_eq(_combat._controller.etat_courant().billy.pv, 19)
 	assert_eq(_combat._controller.etat_courant().adversaire.pv, 8, "20 - 6 - 6")
 

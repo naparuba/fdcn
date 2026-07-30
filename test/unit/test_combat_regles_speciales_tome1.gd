@@ -514,6 +514,7 @@ func test_node321_pas_dattaque_adverse_au_premier_tour():
 	var combat = CombatScript.new(9, 9, 20, 6, {"modificateurs": [mod]})
 	var t1 = combat.play_turn(3)
 	assert_eq(t1.degats_adversaire, 0, "premier tour, aucune attaque adverse")
+	assert_true(t1.sans_attaque_adversaire, "distinct d'un simple 0 naturel de la table")
 
 
 func test_node321_attaque_normale_a_partir_du_deuxieme_tour():
@@ -523,6 +524,7 @@ func test_node321_attaque_normale_a_partir_du_deuxieme_tour():
 	var t2 = combat.play_turn(3)
 	var normal = CombatScript.resolve_round(9, 9, 3)['degats_adversaire']
 	assert_eq(t2.degats_adversaire, normal, "deuxieme tour, attaque normale")
+	assert_false(t2.sans_attaque_adversaire, "le malus ne couvre que le premier tour")
 
 
 func test_node349_massacre_squelette_lent_pas_dattaque_premier_tour():

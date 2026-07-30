@@ -327,10 +327,13 @@ func test_node323_adversaire_najoute_pas_dattaque_pendant_2_tours():
 	var combat = CombatScript.new(9, 9, 50, 20, {"modificateurs": [mod]})
 	var t1 = combat.play_turn(3)
 	assert_eq(t1.degats_adversaire, 0, "tour 1, pas d'attaque")
+	assert_true(t1.sans_attaque_adversaire)
 	var t2 = combat.play_turn(3)
 	assert_eq(t2.degats_adversaire, 0, "tour 2, toujours pas d'attaque")
+	assert_true(t2.sans_attaque_adversaire)
 	var t3 = combat.play_turn(3)
 	assert_eq(t3.degats_adversaire, 3, "tour 3, attaque normale de retour")
+	assert_false(t3.sans_attaque_adversaire)
 
 
 func test_node323_evenement_aleatoire_branche_1_perte_de_2pv_instantanee():

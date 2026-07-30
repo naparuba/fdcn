@@ -62,6 +62,15 @@ class Modificateur:
 	func adversaire_esquive_attaque_normale(combat, attack_die_roll, tour):
 		return false
 
+	# L'ADVERSAIRE n'attaque-t-il pas du tout ce tour (surprise, embuscade
+	# retournee...) ? Purement informatif pour l'UI -- distinct d'un simple
+	# 0 degats naturel de la Table des Situations, pour qu'un ecran puisse
+	# afficher un message explicite plutot qu'un "0" qui ressemblerait a un
+	# bug. Ne change rien au calcul lui-meme (cf SansAttaqueTour, qui doit
+	# aussi renvoyer 0 via modifie_degats_bruts).
+	func adversaire_n_attaque_pas_ce_tour(combat, tour):
+		return false
+
 	# Permet d'ajouter/retirer des degats bruts (avant Armure/plafond).
 	# Recoit le degats_billy/degats_adversaire deja calcules par la Table
 	# des Situations (+ esquive/critique de Billy), renvoie la paire
@@ -321,6 +330,9 @@ class SansAttaqueTour extends Modificateur:
 		if contexte['tour'] >= self.numero_tour and contexte['tour'] < self.numero_tour + self.duree:
 			degats_adversaire = 0
 		return [degats_billy, degats_adversaire]
+
+	func adversaire_n_attaque_pas_ce_tour(combat, tour):
+		return tour >= self.numero_tour and tour < self.numero_tour + self.duree
 
 
 # Nœud 575 : malus d'Habileté adverse limite au premier tour SEULEMENT
