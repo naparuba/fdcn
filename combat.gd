@@ -358,6 +358,28 @@ func undo_last_turn() -> EtatTour:
 	return self.pile.pop_back()
 
 
+# Stats effectives (Habileté Billy/adversaire, Adresse Billy) qui
+# s'appliqueraient si "numero_tour" etait joue MAINTENANT, sans rien jouer
+# ni modifier l'etat -- extrait du debut de play_turn() pour que l'appelant
+# puisse previsualiser un tour a venir (ex: bande "ce que vous risquez par
+# face de de", cf SPEC_ECRAN_COMBAT.md) sans dupliquer cette boucle de
+# hooks. Les deux endroits partagent donc le meme calcul, jamais deux
+# versions qui pourraient diverger.
+func stats_effectives_pour_tour(numero_tour: int) -> Dictionary:
+	var hab_billy_tour = self.hab_billy
+	var hab_adversaire_tour = self.hab_adversaire
+	var adresse_billy_tour = self.adresse_billy
+	for m in self.modificateurs:
+		hab_billy_tour = m.hab_billy_pour_ce_tour(self, hab_billy_tour, numero_tour)
+		hab_adversaire_tour = m.hab_adversaire_pour_ce_tour(self, hab_adversaire_tour, numero_tour)
+		adresse_billy_tour = m.adresse_billy_pour_ce_tour(self, adresse_billy_tour, numero_tour)
+	return {
+		"hab_billy": hab_billy_tour,
+		"hab_adversaire": hab_adversaire_tour,
+		"adresse_billy": adresse_billy_tour,
+	}
+
+
 # Joue un tour complet : recalcul des stats effectives du tour (via les
 # Modificateurs), jet d'attaque, esquive adverse eventuelle, esquive de
 # Billy si son ADRESSE le permet, application de l'Armure et du plafond
@@ -375,17 +397,10 @@ func play_turn(attack_die_roll = null, esquive_die_roll = null) -> EtatTour:
 	var precedent = self.etat_courant()
 	var numero_tour = precedent.tour + 1
 
-	# Stats effectives POUR CE TOUR SEULEMENT (les modificateurs peuvent
-	# les faire varier tour apres tour -- ex: Habileté adverse qui
-	# decroit avec les degats cumules -- sans jamais modifier les champs
-	# permanents hab_billy/hab_adversaire/adresse_billy).
-	var hab_billy_tour = self.hab_billy
-	var hab_adversaire_tour = self.hab_adversaire
-	var adresse_billy_tour = self.adresse_billy
-	for m in self.modificateurs:
-		hab_billy_tour = m.hab_billy_pour_ce_tour(self, hab_billy_tour, numero_tour)
-		hab_adversaire_tour = m.hab_adversaire_pour_ce_tour(self, hab_adversaire_tour, numero_tour)
-		adresse_billy_tour = m.adresse_billy_pour_ce_tour(self, adresse_billy_tour, numero_tour)
+	var stats_tour = self.stats_effectives_pour_tour(numero_tour)
+	var hab_billy_tour = stats_tour['hab_billy']
+	var hab_adversaire_tour = stats_tour['hab_adversaire']
+	var adresse_billy_tour = stats_tour['adresse_billy']
 
 	var adversaire_esquive_normale = false
 	for m in self.modificateurs:
