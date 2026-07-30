@@ -23,12 +23,16 @@ le joueur garde toujours la main pour clore le combat manuellement (§7).
 1. **Un tour = un geste.** Un seul bouton principal ("Lancer le dé"), en bas d'écran, zone du
    pouce sur téléphone tenu à une main. Aucune action répétée à chaque tour ne doit changer de
    place.
-2. **Un seul dé, visible, sert à tout.** La même valeur d6 pilote la Table des Situations (si pas
-   d'esquive), la réussite de l'esquive, et le seuil critique (face 1). Jamais de second jet
-   caché que le joueur ne voit pas — c'était un bug du premier jet d'implémentation, corrigé.
-3. **Esquive activée par défaut** dès que `Adresse >= 2` (aucun risque à esquiver dans les règles
-   actuelles, seulement des cas où le joueur préfère "sentir" chaque coup sans filtre) —
-   désactivable via un interrupteur, jamais forcée.
+2. **Deux dés réels, un seul geste.** `combat.gd::play_turn()` prend deux jets distincts
+   (`attack_die_roll` pour la Table des Situations, `esquive_die_roll` — un d6 **séparé**, règle
+   sourcée officielle) — corrigé après vérification directe du moteur : la maquette HTML unifiait
+   les deux par simplification UX, ce qui n'est pas la vraie règle. Un seul bouton "Lancer" tire
+   les deux valeurs d'un coup, mais **les deux résultats sont affichés séparément** à l'écran —
+   jamais de second jet cité mais caché au joueur.
+3. **Esquive automatique, pas un choix.** Corrigé après vérification du moteur : la règle sourcée
+   dit "un d6 séparé est lancé **chaque tour**" dès `Adresse >= 2`, sans condition — `play_turn()`
+   ne propose d'ailleurs aucun paramètre pour la désactiver. Pas d'interrupteur dans l'action bar ;
+   l'écran se contente de refléter fidèlement ce qui se passe.
 4. **Prévisualisation avant de lancer.** Une bande de 6 cases (une par face possible) montre ce
    que Billy infligerait/subirait pour chaque valeur de dé, recalculée à chaque tour à partir des
    stats *effectives* du moment (pas les stats de base). Les cases couvertes par l'esquive sont
@@ -40,7 +44,7 @@ le joueur garde toujours la main pour clore le combat manuellement (§7).
 6. **Intensité proportionnelle aux dégâts.** Secousse, flash de couleur et taille du nombre
    flottant grandissent avec la valeur du coup. Un coup à 1 PV se voit à peine, un critique se
    sent.
-7. **Sémantique des couleurs, pas de décoration.** Cyan = esquive (interrupteur, bordures de la
+7. **Sémantique des couleurs, pas de décoration.** Cyan = esquive (bordures de la
    prévisualisation, stat Adresse). Or = critique (seuil, stat Critique, texte flottant). Corail =
    dégât subi. Vert = dégât infligé. Orange = événement environnemental/périodique (hors échange
    normal, ex. salve de flèches). Gris = bloqué/neutre.
@@ -74,7 +78,6 @@ le joueur garde toujours la main pour clore le combat manuellement (§7).
    effets spéciaux du tour — esquive, critique, surprise, salve périodique).
 7. **Barre d'action** (bas d'écran, zone du pouce) :
    - Bande de prévisualisation par face (§2.4).
-   - Interrupteur esquive (visible seulement si Adresse ≥ 2).
    - Bouton "Annuler le dernier tour" (raccourci équivalent à taper la dernière tuile de la
      strip).
    - Bouton "Lancer le dé" (action principale).
@@ -106,16 +109,18 @@ le joueur garde toujours la main pour clore le combat manuellement (§7).
 
 ## 5. Séquencement de la résolution d'un tour
 
-1. Le joueur appuie sur "Lancer le dé". Animation de lancer (~480 ms), puis affichage de la face
-   tirée.
-2. Surlignage de la case correspondante dans la bande de prévisualisation.
-3. Détermination de l'esquive : `interrupteur ON ET Adresse >= 2 ET face <= Adresse`.
-   - Si esquive et face = 1 → critique (contre-attaque à dégâts maximum + bonus Critique, Armure
-     adverse ignorée, cf. `combat.gd::play_turn` lignes 398-408, 436-437).
+1. Le joueur appuie sur "Lancer le dé" : `play_turn()` tire **deux dés** (attaque + esquive,
+   `roll_die()` par défaut pour chacun) en un seul geste. Animation de lancer (~480 ms), puis
+   affichage des deux faces tirées séparément.
+2. Surlignage de la case correspondante (face d'attaque) dans la bande de prévisualisation.
+3. Esquive automatique dès `Adresse >= 2` (aucun choix du joueur, cf. §2.3) : `esquive =
+   esquive_die_roll <= adresse_billy_tour`.
+   - Si esquive et `esquive_die_roll = 1` → critique (contre-attaque à dégâts maximum + bonus
+     Critique, Armure adverse ignorée, cf. `combat.gd::play_turn` lignes 398-408, 436-437).
    - Si esquive sans critique → 0 dégât subi ce tour.
-   - Si pas d'esquive → lecture de la Table des Situations (`SITUATION_TABLE`, diff d'Habileté
-     clampé à [-7,7], face du dé) → dégâts bruts des deux côtés, puis Armure et plafond PAYSAN
-     appliqués côté Billy.
+   - Si pas d'esquive (ou Adresse < 2) → lecture de la Table des Situations (`SITUATION_TABLE`,
+     diff d'Habileté clampé à [-7,7], face d'attaque) → dégâts bruts des deux côtés, puis Armure
+     et plafond PAYSAN appliqués côté Billy.
 4. **Affichage séquentiel** (jamais simultané) :
    - Cas normal : Billy bondit vers l'ennemi → réaction ennemi (choc/bloqué) → pause ~300 ms →
      ennemi bondit vers Billy → réaction Billy (choc/bloqué).
