@@ -23,6 +23,7 @@ const COL_TEAL = Color(0, 0.760784, 0.666667)
 const COL_CORAIL = Color(0.956863, 0.345098, 0.345098)
 const COL_CYAN = Color(0.05, 0.6, 0.75)
 const COL_GOLD = Color(0.72, 0.55, 0.09)
+const COL_ORANGE = Color(0.760784, 0.447059, 0)  # #C27200, dice/evenements periodiques (SPEC #8)
 const COL_INK = Color(0, 0, 0)
 const COL_INK_SOFT = Color(0.45, 0.45, 0.45)
 
@@ -621,6 +622,10 @@ func _update_last_turn_line(entry: Dictionary):
 			texte += " Contre-attaque critique : -%d." % entry['dmg_ennemi']
 	else:
 		texte += " — Billy inflige -%d, subit -%d." % [entry['dmg_ennemi'], entry['dmg_billy']]
+	if entry.get('effet_ennemi', 0) > 0:
+		texte += " + effet spécial : -%d à l'ennemi." % entry['effet_ennemi']
+	if entry.get('effet_billy', 0) > 0:
+		texte += " + effet spécial : -%d à Billy." % entry['effet_billy']
 	self._last_turn_line.text = texte
 
 
@@ -671,6 +676,21 @@ func _play_turn(attack_die = null, esquive_die = null):
 		else:
 			self._spawn_float(self._player_floaters, "0", COL_INK_SOFT, 14)
 
+	# Troisieme temps, hors de l'echange normal (DegatsPeriodiques,
+	# AttaquePosthume...) -- jamais porte par un bond, ce n'est pas un
+	# combattant qui attaque. Sans ca, un PV qui bouge sans explication
+	# ressemble a un bug (meme piege que "l'ennemi n'attaque pas ce tour").
+	if nouveau_tour.degats_supplementaires_billy > 0 or nouveau_tour.degats_supplementaires_adversaire > 0:
+		await self._delay(0.3)
+		if nouveau_tour.degats_supplementaires_billy > 0:
+			self._hit_panel(self._enemy_card, nouveau_tour.degats_supplementaires_billy)
+			self._spawn_float(self._enemy_floaters, "Effet -%d" % nouveau_tour.degats_supplementaires_billy,
+				COL_ORANGE, 16 + nouveau_tour.degats_supplementaires_billy * 4)
+		if nouveau_tour.degats_supplementaires_adversaire > 0:
+			self._hit_panel(self._player_card, nouveau_tour.degats_supplementaires_adversaire)
+			self._spawn_float(self._player_floaters, "Effet -%d" % nouveau_tour.degats_supplementaires_adversaire,
+				COL_ORANGE, 16 + nouveau_tour.degats_supplementaires_adversaire * 4)
+
 	self._refresh_bars()
 	self._refresh_preview()
 
@@ -678,6 +698,8 @@ func _play_turn(attack_die = null, esquive_die = null):
 		"tour": nouveau_tour.tour, "face": nouveau_tour.attack_die_roll,
 		"dmg_ennemi": nouveau_tour.degats_billy, "dmg_billy": nouveau_tour.degats_adversaire,
 		"esquive": nouveau_tour.esquive, "crit": nouveau_tour.contre_attaque_critique,
+		"effet_ennemi": nouveau_tour.degats_supplementaires_billy,
+		"effet_billy": nouveau_tour.degats_supplementaires_adversaire,
 		"pv_billy": self._controller.etat_courant().billy.pv,
 		"pv_adversaire": self._controller.etat_courant().adversaire.pv,
 	}

@@ -220,3 +220,44 @@ func test_scenario_victoire_via_esquive_et_contre_attaque_critique():
 	assert_eq(_combat._controller.etat_courant().billy.pv, 20, "Billy n'a jamais ete touche sur ce scenario")
 	assert_eq(_nb_tours_dans_la_strip(), 2)
 	assert_eq(_combat._resolution_title.text, "Victoire")
+
+
+func test_scenario_avec_degats_periodiques_entre_les_tours():
+	# Nœud 97 (MASSACRE) : brasier de 3 PV tous les 3 tours, en plus de
+	# l'echange normal -- un "troisieme temps" hors du bond attaquant/
+	# defenseur habituel. Hab 9 vs 9 (diff=0), face 3 -> table[0][2]=[3,3]
+	# chaque tour normal.
+	var Mods = preload('res://combat_modificateurs.gd')
+	var brasier = Mods.DegatsPeriodiques.new(3, 3, "billy", false, false, 1)
+	_combat.start_combat("Massacre", 9, 9, 30, 30, {"modificateurs": [brasier]})
+
+	await _combat._play_turn(3)  # tour 1 : normal seulement
+	assert_eq(_combat._controller.etat_courant().billy.pv, 27, "30 - 3, pas encore de brasier")
+	await _combat._play_turn(3)  # tour 2 : normal seulement
+	assert_eq(_combat._controller.etat_courant().billy.pv, 24, "27 - 3, toujours pas de brasier")
+
+	var t3 = await _combat._play_turn(3)  # tour 3 : normal + brasier
+	assert_eq(t3.degats_supplementaires_adversaire, 3, "le brasier cible Billy -- stocke cote 'adversaire' dans EtatTour")
+	assert_eq(_combat._controller.etat_courant().billy.pv, 18, "24 - 3 (normal) - 3 (brasier)")
+	assert_eq(_combat._controller.etat_courant().adversaire.pv, 21, "le brasier ne touche pas l'adversaire")
+	assert_true(_combat._last_turn_line.text.contains("effet spécial"),
+		"le troisieme temps doit etre annonce a l'ecran, pas juste un PV qui bouge sans explication")
+
+
+func test_scenario_ennemi_nattaque_pas_au_premier_tour():
+	# Nœuds 321/349 : entree spectaculaire/surprise, l'ennemi ne porte
+	# aucune attaque au 1er tour. Hab 9 vs 5 (diff=4), face 6 ->
+	# table[4][5]=[6,1] : sans le modificateur Billy subirait 1 degat.
+	var Mods = preload('res://combat_modificateurs.gd')
+	var surprise = Mods.SansAttaqueTour.new(1, 1)
+	_combat.start_combat("Guerriers surpris", 9, 5, 20, 20, {"modificateurs": [surprise]})
+
+	var t1 = await _combat._play_turn(6)
+	assert_eq(t1.degats_billy, 6, "Billy attaque normalement, seule la riposte adverse est supprimee")
+	assert_eq(t1.degats_adversaire, 0, "l'ennemi surpris ne riposte pas ce tour")
+	assert_eq(_combat._controller.etat_courant().billy.pv, 20, "aucun degat subi malgre une table qui en promettait 1")
+
+	var t2 = await _combat._play_turn(6)  # le malus ne couvre que le tour 1
+	assert_eq(t2.degats_adversaire, 1, "a partir du tour 2, l'ennemi riposte normalement")
+	assert_eq(_combat._controller.etat_courant().billy.pv, 19)
+	assert_eq(_combat._controller.etat_courant().adversaire.pv, 8, "20 - 6 - 6")
