@@ -113,13 +113,13 @@ func start_combat(enemy_name: String, hab_billy: int, hab_adversaire: int,
 		self._player_pyro_tag.text = "+%s Pyro-Barbare (Habileté)" % self._pyro_bonus
 
 	for child in self._enemy_tags_box.get_children():
-		child.queue_free()
+		child.free()
 	for regle in self._regles_speciales:
 		var tag = self._make_tag_label(regle, COL_CARD_ALT, COL_INK_SOFT)
 		self._enemy_tags_box.add_child(tag)
 
 	for child in self._turns_strip.get_children():
-		child.queue_free()
+		child.free()
 	self._last_turn_line.text = "Le combat commence. Lancez le dé pour jouer le tour 1."
 	self._resolution_overlay.visible = false
 	self._roll_button.disabled = false
@@ -552,7 +552,7 @@ func _append_next_chip():
 func _remove_next_chip():
 	var existing = self._turns_strip.get_node_or_null("NextChip")
 	if existing:
-		existing.queue_free()
+		existing.free()
 
 
 func _outcome_couleur(entry: Dictionary) -> Color:
@@ -629,15 +629,22 @@ func _update_last_turn_line(entry: Dictionary):
 # =============================================================================
 
 func _on_roll_pressed():
+	await self._play_turn()
+
+
+# Extrait de _on_roll_pressed pour permettre des tests de scenario complets
+# et reproductibles (forcer attack_die/esquive_die) -- memes parametres que
+# combat.gd::play_turn(), null = de reel/aleatoire (comportement du bouton).
+func _play_turn(attack_die = null, esquive_die = null):
 	if self._rolling or self.is_resolved():
-		return
+		return null
 	self._rolling = true
 	self._roll_button.disabled = true
 
-	var nouveau_tour = self._controller.jouer_tour()
+	var nouveau_tour = self._controller.jouer_tour(attack_die, esquive_die)
 	if nouveau_tour == null:
 		self._rolling = false
-		return
+		return null
 
 	if nouveau_tour.esquive:
 		await self._lunge(self._enemy_card, Vector2(0, 18))
@@ -681,6 +688,7 @@ func _on_roll_pressed():
 	self._roll_button.disabled = self.is_resolved()
 	if self._controller.is_resolved():
 		self._show_resolution(self._controller.get_winner() == "billy", false)
+	return nouveau_tour
 
 
 func _on_undo_pressed():
@@ -701,7 +709,7 @@ func _remove_turn_chip(numero_tour: int):
 	for i in range(self._turns_strip.get_child_count() - 1, -1, -1):
 		var chip = self._turns_strip.get_child(i)
 		if chip.name != "NextChip":
-			chip.queue_free()
+			chip.free()
 			break
 	self._append_next_chip()
 
@@ -712,7 +720,7 @@ func _on_turn_chip_pressed(numero_tour: int):
 		var chip = self._turns_strip.get_child(i)
 		if chip.name == "NextChip":
 			continue
-		chip.queue_free()
+		chip.free()
 	self._append_next_chip()
 	self._resolved_manually = false
 	self._resolution_overlay.visible = false

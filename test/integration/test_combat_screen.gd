@@ -130,3 +130,93 @@ func test_recommencer_start_combat_reinitialise_lhistorique():
 	_start()  # nouveau combat, doit repartir de zero
 	assert_eq(_combat._controller.prochain_tour(), 1)
 	assert_true(_combat._undo_button.disabled)
+
+
+# =============================================================================
+# Scenarios complets, dés forcés pour rester reproductibles -- joue l'écran
+# de bout en bout (plusieurs tours réels, pas des raccourcis) jusqu'à une
+# vraie résolution (victoire ou défaite), en vérifiant l'état à chaque
+# étape, pas seulement le résultat final.
+# =============================================================================
+
+func _nb_tours_dans_la_strip() -> int:
+	# Compte les tuiles jouées, sans la tuile "prochain tour" en pointillés.
+	var total = _combat._turns_strip.get_child_count()
+	if _combat._turns_strip.get_node_or_null("NextChip"):
+		total -= 1
+	return total
+
+
+func test_scenario_victoire_complete_sur_plusieurs_tours():
+	# Hab 9 vs 5 (diff=4), face 6 chaque tour -> table[4][5]=[6,1] : Billy
+	# inflige 6, subit 1, a chaque tour. 12 PV adverses => exactement 2 tours.
+	_combat.start_combat("Guerriers Orcs", 9, 5, 20, 12)
+
+	await _combat._play_turn(6)
+	assert_eq(_combat._controller.etat_courant().adversaire.pv, 6, "12 - 6 apres le tour 1")
+	assert_eq(_combat._controller.etat_courant().billy.pv, 19, "20 - 1 apres le tour 1")
+	assert_false(_combat.is_resolved(), "pas encore termine apres 1 seul tour")
+	assert_eq(_nb_tours_dans_la_strip(), 1)
+	assert_eq(_combat._enemy_hp_label.text, "6 / 12")
+
+	await _combat._play_turn(6)
+	assert_eq(_combat._controller.etat_courant().adversaire.pv, 0, "12 - 6 - 6 = 0")
+	assert_eq(_combat._controller.etat_courant().billy.pv, 18, "20 - 1 - 1")
+	assert_true(_combat.is_resolved())
+	assert_eq(_combat._controller.get_winner(), "billy")
+	assert_eq(_nb_tours_dans_la_strip(), 2)
+	assert_true(_combat._resolution_overlay.visible)
+	assert_eq(_combat._resolution_title.text, "Victoire")
+	assert_true(_combat._roll_button.disabled, "plus possible de rejouer un tour une fois resolu")
+
+	# Un tour supplementaire ne doit rien faire : le combat est deja fini.
+	await _combat._play_turn(6)
+	assert_eq(_nb_tours_dans_la_strip(), 2, "aucun 3e tour ne doit avoir ete ajoute")
+
+
+func test_scenario_defaite_complete_sur_plusieurs_tours():
+	# Hab 5 vs 12 (diff=-7, plafond), face 6 chaque tour -> table[-7][5]=[3,4] :
+	# Billy inflige 3, subit 4, a chaque tour. 12 PV Billy => exactement 3 tours.
+	_combat.start_combat("Titan des Sables", 5, 12, 12, 100)
+
+	await _combat._play_turn(6)
+	await _combat._play_turn(6)
+	assert_eq(_combat._controller.etat_courant().billy.pv, 4, "12 - 4 - 4")
+	assert_false(_combat.is_resolved())
+
+	await _combat._play_turn(6)
+	assert_eq(_combat._controller.etat_courant().billy.pv, 0)
+	assert_eq(_combat._controller.etat_courant().adversaire.pv, 91, "100 - 3*3 : l'adversaire est loin d'etre mort")
+	assert_true(_combat.is_resolved())
+	assert_eq(_combat._controller.get_winner(), "adversaire")
+	assert_eq(_nb_tours_dans_la_strip(), 3)
+	assert_true(_combat._resolution_overlay.visible)
+	assert_eq(_combat._resolution_title.text, "Défaite")
+
+
+func test_scenario_victoire_via_esquive_et_contre_attaque_critique():
+	# Adresse 3, Critique 2 : tour 1 esquive simple (esquive_die=2, <=3,
+	# !=1 -> pas de critique), tour 2 esquive critique (esquive_die=1).
+	# Sans Adresse >= 2 aucune esquive n'est meme tentee -- verifie donc
+	# aussi peut_esquiver() en creux.
+	_combat.start_combat("Sentinelle", 9, 5, 20, 14, {"adresse_billy": 3, "critique_billy": 2})
+	assert_true(_combat._controller.peut_esquiver())
+
+	var t1 = await _combat._play_turn(6, 2)
+	assert_true(t1.esquive)
+	assert_false(t1.contre_attaque_critique)
+	assert_eq(t1.degats_adversaire, 0, "esquive reussie -> Billy ne subit rien")
+	assert_eq(t1.degats_billy, 6, "table[4][5] normal, l'esquive ne change QUE ce que Billy subit")
+	assert_eq(_combat._controller.etat_courant().billy.pv, 20, "aucun degat subi ce tour")
+
+	var t2 = await _combat._play_turn(3, 1)  # attack_die ignore : le critique impose degats_max+critique
+	assert_true(t2.esquive)
+	assert_true(t2.contre_attaque_critique)
+	assert_eq(t2.degats_adversaire, 0)
+	assert_eq(t2.degats_billy, 8, "degats max de la situation (6) + Critique (2)")
+
+	assert_true(_combat.is_resolved(), "14 - 6 - 8 = 0")
+	assert_eq(_combat._controller.get_winner(), "billy")
+	assert_eq(_combat._controller.etat_courant().billy.pv, 20, "Billy n'a jamais ete touche sur ce scenario")
+	assert_eq(_nb_tours_dans_la_strip(), 2)
+	assert_eq(_combat._resolution_title.text, "Victoire")
