@@ -165,17 +165,24 @@ func _build_ui():
 
 	var body = self.get_node("Body")
 
+	var margin = MarginContainer.new()
+	margin.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
+	margin.add_theme_constant_override("margin_left", 12)
+	margin.add_theme_constant_override("margin_right", 12)
+	margin.add_theme_constant_override("margin_bottom", 12)
+	margin.add_theme_constant_override("margin_top", 4)
+	body.add_child(margin)
+
 	var layout = VBoxContainer.new()
 	layout.name = "Layout"
-	layout.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
-	layout.add_theme_constant_override("separation", 8)
-	body.add_child(layout)
+	layout.add_theme_constant_override("separation", 12)
+	margin.add_child(layout)
 
 	var combatants = VBoxContainer.new()
-	combatants.add_theme_constant_override("separation", 6)
+	combatants.add_theme_constant_override("separation", 10)
 	layout.add_child(combatants)
 
-	var enemy = self._build_combatant_card("Ennemi")
+	var enemy = self._build_combatant_card("Ennemi", COL_CORAIL)
 	self._enemy_card = enemy['card']
 	self._enemy_name_label = enemy['name_label']
 	self._enemy_tags_box = enemy['tags_box']
@@ -187,7 +194,7 @@ func _build_ui():
 	self._enemy_floaters = enemy['floaters']
 	combatants.add_child(enemy['card'])
 
-	var player = self._build_combatant_card("Billy")
+	var player = self._build_combatant_card("Billy", COL_TEAL)
 	self._player_card = player['card']
 	self._player_hp_label = player['hp_label']
 	self._player_hp_fill = player['hp_fill']
@@ -221,10 +228,21 @@ func _build_ui():
 	self._turns_strip.add_theme_constant_override("separation", 6)
 	turns_scroll.add_child(self._turns_strip)
 
+	var last_turn_card = PanelContainer.new()
+	var last_turn_style = StyleBoxFlat.new()
+	last_turn_style.bg_color = COL_CARD
+	last_turn_style.set_corner_radius_all(10)
+	last_turn_style.content_margin_left = 12
+	last_turn_style.content_margin_right = 12
+	last_turn_style.content_margin_top = 8
+	last_turn_style.content_margin_bottom = 8
+	last_turn_card.add_theme_stylebox_override("panel", last_turn_style)
+	layout.add_child(last_turn_card)
 	self._last_turn_line = Label.new()
 	self._last_turn_line.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
 	self._last_turn_line.add_theme_font_size_override("font_size", 13)
-	layout.add_child(self._last_turn_line)
+	self._last_turn_line.add_theme_color_override("font_color", COL_INK)
+	last_turn_card.add_child(self._last_turn_line)
 
 	var spacer = Control.new()
 	spacer.size_flags_vertical = Control.SIZE_EXPAND_FILL
@@ -262,8 +280,10 @@ func _build_ui():
 
 	self._undo_button = Button.new()
 	self._undo_button.text = "↺"
-	self._undo_button.custom_minimum_size = Vector2(46, 46)
+	self._undo_button.add_theme_font_size_override("font_size", 20)
+	self._undo_button.custom_minimum_size = Vector2(52, 52)
 	self._undo_button.disabled = true
+	self._style_solid_button(self._undo_button, COL_CARD, COL_NAVY)
 	self._undo_button.pressed.connect(self._on_undo_pressed)
 	action_row.add_child(self._undo_button)
 
@@ -294,17 +314,21 @@ func _build_ui():
 	self._build_resolution_overlay()
 
 
-func _build_combatant_card(role: String) -> Dictionary:
+func _build_combatant_card(role: String, accent: Color) -> Dictionary:
 	var card = Panel.new()
 	var style = StyleBoxFlat.new()
-	style.bg_color = COL_CARD_ALT
-	style.set_corner_radius_all(10)
-	style.content_margin_left = 10
-	style.content_margin_right = 10
-	style.content_margin_top = 8
-	style.content_margin_bottom = 8
+	style.bg_color = COL_CARD
+	style.set_corner_radius_all(12)
+	style.border_width_left = 5
+	style.border_color = accent
+	style.shadow_color = Color(0.05, 0.08, 0.12, 0.10)
+	style.shadow_size = 6
+	style.content_margin_left = 14
+	style.content_margin_right = 12
+	style.content_margin_top = 10
+	style.content_margin_bottom = 10
 	card.add_theme_stylebox_override("panel", style)
-	card.custom_minimum_size = Vector2(0, 96)
+	card.custom_minimum_size = Vector2(0, 100)
 
 	var floaters = Control.new()
 	floaters.mouse_filter = Control.MOUSE_FILTER_IGNORE
@@ -322,14 +346,16 @@ func _build_combatant_card(role: String) -> Dictionary:
 	v.add_child(top_row)
 
 	var name_label = Label.new()
-	name_label.text = role
-	name_label.add_theme_font_size_override("font_size", 17)
+	name_label.text = role.to_upper()
+	name_label.add_theme_font_size_override("font_size", 19)
+	name_label.add_theme_color_override("font_color", COL_INK)
 	name_label.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 	top_row.add_child(name_label)
 
 	var hp_label = Label.new()
 	hp_label.text = "-- / --"
-	hp_label.add_theme_font_size_override("font_size", 16)
+	hp_label.add_theme_font_size_override("font_size", 23)
+	hp_label.add_theme_color_override("font_color", accent.darkened(0.15))
 	hp_label.horizontal_alignment = HORIZONTAL_ALIGNMENT_RIGHT
 	top_row.add_child(hp_label)
 
@@ -338,14 +364,14 @@ func _build_combatant_card(role: String) -> Dictionary:
 	v.add_child(tags_box)
 
 	var bar_bg = Panel.new()
-	bar_bg.custom_minimum_size = Vector2(0, 8)
+	bar_bg.custom_minimum_size = Vector2(0, 10)
 	var bar_bg_style = StyleBoxFlat.new()
-	bar_bg_style.bg_color = Color(0.83, 0.84, 0.86)
-	bar_bg_style.set_corner_radius_all(4)
+	bar_bg_style.bg_color = COL_CARD_ALT
+	bar_bg_style.set_corner_radius_all(5)
 	bar_bg.add_theme_stylebox_override("panel", bar_bg_style)
 	v.add_child(bar_bg)
 	var hp_fill = ColorRect.new()
-	hp_fill.color = COL_TEAL
+	hp_fill.color = accent
 	hp_fill.anchor_top = 0.0
 	hp_fill.anchor_bottom = 1.0
 	hp_fill.anchor_left = 0.0
@@ -441,10 +467,12 @@ func _build_preview_cell(parent: HBoxContainer, face: int) -> Dictionary:
 	var cell = PanelContainer.new()
 	cell.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 	var style = StyleBoxFlat.new()
-	style.bg_color = COL_CARD_ALT
-	style.set_corner_radius_all(6)
-	style.content_margin_top = 4
-	style.content_margin_bottom = 4
+	style.bg_color = COL_CARD
+	style.set_corner_radius_all(8)
+	style.shadow_color = Color(0.05, 0.08, 0.12, 0.06)
+	style.shadow_size = 3
+	style.content_margin_top = 5
+	style.content_margin_bottom = 5
 	cell.add_theme_stylebox_override("panel", style)
 	parent.add_child(cell)
 	var v = VBoxContainer.new()
@@ -475,8 +503,21 @@ func _build_preview_cell(parent: HBoxContainer, face: int) -> Dictionary:
 # affiches separement, jamais un seul de qui servirait aux deux (cf
 # SPEC_ECRAN_COMBAT.md #2 : deux des reels, un seul geste).
 func _build_die_display(libelle: String) -> Dictionary:
+	var card = PanelContainer.new()
+	var style = StyleBoxFlat.new()
+	style.bg_color = COL_CARD
+	style.set_corner_radius_all(10)
+	style.shadow_color = Color(0.05, 0.08, 0.12, 0.08)
+	style.shadow_size = 4
+	style.content_margin_left = 12
+	style.content_margin_right = 12
+	style.content_margin_top = 8
+	style.content_margin_bottom = 8
+	card.add_theme_stylebox_override("panel", style)
 	var root = VBoxContainer.new()
 	root.alignment = BoxContainer.ALIGNMENT_CENTER
+	root.add_theme_constant_override("separation", 2)
+	card.add_child(root)
 	var label = Label.new()
 	label.text = libelle.to_upper()
 	label.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
@@ -484,14 +525,14 @@ func _build_die_display(libelle: String) -> Dictionary:
 	label.add_theme_color_override("font_color", COL_INK_SOFT)
 	root.add_child(label)
 	var die = TextureRect.new()
-	die.custom_minimum_size = Vector2(34, 34)
+	die.custom_minimum_size = Vector2(38, 38)
 	die.stretch_mode = TextureRect.STRETCH_KEEP_ASPECT_CENTERED
 	die.expand_mode = TextureRect.EXPAND_IGNORE_SIZE  # sans ca, la taille native du SVG (~550px) ecrase custom_minimum_size
 	die.self_modulate = COL_ORANGE
 	die.texture = load("res://images/dice/6-b.svg")
 	die.size_flags_horizontal = Control.SIZE_SHRINK_CENTER
 	root.add_child(die)
-	return {"root": root, "die": die}
+	return {"root": card, "die": die}
 
 
 func _set_die_face(rect: TextureRect, face: int) -> void:
@@ -519,7 +560,7 @@ func _flash_preview_face(face: int) -> void:
 	var cell = self._preview_cells[face - 1]['root']
 	var normal = cell.get_theme_stylebox("panel").duplicate()
 	var actif = normal.duplicate()
-	actif.bg_color = COL_CARD
+	actif.bg_color = COL_CARD_ALT
 	actif.border_width_left = 2
 	actif.border_width_right = 2
 	actif.border_width_top = 2
@@ -594,7 +635,9 @@ func _build_resolution_overlay():
 func _style_solid_button(button: Button, bg: Color, fg: Color):
 	var style = StyleBoxFlat.new()
 	style.bg_color = bg
-	style.set_corner_radius_all(10)
+	style.set_corner_radius_all(12)
+	style.shadow_color = Color(0.05, 0.08, 0.12, 0.12)
+	style.shadow_size = 5
 	button.add_theme_stylebox_override("normal", style)
 	var style_pressed = style.duplicate()
 	style_pressed.bg_color = bg.darkened(0.15)
@@ -688,10 +731,12 @@ func _outcome_couleur(entry: Dictionary) -> Color:
 func _push_turn_chip(entry: Dictionary):
 	self._remove_next_chip()
 	var chip = PanelContainer.new()
-	chip.custom_minimum_size = Vector2(46, 0)
+	chip.custom_minimum_size = Vector2(48, 0)
 	var style = StyleBoxFlat.new()
-	style.bg_color = COL_CARD_ALT
+	style.bg_color = COL_CARD
 	style.set_corner_radius_all(8)
+	style.shadow_color = Color(0.05, 0.08, 0.12, 0.08)
+	style.shadow_size = 3
 	chip.add_theme_stylebox_override("panel", style)
 	chip.tooltip_text = "Revenir avant le tour %d" % entry['tour']
 	var btn = Button.new()
@@ -709,15 +754,19 @@ func _push_turn_chip(entry: Dictionary):
 	num.add_theme_font_size_override("font_size", 10)
 	num.add_theme_color_override("font_color", COL_INK_SOFT)
 	v.add_child(num)
-	var dot = ColorRect.new()
+	var dot = Panel.new()
 	dot.custom_minimum_size = Vector2(10, 10)
-	dot.color = self._outcome_couleur(entry)
+	var dot_style = StyleBoxFlat.new()
+	dot_style.bg_color = self._outcome_couleur(entry)
+	dot_style.set_corner_radius_all(5)
+	dot.add_theme_stylebox_override("panel", dot_style)
 	dot.size_flags_horizontal = Control.SIZE_SHRINK_CENTER
 	v.add_child(dot)
 	var hp = Label.new()
 	hp.text = "%d·%d" % [maxi(entry['pv_billy'], 0), maxi(entry['pv_adversaire'], 0)]
 	hp.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
 	hp.add_theme_font_size_override("font_size", 10)
+	hp.add_theme_color_override("font_color", COL_INK_SOFT)
 	v.add_child(hp)
 	self._turns_strip.add_child(chip)
 	self._append_next_chip()
