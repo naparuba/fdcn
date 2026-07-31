@@ -12,7 +12,18 @@ extends Node
 #
 # Le scenario est une liste JSON d'etapes, chacune avec une cle "action":
 #   wait_frames   {n}            attend n frames (laisse le rendu se stabiliser)
+#   wait_seconds  {n}            attend n secondes REELLES (cf AnimationPlayer trop long pour
+#                                 wait_frames sous Xvfb, ex: SuccessPopup)
 #   go_to_node    {id}           equivalent d'un clic sur un ChapterChoice
+#   combat_play_turn {attack_die, esquive_die}  force les des (deterministe) et joue un tour
+#                                 reel via Combat._play_turn() -- null = de reel/aleatoire
+#   combat_manual_win {}         equivalent du bouton "J'ai gagne" (Combat._on_manual_win_pressed)
+#   combat_continue {}           equivalent du bouton "CONTINUER L'AVENTURE" de l'overlay de
+#                                 resolution (Combat._on_continue_pressed) -- ferme tout le
+#                                 panneau, pas seulement la carte de resolution
+#   heal_billy_full {}           Player.pv = Player.pv_max (un Billy neuf a 0 PV courants tant
+#                                 qu'aucun chapitre ne les a fixes -- sinon tout combat le
+#                                 traite comme deja mort avant le 1er tour)
 #   add_item      {name}         equivalent de cocher un objet dans Options
 #   remove_item   {name}
 #   launch_new_billy  {}         equivalent du bouton "Nouvelle partie" (reset direct, sans popup)
@@ -145,6 +156,9 @@ func _run_next_step():
 		_run_next_step()
 	elif action == "combat_manual_win":
 		_main.get_node("Combat")._on_manual_win_pressed()
+		_run_next_step()
+	elif action == "combat_continue":
+		_main.get_node("Combat")._on_continue_pressed()
 		_run_next_step()
 	elif action == "add_item":
 		Player.add_item_from_options(step["name"])
