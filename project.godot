@@ -51,10 +51,6 @@ pointing/emulate_touch_from_mouse=true
 
 limits/debugger/max_chars_per_second=65536
 
-[physics]
-
-common/enable_object_picking=true
-
 [rendering]
 
 renderer/rendering_method="gl_compatibility"
