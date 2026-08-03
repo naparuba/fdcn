@@ -89,7 +89,7 @@ func test_combat_panel_shows_real_player_stats():
 
 
 func test_bouton_jai_gagne_disponible_immediatement_depuis_main():
-	# Le cablage complet du bouton "J'ai gagne" (cf Combat.gd) est deja
+	# Le cablage complet du bouton "J'ai gagne" (cf CombatScreen.gd) est deja
 	# teste en detail dans test_combat_screen.gd -- ici on verifie juste
 	# qu'il reste bien accessible une fois le panneau affiche via le vrai
 	# go_to_node(), pas seulement en instanciant Combat.tscn seul.

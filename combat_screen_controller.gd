@@ -1,6 +1,6 @@
 extends RefCounted
 
-# Couche fine entre l'ecran de combat (Combat.gd, noeuds/animations) et le
+# Couche fine entre l'ecran de combat (CombatScreen.gd, noeuds/animations) et le
 # moteur de resolution (combat.gd, deja teste). Aucune logique de regle ici
 # -- seulement ce qu'il faut pour piloter l'ecran : previsualisation par
 # face avant de lancer le de, et "revenir avant le tour N" (undo repete)

@@ -1,7 +1,7 @@
 extends "res://addons/gut/test.gd"
 
 # Teste combat_screen_controller.gd en isolation, sans aucune scene/noeud --
-# la couche que l'ecran de combat (Combat.gd) pilote reellement. Ne
+# la couche que l'ecran de combat (CombatScreen.gd) pilote reellement. Ne
 # reteste PAS la table des situations elle-meme (deja couvert par
 # test_combat_resolver.gd/test_combat_regles_speciales_*.gd) : seulement le
 # comportement propre a cette couche (previsualisation, retour en arriere
