@@ -7,6 +7,15 @@ var _main = null
 var need_force_display_options = false   # if we did guess, show options to show it
 var type_billy = 'guerrier'
 
+# Vrai tant que l'ecran de combat est ouvert (cf CombatScreen.gd::start_combat/
+# _on_continue_pressed) -- un combat en cours tourne sur un instantane fige
+# de Billy pris au premier tour, il ne relit jamais ces stats apres coup.
+# Tricher pendant un combat n'aurait donc aucun effet visible sur le combat
+# affiche (verifie a l'ecran), seulement sur le suivant -- source de
+# confusion reelle. StatsScreen.gd bloque donc l'edition tant que ce drapeau
+# est vrai, plutot que de re-synchroniser un combat deja lance.
+var in_combat = false
+
 var current_node_id = 1
 
 var all_matched_conditions = []
@@ -410,6 +419,7 @@ func launch_new_billy():
 	# connus -- objets/type de Billy pas encore choisis a cet instant).
 	self.pv = 0
 	self.cha = 0
+	self.in_combat = false
 
 
 

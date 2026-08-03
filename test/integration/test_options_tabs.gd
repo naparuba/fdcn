@@ -147,6 +147,48 @@ func test_bonus_pv_max_editable_recalcule_pv_max_sans_toucher_le_vrai_bonus():
 	stats_screen._step_pv_max_bonus(-4)
 
 
+func test_edition_bloquee_pendant_un_combat_avec_message_explicite():
+	# Un combat en cours tourne sur un instantane fige de Billy (verifie a
+	# l'ecran : Habileté/PV max trafiques pendant un combat restaient
+	# invisibles sur le combat affiche) -- plutot que de re-synchroniser un
+	# combat deja lance, on bloque l'edition ici. Player.in_combat est pose
+	# par CombatScreen.gd lui-meme (cf test_combat_screen.gd) ; on le simule
+	# directement ici, ce fichier ne teste que StatsScreen.gd.
+	_main.refresh()
+	var stats_screen = _main.get_node("Options/Stats")
+	var hab_avant = Player.get_hab()
+	var pv_avant = Player.pv
+
+	Player.in_combat = true
+	stats_screen.refresh()
+	assert_true(stats_screen._combat_warning.visible, "le message d'avertissement doit s'afficher")
+	for control in stats_screen._editable_controls:
+		if control is LineEdit:
+			assert_false(control.editable, "un LineEdit de triche doit devenir non editable en combat")
+		else:
+			assert_true(control.disabled, "un bouton +/-/Plein doit se desactiver en combat")
+
+	# Meme un appel direct (pas juste le bouton grise) ne doit rien changer --
+	# defense en profondeur, pas seulement cosmetique.
+	stats_screen._step_chapitres_autre("hab", 5)
+	stats_screen._fill_pv()
+	stats_screen._step_pv_max_bonus(3)
+	assert_eq(Player.get_hab(), hab_avant, "aucune triche ne doit passer pendant un combat")
+	assert_eq(Player.pv, pv_avant)
+
+	Player.in_combat = false
+	stats_screen.refresh()
+	assert_false(stats_screen._combat_warning.visible, "le message disparait une fois le combat termine")
+	for control in stats_screen._editable_controls:
+		if control is LineEdit:
+			assert_true(control.editable, "l'edition redevient possible hors combat")
+		else:
+			assert_false(control.disabled)
+	stats_screen._step_chapitres_autre("hab", 5)
+	assert_eq(Player.get_hab(), hab_avant + 5, "l'edition fonctionne de nouveau normalement")
+	stats_screen._step_chapitres_autre("hab", -5)
+
+
 func test_valider_la_creation_du_personnage_initialise_pv_et_chance_au_max():
 	# Bug reel trouve en analysant la page Stats ("PV: 0" sans explication) :
 	# un Billy tout juste cree a pv/cha a 0 (jamais initialises par le livre

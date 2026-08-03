@@ -30,6 +30,7 @@ func test_start_combat_affiche_le_panneau_et_les_stats():
 	assert_eq(_combat._enemy_hp_label.text, "24 / 24")
 	assert_eq(_combat._player_hp_label.text, "20 / 20")
 	assert_false(_combat.is_resolved())
+	assert_true(Player.in_combat, "StatsScreen.gd doit pouvoir savoir qu'un combat est en cours")
 
 
 func test_bouton_annuler_a_une_legende_visible_pas_seulement_un_tooltip():
@@ -154,9 +155,11 @@ func test_continuer_l_aventure_ferme_tout_le_panneau_pas_seulement_la_carte():
 	# bloquait le joueur indefiniment apres tout combat termine.
 	_start()
 	_combat._on_manual_win_pressed()
+	assert_true(Player.in_combat, "toujours en combat pendant que l'overlay de resolution est affiche")
 	_combat._on_continue_pressed()
 	assert_false(_combat._resolution_overlay.visible)
 	assert_false(_combat.visible, "le panneau entier doit disparaitre, pas seulement l'overlay")
+	assert_false(Player.in_combat, "le combat est reellement termine, StatsScreen.gd doit redevenir editable")
 
 
 func test_revenir_en_arriere_depuis_la_resolution_manuelle_sans_tour_joue():

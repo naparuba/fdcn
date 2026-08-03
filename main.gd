@@ -773,6 +773,13 @@ func _on_button_show_book_select():
 func _on_button_show_stats():
 	print('_on_button_show_stats')
 	self._options_show_stats()
+	# Rafraichit explicitement ici (pas seulement via refresh() global,
+	# appele a des moments trop eloignes pour garantir que le drapeau
+	# Player.in_combat affiche soit le plus recent) : le joueur peut ouvrir
+	# Options EN PLEIN COMBAT (verifie -- rien ne bloque ce clic), il faut
+	# que le verrouillage d'edition soit a jour au moment ou l'onglet Stats
+	# s'affiche reellement, pas a la traine d'un refresh plus ancien.
+	$Options/Stats.refresh()
 
 
 func _refresh_options_stats():

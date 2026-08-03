@@ -43,6 +43,7 @@ const STAT_DEFS = [
 ]
 
 var _type_badge: Label
+var _combat_warning: Label
 var _pv_bar_fill: ColorRect
 var _pv_value_field: LineEdit
 var _cha_bar_fill: ColorRect
@@ -51,10 +52,30 @@ var _pv_max_bonus_field: LineEdit
 var _pv_max_result_label: Label
 var _stat_widgets := {}  # key -> Dictionary{total_label, autre_field, esquive_dice: Array, esquive_state_label}
 
+# Tout bouton +/-, "Plein" ou LineEdit qui modifie une stat -- desactive en
+# bloc pendant un combat (cf refresh(), _en_combat()). Peuple au fur et a
+# mesure de la construction, jamais reconstruit.
+var _editable_controls: Array = []
+
 
 func _ready():
 	self._build_ui()
 	self.refresh()
+
+
+# Un combat en cours tourne sur un instantane fige de Billy pris au premier
+# tour (cf combat_screen_controller.gd) -- il ne relit jamais Player apres
+# coup. Tricher pendant un combat n'aurait donc aucun effet sur le combat
+# affiche, seulement sur le suivant -- source de confusion reelle, verifiee
+# a l'ecran (Habileté/PV max trafiques restaient invisibles sur le combat
+# en cours). Plutot que de re-synchroniser un combat deja lance (complexe,
+# et le joueur peut deja "tricher" le combat lui-meme en annulant ses
+# tours), on bloque simplement l'edition tant que Player.in_combat est vrai
+# -- un drapeau que CombatScreen.gd pose/leve lui-meme (cf start_combat/
+# _on_continue_pressed), plutot qu'une recherche fragile dans l'arbre de
+# scenes (StatsScreen.gd n'a pas besoin de savoir OU vit le noeud Combat).
+func _en_combat() -> bool:
+	return Player.in_combat
 
 
 # =============================================================================
@@ -71,12 +92,16 @@ func _chapitres_autre(key: String) -> int:
 
 
 func _set_chapitres_autre(key: String, nouveau_total: int) -> void:
+	if self._en_combat():
+		return
 	var part_chapitres = Player.call("get_%s_chapters" % key)
 	Player.set("%s_user" % key, nouveau_total - part_chapitres)
 	self._recompute_and_refresh()
 
 
 func _step_chapitres_autre(key: String, delta: int) -> void:
+	if self._en_combat():
+		return
 	Player.set("%s_user" % key, Player.get("%s_user" % key) + delta)
 	self._recompute_and_refresh()
 
@@ -86,11 +111,15 @@ func _pv_max_bonus_total() -> int:
 
 
 func _set_pv_max_bonus(nouveau_total: int) -> void:
+	if self._en_combat():
+		return
 	Player.pv_max_bonus_user = nouveau_total - Player.pv_max_bonus
 	self._recompute_and_refresh()
 
 
 func _step_pv_max_bonus(delta: int) -> void:
+	if self._en_combat():
+		return
 	Player.pv_max_bonus_user += delta
 	self._recompute_and_refresh()
 
@@ -110,36 +139,50 @@ func _recompute_and_refresh() -> void:
 
 
 func _step_pv(delta: int) -> void:
+	if self._en_combat():
+		return
 	Player.pv = clampi(Player.pv + delta, 0, Player.pv_max)
 	self.refresh()
 
 
 func _set_pv(v: int) -> void:
+	if self._en_combat():
+		return
 	Player.pv = clampi(v, 0, Player.pv_max)
 	self.refresh()
 
 
 func _fill_pv() -> void:
+	if self._en_combat():
+		return
 	Player.pv = Player.pv_max
 	self.refresh()
 
 
 func _step_cha(delta: int) -> void:
+	if self._en_combat():
+		return
 	Player.cha = clampi(Player.cha + delta, 0, Player.chamax)
 	self.refresh()
 
 
 func _set_cha(v: int) -> void:
+	if self._en_combat():
+		return
 	Player.cha = clampi(v, 0, Player.chamax)
 	self.refresh()
 
 
 func _fill_cha() -> void:
+	if self._en_combat():
+		return
 	Player.cha = Player.chamax
 	self.refresh()
 
 
 func fill_all() -> void:
+	if self._en_combat():
+		return
 	Player.pv = Player.pv_max
 	Player.cha = Player.chamax
 	self.refresh()
@@ -179,6 +222,14 @@ func _build_ui():
 	self._type_badge.add_theme_font_size_override("font_size", 11)
 	self._type_badge.add_theme_color_override("font_color", COL_INK_SOFT)
 	layout.add_child(self._type_badge)
+
+	self._combat_warning = Label.new()
+	self._combat_warning.text = "⚠ En plein combat, on ne bidouille pas son Billy -- annulez d'abord vos tours si besoin."
+	self._combat_warning.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
+	self._combat_warning.add_theme_font_size_override("font_size", 11)
+	self._combat_warning.add_theme_color_override("font_color", COL_CORAIL)
+	self._combat_warning.visible = false
+	layout.add_child(self._combat_warning)
 
 	layout.add_child(self._build_pv_card())
 
@@ -233,12 +284,13 @@ func _make_step_button(glyph: String, minus: bool) -> Button:
 	btn.custom_minimum_size = Vector2(24, 24)
 	self._style_solid_button(btn, COL_INK_SOFT if minus else COL_NAVY, Color(1, 1, 1))
 	btn.add_theme_font_size_override("font_size", 13)
+	self._editable_controls.append(btn)
 	return btn
 
 
 # LineEdit numerique compact -- affiche/edite une valeur en place, jamais
 # un Label qu'il faudrait d'abord "activer" (cf retour explicite : on est
-# TOUJOURS en edition sur cette page).
+# TOUJOURS en edition sur cette page -- sauf en plein combat, cf refresh()).
 func _make_number_field(on_commit: Callable) -> LineEdit:
 	var field = LineEdit.new()
 	field.custom_minimum_size = Vector2(38, 0)
@@ -249,6 +301,7 @@ func _make_number_field(on_commit: Callable) -> LineEdit:
 		var v = field.text.to_int()
 		on_commit.call(v)
 	)
+	self._editable_controls.append(field)
 	return field
 
 
@@ -338,6 +391,7 @@ func _build_pv_card() -> PanelContainer:
 	self._style_solid_button(fill_btn, COL_TEAL, Color(1, 1, 1))
 	fill_btn.pressed.connect(self._fill_pv)
 	bar_row.add_child(fill_btn)
+	self._editable_controls.append(fill_btn)
 
 	return card
 
@@ -566,6 +620,7 @@ func _build_cha_strip() -> HBoxContainer:
 	self._style_solid_button(fill_btn, COL_GOLD, Color(1, 1, 1))
 	fill_btn.pressed.connect(self._fill_cha)
 	row.add_child(fill_btn)
+	self._editable_controls.append(fill_btn)
 
 	return row
 
@@ -578,6 +633,14 @@ func refresh() -> void:
 	var billy_type_names = {"pegu": "Pégu", "guerrier": "Guerrier", "prudent": "Prudent", "paysan": "Paysan", "debrouillard": "Débrouillard"}
 	var type_name = billy_type_names.get(AppParameters.get_billy_type(), AppParameters.get_billy_type())
 	self._type_badge.text = "Type de Billy : %s (choisi sur l'onglet Équipement)" % type_name
+
+	var en_combat = self._en_combat()
+	self._combat_warning.visible = en_combat
+	for control in self._editable_controls:
+		if control is LineEdit:
+			control.editable = not en_combat
+		else:
+			control.disabled = en_combat
 
 	self._resize_bar(self._pv_bar_fill, float(Player.pv) / maxf(Player.pv_max, 1))
 	self._pv_value_field.text = "%d/%d" % [Player.pv, Player.pv_max]

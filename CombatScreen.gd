@@ -101,6 +101,10 @@ func start_combat(enemy_name: String, hab_billy: int, hab_adversaire: int,
 	# la file APRES cet appel (cf plus bas), jamais avant.
 	self._enemies_queue = []
 	self._enemy_index = 0
+	# Signale a StatsScreen.gd qu'un combat est en cours -- reste vrai tout
+	# le temps de la sequence (chaque adversaire rappelle start_combat()),
+	# jusqu'a la fermeture reelle du panneau (cf _on_continue_pressed()).
+	Player.in_combat = true
 	self._enemy_name = enemy_name
 	self._enemy_hab_base = hab_adversaire
 	self._resolved_manually = false
@@ -1097,6 +1101,7 @@ func _on_continue_pressed():
 		self._play_enemy_at(self._enemies_queue, self._enemy_index + 1, pv_restant)
 	else:
 		self.visible = false
+		Player.in_combat = false
 
 
 func _on_resolution_rewind_pressed():
