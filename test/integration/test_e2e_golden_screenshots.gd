@@ -226,6 +226,18 @@ func test_succes_seul():
 	_run_and_assert("succes_seul.json", ["E10_succes_seul_sans_fin"])
 
 
+func test_tous_les_combats_levent_lecran():
+	# Audit demande explicitement ("tu peux verifier que TOUS les combats
+	# levent bien l'ecran de combat ?") : visite REELLEMENT chaque noeud de
+	# combat des deux livres (45 + 40, cf fdcn-N-compilated-combats.json) via
+	# le vrai main.tscn, et verifie $Combat.visible == true a chaque fois --
+	# c'est exactement ce que is_combat() est censee declencher dans
+	# main.gd::go_to_node(). Purement assertionnel (aucune image), donc pas
+	# d'entree dans expected_images -- seul le code de sortie du sous-processus
+	# compte (chaque assert_combat_visible rate quitte en code 1).
+	_run_and_assert("tous_les_combats.json", [])
+
+
 func test_vrai_swipe():
 	_run_and_assert("vrai_swipe.json", ["E11_avant_swipe_chapitres", "E11_apres_swipe_main"])
 

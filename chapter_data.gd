@@ -92,13 +92,22 @@ func is_combat():
 	return self._book_data['computed']['is_combat']
 
 
-# TODO: the 276 is a list
-func _get_combat():
+# Un noeud de combat peut avoir PLUSIEURS adversaires successifs dans le
+# JSON compile (ex: noeud 276, "GUARDES CORROMPUS" puis "TROLESSE") --
+# normalise toujours en Array, meme pour le cas courant (un seul adversaire),
+# pour que l'appelant (CombatScreen.gd) n'ait jamais a distinguer les deux
+# formes. Remplace l'ancien _get_combat() qui ne renvoyait QUE combat[0],
+# rendant tout adversaire suivant injouable (cf ancien commentaire
+# "# TODO: the 276 is a list").
+func get_combat_list() -> Array:
 	var combat = self._book_data['computed']['combat']
-	#print('type: %s , array=' % typeof(combat), '=%s' % TYPE_ARRAY)
 	if typeof(combat) == TYPE_ARRAY:
-		return combat[0]
-	return combat
+		return combat
+	return [combat]
+
+
+func _get_combat():
+	return self.get_combat_list()[0]
 
 
 func get_combat_name():

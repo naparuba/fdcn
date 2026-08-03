@@ -98,16 +98,18 @@ func go_to_node(node_id):
 	# If it's a combat, show it
 	var node = BookData.get_chapter_data(node_id)
 	if node.is_combat():
-		$Combat.start_combat(
-			node.get_combat_name(),
-			Player.get_hab(), node.get_combat_hab(),
-			Player.get_pv(), node.get_combat_pv(),
+		# get_combat_list() couvre aussi bien le cas courant (un seul
+		# adversaire) que les noeuds a adversaires successifs (ex: 276,
+		# "GUARDES CORROMPUS" puis "TROLESSE") -- start_combat_multi()
+		# enchaine seul, Billy gardant ses PV restants entre deux.
+		$Combat.start_combat_multi(
+			node.get_combat_list(),
+			Player.get_hab(), Player.get_pv(),
 			{
 				"pv_billy_max": Player.pv_max,
-				"armure_billy": Player.get_arm(), "armure_adversaire": node.get_combat_armure(),
-				"deg_billy": Player.get_deg(), "deg_adversaire": node.get_combat_degat(),
+				"armure_billy": Player.get_arm(),
+				"deg_billy": Player.get_deg(),
 				"adresse_billy": Player.get_adr(), "critique_billy": Player.get_crit(),
-				"pyro_bonus": node.get_combat_pyro(),
 			}
 		)
 	else:

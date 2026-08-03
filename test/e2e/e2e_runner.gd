@@ -43,6 +43,7 @@ extends Node
 #   screenshot    {name}         capture d'ecran -> <out_dir>/<name>.png
 #   assert_current_node_id {id}  echoue (quit non-zero) si Player.current_node_id != id
 #   assert_has_item {name,has}   echoue si Player.have_item(name) != has (has par defaut true)
+#   assert_combat_visible {visible}  echoue si $Combat.visible != visible (visible par defaut true)
 #
 # assert_* est volontairement minimal (pas un framework d'assertions complet) :
 # le but est de verrouiller un scenario multi-PROCESSUS (ex: persistance reelle
@@ -226,6 +227,18 @@ func _run_next_step():
 			get_tree().quit(1)
 			return
 		print("E2E ASSERT OK: have_item('%s') == %s" % [item_name, expected_has])
+		_run_next_step()
+	elif action == "assert_combat_visible":
+		# Verifie le VRAI etat runtime du VRAI panneau ($Combat sous main.tscn
+		# reel), pas une relecture separee du JSON -- exactement ce que
+		# is_combat() est cense declencher dans main.gd::go_to_node().
+		var expected_visible = step.get("visible", true)
+		var actual_visible = _main.get_node("Combat").visible
+		if actual_visible != expected_visible:
+			printerr("E2E ASSERT FAILED: Combat.visible is %s, expected %s (node %s)" % [actual_visible, expected_visible, Player.current_node_id])
+			get_tree().quit(1)
+			return
+		print("E2E ASSERT OK: Combat.visible == %s (node %s)" % [expected_visible, Player.current_node_id])
 		_run_next_step()
 	else:
 		printerr("E2E: unknown action '%s', skipping" % action)

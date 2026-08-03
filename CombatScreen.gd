@@ -83,6 +83,7 @@ var _resolution_overlay: Panel
 var _resolution_icon: TextureRect
 var _resolution_title: Label
 var _resolution_sub: Label
+var _resolution_cta: Button
 
 
 func _ready():
@@ -95,6 +96,11 @@ func _ready():
 # affichage -- les tags de regle special montres sur le panneau ennemi).
 func start_combat(enemy_name: String, hab_billy: int, hab_adversaire: int,
 		pv_billy: int, pv_adversaire: int, opts: Dictionary = {}):
+	# Un appel direct a start_combat() represente toujours "un seul
+	# adversaire, point" -- start_combat_multi()/_play_enemy_at() re-remplit
+	# la file APRES cet appel (cf plus bas), jamais avant.
+	self._enemies_queue = []
+	self._enemy_index = 0
 	self._enemy_name = enemy_name
 	self._enemy_hab_base = hab_adversaire
 	self._resolved_manually = false
@@ -152,6 +158,44 @@ func start_combat(enemy_name: String, hab_billy: int, hab_adversaire: int,
 	self.visible = true
 
 
+# Lance une SEQUENCE d'adversaires successifs, dans le meme chapitre, sans
+# jamais quitter l'ecran (ex: noeud 276, "GUARDES CORROMPUS" puis
+# "TROLESSE" -- cf le catalogue fdcn-N-compilated-combats.json ou "combat"
+# est parfois une liste, chapter_data.gd::get_combat_list()). Chaque entree
+# de enemies est un dict {nom, hab, pv, arm, deg, pyro} -- meme forme que le
+# JSON compile. hab_billy/opts sont les stats de BILLY, constantes sur toute
+# la sequence (un seul Billy qui enchaine les adversaires) ; pv_billy est
+# son point de depart pour le PREMIER adversaire seulement -- les suivants
+# reprennent ses PV RESTANTS a la fin du precedent (cf _on_continue_pressed),
+# jamais un plein soin gratuit entre deux adversaires du meme chapitre.
+func start_combat_multi(enemies: Array, hab_billy: int, pv_billy: int, opts: Dictionary = {}) -> void:
+	self._hab_billy_courant = hab_billy
+	self._opts_courant = opts.duplicate()
+	self._play_enemy_at(enemies, 0, pv_billy)
+
+
+func _play_enemy_at(enemies: Array, index: int, pv_billy: int) -> void:
+	var enemy = enemies[index]
+	var opts = self._opts_courant.duplicate()
+	opts["armure_adversaire"] = enemy.get("arm", 0)
+	opts["deg_adversaire"] = enemy.get("deg", 0)
+	opts["pyro_bonus"] = enemy.get("pyro", 0)
+	self.start_combat(enemy.get("nom", ""), self._hab_billy_courant, enemy.get("hab", 0), pv_billy, enemy.get("pv", 0), opts)
+	# start_combat() vide la file a son entree (cf commentaire plus haut) --
+	# on la re-remplit APRES, pour garder cette info le temps du combat en
+	# cours contre cet adversaire precis.
+	self._enemies_queue = enemies
+	self._enemy_index = index
+
+
+func _a_un_prochain_ennemi() -> bool:
+	return self._enemy_index + 1 < len(self._enemies_queue)
+
+
+func _nom_prochain_ennemi() -> String:
+	return self._enemies_queue[self._enemy_index + 1].get("nom", "")
+
+
 var _pv_billy_max := 0
 var _pv_adversaire_max := 0
 var _armure_billy := 0
@@ -162,6 +206,16 @@ var _adresse_billy := 0
 var _critique_billy := 0
 var _pyro_bonus := 0
 var _regles_speciales: Array = []
+
+# Sequence multi-adversaires (ex: noeud 276, "GUARDES CORROMPUS" puis
+# "TROLESSE") -- cf start_combat_multi(). _enemies_queue vide = pas de
+# sequence, start_combat() se comporte exactement comme avant (un seul
+# adversaire, aucun changement pour tout appelant existant).
+var _enemies_queue: Array = []
+var _enemy_index := 0
+var _hab_billy_courant := 0
+var _opts_courant: Dictionary = {}
+var _peut_avancer_au_prochain_ennemi := false
 
 
 func is_resolved() -> bool:
@@ -681,12 +735,12 @@ func _build_resolution_overlay():
 	self._resolution_sub.add_theme_color_override("font_color", COL_INK_SOFT)
 	v.add_child(self._resolution_sub)
 
-	var cta = Button.new()
-	cta.text = "CONTINUER L'AVENTURE"
-	cta.custom_minimum_size = Vector2(0, 40)
-	self._style_solid_button(cta, COL_NAVY, Color(1, 1, 1))
-	cta.pressed.connect(self._on_continue_pressed)
-	v.add_child(cta)
+	self._resolution_cta = Button.new()
+	self._resolution_cta.text = "CONTINUER L'AVENTURE"
+	self._resolution_cta.custom_minimum_size = Vector2(0, 40)
+	self._style_solid_button(self._resolution_cta, COL_NAVY, Color(1, 1, 1))
+	self._resolution_cta.pressed.connect(self._on_continue_pressed)
+	v.add_child(self._resolution_cta)
 
 	var secondary = Button.new()
 	secondary.text = "Revenir en arrière"
@@ -1022,7 +1076,14 @@ func _on_manual_win_pressed():
 # (avant la refonte) le faisait via _on_combat_validate_button_pressed().
 func _on_continue_pressed():
 	self._resolution_overlay.visible = false
-	self.visible = false
+	if self._peut_avancer_au_prochain_ennemi:
+		# Adversaire suivant de la meme sequence (cf start_combat_multi) --
+		# Billy garde ses PV restants, jamais un plein soin gratuit entre
+		# deux adversaires du meme chapitre.
+		var pv_restant = self._controller.etat_courant().billy.pv
+		self._play_enemy_at(self._enemies_queue, self._enemy_index + 1, pv_restant)
+	else:
+		self.visible = false
 
 
 func _on_resolution_rewind_pressed():
@@ -1035,19 +1096,34 @@ func _on_resolution_rewind_pressed():
 
 
 func _show_resolution(gagne: bool, manuel: bool):
+	# Une victoire manuelle ("j'ai gagne") vaut pour TOUTE la sequence, pas
+	# seulement l'adversaire courant -- le joueur nous dit deja que le livre
+	# a tranche, inutile de le renvoyer contre le suivant.
+	var a_un_prochain = gagne and not manuel and self._a_un_prochain_ennemi()
+	self._peut_avancer_au_prochain_ennemi = a_un_prochain
+
 	self._resolution_icon.visible = gagne
 	if gagne:
 		self._resolution_icon.texture = load("res://images/tick.png")
 	self._resolution_title.text = "Victoire" if gagne else "Défaite"
 	self._resolution_title.add_theme_color_override("font_color", Color(0.18, 0.62, 0.39) if gagne else COL_CORAIL)
+	self._resolution_cta.text = "CONTINUER L'AVENTURE"
 	if manuel:
 		self._resolution_sub.text = "Combat terminé à la main — c'est le livre qui décide, pas les PV affichés ici."
+	elif a_un_prochain:
+		var prochain_nom = self._nom_prochain_ennemi()
+		self._resolution_sub.text = "%s est vaincu. %s arrive -- Billy garde ses PV actuels." % [self._enemy_name, prochain_nom]
+		self._resolution_cta.text = "AFFRONTER %s" % prochain_nom.to_upper()
 	elif gagne:
 		self._resolution_sub.text = "%s est vaincu. La suite du chapitre s'ouvre." % self._enemy_name
 	else:
 		self._resolution_sub.text = "Billy s'effondre. Vous pouvez encore revenir en arrière si un jet ne vous a pas plu."
 	self._resolution_overlay.visible = true
-	self.combat_termine.emit("billy" if gagne else "adversaire")
+	# Emis seulement quand la sequence entiere est vraiment terminee -- un
+	# signal "combat_termine" en plein milieu d'une sequence multi-adversaires
+	# induirait en erreur un futur appelant de ce signal.
+	if not a_un_prochain:
+		self.combat_termine.emit("billy" if gagne else "adversaire")
 
 
 # =============================================================================

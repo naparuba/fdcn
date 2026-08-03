@@ -2,8 +2,10 @@ extends "res://addons/gut/test.gd"
 
 # Fixtures reelles du livre 1 :
 # - noeud 14 : combat simple (dict), pyro=4 (bonus allie non nul)
-# - noeud 276 : combat sous forme de LISTE (2 adversaires) -- cas special
-#   gere par chapter_data.gd::_get_combat() (retourne combat[0])
+# - noeud 276 : combat sous forme de LISTE (2 adversaires successifs) --
+#   get_combat_list() renvoie les deux ; les accesseurs get_combat_*()
+#   (historiques) ne renvoient que le premier, pour les appelants qui ne
+#   gerent qu'un seul adversaire a la fois.
 # - noeud 112 : aquire non vide
 # - noeud 166 : remove non vide
 # - noeud 10 : a un label ("Tour nord")
@@ -31,12 +33,29 @@ func test_combat_simple_dict():
 
 
 func test_combat_as_list_returns_first_entry():
-	# cf le commentaire "TODO: the 276 is a list" dans chapter_data.gd --
-	# le noeud 276 est justement l'exemple qui a motive ce cas special.
 	var node = BookData.get_chapter_data(276)
 	assert_true(node.is_combat())
 	assert_eq(node.get_combat_name(), 'GUARDES CORROMPUS')
 	assert_eq(node.get_combat_hab(), 6.0)
+
+
+func test_combat_list_expose_tous_les_adversaires():
+	# Sans ca, le 2e adversaire (TROLESSE, bien plus dur) est injouable --
+	# c'est exactement le bug corrige ici (cf CombatScreen.gd::start_combat_multi).
+	var node = BookData.get_chapter_data(276)
+	var combats = node.get_combat_list()
+	assert_eq(combats.size(), 2)
+	assert_eq(combats[0]['nom'], 'GUARDES CORROMPUS')
+	assert_eq(combats[1]['nom'], 'TROLESSE')
+	assert_eq(combats[1]['hab'], 13.0)
+	assert_eq(combats[1]['pv'], 16.0)
+
+
+func test_combat_list_normalise_le_cas_simple_en_array_dun_seul_element():
+	var node = BookData.get_chapter_data(14)
+	var combats = node.get_combat_list()
+	assert_eq(combats.size(), 1)
+	assert_eq(combats[0]['nom'], 'GUERRIERS ORCS')
 
 
 func test_non_combat_node():
