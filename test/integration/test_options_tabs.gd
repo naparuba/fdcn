@@ -50,31 +50,101 @@ func test_stats_tab_shows_real_player_values():
 	AppParameters.set_billy_type('guerrier')
 	Player.add_item_from_options('EPEE')
 	_main.refresh()
+	var stats_screen = _main.get_node("Options/Stats")
 
-	assert_eq(_main.get_node("Options/Stats/PlayerPvValue").text,
-		('%s' % Player.get_pv()) + ('/%s' % Player.pv_max))
-	assert_eq(_main.get_node("Options/Stats/PlayerEndValue").text, '%s' % Player.get_end())
-	assert_eq(_main.get_node("Options/Stats/PlayerHabValue").text, '%s' % Player.get_hab())
-	assert_eq(_main.get_node("Options/Stats/PlayerHabValueDetail").text,
-		'(base:2, item/billy:%s' % Player.get_hab_items() + ', chapitres:%s)' % Player.get_hab_chapters())
-	assert_eq(_main.get_node("Options/Stats/PlayerAdrValue").text, '%s' % Player.get_adr())
-	assert_eq(_main.get_node("Options/Stats/PlayerChaValue").text,
-		('%s' % Player.get_cha()) + ('/%s' % Player.get_chamax()))
-	assert_eq(_main.get_node("Options/Stats/PlayerCritValue").text, '%s' % Player.get_crit())
-	assert_eq(_main.get_node("Options/Stats/PlayerDegValue").text, '%s' % Player.get_deg())
-	assert_eq(_main.get_node("Options/Stats/PlayerArmValue").text, '%s' % Player.get_arm())
+	assert_eq(stats_screen._pv_value_field.text, "%d/%d" % [Player.pv, Player.pv_max])
+	assert_eq(stats_screen._cha_value_field.text, "%d/%d" % [Player.cha, Player.chamax])
+	assert_eq(stats_screen._stat_widgets["end"]["total_label"].text, '%s' % Player.get_end())
+	assert_eq(stats_screen._stat_widgets["hab"]["total_label"].text, '%s' % Player.get_hab())
+	assert_eq(stats_screen._stat_widgets["hab"]["objets_val"].text, "+%d" % Player.get_hab_items())
+	assert_eq(stats_screen._stat_widgets["adr"]["total_label"].text, '%s' % Player.get_adr())
+	assert_eq(stats_screen._stat_widgets["chamax"]["total_label"].text, '%s' % Player.get_chamax())
+	assert_eq(stats_screen._stat_widgets["crit"]["total_label"].text, '%s' % Player.get_crit())
+	assert_eq(stats_screen._stat_widgets["deg"]["total_label"].text, '%s' % Player.get_deg())
+	assert_eq(stats_screen._stat_widgets["arm"]["total_label"].text, '%s' % Player.get_arm())
 
 	Player.remove_item_from_options('EPEE')
 
 
 func test_stats_tab_updates_on_refresh_after_stat_change():
 	_main.refresh()
-	var hab_before = _main.get_node("Options/Stats/PlayerHabValue").text
+	var stats_screen = _main.get_node("Options/Stats")
+	var hab_before = stats_screen._stat_widgets["hab"]["total_label"].text
 	Player.add_item_from_options('EPEE')  # {'hab': 4}
 	_main.refresh()
-	var hab_after = _main.get_node("Options/Stats/PlayerHabValue").text
+	var hab_after = stats_screen._stat_widgets["hab"]["total_label"].text
 	assert_ne(hab_before, hab_after)
 	Player.remove_item_from_options('EPEE')
+
+
+func test_chapitres_autre_step_edite_le_bucket_user_jamais_le_vrai_chapitres():
+	# Le point de la fiche de personnage : "Chapitres & Autre" est
+	# editable, mais ne doit JAMAIS corrompre le vrai vecu narratif
+	# (Player.hab_chapters), seulement le bucket dedie a la triche.
+	_main.refresh()
+	var stats_screen = _main.get_node("Options/Stats")
+	var hab_chapters_avant = Player.hab_chapters
+	stats_screen._step_chapitres_autre("hab", 3)
+	assert_eq(Player.hab_chapters, hab_chapters_avant, "le vrai accumulateur de chapitre ne doit pas bouger")
+	assert_eq(Player.hab_user, 3)
+	stats_screen._step_chapitres_autre("hab", -3)
+	Player.hab_user = 0
+	Player._recompute_stats()
+
+
+func test_taper_une_valeur_precise_dans_chapitres_autre_ne_touche_que_user():
+	_main.refresh()
+	var stats_screen = _main.get_node("Options/Stats")
+	Player.go_to_node(128)  # {'end': 1} -- un vrai chapitre avec une stat simple
+	var end_chapters_avant = Player.end_chapters  # = 1
+	var end_avant = Player.get_end()
+	stats_screen._set_chapitres_autre("end", end_chapters_avant + 5)
+	assert_eq(Player.end_chapters, end_chapters_avant, "toujours pas touche")
+	assert_eq(Player.end_user, 5)
+	assert_eq(Player.get_end(), end_avant + 5)
+
+
+func test_plein_remplit_pv_et_chance_a_leur_max():
+	_main.refresh()
+	var stats_screen = _main.get_node("Options/Stats")
+	Player.pv = 1
+	Player.cha = 0
+	stats_screen._fill_pv()
+	stats_screen._fill_cha()
+	assert_eq(Player.pv, Player.pv_max)
+	assert_eq(Player.cha, Player.chamax)
+
+
+func test_pv_ne_peut_jamais_depasser_son_max_meme_en_forcant():
+	_main.refresh()
+	var stats_screen = _main.get_node("Options/Stats")
+	stats_screen._set_pv(Player.pv_max + 500)
+	assert_eq(Player.pv, Player.pv_max)
+	stats_screen._step_pv(500)
+	assert_eq(Player.pv, Player.pv_max)
+
+
+func test_endurance_ne_descend_jamais_sous_1_via_chapitres_autre():
+	_main.refresh()
+	var stats_screen = _main.get_node("Options/Stats")
+	for i in range(10):
+		stats_screen._step_chapitres_autre("end", -1)
+	assert_true(Player.get_end() >= 1, "PV max deviendrait nul/negatif sinon")
+	# remise a zero pour ne pas polluer les tests suivants du fichier
+	Player.end_user = 0
+	Player._recompute_stats()
+
+
+func test_bonus_pv_max_editable_recalcule_pv_max_sans_toucher_le_vrai_bonus():
+	_main.refresh()
+	var stats_screen = _main.get_node("Options/Stats")
+	var pv_max_bonus_reel_avant = Player.pv_max_bonus
+	var pv_max_avant = Player.pv_max
+	stats_screen._step_pv_max_bonus(4)
+	assert_eq(Player.pv_max, pv_max_avant + 4)
+	assert_eq(Player.pv_max_bonus, pv_max_bonus_reel_avant, "le vrai bonus de chapitre ne doit pas bouger")
+	assert_eq(Player.pv_max_bonus_user, 4)
+	stats_screen._step_pv_max_bonus(-4)
 
 
 func test_valider_la_creation_du_personnage_initialise_pv_et_chance_au_max():

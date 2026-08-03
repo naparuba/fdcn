@@ -62,10 +62,11 @@ var nb_infos = 0
 var end_user = 0
 var adr_user = 0
 var hab_user = 0
-var cha_user = 0
+var chamax_user = 0
 var deg_user = 0
 var arm_user = 0
 var crit_user = 0
+var pv_max_bonus_user = 0
 
 
 # Winable on levels
@@ -501,6 +502,17 @@ func _fully_reset_our_stats():
 	self.pv_max_bonus = 0
 	self.nb_infos = 0
 
+	# Et les ajustements manuels (fiche de personnage) -- un nouveau Billy ne
+	# doit jamais heriter des triches du precedent.
+	self.end_user = 0
+	self.adr_user = 0
+	self.hab_user = 0
+	self.chamax_user = 0
+	self.deg_user = 0
+	self.arm_user = 0
+	self.crit_user = 0
+	self.pv_max_bonus_user = 0
+
 
 func get_end():
 	return self.end
@@ -550,6 +562,25 @@ func get_arm_items():
 	return self.arm_items
 func get_crit_items():
 	return self.crit_items
+
+
+# Ajustement manuel (fiche de personnage, cf StatsScreen.gd) -- dernier
+# etage applique dans _recompute_stats(), au-dessus de base/billy/objets/
+# chapitres. Jamais ecrit par le moteur lui-meme, seulement par l'utilisateur.
+func get_end_user():
+	return self.end_user
+func get_adr_user():
+	return self.adr_user
+func get_hab_user():
+	return self.hab_user
+func get_chamax_user():
+	return self.chamax_user
+func get_deg_user():
+	return self.deg_user
+func get_arm_user():
+	return self.arm_user
+func get_crit_user():
+	return self.crit_user
 
 
 # Based on our billy, we have different stats changes
@@ -633,8 +664,10 @@ func _recompute_stats():
 	self._apply_all_chapters_stats()
 	print('Billy stats after chapter update: end=%s' % self.end, ' hab=%s' % self.hab, ' adr=%s'%self.adr, ' chamax=%s' % self.chamax,
 	' deg=%s' % self.deg,' arm=%s' % self.arm, ' crit=%s'%self.crit)
-	
-	
+
+	self._apply_user_stats()
+
+
 func _apply_all_chapters_stats():
 	# Now we have the stats from our items, we can apply the ones from the past chapters
 	self.end += self.end_chapters
@@ -646,8 +679,22 @@ func _apply_all_chapters_stats():
 	self.crit += self.crit_chapters
 	# Now we can compute pv max based on end + pv_max_bonus
 	self.pv_max = self.end * 3 + self.pv_max_bonus
-	
-	
+
+
+func _apply_user_stats():
+	# Dernier etage : l'ajustement manuel (fiche de personnage) s'applique
+	# APRES tout le reste, jamais mele aux vrais chapitres (cf commentaire
+	# de tete des champs *_user). Recalcule pv_max, l'Endurance ayant pu
+	# changer.
+	self.end += self.end_user
+	self.adr += self.adr_user
+	self.hab += self.hab_user
+	self.chamax += self.chamax_user
+	self.deg += self.deg_user
+	self.arm += self.arm_user
+	self.crit += self.crit_user
+	self.pv_max = self.end * 3 + self.pv_max_bonus + self.pv_max_bonus_user
+
 
 func get_all_matched_conditions():
 	return self.all_matched_conditions

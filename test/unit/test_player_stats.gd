@@ -123,3 +123,53 @@ func test_chapter_stats_are_additive_and_never_subtracted_by_a_second_different_
 	Player.go_to_node(112)  # {'end': 1, 'hab': 1} + aquire un objet, mais different chapitre
 	assert_eq(Player.end_chapters, 2, "les stats de chapitres s'additionnent, chapitre apres chapitre")
 	assert_eq(Player.hab_chapters, 1)
+
+
+# =========================================================================
+# Ajustement manuel (fiche de personnage, cf StatsScreen.gd) -- champs
+# *_user, prevus pour "debug ou triche" (cf leur commentaire dans
+# player.gd) mais jamais cables jusqu'ici.
+# =========================================================================
+
+func test_user_stats_are_added_to_totals_on_top_of_everything_else():
+	Player.go_to_node(SIMPLE_STATS_NODE_ID)  # end_chapters=1, en plus de la base
+	Player.add_item_from_options('EPEE')  # hab_items=4
+	var hab_before = Player.get_hab()
+	var end_before = Player.get_end()
+	Player.hab_user = 10
+	Player.end_user = 5
+	Player._recompute_stats()
+	assert_eq(Player.get_hab(), hab_before + 10, "l'ajustement manuel s'ajoute au-dessus du reste, pas a la place")
+	assert_eq(Player.get_end(), end_before + 5)
+	Player.remove_item_from_options('EPEE')
+
+
+func test_user_stats_never_pollute_the_real_chapter_accumulator():
+	# Le point de tout ce cablage : une triche ne doit jamais se confondre
+	# avec la vraie progression narrative (end_chapters), sous peine de la
+	# corrompre de façon permanente (sauvegardee, jamais annulable).
+	Player.go_to_node(SIMPLE_STATS_NODE_ID)  # end_chapters=1
+	var end_chapters_before = Player.end_chapters
+	Player.end_user = 99
+	Player._recompute_stats()
+	assert_eq(Player.end_chapters, end_chapters_before, "end_chapters (le vrai vecu) ne doit jamais bouger")
+	assert_eq(Player.get_end_user(), 99)
+
+
+func test_launch_new_billy_resets_user_stats_too():
+	Player.hab_user = 7
+	Player.pv_max_bonus_user = 3
+	Player._recompute_stats()
+	Player.launch_new_billy()
+	assert_eq(Player.hab_user, 0, "un nouveau Billy ne doit jamais heriter des triches du precedent")
+	assert_eq(Player.pv_max_bonus_user, 0)
+
+
+func test_pv_max_bonus_user_is_a_separate_layer_from_the_real_pv_max_bonus():
+	AppParameters.set_billy_type('pegu')
+	Player._recompute_stats()
+	var pv_max_before = Player.pv_max
+	Player.pv_max_bonus_user = 6
+	Player._recompute_stats()
+	assert_eq(Player.pv_max, pv_max_before + 6)
+	assert_eq(Player.pv_max_bonus, 0, "le vrai accumulateur de chapitre ne doit pas etre touche")

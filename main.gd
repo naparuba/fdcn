@@ -776,31 +776,10 @@ func _on_button_show_stats():
 
 
 func _refresh_options_stats():
-	# Affiche le MAX comme la ligne Chance juste en dessous (format "X/Y") --
-	# un simple "PV: 3" sans son max ne dit pas si Billy est en pleine forme
-	# ou a l'article de la mort.
-	$Options/Stats/PlayerPvValue.text = '%s/%s' % [Player.get_pv(), Player.pv_max]
-	
-	$Options/Stats/PlayerEndValue.text = '%s' % Player.get_end()
-	$Options/Stats/PlayerEndValueDetail.text = '(base:2, item/billy:%s' % Player.get_end_items() + ', chapitres:%s)' % Player.get_end_chapters()
-	
-	$Options/Stats/PlayerHabValue.text = '%s' % Player.get_hab()
-	$Options/Stats/PlayerHabValueDetail.text = '(base:2, item/billy:%s' % Player.get_hab_items() + ', chapitres:%s)' % Player.get_hab_chapters()
-	
-	$Options/Stats/PlayerAdrValue.text = '%s' % Player.get_adr()
-	$Options/Stats/PlayerAdrValueDetail.text = '(base:1, item/billy:%s' % Player.get_adr_items() + ', chapitres:%s)' % Player.get_adr_chapters()
-	
-	$Options/Stats/PlayerChaValue.text = ('%s' % Player.get_cha()) + ('/%s' % Player.get_chamax())
-	$Options/Stats/PlayerChaValueDetail.text = '(base:3, item/billy:%s' % Player.get_chamax_items() + ', chapitres:%s)' % Player.get_chamax_chapters()
-	
-	$Options/Stats/PlayerCritValue.text = '%s' % Player.get_crit()
-	$Options/Stats/PlayerCritValueDetail.text = '(item/billy:%s' % Player.get_crit_items() + ', chapitres:%s)' % Player.get_crit_chapters()
-	
-	$Options/Stats/PlayerDegValue.text = '%s' % Player.get_deg()
-	$Options/Stats/PlayerDegValueDetail.text = '(item/billy:%s' % Player.get_deg_items() + ', chapitres:%s)' % Player.get_deg_chapters()
-	
-	$Options/Stats/PlayerArmValue.text = '%s' % Player.get_arm()
-	$Options/Stats/PlayerArmValueDetail.text = '(item/billy:%s' % Player.get_arm_items() + ', chapitres:%s)' % Player.get_arm_chapters()
+	# La fiche de personnage (StatsScreen.gd) gere entierement son propre
+	# affichage -- y compris l'edition directe des stats (cf retour
+	# explicite "on sera toujours en mode triche").
+	$Options/Stats.refresh()
 
 
 func _switch_to_book_fcdn():
