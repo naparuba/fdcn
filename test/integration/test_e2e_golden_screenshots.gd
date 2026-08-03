@@ -259,6 +259,19 @@ func test_triche_stats():
 	])
 
 
+func test_triche_bloquee_en_combat():
+	# Un combat en cours tourne sur un instantane fige de Billy -- tricher
+	# pendant un combat n'aurait aucun effet sur le combat affiche (verifie
+	# a l'ecran), seulement source de confusion. Verifie via un vrai clic
+	# simule (le panneau de combat ne bloque PAS l'acces a Options -- c'est
+	# bien l'edition elle-meme qui doit etre bloquee, pas l'ecran) que
+	# StatsScreen.gd affiche le message et refuse toute triche tant que
+	# Player.in_combat est vrai.
+	_run_and_assert("triche_bloquee_en_combat.json", [
+		"triche_bloquee_1_stats_pendant_combat", "triche_bloquee_2_apres_tentative",
+	])
+
+
 func test_vrai_swipe():
 	_run_and_assert("vrai_swipe.json", ["E11_avant_swipe_chapitres", "E11_apres_swipe_main"])
 
