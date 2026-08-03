@@ -28,6 +28,7 @@ extends Node
 #   remove_item   {name}
 #   launch_new_billy  {}         equivalent du bouton "Nouvelle partie" (reset direct, sans popup)
 #   show_options  {}             bascule vers l'ecran Options
+#   show_options_stats {}        bascule vers l'ecran Options, onglet "Stats"
 #   validate_options  {}         valide l'ecran Options (equivalent bouton "Valider" -- rend
 #                                 $ItemPopups visible, comme un vrai joueur qui a choisi son equipement)
 #   focus_page    {page}         bascule vers "main"|"chapitres"|"success"|"lore"|"about"
@@ -173,6 +174,10 @@ func _run_next_step():
 		_run_next_step()
 	elif action == "show_options":
 		_main.show_options()
+		_run_next_step()
+	elif action == "show_options_stats":
+		_main.show_options()
+		_main._on_button_show_stats()
 		_run_next_step()
 	elif action == "validate_options":
 		_main._on_options_validate_button_pressed()

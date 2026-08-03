@@ -51,7 +51,8 @@ func test_stats_tab_shows_real_player_values():
 	Player.add_item_from_options('EPEE')
 	_main.refresh()
 
-	assert_eq(_main.get_node("Options/Stats/PlayerPvValue").text, '%s' % Player.get_pv())
+	assert_eq(_main.get_node("Options/Stats/PlayerPvValue").text,
+		('%s' % Player.get_pv()) + ('/%s' % Player.pv_max))
 	assert_eq(_main.get_node("Options/Stats/PlayerEndValue").text, '%s' % Player.get_end())
 	assert_eq(_main.get_node("Options/Stats/PlayerHabValue").text, '%s' % Player.get_hab())
 	assert_eq(_main.get_node("Options/Stats/PlayerHabValueDetail").text,
@@ -74,6 +75,21 @@ func test_stats_tab_updates_on_refresh_after_stat_change():
 	var hab_after = _main.get_node("Options/Stats/PlayerHabValue").text
 	assert_ne(hab_before, hab_after)
 	Player.remove_item_from_options('EPEE')
+
+
+func test_valider_la_creation_du_personnage_initialise_pv_et_chance_au_max():
+	# Bug reel trouve en analysant la page Stats ("PV: 0" sans explication) :
+	# un Billy tout juste cree a pv/cha a 0 (jamais initialises par le livre
+	# lui-meme) -- verifie via un vrai lancement complet (main.gd, pas
+	# Player seul) que le tout premier combat du livre (noeud 14, atteint en
+	# 14 coups depuis le noeud 1 en choix "par defaut") ne trouve plus Billy
+	# deja "mort" avant le premier jet de de.
+	_main.launch_new_billy()
+	assert_eq(Player.pv, 0, "avant Valider, PV est bien a 0 (pas encore initialise)")
+	_main._on_options_validate_button_pressed()
+	assert_eq(Player.pv, Player.pv_max, "apres Valider, PV doit demarrer plein")
+	assert_gt(Player.pv, 0)
+	assert_eq(Player.cha, Player.chamax, "Chance doit aussi demarrer pleine")
 
 
 func test_switch_to_cdsi_grayscales_fdcn_sprite_and_colors_cdsi():

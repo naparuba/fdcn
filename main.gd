@@ -629,6 +629,21 @@ func show_options():
 
 func _on_options_validate_button_pressed():
 	print('BUTTON: validate')
+	# Un Billy tout juste cree a PV/Chance courants a 0 -- jamais initialises
+	# par le livre lui-meme (seuls quelques evenements MILIEU de partie,
+	# "max_pv"/"max_chance", les remettent a fond). Sans ca, le tout premier
+	# combat rencontre (souvent tres tot dans le livre, cf noeud 14) trouve
+	# Billy deja "mort" avant le premier jet de de -- "lancer le de" ne fait
+	# alors plus rien, silencieusement (is_over() coupe court avant tout).
+	# pv<=0 ne peut normalement survenir QUE dans ce cas precis : un Billy
+	# reellement vaincu en cours de partie est deja route vers une fin, pas
+	# laisse libre de rouvrir les Options -- sert donc de signal fiable
+	# "creation de personnage en cours" sans nouveau flag dedie. A ce stade
+	# pv_max/chamax refletent deja tous les objets choisis (chaque
+	# add_item_from_options() a deja appele _recompute_stats()).
+	if Player.pv <= 0:
+		Player.pv = Player.pv_max
+		Player.cha = Player.chamax
 	self.refresh()
 	$Options.visible = false
 	$ItemPopups.visible = true  # so we can show new popups
@@ -761,7 +776,10 @@ func _on_button_show_stats():
 
 
 func _refresh_options_stats():
-	$Options/Stats/PlayerPvValue.text = '%s' % Player.get_pv()
+	# Affiche le MAX comme la ligne Chance juste en dessous (format "X/Y") --
+	# un simple "PV: 3" sans son max ne dit pas si Billy est en pleine forme
+	# ou a l'article de la mort.
+	$Options/Stats/PlayerPvValue.text = '%s/%s' % [Player.get_pv(), Player.pv_max]
 	
 	$Options/Stats/PlayerEndValue.text = '%s' % Player.get_end()
 	$Options/Stats/PlayerEndValueDetail.text = '(base:2, item/billy:%s' % Player.get_end_items() + ', chapitres:%s)' % Player.get_end_chapters()

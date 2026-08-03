@@ -403,6 +403,12 @@ func launch_new_billy():
 	self.possessed_items = []
 	self.save_possessed_items()
 	self._fully_reset_our_stats()  # clean ALL stats, even chapters one
+	# PV/Chance restent a 0 (pas encore "pleins") jusqu'a la validation de
+	# la creation du personnage (cf main.gd::_on_options_validate_button_pressed,
+	# le seul endroit qui les initialise a leur max une fois pv_max/chamax
+	# connus -- objets/type de Billy pas encore choisis a cet instant).
+	self.pv = 0
+	self.cha = 0
 
 
 
