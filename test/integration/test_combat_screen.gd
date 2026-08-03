@@ -95,6 +95,14 @@ func test_plusieurs_tours_font_baisser_les_pv_affiches():
 	assert_eq(_combat._enemy_hp_label.text, "%d / 24" % maxi(pv_apres, 0))
 
 
+func _count_chips_named(nom: String) -> int:
+	var total = 0
+	for chip in _combat._turns_strip.get_children():
+		if chip.name == nom:
+			total += 1
+	return total
+
+
 func test_annuler_le_dernier_tour_restaure_pv_et_tour():
 	_start()
 	await _combat._on_roll_pressed()
@@ -108,6 +116,11 @@ func test_annuler_le_dernier_tour_restaure_pv_et_tour():
 	assert_eq(_combat._controller.etat_courant().adversaire.pv, pv_adv_t1)
 	assert_true(_combat._last_turn_line.text.contains("Retour effectué"),
 		"la ligne de resume doit refleter l'annulation, pas rester sur le texte du tour annule")
+	# Regression : une tuile "NextChip" perimee restait affichee en double
+	# (Godot renomme silencieusement un second enfant du meme nom au lieu
+	# de refuser le doublon) -- constate a l'ecran via une vraie capture.
+	assert_eq(_count_chips_named("NextChip"), 1, "une seule tuile 'prochain tour', jamais un doublon perime")
+	assert_eq(_combat._turns_strip.get_child_count(), 2, "1 vraie tuile (tour 1) + 1 tuile 'prochain tour'")
 
 
 func test_revenir_avant_un_tour_du_milieu_via_la_strip():
@@ -118,6 +131,11 @@ func test_revenir_avant_un_tour_du_milieu_via_la_strip():
 	assert_eq(_combat._controller.prochain_tour(), 4)
 	_combat._on_turn_chip_pressed(2)  # revenir avant le tour 2
 	assert_eq(_combat._controller.prochain_tour(), 2, "doit annuler les tours 3 ET 2, pas seulement le dernier")
+	# Regression : la tuile du tour 1 (toujours valide, jamais annule par ce
+	# retour) disparaissait a tort, et une tuile "NextChip" perimee restait
+	# en double -- constate a l'ecran via une vraie capture E2E.
+	assert_eq(_count_chips_named("NextChip"), 1, "une seule tuile 'prochain tour', jamais un doublon perime")
+	assert_eq(_combat._turns_strip.get_child_count(), 2, "1 vraie tuile (tour 1, toujours valide) + 1 tuile 'prochain tour'")
 
 
 func test_bouton_jai_gagne_termine_le_combat_avant_meme_un_tour():

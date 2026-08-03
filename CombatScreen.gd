@@ -854,6 +854,7 @@ func _outcome_couleur(entry: Dictionary) -> Color:
 func _push_turn_chip(entry: Dictionary):
 	self._remove_next_chip()
 	var chip = PanelContainer.new()
+	chip.set_meta("tour_number", entry['tour'])  # cf _on_turn_chip_pressed, qui filtre par ce numero
 	chip.custom_minimum_size = Vector2(48, 0)
 	var style = StyleBoxFlat.new()
 	style.bg_color = COL_CARD
@@ -1032,6 +1033,11 @@ func _on_undo_pressed():
 func _remove_turn_chip(numero_tour: int):
 	# Les tuiles sont ajoutees dans l'ordre des tours -- la derniere tuile
 	# NON "next" correspond toujours au tour le plus recent.
+	# _remove_next_chip() AVANT de re-ajouter : Godot renomme silencieusement
+	# un second enfant "NextChip" plutot que de refuser le doublon -- sans
+	# ca, l'ancienne tuile perimee ne redevient jamais trouvable par nom et
+	# reste pour toujours dans la strip (bug reel constate a l'ecran).
+	self._remove_next_chip()
 	for i in range(self._turns_strip.get_child_count() - 1, -1, -1):
 		var chip = self._turns_strip.get_child(i)
 		if chip.name != "NextChip":
@@ -1042,11 +1048,18 @@ func _remove_turn_chip(numero_tour: int):
 
 func _on_turn_chip_pressed(numero_tour: int):
 	self._controller.revenir_avant_tour(numero_tour)
+	# _remove_next_chip() AVANT de re-ajouter (cf _remove_turn_chip -- meme
+	# bug de tuile perimee sinon). Ne retire QUE les tours >= numero_tour :
+	# revenir_avant_tour() ne depile que ceux-la dans le moteur, les tours
+	# anterieurs restent valides et doivent garder leur tuile (bug reel
+	# constate a l'ecran : effacait TOUTES les tuiles sans distinction).
+	self._remove_next_chip()
 	for i in range(self._turns_strip.get_child_count() - 1, -1, -1):
 		var chip = self._turns_strip.get_child(i)
 		if chip.name == "NextChip":
 			continue
-		chip.free()
+		if chip.get_meta("tour_number", 0) >= numero_tour:
+			chip.free()
 	self._append_next_chip()
 	self._resolved_manually = false
 	self._resolution_overlay.visible = false

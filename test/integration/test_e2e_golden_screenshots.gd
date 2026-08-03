@@ -238,6 +238,27 @@ func test_tous_les_combats_levent_lecran():
 	_run_and_assert("tous_les_combats.json", [])
 
 
+func test_triche_combat():
+	# Le joueur "triche" en revenant sur un combat : annule un mauvais tour
+	# (↺), puis revient sur plusieurs tours a la fois via une pastille.
+	# A deja fait remonter un vrai bug (tuile "prochain tour" perimee en
+	# double, tuiles valides effacees a tort) -- cf CombatScreen.gd.
+	_run_and_assert("triche_combat.json", [
+		"triche_combat_1_debut", "triche_combat_2_mauvais_tour", "triche_combat_3_apres_annulation",
+		"triche_combat_4_meilleur_tour", "triche_combat_5_trois_tours", "triche_combat_6_apres_retour_multiple",
+	])
+
+
+func test_triche_stats():
+	# Le joueur "triche" sur ses stats via la fiche de personnage : +/- sur
+	# Chapitres & Autre, bonus de PV max, "Plein" sur PV/Chance -- verifie
+	# que les vraies regles restent respectees (jamais au-dessus du max).
+	_run_and_assert("triche_stats.json", [
+		"triche_stats_1_debut", "triche_stats_2_habilete_trichee", "triche_stats_3_pv_max_augmente",
+		"triche_stats_4_pv_plein", "triche_stats_5_chance_baissee", "triche_stats_6_chance_pleine",
+	])
+
+
 func test_vrai_swipe():
 	_run_and_assert("vrai_swipe.json", ["E11_avant_swipe_chapitres", "E11_apres_swipe_main"])
 

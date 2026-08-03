@@ -28,6 +28,7 @@ extends Node
 #   remove_item   {name}
 #   launch_new_billy  {}         equivalent du bouton "Nouvelle partie" (reset direct, sans popup)
 #   show_options  {}             bascule vers l'ecran Options
+#   set_billy_type {type}         AppParameters.set_billy_type -- pour des scenarios deterministes
 #   show_options_stats {}        bascule vers l'ecran Options, onglet "Stats"
 #   validate_options  {}         valide l'ecran Options (equivalent bouton "Valider" -- rend
 #                                 $ItemPopups visible, comme un vrai joueur qui a choisi son equipement)
@@ -45,6 +46,16 @@ extends Node
 #   assert_current_node_id {id}  echoue (quit non-zero) si Player.current_node_id != id
 #   assert_has_item {name,has}   echoue si Player.have_item(name) != has (has par defaut true)
 #   assert_combat_visible {visible}  echoue si $Combat.visible != visible (visible par defaut true)
+#   combat_undo   {}             equivalent du bouton ↺ (Combat._on_undo_pressed)
+#   combat_rewind_to_turn {turn} equivalent d'un tap sur une pastille de tour (Combat._on_turn_chip_pressed)
+#   assert_combat_next_turn {turn}  echoue si Combat._controller.prochain_tour() != turn
+#   stats_step_chapitres_autre {stat,delta}  +/- sur "Chapitres & Autre" d'une stat (fiche de perso)
+#   stats_step_pv_max_bonus {delta}  +/- sur le bonus de PV max (fiche de perso)
+#   stats_step_pv {delta}        +/- sur les PV courants (fiche de perso)
+#   stats_step_cha {delta}       +/- sur la Chance courante (fiche de perso)
+#   stats_fill_pv {}             bouton "Plein" sur les PV (fiche de perso)
+#   stats_fill_cha {}            bouton "Plein" sur la Chance (fiche de perso)
+#   assert_player_stat {key,value}  echoue si Player.get_<key>() (ou Player.<key>) != value
 #
 # assert_* est volontairement minimal (pas un framework d'assertions complet) :
 # le but est de verrouiller un scenario multi-PROCESSUS (ex: persistance reelle
@@ -175,6 +186,12 @@ func _run_next_step():
 	elif action == "show_options":
 		_main.show_options()
 		_run_next_step()
+	elif action == "set_billy_type":
+		# Pour des scenarios deterministes : "guerrier" (defaut reel de
+		# Parameters.gd) ajoute des bonus qui compliqueraient le calcul a
+		# la main des valeurs attendues par assert_player_stat.
+		AppParameters.set_billy_type(step["type"])
+		_run_next_step()
 	elif action == "show_options_stats":
 		_main.show_options()
 		_main._on_button_show_stats()
@@ -244,6 +261,60 @@ func _run_next_step():
 			get_tree().quit(1)
 			return
 		print("E2E ASSERT OK: Combat.visible == %s (node %s)" % [expected_visible, Player.current_node_id])
+		_run_next_step()
+	elif action == "combat_undo":
+		# Equivalent du bouton ↺ : annule le DERNIER tour joue, jamais un
+		# clic reel (fragile en coordonnees) -- meme principe que
+		# combat_play_turn/combat_manual_win ci-dessus.
+		_main.get_node("Combat")._on_undo_pressed()
+		_run_next_step()
+	elif action == "combat_rewind_to_turn":
+		# Equivalent d'un tap sur une pastille de tour : revient avant le
+		# tour donne, annulant tous les tours suivants d'un coup.
+		_main.get_node("Combat")._on_turn_chip_pressed(int(step["turn"]))
+		_run_next_step()
+	elif action == "assert_combat_next_turn":
+		var expected_turn = int(step["turn"])
+		var actual_turn = _main.get_node("Combat")._controller.prochain_tour()
+		if actual_turn != expected_turn:
+			printerr("E2E ASSERT FAILED: prochain_tour() is %s, expected %s" % [actual_turn, expected_turn])
+			get_tree().quit(1)
+			return
+		print("E2E ASSERT OK: prochain_tour() == %s" % expected_turn)
+		_run_next_step()
+	elif action == "stats_step_chapitres_autre":
+		# Triche sur une stat de base (Habilete, Endurance, ...) via la
+		# fiche de personnage reelle -- jamais en touchant le vrai vecu
+		# narratif (*_chapters), cf StatsScreen.gd::_step_chapitres_autre.
+		_main.get_node("Options/Stats")._step_chapitres_autre(step["stat"], int(step["delta"]))
+		_run_next_step()
+	elif action == "stats_step_pv_max_bonus":
+		_main.get_node("Options/Stats")._step_pv_max_bonus(int(step["delta"]))
+		_run_next_step()
+	elif action == "stats_step_pv":
+		_main.get_node("Options/Stats")._step_pv(int(step["delta"]))
+		_run_next_step()
+	elif action == "stats_step_cha":
+		_main.get_node("Options/Stats")._step_cha(int(step["delta"]))
+		_run_next_step()
+	elif action == "stats_fill_pv":
+		_main.get_node("Options/Stats")._fill_pv()
+		_run_next_step()
+	elif action == "stats_fill_cha":
+		_main.get_node("Options/Stats")._fill_cha()
+		_run_next_step()
+	elif action == "assert_player_stat":
+		# key: nom de stat ("hab", "pv", "pv_max", "cha", "chamax", ...) --
+		# passe par le getter reel s'il existe (get_hab()...), sinon lit la
+		# propriete directement (pv/pv_max/cha/chamax n'ont pas de getter).
+		var key = step["key"]
+		var expected = int(step["value"])
+		var actual = Player.call("get_%s" % key) if Player.has_method("get_%s" % key) else Player.get(key)
+		if actual != expected:
+			printerr("E2E ASSERT FAILED: Player %s is %s, expected %s" % [key, actual, expected])
+			get_tree().quit(1)
+			return
+		print("E2E ASSERT OK: Player %s == %s" % [key, expected])
 		_run_next_step()
 	else:
 		printerr("E2E: unknown action '%s', skipping" % action)
