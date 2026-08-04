@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://bin466pn2x7e6"
-path="res://.godot/imported/E1_nouvelle_partie_chapitre_1.png-ab8eb42c566d534377846d2a7e7e9647.ctex"
+uid="uid://jcujan10llyf"
+path="res://.godot/imported/E1_nouvelle_partie_chapitre_1.png-2c9231beb9db153d231d0d7abdb87679.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://test/e2e/screenshots/golden/E1_nouvelle_partie_chapitre_1.png"
-dest_files=["res://.godot/imported/E1_nouvelle_partie_chapitre_1.png-ab8eb42c566d534377846d2a7e7e9647.ctex"]
+source_file="res://test/e2e/screenshots/actual/E1_nouvelle_partie_chapitre_1.png"
+dest_files=["res://.godot/imported/E1_nouvelle_partie_chapitre_1.png-2c9231beb9db153d231d0d7abdb87679.ctex"]
 
 [params]
 

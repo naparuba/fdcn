@@ -216,3 +216,69 @@ func test_switch_to_cdsi_grayscales_fdcn_sprite_and_colors_cdsi():
 	assert_false(fdcn_sprite.material.get_shader_parameter("grayscale"))
 	assert_true(cdsi_sprite.material.get_shader_parameter("grayscale"))
 	assert_eq(AppParameters.get_book_number(), 1)
+
+
+func test_search_filters_items_by_name_case_insensitive():
+	_main._options_show_equipement()
+	_main._on_item_search_text_changed("epee")
+	var item_stack = _main.get_node("Options/Equipement/ItemsCont/Items")
+	var visible_items = []
+	for item in item_stack.get_children():
+		if item.visible:
+			visible_items.append(item.get_item_name())
+	assert_eq(visible_items, ["EPEE"])
+	assert_eq(_main.get_node("Options/Equipement/SearchBar/Count").text, "1 objet(s) trouvé(s)")
+	assert_true(_main.get_node("Options/Equipement/SearchBar/Box/Clear").visible)
+	_main._on_item_search_clear_pressed()
+
+
+func test_clear_search_restores_full_list_and_hides_clear_button():
+	_main._options_show_equipement()
+	_main._on_item_search_text_changed("epee")
+	_main._on_item_search_clear_pressed()
+	var item_stack = _main.get_node("Options/Equipement/ItemsCont/Items")
+	for item in item_stack.get_children():
+		assert_true(item.visible, "%s doit redevenir visible apres avoir vide la recherche" % item.get_item_name())
+	assert_eq(_main.get_node("Options/Equipement/SearchBar/Box/Field").text, "")
+	assert_eq(_main.get_node("Options/Equipement/SearchBar/Count").text, "")
+	assert_false(_main.get_node("Options/Equipement/SearchBar/Box/Clear").visible)
+
+
+func test_search_with_no_match_hides_all_items():
+	_main._options_show_equipement()
+	_main._on_item_search_text_changed("zzzzznomatch")
+	var item_stack = _main.get_node("Options/Equipement/ItemsCont/Items")
+	var visible_count = 0
+	for item in item_stack.get_children():
+		if item.visible:
+			visible_count += 1
+	assert_eq(visible_count, 0)
+	_main._on_item_search_clear_pressed()
+
+
+func test_item_popup_banner_pushes_cards_down_and_reverts_when_it_empties():
+	# Le bandeau "objet acquis" ne doit jamais recouvrir les cartes
+	# Complete/Position (cf le bug visuel constate a l'ecran), mais ne doit
+	# pas non plus laisser un trou permanent quand il n'y a rien a montrer --
+	# les cartes ne descendent que pendant que la pile en contient au moins
+	# un, cf main.gd::_recompute_item_popups_layout.
+	var position_card = _main.get_node("Background/Position")
+	var cont = _main.get_node("ItemPopups/ScrollContainer/ItemPopupsCont")
+	var anim_wait = _main.ITEM_POPUP_ANIM_DURATION + 0.1
+	# Etat de depart force (plutot que suppose) : un scenario precedent peut
+	# avoir laisse un popup en cours dans cette meme suite.
+	for child in cont.get_children():
+		child.free()
+	_main._shift_item_popups_layout(false)
+	await get_tree().create_timer(anim_wait).timeout
+	var top_avant = position_card.offset_top
+
+	var popup = _main._create_popup_item("EPEE")
+	popup.set_is_new(true)
+	cont.add_child(popup)
+	await get_tree().create_timer(anim_wait).timeout
+	assert_eq(position_card.offset_top, top_avant + _main.ITEM_POPUP_BANNER_SHIFT, "la carte doit descendre (en douceur) pour laisser la place au bandeau")
+
+	popup.free()
+	await get_tree().create_timer(anim_wait).timeout
+	assert_eq(position_card.offset_top, top_avant, "la carte doit revenir a sa place une fois le bandeau vide, jamais un trou permanent")

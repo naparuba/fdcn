@@ -303,6 +303,31 @@ func _run_next_step():
 	elif action == "stats_fill_cha":
 		_main.get_node("Options/Stats")._fill_cha()
 		_run_next_step()
+	elif action == "search_items":
+		# Equivalent d'un utilisateur qui tape dans le champ de recherche de
+		# l'Equipement : poser le texte ne declenche pas text_changed tout
+		# seul (signal emis uniquement par une vraie saisie), donc on rappelle
+		# le handler explicitement -- meme principe que stats_step_*.
+		var query = step["query"]
+		_main.get_node("Options/Equipement/SearchBar/Box/Field").text = query
+		_main._on_item_search_text_changed(query)
+		_run_next_step()
+	elif action == "clear_item_search":
+		_main._on_item_search_clear_pressed()
+		_run_next_step()
+	elif action == "assert_visible_items_count":
+		var expected = int(step["count"])
+		var item_stack = _main.get_node("Options/Equipement/ItemsCont/Items")
+		var visible_count = 0
+		for item in item_stack.get_children():
+			if item.visible:
+				visible_count += 1
+		if visible_count != expected:
+			printerr("E2E ASSERT FAILED: visible_items_count is %s, expected %s" % [visible_count, expected])
+			get_tree().quit(1)
+			return
+		print("E2E ASSERT OK: visible_items_count == %s" % expected)
+		_run_next_step()
 	elif action == "assert_player_stat":
 		# key: nom de stat ("hab", "pv", "pv_max", "cha", "chamax", ...) --
 		# passe par le getter reel s'il existe (get_hab()...), sinon lit la
@@ -392,12 +417,36 @@ func _wait_for_success_popup_to_settle():
 		await get_tree().process_frame
 
 
+func _wait_for_item_popup_layout_to_settle():
+	# Le bandeau "objet acquis" (et le decalage des cartes Complete/Position
+	# qu'il declenche) est anime (cf main.gd::_shift_item_popups_layout,
+	# ItemPopup.gd::_ready/_on_Timer_timeout) -- sans cette attente, une
+	# capture peut tomber en pleine transition et paraitre "differente" du
+	# golden sans aucune vraie regression (flaky).
+	var max_frames = 60  # largement au-dessus de ITEM_POPUP_ANIM_DURATION (~0.22s)
+	var frames = 0
+	while frames < max_frames:
+		var main_tween = _main.item_popups_layout_tween
+		var main_busy = is_instance_valid(main_tween) and main_tween.is_running()
+		var any_popup_busy = false
+		for popup in _main.get_node("ItemPopups/ScrollContainer/ItemPopupsCont").get_children():
+			var popup_tween = popup.anim_tween
+			if is_instance_valid(popup_tween) and popup_tween.is_running():
+				any_popup_busy = true
+				break
+		if not main_busy and not any_popup_busy:
+			break
+		await get_tree().process_frame
+		frames += 1
+
+
 func _take_screenshot(name):
 	# En Godot 4, `await` fonctionne correctement que la fonction appelee
 	# suspende reellement ou retourne de facon synchrone -- plus besoin de
 	# detecter un GDScriptFunctionState comme en Godot 3.
 	await _wait_for_camera_to_settle()
 	await _wait_for_success_popup_to_settle()
+	await _wait_for_item_popup_layout_to_settle()
 	# Laisse le frame en cours vraiment se rendre avant de lire la texture
 	# du viewport (sinon on capture parfois l'etat precedent).
 	await get_tree().process_frame

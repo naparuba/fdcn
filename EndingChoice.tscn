@@ -78,7 +78,7 @@ offset_bottom = 137.0
 theme_override_fonts/font = SubResource("2")
 theme_override_colors/font_color = Color(0, 0.760784, 0.666667, 1)
 text = "On ne fait pas de bixous à un dragon"
-autowrap = true
+text_overrun_behavior = 3
 __meta__ = {
 "_edit_use_anchors_": false
 }

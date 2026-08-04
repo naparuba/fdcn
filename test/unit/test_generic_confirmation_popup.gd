@@ -8,10 +8,10 @@ func test_ready_applies_exported_texts_and_hides_by_default():
 	popup.content = 'Etes-vous sur ?'
 	popup.accept_button = 'Oui'
 	popup.cancel_button = 'Non'
-	add_child_autofree(popup)  # _ready() applique le contenu et hide()
-	assert_eq(popup.get_node('RichTextLabel').text, 'Etes-vous sur ?')
-	assert_eq(popup.get_node('PopupButtonAccept').text, 'Oui')
-	assert_eq(popup.get_node('PopupButtonCancel').text, 'Non')
+	add_child_autofree(popup)  # _ready() construit l'UI, applique le contenu et hide()
+	assert_eq(popup._rich_text_label.text, 'Etes-vous sur ?')
+	assert_eq(popup._accept_button.text, 'Oui')
+	assert_eq(popup._cancel_button.text, 'Non')
 	assert_false(popup.visible)
 
 

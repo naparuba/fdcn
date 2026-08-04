@@ -208,6 +208,40 @@ bg_color = Color(0.878431, 0.886275, 0.898039, 1)
 [sub_resource type="StyleBoxFlat" id="32"]
 bg_color = Color(1, 1, 1, 1)
 
+[sub_resource type="StyleBoxFlat" id="40"]
+bg_color = Color(0.913725, 0.917647, 0.92549, 1)
+corner_radius_top_left = 10
+corner_radius_top_right = 10
+corner_radius_bottom_right = 10
+corner_radius_bottom_left = 10
+
+[sub_resource type="StyleBoxEmpty" id="41"]
+content_margin_left = 10.0
+content_margin_top = 6.0
+content_margin_right = 6.0
+content_margin_bottom = 6.0
+
+[sub_resource type="StyleBoxFlat" id="42"]
+bg_color = Color(0.45, 0.45, 0.45, 1)
+corner_radius_top_left = 14
+corner_radius_top_right = 14
+corner_radius_bottom_right = 14
+corner_radius_bottom_left = 14
+
+[sub_resource type="StyleBoxFlat" id="43"]
+bg_color = Color(0.55, 0.55, 0.55, 1)
+corner_radius_top_left = 14
+corner_radius_top_right = 14
+corner_radius_bottom_right = 14
+corner_radius_bottom_left = 14
+
+[sub_resource type="StyleBoxFlat" id="44"]
+bg_color = Color(0.35, 0.35, 0.35, 1)
+corner_radius_top_left = 14
+corner_radius_top_right = 14
+corner_radius_bottom_right = 14
+corner_radius_bottom_left = 14
+
 [sub_resource type="StyleBoxEmpty" id="21"]
 
 [sub_resource type="ShaderMaterial" id="39"]
@@ -1764,10 +1798,6 @@ __meta__ = {
 }
 
 [node name="GenericTextPopup" parent="About" instance=ExtResource("29")]
-offset_left = 16.27
-offset_top = 97.6014
-offset_right = 544.27
-offset_bottom = 417.601
 content = "Cette action vous fera recommencer l'histoire depuis le début et perdre tout vos items.
 Êtes-vous sûr de vouloir continuer ?"
 
@@ -1931,11 +1961,55 @@ scale = Vector2(0.836486, 0.923395)
 texture = ExtResource("24")
 
 
+[node name="SearchBar" type="VBoxContainer" parent="Options/Equipement"]
+offset_left = 4.0
+offset_top = 290.0
+offset_right = 448.0
+offset_bottom = 344.0
+theme_override_constants/separation = 4
+
+[node name="Box" type="Panel" parent="Options/Equipement/SearchBar"]
+custom_minimum_size = Vector2(0, 36)
+theme_override_styles/panel = SubResource("40")
+
+[node name="Field" type="LineEdit" parent="Options/Equipement/SearchBar/Box"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_right = -38.0
+placeholder_text = "Rechercher un objet…"
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_colors/font_placeholder_color = Color(0.45, 0.45, 0.45, 1)
+theme_override_styles/normal = SubResource("41")
+theme_override_styles/focus = SubResource("41")
+theme_override_styles/read_only = SubResource("41")
+
+[node name="Clear" type="Button" parent="Options/Equipement/SearchBar/Box"]
+anchor_left = 1.0
+anchor_right = 1.0
+anchor_top = 0.5
+anchor_bottom = 0.5
+offset_left = -32.0
+offset_top = -13.0
+offset_right = -6.0
+offset_bottom = 13.0
+theme_override_font_sizes/font_size = 13
+theme_override_styles/normal = SubResource("42")
+theme_override_styles/hover = SubResource("43")
+theme_override_styles/pressed = SubResource("44")
+text = "✕"
+visible = false
+
+[node name="Count" type="Label" parent="Options/Equipement/SearchBar"]
+custom_minimum_size = Vector2(0, 14)
+theme_override_font_sizes/font_size = 11
+theme_override_colors/font_color = Color(0.45, 0.45, 0.45, 1)
+text = ""
+
 [node name="ItemsCont" type="ScrollContainer" parent="Options/Equipement"]
 anchor_right = 1.0
 anchor_bottom = 1.0
 offset_left = -1.0
-offset_top = 288.0
+offset_top = 348.0
 offset_right = -1.0
 offset_bottom = 5.0
 
@@ -2011,28 +2085,20 @@ offset_bottom = 573.0
 
 [node name="ItemPopups" type="Panel" parent="."]
 visible = false
-anchor_right = 1.0
-anchor_bottom = 1.0
-offset_left = 260.0
-offset_top = 53.0
-offset_right = 260.0
-offset_bottom = 53.0
+offset_left = 10.0
+offset_top = 43.0
+offset_right = 548.0
+offset_bottom = 93.0
 mouse_filter = 1
 theme_override_styles/panel = SubResource("28")
-__meta__ = {
-"_edit_use_anchors_": false
-}
 
 [node name="ScrollContainer" type="ScrollContainer" parent="ItemPopups"]
-anchor_right = 1.0
-anchor_bottom = 1.0
-offset_left = -42.0
-offset_top = -2.0
-offset_right = 446.0
-offset_bottom = 168.0
+offset_right = 538.0
+offset_bottom = 50.0
 mouse_filter = 1
 
 [node name="ItemPopupsCont" type="VBoxContainer" parent="ItemPopups/ScrollContainer"]
+theme_override_constants/separation = 6
 
 [connection signal="gui_input" from="Background" to="." method="_on_main_background_gui_input"]
 [connection signal="gui_input" from="Chapitres" to="." method="_on_main_background_gui_input"]
@@ -2052,6 +2118,10 @@ mouse_filter = 1
 [connection signal="pressed" from="About/Actions/new_bug/Button" to="." method="_on_button_bug"]
 [connection signal="pressed" from="About/About/twitter/Button" to="." method="_on_button_pressed_twitter"]
 [connection signal="generic_popup_accept" from="About/GenericTextPopup" to="." method="_on_GenericTextPopup_generic_popup_accept"]
+[connection signal="child_entered_tree" from="ItemPopups/ScrollContainer/ItemPopupsCont" to="." method="_on_item_popups_stack_changed"]
+[connection signal="child_exiting_tree" from="ItemPopups/ScrollContainer/ItemPopupsCont" to="." method="_on_item_popups_stack_changed"]
+[connection signal="text_changed" from="Options/Equipement/SearchBar/Box/Field" to="." method="_on_item_search_text_changed"]
+[connection signal="pressed" from="Options/Equipement/SearchBar/Box/Clear" to="." method="_on_item_search_clear_pressed"]
 [connection signal="pressed" from="Options/Header/TabEquipement/button" to="." method="_on_button_show_equipement"]
 [connection signal="pressed" from="Options/Header/TabStats/button" to="." method="_on_button_show_stats"]
 [connection signal="pressed" from="Options/Header/TabSelectBook/button" to="." method="_on_button_show_book_select"]

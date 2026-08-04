@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://beqo42niae70d"
-path="res://.godot/imported/E4_fin_mauvaise_163_tulipes.png-9992dfe05500f48519d18f47db48d9c7.ctex"
+uid="uid://cfd4knqktncd8"
+path="res://.godot/imported/E4_fin_mauvaise_163_tulipes.png-d9ddc6d456a832e7174b44e656bc8c90.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://test/e2e/screenshots/golden/E4_fin_mauvaise_163_tulipes.png"
-dest_files=["res://.godot/imported/E4_fin_mauvaise_163_tulipes.png-9992dfe05500f48519d18f47db48d9c7.ctex"]
+source_file="res://test/e2e/screenshots/actual/E4_fin_mauvaise_163_tulipes.png"
+dest_files=["res://.godot/imported/E4_fin_mauvaise_163_tulipes.png-d9ddc6d456a832e7174b44e656bc8c90.ctex"]
 
 [params]
 

@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://b8m30p7inrxfw"
-path="res://.godot/imported/E2_chapitre_10_choix_multiples.png-e5ce90bb34d102ce573a514dece9b1f7.ctex"
+uid="uid://1o06fe7xvrel"
+path="res://.godot/imported/E2_chapitre_10_choix_multiples.png-dafaa6f3c6f09866ad7d384617c912bf.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://test/e2e/screenshots/golden/E2_chapitre_10_choix_multiples.png"
-dest_files=["res://.godot/imported/E2_chapitre_10_choix_multiples.png-e5ce90bb34d102ce573a514dece9b1f7.ctex"]
+source_file="res://test/e2e/screenshots/actual/E2_chapitre_10_choix_multiples.png"
+dest_files=["res://.godot/imported/E2_chapitre_10_choix_multiples.png-dafaa6f3c6f09866ad7d384617c912bf.ctex"]
 
 [params]
 

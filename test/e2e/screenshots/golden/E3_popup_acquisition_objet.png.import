@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://7ebxkd4cjx4t"
-path="res://.godot/imported/E3_popup_acquisition_objet.png-a86f1d265e7a5e30c4f534c177ee3a7d.ctex"
+uid="uid://bdktdn3qmxghj"
+path="res://.godot/imported/E3_popup_acquisition_objet.png-e602e358284beb97c21ed64e538c4c8d.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://test/e2e/screenshots/golden/E3_popup_acquisition_objet.png"
-dest_files=["res://.godot/imported/E3_popup_acquisition_objet.png-a86f1d265e7a5e30c4f534c177ee3a7d.ctex"]
+source_file="res://test/e2e/screenshots/actual/E3_popup_acquisition_objet.png"
+dest_files=["res://.godot/imported/E3_popup_acquisition_objet.png-e602e358284beb97c21ed64e538c4c8d.ctex"]
 
 [params]
 

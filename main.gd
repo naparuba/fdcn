@@ -184,13 +184,43 @@ func display_all_objects():
 	print('Insert all objects')
 	for item in Player.all_items:
 		item_stack.add_child(item)
-	
+	self._filter_items($Options/Equipement/SearchBar/Box/Field.text)
+
 
 func refresh_all_objects():
 	var item_stack = $Options/Equipement/ItemsCont/Items
 	for item in item_stack.get_children():
 		item.refresh()
-		
+
+
+# Filtre la liste d'objets par nom (recherche "contient", insensible a la casse).
+# Rejoue automatiquement apres un display_all_objects() (rebuild complet) pour
+# ne pas perdre la recherche en cours.
+func _filter_items(query):
+	var q = query.strip_edges().to_lower()
+	var item_stack = $Options/Equipement/ItemsCont/Items
+	var shown = 0
+	for item in item_stack.get_children():
+		var do_match = q == '' or item.get_item_name().to_lower().find(q) != -1
+		item.visible = do_match
+		if do_match:
+			shown += 1
+	$Options/Equipement/SearchBar/Box/Clear.visible = q != ''
+	if q == '':
+		$Options/Equipement/SearchBar/Count.text = ''
+	else:
+		$Options/Equipement/SearchBar/Count.text = '%d objet(s) trouvé(s)' % shown
+
+
+func _on_item_search_text_changed(new_text):
+	self._filter_items(new_text)
+
+
+func _on_item_search_clear_pressed():
+	$Options/Equipement/SearchBar/Box/Field.text = ''
+	self._filter_items('')
+	$Options/Equipement/SearchBar/Box/Field.grab_focus()
+
 
 func jump_to_chapter_100aine(centaine):
 	var all_choices = $Chapitres/AllChapters/VScrollBar/Choices
@@ -666,6 +696,51 @@ func popup_remove_item(item_name):
 	var popup = self._create_popup_item(item_name)
 	popup.set_is_new(false)  # it's a loose
 	$ItemPopups/ScrollContainer/ItemPopupsCont.add_child(popup)
+
+
+# Le bandeau "objet acquis" ne doit JAMAIS recouvrir les cartes Complete/
+# Position -- mais il ne doit pas non plus laisser un trou permanent quand
+# il n'y a rien a afficher. Donc : les cartes ne descendent que pendant que
+# la pile de popups (ItemPopupsCont) contient au moins un enfant, et
+# reviennent a leur place sinon. Les 2 signaux (entree ET sortie d'enfant)
+# sont necessaires : chaque ItemPopup se libere lui-meme via son Timer
+# (cf ItemPopup.gd::_on_Timer_timeout), main.gd n'est jamais notifie
+# autrement de sa disparition.
+const ITEM_POPUP_BANNER_SHIFT = 36.0
+const ITEM_POPUP_ANIM_DURATION = 0.22  # rapide, mais jamais un saut brutal
+const ITEM_POPUP_SHIFTED_PANELS = [
+	"Background/GlobalCompletion",
+	"Background/Position",
+	"Background/Dreadcumb",
+	"Background/Next",
+]
+var _item_popups_layout_shifted = false
+var item_popups_layout_tween: Tween = null  # expose pour l'E2E (attendre la fin avant une capture)
+
+
+func _on_item_popups_stack_changed(_node = null):
+	call_deferred("_recompute_item_popups_layout")
+
+
+func _recompute_item_popups_layout():
+	var cont = $ItemPopups/ScrollContainer/ItemPopupsCont
+	self._shift_item_popups_layout(cont.get_child_count() > 0)
+
+
+func _shift_item_popups_layout(shifted):
+	if shifted == self._item_popups_layout_shifted:
+		return
+	self._item_popups_layout_shifted = shifted
+	var delta = ITEM_POPUP_BANNER_SHIFT if shifted else -ITEM_POPUP_BANNER_SHIFT
+	var tween = create_tween()
+	tween.set_trans(Tween.TRANS_CUBIC)
+	tween.set_ease(Tween.EASE_OUT)
+	tween.set_parallel(true)
+	for panel_path in ITEM_POPUP_SHIFTED_PANELS:
+		var panel = self.get_node(panel_path)
+		tween.tween_property(panel, "offset_top", panel.offset_top + delta, ITEM_POPUP_ANIM_DURATION)
+		tween.tween_property(panel, "offset_bottom", panel.offset_bottom + delta, ITEM_POPUP_ANIM_DURATION)
+	self.item_popups_layout_tween = tween
 
 
 

@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://cgitlwjc02ytf"
-path="res://.godot/imported/E6_retour_livre_fdcn.png-3d22c52b584786c1f76baee7d5c17a4e.ctex"
+uid="uid://c4ys3w41pwbqo"
+path="res://.godot/imported/E13_equipement_apres_clear.png-e1e38e17161113fee13c2a6e3d735ba5.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://test/e2e/screenshots/actual/E6_retour_livre_fdcn.png"
-dest_files=["res://.godot/imported/E6_retour_livre_fdcn.png-3d22c52b584786c1f76baee7d5c17a4e.ctex"]
+source_file="res://test/e2e/screenshots/actual/E13_equipement_apres_clear.png"
+dest_files=["res://.godot/imported/E13_equipement_apres_clear.png-e1e38e17161113fee13c2a6e3d735ba5.ctex"]
 
 [params]
 

@@ -25,9 +25,9 @@ cache/0/16/0/underline_thickness = 0.0
 cache/0/16/0/scale = 1.0
 
 [node name="ItemPopup" type="Panel"]
-offset_right = 250.0
+offset_right = 538.0
 offset_bottom = 50.0
-custom_minimum_size = Vector2(250, 50)
+custom_minimum_size = Vector2(538, 50)
 mouse_filter = 1
 theme_override_styles/panel = SubResource("1")
 script = ExtResource("2")
@@ -43,7 +43,7 @@ texture = ExtResource("3")
 [node name="Nom" type="Label" parent="."]
 offset_left = 39.6774
 offset_top = 6.57856
-offset_right = 208.678
+offset_right = 528.0
 offset_bottom = 37.5786
 theme_override_fonts/font = SubResource("2")
 theme_override_font_sizes/font_size = 12
