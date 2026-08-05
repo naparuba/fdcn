@@ -3,15 +3,15 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://cgitlwjc02ytf"
-path="res://.godot/imported/E6_retour_livre_fdcn.png-3d22c52b584786c1f76baee7d5c17a4e.ctex"
+path="res://.godot/imported/E6_retour_livre_fdcn.png-5d0a1a2ae168b6a553f188168165592f.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://test/e2e/screenshots/actual/E6_retour_livre_fdcn.png"
-dest_files=["res://.godot/imported/E6_retour_livre_fdcn.png-3d22c52b584786c1f76baee7d5c17a4e.ctex"]
+source_file="res://test/e2e/screenshots/golden/E6_retour_livre_fdcn.png"
+dest_files=["res://.godot/imported/E6_retour_livre_fdcn.png-5d0a1a2ae168b6a553f188168165592f.ctex"]
 
 [params]
 

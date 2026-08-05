@@ -3,15 +3,15 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://c4pm0ohi2ve7p"
-path="res://.godot/imported/E13_equipement_sans_recherche.png-e1b2c3d4812981bbc0b180bb196870b8.ctex"
+path="res://.godot/imported/E13_equipement_sans_recherche.png-7aba609c25331290904874bc6d9191d2.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://test/e2e/screenshots/actual/E13_equipement_sans_recherche.png"
-dest_files=["res://.godot/imported/E13_equipement_sans_recherche.png-e1b2c3d4812981bbc0b180bb196870b8.ctex"]
+source_file="res://test/e2e/screenshots/golden/E13_equipement_sans_recherche.png"
+dest_files=["res://.godot/imported/E13_equipement_sans_recherche.png-7aba609c25331290904874bc6d9191d2.ctex"]
 
 [params]
 

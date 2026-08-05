@@ -3,15 +3,15 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://cg3kloa3e8avc"
-path="res://.godot/imported/E9_persistence_apres_redemarrage.png-1ef8fed8a79984caa0836f7dbf48f937.ctex"
+path="res://.godot/imported/E9_persistence_apres_redemarrage.png-6767a259ac91c864e21d59ca09cdd58e.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://test/e2e/screenshots/actual/E9_persistence_apres_redemarrage.png"
-dest_files=["res://.godot/imported/E9_persistence_apres_redemarrage.png-1ef8fed8a79984caa0836f7dbf48f937.ctex"]
+source_file="res://test/e2e/screenshots/golden/E9_persistence_apres_redemarrage.png"
+dest_files=["res://.godot/imported/E9_persistence_apres_redemarrage.png-6767a259ac91c864e21d59ca09cdd58e.ctex"]
 
 [params]
 
