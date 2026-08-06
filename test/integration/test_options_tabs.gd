@@ -15,6 +15,15 @@ func before_all():
 	_main = main_scene.instantiate()
 	add_child(_main)
 
+	# Le panneau de rapport de GUT (GutRunner/GutLayer, CanvasLayer 128 --
+	# rendu au-dessus de tout, y compris _main) capte et avale tout clic/
+	# touche avant qu'il n'atteigne _main -- meme piege deja documente dans
+	# test_real_swipe_navigation.gd, necessaire ici pour le test de glisse-
+	# doigt sur la fiche de personnage.
+	var gut_layer = get_tree().root.get_node_or_null("GutRunner/GutLayer")
+	if gut_layer:
+		gut_layer.visible = false
+
 
 func after_all():
 	_main.free()
@@ -282,3 +291,59 @@ func test_item_popup_banner_pushes_cards_down_and_reverts_when_it_empties():
 	popup.free()
 	await get_tree().create_timer(anim_wait).timeout
 	assert_eq(position_card.offset_top, top_avant, "la carte doit revenir a sa place une fois le bandeau vide, jamais un trou permanent")
+
+
+func test_touch_drag_scrolls_the_stats_screen_not_just_the_scrollbar():
+	# Bug signale par l'utilisateur : chaque carte de stat (fond, labels,
+	# lignes de mise en page) avait mouse_filter=STOP par defaut (valeur de
+	# base de tout Control en Godot 4) -- ca avalait le glisse-doigt avant
+	# qu'il n'atteigne le ScrollContainer, seul le slider de la scrollbar
+	# fonctionnait (meme classe de bug deja rencontree et corrigee dans
+	# CombatScreen.gd). Verifie avec de VRAIS InputEventScreenTouch/
+	# ScreenDrag (pas un appel direct a scroll_vertical), pour valider le
+	# vrai pipeline d'input, pas juste que la propriete existe.
+	_main.show_options()
+	_main._options_show_stats()
+	_main.refresh()
+	var stats_screen = _main.get_node("Options/Stats")
+	var scroll = stats_screen._scroll_container
+	scroll.scroll_vertical = 0
+	await get_tree().process_frame
+
+	# Precondition : le contenu doit vraiment deborder, sinon le test ne
+	# demontre rien (rien a scroller, glisser ou pas).
+	var content_height = scroll.get_child(0).size.y
+	assert_gt(content_height, scroll.size.y, "precondition : le contenu de la fiche de personnage doit deborder du cadre visible")
+
+	# Point de depart garanti "passif" (un Label, jamais un Button/LineEdit) :
+	# le badge de type de Billy, toujours present en haut du contenu.
+	var start_pos = stats_screen._type_badge.get_global_rect().get_center()
+
+	var press = InputEventMouseButton.new()
+	press.button_index = MOUSE_BUTTON_LEFT
+	press.pressed = true
+	press.position = start_pos
+	press.global_position = start_pos
+	Input.parse_input_event(press)
+	await get_tree().process_frame
+	await get_tree().process_frame
+
+	for i in range(15):
+		var motion = InputEventMouseMotion.new()
+		motion.button_mask = MOUSE_BUTTON_MASK_LEFT
+		motion.position = start_pos + Vector2(0, -10 * (i + 1))
+		motion.global_position = motion.position
+		motion.relative = Vector2(0, -10)
+		Input.parse_input_event(motion)
+		await get_tree().process_frame
+
+	var release = InputEventMouseButton.new()
+	release.button_index = MOUSE_BUTTON_LEFT
+	release.pressed = false
+	release.position = start_pos + Vector2(0, -150)
+	release.global_position = release.position
+	Input.parse_input_event(release)
+	await get_tree().process_frame
+	await get_tree().process_frame
+
+	assert_gt(scroll.scroll_vertical, 0, "un glisse-doigt doit faire defiler le contenu, pas seulement le slider de la scrollbar")

@@ -42,6 +42,7 @@ const STAT_DEFS = [
 	{"key": "arm", "label": "Armure", "role": "Réduction plate des dégâts subis par Billy, avant tout autre effet."},
 ]
 
+var _scroll_container: ScrollContainer
 var _type_badge: Label
 var _combat_warning: Label
 var _pv_bar_fill: ColorRect
@@ -204,6 +205,8 @@ func _build_ui():
 	var scroll = ScrollContainer.new()
 	scroll.horizontal_scroll_mode = ScrollContainer.SCROLL_MODE_DISABLED
 	margin.add_child(scroll)
+	self._scroll_container = scroll
+	Utils.enable_drag_scroll(scroll)
 
 	var layout = VBoxContainer.new()
 	layout.set_h_size_flags(Control.SIZE_EXPAND_FILL)
@@ -244,6 +247,15 @@ func _build_ui():
 	self._style_solid_button(fill_all_btn, COL_NAVY, Color(1, 1, 1))
 	fill_all_btn.pressed.connect(self.fill_all)
 	footer.add_child(fill_all_btn)
+
+	# Tout Control a mouse_filter=STOP par defaut en Godot 4 -- sans ca,
+	# chaque carte (fond, labels, lignes de mise en page) avale le glisse-
+	# doigt avant qu'il n'atteigne le ScrollContainer, qui ne devient alors
+	# scrollable qu'a la souris/via le slider (meme classe de bug deja
+	# rencontree et corrigee dans CombatScreen.gd). On laisse donc tout
+	# passer SAUF les vrais widgets interactifs (Button/LineEdit) et le
+	# ScrollContainer lui-meme, qui doit rester la cible du glisse.
+	Utils.make_non_interactive_passthrough(scroll)
 
 
 func _style_solid_button(button: Button, bg: Color, fg: Color):

@@ -303,6 +303,41 @@ func _run_next_step():
 	elif action == "stats_fill_cha":
 		_main.get_node("Options/Stats")._fill_cha()
 		_run_next_step()
+	elif action == "stats_drag_scroll":
+		# Vrai glisse-doigt (souris + pointing/emulate_touch_from_mouse=true,
+		# meme mecanisme que _real_swipe) sur la fiche de personnage -- part
+		# du centre du badge de type de Billy (toujours present, jamais un
+		# Button/LineEdit) et monte de step["dy"] pixels au total.
+		var stats_screen = _main.get_node("Options/Stats")
+		var start_pos = stats_screen._type_badge.get_global_rect().get_center()
+		var dy = float(step.get("dy", 300.0))
+		var press = InputEventMouseButton.new()
+		press.button_index = MOUSE_BUTTON_LEFT
+		press.pressed = true
+		press.position = start_pos
+		press.global_position = start_pos
+		Input.parse_input_event(press)
+		await get_tree().process_frame
+		await get_tree().process_frame
+		var steps = 20
+		for i in range(steps):
+			var motion = InputEventMouseMotion.new()
+			motion.button_mask = MOUSE_BUTTON_MASK_LEFT
+			motion.position = start_pos + Vector2(0, -dy / steps * (i + 1))
+			motion.global_position = motion.position
+			motion.relative = Vector2(0, -dy / steps)
+			Input.parse_input_event(motion)
+			await get_tree().process_frame
+		var release = InputEventMouseButton.new()
+		release.button_index = MOUSE_BUTTON_LEFT
+		release.pressed = false
+		release.position = start_pos + Vector2(0, -dy)
+		release.global_position = release.position
+		Input.parse_input_event(release)
+		await get_tree().process_frame
+		await get_tree().process_frame
+		print("E2E: stats_drag_scroll -> scroll_vertical=%s" % stats_screen._scroll_container.scroll_vertical)
+		_run_next_step()
 	elif action == "search_items":
 		# Equivalent d'un utilisateur qui tape dans le champ de recherche de
 		# l'Equipement : poser le texte ne declenche pas text_changed tout

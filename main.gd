@@ -36,6 +36,16 @@ func _ready():
 
 	self._do_load_book_context()
 
+	# ScrollContainer ne defile pas au glisse-doigt/souris tout seul en
+	# Godot 4 -- une seule fois ici (les 4 ScrollContainer sont permanents,
+	# seul leur contenu est reconstruit a chaque insert_all_*/
+	# display_all_objects(), cf Utils.make_non_interactive_passthrough
+	# appele dans chacune de ces fonctions a la place).
+	Utils.enable_drag_scroll($Chapitres/AllChapters/VScrollBar)
+	Utils.enable_drag_scroll($Succes/Success/VScrollBar)
+	Utils.enable_drag_scroll($Lore/Lore/VScrollBar)
+	Utils.enable_drag_scroll($Options/Equipement/ItemsCont)
+
 
 func _reload_all_player():
 	# Load the nodes ids we did already visited in the past
@@ -185,6 +195,7 @@ func display_all_objects():
 	for item in Player.all_items:
 		item_stack.add_child(item)
 	self._filter_items($Options/Equipement/SearchBar/Box/Field.text)
+	Utils.make_non_interactive_passthrough($Options/Equipement/ItemsCont)
 
 
 func refresh_all_objects():
@@ -258,6 +269,8 @@ func insert_all_chapters():
 		choice.set_chapitre(chapter_data.get_id())
 		all_choices.add_child(choice)
 
+	Utils.make_non_interactive_passthrough($Chapitres/AllChapters/VScrollBar)
+
 
 func _update_all_chapters():
 	var all_choices = $Chapitres/AllChapters/VScrollBar/Choices
@@ -275,6 +288,8 @@ func insert_all_success():
 		s.set_main(self)
 		s.set_from_success_object(success)
 		all_success.add_child(s)
+
+	Utils.make_non_interactive_passthrough($Succes/Success/VScrollBar)
 
 func insert_all_lore():
 	var all_lore = $Lore/Lore/VScrollBar/persos
@@ -331,6 +346,7 @@ func insert_all_lore():
 		
 		all_lore.add_child(s)
 
+	Utils.make_non_interactive_passthrough($Lore/Lore/VScrollBar)
 
 
 func _update_all_success():
