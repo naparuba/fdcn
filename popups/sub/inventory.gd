@@ -3,7 +3,7 @@ extends Panel
 @onready var items_panel = $ItemsCont/Items
 
 
-@onready var Item = preload('res://Item.tscn')
+@onready var Item = preload('res://entities/Item.tscn')
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	

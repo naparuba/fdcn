@@ -1,0 +1,56 @@
+[gd_scene format=3 uid="uid://f03y5mpch8wv"]
+
+[ext_resource type="FontFile" uid="uid://dvf02ee6hmyyy" path="res://fonts/amon_font.tres" id="1_mx0dr"]
+[ext_resource type="PackedScene" uid="uid://cyu1whyusreqt" path="res://entities/Success.tscn" id="2_u33no"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_x0std"]
+bg_color = Color(1, 1, 1, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_hj48q"]
+bg_color = Color(0.192157, 0.231373, 0.278431, 1)
+
+[node name="Success" type="Panel" unique_id=1009424153]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 1
+theme_override_styles/panel = SubResource("StyleBoxFlat_x0std")
+
+[node name="Header" type="Panel" parent="." unique_id=1358482155]
+layout_mode = 1
+anchors_preset = 10
+anchor_right = 1.0
+offset_bottom = 39.0
+grow_horizontal = 2
+mouse_filter = 1
+theme_override_styles/panel = SubResource("StyleBoxFlat_hj48q")
+
+[node name="Label" type="Label" parent="Header" unique_id=276770437]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_fonts/font = ExtResource("1_mx0dr")
+text = "Tous les Succès"
+horizontal_alignment = 1
+
+[node name="VScrollBar" type="ScrollContainer" parent="." unique_id=2109052128]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = 39.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="Success" type="VBoxContainer" parent="VScrollBar" unique_id=478045628]
+layout_mode = 2
+
+[node name="Success" parent="VScrollBar/Success" unique_id=1121417702 instance=ExtResource("2_u33no")]
+layout_mode = 2

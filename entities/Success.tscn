@@ -1,0 +1,139 @@
+[gd_scene format=3 uid="uid://cyu1whyusreqt"]
+
+[ext_resource type="Script" uid="uid://ciuinrr0rvcyr" path="res://entities/Success.gd" id="1"]
+[ext_resource type="FontFile" path="res://fonts/amon_font.tres" id="2"]
+[ext_resource type="FontFile" uid="uid://c4uf1h6831ei2" path="res://fonts/RobotoCondensed-Regular.ttf" id="3"]
+[ext_resource type="Texture2D" uid="uid://b6jc6ansg3skl" path="res://images/success/ARSENE.png" id="4"]
+
+[sub_resource type="StyleBoxFlat" id="1"]
+bg_color = Color(1, 1, 1, 1)
+border_width_bottom = 2
+
+[sub_resource type="FontFile" id="2"]
+fallbacks = Array[Font]([ExtResource("3"), ExtResource("3")])
+subpixel_positioning = 0
+msdf_pixel_range = 14
+msdf_size = 128
+cache/0/variation_coordinates = {}
+cache/0/face_index = 0
+cache/0/embolden = 0.0
+cache/0/transform = Transform2D(1, 0, 0, 1, 0, 0)
+cache/0/spacing_top = 0
+cache/0/spacing_bottom = 0
+cache/0/spacing_space = 0
+cache/0/spacing_glyph = 0
+cache/0/baseline_offset = 0.0
+cache/0/16/0/ascent = 0.0
+cache/0/16/0/descent = 0.0
+cache/0/16/0/underline_position = 0.0
+cache/0/16/0/underline_thickness = 0.0
+cache/0/16/0/scale = 1.0
+
+[sub_resource type="FontFile" id="3"]
+fallbacks = Array[Font]([ExtResource("3"), ExtResource("3")])
+subpixel_positioning = 0
+msdf_pixel_range = 14
+msdf_size = 128
+cache/0/variation_coordinates = {}
+cache/0/face_index = 0
+cache/0/embolden = 0.0
+cache/0/transform = Transform2D(1, 0, 0, 1, 0, 0)
+cache/0/spacing_top = 0
+cache/0/spacing_bottom = 0
+cache/0/spacing_space = 0
+cache/0/spacing_glyph = 0
+cache/0/baseline_offset = 0.0
+cache/0/16/0/ascent = 0.0
+cache/0/16/0/descent = 0.0
+cache/0/16/0/underline_position = 0.0
+cache/0/16/0/underline_thickness = 0.0
+cache/0/16/0/scale = 1.0
+
+[sub_resource type="StyleBoxFlat" id="4"]
+bg_color = Color(0.92549, 0.929412, 0.94902, 1)
+corner_radius_top_left = 2
+corner_radius_top_right = 2
+corner_radius_bottom_right = 2
+corner_radius_bottom_left = 2
+
+[node name="Success" type="Panel" unique_id=1121417702]
+custom_minimum_size = Vector2(0, 50)
+offset_right = 446.0
+offset_bottom = 50.0
+mouse_filter = 1
+theme_override_styles/panel = SubResource("1")
+script = ExtResource("1")
+
+[node name="NBChapitre" type="Label" parent="." unique_id=1094021501]
+layout_mode = 0
+offset_left = 337.405
+offset_top = 9.64857
+offset_right = 379.405
+offset_bottom = 74.6486
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_fonts/font = ExtResource("2")
+text = "XXX
+"
+
+[node name="Label" type="Label" parent="." unique_id=1209177444]
+layout_mode = 0
+offset_left = 91.0
+offset_top = 2.0
+offset_right = 330.0
+offset_bottom = 24.0
+theme_override_colors/font_color = Color(0, 0.760784, 0.666667, 1)
+theme_override_fonts/font = SubResource("2")
+text = "XXXXXXX"
+
+[node name="Txt" type="Label" parent="." unique_id=720949067]
+layout_mode = 0
+offset_left = 90.2508
+offset_top = 25.2238
+offset_right = 329.251
+offset_bottom = 47.2238
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_fonts/font = SubResource("3")
+text = "XXXXXXXXXXXXXXXXX"
+
+[node name="click" type="Panel" parent="." unique_id=2130477446]
+layout_mode = 0
+offset_left = 387.249
+offset_top = 3.36737
+offset_right = 427.249
+offset_bottom = 43.3674
+theme_override_styles/panel = SubResource("4")
+
+[node name="Label" type="Label" parent="click" unique_id=1556653054]
+layout_mode = 0
+offset_left = 14.856
+offset_top = 4.61726
+offset_right = 54.856
+offset_bottom = 35.6173
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_fonts/font = ExtResource("2")
+text = ">"
+
+[node name="Button" type="TextureButton" parent="click" unique_id=1134141589]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 39.0
+
+[node name="GetPolygon" type="Polygon2D" parent="." unique_id=1930402460]
+position = Vector2(26.556, 0.529732)
+color = Color(0.619608, 0.658824, 0.705882, 1)
+polygon = PackedVector2Array(28.1169, 47.9916, 41.6251, -0.0815163, 58.0468, -0.0815163, 44.2124, 48.0062)
+
+[node name="Label" type="Label" parent="GetPolygon" unique_id=956821544]
+offset_left = 24.216995
+offset_top = 45.698402
+offset_right = 83.216995
+offset_bottom = 68.6984
+rotation = -1.27883
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+text = "Obtenu"
+
+[node name="sprite" type="Sprite2D" parent="." unique_id=306300861]
+position = Vector2(25.8458, 24.7221)
+texture = ExtResource("4")
+
+[connection signal="pressed" from="click/Button" to="." method="_on_Button_pressed"]

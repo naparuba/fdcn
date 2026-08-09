@@ -1,0 +1,432 @@
+[gd_scene format=3 uid="uid://b5ropk16ihd1s"]
+
+[ext_resource type="FontFile" uid="uid://dvf02ee6hmyyy" path="res://fonts/amon_font.tres" id="3_434kl"]
+[ext_resource type="Texture2D" uid="uid://c32ss1seos6no" path="res://images/new_player.png" id="4_l61gx"]
+[ext_resource type="Texture2D" uid="uid://cfhgpll5nsjlr" path="res://images/bug.png" id="5_4xf6i"]
+[ext_resource type="Texture2D" uid="uid://b28rwcgl58n5y" path="res://images/twitter.png" id="6_bkxrd"]
+[ext_resource type="Texture2D" uid="uid://clclwast44cj4" path="res://images/anim-phumtar-1.png" id="7_qhs7w"]
+[ext_resource type="Texture2D" uid="uid://0ke5c6xjavoi" path="res://images/anim-phumtar-2.png" id="8_8stdj"]
+[ext_resource type="FontFile" uid="uid://b2geetcvtgqo5" path="res://fonts/amon_font_small.tres" id="9_5y6us"]
+[ext_resource type="FontFile" uid="uid://c4uf1h6831ei2" path="res://fonts/RobotoCondensed-Regular.ttf" id="10_6kxjy"]
+[ext_resource type="PackedScene" path="res://popups/GenericConfirmationPopup.tscn" id="11_pkvei"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_nh3ak"]
+bg_color = Color(0.92549, 0.929412, 0.94902, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_54fut"]
+bg_color = Color(1, 1, 1, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_nweul"]
+bg_color = Color(0.192157, 0.231373, 0.278431, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_yqece"]
+bg_color = Color(1, 1, 1, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_al7cd"]
+bg_color = Color(0.92549, 0.929412, 0.94902, 1)
+corner_radius_top_left = 2
+corner_radius_top_right = 2
+corner_radius_bottom_right = 2
+corner_radius_bottom_left = 2
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_kwb3n"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("7_qhs7w")
+}, {
+"duration": 1.0,
+"texture": ExtResource("8_8stdj")
+}],
+"loop": 1,
+"name": &"default",
+"speed": 16.0
+}]
+
+[sub_resource type="FontFile" id="FontFile_xnbyc"]
+fallbacks = Array[Font]([ExtResource("10_6kxjy")])
+subpixel_positioning = 0
+msdf_pixel_range = 14
+msdf_size = 128
+cache/0/variation_coordinates = {}
+cache/0/face_index = 0
+cache/0/embolden = 0.0
+cache/0/transform = Transform2D(1, 0, 0, 1, 0, 0)
+cache/0/spacing_top = 0
+cache/0/spacing_bottom = 0
+cache/0/spacing_space = 0
+cache/0/spacing_glyph = 0
+cache/0/baseline_offset = 0.0
+cache/0/16/0/ascent = 0.0
+cache/0/16/0/descent = 0.0
+cache/0/16/0/underline_position = 0.0
+cache/0/16/0/underline_thickness = 0.0
+cache/0/16/0/scale = 1.0
+
+[sub_resource type="FontFile" id="FontFile_xbm7o"]
+fallbacks = Array[Font]([ExtResource("10_6kxjy")])
+subpixel_positioning = 0
+msdf_pixel_range = 14
+msdf_size = 128
+cache/0/variation_coordinates = {}
+cache/0/face_index = 0
+cache/0/embolden = 0.0
+cache/0/transform = Transform2D(1, 0, 0, 1, 0, 0)
+cache/0/spacing_top = 0
+cache/0/spacing_bottom = 0
+cache/0/spacing_space = 0
+cache/0/spacing_glyph = 0
+cache/0/baseline_offset = 0.0
+cache/0/16/0/ascent = 0.0
+cache/0/16/0/descent = 0.0
+cache/0/16/0/underline_position = 0.0
+cache/0/16/0/underline_thickness = 0.0
+cache/0/16/0/scale = 1.0
+
+[node name="About" type="Panel" unique_id=1404104064]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 1
+theme_override_styles/panel = SubResource("StyleBoxFlat_nh3ak")
+
+[node name="Actions" type="Panel" parent="." unique_id=1169434423]
+layout_mode = 1
+anchors_preset = 10
+anchor_right = 1.0
+offset_bottom = 160.0
+grow_horizontal = 2
+mouse_filter = 1
+theme_override_styles/panel = SubResource("StyleBoxFlat_54fut")
+
+[node name="Header" type="Panel" parent="Actions" unique_id=831911662]
+layout_mode = 1
+anchors_preset = 10
+anchor_right = 1.0
+offset_bottom = 40.0
+grow_horizontal = 2
+mouse_filter = 1
+theme_override_styles/panel = SubResource("StyleBoxFlat_nweul")
+
+[node name="Label" type="Label" parent="Actions/Header" unique_id=459165057]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_fonts/font = ExtResource("3_434kl")
+text = "Actions"
+horizontal_alignment = 1
+
+[node name="Content" type="Panel" parent="Actions" unique_id=1394732121]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = 40.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_yqece")
+
+[node name="NouveauBilly" type="Panel" parent="Actions/Content" unique_id=899277512]
+layout_mode = 1
+anchors_preset = 4
+anchor_top = 0.5
+anchor_bottom = 0.5
+offset_left = 40.0
+offset_top = -44.0
+offset_right = 188.0
+offset_bottom = 43.0
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_al7cd")
+
+[node name="Label" type="Label" parent="Actions/Content/NouveauBilly" unique_id=1572076968]
+layout_mode = 1
+anchors_preset = 12
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = -34.0
+grow_horizontal = 2
+grow_vertical = 0
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_fonts/font = ExtResource("3_434kl")
+text = "Nouveau Billy"
+horizontal_alignment = 1
+
+[node name="Button" type="TextureButton" parent="Actions/Content/NouveauBilly" unique_id=596989228]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Sprite2D" type="Sprite2D" parent="Actions/Content/NouveauBilly" unique_id=1221461537]
+position = Vector2(71.5449, 28.0304)
+scale = Vector2(0.0996552, 0.0996552)
+texture = ExtResource("4_l61gx")
+
+[node name="NewBug" type="Panel" parent="Actions/Content" unique_id=1250862293]
+layout_mode = 1
+anchors_preset = 6
+anchor_left = 1.0
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_left = -190.0
+offset_top = -44.0
+offset_right = -41.0
+offset_bottom = 43.0
+grow_horizontal = 0
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_al7cd")
+
+[node name="Label" type="Label" parent="Actions/Content/NewBug" unique_id=1376743688]
+layout_mode = 1
+anchors_preset = 12
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = -34.0
+grow_horizontal = 2
+grow_vertical = 0
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_fonts/font = ExtResource("3_434kl")
+text = "J'ai un bug"
+horizontal_alignment = 1
+
+[node name="Button" type="TextureButton" parent="Actions/Content/NewBug" unique_id=1754303401]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Sprite2D" type="Sprite2D" parent="Actions/Content/NewBug" unique_id=1412640983]
+position = Vector2(71.5449, 28.0304)
+scale = Vector2(0.0996552, 0.0996552)
+texture = ExtResource("5_4xf6i")
+
+[node name="About" type="Panel" parent="." unique_id=873643578]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = 202.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 1
+theme_override_styles/panel = SubResource("StyleBoxFlat_54fut")
+
+[node name="Header" type="Panel" parent="About" unique_id=119532156]
+layout_mode = 1
+anchors_preset = 10
+anchor_right = 1.0
+offset_bottom = 38.0
+grow_horizontal = 2
+mouse_filter = 1
+theme_override_styles/panel = SubResource("StyleBoxFlat_nweul")
+
+[node name="Label" type="Label" parent="About/Header" unique_id=958795236]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_fonts/font = ExtResource("3_434kl")
+text = "A propos"
+horizontal_alignment = 1
+
+[node name="twitter" type="Panel" parent="About" unique_id=1972265070]
+layout_mode = 0
+offset_left = 251.412
+offset_top = 75.301
+offset_right = 278.412
+offset_bottom = 101.301
+theme_override_styles/panel = SubResource("StyleBoxFlat_al7cd")
+
+[node name="Button" type="TextureButton" parent="About/twitter" unique_id=1905550338]
+layout_mode = 0
+offset_right = 145.0
+offset_bottom = 87.0
+
+[node name="Sprite2D" type="Sprite2D" parent="About/twitter" unique_id=340071626]
+position = Vector2(14.1465, 12.6797)
+scale = Vector2(0.0996552, 0.0996552)
+texture = ExtResource("6_bkxrd")
+
+[node name="phumtar" type="AnimatedSprite2D" parent="About" unique_id=251493930]
+position = Vector2(392.257, 88.6701)
+scale = Vector2(0.342538, 0.342538)
+sprite_frames = SubResource("SpriteFrames_kwb3n")
+
+[node name="DevLabel" type="Label" parent="About" unique_id=791876207]
+layout_mode = 0
+offset_left = 12.7327
+offset_top = 57.4765
+offset_right = 82.7331
+offset_bottom = 71.4765
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_constants/shadow_offset_x = 0
+theme_override_constants/shadow_offset_y = 0
+theme_override_constants/shadow_outline_size = 0
+theme_override_fonts/font = ExtResource("9_5y6us")
+text = "Développeur"
+
+[node name="DevTxt" type="Label" parent="About" unique_id=1198695336]
+layout_mode = 0
+offset_left = 12.4751
+offset_top = 71.2005
+offset_right = 242.475
+offset_bottom = 102.2
+theme_override_colors/font_color = Color(0, 0.760784, 0.666667, 1)
+theme_override_constants/shadow_offset_x = 0
+theme_override_constants/shadow_offset_y = 0
+theme_override_constants/shadow_outline_size = 0
+theme_override_fonts/font = ExtResource("3_434kl")
+text = "Jean Gabès
+naparuba@gmail.com"
+
+[node name="VersionLabel" type="Label" parent="About" unique_id=1999671342]
+layout_mode = 0
+offset_left = 13.1025
+offset_top = 135.209
+offset_right = 83.103
+offset_bottom = 149.209
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_constants/shadow_offset_x = 0
+theme_override_constants/shadow_offset_y = 0
+theme_override_constants/shadow_outline_size = 0
+theme_override_fonts/font = ExtResource("9_5y6us")
+text = "Version"
+
+[node name="VersionTxt" type="Label" parent="About" unique_id=145294132]
+layout_mode = 0
+offset_left = 12.8449
+offset_top = 155.233
+offset_right = 242.845
+offset_bottom = 186.233
+theme_override_colors/font_color = Color(0, 0.760784, 0.666667, 1)
+theme_override_constants/shadow_offset_x = 0
+theme_override_constants/shadow_offset_y = 0
+theme_override_constants/shadow_outline_size = 0
+theme_override_fonts/font = ExtResource("3_434kl")
+text = "0.22"
+
+[node name="SrcLabel" type="Label" parent="About" unique_id=640583782]
+layout_mode = 0
+offset_left = 15.593
+offset_top = 187.26
+offset_right = 85.5938
+offset_bottom = 201.26
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_constants/shadow_offset_x = 0
+theme_override_constants/shadow_offset_y = 0
+theme_override_constants/shadow_outline_size = 0
+theme_override_fonts/font = ExtResource("9_5y6us")
+text = "Sources"
+
+[node name="SrcTxt" type="Label" parent="About" unique_id=696799908]
+layout_mode = 0
+offset_left = 15.3354
+offset_top = 200.984
+offset_right = 354.336
+offset_bottom = 231.984
+pivot_offset = Vector2(227.935, 35.6174)
+theme_override_colors/font_color = Color(0, 0.760784, 0.666667, 1)
+theme_override_constants/shadow_offset_x = 0
+theme_override_constants/shadow_offset_y = 0
+theme_override_constants/shadow_outline_size = 0
+theme_override_fonts/font = ExtResource("3_434kl")
+text = "https://github.com/naparuba/fdcn"
+
+[node name="ThnksLabel" type="Label" parent="About" unique_id=550090580]
+layout_mode = 0
+offset_left = 15.7058
+offset_top = 238.83
+offset_right = 85.7061
+offset_bottom = 252.83
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_constants/shadow_offset_x = 0
+theme_override_constants/shadow_offset_y = 0
+theme_override_constants/shadow_outline_size = 0
+theme_override_fonts/font = ExtResource("9_5y6us")
+text = "Remerciements"
+
+[node name="ThnksTxt" type="Label" parent="About" unique_id=275068742]
+layout_mode = 0
+offset_left = 15.0
+offset_top = 253.0
+offset_right = 362.0
+offset_bottom = 427.0
+theme_override_colors/font_color = Color(0, 0.760784, 0.666667, 1)
+theme_override_constants/shadow_offset_x = 0
+theme_override_constants/shadow_offset_y = 0
+theme_override_constants/shadow_outline_size = 0
+theme_override_fonts/font = SubResource("FontFile_xnbyc")
+text = "- Bob pour cette super oeuvre
+- Les dev de \"Godot\" qui ont
+permis à cette application d'exister
+- Pour leur patchs: Anael Closson & Linklinsse
+- Report de bug: Mystorage09, Polurax & Holorim"
+
+[node name="NotesLabel" type="Label" parent="About" unique_id=1800753158]
+layout_mode = 0
+offset_left = 12.2959
+offset_top = 448.107
+offset_right = 82.2967
+offset_bottom = 462.107
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_constants/shadow_offset_x = 0
+theme_override_constants/shadow_offset_y = 0
+theme_override_constants/shadow_outline_size = 0
+theme_override_fonts/font = ExtResource("9_5y6us")
+text = "Notes"
+
+[node name="NotesTxt" type="Label" parent="About" unique_id=1302327911]
+layout_mode = 0
+offset_left = 12.0383
+offset_top = 461.831
+offset_right = 351.039
+offset_bottom = 628.831
+theme_override_colors/font_color = Color(0, 0.760784, 0.666667, 1)
+theme_override_constants/shadow_offset_x = 0
+theme_override_constants/shadow_offset_y = 0
+theme_override_constants/shadow_outline_size = 0
+theme_override_fonts/font = ExtResource("3_434kl")
+text = "Toute aide pour dev ou debugguer
+est la bienvenue ^^"
+
+[node name="Disclaimer" type="Label" parent="About" unique_id=983867539]
+layout_mode = 0
+offset_left = 15.1111
+offset_top = 555.179
+offset_right = 440.111
+offset_bottom = 798.179
+theme_override_colors/font_color = Color(0.760784, 0.447059, 0, 1)
+theme_override_constants/shadow_offset_x = 0
+theme_override_constants/shadow_offset_y = 0
+theme_override_constants/shadow_outline_size = 0
+theme_override_fonts/font = SubResource("FontFile_xbm7o")
+text = "IMPORTANT:
+Ceci est une application
+FAN MADE, NON OFFICIELLE
+
+Tous les droits sont à Bob Lennon
+et LinkDigitalSpirit."
+
+[node name="GenericTextPopup" parent="." unique_id=904256914 instance=ExtResource("11_pkvei")]
+visible = false
+layout_mode = 0
+offset_left = 16.27
+offset_top = 97.6014
+offset_right = 544.27
+offset_bottom = 417.601
+content = "Cette action vous fera recommencer l'histoire depuis le début et perdre tout vos items.
+Êtes-vous sûr de vouloir continuer ?"

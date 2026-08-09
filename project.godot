@@ -12,7 +12,7 @@ config_version=5
 
 config/name="fdcn"
 config/description="Application de suivi de progression dans le livre La Forteresse du Chaudron Noir"
-run/main_scene="res://main.tscn"
+run/main_scene="res://archive/main.tscn"
 config/features=PackedStringArray("4.7")
 boot_splash/bg_color=Color(0, 0, 0, 1)
 boot_splash/image="res://images/barbare_icon.png"
@@ -20,12 +20,12 @@ config/icon="res://images/fdcn_icon.png"
 
 [autoload]
 
-Sounder="*res://Sounder.tscn"
-Utils="*res://utils.gd"
-BookData="*res://BookData.gd"
-AppParameters="*res://Parameters.gd"
-Swiper="*res://swipe.gd"
-Player="*res://player.gd"
+Sounder="*res://autoload/Sounder.tscn"
+Utils="*res://autoload/utils.gd"
+BookData="*res://autoload/BookData.gd"
+AppParameters="*res://autoload/Parameters.gd"
+Swiper="*res://autoload/swipe.gd"
+Player="*res://autoload/player.gd"
 
 [display]
 

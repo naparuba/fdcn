@@ -5,7 +5,7 @@
 [ext_resource type="Texture2D" uid="uid://lv7yt42d1b1g" path="res://images/billys/paysan.png" id="3_rjfm5"]
 [ext_resource type="Texture2D" uid="uid://cashxaio2wknw" path="res://images/billys/prudent.png" id="4_lsfe4"]
 [ext_resource type="Texture2D" uid="uid://b5mcl7hdp84lk" path="res://images/billys/debrouillard.png" id="5_glsjr"]
-[ext_resource type="PackedScene" path="res://Item.tscn" id="6_dqggf"]
+[ext_resource type="PackedScene" path="res://entities/Item.tscn" id="6_dqggf"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_xv1mr"]
 bg_color = Color(1, 1, 1, 1)

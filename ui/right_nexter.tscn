@@ -1,0 +1,59 @@
+[gd_scene format=3 uid="uid://l54yt3gtae6v"]
+
+[ext_resource type="FontFile" uid="uid://dvf02ee6hmyyy" path="res://fonts/amon_font.tres" id="1"]
+[ext_resource type="Script" uid="uid://bxmg5k8j310bn" path="res://ui/left_backer.gd" id="3"]
+
+[sub_resource type="StyleBoxEmpty" id="1"]
+
+[node name="Right-Next" type="Panel" unique_id=671344928]
+anchors_preset = -1
+anchor_bottom = 1.0000036
+grow_vertical = 2
+rotation = 1.5708
+size_flags_horizontal = 0
+mouse_filter = 1
+theme_override_styles/panel = SubResource("1")
+script = ExtResource("3")
+metadata/_edit_use_anchors_ = true
+
+[node name="poly" type="Polygon2D" parent="." unique_id=296586933]
+position = Vector2(927.03845, 482.3957)
+rotation = 3.14159
+scale = Vector2(0.9160627, 0.93552226)
+color = Color(0.192157, 0.231373, 0.278431, 1)
+polygon = PackedVector2Array(1011.9801, 558.4027, 981.7657, 515.6459, 528.5504, 515.6463, -5.236328, 515.647, -35.450623, 558.40393, 528.5504, 558.4032)
+
+[node name="txt" type="Label" parent="." unique_id=1841137876]
+layout_mode = 0
+offset_left = 556.7523
+offset_top = 2.328537
+offset_right = 744.7523
+offset_bottom = 36.328537
+rotation = 3.14159
+theme_override_fonts/font = ExtResource("1")
+text = "unset"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="chevron" type="Label" parent="." unique_id=1406620771]
+layout_mode = 1
+anchors_preset = 4
+anchor_top = 0.5
+anchor_bottom = 0.5
+offset_left = 1.0
+offset_top = -18.0
+offset_right = 108.00009
+offset_bottom = 16.0
+grow_vertical = 2
+rotation = 1.5791
+theme_override_fonts/font = ExtResource("1")
+text = "<"
+
+[node name="button" type="TextureButton" parent="." unique_id=1647899880]
+layout_mode = 0
+offset_left = 30.34586
+offset_top = -41.15718
+offset_right = 996.3463
+offset_bottom = 0.8428192
+
+[connection signal="pressed" from="button" to="." method="_on_button_pressed"]

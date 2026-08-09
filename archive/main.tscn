@@ -1,0 +1,2559 @@
+[gd_scene format=3 uid="uid://dl1lkl3mgu3wc"]
+
+[ext_resource type="Script" uid="uid://k5ivyo6vowqt" path="res://archive/main.gd" id="1"]
+[ext_resource type="FontFile" uid="uid://dvf02ee6hmyyy" path="res://fonts/amon_font.tres" id="2"]
+[ext_resource type="PackedScene" path="res://entities/ChapterChoice.tscn" id="3"]
+[ext_resource type="Texture2D" uid="uid://ca3rcfvkxgx3m" path="res://images/fdcn_icon_transparent.png" id="4"]
+[ext_resource type="FontFile" uid="uid://b2geetcvtgqo5" path="res://fonts/amon_font_small.tres" id="5"]
+[ext_resource type="PackedScene" path="res://ui/gauge.tscn" id="6"]
+[ext_resource type="Texture2D" uid="uid://crcaldkeskid5" path="res://images/bar_fill.png" id="7"]
+[ext_resource type="Texture2D" uid="uid://cgrb4bjk30ib3" path="res://images/bar_background.png" id="8"]
+[ext_resource type="PackedScene" path="res://ui/bread.tscn" id="9"]
+[ext_resource type="PackedScene" uid="uid://d0eiddgya32rs" path="res://ui/top_menu.tscn" id="10"]
+[ext_resource type="Texture2D" uid="uid://0ke5c6xjavoi" path="res://images/anim-phumtar-2.png" id="11"]
+[ext_resource type="Texture2D" uid="uid://clclwast44cj4" path="res://images/anim-phumtar-1.png" id="12"]
+[ext_resource type="FontFile" uid="uid://c4uf1h6831ei2" path="res://fonts/RobotoCondensed-Regular.ttf" id="13"]
+[ext_resource type="Texture2D" uid="uid://c0dxuqqu14nc6" path="res://images/soon.png" id="14"]
+[ext_resource type="Texture2D" uid="uid://cd7dt07f430xw" path="res://images/fleche_bas_droite.png" id="15"]
+[ext_resource type="PackedScene" path="res://ui/left_backer.tscn" id="16"]
+[ext_resource type="PackedScene" uid="uid://l54yt3gtae6v" path="res://ui/right_nexter.tscn" id="17"]
+[ext_resource type="PackedScene" uid="uid://cyu1whyusreqt" path="res://entities/Success.tscn" id="18"]
+[ext_resource type="PackedScene" path="res://entities/LoreEntry.tscn" id="19"]
+[ext_resource type="Texture2D" uid="uid://c32ss1seos6no" path="res://images/new_player.png" id="20"]
+[ext_resource type="Texture2D" uid="uid://cfhgpll5nsjlr" path="res://images/bug.png" id="21"]
+[ext_resource type="Texture2D" uid="uid://b28rwcgl58n5y" path="res://images/twitter.png" id="22"]
+[ext_resource type="PackedScene" path="res://popups/SuccessPopup.tscn" id="23"]
+[ext_resource type="Texture2D" uid="uid://b5mcl7hdp84lk" path="res://images/billys/debrouillard.png" id="24"]
+[ext_resource type="Texture2D" uid="uid://cashxaio2wknw" path="res://images/billys/prudent.png" id="25"]
+[ext_resource type="Texture2D" uid="uid://lv7yt42d1b1g" path="res://images/billys/paysan.png" id="26"]
+[ext_resource type="Texture2D" uid="uid://dpfh3vylax3qp" path="res://images/billys/guerrier.png" id="27"]
+[ext_resource type="Shader" uid="uid://bykbl3wmjf137" path="res://shaders/gray.gdshader" id="28"]
+[ext_resource type="PackedScene" path="res://popups/GenericConfirmationPopup.tscn" id="29"]
+[ext_resource type="Texture2D" uid="uid://cn7b86vr6dflg" path="res://images/blue-tick.png" id="30"]
+[ext_resource type="PackedScene" path="res://entities/Item.tscn" id="31"]
+[ext_resource type="Texture2D" uid="uid://dxfxupfx0yafp" path="res://images/fight.svg" id="32"]
+[ext_resource type="Texture2D" uid="uid://qwx2iu4l5rff" path="res://images/dice/6-r.svg" id="33"]
+[ext_resource type="Texture2D" uid="uid://bpvcmsy4jd0xl" path="res://images/barbare_icon_white.png" id="34"]
+[ext_resource type="Texture2D" uid="uid://pihk1g5c7nwh" path="res://images/backpack.png" id="35"]
+[ext_resource type="Texture2D" uid="uid://dbvlv5bpa6h6y" path="res://images/health.png" id="36"]
+[ext_resource type="Texture2D" uid="uid://duoi4s0xyj61" path="res://images/book_select.png" id="37"]
+[ext_resource type="Texture2D" uid="uid://vay5y67r1wo8" path="res://images/cdsi_book.jpg" id="38"]
+[ext_resource type="Texture2D" uid="uid://diiwn4pygknip" path="res://images/fdcn_book.jpg" id="39"]
+
+[sub_resource type="StyleBoxFlat" id="1"]
+bg_color = Color(0.92549, 0.929412, 0.94902, 1)
+
+[sub_resource type="StyleBoxFlat" id="2"]
+bg_color = Color(1, 1, 1, 1)
+
+[sub_resource type="StyleBoxFlat" id="3"]
+bg_color = Color(0.192157, 0.231373, 0.278431, 1)
+
+[sub_resource type="FontFile" id="4"]
+fallbacks = Array[Font]([ExtResource("13")])
+cache/0/variation_coordinates = {}
+cache/0/face_index = 0
+cache/0/embolden = 0.0
+cache/0/transform = Transform2D(1, 0, 0, 1, 0, 0)
+cache/0/spacing_top = 0
+cache/0/spacing_bottom = 0
+cache/0/spacing_space = 0
+cache/0/spacing_glyph = 0
+cache/0/baseline_offset = 0.0
+cache/0/16/0/ascent = 0.0
+cache/0/16/0/descent = 0.0
+cache/0/16/0/underline_position = 0.0
+cache/0/16/0/underline_thickness = 0.0
+cache/0/16/0/scale = 1.0
+
+[sub_resource type="StyleBoxFlat" id="5"]
+bg_color = Color(0.913725, 0.917647, 0.92549, 1)
+
+[sub_resource type="StyleBoxFlat" id="6"]
+bg_color = Color(0.92549, 0.929412, 0.94902, 1)
+corner_radius_top_left = 2
+corner_radius_top_right = 2
+corner_radius_bottom_right = 2
+corner_radius_bottom_left = 2
+
+[sub_resource type="SpriteFrames" id="7"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("12")
+}, {
+"duration": 1.0,
+"texture": ExtResource("11")
+}],
+"loop": 1,
+"name": &"default",
+"speed": 16.0
+}]
+
+[sub_resource type="FontFile" id="8"]
+fallbacks = Array[Font]([ExtResource("13")])
+cache/0/variation_coordinates = {}
+cache/0/face_index = 0
+cache/0/embolden = 0.0
+cache/0/transform = Transform2D(1, 0, 0, 1, 0, 0)
+cache/0/spacing_top = 0
+cache/0/spacing_bottom = 0
+cache/0/spacing_space = 0
+cache/0/spacing_glyph = 0
+cache/0/baseline_offset = 0.0
+cache/0/16/0/ascent = 0.0
+cache/0/16/0/descent = 0.0
+cache/0/16/0/underline_position = 0.0
+cache/0/16/0/underline_thickness = 0.0
+cache/0/16/0/scale = 1.0
+
+[sub_resource type="FontFile" id="9"]
+fallbacks = Array[Font]([ExtResource("13")])
+cache/0/variation_coordinates = {}
+cache/0/face_index = 0
+cache/0/embolden = 0.0
+cache/0/transform = Transform2D(1, 0, 0, 1, 0, 0)
+cache/0/spacing_top = 0
+cache/0/spacing_bottom = 0
+cache/0/spacing_space = 0
+cache/0/spacing_glyph = 0
+cache/0/baseline_offset = 0.0
+cache/0/16/0/ascent = 0.0
+cache/0/16/0/descent = 0.0
+cache/0/16/0/underline_position = 0.0
+cache/0/16/0/underline_thickness = 0.0
+cache/0/16/0/scale = 1.0
+
+[sub_resource type="StyleBoxFlat" id="10"]
+bg_color = Color(1, 1, 1, 1)
+border_width_top = 3
+border_color = Color(0.192157, 0.231373, 0.278431, 1)
+
+[sub_resource type="StyleBoxFlat" id="11"]
+bg_color = Color(0.913725, 0.917647, 0.92549, 1)
+
+[sub_resource type="FontFile" id="12"]
+fallbacks = Array[Font]([ExtResource("13")])
+cache/0/variation_coordinates = {}
+cache/0/face_index = 0
+cache/0/embolden = 0.0
+cache/0/transform = Transform2D(1, 0, 0, 1, 0, 0)
+cache/0/spacing_top = 0
+cache/0/spacing_bottom = 0
+cache/0/spacing_space = 0
+cache/0/spacing_glyph = 0
+cache/0/baseline_offset = 0.0
+cache/0/16/0/ascent = 0.0
+cache/0/16/0/descent = 0.0
+cache/0/16/0/underline_position = 0.0
+cache/0/16/0/underline_thickness = 0.0
+cache/0/16/0/scale = 1.0
+
+[sub_resource type="FontFile" id="13"]
+fallbacks = Array[Font]([ExtResource("13")])
+cache/0/variation_coordinates = {}
+cache/0/face_index = 0
+cache/0/embolden = 0.0
+cache/0/transform = Transform2D(1, 0, 0, 1, 0, 0)
+cache/0/spacing_top = 0
+cache/0/spacing_bottom = 0
+cache/0/spacing_space = 0
+cache/0/spacing_glyph = 0
+cache/0/baseline_offset = 0.0
+cache/0/16/0/ascent = 0.0
+cache/0/16/0/descent = 0.0
+cache/0/16/0/underline_position = 0.0
+cache/0/16/0/underline_thickness = 0.0
+cache/0/16/0/scale = 1.0
+
+[sub_resource type="FontFile" id="14"]
+fallbacks = Array[Font]([ExtResource("13")])
+cache/0/variation_coordinates = {}
+cache/0/face_index = 0
+cache/0/embolden = 0.0
+cache/0/transform = Transform2D(1, 0, 0, 1, 0, 0)
+cache/0/spacing_top = 0
+cache/0/spacing_bottom = 0
+cache/0/spacing_space = 0
+cache/0/spacing_glyph = 0
+cache/0/baseline_offset = 0.0
+cache/0/16/0/ascent = 0.0
+cache/0/16/0/descent = 0.0
+cache/0/16/0/underline_position = 0.0
+cache/0/16/0/underline_thickness = 0.0
+cache/0/16/0/scale = 1.0
+
+[sub_resource type="StyleBoxFlat" id="15"]
+bg_color = Color(0.92549, 0.929412, 0.94902, 1)
+corner_radius_top_left = 2
+corner_radius_top_right = 2
+corner_radius_bottom_right = 2
+corner_radius_bottom_left = 2
+
+[sub_resource type="StyleBoxFlat" id="35"]
+bg_color = Color(1, 1, 1, 1)
+
+[sub_resource type="StyleBoxFlat" id="17"]
+bg_color = Color(0.192157, 0.231373, 0.278431, 1)
+
+[sub_resource type="StyleBoxFlat" id="29"]
+
+[sub_resource type="StyleBoxFlat" id="30"]
+bg_color = Color(0.878431, 0.886275, 0.898039, 1)
+
+[sub_resource type="StyleBoxFlat" id="31"]
+
+[sub_resource type="StyleBoxFlat" id="32"]
+bg_color = Color(1, 1, 1, 1)
+
+[sub_resource type="StyleBoxEmpty" id="21"]
+
+[sub_resource type="ShaderMaterial" id="39"]
+shader = ExtResource("28")
+shader_parameter/grayscale = false
+
+[sub_resource type="StyleBoxEmpty" id="22"]
+
+[sub_resource type="ShaderMaterial" id="23"]
+shader = ExtResource("28")
+shader_parameter/grayscale = false
+
+[sub_resource type="StyleBoxEmpty" id="24"]
+
+[sub_resource type="ShaderMaterial" id="25"]
+shader = ExtResource("28")
+shader_parameter/grayscale = false
+
+[sub_resource type="StyleBoxEmpty" id="26"]
+
+[sub_resource type="ShaderMaterial" id="27"]
+shader = ExtResource("28")
+shader_parameter/grayscale = false
+
+[sub_resource type="StyleBoxFlat" id="33"]
+bg_color = Color(1, 1, 1, 1)
+
+[sub_resource type="StyleBoxFlat" id="34"]
+bg_color = Color(1, 1, 1, 1)
+
+[sub_resource type="StyleBoxFlat" id="36"]
+bg_color = Color(1, 1, 1, 1)
+
+[sub_resource type="ShaderMaterial" id="37"]
+shader = ExtResource("28")
+shader_parameter/grayscale = false
+
+[sub_resource type="ShaderMaterial" id="38"]
+shader = ExtResource("28")
+shader_parameter/grayscale = false
+
+[sub_resource type="StyleBoxEmpty" id="28"]
+
+[node name="main" type="Node2D" unique_id=194619830]
+script = ExtResource("1")
+
+[node name="Background" type="Panel" parent="." unique_id=2044908071]
+offset_left = 1.0
+offset_right = 559.0
+offset_bottom = 1046.0
+mouse_filter = 1
+theme_override_styles/panel = SubResource("1")
+
+[node name="Left-Back" parent="Background" unique_id=1927463742 instance=ExtResource("16")]
+layout_mode = 0
+offset_left = 0.0
+offset_top = 0.0
+offset_right = 972.0001
+offset_bottom = 41.99994
+txt = "Chapitre précédent"
+dest = null
+is_disabled = true
+
+[node name="Right-Next" parent="Background" unique_id=822891621 instance=ExtResource("17")]
+layout_mode = 0
+anchors_preset = 0
+anchor_bottom = 0.0
+grow_vertical = 1
+txt = "Tous les chapitres"
+dest = null
+
+[node name="top_menu" parent="Background" unique_id=1383283260 instance=ExtResource("10")]
+layout_mode = 0
+anchors_preset = 0
+anchor_right = 0.0
+offset_right = 558.0
+offset_bottom = 42.0
+grow_horizontal = 1
+
+[node name="GlobalCompletion" type="Panel" parent="Background" unique_id=219448295]
+layout_mode = 0
+offset_left = 53.069
+offset_top = 58.3134
+offset_right = 242.069
+offset_bottom = 240.314
+mouse_filter = 1
+theme_override_styles/panel = SubResource("2")
+
+[node name="Header" type="Panel" parent="Background/GlobalCompletion" unique_id=38947438]
+layout_mode = 0
+offset_right = 188.0
+offset_bottom = 42.0
+mouse_filter = 1
+theme_override_styles/panel = SubResource("3")
+
+[node name="Label" type="Label" parent="Background/GlobalCompletion/Header" unique_id=742742880]
+layout_mode = 0
+offset_left = 48.0997
+offset_top = 4.0547
+offset_right = 155.1
+offset_bottom = 35.0547
+theme_override_fonts/font = ExtResource("2")
+text = "Completé"
+
+[node name="fdcn" type="Sprite2D" parent="Background/GlobalCompletion/Header" unique_id=686725722]
+position = Vector2(22.2236, 20.9834)
+scale = Vector2(0.103378, 0.0980473)
+texture = ExtResource("4")
+
+[node name="Gauge" parent="Background/GlobalCompletion" unique_id=766789644 instance=ExtResource("6")]
+position = Vector2(88.3884, 97.9343)
+
+[node name="footnode" type="Label" parent="Background/GlobalCompletion" unique_id=59419046]
+layout_mode = 0
+offset_left = 142.403
+offset_top = 164.985
+offset_right = 185.403
+offset_bottom = 178.985
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_constants/shadow_offset_x = 0
+theme_override_constants/shadow_offset_y = 0
+theme_override_constants/shadow_outline_size = 0
+theme_override_fonts/font = ExtResource("5")
+text = "X/606"
+horizontal_alignment = 2
+
+[node name="Position" type="Panel" parent="Background" unique_id=1565658554]
+layout_mode = 0
+offset_left = 256.909
+offset_top = 57.3182
+offset_right = 497.909
+offset_bottom = 242.318
+mouse_filter = 1
+theme_override_styles/panel = SubResource("2")
+
+[node name="Header" type="Panel" parent="Background/Position" unique_id=511284713]
+layout_mode = 0
+offset_right = 241.0
+offset_bottom = 42.0
+mouse_filter = 1
+theme_override_styles/panel = SubResource("3")
+
+[node name="Label" type="Label" parent="Background/Position/Header" unique_id=1396230155]
+layout_mode = 0
+offset_left = 85.8616
+offset_top = 3.68015
+offset_right = 167.862
+offset_bottom = 34.6801
+theme_override_fonts/font = ExtResource("2")
+text = "Position"
+
+[node name="LabelActe" type="Label" parent="Background/Position" unique_id=1505744387]
+layout_mode = 0
+offset_left = 45.2576
+offset_top = 47.7458
+offset_right = 115.258
+offset_bottom = 61.7458
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_constants/shadow_offset_x = 0
+theme_override_constants/shadow_offset_y = 0
+theme_override_constants/shadow_outline_size = 0
+theme_override_fonts/font = ExtResource("5")
+text = "Acte"
+
+[node name="Acte" type="Label" parent="Background/Position" unique_id=1105973536]
+layout_mode = 0
+offset_left = 45.0
+offset_top = 61.4703
+offset_right = 207.0
+offset_bottom = 92.4703
+theme_override_colors/font_color = Color(0, 0.760784, 0.666667, 1)
+theme_override_constants/shadow_offset_x = 0
+theme_override_constants/shadow_offset_y = 0
+theme_override_constants/shadow_outline_size = 0
+theme_override_fonts/font = ExtResource("2")
+text = "XXX"
+
+[node name="fill_bar" type="TextureProgressBar" parent="Background/Position" unique_id=109567505]
+layout_mode = 0
+offset_left = 27.7206
+offset_top = 51.0676
+offset_right = 37.7206
+offset_bottom = 91.0676
+scale = Vector2(1, 0.839999)
+fill_mode = 3
+texture_under = ExtResource("8")
+texture_progress = ExtResource("7")
+
+[node name="fill_par_pct" type="Label" parent="Background/Position" unique_id=931218986]
+layout_mode = 0
+offset_left = 5.0
+offset_top = 72.2054
+offset_right = 28.0
+offset_bottom = 86.2054
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_constants/shadow_offset_x = 0
+theme_override_constants/shadow_offset_y = 0
+theme_override_constants/shadow_outline_size = 0
+theme_override_fonts/font = ExtResource("5")
+
+[node name="LabelArc" type="Label" parent="Background/Position" unique_id=1926538332]
+layout_mode = 0
+offset_left = 73.4753
+offset_top = 92.7138
+offset_right = 143.476
+offset_bottom = 106.714
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_constants/shadow_offset_x = 0
+theme_override_constants/shadow_offset_y = 0
+theme_override_constants/shadow_outline_size = 0
+theme_override_fonts/font = ExtResource("5")
+text = "Arc"
+
+[node name="Arc" type="Label" parent="Background/Position" unique_id=2047759553]
+layout_mode = 0
+offset_left = 73.2177
+offset_top = 106.438
+offset_right = 235.218
+offset_bottom = 137.438
+theme_override_colors/font_color = Color(0, 0.760784, 0.666667, 1)
+theme_override_constants/shadow_offset_x = 0
+theme_override_constants/shadow_offset_y = 0
+theme_override_constants/shadow_outline_size = 0
+theme_override_fonts/font = ExtResource("2")
+text = "XXX"
+
+[node name="fleche_arc" type="Sprite2D" parent="Background/Position" unique_id=1271177198]
+position = Vector2(41.105, 102.211)
+scale = Vector2(0.184088, 0.184088)
+texture = ExtResource("15")
+
+[node name="fill_bar_arc" type="TextureProgressBar" parent="Background/Position" unique_id=985553085]
+layout_mode = 0
+offset_left = 55.9383
+offset_top = 96.0356
+offset_right = 65.9383
+offset_bottom = 136.036
+scale = Vector2(1, 0.839999)
+fill_mode = 3
+texture_under = ExtResource("8")
+texture_progress = ExtResource("7")
+
+[node name="fill_bar_arc_pct" type="Label" parent="Background/Position" unique_id=1302643478]
+layout_mode = 0
+offset_left = 33.2177
+offset_top = 117.173
+offset_right = 56.2177
+offset_bottom = 131.173
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_constants/shadow_offset_x = 0
+theme_override_constants/shadow_offset_y = 0
+theme_override_constants/shadow_outline_size = 0
+theme_override_fonts/font = ExtResource("5")
+
+[node name="LabelChapitreSmall" type="Label" parent="Background/Position" unique_id=976800079]
+layout_mode = 0
+offset_left = 165.822
+offset_top = 137.314
+offset_right = 235.822
+offset_bottom = 151.314
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_constants/shadow_offset_x = 0
+theme_override_constants/shadow_offset_y = 0
+theme_override_constants/shadow_outline_size = 0
+theme_override_fonts/font = ExtResource("5")
+text = "Chapitre"
+
+[node name="NumeroChapitreSmall" type="Label" parent="Background/Position" unique_id=521239740]
+layout_mode = 0
+offset_left = 165.898
+offset_top = 147.842
+offset_right = 212.898
+offset_bottom = 178.842
+theme_override_colors/font_color = Color(0, 0.760784, 0.666667, 1)
+theme_override_constants/shadow_offset_x = 0
+theme_override_constants/shadow_offset_y = 0
+theme_override_constants/shadow_outline_size = 0
+theme_override_fonts/font = ExtResource("2")
+text = "XXX"
+
+[node name="LabelChapitreBig" type="Label" parent="Background/Position" unique_id=1828574879]
+visible = false
+layout_mode = 0
+offset_left = 134.459
+offset_top = 102.699
+offset_right = 204.459
+offset_bottom = 116.699
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_constants/shadow_offset_x = 0
+theme_override_constants/shadow_offset_y = 0
+theme_override_constants/shadow_outline_size = 0
+theme_override_fonts/font = ExtResource("5")
+text = "Chapitre"
+
+[node name="NumeroChapitreBig" type="Label" parent="Background/Position" unique_id=1985443310]
+visible = false
+layout_mode = 0
+offset_left = 132.754
+offset_top = 111.445
+offset_right = 237.754
+offset_bottom = 187.445
+theme_override_colors/font_color = Color(0, 0.760784, 0.666667, 1)
+theme_override_constants/shadow_offset_x = 0
+theme_override_constants/shadow_offset_y = 0
+theme_override_constants/shadow_outline_size = 0
+theme_override_fonts/font = SubResource("4")
+text = "XXX"
+
+[node name="Dreadcumb" type="Panel" parent="Background" unique_id=1810320725]
+layout_mode = 0
+offset_left = 54.115
+offset_top = 260.0
+offset_right = 499.115
+offset_bottom = 342.0
+theme_override_styles/panel = SubResource("2")
+
+[node name="Header" type="Panel" parent="Background/Dreadcumb" unique_id=1484617001]
+layout_mode = 0
+offset_right = 445.0
+offset_bottom = 42.0
+mouse_filter = 1
+theme_override_styles/panel = SubResource("3")
+
+[node name="Label" type="Label" parent="Background/Dreadcumb/Header" unique_id=1452246355]
+layout_mode = 0
+offset_left = 180.576
+offset_top = 3.04227
+offset_right = 253.576
+offset_bottom = 34.0423
+theme_override_fonts/font = ExtResource("2")
+text = "Avancé"
+
+[node name="breads" type="HBoxContainer" parent="Background/Dreadcumb" unique_id=1396779782]
+layout_mode = 0
+offset_left = 0.530327
+offset_top = 42.0728
+offset_right = 144.53
+offset_bottom = 42.0728
+
+[node name="bread" parent="Background/Dreadcumb/breads" unique_id=2018117004 instance=ExtResource("9")]
+layout_mode = 2
+
+[node name="bread2" parent="Background/Dreadcumb/breads" unique_id=628963338 instance=ExtResource("9")]
+layout_mode = 2
+
+[node name="Next" type="Panel" parent="Background" unique_id=1124929450]
+layout_mode = 0
+offset_left = 56.0
+offset_top = 377.0
+offset_right = 501.0
+offset_bottom = 1011.0
+mouse_filter = 1
+theme_override_styles/panel = SubResource("2")
+
+[node name="Header" type="Panel" parent="Background/Next" unique_id=598920206]
+layout_mode = 0
+offset_right = 445.0
+offset_bottom = 42.0
+mouse_filter = 1
+theme_override_styles/panel = SubResource("3")
+
+[node name="Label" type="Label" parent="Background/Next/Header" unique_id=272539335]
+layout_mode = 0
+offset_left = 189.601
+offset_top = 5.00259
+offset_right = 259.601
+offset_bottom = 36.0026
+theme_override_fonts/font = ExtResource("2")
+text = "Choix"
+
+[node name="ScrollContainer" type="ScrollContainer" parent="Background/Next" unique_id=661408524]
+layout_mode = 0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = 43.0
+offset_bottom = -17.0
+
+[node name="Choices" type="VBoxContainer" parent="Background/Next/ScrollContainer" unique_id=508623755]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="ChapterChoice" parent="Background/Next/ScrollContainer/Choices" unique_id=512847468 instance=ExtResource("3")]
+layout_mode = 2
+
+[node name="ChapterChoice2" parent="Background/Next/ScrollContainer/Choices" unique_id=204705548 instance=ExtResource("3")]
+layout_mode = 2
+
+[node name="Chapitres" type="Panel" parent="." unique_id=1030228449]
+offset_left = 597.622
+offset_top = 2.08038
+offset_right = 1155.62
+offset_bottom = 1048.08
+mouse_filter = 1
+theme_override_styles/panel = SubResource("1")
+
+[node name="Left-Back" parent="Chapitres" unique_id=1153839770 instance=ExtResource("16")]
+layout_mode = 0
+offset_left = 0.272339
+offset_top = 1009.19
+offset_right = 972.272
+offset_bottom = 1051.19
+txt = "Aventure"
+dest = null
+
+[node name="Right-Next" parent="Chapitres" unique_id=252286037 instance=ExtResource("17")]
+layout_mode = 0
+anchors_preset = 0
+anchor_bottom = 0.0
+offset_left = 557.631
+offset_top = 26.0717
+offset_right = 1529.63
+offset_bottom = 68.0716
+grow_vertical = 1
+txt = "Les succès"
+dest = null
+
+[node name="top_menu" parent="Chapitres" unique_id=212614064 instance=ExtResource("10")]
+layout_mode = 0
+anchors_preset = 0
+anchor_right = 0.0
+offset_top = -1.0
+offset_right = 558.0
+offset_bottom = 41.0
+grow_horizontal = 1
+
+[node name="AllChapters" type="Panel" parent="Chapitres" unique_id=1629054516]
+layout_mode = 0
+offset_left = 59.0
+offset_top = 54.0
+offset_right = 504.0
+offset_bottom = 1022.0
+mouse_filter = 1
+theme_override_styles/panel = SubResource("2")
+
+[node name="Header" type="Panel" parent="Chapitres/AllChapters" unique_id=1534152036]
+layout_mode = 0
+offset_right = 445.0
+offset_bottom = 42.0
+mouse_filter = 1
+theme_override_styles/panel = SubResource("3")
+
+[node name="Label" type="Label" parent="Chapitres/AllChapters/Header" unique_id=1969114636]
+layout_mode = 0
+offset_left = 121.524
+offset_top = 5.00259
+offset_right = 305.524
+offset_bottom = 36.0026
+theme_override_fonts/font = ExtResource("2")
+text = "Tous les Chapitres"
+
+[node name="SautLabel" type="Label" parent="Chapitres/AllChapters" unique_id=1463267320]
+layout_mode = 0
+offset_left = 12.2982
+offset_top = 55.7809
+offset_right = 64.2982
+offset_bottom = 86.7809
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_fonts/font = ExtResource("2")
+text = "Saut"
+
+[node name="Block-1" type="Panel" parent="Chapitres/AllChapters" unique_id=1464675995]
+layout_mode = 0
+offset_left = 69.2867
+offset_top = 50.1101
+offset_right = 112.287
+offset_bottom = 92.1101
+theme_override_styles/panel = SubResource("5")
+
+[node name="jump" type="Label" parent="Chapitres/AllChapters/Block-1" unique_id=1287615823]
+layout_mode = 0
+offset_left = 6.00751
+offset_top = 5.04086
+offset_right = 18.0075
+offset_bottom = 36.0409
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_fonts/font = ExtResource("2")
+text = "1"
+
+[node name="button" type="TextureButton" parent="Chapitres/AllChapters/Block-1" unique_id=1931432603]
+layout_mode = 0
+offset_left = -0.740051
+offset_top = -1.0
+offset_right = 44.2599
+offset_bottom = 42.0
+
+[node name="Block-100" type="Panel" parent="Chapitres/AllChapters" unique_id=1779264250]
+layout_mode = 0
+offset_left = 120.943
+offset_top = 50.1101
+offset_right = 163.943
+offset_bottom = 92.1101
+theme_override_styles/panel = SubResource("5")
+
+[node name="jump" type="Label" parent="Chapitres/AllChapters/Block-100" unique_id=809226030]
+layout_mode = 0
+offset_left = 3.48773
+offset_top = 5.67082
+offset_right = 39.4877
+offset_bottom = 36.6708
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_fonts/font = ExtResource("2")
+text = "100"
+
+[node name="button" type="TextureButton" parent="Chapitres/AllChapters/Block-100" unique_id=575003110]
+layout_mode = 0
+offset_left = -0.740051
+offset_top = -1.0
+offset_right = 44.2599
+offset_bottom = 42.0
+
+[node name="Block-200" type="Panel" parent="Chapitres/AllChapters" unique_id=1561268225]
+layout_mode = 0
+offset_left = 175.12
+offset_top = 51.37
+offset_right = 218.12
+offset_bottom = 93.37
+theme_override_styles/panel = SubResource("5")
+
+[node name="jump" type="Label" parent="Chapitres/AllChapters/Block-200" unique_id=891049290]
+layout_mode = 0
+offset_left = 4.11761
+offset_top = 5.04086
+offset_right = 40.1176
+offset_bottom = 36.0409
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_fonts/font = ExtResource("2")
+text = "200"
+
+[node name="button" type="TextureButton" parent="Chapitres/AllChapters/Block-200" unique_id=106972111]
+layout_mode = 0
+offset_left = -0.740051
+offset_top = -1.0
+offset_right = 44.2599
+offset_bottom = 42.0
+
+[node name="Block-300" type="Panel" parent="Chapitres/AllChapters" unique_id=2140380254]
+layout_mode = 0
+offset_left = 228.667
+offset_top = 50.7401
+offset_right = 271.667
+offset_bottom = 92.7401
+theme_override_styles/panel = SubResource("5")
+
+[node name="jump" type="Label" parent="Chapitres/AllChapters/Block-300" unique_id=896981563]
+layout_mode = 0
+offset_left = 4.11761
+offset_top = 5.04086
+offset_right = 40.1176
+offset_bottom = 36.0409
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_fonts/font = ExtResource("2")
+text = "300"
+
+[node name="button" type="TextureButton" parent="Chapitres/AllChapters/Block-300" unique_id=202505696]
+layout_mode = 0
+offset_left = -0.740051
+offset_top = -1.0
+offset_right = 44.2599
+offset_bottom = 42.0
+
+[node name="Block-400" type="Panel" parent="Chapitres/AllChapters" unique_id=833017848]
+layout_mode = 0
+offset_left = 281.583
+offset_top = 50.7401
+offset_right = 324.583
+offset_bottom = 92.7401
+theme_override_styles/panel = SubResource("5")
+
+[node name="jump" type="Label" parent="Chapitres/AllChapters/Block-400" unique_id=1103813471]
+layout_mode = 0
+offset_left = 4.74762
+offset_top = 5.04086
+offset_right = 40.7476
+offset_bottom = 36.0409
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_fonts/font = ExtResource("2")
+text = "400"
+
+[node name="button" type="TextureButton" parent="Chapitres/AllChapters/Block-400" unique_id=523054572]
+layout_mode = 0
+offset_left = -0.740051
+offset_top = -1.0
+offset_right = 44.2599
+offset_bottom = 42.0
+
+[node name="Block-500" type="Panel" parent="Chapitres/AllChapters" unique_id=50299567]
+layout_mode = 0
+offset_left = 331.98
+offset_top = 51.3701
+offset_right = 374.98
+offset_bottom = 93.3701
+theme_override_styles/panel = SubResource("5")
+
+[node name="jump" type="Label" parent="Chapitres/AllChapters/Block-500" unique_id=1421122447]
+layout_mode = 0
+offset_left = 4.74762
+offset_top = 5.04086
+offset_right = 40.7476
+offset_bottom = 36.0409
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_fonts/font = ExtResource("2")
+text = "500"
+
+[node name="button" type="TextureButton" parent="Chapitres/AllChapters/Block-500" unique_id=481017924]
+layout_mode = 0
+offset_left = -0.740051
+offset_top = -1.0
+offset_right = 44.2599
+offset_bottom = 42.0
+
+[node name="Block-600" type="Panel" parent="Chapitres/AllChapters" unique_id=1050423753]
+layout_mode = 0
+offset_left = 386.157
+offset_top = 50.1101
+offset_right = 429.157
+offset_bottom = 92.1101
+theme_override_styles/panel = SubResource("5")
+
+[node name="jump" type="Label" parent="Chapitres/AllChapters/Block-600" unique_id=2059285922]
+layout_mode = 0
+offset_left = 3.48773
+offset_top = 5.67082
+offset_right = 39.4877
+offset_bottom = 36.6708
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_fonts/font = ExtResource("2")
+text = "600"
+
+[node name="button" type="TextureButton" parent="Chapitres/AllChapters/Block-600" unique_id=1869695839]
+layout_mode = 0
+offset_left = -0.740051
+offset_top = -1.0
+offset_right = 44.2599
+offset_bottom = 42.0
+
+[node name="VScrollBar" type="ScrollContainer" parent="Chapitres/AllChapters" unique_id=1524075876]
+layout_mode = 0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = 103.0
+
+[node name="Choices" type="VBoxContainer" parent="Chapitres/AllChapters/VScrollBar" unique_id=1010737152]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="ChapterChoice" parent="Chapitres/AllChapters/VScrollBar/Choices" unique_id=437369404 instance=ExtResource("3")]
+layout_mode = 2
+
+[node name="ChapterChoice2" parent="Chapitres/AllChapters/VScrollBar/Choices" unique_id=963752715 instance=ExtResource("3")]
+layout_mode = 2
+
+[node name="ChapterChoice3" parent="Chapitres/AllChapters/VScrollBar/Choices" unique_id=412800452 instance=ExtResource("3")]
+layout_mode = 2
+
+[node name="ChapterChoice4" parent="Chapitres/AllChapters/VScrollBar/Choices" unique_id=1813966497 instance=ExtResource("3")]
+layout_mode = 2
+
+[node name="ChapterChoice5" parent="Chapitres/AllChapters/VScrollBar/Choices" unique_id=279430662 instance=ExtResource("3")]
+layout_mode = 2
+
+[node name="ChapterChoice6" parent="Chapitres/AllChapters/VScrollBar/Choices" unique_id=923498226 instance=ExtResource("3")]
+layout_mode = 2
+
+[node name="ChapterChoice7" parent="Chapitres/AllChapters/VScrollBar/Choices" unique_id=1106372537 instance=ExtResource("3")]
+layout_mode = 2
+
+[node name="ChapterChoice8" parent="Chapitres/AllChapters/VScrollBar/Choices" unique_id=1701675088 instance=ExtResource("3")]
+layout_mode = 2
+
+[node name="ChapterChoice9" parent="Chapitres/AllChapters/VScrollBar/Choices" unique_id=650959743 instance=ExtResource("3")]
+layout_mode = 2
+
+[node name="ChapterChoice10" parent="Chapitres/AllChapters/VScrollBar/Choices" unique_id=1402943627 instance=ExtResource("3")]
+layout_mode = 2
+
+[node name="ChapterChoice11" parent="Chapitres/AllChapters/VScrollBar/Choices" unique_id=1734293956 instance=ExtResource("3")]
+layout_mode = 2
+
+[node name="ChapterChoice12" parent="Chapitres/AllChapters/VScrollBar/Choices" unique_id=546235259 instance=ExtResource("3")]
+layout_mode = 2
+
+[node name="ChapterChoice13" parent="Chapitres/AllChapters/VScrollBar/Choices" unique_id=231675946 instance=ExtResource("3")]
+layout_mode = 2
+
+[node name="ChapterChoice14" parent="Chapitres/AllChapters/VScrollBar/Choices" unique_id=739820198 instance=ExtResource("3")]
+layout_mode = 2
+
+[node name="ChapterChoice15" parent="Chapitres/AllChapters/VScrollBar/Choices" unique_id=2113414736 instance=ExtResource("3")]
+layout_mode = 2
+
+[node name="ChapterChoice16" parent="Chapitres/AllChapters/VScrollBar/Choices" unique_id=406337042 instance=ExtResource("3")]
+layout_mode = 2
+
+[node name="ChapterChoice17" parent="Chapitres/AllChapters/VScrollBar/Choices" unique_id=2009311387 instance=ExtResource("3")]
+layout_mode = 2
+
+[node name="ChapterChoice18" parent="Chapitres/AllChapters/VScrollBar/Choices" unique_id=1914103180 instance=ExtResource("3")]
+layout_mode = 2
+
+[node name="ChapterChoice19" parent="Chapitres/AllChapters/VScrollBar/Choices" unique_id=321325234 instance=ExtResource("3")]
+layout_mode = 2
+
+[node name="Succes" type="Panel" parent="." unique_id=1258192807]
+offset_left = 1192.29
+offset_top = 6.08038
+offset_right = 1750.29
+offset_bottom = 1052.08
+mouse_filter = 1
+theme_override_styles/panel = SubResource("1")
+
+[node name="Left-Back" parent="Succes" unique_id=456307653 instance=ExtResource("16")]
+layout_mode = 0
+offset_left = 0.0
+offset_top = 1008.0
+offset_right = 972.0
+offset_bottom = 1057.0
+txt = "Tous les chapitres"
+dest = null
+
+[node name="Right-Next" parent="Succes" unique_id=4430885 instance=ExtResource("17")]
+layout_mode = 0
+anchors_preset = 0
+anchor_bottom = 0.0
+offset_left = 558.0
+offset_top = 32.0
+offset_right = 1530.0
+offset_bottom = 75.0
+grow_vertical = 1
+txt = "Lore"
+dest = null
+
+[node name="top_menu" parent="Succes" unique_id=856949226 instance=ExtResource("10")]
+layout_mode = 0
+anchors_preset = 0
+anchor_right = 0.0
+offset_left = -0.290039
+offset_top = -6.08038
+offset_right = 557.71
+offset_bottom = 35.9196
+grow_horizontal = 1
+
+[node name="Success" type="Panel" parent="Succes" unique_id=1115101826]
+layout_mode = 0
+offset_left = 56.9229
+offset_top = 52.0
+offset_right = 501.923
+offset_bottom = 1020.0
+mouse_filter = 1
+theme_override_styles/panel = SubResource("2")
+
+[node name="Header" type="Panel" parent="Succes/Success" unique_id=882402252]
+layout_mode = 0
+offset_right = 445.0
+offset_bottom = 42.0
+mouse_filter = 1
+theme_override_styles/panel = SubResource("3")
+
+[node name="Label" type="Label" parent="Succes/Success/Header" unique_id=990242386]
+layout_mode = 0
+offset_left = 121.524
+offset_top = 5.00259
+offset_right = 305.524
+offset_bottom = 36.0026
+theme_override_fonts/font = ExtResource("2")
+text = "Tous les Succès"
+
+[node name="VScrollBar" type="ScrollContainer" parent="Succes/Success" unique_id=802458539]
+layout_mode = 0
+offset_top = 43.6818
+offset_right = 442.0
+offset_bottom = 968.682
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="Success" type="VBoxContainer" parent="Succes/Success/VScrollBar" unique_id=800033103]
+layout_mode = 2
+
+[node name="Success" parent="Succes/Success/VScrollBar/Success" unique_id=1523382189 instance=ExtResource("18")]
+layout_mode = 2
+
+[node name="Lore" type="Panel" parent="." unique_id=1350669798]
+offset_left = 1777.0
+offset_top = 4.0
+offset_right = 2328.0
+offset_bottom = 1050.0
+mouse_filter = 1
+theme_override_styles/panel = SubResource("1")
+
+[node name="Left-Back" parent="Lore" unique_id=1583538263 instance=ExtResource("16")]
+layout_mode = 0
+offset_left = -0.755615
+offset_top = 1011.12
+offset_right = 971.245
+offset_bottom = 1053.12
+txt = "Les succès"
+dest = null
+
+[node name="Right-Next" parent="Lore" unique_id=1529308038 instance=ExtResource("17")]
+layout_mode = 0
+anchors_preset = 0
+anchor_bottom = 0.0
+offset_left = 559.0
+offset_top = 28.0
+offset_right = 1534.0
+offset_bottom = 70.0
+grow_vertical = 1
+txt = "A propos"
+dest = null
+
+[node name="top_menu" parent="Lore" unique_id=1786838086 instance=ExtResource("10")]
+layout_mode = 0
+anchors_preset = 0
+anchor_right = 0.0
+offset_left = -1.0
+offset_top = -4.0
+offset_right = 559.0
+offset_bottom = 38.0
+grow_horizontal = 1
+
+[node name="Lore" type="Panel" parent="Lore" unique_id=901769512]
+layout_mode = 0
+offset_left = 58.0
+offset_top = 51.0
+offset_right = 502.0
+offset_bottom = 1019.0
+mouse_filter = 1
+theme_override_styles/panel = SubResource("2")
+
+[node name="Header" type="Panel" parent="Lore/Lore" unique_id=1685408515]
+layout_mode = 0
+offset_right = 442.0
+offset_bottom = 42.0
+mouse_filter = 1
+theme_override_styles/panel = SubResource("3")
+
+[node name="Label" type="Label" parent="Lore/Lore/Header" unique_id=1413690524]
+layout_mode = 0
+offset_left = 121.524
+offset_top = 5.00259
+offset_right = 305.524
+offset_bottom = 36.0026
+theme_override_fonts/font = ExtResource("2")
+text = "Le lore"
+
+[node name="LinkButton" type="LinkButton" parent="Lore/Lore/Header" unique_id=741852760]
+layout_mode = 0
+offset_left = 262.0
+offset_top = 15.0
+offset_right = 437.0
+offset_bottom = 29.0
+text = "Plus de LORE? Le WIKI!"
+
+[node name="VScrollBar" type="ScrollContainer" parent="Lore/Lore" unique_id=48298180]
+layout_mode = 0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = 42.0
+offset_bottom = -40.0
+
+[node name="persos" type="VBoxContainer" parent="Lore/Lore/VScrollBar" unique_id=441403596]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="BillyGuerrier" parent="Lore/Lore/VScrollBar/persos" unique_id=536488705 instance=ExtResource("19")]
+layout_mode = 2
+titre = "Billy Guerrier"
+
+[node name="BillyPaysan" parent="Lore/Lore/VScrollBar/persos" unique_id=2011588372 instance=ExtResource("19")]
+layout_mode = 2
+entry_name = "paysan"
+titre = "Billy Paysan"
+
+[node name="BillyPrudent" parent="Lore/Lore/VScrollBar/persos" unique_id=1744993752 instance=ExtResource("19")]
+layout_mode = 2
+entry_name = "prudent"
+titre = "Billy Prudent"
+
+[node name="BillyDebrouillard" parent="Lore/Lore/VScrollBar/persos" unique_id=827040496 instance=ExtResource("19")]
+layout_mode = 2
+entry_name = "debrouillard"
+titre = "Billy Debrouillard"
+
+[node name="DieuxAtella" parent="Lore/Lore/VScrollBar/persos" unique_id=1789065862 instance=ExtResource("19")]
+layout_mode = 2
+type_entry = "dieux"
+entry_name = "atella"
+titre = "Atella"
+
+[node name="DieuxBlathnat" parent="Lore/Lore/VScrollBar/persos" unique_id=20332103 instance=ExtResource("19")]
+layout_mode = 2
+type_entry = "dieux"
+entry_name = "blathnat"
+titre = "Blathnat"
+
+[node name="DieuxEdire" parent="Lore/Lore/VScrollBar/persos" unique_id=1288763727 instance=ExtResource("19")]
+layout_mode = 2
+type_entry = "dieux"
+entry_name = "edire"
+titre = "Edire"
+
+[node name="DieuxMutra" parent="Lore/Lore/VScrollBar/persos" unique_id=842441635 instance=ExtResource("19")]
+layout_mode = 2
+type_entry = "dieux"
+entry_name = "mutra"
+titre = "Mutra"
+
+[node name="DieuxMelene" parent="Lore/Lore/VScrollBar/persos" unique_id=1700000520 instance=ExtResource("19")]
+layout_mode = 2
+type_entry = "dieux"
+entry_name = "melene"
+titre = "Melene"
+
+[node name="DieuxNeit" parent="Lore/Lore/VScrollBar/persos" unique_id=1713274680 instance=ExtResource("19")]
+layout_mode = 2
+type_entry = "dieux"
+entry_name = "neit"
+titre = "Neit"
+
+[node name="DieuxNyses" parent="Lore/Lore/VScrollBar/persos" unique_id=1226021698 instance=ExtResource("19")]
+layout_mode = 2
+type_entry = "dieux"
+entry_name = "nyses"
+titre = "Nyses"
+
+[node name="DieuxPhumtar" parent="Lore/Lore/VScrollBar/persos" unique_id=905764318 instance=ExtResource("19")]
+layout_mode = 2
+type_entry = "dieux"
+entry_name = "phumtar"
+titre = "Phumtar"
+
+[node name="DieuxRunir" parent="Lore/Lore/VScrollBar/persos" unique_id=2004290957 instance=ExtResource("19")]
+layout_mode = 2
+type_entry = "dieux"
+entry_name = "runir"
+titre = "Runir"
+
+[node name="DieuxVetherr" parent="Lore/Lore/VScrollBar/persos" unique_id=334785259 instance=ExtResource("19")]
+layout_mode = 2
+type_entry = "dieux"
+entry_name = "vetherr"
+titre = "Vetherr"
+
+[node name="DieuxVirilus" parent="Lore/Lore/VScrollBar/persos" unique_id=2118961063 instance=ExtResource("19")]
+layout_mode = 2
+type_entry = "dieux"
+entry_name = "virilus"
+titre = "Virilus"
+
+[node name="DieuxYtia" parent="Lore/Lore/VScrollBar/persos" unique_id=1265021135 instance=ExtResource("19")]
+layout_mode = 2
+type_entry = "dieux"
+entry_name = "ytia"
+titre = "Ytia"
+
+[node name="DieuxZarkan" parent="Lore/Lore/VScrollBar/persos" unique_id=1984048200 instance=ExtResource("19")]
+layout_mode = 2
+type_entry = "dieux"
+entry_name = "zarkan"
+titre = "Zarkan"
+
+[node name="LoreAuthor" type="Panel" parent="Lore/Lore" unique_id=2130720458]
+layout_mode = 0
+offset_top = 928.601
+offset_right = 442.0
+offset_bottom = 970.601
+mouse_filter = 1
+theme_override_styles/panel = SubResource("3")
+
+[node name="Label" type="Label" parent="Lore/Lore/LoreAuthor" unique_id=1593912303]
+layout_mode = 0
+offset_left = 12.31
+offset_top = 4.00003
+offset_right = 196.31
+offset_bottom = 35.0
+theme_override_fonts/font = ExtResource("2")
+text = "Auteur des images:"
+
+[node name="LinkButton" type="LinkButton" parent="Lore/Lore/LoreAuthor" unique_id=1364351628]
+layout_mode = 0
+offset_left = 294.31
+offset_top = 3.00002
+offset_right = 384.31
+offset_bottom = 34.0
+focus_mode = 2
+theme_override_fonts/font = ExtResource("2")
+text = "Draziel"
+
+[node name="About" type="Panel" parent="." unique_id=1780825392]
+offset_left = 2367.73
+offset_top = 4.39856
+offset_right = 2925.73
+offset_bottom = 1050.4
+mouse_filter = 1
+theme_override_styles/panel = SubResource("1")
+
+[node name="Left-Back" parent="About" unique_id=940297943 instance=ExtResource("16")]
+layout_mode = 0
+offset_left = 0.0
+offset_top = 1011.0
+offset_right = 972.0
+offset_bottom = 1052.0
+txt = "Lore"
+dest = null
+
+[node name="top_menu" parent="About" unique_id=310871192 instance=ExtResource("10")]
+layout_mode = 0
+anchors_preset = 0
+anchor_right = 0.0
+offset_top = -4.0
+offset_right = 558.0
+offset_bottom = 38.0
+grow_horizontal = 1
+
+[node name="Actions" type="Panel" parent="About" unique_id=81689782]
+layout_mode = 0
+offset_left = 58.0
+offset_top = 51.0
+offset_right = 540.0
+offset_bottom = 203.0
+mouse_filter = 1
+theme_override_styles/panel = SubResource("2")
+
+[node name="Header" type="Panel" parent="About/Actions" unique_id=1312832315]
+layout_mode = 0
+offset_right = 482.0
+offset_bottom = 42.0
+mouse_filter = 1
+theme_override_styles/panel = SubResource("3")
+
+[node name="Label" type="Label" parent="About/Actions/Header" unique_id=782389656]
+layout_mode = 0
+offset_left = 121.524
+offset_top = 5.00259
+offset_right = 305.524
+offset_bottom = 36.0026
+theme_override_fonts/font = ExtResource("2")
+text = "Actions"
+horizontal_alignment = 1
+
+[node name="nouveau_billy" type="Panel" parent="About/Actions" unique_id=775427287]
+layout_mode = 0
+offset_left = 37.0
+offset_top = 53.0
+offset_right = 182.0
+offset_bottom = 140.0
+theme_override_styles/panel = SubResource("6")
+
+[node name="Label" type="Label" parent="About/Actions/nouveau_billy" unique_id=1286939968]
+layout_mode = 0
+offset_left = 0.966107
+offset_top = 56.6046
+offset_right = 40.9661
+offset_bottom = 87.6047
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_fonts/font = ExtResource("2")
+text = "Nouveau Billy"
+
+[node name="Button" type="TextureButton" parent="About/Actions/nouveau_billy" unique_id=75892843]
+layout_mode = 0
+offset_right = 145.0
+offset_bottom = 87.0
+
+[node name="Sprite2D" type="Sprite2D" parent="About/Actions/nouveau_billy" unique_id=1215185721]
+position = Vector2(71.5449, 28.0304)
+scale = Vector2(0.0996552, 0.0996552)
+texture = ExtResource("20")
+
+[node name="new_bug" type="Panel" parent="About/Actions" unique_id=1950403083]
+layout_mode = 0
+offset_left = 295.361
+offset_top = 51.6637
+offset_right = 440.361
+offset_bottom = 138.664
+theme_override_styles/panel = SubResource("6")
+
+[node name="Label" type="Label" parent="About/Actions/new_bug" unique_id=603119070]
+layout_mode = 0
+offset_left = 0.966107
+offset_top = 56.6046
+offset_right = 40.9661
+offset_bottom = 87.6047
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_fonts/font = ExtResource("2")
+text = "J'ai un bug"
+
+[node name="Button" type="TextureButton" parent="About/Actions/new_bug" unique_id=1999386096]
+layout_mode = 0
+offset_right = 145.0
+offset_bottom = 87.0
+
+[node name="Sprite2D" type="Sprite2D" parent="About/Actions/new_bug" unique_id=2095933355]
+position = Vector2(71.5449, 28.0304)
+scale = Vector2(0.0996552, 0.0996552)
+texture = ExtResource("21")
+
+[node name="About" type="Panel" parent="About" unique_id=1040803895]
+layout_mode = 0
+offset_left = 59.0
+offset_top = 212.0
+offset_right = 541.0
+offset_bottom = 1012.0
+mouse_filter = 1
+theme_override_styles/panel = SubResource("2")
+
+[node name="Header" type="Panel" parent="About/About" unique_id=511295998]
+layout_mode = 0
+offset_right = 482.0
+offset_bottom = 42.0
+mouse_filter = 1
+theme_override_styles/panel = SubResource("3")
+
+[node name="Label" type="Label" parent="About/About/Header" unique_id=269149119]
+layout_mode = 0
+offset_left = 121.524
+offset_top = 5.00259
+offset_right = 305.524
+offset_bottom = 36.0026
+theme_override_fonts/font = ExtResource("2")
+text = "A propos"
+horizontal_alignment = 1
+
+[node name="twitter" type="Panel" parent="About/About" unique_id=1130305587]
+layout_mode = 0
+offset_left = 251.412
+offset_top = 75.301
+offset_right = 278.412
+offset_bottom = 101.301
+theme_override_styles/panel = SubResource("6")
+
+[node name="Button" type="TextureButton" parent="About/About/twitter" unique_id=1508880852]
+layout_mode = 0
+offset_right = 145.0
+offset_bottom = 87.0
+
+[node name="Sprite2D" type="Sprite2D" parent="About/About/twitter" unique_id=1547647689]
+position = Vector2(14.1465, 12.6797)
+scale = Vector2(0.0996552, 0.0996552)
+texture = ExtResource("22")
+
+[node name="phumtar" type="AnimatedSprite2D" parent="About/About" unique_id=1832374689]
+position = Vector2(392.257, 88.6701)
+scale = Vector2(0.342538, 0.342538)
+sprite_frames = SubResource("7")
+
+[node name="DevLabel" type="Label" parent="About/About" unique_id=1611261109]
+layout_mode = 0
+offset_left = 12.7327
+offset_top = 57.4765
+offset_right = 82.7331
+offset_bottom = 71.4765
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_constants/shadow_offset_x = 0
+theme_override_constants/shadow_offset_y = 0
+theme_override_constants/shadow_outline_size = 0
+theme_override_fonts/font = ExtResource("5")
+text = "Développeur"
+
+[node name="DevTxt" type="Label" parent="About/About" unique_id=991686911]
+layout_mode = 0
+offset_left = 12.4751
+offset_top = 71.2005
+offset_right = 242.475
+offset_bottom = 102.2
+theme_override_colors/font_color = Color(0, 0.760784, 0.666667, 1)
+theme_override_constants/shadow_offset_x = 0
+theme_override_constants/shadow_offset_y = 0
+theme_override_constants/shadow_outline_size = 0
+theme_override_fonts/font = ExtResource("2")
+text = "Jean Gabès
+naparuba@gmail.com"
+
+[node name="VersionLabel" type="Label" parent="About/About" unique_id=478102966]
+layout_mode = 0
+offset_left = 13.1025
+offset_top = 135.209
+offset_right = 83.103
+offset_bottom = 149.209
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_constants/shadow_offset_x = 0
+theme_override_constants/shadow_offset_y = 0
+theme_override_constants/shadow_outline_size = 0
+theme_override_fonts/font = ExtResource("5")
+text = "Version"
+
+[node name="VersionTxt" type="Label" parent="About/About" unique_id=1401441777]
+layout_mode = 0
+offset_left = 12.8449
+offset_top = 155.233
+offset_right = 242.845
+offset_bottom = 186.233
+theme_override_colors/font_color = Color(0, 0.760784, 0.666667, 1)
+theme_override_constants/shadow_offset_x = 0
+theme_override_constants/shadow_offset_y = 0
+theme_override_constants/shadow_outline_size = 0
+theme_override_fonts/font = ExtResource("2")
+text = "0.22"
+
+[node name="SrcLabel" type="Label" parent="About/About" unique_id=166171931]
+layout_mode = 0
+offset_left = 15.593
+offset_top = 187.26
+offset_right = 85.5938
+offset_bottom = 201.26
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_constants/shadow_offset_x = 0
+theme_override_constants/shadow_offset_y = 0
+theme_override_constants/shadow_outline_size = 0
+theme_override_fonts/font = ExtResource("5")
+text = "Sources"
+
+[node name="SrcTxt" type="Label" parent="About/About" unique_id=656722308]
+layout_mode = 0
+offset_left = 15.3354
+offset_top = 200.984
+offset_right = 354.336
+offset_bottom = 231.984
+pivot_offset = Vector2(227.935, 35.6174)
+theme_override_colors/font_color = Color(0, 0.760784, 0.666667, 1)
+theme_override_constants/shadow_offset_x = 0
+theme_override_constants/shadow_offset_y = 0
+theme_override_constants/shadow_outline_size = 0
+theme_override_fonts/font = ExtResource("2")
+text = "https://github.com/naparuba/fdcn"
+
+[node name="ThnksLabel" type="Label" parent="About/About" unique_id=1585151042]
+layout_mode = 0
+offset_left = 15.7058
+offset_top = 238.83
+offset_right = 85.7061
+offset_bottom = 252.83
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_constants/shadow_offset_x = 0
+theme_override_constants/shadow_offset_y = 0
+theme_override_constants/shadow_outline_size = 0
+theme_override_fonts/font = ExtResource("5")
+text = "Remerciements"
+
+[node name="ThnksTxt" type="Label" parent="About/About" unique_id=377597703]
+layout_mode = 0
+offset_left = 15.0
+offset_top = 253.0
+offset_right = 362.0
+offset_bottom = 427.0
+theme_override_colors/font_color = Color(0, 0.760784, 0.666667, 1)
+theme_override_constants/shadow_offset_x = 0
+theme_override_constants/shadow_offset_y = 0
+theme_override_constants/shadow_outline_size = 0
+theme_override_fonts/font = SubResource("8")
+text = "- Bob pour cette super oeuvre
+- Les dev de \"Godot\" qui ont
+permis à cette application d'exister
+- Pour leur patchs: Anael Closson & Linklinsse
+- Report de bug: Mystorage09, Polurax & Holorim"
+
+[node name="NotesLabel" type="Label" parent="About/About" unique_id=789240285]
+layout_mode = 0
+offset_left = 12.2959
+offset_top = 448.107
+offset_right = 82.2967
+offset_bottom = 462.107
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_constants/shadow_offset_x = 0
+theme_override_constants/shadow_offset_y = 0
+theme_override_constants/shadow_outline_size = 0
+theme_override_fonts/font = ExtResource("5")
+text = "Notes"
+
+[node name="NotesTxt" type="Label" parent="About/About" unique_id=438088503]
+layout_mode = 0
+offset_left = 12.0383
+offset_top = 461.831
+offset_right = 351.039
+offset_bottom = 628.831
+theme_override_colors/font_color = Color(0, 0.760784, 0.666667, 1)
+theme_override_constants/shadow_offset_x = 0
+theme_override_constants/shadow_offset_y = 0
+theme_override_constants/shadow_outline_size = 0
+theme_override_fonts/font = ExtResource("2")
+text = "Toute aide pour dev ou debugguer
+est la bienvenue ^^"
+
+[node name="Disclaimer" type="Label" parent="About/About" unique_id=2036753377]
+layout_mode = 0
+offset_left = 15.1111
+offset_top = 555.179
+offset_right = 440.111
+offset_bottom = 798.179
+theme_override_colors/font_color = Color(0.760784, 0.447059, 0, 1)
+theme_override_constants/shadow_offset_x = 0
+theme_override_constants/shadow_offset_y = 0
+theme_override_constants/shadow_outline_size = 0
+theme_override_fonts/font = SubResource("9")
+text = "IMPORTANT:
+Ceci est une application
+FAN MADE, NON OFFICIELLE
+
+Tous les droits sont à Bob Lennon
+et LinkDigitalSpirit."
+
+[node name="GenericTextPopup" parent="About" unique_id=370379507 instance=ExtResource("29")]
+visible = false
+layout_mode = 0
+offset_left = 16.27
+offset_top = 97.6014
+offset_right = 544.27
+offset_bottom = 417.601
+content = "Cette action vous fera recommencer l'histoire depuis le début et perdre tout vos items.
+Êtes-vous sûr de vouloir continuer ?"
+
+[node name="DEBUG" type="Label" parent="." unique_id=2094127564]
+visible = false
+offset_left = 55.358795
+offset_top = 357.418
+offset_right = 110.358795
+offset_bottom = 380.418
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+text = "DEBUG"
+
+[node name="Camera3D" type="Camera2D" parent="." unique_id=364014217]
+position = Vector2(279.498, 524.498)
+position_smoothing_enabled = true
+position_smoothing_speed = 20.0
+
+[node name="soon3" type="Sprite2D" parent="." unique_id=1864767886]
+visible = false
+position = Vector2(2022.44, 445.881)
+rotation = -0.448674
+texture = ExtResource("14")
+
+[node name="AudioPlayer" type="AudioStreamPlayer2D" parent="." unique_id=958799374]
+
+[node name="SuccessPopup" parent="." unique_id=1639722121 instance=ExtResource("23")]
+oversampling_override = 1.0
+
+[node name="Combat" type="Panel" parent="." unique_id=1557914034]
+visible = false
+offset_left = 58.0
+offset_top = 376.0
+offset_right = 504.0
+offset_bottom = 1012.0
+mouse_filter = 1
+theme_override_styles/panel = SubResource("10")
+
+[node name="IWin" type="Panel" parent="Combat" unique_id=152379632]
+layout_mode = 0
+offset_left = 143.0
+offset_top = 520.0
+offset_right = 283.0
+offset_bottom = 605.0
+theme_override_styles/panel = SubResource("11")
+
+[node name="tick" type="Sprite2D" parent="Combat/IWin" unique_id=943286958]
+position = Vector2(74.7039, 41.7168)
+scale = Vector2(0.0922094, 0.0922094)
+texture = ExtResource("30")
+
+[node name="button" type="TextureButton" parent="Combat/IWin" unique_id=1132802038]
+layout_mode = 0
+offset_left = -1.0
+offset_top = -2.0
+offset_right = 138.0
+offset_bottom = 87.0
+
+[node name="Header" type="Panel" parent="Combat" unique_id=1823136109]
+layout_mode = 0
+offset_left = 0.0594482
+offset_top = 0.179749
+offset_right = 445.059
+offset_bottom = 42.1797
+mouse_filter = 1
+theme_override_styles/panel = SubResource("3")
+
+[node name="Label" type="Label" parent="Combat/Header" unique_id=1076532896]
+layout_mode = 0
+offset_left = 189.601
+offset_top = 5.00259
+offset_right = 259.601
+offset_bottom = 36.0026
+theme_override_fonts/font = ExtResource("2")
+text = "Combat"
+
+[node name="Icone" type="Sprite2D" parent="Combat" unique_id=45920896]
+position = Vector2(42.3232, 83.9219)
+scale = Vector2(0.0226782, 0.0226782)
+texture = ExtResource("32")
+
+[node name="Nom" type="Label" parent="Combat" unique_id=912340177]
+layout_mode = 0
+offset_left = 97.0
+offset_top = 46.0
+offset_right = 373.0
+offset_bottom = 77.0
+theme_override_colors/font_color = Color(0, 0.760784, 0.666667, 1)
+theme_override_constants/shadow_offset_x = 0
+theme_override_constants/shadow_offset_y = 0
+theme_override_constants/shadow_outline_size = 0
+theme_override_fonts/font = ExtResource("2")
+text = "XXX"
+horizontal_alignment = 1
+
+[node name="PlayerLabel" type="Label" parent="Combat" unique_id=1604366149]
+layout_mode = 0
+offset_left = 62.0932
+offset_top = 90.1375
+offset_right = 144.093
+offset_bottom = 121.137
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_constants/shadow_offset_x = 0
+theme_override_constants/shadow_offset_y = 0
+theme_override_constants/shadow_outline_size = 0
+theme_override_fonts/font = SubResource("12")
+text = "Billy"
+horizontal_alignment = 1
+
+[node name="PlayerPvLabel" type="Label" parent="Combat" unique_id=24059908]
+layout_mode = 0
+offset_left = 54.7972
+offset_top = 158.046
+offset_right = 136.797
+offset_bottom = 189.046
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_constants/shadow_offset_x = 0
+theme_override_constants/shadow_offset_y = 0
+theme_override_constants/shadow_outline_size = 0
+theme_override_fonts/font = SubResource("13")
+text = "PV:"
+horizontal_alignment = 1
+
+[node name="PlayerPvValue" type="Label" parent="Combat" unique_id=773729935]
+layout_mode = 0
+offset_left = 109.695
+offset_top = 155.22
+offset_right = 191.695
+offset_bottom = 186.22
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_constants/shadow_offset_x = 0
+theme_override_constants/shadow_offset_y = 0
+theme_override_constants/shadow_outline_size = 0
+theme_override_fonts/font = SubResource("14")
+text = "XXX"
+horizontal_alignment = 1
+
+[node name="PlayerHabLabel" type="Label" parent="Combat" unique_id=1806428764]
+layout_mode = 0
+offset_left = 58.0991
+offset_top = 128.345
+offset_right = 140.099
+offset_bottom = 159.345
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_constants/shadow_offset_x = 0
+theme_override_constants/shadow_offset_y = 0
+theme_override_constants/shadow_outline_size = 0
+theme_override_fonts/font = SubResource("13")
+text = "Hab:"
+horizontal_alignment = 1
+
+[node name="PlayerHabValue" type="Label" parent="Combat" unique_id=143476422]
+layout_mode = 0
+offset_left = 113.704
+offset_top = 129.054
+offset_right = 195.704
+offset_bottom = 160.054
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_constants/shadow_offset_x = 0
+theme_override_constants/shadow_offset_y = 0
+theme_override_constants/shadow_outline_size = 0
+theme_override_fonts/font = SubResource("14")
+text = "XXX"
+horizontal_alignment = 1
+
+[node name="PlayerArmLabel" type="Label" parent="Combat" unique_id=2091384121]
+layout_mode = 0
+offset_left = 69.8583
+offset_top = 182.571
+offset_right = 151.859
+offset_bottom = 213.571
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_constants/shadow_offset_x = 0
+theme_override_constants/shadow_offset_y = 0
+theme_override_constants/shadow_outline_size = 0
+theme_override_fonts/font = SubResource("13")
+text = "Armure:"
+horizontal_alignment = 1
+
+[node name="PlayerArmValue" type="Label" parent="Combat" unique_id=919643862]
+layout_mode = 0
+offset_left = 114.857
+offset_top = 183.28
+offset_right = 196.857
+offset_bottom = 214.28
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_constants/shadow_offset_x = 0
+theme_override_constants/shadow_offset_y = 0
+theme_override_constants/shadow_outline_size = 0
+theme_override_fonts/font = SubResource("14")
+text = "XXX"
+horizontal_alignment = 1
+
+[node name="PlayerDegLabel" type="Label" parent="Combat" unique_id=1842404007]
+layout_mode = 0
+offset_left = 64.9085
+offset_top = 205.905
+offset_right = 146.909
+offset_bottom = 236.905
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_constants/shadow_offset_x = 0
+theme_override_constants/shadow_offset_y = 0
+theme_override_constants/shadow_outline_size = 0
+theme_override_fonts/font = SubResource("13")
+text = "Dégat:"
+horizontal_alignment = 1
+
+[node name="PlayerDegValue" type="Label" parent="Combat" unique_id=1478465336]
+layout_mode = 0
+offset_left = 113.443
+offset_top = 210.15
+offset_right = 195.443
+offset_bottom = 241.15
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_constants/shadow_offset_x = 0
+theme_override_constants/shadow_offset_y = 0
+theme_override_constants/shadow_outline_size = 0
+theme_override_fonts/font = SubResource("14")
+text = "XXX"
+horizontal_alignment = 1
+
+[node name="EnnemiLabel" type="Label" parent="Combat" unique_id=403410040]
+layout_mode = 0
+offset_left = 319.698
+offset_top = 89.5762
+offset_right = 401.698
+offset_bottom = 120.576
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_constants/shadow_offset_x = 0
+theme_override_constants/shadow_offset_y = 0
+theme_override_constants/shadow_outline_size = 0
+theme_override_fonts/font = SubResource("12")
+text = "Ennemi"
+horizontal_alignment = 1
+
+[node name="EnnemiPvLabel" type="Label" parent="Combat" unique_id=1827325985]
+layout_mode = 0
+offset_left = 296.301
+offset_top = 153.992
+offset_right = 378.301
+offset_bottom = 184.992
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_constants/shadow_offset_x = 0
+theme_override_constants/shadow_offset_y = 0
+theme_override_constants/shadow_outline_size = 0
+theme_override_fonts/font = SubResource("13")
+text = "PV:"
+horizontal_alignment = 1
+
+[node name="EnnemiPvValue" type="Label" parent="Combat" unique_id=1085925619]
+layout_mode = 0
+offset_left = 366.755
+offset_top = 151.873
+offset_right = 448.755
+offset_bottom = 182.873
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_constants/shadow_offset_x = 0
+theme_override_constants/shadow_offset_y = 0
+theme_override_constants/shadow_outline_size = 0
+theme_override_fonts/font = SubResource("14")
+text = "XXX"
+horizontal_alignment = 1
+
+[node name="EnnemiHabLabel" type="Label" parent="Combat" unique_id=1800420281]
+layout_mode = 0
+offset_left = 300.009
+offset_top = 128.3
+offset_right = 382.009
+offset_bottom = 159.3
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_constants/shadow_offset_x = 0
+theme_override_constants/shadow_offset_y = 0
+theme_override_constants/shadow_outline_size = 0
+theme_override_fonts/font = SubResource("13")
+text = "Hab:"
+horizontal_alignment = 1
+
+[node name="EnnemiHabValue" type="Label" parent="Combat" unique_id=1850084709]
+layout_mode = 0
+offset_left = 366.755
+offset_top = 127.77
+offset_right = 448.755
+offset_bottom = 158.77
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_constants/shadow_offset_x = 0
+theme_override_constants/shadow_offset_y = 0
+theme_override_constants/shadow_outline_size = 0
+theme_override_fonts/font = SubResource("14")
+text = "XXX"
+horizontal_alignment = 1
+
+[node name="EnnemiArmLabel" type="Label" parent="Combat" unique_id=920123731]
+layout_mode = 0
+offset_left = 311.134
+offset_top = 181.152
+offset_right = 393.134
+offset_bottom = 212.152
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_constants/shadow_offset_x = 0
+theme_override_constants/shadow_offset_y = 0
+theme_override_constants/shadow_outline_size = 0
+theme_override_fonts/font = SubResource("13")
+text = "Armure:"
+horizontal_alignment = 1
+
+[node name="EnnemiArmValue" type="Label" parent="Combat" unique_id=338647729]
+layout_mode = 0
+offset_left = 366.755
+offset_top = 181.152
+offset_right = 448.755
+offset_bottom = 212.152
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_constants/shadow_offset_x = 0
+theme_override_constants/shadow_offset_y = 0
+theme_override_constants/shadow_outline_size = 0
+theme_override_fonts/font = SubResource("14")
+text = "XXX"
+horizontal_alignment = 1
+
+[node name="EnnemiDegLabel" type="Label" parent="Combat" unique_id=1787948447]
+layout_mode = 0
+offset_left = 306.366
+offset_top = 209.228
+offset_right = 388.366
+offset_bottom = 240.228
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_constants/shadow_offset_x = 0
+theme_override_constants/shadow_offset_y = 0
+theme_override_constants/shadow_outline_size = 0
+theme_override_fonts/font = SubResource("13")
+text = "Dégat:"
+horizontal_alignment = 1
+
+[node name="EnnemiDegValue" type="Label" parent="Combat" unique_id=1068476743]
+layout_mode = 0
+offset_left = 368.345
+offset_top = 209.228
+offset_right = 450.345
+offset_bottom = 240.228
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_constants/shadow_offset_x = 0
+theme_override_constants/shadow_offset_y = 0
+theme_override_constants/shadow_outline_size = 0
+theme_override_fonts/font = SubResource("14")
+text = "XXX"
+horizontal_alignment = 1
+
+[node name="dice" type="Panel" parent="Combat" unique_id=161301159]
+layout_mode = 0
+offset_left = 13.8042
+offset_top = 157.055
+offset_right = 70.8042
+offset_bottom = 214.055
+theme_override_styles/panel = SubResource("15")
+
+[node name="sprite" type="Sprite2D" parent="Combat/dice" unique_id=1878173317]
+position = Vector2(27.5508, 27.4023)
+scale = Vector2(0.0770419, 0.0770419)
+texture = ExtResource("33")
+
+[node name="button" type="TextureButton" parent="Combat/dice" unique_id=497749044]
+layout_mode = 0
+offset_right = 57.0
+offset_bottom = 58.0
+
+[node name="SpritePyro" type="Sprite2D" parent="Combat" unique_id=849599601]
+position = Vector2(279.661, 189.214)
+scale = Vector2(0.300072, 0.300072)
+texture = ExtResource("34")
+
+[node name="PyroHab" type="Label" parent="Combat" unique_id=1935595320]
+layout_mode = 0
+offset_left = 183.054
+offset_top = 169.669
+offset_right = 265.054
+offset_bottom = 200.669
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_constants/shadow_offset_x = 0
+theme_override_constants/shadow_offset_y = 0
+theme_override_constants/shadow_outline_size = 0
+theme_override_fonts/font = SubResource("14")
+text = "XXX"
+horizontal_alignment = 1
+
+[node name="NotFinish" type="Label" parent="Combat" unique_id=1852451440]
+layout_mode = 0
+offset_left = 18.805
+offset_top = 344.238
+offset_right = 255.805
+offset_bottom = 385.238
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_constants/shadow_offset_x = 0
+theme_override_constants/shadow_offset_y = 0
+theme_override_constants/shadow_outline_size = 0
+theme_override_fonts/font = SubResource("13")
+text = "Les combats ne sont pas encore fini,
+ dev en cours ^^"
+horizontal_alignment = 1
+
+[node name="phumtar" type="AnimatedSprite2D" parent="Combat" unique_id=996835011]
+position = Vector2(349.257, 373.67)
+scale = Vector2(0.342538, 0.342538)
+sprite_frames = SubResource("7")
+
+[node name="Options" type="Panel" parent="." unique_id=1355482604]
+offset_left = 5.0
+offset_top = 51.0
+offset_right = 553.0
+offset_bottom = 1028.0
+theme_override_styles/panel = SubResource("35")
+
+[node name="Header" type="Panel" parent="Options" unique_id=1183145964]
+layout_mode = 0
+offset_right = 93.0
+offset_bottom = 986.0
+mouse_filter = 1
+theme_override_styles/panel = SubResource("17")
+
+[node name="TabEquipement" type="Panel" parent="Options/Header" unique_id=1696271087]
+layout_mode = 0
+offset_right = 92.0
+offset_bottom = 194.0
+theme_override_styles/panel = SubResource("29")
+
+[node name="EquipementSprite" type="Sprite2D" parent="Options/Header/TabEquipement" unique_id=884185130]
+position = Vector2(47, 106)
+scale = Vector2(0.307692, 0.292169)
+texture = ExtResource("35")
+
+[node name="button" type="TextureButton" parent="Options/Header/TabEquipement" unique_id=1298381962]
+layout_mode = 0
+offset_left = -1.0
+offset_top = -1.0
+offset_right = 89.0
+offset_bottom = 194.0
+
+[node name="TabStats" type="Panel" parent="Options/Header" unique_id=1883343847]
+layout_mode = 0
+offset_top = 198.0
+offset_right = 91.0
+offset_bottom = 434.0
+theme_override_styles/panel = SubResource("30")
+
+[node name="StatsSprite" type="Sprite2D" parent="Options/Header/TabStats" unique_id=870293781]
+position = Vector2(47, 105)
+scale = Vector2(0.715606, 0.871041)
+texture = ExtResource("36")
+
+[node name="button" type="TextureButton" parent="Options/Header/TabStats" unique_id=604457934]
+layout_mode = 0
+offset_left = 4.0
+offset_top = 1.0
+offset_right = 89.0
+offset_bottom = 235.0
+
+[node name="TabSelectBook" type="Panel" parent="Options/Header" unique_id=1040780749]
+layout_mode = 0
+offset_top = 439.0
+offset_right = 92.0
+offset_bottom = 633.0
+theme_override_styles/panel = SubResource("31")
+
+[node name="SelectBookSprite" type="Sprite2D" parent="Options/Header/TabSelectBook" unique_id=393492169]
+position = Vector2(45, 99)
+scale = Vector2(0.158966, 0.199014)
+texture = ExtResource("37")
+
+[node name="button" type="TextureButton" parent="Options/Header/TabSelectBook" unique_id=968155147]
+layout_mode = 0
+offset_left = -1.0
+offset_top = -1.0
+offset_right = 89.0
+offset_bottom = 194.0
+
+[node name="Equipement" type="Panel" parent="Options" unique_id=507861058]
+layout_mode = 0
+offset_left = 95.0
+offset_right = 547.0
+offset_bottom = 981.0
+mouse_filter = 1
+theme_override_styles/panel = SubResource("32")
+
+[node name="BlockGuerrier" type="Panel" parent="Options/Equipement" unique_id=687571151]
+layout_mode = 0
+offset_left = -2.0
+offset_right = 159.0
+offset_bottom = 451.0
+scale = Vector2(0.7, 0.7)
+theme_override_styles/panel = SubResource("21")
+
+[node name="sprite" type="Sprite2D" parent="Options/Equipement/BlockGuerrier" unique_id=1888069669]
+material = SubResource("39")
+position = Vector2(74.416, 198.723)
+scale = Vector2(0.822243, 0.908078)
+texture = ExtResource("27")
+
+[node name="button" type="TextureButton" parent="Options/Equipement/BlockGuerrier" unique_id=1405928397]
+visible = false
+layout_mode = 0
+offset_left = -1.0
+offset_right = 162.0
+offset_bottom = 443.0
+
+[node name="BlockPaysan" type="Panel" parent="Options/Equipement" unique_id=574018139]
+layout_mode = 0
+offset_left = 113.0
+offset_top = 4.0
+offset_right = 280.0
+offset_bottom = 400.0
+scale = Vector2(0.7, 0.7)
+theme_override_styles/panel = SubResource("22")
+
+[node name="sprite" type="Sprite2D" parent="Options/Equipement/BlockPaysan" unique_id=758892657]
+material = SubResource("23")
+position = Vector2(64.0526, 194.537)
+scale = Vector2(0.864614, 0.907562)
+texture = ExtResource("26")
+
+[node name="button" type="TextureButton" parent="Options/Equipement/BlockPaysan" unique_id=514504312]
+visible = false
+layout_mode = 0
+offset_left = 9.0
+offset_top = 6.0
+offset_right = 187.0
+offset_bottom = 448.0
+
+[node name="BlockPrudent" type="Panel" parent="Options/Equipement" unique_id=944257959]
+layout_mode = 0
+offset_left = 232.0
+offset_top = 2.00001
+offset_right = 386.0
+offset_bottom = 407.0
+scale = Vector2(0.7, 0.7)
+theme_override_styles/panel = SubResource("24")
+
+[node name="sprite" type="Sprite2D" parent="Options/Equipement/BlockPrudent" unique_id=1019176393]
+material = SubResource("25")
+position = Vector2(51.1954, 199.538)
+scale = Vector2(0.8289, 0.917414)
+texture = ExtResource("25")
+
+[node name="button" type="TextureButton" parent="Options/Equipement/BlockPrudent" unique_id=1505551431]
+visible = false
+layout_mode = 0
+offset_left = 9.0
+offset_top = 3.0
+offset_right = 188.0
+offset_bottom = 447.0
+
+[node name="BlockDebrouillard" type="Panel" parent="Options/Equipement" unique_id=382512234]
+layout_mode = 0
+offset_left = 328.0
+offset_top = 10.0
+offset_right = 504.0
+offset_bottom = 415.0
+scale = Vector2(0.7, 0.7)
+theme_override_styles/panel = SubResource("26")
+
+[node name="sprite" type="Sprite2D" parent="Options/Equipement/BlockDebrouillard" unique_id=1561729529]
+material = SubResource("27")
+position = Vector2(82.4091, 187.981)
+scale = Vector2(0.836486, 0.923395)
+texture = ExtResource("24")
+
+[node name="button" type="TextureButton" parent="Options/Equipement/BlockDebrouillard" unique_id=1681220822]
+visible = false
+layout_mode = 0
+offset_left = -4.0
+offset_top = 6.0
+offset_right = 201.0
+offset_bottom = 453.0
+
+[node name="ItemsCont" type="ScrollContainer" parent="Options/Equipement" unique_id=50224670]
+layout_mode = 0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -1.0
+offset_top = 288.0
+offset_right = -1.0
+offset_bottom = 5.0
+
+[node name="Items" type="VBoxContainer" parent="Options/Equipement/ItemsCont" unique_id=1406796766]
+layout_mode = 2
+
+[node name="Panel" parent="Options/Equipement/ItemsCont/Items" unique_id=1770793372 instance=ExtResource("31")]
+layout_mode = 2
+
+[node name="Panel2" parent="Options/Equipement/ItemsCont/Items" unique_id=581474354 instance=ExtResource("31")]
+layout_mode = 2
+
+[node name="Stats" type="Panel" parent="Options" unique_id=1708464288]
+visible = false
+layout_mode = 0
+offset_left = 92.0
+offset_top = 41.0
+offset_right = 547.0
+offset_bottom = 981.0
+mouse_filter = 1
+theme_override_styles/panel = SubResource("33")
+
+[node name="WarningText" type="Label" parent="Options/Stats" unique_id=1617223111]
+layout_mode = 0
+offset_left = 26.0
+offset_top = -22.0
+offset_right = 353.0
+offset_bottom = 8.99951
+theme_override_colors/font_color = Color(1, 0.419608, 0, 1)
+theme_override_constants/shadow_offset_x = 0
+theme_override_constants/shadow_offset_y = 0
+theme_override_constants/shadow_outline_size = 0
+theme_override_fonts/font = SubResource("13")
+text = "Attention: fonctionalité non finie, bugs possibles :)"
+horizontal_alignment = 1
+
+[node name="PlayerPvLabel" type="Label" parent="Options/Stats" unique_id=237046428]
+layout_mode = 0
+offset_left = 55.3231
+offset_top = 95.3025
+offset_right = 137.323
+offset_bottom = 126.302
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_constants/shadow_offset_x = 0
+theme_override_constants/shadow_offset_y = 0
+theme_override_constants/shadow_outline_size = 0
+theme_override_fonts/font = SubResource("13")
+text = "PV:"
+horizontal_alignment = 1
+
+[node name="PlayerPvValue" type="Label" parent="Options/Stats" unique_id=244898818]
+layout_mode = 0
+offset_left = 110.221
+offset_top = 92.4763
+offset_right = 192.221
+offset_bottom = 123.476
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_constants/shadow_offset_x = 0
+theme_override_constants/shadow_offset_y = 0
+theme_override_constants/shadow_outline_size = 0
+theme_override_fonts/font = SubResource("14")
+text = "XXX"
+horizontal_alignment = 1
+
+[node name="PlayerEndLabel" type="Label" parent="Options/Stats" unique_id=1150930147]
+layout_mode = 0
+offset_left = 55.3231
+offset_top = 63.8044
+offset_right = 137.323
+offset_bottom = 94.8039
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_constants/shadow_offset_x = 0
+theme_override_constants/shadow_offset_y = 0
+theme_override_constants/shadow_outline_size = 0
+theme_override_fonts/font = SubResource("13")
+text = "Endurance:"
+horizontal_alignment = 1
+
+[node name="PlayerEndValue" type="Label" parent="Options/Stats" unique_id=1321090221]
+layout_mode = 0
+offset_left = 110.221
+offset_top = 60.9783
+offset_right = 192.221
+offset_bottom = 91.978
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_constants/shadow_offset_x = 0
+theme_override_constants/shadow_offset_y = 0
+theme_override_constants/shadow_outline_size = 0
+theme_override_fonts/font = SubResource("14")
+text = "XXX"
+horizontal_alignment = 1
+
+[node name="PlayerEndValueDetail" type="Label" parent="Options/Stats" unique_id=163761879]
+layout_mode = 0
+offset_left = 170.289
+offset_top = 62.3131
+offset_right = 252.289
+offset_bottom = 93.3128
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_constants/shadow_offset_x = 0
+theme_override_constants/shadow_offset_y = 0
+theme_override_constants/shadow_outline_size = 0
+theme_override_fonts/font = SubResource("14")
+text = "XXX"
+horizontal_alignment = 1
+
+[node name="PlayerHabLabel" type="Label" parent="Options/Stats" unique_id=1655748819]
+layout_mode = 0
+offset_left = 54.0632
+offset_top = 31.0465
+offset_right = 136.063
+offset_bottom = 62.046
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_constants/shadow_offset_x = 0
+theme_override_constants/shadow_offset_y = 0
+theme_override_constants/shadow_outline_size = 0
+theme_override_fonts/font = SubResource("13")
+text = "Habilité:"
+horizontal_alignment = 1
+
+[node name="PlayerHabValue" type="Label" parent="Options/Stats" unique_id=1964470098]
+layout_mode = 0
+offset_left = 108.961
+offset_top = 28.2203
+offset_right = 190.961
+offset_bottom = 59.22
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_constants/shadow_offset_x = 0
+theme_override_constants/shadow_offset_y = 0
+theme_override_constants/shadow_outline_size = 0
+theme_override_fonts/font = SubResource("14")
+text = "XXX"
+horizontal_alignment = 1
+
+[node name="PlayerHabValueDetail" type="Label" parent="Options/Stats" unique_id=2144140672]
+layout_mode = 0
+offset_left = 171.698
+offset_top = 28.2203
+offset_right = 253.698
+offset_bottom = 59.22
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_constants/shadow_offset_x = 0
+theme_override_constants/shadow_offset_y = 0
+theme_override_constants/shadow_outline_size = 0
+theme_override_fonts/font = SubResource("14")
+text = "XXX"
+horizontal_alignment = 1
+
+[node name="PlayerAdrLabel" type="Label" parent="Options/Stats" unique_id=917189477]
+layout_mode = 0
+offset_left = 56.583
+offset_top = 135.62
+offset_right = 138.583
+offset_bottom = 166.619
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_constants/shadow_offset_x = 0
+theme_override_constants/shadow_offset_y = 0
+theme_override_constants/shadow_outline_size = 0
+theme_override_fonts/font = SubResource("13")
+text = "Adresse:"
+horizontal_alignment = 1
+
+[node name="PlayerAdrValue" type="Label" parent="Options/Stats" unique_id=1605232254]
+layout_mode = 0
+offset_left = 111.481
+offset_top = 132.794
+offset_right = 193.481
+offset_bottom = 163.793
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_constants/shadow_offset_x = 0
+theme_override_constants/shadow_offset_y = 0
+theme_override_constants/shadow_outline_size = 0
+theme_override_fonts/font = SubResource("14")
+text = "XXX"
+horizontal_alignment = 1
+
+[node name="PlayerAdrValueDetail" type="Label" parent="Options/Stats" unique_id=346873980]
+layout_mode = 0
+offset_left = 168.879
+offset_top = 134.129
+offset_right = 250.879
+offset_bottom = 165.128
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_constants/shadow_offset_x = 0
+theme_override_constants/shadow_offset_y = 0
+theme_override_constants/shadow_outline_size = 0
+theme_override_fonts/font = SubResource("14")
+text = "XXX"
+horizontal_alignment = 1
+
+[node name="PlayerChaLabel" type="Label" parent="Options/Stats" unique_id=839822236]
+layout_mode = 0
+offset_left = 56.583
+offset_top = 175.937
+offset_right = 138.583
+offset_bottom = 206.937
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_constants/shadow_offset_x = 0
+theme_override_constants/shadow_offset_y = 0
+theme_override_constants/shadow_outline_size = 0
+theme_override_fonts/font = SubResource("13")
+text = "Chance:"
+horizontal_alignment = 1
+
+[node name="PlayerChaValue" type="Label" parent="Options/Stats" unique_id=1549580157]
+layout_mode = 0
+offset_left = 111.481
+offset_top = 173.111
+offset_right = 193.481
+offset_bottom = 204.111
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_constants/shadow_offset_x = 0
+theme_override_constants/shadow_offset_y = 0
+theme_override_constants/shadow_outline_size = 0
+theme_override_fonts/font = SubResource("14")
+text = "XXX"
+horizontal_alignment = 1
+
+[node name="PlayerChaValueDetail" type="Label" parent="Options/Stats" unique_id=2013733183]
+layout_mode = 0
+offset_left = 168.879
+offset_top = 173.111
+offset_right = 250.879
+offset_bottom = 204.111
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_constants/shadow_offset_x = 0
+theme_override_constants/shadow_offset_y = 0
+theme_override_constants/shadow_outline_size = 0
+theme_override_fonts/font = SubResource("14")
+text = "XXX"
+horizontal_alignment = 1
+
+[node name="PlayerCritLabel" type="Label" parent="Options/Stats" unique_id=403106450]
+layout_mode = 0
+offset_left = 55.3231
+offset_top = 222.555
+offset_right = 137.323
+offset_bottom = 253.554
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_constants/shadow_offset_x = 0
+theme_override_constants/shadow_offset_y = 0
+theme_override_constants/shadow_outline_size = 0
+theme_override_fonts/font = SubResource("13")
+text = "Critique:"
+horizontal_alignment = 1
+
+[node name="PlayerCritValue" type="Label" parent="Options/Stats" unique_id=184952]
+layout_mode = 0
+offset_left = 110.221
+offset_top = 219.728
+offset_right = 192.221
+offset_bottom = 250.728
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_constants/shadow_offset_x = 0
+theme_override_constants/shadow_offset_y = 0
+theme_override_constants/shadow_outline_size = 0
+theme_override_fonts/font = SubResource("14")
+text = "XXX"
+horizontal_alignment = 1
+
+[node name="PlayerCritValueDetail" type="Label" parent="Options/Stats" unique_id=1704111010]
+layout_mode = 0
+offset_left = 166.284
+offset_top = 219.728
+offset_right = 248.284
+offset_bottom = 250.728
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_constants/shadow_offset_x = 0
+theme_override_constants/shadow_offset_y = 0
+theme_override_constants/shadow_outline_size = 0
+theme_override_fonts/font = SubResource("14")
+text = "XXX"
+horizontal_alignment = 1
+
+[node name="PlayerDegLabel" type="Label" parent="Options/Stats" unique_id=2046127868]
+layout_mode = 0
+offset_left = 57.8429
+offset_top = 269.172
+offset_right = 139.843
+offset_bottom = 300.171
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_constants/shadow_offset_x = 0
+theme_override_constants/shadow_offset_y = 0
+theme_override_constants/shadow_outline_size = 0
+theme_override_fonts/font = SubResource("13")
+text = "Dégâts:"
+horizontal_alignment = 1
+
+[node name="PlayerDegValue" type="Label" parent="Options/Stats" unique_id=1018831859]
+layout_mode = 0
+offset_left = 112.741
+offset_top = 266.345
+offset_right = 194.741
+offset_bottom = 297.345
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_constants/shadow_offset_x = 0
+theme_override_constants/shadow_offset_y = 0
+theme_override_constants/shadow_outline_size = 0
+theme_override_fonts/font = SubResource("14")
+text = "XXX"
+horizontal_alignment = 1
+
+[node name="PlayerDegValueDetail" type="Label" parent="Options/Stats" unique_id=1909655443]
+layout_mode = 0
+offset_left = 164.8
+offset_top = 265.01
+offset_right = 246.8
+offset_bottom = 296.01
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_constants/shadow_offset_x = 0
+theme_override_constants/shadow_offset_y = 0
+theme_override_constants/shadow_outline_size = 0
+theme_override_fonts/font = SubResource("14")
+text = "XXX"
+horizontal_alignment = 1
+
+[node name="PlayerArmLabel" type="Label" parent="Options/Stats" unique_id=708377548]
+layout_mode = 0
+offset_left = 56.583
+offset_top = 305.709
+offset_right = 138.583
+offset_bottom = 336.709
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_constants/shadow_offset_x = 0
+theme_override_constants/shadow_offset_y = 0
+theme_override_constants/shadow_outline_size = 0
+theme_override_fonts/font = SubResource("13")
+text = "Armure:"
+horizontal_alignment = 1
+
+[node name="PlayerArmValue" type="Label" parent="Options/Stats" unique_id=403869040]
+layout_mode = 0
+offset_left = 111.481
+offset_top = 302.883
+offset_right = 193.481
+offset_bottom = 333.883
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_constants/shadow_offset_x = 0
+theme_override_constants/shadow_offset_y = 0
+theme_override_constants/shadow_outline_size = 0
+theme_override_fonts/font = SubResource("14")
+text = "XXX"
+horizontal_alignment = 1
+
+[node name="PlayerArmValueDetail" type="Label" parent="Options/Stats" unique_id=1829581363]
+layout_mode = 0
+offset_left = 166.209
+offset_top = 301.548
+offset_right = 248.209
+offset_bottom = 332.548
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_constants/shadow_offset_x = 0
+theme_override_constants/shadow_offset_y = 0
+theme_override_constants/shadow_outline_size = 0
+theme_override_fonts/font = SubResource("14")
+text = "XXX"
+horizontal_alignment = 1
+
+[node name="BookSelect" type="Panel" parent="Options" unique_id=395925659]
+visible = false
+layout_mode = 0
+offset_left = 95.0
+offset_top = 1.0
+offset_right = 550.0
+offset_bottom = 941.0
+mouse_filter = 1
+theme_override_styles/panel = SubResource("34")
+
+[node name="BoolSelectFcdn" type="Panel" parent="Options/BookSelect" unique_id=995421270]
+layout_mode = 0
+offset_left = 74.0
+offset_top = 89.0
+offset_right = 505.0
+offset_bottom = 630.0
+scale = Vector2(0.7, 0.7)
+theme_override_styles/panel = SubResource("36")
+
+[node name="sprite" type="Sprite2D" parent="Options/BookSelect/BoolSelectFcdn" unique_id=1843976284]
+material = SubResource("37")
+position = Vector2(213.571, 265.736)
+scale = Vector2(0.184632, 0.217434)
+texture = ExtResource("39")
+
+[node name="button" type="TextureButton" parent="Options/BookSelect/BoolSelectFcdn" unique_id=199843830]
+layout_mode = 0
+offset_left = 26.0
+offset_top = -27.0
+offset_right = 400.0
+offset_bottom = 560.0
+
+[node name="BoolSelectCdsi" type="Panel" parent="Options/BookSelect" unique_id=54719746]
+layout_mode = 0
+offset_left = 72.0
+offset_top = 508.0
+offset_right = 503.0
+offset_bottom = 1049.0
+scale = Vector2(0.7, 0.7)
+theme_override_styles/panel = SubResource("36")
+
+[node name="sprite" type="Sprite2D" parent="Options/BookSelect/BoolSelectCdsi" unique_id=1385465240]
+material = SubResource("38")
+position = Vector2(221.423, 298.373)
+scale = Vector2(0.742878, 0.856293)
+texture = ExtResource("38")
+
+[node name="button" type="TextureButton" parent="Options/BookSelect/BoolSelectCdsi" unique_id=2126748150]
+layout_mode = 0
+offset_left = 33.0
+offset_top = 21.0
+offset_right = 406.0
+offset_bottom = 573.0
+
+[node name="ItemPopups" type="Panel" parent="." unique_id=49163279]
+visible = false
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 260.0
+offset_top = 53.0
+offset_right = 260.0
+offset_bottom = 53.0
+mouse_filter = 1
+theme_override_styles/panel = SubResource("28")
+
+[node name="ScrollContainer" type="ScrollContainer" parent="ItemPopups" unique_id=630784966]
+layout_mode = 0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -42.0
+offset_top = -2.0
+offset_right = 446.0
+offset_bottom = 168.0
+
+[node name="ItemPopupsCont" type="VBoxContainer" parent="ItemPopups/ScrollContainer" unique_id=2023898358]
+layout_mode = 2
+
+[connection signal="gui_input" from="Background" to="." method="_on_main_background_gui_input"]
+[connection signal="gui_input" from="Chapitres" to="." method="_on_main_background_gui_input"]
+[connection signal="pressed" from="Chapitres/AllChapters/Block-1/button" to="." method="jump_to_chapter_1"]
+[connection signal="pressed" from="Chapitres/AllChapters/Block-100/button" to="." method="jump_to_chapter_100"]
+[connection signal="pressed" from="Chapitres/AllChapters/Block-200/button" to="." method="jump_to_chapter_200"]
+[connection signal="pressed" from="Chapitres/AllChapters/Block-300/button" to="." method="jump_to_chapter_300"]
+[connection signal="pressed" from="Chapitres/AllChapters/Block-400/button" to="." method="jump_to_chapter_400"]
+[connection signal="pressed" from="Chapitres/AllChapters/Block-500/button" to="." method="jump_to_chapter_500"]
+[connection signal="pressed" from="Chapitres/AllChapters/Block-600/button" to="." method="jump_to_chapter_600"]
+[connection signal="gui_input" from="Succes" to="." method="_on_main_background_gui_input"]
+[connection signal="gui_input" from="Lore" to="." method="_on_main_background_gui_input"]
+[connection signal="pressed" from="Lore/Lore/Header/LinkButton" to="." method="_on_morelore_button_pressed"]
+[connection signal="pressed" from="Lore/Lore/LoreAuthor/LinkButton" to="." method="_on_image_author_button_pressed"]
+[connection signal="gui_input" from="About" to="." method="_on_main_background_gui_input"]
+[connection signal="pressed" from="About/Actions/nouveau_billy/Button" to="." method="_on_button_new_billy"]
+[connection signal="pressed" from="About/Actions/new_bug/Button" to="." method="_on_button_bug"]
+[connection signal="pressed" from="About/About/twitter/Button" to="." method="_on_button_pressed_twitter"]
+[connection signal="generic_popup_accept" from="About/GenericTextPopup" to="." method="_on_GenericTextPopup_generic_popup_accept"]
+[connection signal="pressed" from="Combat/IWin/button" to="." method="_on_combat_validate_button_pressed"]
+[connection signal="pressed" from="Combat/dice/button" to="." method="_on_dice_pressed"]
+[connection signal="pressed" from="Options/Header/TabEquipement/button" to="." method="_on_button_show_equipement"]
+[connection signal="pressed" from="Options/Header/TabStats/button" to="." method="_on_button_show_stats"]
+[connection signal="pressed" from="Options/Header/TabSelectBook/button" to="." method="_on_button_show_book_select"]
+[connection signal="pressed" from="Options/Equipement/BlockGuerrier/button" to="." method="_switch_to_guerrier"]
+[connection signal="pressed" from="Options/Equipement/BlockPaysan/button" to="." method="_switch_to_paysan"]
+[connection signal="pressed" from="Options/Equipement/BlockPrudent/button" to="." method="_switch_to_prudent"]
+[connection signal="pressed" from="Options/Equipement/BlockDebrouillard/button" to="." method="_switch_to_debrouillard"]
+[connection signal="pressed" from="Options/BookSelect/BoolSelectFcdn/button" to="." method="_switch_to_book_fcdn"]
+[connection signal="pressed" from="Options/BookSelect/BoolSelectCdsi/button" to="." method="_switch_to_book_cdsi"]

@@ -1,13 +1,13 @@
 [gd_scene format=3 uid="uid://bewefyuln6tbh"]
 
 [ext_resource type="Script" uid="uid://doo7xyd7xfu8k" path="res://ui/menu_page.gd" id="1_6qgt4"]
-[ext_resource type="PackedScene" uid="uid://b5ropk16ihd1s" path="res://menus/AboutMenu.tscn" id="3_nnrcc"]
+[ext_resource type="PackedScene" uid="uid://b5ropk16ihd1s" path="res://screens/AboutMenu.tscn" id="3_nnrcc"]
 [ext_resource type="PackedScene" uid="uid://hamv8lxytv6g" path="res://ui/NavButon.tscn" id="3_xaka8"]
-[ext_resource type="PackedScene" uid="uid://6brl0np1vj8q" path="res://menus/ChapitresMenu.tscn" id="4_enyyd"]
-[ext_resource type="PackedScene" uid="uid://d0eiddgya32rs" path="res://top_menu.tscn" id="4_ils0j"]
-[ext_resource type="PackedScene" uid="uid://7stcmvicuxim" path="res://menus/LoreMenu.tscn" id="5_ukqj7"]
-[ext_resource type="PackedScene" uid="uid://dbcjbrs57uov0" path="res://menus/MainMenu.tscn" id="6_gkt6k"]
-[ext_resource type="PackedScene" uid="uid://f03y5mpch8wv" path="res://menus/SuccesMenu.tscn" id="7_2aepl"]
+[ext_resource type="PackedScene" uid="uid://6brl0np1vj8q" path="res://screens/ChapitresMenu.tscn" id="4_enyyd"]
+[ext_resource type="PackedScene" uid="uid://d0eiddgya32rs" path="res://ui/top_menu.tscn" id="4_ils0j"]
+[ext_resource type="PackedScene" uid="uid://7stcmvicuxim" path="res://screens/LoreMenu.tscn" id="5_ukqj7"]
+[ext_resource type="PackedScene" uid="uid://dbcjbrs57uov0" path="res://screens/MainMenu.tscn" id="6_gkt6k"]
+[ext_resource type="PackedScene" uid="uid://f03y5mpch8wv" path="res://screens/SuccesMenu.tscn" id="7_2aepl"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_m6ur5"]
 bg_color = Color(0.92549, 0.929412, 0.94902, 1)
