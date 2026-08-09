@@ -10,9 +10,9 @@ Two independent halves:
 
 1. **Python data pipeline** (repo root: `fdcn.py`, `node.py`, `condition_node.py`,
    `graph.py`, `endings.py`) — reads the hand-authored gamebook graph
-   (`fdcn-1.json`, `fdcn-2.json`, one per book: FDCN and CDSI) and compiles it
+   (`books/fdcn/fdcn.json`, `books/cdsi/cdsi.json`, one per book: FDCN and CDSI) and compiles it
    into the flattened JSON files the app consumes
-   (`fdcn-{1,2}-compilated-*.json`) plus a Graphviz visualization
+   (`books/fdcn/fdcn-compilated-*.json`, `books/cdsi/cdsi-compilated-*.json`) plus a Graphviz visualization
    (`graph/fdcn_full-{book}.png`). Run via `python fdcn.py --book 1|2`.
    This half looked untouched by the current refactor — not reviewed in depth.
 

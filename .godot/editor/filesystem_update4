@@ -1,0 +1,7 @@
+res://default_env.tres
+res://popups/sub/Inventory.tscn
+res://Item.gd
+res://Item.tscn
+res://fonts/amon_font.tres
+res://fonts/amon_font_small.tres
+res://BookData.gd

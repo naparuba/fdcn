@@ -36,7 +36,10 @@ def load_json_file(file_name):
     return data
 
 
-book_data = load_json_file(f'fdcn-{book_number}.json')
+book_names = {1: 'fdcn', 2: 'cdsi'}
+book_name = book_names[book_number]
+book_dir = f'books/{book_name}'
+book_data = load_json_file(f'{book_dir}/{book_name}.json')
 
 node_created = set()
 
@@ -121,12 +124,12 @@ for idx, n in book_data.items():
             node.add_son(son)
 
 # [1, "Plante-Citrouille"]
-arcs = load_json_file(f'fdcn-{book_number}.arcs.json')
+arcs = load_json_file(f'{book_dir}/{book_name}.arcs.json')
 
 # (arc_name, Start of sub, name, stops)
-sub_arcs = load_json_file(f'fdcn-{book_number}.sub_arcs.json')
+sub_arcs = load_json_file(f'{book_dir}/{book_name}.sub_arcs.json')
 
-manual_sub_arcs = load_json_file(f'fdcn-{book_number}.manual_sub_arcs.json')
+manual_sub_arcs = load_json_file(f'{book_dir}/{book_name}.manual_sub_arcs.json')
 
 # Tag nodes with arc, from lower to higher so we don't rewrite them
 for arc_start, arc_name in reversed(arcs):
@@ -240,7 +243,7 @@ print('Condition NOT remove:\n%s' % '\n'.join(sorted([' - %s' % s for s in condi
 
 all_discoverd_objects = all_remove | all_aquire | all_conditions
 
-all_objs = load_json_file(f'fdcn-{book_number}.all_objects.json')
+all_objs = load_json_file(f'{book_dir}/{book_name}.all_objects.json')
 all_objs_names = set(all_objs.keys())
 
 if all_discoverd_objects != all_objs_names:
@@ -266,7 +269,7 @@ for node_id_str, node_data in book_data.items():
     node_data['computed'] = node.get_computed()
 
 new_book_data_string = json.dumps(book_data, indent=4, ensure_ascii=False, sort_keys=True)  # allow utf8
-with codecs.open(f'fdcn-{book_number}-compilated-data.json', 'w', 'utf8') as f:
+with codecs.open(f'{book_dir}/{book_name}-compilated-data.json', 'w', 'utf8') as f:
     f.write(new_book_data_string)
 
 sucess_txt = load_json_file(f'all-success-{book_number}.json')
@@ -389,7 +392,7 @@ to_dump_as_json = {
 
 print('Generating json files for UI')
 for (k, v) in to_dump_as_json.items():
-    with codecs.open(f'fdcn-{book_number}-compilated-{k}.json', 'w', 'utf8') as f:
+    with codecs.open(f'{book_dir}/{book_name}-compilated-{k}.json', 'w', 'utf8') as f:
         f.write(json.dumps(v, indent=4, ensure_ascii=False, sort_keys=True))
         print(' - %s = OK' % k)
 

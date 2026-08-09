@@ -102,6 +102,8 @@ grow_vertical = 2
 
 [node name="Items" type="VBoxContainer" parent="ItemsCont" unique_id=735835187]
 layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 4
 
 [node name="Panel" parent="ItemsCont/Items" unique_id=1934105114 instance=ExtResource("6_dqggf")]
 layout_mode = 2

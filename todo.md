@@ -66,8 +66,8 @@ then correctness risks, then hygiene/cleanup.
       `_apply_chapter_stat` (`player.gd:779`): `1_4_pv_max`,
       `arc_et_couteau`, `pv_1_4_max`, `pv_win_plus_1`. Either implement them
       or confirm no chapter in either book currently uses them (check the
-      compiled JSON: `grep` those keys in `fdcn-1-compilated-data.json` /
-      `fdcn-2-compilated-data.json`).
+      compiled JSON: `grep` those keys in `books/fdcn/fdcn-compilated-data.json` /
+      `books/cdsi/cdsi-compilated-data.json`).
 
 ## Architecture — resolve duplicated/competing implementations
 

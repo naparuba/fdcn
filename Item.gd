@@ -8,7 +8,6 @@ var _item_data = {}
 
 var _unkown_icon = null
 var _item_icon = null
-var _sprite_scale = 0.048
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -20,7 +19,7 @@ func load_item_data(item_name, item_data):
 	self._item_name = item_name
 	self._item_data = item_data
 	#print('Loading item data: %s' % self._item_name)
-	$Nom.text = self._item_name
+	$Row/Nom.text = self._item_name
 	self._display_stats()
 	var new_style = StyleBoxFlat.new()
 	self.set('theme_override_styles/panel', new_style)
@@ -30,7 +29,6 @@ func load_item_data(item_name, item_data):
 		self._item_icon = Utils.load_external_texture(svg_path, null)
 	elif Utils.is_file_exists(png_path):
 		self._item_icon = Utils.load_external_texture(png_path, null)
-		self._sprite_scale = 1.0
 	else:
 		self._item_icon = null
 	self._unkown_icon = Utils.load_external_texture('res://images/items/question.svg', null)
@@ -42,7 +40,7 @@ func _display_stats():
 	for k in self._item_data['stats'].keys():
 		var v = self._item_data['stats'][k]
 		s += ('%s=' % k.to_upper()) + str(v) + '    '
-	$Stats.text = s
+	$Row/Stats.text = s
 
 func get_item_name():
 	return self._item_name
@@ -101,16 +99,12 @@ func refresh():
 	
 	if self._can_item_be_shown():
 		print('ITEM:: ', self._item_name, 'SHOW\n' )
-		$Nom.text = self._item_name
-		$sprite.scale[0] = self._sprite_scale
-		$sprite.scale[1] = self._sprite_scale
-		$sprite.texture = self._item_icon
+		$Row/Nom.text = self._item_name
+		$Row/sprite.texture = self._item_icon
 	else:
 		print('ITEM:: ', self._item_name, 'HIDE\n' )
-		$Nom.text = ''  # We already have the ? icon
-		$sprite.texture = self._unkown_icon
-		$sprite.scale[0] = 0.048
-		$sprite.scale[1] = 0.048
+		$Row/Nom.text = ''  # We already have the ? icon
+		$Row/sprite.texture = self._unkown_icon
 
 	#print('STYLE: %s' % _style)
 	if do_have_item:
@@ -119,7 +113,7 @@ func refresh():
 	else:
 		_style.set_bg_color(Color('ffffff'))  # set to light grey
 	# Update the button in the good state
-	$button.button_pressed = do_have_item
+	$Row/button.button_pressed = do_have_item
 
 
 func _on_button_toggled(button_pressed):
