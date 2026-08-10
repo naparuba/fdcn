@@ -6,7 +6,7 @@
 [ext_resource type="PackedScene" uid="uid://6brl0np1vj8q" path="res://screens/ChapitresMenu.tscn" id="4_enyyd"]
 [ext_resource type="PackedScene" uid="uid://d0eiddgya32rs" path="res://ui/top_menu.tscn" id="4_ils0j"]
 [ext_resource type="PackedScene" uid="uid://7stcmvicuxim" path="res://screens/LoreMenu.tscn" id="5_ukqj7"]
-[ext_resource type="PackedScene" uid="uid://dbcjbrs57uov0" path="res://screens/MainMenu.tscn" id="6_gkt6k"]
+[ext_resource type="PackedScene" uid="uid://dbcjbrs57uov0" path="res://screens/AventureMenu.tscn" id="6_gkt6k"]
 [ext_resource type="PackedScene" uid="uid://f03y5mpch8wv" path="res://screens/SuccesMenu.tscn" id="7_2aepl"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_m6ur5"]
@@ -39,7 +39,7 @@ is_mirror = true
 layout_mode = 1
 popup_container = NodePath("../PopupContainer")
 
-[node name="SceneContainer" type="Container" parent="." unique_id=2001202024]
+[node name="SceneContainer" type="MarginContainer" parent="." unique_id=2001202024]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -49,6 +49,10 @@ offset_top = 48.0
 offset_right = -50.0
 grow_horizontal = 2
 grow_vertical = 2
+theme_override_constants/margin_left = 12
+theme_override_constants/margin_right = 12
+theme_override_constants/margin_top = 8
+theme_override_constants/margin_bottom = 8
 
 [node name="PopupContainer" type="Container" parent="." unique_id=260158530]
 layout_mode = 1

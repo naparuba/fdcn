@@ -1,7 +1,7 @@
-[gd_scene format=3 uid="uid://dtusnrl41cycr"]
+[gd_scene format=3 uid="uid://cyu1whyusreqt"]
 
-[ext_resource type="Script" path="res://entities/Success.gd" id="1"]
-[ext_resource type="FontFile" uid="uid://dvf02ee6hmyyy" path="res://fonts/amon_font.tres" id="2"]
+[ext_resource type="Script" uid="uid://ciuinrr0rvcyr" path="res://entities/success_item.gd" id="1"]
+[ext_resource type="FontFile" path="res://fonts/amon_font.tres" id="2"]
 [ext_resource type="FontFile" uid="uid://c4uf1h6831ei2" path="res://fonts/RobotoCondensed-Regular.ttf" id="3"]
 
 [sub_resource type="StyleBoxFlat" id="1"]
@@ -55,7 +55,7 @@ corner_radius_top_right = 2
 corner_radius_bottom_right = 2
 corner_radius_bottom_left = 2
 
-[node name="Success" type="PanelContainer" unique_id=1121417702]
+[node name="SuccessItem" type="PanelContainer" unique_id=1121417702]
 custom_minimum_size = Vector2(0, 80)
 anchors_preset = 10
 anchor_right = 1.0
@@ -65,20 +65,20 @@ mouse_filter = 1
 theme_override_styles/panel = SubResource("1")
 script = ExtResource("1")
 
-[node name="Row" type="HBoxContainer" parent="." unique_id=352603536]
+[node name="Row" type="HBoxContainer" parent="."]
 layout_mode = 2
 theme_override_constants/separation = 8
 
-[node name="Marker" type="Control" parent="Row" unique_id=1332249203]
-custom_minimum_size = Vector2(62, 0)
+[node name="Marker" type="Control" parent="Row"]
+custom_minimum_size = Vector2(96, 0)
 layout_mode = 2
 
-[node name="GetPolygon" type="Polygon2D" parent="Row/Marker" unique_id=546706552]
+[node name="GetPolygon" type="Polygon2D" parent="Row/Marker"]
 position = Vector2(26.556, 0.529732)
 color = Color(0.619608, 0.658824, 0.705882, 1)
 polygon = PackedVector2Array(28.1169, 47.9916, 41.6251, -0.0815163, 58.0468, -0.0815163, 44.2124, 48.0062)
 
-[node name="Label" type="Label" parent="Row/Marker/GetPolygon" unique_id=1399353325]
+[node name="Label" type="Label" parent="Row/Marker/GetPolygon"]
 offset_left = 24.216995
 offset_top = 45.698402
 offset_right = 83.216995
@@ -87,36 +87,33 @@ rotation = -1.27883
 theme_override_colors/font_color = Color(0, 0, 0, 1)
 text = "Obtenu"
 
-[node name="sprite" type="TextureRect" parent="Row/Marker" unique_id=654944889]
+[node name="sprite" type="TextureRect" parent="Row/Marker"]
 layout_mode = 1
-anchors_preset = 8
-anchor_left = 0.5
+anchors_preset = 4
 anchor_top = 0.5
-anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = -18.0
+offset_left = 8.0
 offset_top = -18.0
-offset_right = 18.0
+offset_right = 44.0
 offset_bottom = 18.0
-grow_horizontal = 2
 grow_vertical = 2
 expand_mode = 1
 stretch_mode = 5
 
-[node name="Texts" type="VBoxContainer" parent="Row" unique_id=416608134]
+[node name="Texts" type="VBoxContainer" parent="Row"]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 4
 theme_override_constants/separation = 2
 
-[node name="Label" type="Label" parent="Row/Texts" unique_id=1500410382]
+[node name="Label" type="Label" parent="Row/Texts"]
 layout_mode = 2
 theme_override_colors/font_color = Color(0, 0.760784, 0.666667, 1)
 theme_override_fonts/font = SubResource("2")
 text = "XXXXXXX"
 autowrap_mode = 3
 
-[node name="Txt" type="Label" parent="Row/Texts" unique_id=135797212]
+[node name="Txt" type="Label" parent="Row/Texts"]
 layout_mode = 2
 size_flags_horizontal = 3
 theme_override_colors/font_color = Color(0, 0, 0, 1)
@@ -124,21 +121,22 @@ theme_override_fonts/font = SubResource("3")
 text = "XXXXXXXXXXXXXXXXX"
 autowrap_mode = 3
 
-[node name="NBChapitre" type="Label" parent="Row" unique_id=242120996]
+[node name="NBChapitre" type="Label" parent="Row"]
 custom_minimum_size = Vector2(46, 0)
 layout_mode = 2
+size_flags_vertical = 4
 theme_override_colors/font_color = Color(0, 0, 0, 1)
 theme_override_fonts/font = ExtResource("2")
 text = "XXX"
 horizontal_alignment = 2
 
-[node name="click" type="PanelContainer" parent="Row" unique_id=880104669]
+[node name="click" type="PanelContainer" parent="Row"]
 custom_minimum_size = Vector2(40, 40)
 layout_mode = 2
 size_flags_vertical = 4
 theme_override_styles/panel = SubResource("4")
 
-[node name="Label" type="Label" parent="Row/click" unique_id=1166805321]
+[node name="Label" type="Label" parent="Row/click"]
 layout_mode = 2
 theme_override_colors/font_color = Color(0, 0, 0, 1)
 theme_override_fonts/font = ExtResource("2")
@@ -146,7 +144,7 @@ text = ">"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="Button" type="TextureButton" parent="Row/click" unique_id=1805536802]
+[node name="Button" type="TextureButton" parent="Row/click"]
 layout_mode = 2
 
 [connection signal="pressed" from="Row/click/Button" to="." method="_on_Button_pressed"]

@@ -92,19 +92,29 @@ func set_book_context():
 	$HBoxContainer/BookSelection/title.texture = load("res://books/%s/title.png" % book_name)
 
 
+# Le menu du haut est réutilisable : il ne connaît pas son conteneur de pages,
+# il le retrouve en remontant l'arbre. Renvoie null hors d'un MenuPage (cas de
+# l'archive), auquel cas les boutons de page ne font simplement rien.
+func _go_to_page(page_name: String) -> void:
+	var menu_page = Utils.find_ancestor_with_method(self, "go_to_page")
+	if menu_page == null:
+		return
+	menu_page.go_to_page(page_name)
+
+
 func focus_to_main():
-	Swiper.focus_to_main()
+	_go_to_page("aventure")
 
 
 func focus_to_chapitres():
-	Swiper.focus_to_chapitres()
-	
+	_go_to_page("chapitres")
+
 func focus_to_success():
-	Swiper.focus_to_success()
-	
+	_go_to_page("succes")
+
 func focus_to_lore():
-	Swiper.focus_to_lore()
-	
+	_go_to_page("lore")
+
 # NOTE: page about do NOT have a button
 
 

@@ -1,44 +1,62 @@
-extends "res://addons/gut/test.gd"
-func before_each():
-	gut.p("ran setup", 2)
-	Player.insert_all_objects()
+extends "res://test/test_case.gd"
+## Déduction du type de Billy à partir des objets portés.
+##
+## Migré depuis GUT (l'addon embarqué était en Godot 3, il a été supprimé).
+##
+## Le lanceur a redirigé les sauvegardes ET le fichier de paramètres vers un
+## dossier jetable : `launch_new_billy()` et les ajouts d'objets ci-dessous
+## n'écrivent donc rien dans la vraie partie du joueur.
+
+
+func before_each() -> void:
 	Player.launch_new_billy()
 	AppParameters.set_billy_type('pegu')
-	Player._recompute_stats()
-	
-
-func after_each():
-	gut.p("ran teardown", 2)
-
-func before_all():
-	gut.p("ran run setup", 2)
-
-func after_all():
-	gut.p("ran run teardown", 2)
+	PlayerStats.recompute()
 
 
-func _assert_billy(type):
-	self.assert_eq(type, AppParameters.get_billy_type(), 'we want a %s' % type)
+func _assert_billy(attendu: String) -> void:
+	assert_eq(AppParameters.get_billy_type(), attendu, "type de Billy")
 
 
-func test_player_init():
-	assert_eq(Player.hab, 2, "Basic hab should be 2")
+func test_stats_de_base_dun_billy_neuf() -> void:
+	assert_eq(PlayerStats.get_stat('hab'), 2, "habileté de base")
+	assert_eq(PlayerStats.get_stat('end'), 2, "endurance de base")
+	assert_eq(PlayerStats.get_stat('adr'), 1, "adresse de base")
+	assert_eq(PlayerStats.get_stat('chamax'), 3, "chance max de base")
+	assert_eq(Inventory.get_possessed_items().size(), 0, "inventaire vide")
 
 
-# Guerrier: on ne devient guerrier que quand on a 2 armes, et 3 trucs au total
-func test_player_go_guerrier():
-	Player.add_item_from_options('EPEE')
-	self._assert_billy('pegu')
-	Player.add_item_from_options('MORGENSTERN')
-	self._assert_billy('pegu')
-	Player.add_item_from_options("KIT DE SOIN")
-	self._assert_billy('guerrier')
-	
-	
-	
+# On ne devient guerrier qu'avec 2 armes ET 3 objets au total.
+func test_devient_guerrier_avec_deux_armes_et_trois_objets() -> void:
+	Inventory.add_item_from_options('EPEE')
+	_assert_billy('pegu')
+	Inventory.add_item_from_options('MORGENSTERN')
+	_assert_billy('pegu')
+	Inventory.add_item_from_options('KIT DE SOIN')
+	_assert_billy('guerrier')
 
 
-#func test_assert_true_with_true():
-#	assert_true(true, "Should pass, true is true")
+func test_les_modificateurs_du_type_vont_dans_la_couche_items() -> void:
+	Inventory.add_item_from_options('EPEE')
+	Inventory.add_item_from_options('MORGENSTERN')
+	Inventory.add_item_from_options('KIT DE SOIN')
+	assert_eq(AppParameters.get_billy_type(), 'guerrier', "on est bien guerrier")
+	# Le guerrier gagne +2 en habileté, qui doit apparaître dans la couche items.
+	assert_true(PlayerStats.get_stat('hab', PlayerStats.LAYER_ITEMS) >= 2,
+		"le bonus du type est dans la couche items")
+	assert_true(PlayerStats.get_stat('hab') > 2, "le total dépasse la base")
 
 
+func test_on_ne_porte_jamais_plus_de_trois_objets() -> void:
+	for objet in ['EPEE', 'MORGENSTERN', 'KIT DE SOIN', 'LANCE']:
+		Inventory.add_item_from_options(objet)
+	assert_true(Inventory.get_possessed_items().size() <= Inventory.MAX_CARRIED,
+		"au plus MAX_CARRIED objets portés")
+
+
+func test_les_conditions_contiennent_objets_et_type_de_billy() -> void:
+	Inventory.add_item_from_options('EPEE')
+	var conditions = Inventory.get_all_matched_conditions()
+	assert_true('EPEE' in conditions, "l'objet porté est une condition")
+	assert_true(AppParameters.get_billy_type().to_upper() in conditions,
+		"le type de Billy est une condition")

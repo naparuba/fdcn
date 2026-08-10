@@ -42,3 +42,15 @@ func roll_a_dice(minimum, maximum):
 
 func is_file_exists(path):
 	return FileAccess.file_exists(path)
+
+
+## Remonte l'arbre depuis `node` jusqu'au premier nœud qui expose `method_name`,
+## ou null. Permet à un widget réutilisable (menu du haut, flèches...) de trouver
+## son conteneur de pages sans que la scène ait à lui passer une référence.
+func find_ancestor_with_method(node: Node, method_name: String) -> Node:
+	var current = node
+	while current != null:
+		if current.has_method(method_name):
+			return current
+		current = current.get_parent()
+	return null

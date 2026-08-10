@@ -1,31 +1,58 @@
 extends Panel
+## Stats view — the Billy sheet, with the base/items/chapters breakdown.
+##
+## Scene node naming is regular: a row `Player<X>` holds `Player<X>Value` and
+## `Player<X>ValueDetail`, so the rows are driven from `_STAT_ROWS` instead of
+## being spelled out one by one.
 
-# Called when the node enters the scene tree for the first time.
+## Scene row node -> stat name in PlayerStats.
+const _STAT_ROWS := {
+	"PlayerEnd": "end",
+	"PlayerHab": "hab",
+	"PlayerAdr": "adr",
+	"PlayerCrit": "crit",
+	"PlayerDeg": "deg",
+	"PlayerArm": "arm",
+}
+
+@onready var _rows = $VBoxContainer
+
+
 func _ready() -> void:
-	self._refresh_options_stats()
-	print("okok")
+	PlayerStats.stats_changed.connect(_refresh)
+	_refresh()
 
-func _refresh_options_stats():
-	$VBoxContainer/PlayerPv/PlayerPvValue.text = '%s' % Player.get_pv()
-	$VBoxContainer/PlayerPv/PlayerPvValueDetail.text = ''
 
-	$VBoxContainer/PlayerEnd/PlayerEndValue.text = '%s' % Player.get_end()
-	$VBoxContainer/PlayerEnd/PlayerEndValueDetail.text = '(base:2, item/billy:%s' % Player.get_end_items() + ', chapitres:%s)' % Player.get_end_chapters()
+func _refresh() -> void:
+	for row_name in _STAT_ROWS.keys():
+		var stat_name = _STAT_ROWS[row_name]
+		_set_row(row_name, PlayerStats.get_stat(stat_name), _detail(stat_name))
 
-	$VBoxContainer/PlayerHab/PlayerHabValue.text = '%s' % Player.get_hab()
-	$VBoxContainer/PlayerHab/PlayerHabValueDetail.text = '(base:2, item/billy:%s' % Player.get_hab_items() + ', chapitres:%s)' % Player.get_hab_chapters()
+	# Chance shows current/max, and its breakdown is the one of chamax.
+	_set_row("PlayerCha",
+		"%s/%s" % [PlayerStats.get_cha(), PlayerStats.get_stat("chamax")],
+		_detail("chamax"))
 
-	$VBoxContainer/PlayerAdr/PlayerAdrValue.text = '%s' % Player.get_adr()
-	$VBoxContainer/PlayerAdr/PlayerAdrValueDetail.text = '(base:1, item/billy:%s' % Player.get_adr_items() + ', chapitres:%s)' % Player.get_adr_chapters()
+	# Pv is dynamic: no layers to break down.
+	_set_row("PlayerPv", PlayerStats.get_pv(), "")
 
-	$VBoxContainer/PlayerCha/PlayerChaValue.text = ('%s' % Player.get_cha()) + ('/%s' % Player.get_chamax())
-	$VBoxContainer/PlayerCha/PlayerChaValueDetail.text = '(base:3, item/billy:%s' % Player.get_chamax_items() + ', chapitres:%s)' % Player.get_chamax_chapters()
 
-	$VBoxContainer/PlayerCrit/PlayerCritValue.text = '%s' % Player.get_crit()
-	$VBoxContainer/PlayerCrit/PlayerCritValueDetail.text = '(item/billy:%s' % Player.get_crit_items() + ', chapitres:%s)' % Player.get_crit_chapters()
+func _set_row(row_name: String, value, detail: String) -> void:
+	var row = _rows.get_node_or_null(row_name)
+	if row == null:
+		push_warning("Stats: ligne introuvable dans la scène: %s" % row_name)
+		return
+	row.get_node("%sValue" % row_name).text = "%s" % value
+	row.get_node("%sValueDetail" % row_name).text = detail
 
-	$VBoxContainer/PlayerDeg/PlayerDegValue.text = '%s' % Player.get_deg()
-	$VBoxContainer/PlayerDeg/PlayerDegValueDetail.text = '(item/billy:%s' % Player.get_deg_items() + ', chapitres:%s)' % Player.get_deg_chapters()
 
-	$VBoxContainer/PlayerArm/PlayerArmValue.text = '%s' % Player.get_arm()
-	$VBoxContainer/PlayerArm/PlayerArmValueDetail.text = '(item/billy:%s' % Player.get_arm_items() + ', chapitres:%s)' % Player.get_arm_chapters()
+## "(base:2, item/billy:1, chapitres:0)" — the base part is dropped when the stat
+## starts from 0.
+func _detail(stat_name: String) -> String:
+	var base = PlayerStats.BASE_STATS.get(stat_name, 0)
+	var parts := []
+	if base > 0:
+		parts.append("base:%s" % base)
+	parts.append("item/billy:%s" % PlayerStats.get_stat(stat_name, PlayerStats.LAYER_ITEMS))
+	parts.append("chapitres:%s" % PlayerStats.get_stat(stat_name, PlayerStats.LAYER_CHAPTERS))
+	return "(%s)" % ", ".join(parts)

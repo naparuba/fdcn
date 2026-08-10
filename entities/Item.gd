@@ -88,7 +88,7 @@ func _can_item_be_shown():
 
 func refresh():
 	# Maybe we don't need a refresh
-	var do_have_item = Player.have_item(self._item_name)
+	var do_have_item = Inventory.have_item(self._item_name)
 	#if do_have_item == self._is_enabled:  # Already up to date, skip
 	#	return
 	self._is_enabled = do_have_item
@@ -119,7 +119,7 @@ func refresh():
 func _on_button_toggled(button_pressed):
 	print('ITEM: %s goes' % self._item_name, '%s' % button_pressed)
 	if button_pressed:
-		Player.add_item_from_options(self._item_name)
+		Inventory.add_item_from_options(self._item_name)
 	else:  # remove it
-		Player.remove_item_from_options(self._item_name)
+		Inventory.remove_item_from_options(self._item_name)
 	self.refresh()

@@ -30,6 +30,11 @@ func do_load_book(book_name):
 	if all_nodes_json == null:
 		push_error("BookData: impossible de charger %s-compilated-data.json" % book_path)
 		return
+	# On repart d'un dictionnaire vide : sinon, en changeant de livre, les
+	# chapitres de l'ancien livre dont l'identifiant n'existe pas dans le nouveau
+	# resteraient accessibles (et get_chapter_node renverrait les données du
+	# mauvais livre).
+	self.all_nodes = {}
 	for node_id_str in all_nodes_json.keys():
 		var chapter_data = chapter_data_cls.new()
 		chapter_data.create(all_nodes_json[node_id_str])
@@ -125,7 +130,8 @@ func get_sub_arc_completion(node_id, visited_nodes_all_times):
 
 
 func is_node_id_secret(node_id):
-	return node_id in self.secret_node_ids
+	# int() obligatoire : les identifiants venant du JSON sont des float.
+	return int(node_id) in self.secret_node_ids
 
 
 func get_success_txt(success_id):
@@ -159,7 +165,7 @@ func get_chapter_stats(node_id):
 	var stats_conds = []
 	for condition_pack in stats_cond_raw:
 		var condition = condition_pack['condition']
-		var b = self._check_cond_rec(condition, Player.get_all_matched_conditions())
+		var b = self._check_cond_rec(condition, Inventory.get_all_matched_conditions())
 		print('IS CONDITION MATCH: %s' % str(condition), "=> %s" % b)
 		if b:
 			var stats_cond = condition_pack['stats']
@@ -188,7 +194,7 @@ func match_chapter_conditions(node_from_id, node_to_id):
 	var jump_condition = all_jump_conditions.get(node_to_id_str)
 	if jump_condition == null:
 		return false
-	var r = self._check_cond_rec(jump_condition, Player.get_all_matched_conditions())
+	var r = self._check_cond_rec(jump_condition, Inventory.get_all_matched_conditions())
 	return r
 
 

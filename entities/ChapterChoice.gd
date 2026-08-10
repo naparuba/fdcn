@@ -35,8 +35,9 @@ func get_chapter_id():
 
 
 func set_chapitre(chapitre):
-	self.chap_number = chapitre
-	$NBChapitre.text = '%3d' % chapitre
+	# int() : le JSON rend les identifiants en float (voir Player.did_all_times_seen).
+	self.chap_number = int(chapitre)
+	$NBChapitre.text = '%3d' % self.chap_number
 	
 	
 func set_label(label):

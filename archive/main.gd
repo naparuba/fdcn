@@ -1,8 +1,11 @@
 extends Node2D
 
-# Some legacy per-book data below (audio/lore dicts, images/dieux & sounds/dieux
-# folders) is still numeric, unrelated to the books/{name}/ folder layout.
-const _BOOK_NUMBERS = {"fdcn": 1, "cdsi": 2}
+# ARCHIVE. Certains DOSSIERS D'ASSETS sont encore numérotés (images/dieux/<n>/,
+# sounds/dieux/<n>/) ainsi que les dictionnaires audio/lore ci-dessous. Rien à
+# voir avec l'identité d'un livre : un livre est identifié par son nom
+# ('fdcn'/'cdsi'), et les sauvegardes le sont aussi depuis la v2 (voir
+# SaveManager). Cette table ne sert donc qu'à retrouver un dossier d'assets.
+const _LEGACY_ASSET_BOOK_NUMBERS = {"fdcn": 1, "cdsi": 2}
 
 var current_lines = []
 
@@ -10,7 +13,7 @@ var current_lines = []
 @onready var Bread = preload('res://ui/bread.tscn')
 @onready var Choice = preload('res://entities/ChapterChoice.tscn')
 @onready var EndingChoice = preload('res://entities/EndingChoice.tscn')
-@onready var Success = preload('res://entities/Success.tscn')
+@onready var Success = preload('res://entities/SuccessItem.tscn')
 @onready var LoreEntry = preload('res://entities/LoreEntry.tscn')
 @onready var Item = preload('res://entities/Item.tscn')
 @onready var ItemPopup = preload('res://popups/ItemPopup.tscn')
@@ -27,8 +30,9 @@ var top_menus = []
 
 
 func _ready():
-	# Register to Swiper for page move
-	Swiper.register_main(self)
+	# ARCHIVE : l'autoload Swiper (défilement caméra entre 5 pages côte à côte)
+	# a été supprimé, remplacé par ui/menu_page.gd. La navigation entre pages de
+	# cet écran hérité ne fonctionne donc plus.
 
 	# Register top_menus so they can call us back
 	self._register_top_menus()
@@ -56,12 +60,8 @@ func _do_load_book_context():
 	# Also lore as book have differents gods ^^
 	self.insert_all_lore()
 	
-	print('_do_load_book_context:: Player.insert_all_objects')
-	Player.insert_all_objects()
-	print('_do_load_book_context:: Player.do_load')
-	Player.do_load()  # TEST
-	print('_do_load_book_context:: Player.compute_my_billy')
-	Player.compute_my_billy()
+	print('_do_load_book_context:: Inventory.compute_billy')
+	Inventory.compute_billy()
 	
 	# Jump to node, and will show main page
 	self.go_to_node(Player.get_current_node_id())
@@ -81,8 +81,7 @@ func go_to_node(node_id):
 	print('JUMP TO:  is_new=%s' % is_new_node, ' aquires=%s' % str(new_aquires), ' new removes=%s' % str(new_removes))
 		
 	self.refresh()
-	# We did change node, so important to see it
-	Swiper.focus_to_main()
+	# ARCHIVE : Swiper supprimé -> plus de recentrage automatique sur la page.
 	
 	# If we are in a special node, play sound
 	self._play_node_sound()
@@ -123,10 +122,10 @@ func go_to_node(node_id):
 
 
 func _update_billy_in_combat():
-	$Combat/PlayerPvValue.text = '%s' % Player.get_pv()
-	$Combat/PlayerHabValue.text = '%s' % Player.get_hab()
-	$Combat/PlayerArmValue.text = '%s' % Player.get_arm()
-	$Combat/PlayerDegValue.text = '%s' % Player.get_deg()
+	$Combat/PlayerPvValue.text = '%s' % PlayerStats.get_pv()
+	$Combat/PlayerHabValue.text = '%s' % PlayerStats.get_stat('hab')
+	$Combat/PlayerArmValue.text = '%s' % PlayerStats.get_stat('arm')
+	$Combat/PlayerDegValue.text = '%s' % PlayerStats.get_stat('deg')
 
 
 # We are in a new node, check if it's a success.
@@ -144,7 +143,7 @@ func _play_intro():
 		1: 'intro-fdcn.mp3',
 		2: 'intro-cdsi.mp3',
 	}
-	var book_number = _BOOK_NUMBERS[AppParameters.get_book_name()]
+	var book_number = _LEGACY_ASSET_BOOK_NUMBERS[AppParameters.get_book_name()]
 	Sounder.play(intro_sound.get(book_number))
 
 
@@ -152,7 +151,7 @@ func _play_node_sound():
 	var player = $AudioPlayer
 	# In all cases, stop the player
 	player.stop()
-	var book_number = _BOOK_NUMBERS[AppParameters.get_book_name()]
+	var book_number = _LEGACY_ASSET_BOOK_NUMBERS[AppParameters.get_book_name()]
 	
 	var node_sound_fnames = {
 		# FDCN
@@ -192,11 +191,10 @@ func _register_top_menus():
 
 
 func display_all_objects():
+	# ARCHIVE: item rows are now built by popups/sub/inventory.gd from Inventory
+	# data; this screen's own object list is no longer populated.
 	var item_stack = $Options/Equipement/ItemsCont/Items
 	Utils.delete_children(item_stack)
-	print('Insert all objects')
-	for item in Player.all_items:
-		item_stack.add_child(item)
 	
 
 func refresh_all_objects():
@@ -263,7 +261,7 @@ func insert_all_lore():
 	var all_lore = $Lore/Lore/VScrollBar/persos
 	Utils.delete_children(all_lore)
 	
-	var book_number = _BOOK_NUMBERS[AppParameters.get_book_name()]
+	var book_number = _LEGACY_ASSET_BOOK_NUMBERS[AppParameters.get_book_name()]
 	
 	var refs = {
 		1: [
@@ -359,7 +357,7 @@ func __set_sprite_to_not_grey(sprite):
 
 
 func _refresh_options_book_select_display():
-	var book_number = _BOOK_NUMBERS[AppParameters.get_book_name()]
+	var book_number = _LEGACY_ASSET_BOOK_NUMBERS[AppParameters.get_book_name()]
 	if book_number == 1:
 		self.__set_sprite_to_not_grey($Options/BookSelect/BoolSelectFcdn/sprite)
 		self.__set_sprite_to_grey($Options/BookSelect/BoolSelectCdsi/sprite)
@@ -557,7 +555,7 @@ func billy_type_is_changed():
 	
 
 func _change_book_number(book_number):
-	var book_name = _BOOK_NUMBERS.find_key(book_number)
+	var book_name = _LEGACY_ASSET_BOOK_NUMBERS.find_key(book_number)
 	var did_change = AppParameters.set_book_name(book_name)
 	if !did_change:
 		return
@@ -569,7 +567,7 @@ func _change_book_number(book_number):
 func _on_main_background_gui_input(event):
 	#print('GUI EVENT: %s' % event)
 	#var swiper = get_node("/root/Swiper")
-	Swiper.compute_event(event)
+	pass  # ARCHIVE : Swiper supprimé, le balayage est géré par ui/menu_page.gd
 
 
 func update_page_in_top_menus(current_page):
@@ -637,7 +635,6 @@ func show_options():
 	self._options_show_equipement()
 	
 	# Currently options are in the main page
-	Swiper.focus_to_main()
 	$ItemPopups.visible = false  # hide the popups for click catch
 	$Options.visible = true
 
@@ -787,28 +784,28 @@ func _on_combat_validate_button_pressed():
 
 
 func _refresh_options_stats():
-	$Options/Stats/PlayerPvValue.text = '%s' % Player.get_pv()
+	$Options/Stats/PlayerPvValue.text = '%s' % PlayerStats.get_pv()
 	
-	$Options/Stats/PlayerEndValue.text = '%s' % Player.get_end()
-	$Options/Stats/PlayerEndValueDetail.text = '(base:2, item/billy:%s' % Player.get_end_items() + ', chapitres:%s)' % Player.get_end_chapters()
+	$Options/Stats/PlayerEndValue.text = '%s' % PlayerStats.get_stat('end')
+	$Options/Stats/PlayerEndValueDetail.text = '(base:2, item/billy:%s' % PlayerStats.get_stat('end', PlayerStats.LAYER_ITEMS) + ', chapitres:%s)' % PlayerStats.get_stat('end', PlayerStats.LAYER_CHAPTERS)
 	
-	$Options/Stats/PlayerHabValue.text = '%s' % Player.get_hab()
-	$Options/Stats/PlayerHabValueDetail.text = '(base:2, item/billy:%s' % Player.get_hab_items() + ', chapitres:%s)' % Player.get_hab_chapters()
+	$Options/Stats/PlayerHabValue.text = '%s' % PlayerStats.get_stat('hab')
+	$Options/Stats/PlayerHabValueDetail.text = '(base:2, item/billy:%s' % PlayerStats.get_stat('hab', PlayerStats.LAYER_ITEMS) + ', chapitres:%s)' % PlayerStats.get_stat('hab', PlayerStats.LAYER_CHAPTERS)
 	
-	$Options/Stats/PlayerAdrValue.text = '%s' % Player.get_adr()
-	$Options/Stats/PlayerAdrValueDetail.text = '(base:1, item/billy:%s' % Player.get_adr_items() + ', chapitres:%s)' % Player.get_adr_chapters()
+	$Options/Stats/PlayerAdrValue.text = '%s' % PlayerStats.get_stat('adr')
+	$Options/Stats/PlayerAdrValueDetail.text = '(base:1, item/billy:%s' % PlayerStats.get_stat('adr', PlayerStats.LAYER_ITEMS) + ', chapitres:%s)' % PlayerStats.get_stat('adr', PlayerStats.LAYER_CHAPTERS)
 	
-	$Options/Stats/PlayerChaValue.text = ('%s' % Player.get_cha()) + ('/%s' % Player.get_chamax())
-	$Options/Stats/PlayerChaValueDetail.text = '(base:3, item/billy:%s' % Player.get_chamax_items() + ', chapitres:%s)' % Player.get_chamax_chapters()
+	$Options/Stats/PlayerChaValue.text = ('%s' % PlayerStats.get_cha()) + ('/%s' % PlayerStats.get_stat('chamax'))
+	$Options/Stats/PlayerChaValueDetail.text = '(base:3, item/billy:%s' % PlayerStats.get_stat('chamax', PlayerStats.LAYER_ITEMS) + ', chapitres:%s)' % PlayerStats.get_stat('chamax', PlayerStats.LAYER_CHAPTERS)
 	
-	$Options/Stats/PlayerCritValue.text = '%s' % Player.get_crit()
-	$Options/Stats/PlayerCritValueDetail.text = '(item/billy:%s' % Player.get_crit_items() + ', chapitres:%s)' % Player.get_crit_chapters()
+	$Options/Stats/PlayerCritValue.text = '%s' % PlayerStats.get_stat('crit')
+	$Options/Stats/PlayerCritValueDetail.text = '(item/billy:%s' % PlayerStats.get_stat('crit', PlayerStats.LAYER_ITEMS) + ', chapitres:%s)' % PlayerStats.get_stat('crit', PlayerStats.LAYER_CHAPTERS)
 	
-	$Options/Stats/PlayerDegValue.text = '%s' % Player.get_deg()
-	$Options/Stats/PlayerDegValueDetail.text = '(item/billy:%s' % Player.get_deg_items() + ', chapitres:%s)' % Player.get_deg_chapters()
+	$Options/Stats/PlayerDegValue.text = '%s' % PlayerStats.get_stat('deg')
+	$Options/Stats/PlayerDegValueDetail.text = '(item/billy:%s' % PlayerStats.get_stat('deg', PlayerStats.LAYER_ITEMS) + ', chapitres:%s)' % PlayerStats.get_stat('deg', PlayerStats.LAYER_CHAPTERS)
 	
-	$Options/Stats/PlayerArmValue.text = '%s' % Player.get_arm()
-	$Options/Stats/PlayerArmValueDetail.text = '(item/billy:%s' % Player.get_arm_items() + ', chapitres:%s)' % Player.get_arm_chapters()
+	$Options/Stats/PlayerArmValue.text = '%s' % PlayerStats.get_stat('arm')
+	$Options/Stats/PlayerArmValueDetail.text = '(item/billy:%s' % PlayerStats.get_stat('arm', PlayerStats.LAYER_ITEMS) + ', chapitres:%s)' % PlayerStats.get_stat('arm', PlayerStats.LAYER_CHAPTERS)
 
 
 func _switch_to_book_fcdn():

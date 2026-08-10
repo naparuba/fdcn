@@ -11,10 +11,15 @@ var parameters = {
 signal settings_changed
 signal settings_loaded
 
+## Émis quand le joueur change de livre. Les sauvegardes étant rangées par
+## livre, Player s'y abonne pour recharger la sienne.
+signal book_changed(book_name)
+
 func _ready():
 	print('Parameters: ready')
 	self._load_parameters()
-	self._apply_parameters()
+	self._apply_sound()
+	self._apply_book()
 
 
 func _load_parameters():
@@ -29,20 +34,26 @@ func _load_parameters():
 			var v = loaded_parameters[k]
 			print('PARAM: %s=>' % k, v)
 			parameters[k] = v
-		self._migrate_legacy_book_number()
+		# Si on a dû convertir un ancien format, on réécrit le fichier tout de
+		# suite : sinon la conversion serait refaite à chaque lancement.
+		if self._migrate_legacy_book_number():
+			self._save_parameters()
 	else:
 		# already created in globals
 		pass
 
 
-# Old saves stored current_book as a number (1/2). Migrate it to the book
-# name used by the books/{name}/ folder layout.
-func _migrate_legacy_book_number():
+# Les anciennes sauvegardes stockaient current_book sous forme de nombre (1/2).
+# On le convertit vers le nom de livre utilisé par le rangement books/<nom>/.
+# Renvoie true si une conversion a eu lieu (donc s'il faut réécrire le fichier).
+func _migrate_legacy_book_number() -> bool:
 	var current = self.parameters['current_book']
 	if typeof(current) == TYPE_STRING:
-		return
+		return false
 	var legacy_names = {1: 'fdcn', 2: 'cdsi'}
 	self.parameters['current_book'] = legacy_names.get(int(current), 'fdcn')
+	print('PARAM: conversion current_book %s => %s' % [current, self.parameters['current_book']])
+	return true
 
 
 func _save_parameters():
@@ -51,10 +62,14 @@ func _save_parameters():
 	settings_changed.emit()
 
 
-# We warn others about the params, if changed or load
-func _apply_parameters():
+# Applique les paramètres aux autres systèmes. Séparé par domaine : recharger
+# tout le livre parce que le joueur a coupé le son serait absurde.
+func _apply_sound():
 	Sounder.set_enabled(self.parameters['sound'])
-	print('PARAMETERS: _apply_parameters')
+
+
+func _apply_book():
+	print('PARAMETERS: chargement du livre %s' % self.parameters['current_book'])
 	BookData.do_load_book(self.parameters['current_book'])
 
 
@@ -82,7 +97,7 @@ func set_sound(b):
 	print('PARAMETERS: sound => %s' % b)
 	self.parameters['sound'] = b
 	self._save_parameters()
-	self._apply_parameters()
+	self._apply_sound()
 
 
 func get_billy_type():
@@ -105,7 +120,10 @@ func set_book_name(book_name):
 	print('PARAMETERS: book_name => %s' % book_name)
 	self.parameters['current_book'] = book_name
 	self._save_parameters()
-	self._apply_parameters()
+	# L'ordre compte : BookData doit contenir le nouveau livre avant que Player
+	# ne recharge la sauvegarde correspondante.
+	self._apply_book()
+	book_changed.emit(book_name)
 	return true
 
 

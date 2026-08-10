@@ -17,7 +17,7 @@
 [ext_resource type="Texture2D" uid="uid://cd7dt07f430xw" path="res://images/fleche_bas_droite.png" id="15"]
 [ext_resource type="PackedScene" path="res://ui/left_backer.tscn" id="16"]
 [ext_resource type="PackedScene" uid="uid://l54yt3gtae6v" path="res://ui/right_nexter.tscn" id="17"]
-[ext_resource type="PackedScene" uid="uid://cyu1whyusreqt" path="res://entities/Success.tscn" id="18"]
+[ext_resource type="PackedScene" uid="uid://cyu1whyusreqt" path="res://entities/SuccessItem.tscn" id="18"]
 [ext_resource type="PackedScene" path="res://entities/LoreEntry.tscn" id="19"]
 [ext_resource type="Texture2D" uid="uid://c32ss1seos6no" path="res://images/new_player.png" id="20"]
 [ext_resource type="Texture2D" uid="uid://cfhgpll5nsjlr" path="res://images/bug.png" id="21"]

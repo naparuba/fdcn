@@ -1,7 +1,7 @@
-[gd_scene format=3 uid="uid://f03y5mpch8wv"]
+[gd_scene load_steps=4 format=3 uid="uid://f03y5mpch8wv"]
 
 [ext_resource type="FontFile" uid="uid://dvf02ee6hmyyy" path="res://fonts/amon_font.tres" id="1_mx0dr"]
-[ext_resource type="PackedScene" uid="uid://cyu1whyusreqt" path="res://entities/Success.tscn" id="2_u33no"]
+[ext_resource type="Script" path="res://screens/succes_menu.gd" id="2_script"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_x0std"]
 bg_color = Color(1, 1, 1, 1)
@@ -9,7 +9,7 @@ bg_color = Color(1, 1, 1, 1)
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_hj48q"]
 bg_color = Color(0.192157, 0.231373, 0.278431, 1)
 
-[node name="Success" type="Panel" unique_id=1009424153]
+[node name="SuccesMenu" type="Panel" unique_id=1009424153]
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
@@ -17,40 +17,44 @@ grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 1
 theme_override_styles/panel = SubResource("StyleBoxFlat_x0std")
+script = ExtResource("2_script")
 
-[node name="Header" type="Panel" parent="." unique_id=1358482155]
+[node name="VBox" type="VBoxContainer" parent="."]
 layout_mode = 1
-anchors_preset = 10
+anchors_preset = 15
 anchor_right = 1.0
-offset_bottom = 39.0
+anchor_bottom = 1.0
 grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 0
+
+[node name="Header" type="PanelContainer" parent="VBox"]
+custom_minimum_size = Vector2(0, 39)
+layout_mode = 2
 mouse_filter = 1
 theme_override_styles/panel = SubResource("StyleBoxFlat_hj48q")
 
-[node name="Label" type="Label" parent="Header" unique_id=276770437]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
+[node name="Label" type="Label" parent="VBox/Header"]
+layout_mode = 2
 theme_override_fonts/font = ExtResource("1_mx0dr")
 text = "Tous les Succès"
 horizontal_alignment = 1
+vertical_alignment = 1
 
-[node name="VScrollBar" type="ScrollContainer" parent="." unique_id=2109052128]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-offset_top = 39.0
-grow_horizontal = 2
-grow_vertical = 2
+[node name="Counter" type="Label" parent="VBox"]
+custom_minimum_size = Vector2(0, 24)
+layout_mode = 2
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+text = "0 / 0"
+horizontal_alignment = 2
+vertical_alignment = 1
+
+[node name="Scroll" type="ScrollContainer" parent="VBox"]
+layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
+horizontal_scroll_mode = 0
 
-[node name="Success" type="VBoxContainer" parent="VScrollBar" unique_id=478045628]
+[node name="Content" type="Control" parent="VBox/Scroll"]
 layout_mode = 2
-
-[node name="Success" parent="VScrollBar/Success" unique_id=1121417702 instance=ExtResource("2_u33no")]
-layout_mode = 2
+size_flags_horizontal = 3
