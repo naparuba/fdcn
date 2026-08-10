@@ -8,8 +8,12 @@ var parameters = {
 	'current_book': 'fdcn',  # which book did the user select (matches books/{name}/)
 }
 
+## Unique signal « les réglages valent maintenant ceci, repeins-toi ». Il couvre
+## aussi bien le chargement initial que chaque modification ultérieure : un
+## abonné se branche sans condition et fait sa première peinture lui-même (voir
+## `ui/top_menu.gd`, `screens/chapitres_menu.gd`). Signal gros-grain : il part
+## pour n'importe quel réglage, spoils comme type de Billy.
 signal settings_changed
-signal settings_loaded
 
 ## Émis quand le joueur change de livre. Les sauvegardes étant rangées par
 ## livre, Player s'y abonne pour recharger la sienne.
@@ -20,6 +24,10 @@ func _ready():
 	self._load_parameters()
 	self._apply_sound()
 	self._apply_book()
+	# Les autoloads étant prêts avant la scène principale, personne n'écoute
+	# encore : cette émission ne sert qu'à repeindre une interface qui aurait
+	# déjà affiché les valeurs par défaut avant la lecture du fichier.
+	settings_changed.emit()
 
 
 func _load_parameters():

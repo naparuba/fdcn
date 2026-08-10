@@ -28,6 +28,7 @@ SaveManager="*res://autoload/save_manager.gd"
 PlayerStats="*res://autoload/player_stats.gd"
 Inventory="*res://autoload/inventory.gd"
 Player="*res://autoload/player.gd"
+CombatEngine="*res://autoload/combat_engine.gd"
 
 [display]
 

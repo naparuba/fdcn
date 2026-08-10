@@ -29,7 +29,7 @@ cache/0/16/0/underline_thickness = 0.0
 cache/0/16/0/scale = 1.0
 
 [node name="Item" type="Panel" unique_id=43998932]
-custom_minimum_size = Vector2(450, 50)
+custom_minimum_size = Vector2(0, 50)
 clip_contents = true
 anchors_preset = 10
 anchor_right = 1.0

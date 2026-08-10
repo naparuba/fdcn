@@ -1,0 +1,35 @@
+[gd_scene format=3]
+
+[ext_resource type="Script" path="res://ui/resource_gauge.gd" id="1_gauge"]
+[ext_resource type="FontFile" path="res://fonts/amon_font_small.tres" id="2_font"]
+
+[node name="ResourceGauge" type="VBoxContainer"]
+offset_right = 220.0
+offset_bottom = 48.0
+theme_override_constants/separation = 2
+script = ExtResource("1_gauge")
+
+[node name="Titre" type="Label" parent="."]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.290196, 0.309804, 0.329412, 1)
+theme_override_fonts/font = ExtResource("2_font")
+text = "PV"
+
+[node name="Bar" type="ProgressBar" parent="."]
+custom_minimum_size = Vector2(0, 26)
+layout_mode = 2
+value = 50.0
+show_percentage = false
+
+[node name="Valeur" type="Label" parent="Bar"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_fonts/font = ExtResource("2_font")
+text = "0 / 0"
+horizontal_alignment = 1
+vertical_alignment = 1

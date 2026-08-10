@@ -67,6 +67,9 @@ func do_load() -> bool:
 	# soient à jour même si les données du livre ont changé depuis la sauvegarde.
 	_redo_all_my_chapters_stats()
 	PlayerStats.recompute()
+	# Après le recompute : les plafonds doivent être connus pour borner les
+	# ressources relues.
+	PlayerStats.load_resources()
 	return Inventory.need_force_display_options
 
 
@@ -98,15 +101,27 @@ func save_session_visited_nodes() -> void:
 	SaveManager.save_value(SaveManager.KEY_SESSION_VISITED, session_visited_nodes)
 
 
+## Reconstruit les stats issues des chapitres depuis l'historique courant. Public
+## parce qu'un retour en arrière doit pouvoir s'en servir : après avoir dépilé le fil
+## d'Ariane, c'est ce qui rend la couche « chapitres » exacte à nouveau.
+func rebuild_chapter_stats() -> void:
+	_redo_all_my_chapters_stats()
+	PlayerStats.recompute()
+
+
 ## Rejoue tous les chapitres de l'historique de ce Billy pour reconstruire la
 ## couche de stats « chapitres ».
+##
+## Les ressources (pv, chance) sont exclues du rejeu : elles se lisent dans la
+## sauvegarde. Les rejouer les remonterait au total de tout ce que les chapitres
+## ont jamais donné, effaçant chaque dégât de combat et chaque ajustement manuel.
 func _redo_all_my_chapters_stats() -> void:
 	print('redo_all_my_chapters_stats:')
 	# La couche « chapitres » s'accumule avec +=, elle doit donc repartir de zéro,
 	# sinon un second do_load() compterait tout l'historique en double.
 	PlayerStats.reset_chapter_layer()
 	for chapter_id in session_visited_nodes:
-		PlayerStats.apply_chapter_stats(chapter_id)
+		PlayerStats.apply_chapter_stats(chapter_id, false)
 
 
 #
@@ -225,3 +240,7 @@ func launch_new_billy() -> void:
 	save_session_visited_nodes()
 	Inventory.reset()
 	PlayerStats.full_reset()
+	# `full_reset()` laisse les plafonds périmés et les ressources à zéro : il faut
+	# recalculer avant de faire le plein, sinon un Billy neuf démarrerait à 0 pv.
+	PlayerStats.recompute()
+	PlayerStats.fill_resources()

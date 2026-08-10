@@ -99,6 +99,7 @@ anchor_bottom = 1.0
 offset_top = 260.0
 grow_horizontal = 2
 grow_vertical = 2
+horizontal_scroll_mode = 0
 
 [node name="Items" type="VBoxContainer" parent="ItemsCont" unique_id=735835187]
 layout_mode = 2

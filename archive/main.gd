@@ -185,9 +185,8 @@ func _register_top_menus():
 	self.top_menus.append($Succes/top_menu)
 	self.top_menus.append($Lore/top_menu)
 	self.top_menus.append($About/top_menu)
-	
-	for top_menu in self.top_menus:
-		top_menu.register_main(self)
+	# ARCHIVE: le pont `top_menu.register_main(self)` a disparu (review §2.4) :
+	# le menu du haut se met à jour sur les signaux de l'Inventory.
 
 
 func display_all_objects():

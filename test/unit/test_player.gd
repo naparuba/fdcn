@@ -54,6 +54,29 @@ func test_on_ne_porte_jamais_plus_de_trois_objets() -> void:
 		"au plus MAX_CARRIED objets portés")
 
 
+# Le type imposé depuis le menu du haut passe par `force_billy_type()`, qui doit
+# émettre `billy_changed` (c'est ce signal qui rafraîchit l'interface, review §2.4)
+# et recalculer les stats, puisque le type donne des modificateurs.
+func test_forcer_le_type_emet_le_signal_et_recalcule_les_stats() -> void:
+	var recus := []
+	var recepteur := func(billy_type): recus.append(billy_type)
+	Inventory.billy_changed.connect(recepteur)
+
+	Inventory.force_billy_type('guerrier')
+
+	assert_eq(recus, ['guerrier'], "billy_changed émis une fois avec le type")
+	_assert_billy('guerrier')
+	assert_eq(PlayerStats.get_stat('hab', PlayerStats.LAYER_ITEMS), 2,
+		"le +2 hab du guerrier est appliqué")
+	assert_eq(PlayerStats.get_stat('chamax'), 2, "le -1 chamax du guerrier est appliqué")
+
+	# Reposer le même type ne doit rien rediffuser.
+	Inventory.force_billy_type('guerrier')
+	assert_eq(recus.size(), 1, "pas de signal pour un type inchangé")
+
+	Inventory.billy_changed.disconnect(recepteur)
+
+
 func test_les_conditions_contiennent_objets_et_type_de_billy() -> void:
 	Inventory.add_item_from_options('EPEE')
 	var conditions = Inventory.get_all_matched_conditions()

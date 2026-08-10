@@ -1,5 +1,11 @@
 extends Panel
-
+## Une ligne d'objet de l'inventaire : icône, nom, stats, case à cocher.
+##
+## ⚠️ Le gabarit n'impose **que sa hauteur** (`custom_minimum_size = (0, 50)`).
+## Il exigeait 450 px de large, soit plus que les ~444 px que la popup des
+## options laisse à sa colonne de contenu : la liste affichait donc une barre de
+## défilement horizontale. La largeur appartient au conteneur, ne remets pas de
+## minimum en x.
 
 
 var _is_enabled = null

@@ -26,9 +26,28 @@ const KEY_SESSION_VISITED := "session_visited_nodes"
 const KEY_POSSESSED_ITEMS := "possessed_item"
 const KEY_SAVE_VERSION := "save_version"
 
+## Les ressources consommables du Billy. Contrairement aux couches de stats, elles
+## ne peuvent PAS être redérivées de l'historique des chapitres (une perte en
+## combat ou un ajustement manuel ne se rejoue pas), elles vont donc sur le
+## disque. Voir la section « Ressources » de `player_stats.gd`.
+const KEY_PV := "pv"
+const KEY_CHANCE := "chance"
+
 ## Les clés qui contiennent réellement de la progression. Sert à savoir si une
 ## sauvegarde existe (le fichier de version seul ne compte pas).
 const _GAMEPLAY_KEYS := [
+	KEY_VISITED_ALL_TIMES,
+	KEY_CURRENT_NODE_ID,
+	KEY_SESSION_VISITED,
+	KEY_POSSESSED_ITEMS,
+	KEY_PV,
+	KEY_CHANCE,
+]
+
+## Les clés qui existaient au format v1 (fichiers suffixés par le NUMÉRO du
+## livre). Seules celles-là concernent la migration v1 -> v2 : chercher un
+## `pv-1.json` n'aurait aucun sens, ce format n'a jamais existé.
+const _V1_KEYS := [
 	KEY_VISITED_ALL_TIMES,
 	KEY_CURRENT_NODE_ID,
 	KEY_SESSION_VISITED,
@@ -113,6 +132,13 @@ func _load_json_safe(pth: String):
 	return data
 
 
+## Efface la sauvegarde d'une clé. Sert à revenir à l'état « jamais enregistré »,
+## qui n'est pas la même chose qu'une valeur à zéro : c'est l'absence de fichier
+## qui fait dire à `PlayerStats.load_resources()` « démarre au plein ».
+func delete_save(key: String) -> void:
+	_delete(get_save_path(key))
+
+
 func _delete(pth: String) -> void:
 	var dir = DirAccess.open(base_dir)
 	if dir != null:
@@ -172,6 +198,11 @@ func prepare_save() -> void:
 
 ## Nouvelle sauvegarde vierge : le joueur démarre au chapitre 1, sans objet et
 ## sans historique.
+##
+## `KEY_PV` / `KEY_CHANCE` sont volontairement absents : leur valeur de plein
+## dépend de plafonds que seul `PlayerStats.recompute()` connaît, et qui n'est pas
+## encore passé ici. L'absence du fichier veut dire « jamais enregistré » et
+## `PlayerStats.load_resources()` la traduit en « au maximum ».
 func _create_empty_save() -> void:
 	save_value(KEY_VISITED_ALL_TIMES, [1])
 	save_value(KEY_CURRENT_NODE_ID, 1)
@@ -209,7 +240,7 @@ func _legacy_path(key: String, book_number: int) -> String:
 ## Vrai s'il reste des fichiers à l'ancien format (suffixés par un numéro).
 func _has_any_legacy_save() -> bool:
 	for book_number in _LEGACY_BOOK_NUMBERS:
-		for key in _GAMEPLAY_KEYS:
+		for key in _V1_KEYS:
 			if FileAccess.file_exists(_legacy_path(key, book_number)):
 				return true
 	return false
@@ -230,7 +261,7 @@ func _migrate_1_to_2() -> void:
 
 	for book_number in _LEGACY_BOOK_NUMBERS:
 		var book_name = _LEGACY_BOOK_NUMBERS[book_number]
-		for key in _GAMEPLAY_KEYS:
+		for key in _V1_KEYS:
 			var old_path = _legacy_path(key, book_number)
 			if not FileAccess.file_exists(old_path):
 				continue

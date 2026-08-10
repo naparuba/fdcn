@@ -144,21 +144,61 @@ Vérifié : navigation normale OK ; popup ouverte → flèches grisées, flèche
 L'archive garde ses appels neutralisés par des commentaires : sa pagination
 interne ne fonctionne plus, ce qui est assumé (elle est vouée à disparaître).
 
-### 2.3 `settings_loaded` is declared but never emitted 🔴
+### 2.3 `settings_loaded` déclaré mais jamais émis ✅ FAIT (2026-08-10)
 
-`autoload/Parameters.gd:12` declares `signal settings_loaded`. Nothing ever emits it.
-`ui/top_menu.gd:22–26` does:
+`autoload/Parameters.gd` déclarait `signal settings_loaded` que **personne
+n'émettait**, et `ui/top_menu.gd` s'en servait comme garde « est-ce que j'arrive
+trop tôt ? » :
 
 ```gdscript
 if AppParameters.is_node_ready():
     _apply_settings()
 else:
-    AppParameters.settings_loaded.connect(_apply_settings)   # never fires
+    AppParameters.settings_loaded.connect(_apply_settings)   # ne part jamais
 ```
 
-If a TopMenu is ready before `AppParameters`, its spoils/sound toggles are **never
-initialised** and silently show wrong state. Either emit it at the end of
-`Parameters._ready()`, or drop the signal and rely on autoload ordering.
+La branche `else` était un cul-de-sac : un TopMenu prêt avant `AppParameters`
+n'initialisait jamais ses interrupteurs spoils/son (ni, depuis §2.4, son type de
+Billy) et affichait silencieusement les valeurs codées en dur dans le `.tscn`.
+Bug **latent** en pratique — les autoloads sont prêts avant la scène principale,
+donc `is_node_ready()` était toujours vrai — mais un piège sans signal d'échec.
+
+**Corrigé en supprimant le cas particulier plutôt qu'en le réparant** :
+`settings_loaded` est supprimé, et `settings_changed` (déjà émis par
+`_save_parameters()`) devient l'unique signal « les réglages valent ceci,
+repeins-toi », désormais aussi émis en fin de `Parameters._ready()`.
+`ui/top_menu.gd` adopte le schéma que `screens/chapitres_menu.gd` et
+`screens/succes_menu.gd` utilisaient déjà — branchement **inconditionnel** +
+peinture initiale par l'abonné lui-même, sans garde :
+
+```gdscript
+AppParameters.settings_changed.connect(_apply_settings)
+_apply_settings()
+```
+
+Deux conséquences à connaître :
+
+- **Bénéfice en prime** : le menu du haut suit maintenant un réglage changé
+  ailleurs, ce qui n'était pas le cas avant (il écrivait sans jamais écouter).
+  Se contenter de renommer le signal dans la garde aurait été une *régression* :
+  la branche `if` étant toujours prise, il n'aurait été abonné à rien.
+- **`set_pressed_no_signal()`** est obligatoire dans `_apply_settings()` :
+  `settings_changed` part souvent parce que le joueur vient de cliquer un de ces
+  deux `CheckButton`. Pas de boucle infinie sans ça (`BaseButton.set_pressed()`
+  et `set_spoils()` sortent tôt sur valeur identique) mais c'était sûr par
+  accident et non par construction.
+
+L'émission en fin de `_ready()` ne réveille personne aujourd'hui (aucun abonné
+n'existe encore à cet instant, les autoloads passant avant la scène) : elle ne
+couvre que le cas « une interface a peint les défauts avant la lecture du
+fichier ». `_load_parameters()` n'émettait rien de lui-même, sauf migration
+(`_migrate_legacy_book_number()` → `_save_parameters()`).
+
+⚠️ `settings_changed` est **gros-grain** : il part pour n'importe quel réglage,
+donc un changement de type de Billy repeint aussi les deux listes virtualisées.
+Borné à la taille du pool (~15 lignes, pas 606 chapitres), donc indolore — mais
+c'est un choix « simplicité > précision ». Le jour où un abonné y fait quelque
+chose de coûteux, il faudra des signaux par domaine (`spoils_changed`, …).
 
 ### 2.4 `Player._main` god-object bridge ✅ FAIT (2026-08-10)
 
@@ -170,17 +210,33 @@ Déjà branchés : `popups/sub/inventory.gd` (sur `items_changed`) et
 `popups/sub/stats.gd` (sur `stats_changed`) — la popup des stats se met donc à
 jour en direct, ce qui règle aussi **#36**.
 
-Reste à brancher : `ui/top_menu.gd:set_billy()` sur `Inventory.billy_changed`
-(voir **#24**, la fonction existe mais n'est appelée par personne).
+Branché depuis : `ui/top_menu.gd` s'abonne à `Inventory.billy_changed` dans son
+`_ready()` et repeint via `set_billy()`, avec la peinture initiale dans
+`_apply_settings()` (le type vit dans les paramètres persistés, il hérite donc de
+la même garde `AppParameters.is_node_ready()`).
 
-### 2.5 `ui/top_menu.gd` billy buttons call a null `main` 🔴
+Dernier reste du pont supprimé au passage : `var main = null` et les quatre
+`_switch_to_*()` qui l'appelaient (c'était §2.5), plus l'appel mort
+`top_menu.register_main(self)` de `archive/main.gd`. Plus une seule occurrence de
+`register_main` / `_main` dans le dépôt.
 
-`:111–128` `_switch_to_guerrier/paysan/prudent/debrouillard()` each call
-`self.main._switch_to_*()`. `top_menu.gd`'s `var main = null` (`:43`) is **never
-assigned by anyone**, and `archive/main.gd` never had `_switch_to_*` either.
-`Player._switch_to_billy(type)` (`:718`) is the real implementation.
+⚠️ Corrigé dans la foulée : `set_billy()` et `set_page()` cherchaient
+`$Billys/...` et `$Pages/...` alors que ces nœuds sont sous `HBoxContainer`.
+Brancher le signal sur la fonction telle quelle plantait donc sur un `null` au
+premier changement de type.
 
-**Fix**: call `Player._switch_to_billy('guerrier')` directly; delete the `main` var.
+### 2.5 `ui/top_menu.gd` billy buttons call a null `main` ✅ FAIT (2026-08-10)
+
+`_switch_to_guerrier/paysan/prudent/debrouillard()` appelaient
+`self.main._switch_to_*()`, avec un `var main = null` que personne n'assignait
+(l'assignation venait de `register_main`, supprimé en §2.4).
+
+Ils appellent désormais `Inventory.force_billy_type('<type>')`, nouvelle méthode
+publique : le vrai `_switch_to_billy()` reste privé et renvoie maintenant un
+booléen (« le type a-t-il changé »), ce qui permet à `force_billy_type()` de ne
+recalculer les stats que si nécessaire. Ce recalcul est indispensable : les
+modificateurs de type (`PlayerStats.BILLY_MODIFIERS`) vivent dans la couche
+`items`. Couvert par `test/unit/test_player.gd`.
 
 ### 2.6 `window/stretch/mode` ✅ FAIT (2026-08-10)
 
@@ -390,6 +446,76 @@ accident. `chapter_data.gd` `extends Node` but is pure data → should be `RefCo
   repeats a third variant.
 - `popups/ItemPopup.gd:23` loads `.svg` only, while `entities/Item.gd:26–33` does
   svg→png fallback. Inconsistent; PNG items show blank in the popup.
+
+### 4.8 Ressources vs stats ✅ SOCLE FAIT (2026-08-10)
+
+Les pv et la chance ne sont pas des stats mais des **ressources** : on les
+consomme. Le code le supposait déjà à moitié (variables simples au lieu des trois
+couches, hors de `BASE_STATS`) mais il en manquait tout le reste, et le symptôme
+était spectaculaire : **un Billy neuf démarrait à 0 pv sur 6**.
+`launch_new_billy()` → `full_reset()` met `pv = 0`, et le chapitre 1 des deux
+livres n'accorde aucune stat (vérifié dans les données) — donc rien ne remplissait
+jamais la jauge.
+
+Trois propriétés désormais tenues, toutes dans `autoload/player_stats.gd`,
+section « Ressources » :
+
+1. **Bornées.** Toute écriture passe par `_set_pv` / `_set_chance`, qui ramènent
+   entre 0 et le plafond (`pv_max`, `get_chance_max()`). API publique :
+   `add_pv(x=1)` / `del_pv(x=1)` / `add_chance(x=1)` / `del_chance(x=1)`. Ferme la
+   moitié « cap `pv`/`chance` » de **#25**.
+2. **Sauvegardées.** Nouvelles clés `SaveManager.KEY_PV` / `KEY_CHANCE`.
+   **Aucune migration** : un fichier absent veut dire « jamais enregistré », que
+   `load_resources()` traduit par « au plein » — le seul défaut qui ne pénalise pas
+   une partie en cours. `_create_empty_save()` ne les écrit donc volontairement
+   pas (les plafonds n'y sont pas encore connus).
+3. **Hors du rejeu d'historique.** C'est le point le moins évident.
+   `Player.do_load()` reconstruit la couche « chapitres » en rejouant les chapitres
+   visités ; une ressource, elle, n'est pas redérivable (un dégât de combat ou un
+   ajustement manuel ne se rejoue pas). `apply_chapter_stat(k, v, with_resources)`
+   et `apply_chapter_stats(id, with_resources)` prennent donc un mode
+   cumuls-seuls, utilisé par `_redo_all_my_chapters_stats()`. Sans ça le rejeu
+   **écrivait** des pv gonflés sur le disque (les setters sauvegardent), que le
+   `load_resources()` suivant relisait : chaque démarrage effaçait les dégâts.
+   Verrouillé par `test/unit/test_resources.gd`.
+
+Le partage se lit dans `_CHAPTER_RESOURCE_KEYS` = `chance`, `half_pv`,
+`max_chance`, `max_pv`, `pv`. Tout le reste (`gloire`, `richesse`, `info`,
+`pv_max`) est un **cumul** dérivable de l'historique et reste dans le rejeu.
+
+⚠️ **Le plafond bouge** (`pv_max = end × 3`, donc il suit les objets et le type de
+Billy). `recompute()` rogne les ressources au nouveau plafond : une jauge à 9/6
+serait un bug visible. Choix assumé et destructif — décocher un objet par erreur
+coûte des pv qui ne reviennent pas au recochage (monter le plafond ne soigne pas,
+c'est le sens d'une ressource). Acceptable **uniquement** parce que l'onglet
+ressources permet de rattraper à la main.
+
+Interface : `ui/ResourceGauge.tscn` (barre + « courant / max », affichage seul,
+réglée par `kind` + `show_title`), instanciée **deux fois dans la feuille de stats**
+(`popups/sub/Stats.tscn`), chaque jauge sous la ligne de sa ressource et encadrée
+des boutons − / +, grisés aux bornes.
+
+**Pourquoi dans la feuille et pas dans un 4e onglet** (essayé, puis abandonné) :
+pv et chance y étaient *déjà* affichés, un onglet dédié aurait mis le même nombre
+à deux endroits. Les deux lignes ont donc perdu leur label de valeur — la jauge
+porte le « courant / max » — et sont enveloppées dans un bloc (`PvBlock`,
+`ChaBlock`) qui resserre la jauge contre sa ligne, la séparation du `VBoxContainer`
+de la feuille étant de 35 px. `stats.gd` cherche ses lignes récursivement à cause
+de cette imbrication.
+
+Le vrai argument est ailleurs : la manipulation *pendant* une partie (chaque round
+de combat) n'a pas sa place dans une popup à deux taps. La jauge est autonome
+(abonnée à `stats_changed`, aucune dépendance à son hôte) précisément pour pouvoir
+être posée à côté du panneau de combat sur l'écran Aventure. La popup reste ce
+qu'elle doit être : là où on consulte et où on corrige.
+
+**Reste à faire** : le combat (`screens/aventure_menu/combat.gd` lit `get_pv()` mais
+n'écrit rien). Plan complet, audit des données et questions ouvertes dans
+**`combat.md`** — dont deux blocages : la table du marque-page n'existe nulle part en
+données, et les règles spéciales de chaque combat ne sont **pas** dans le JSON (6
+champs seulement : `nom`/`hab`/`pv`/`arm`/`deg`/`pyro`). En attendant, les boutons ±
+*sont* le mécanisme de combat. Voir aussi **#52** (`rancune`/`respect` de cdsi
+perdus) et **#53** (`richesse`/`gloire`/`nb_infos` jamais affichés).
 
 ---
 
@@ -646,10 +772,10 @@ Tags: `[bug]` `[logic]` `[refacto]` `[feature]` `[style]` `[place]` `[hygiene]`
 |---|---|---|---|
 | ~~1~~ | `[bug]` | ~~Call `Player.do_load()` at startup and on book switch~~ — ✅ **FAIT**, + versionnage/migration des sauvegardes | §2.1 |
 | ~~2~~ | `[bug]` | ~~`window/stretch/mode` `"2d"` → `canvas_items`~~ — ✅ **FAIT** : + `aspect=expand`, + correction de `nav_buton` (§2.6) | §2.6 |
-| 3 | `[bug]` | Emit `settings_loaded` at end of `Parameters._ready()` (or delete signal + its `top_menu` branch) | §2.3 |
-| 4 | `[bug]` | `ui/top_menu.gd:111–128` → call `Player._switch_to_billy(<type>)`; delete the null `main` var | §2.5 |
+| ~~3~~ | `[bug]` | ~~Emit `settings_loaded` at end of `Parameters._ready()` (or delete signal + its `top_menu` branch)~~ — ✅ **FAIT** : signal supprimé, `settings_changed` devient l'unique signal et est émis en fin de `_ready()` | §2.3 |
+| ~~4~~ | `[bug]` | ~~`ui/top_menu.gd` → `Player._switch_to_billy(<type>)`; delete the null `main` var~~ — ✅ **FAIT** : `Inventory.force_billy_type()` (§2.5) | §2.5 |
 | ~~5~~ | `[logic]` | ~~Sort du `Swiper`~~ — ✅ **FAIT** : supprimé, appels réorientés vers `MenuPage`, navigation bloquée si popup ouverte | §2.2 |
-| 6 | `[bug]` | Replace `Player._main` callbacks with signals (`items_changed`, `billy_changed`); remove `register_main` | §2.4 |
+| ~~6~~ | `[bug]` | ~~Replace `Player._main` callbacks with signals (`items_changed`, `billy_changed`); remove `register_main`~~ — ✅ **FAIT** : `top_menu` s'abonne à `billy_changed`, `main`/`register_main` supprimés | §2.4 |
 
 ### P1 — correctness / data-loss
 
@@ -658,11 +784,11 @@ Tags: `[bug]` `[logic]` `[refacto]` `[feature]` `[style]` `[place]` `[hygiene]`
 | ~~7~~ | `[bug]` | ~~`BookData.do_load_book`: reset `all_nodes`~~ — ✅ **FAIT** (§2.1) | §4.3 |
 | ~~8~~ | `[bug]` | ~~`inventory.gd` re-appending into `Player.all_items`~~ — ✅ **FAIT** (§4.1, `all_items` supprimé) | §4.7 |
 | ~~9~~ | `[bug]` | ~~`_fully_reset_our_stats()` incomplet~~ — ✅ **FAIT** (§4.1, `PlayerStats.full_reset()`) | §4.2 |
-| ~~10~~ | `[bug]` | ~~Chapter-stat double-apply~~ — ✅ **FAIT** (§4.1, `reset_chapter_layer()`) | §4.2 |
+| ~~10~~ | `[bug]` | ~~Chapter-stat double-apply~~ — ✅ **FAIT** (§4.1, `reset_chapter_layer()`) ; **complété 2026-08-11** : la fonction laissait `gloire`/`richesse`/`nb_infos`/`pv_max_bonus`, donc chaque changement de livre les doublait (`combat.md` §3.6) | §4.2 |
 | ~~11~~ | `[bug]` | ~~`book_selection.gd` → `AppParameters.set_book_name()`~~ — ✅ **FAIT** (§2.1) | §4.7 |
 | ~~12~~ | `[bug]` | ~~`clean_billy_overload()` boucle infinie~~ — ✅ **FAIT** (§4.1, `Inventory.clean_overload()`) | §4.2 |
 | ~~13~~ | `[bug]` | ~~Sound toggle reloads the book~~ — ✅ **FAIT** (§2.1, `_apply_sound`/`_apply_book`) | §4.4 |
-| 14 | `[bug]` | Seed RNG once (`randomize()`) — dice are currently deterministic per launch | §4.6 |
+| ~~14~~ | `[bug]` | ~~Seed RNG once (`randomize()`) — dice are currently deterministic per launch~~ — ✅ **FAIT** : `Utils._ready()`, prérequis du combat (`combat.md` §3.0) | §4.6 |
 | 15 | `[logic]` | `_check_cond_rec` explicit `return false` fallthrough | §4.3 |
 
 ### P2 — missing features (port from archive)
@@ -677,8 +803,10 @@ Tags: `[bug]` `[logic]` `[refacto]` `[feature]` `[style]` `[place]` `[hygiene]`
 | 21 | `[feature]` | Wire `ItemPopup` for acquired/lost items on chapter change | §3 |
 | 22 | `[feature]` | Audio: intro per book, per-chapter narration, billy-change sound | §3 |
 | 23 | `[feature]` | New-Billy confirmation via `GenericConfirmationPopup` | §3 |
-| 24 | `[feature]` | Call `top_menu.set_billy()` / `set_page()` (exist, never invoked); un-hide `$Pages`/`$Billys` | §3 |
-| 25 | `[logic]` | Implement or formally drop the 4 unmanaged chapter-stat keys; cap `pv`/`chance` | §4.2 |
+| 24 | `[feature]` | Call `top_menu.set_page()` (existe, jamais appelée) ; un-hide `$Pages`/`$Billys` — `set_billy()` est branchée (§2.4) | §3 |
+| 25 | `[logic]` | Implement or formally drop the 4 unmanaged chapter-stat keys — ~~cap `pv`/`chance`~~ ✅ **FAIT** (§4.8) | §4.2 |
+| 52 | `[feature]` | Livre cdsi : `rancune` (18 chap.) et `respect` (14) tombent dans le `_:` de `apply_chapter_stat` et sont perdus ; `critique` est l'orthographe cdsi de `crit`, `pv_1_2_max` celle de `half_pv` | §4.8 |
+| 53 | `[feature]` | `richesse` / `gloire` / `nb_infos` sont accumulés et jamais affichés (aucune vue ne les lit) | §4.8 |
 
 ### P3 — architecture / refactor
 

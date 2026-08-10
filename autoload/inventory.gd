@@ -143,6 +143,17 @@ func reset() -> void:
 	_recompute_matched_conditions()
 
 
+## Repose une liste d'objets telle quelle, sans repasser par les règles de
+## surcharge : c'est une restauration, pas un choix du joueur. Sert aux retours en
+## arrière (`CombatEngine.cancel()`), qui reposent un état déjà valide.
+func restore_items(items: Array) -> void:
+	possessed_items = items.duplicate()
+	save_items()
+	_recompute_matched_conditions()
+	PlayerStats.recompute()
+	items_changed.emit()
+
+
 #
 #    Modifications
 #
@@ -307,9 +318,21 @@ func compute_billy_for_option(new_option) -> void:
 	_switch_to_billy(billy_type)
 
 
-func _switch_to_billy(billy_type) -> void:
-	if AppParameters.get_billy_type() == billy_type:
+## Impose un type de Billy depuis l'interface (les boutons du menu du haut) au
+## lieu de le déduire des objets portés. Les modificateurs du type entrent dans
+## les stats, il faut donc les recalculer.
+func force_billy_type(billy_type: String) -> void:
+	if not _switch_to_billy(billy_type):
 		return
+	PlayerStats.recompute()
+
+
+## Renvoie vrai si le type a réellement changé (et donc si `billy_changed` a été
+## émis), pour que l'appelant ne relance pas de calcul pour rien.
+func _switch_to_billy(billy_type) -> bool:
+	if AppParameters.get_billy_type() == billy_type:
+		return false
 	AppParameters.set_billy_type(billy_type)
 	_recompute_matched_conditions()
 	billy_changed.emit(billy_type)
+	return true

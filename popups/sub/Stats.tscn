@@ -2,6 +2,7 @@
 
 [ext_resource type="Script" uid="uid://cgadnncp6suto" path="res://popups/sub/stats.gd" id="1_h4pf3"]
 [ext_resource type="FontFile" uid="uid://c4uf1h6831ei2" path="res://fonts/RobotoCondensed-Regular.ttf" id="1_os7dy"]
+[ext_resource type="PackedScene" path="res://ui/ResourceGauge.tscn" id="3_gauge"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_h4pf3"]
 bg_color = Color(1, 1, 1, 1)
@@ -77,10 +78,14 @@ theme_override_fonts/font = SubResource("FontFile_r2dc3")
 text = "Attention: fonctionalité non finie, bugs possibles :)"
 horizontal_alignment = 1
 
-[node name="PlayerPv" type="HBoxContainer" parent="VBoxContainer" unique_id=1970331329]
+[node name="PvBlock" type="VBoxContainer" parent="VBoxContainer"]
+layout_mode = 2
+theme_override_constants/separation = 6
+
+[node name="PlayerPv" type="HBoxContainer" parent="VBoxContainer/PvBlock" unique_id=1970331329]
 layout_mode = 2
 
-[node name="PlayerPvLabel" type="Label" parent="VBoxContainer/PlayerPv" unique_id=389803614]
+[node name="PlayerPvLabel" type="Label" parent="VBoxContainer/PvBlock/PlayerPv" unique_id=389803614]
 layout_mode = 2
 size_flags_horizontal = 3
 theme_override_colors/font_color = Color(0, 0, 0, 1)
@@ -91,7 +96,7 @@ theme_override_fonts/font = SubResource("FontFile_r2dc3")
 text = "PV:"
 horizontal_alignment = 1
 
-[node name="PlayerPvValue" type="Label" parent="VBoxContainer/PlayerPv" unique_id=1558819700]
+[node name="PlayerPvValueDetail" type="Label" parent="VBoxContainer/PvBlock/PlayerPv" unique_id=1813322417]
 layout_mode = 2
 size_flags_horizontal = 3
 theme_override_colors/font_color = Color(0, 0, 0, 1)
@@ -102,16 +107,29 @@ theme_override_fonts/font = SubResource("FontFile_vsygd")
 text = "XXX"
 horizontal_alignment = 1
 
-[node name="PlayerPvValueDetail" type="Label" parent="VBoxContainer/PlayerPv" unique_id=1813322417]
+[node name="PvControls" type="HBoxContainer" parent="VBoxContainer/PvBlock"]
+layout_mode = 2
+theme_override_constants/separation = 8
+
+[node name="Moins" type="Button" parent="VBoxContainer/PvBlock/PvControls"]
+custom_minimum_size = Vector2(44, 44)
+layout_mode = 2
+size_flags_vertical = 4
+theme_override_font_sizes/font_size = 24
+text = "-"
+
+[node name="Gauge" parent="VBoxContainer/PvBlock/PvControls" instance=ExtResource("3_gauge")]
 layout_mode = 2
 size_flags_horizontal = 3
-theme_override_colors/font_color = Color(0, 0, 0, 1)
-theme_override_constants/shadow_offset_x = 0
-theme_override_constants/shadow_offset_y = 0
-theme_override_constants/shadow_outline_size = 0
-theme_override_fonts/font = SubResource("FontFile_vsygd")
-text = "XXX"
-horizontal_alignment = 1
+size_flags_vertical = 4
+show_title = false
+
+[node name="Plus" type="Button" parent="VBoxContainer/PvBlock/PvControls"]
+custom_minimum_size = Vector2(44, 44)
+layout_mode = 2
+size_flags_vertical = 4
+theme_override_font_sizes/font_size = 24
+text = "+"
 
 [node name="PlayerEnd" type="HBoxContainer" parent="VBoxContainer" unique_id=2062299718]
 layout_mode = 2
@@ -221,10 +239,14 @@ theme_override_fonts/font = SubResource("FontFile_vsygd")
 text = "XXX"
 horizontal_alignment = 1
 
-[node name="PlayerCha" type="HBoxContainer" parent="VBoxContainer" unique_id=1348580601]
+[node name="ChaBlock" type="VBoxContainer" parent="VBoxContainer"]
+layout_mode = 2
+theme_override_constants/separation = 6
+
+[node name="PlayerCha" type="HBoxContainer" parent="VBoxContainer/ChaBlock" unique_id=1348580601]
 layout_mode = 2
 
-[node name="PlayerChaLabel" type="Label" parent="VBoxContainer/PlayerCha" unique_id=854466462]
+[node name="PlayerChaLabel" type="Label" parent="VBoxContainer/ChaBlock/PlayerCha" unique_id=854466462]
 layout_mode = 2
 size_flags_horizontal = 3
 theme_override_colors/font_color = Color(0, 0, 0, 1)
@@ -235,7 +257,7 @@ theme_override_fonts/font = SubResource("FontFile_r2dc3")
 text = "Chance:"
 horizontal_alignment = 1
 
-[node name="PlayerChaValue" type="Label" parent="VBoxContainer/PlayerCha" unique_id=1484540612]
+[node name="PlayerChaValueDetail" type="Label" parent="VBoxContainer/ChaBlock/PlayerCha" unique_id=1160686796]
 layout_mode = 2
 size_flags_horizontal = 3
 theme_override_colors/font_color = Color(0, 0, 0, 1)
@@ -246,16 +268,30 @@ theme_override_fonts/font = SubResource("FontFile_vsygd")
 text = "XXX"
 horizontal_alignment = 1
 
-[node name="PlayerChaValueDetail" type="Label" parent="VBoxContainer/PlayerCha" unique_id=1160686796]
+[node name="ChaControls" type="HBoxContainer" parent="VBoxContainer/ChaBlock"]
+layout_mode = 2
+theme_override_constants/separation = 8
+
+[node name="Moins" type="Button" parent="VBoxContainer/ChaBlock/ChaControls"]
+custom_minimum_size = Vector2(44, 44)
+layout_mode = 2
+size_flags_vertical = 4
+theme_override_font_sizes/font_size = 24
+text = "-"
+
+[node name="Gauge" parent="VBoxContainer/ChaBlock/ChaControls" instance=ExtResource("3_gauge")]
 layout_mode = 2
 size_flags_horizontal = 3
-theme_override_colors/font_color = Color(0, 0, 0, 1)
-theme_override_constants/shadow_offset_x = 0
-theme_override_constants/shadow_offset_y = 0
-theme_override_constants/shadow_outline_size = 0
-theme_override_fonts/font = SubResource("FontFile_vsygd")
-text = "XXX"
-horizontal_alignment = 1
+size_flags_vertical = 4
+kind = 1
+show_title = false
+
+[node name="Plus" type="Button" parent="VBoxContainer/ChaBlock/ChaControls"]
+custom_minimum_size = Vector2(44, 44)
+layout_mode = 2
+size_flags_vertical = 4
+theme_override_font_sizes/font_size = 24
+text = "+"
 
 [node name="PlayerCrit" type="HBoxContainer" parent="VBoxContainer" unique_id=2017964688]
 layout_mode = 2

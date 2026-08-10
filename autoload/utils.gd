@@ -1,6 +1,14 @@
 extends Node
 
 
+func _ready() -> void:
+	# Sans ça, `randi()` repart de la même graine à chaque lancement : tous les dés
+	# d'une partie sortaient dans le même ordre d'une session à l'autre (review #14).
+	# Indispensable au combat automatisé, qui rejouerait sinon le même affrontement à
+	# l'identique.
+	randomize()
+
+
 # IMPORTANT: need to have load() call to manage android and web
 func load_external_texture(path, logger):
 	var image_file = load(path)

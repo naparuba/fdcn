@@ -20,14 +20,28 @@ func _on_button_options():
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	if AppParameters.is_node_ready():
-		_apply_settings()
-	else:
-		AppParameters.settings_loaded.connect(_apply_settings)
+	# On se branche sans condition et on peint tout de suite, comme les écrans de
+	# listes : `settings_changed` couvre le chargement initial ET les
+	# modifications ultérieures, il n'y a rien à attendre.
+	AppParameters.settings_changed.connect(_apply_settings)
+	_apply_settings()
 
+	# Le type de Billy est déduit de l'inventaire : le menu se réaffiche tout
+	# seul quand il change, personne n'a besoin de le lui pousser.
+	Inventory.billy_changed.connect(_on_billy_changed)
+
+
+func _on_billy_changed(_billy_type) -> void:
+	set_billy()
+
+
+# Tout ce que le menu lit dans les paramètres persistés, dont le type de Billy.
+# `set_pressed_no_signal` : `settings_changed` part souvent PARCE QUE le joueur
+# vient de cliquer un de ces deux interrupteurs, inutile de relancer `toggled`.
 func _apply_settings() -> void:
-	$HBoxContainer/Spoil/SpoilButton.button_pressed = AppParameters.are_spoils_ok()
-	$HBoxContainer/Sound/SoundButton.button_pressed = AppParameters.is_sound_ok()
+	$HBoxContainer/Spoil/SpoilButton.set_pressed_no_signal(AppParameters.are_spoils_ok())
+	$HBoxContainer/Sound/SoundButton.set_pressed_no_signal(AppParameters.is_sound_ok())
+	set_billy()
 
 func _on_spoil_button_toggled(button_pressed):
 	AppParameters.set_spoils(button_pressed)
@@ -36,19 +50,12 @@ func _on_sound_button_toggled(button_pressed):
 	AppParameters.set_sound(button_pressed)
 
 
-#
-#    TODO
-#
-
-var main = null
-
-
 func set_billy():
 	var type_billy = AppParameters.get_billy_type()
-	var billys = {'guerrier': $Billys/BlockGuerrier,
-	'paysan':$Billys/BlockPaysan,
-	'prudent':$Billys/BlockPrudent,
-	'debrouillard':$Billys/BlockDebrouillard
+	var billys = {'guerrier': $HBoxContainer/Billys/BlockGuerrier,
+	'paysan':$HBoxContainer/Billys/BlockPaysan,
+	'prudent':$HBoxContainer/Billys/BlockPrudent,
+	'debrouillard':$HBoxContainer/Billys/BlockDebrouillard
 	}
 	
 	for billy in billys.keys():
@@ -66,14 +73,18 @@ func set_billy():
 		'debrouillard': 'Débrouillard',
 		'pegu': 'Pegu!!'
 	}
-	$Billys/BillyTypeLabel.text = billy_strings[type_billy]
+	$HBoxContainer/Billys/BillyTypeLabel.text = billy_strings[type_billy]
 
+
+#
+#    TODO
+#
 
 func set_page(page_name):
-	var pages = {'main': $Pages/BlockMain,
-	'chapitres':$Pages/BlockChapitres,
-	'success':$Pages/BlockSuccess,
-	'lore':$Pages/BlockLore
+	var pages = {'main': $HBoxContainer/Pages/BlockMain,
+	'chapitres':$HBoxContainer/Pages/BlockChapitres,
+	'success':$HBoxContainer/Pages/BlockSuccess,
+	'lore':$HBoxContainer/Pages/BlockLore
 	}
 	
 	for page in pages.keys():
@@ -118,21 +129,20 @@ func focus_to_lore():
 # NOTE: page about do NOT have a button
 
 
+# Les quatre boutons de type imposent le Billy directement à l'Inventory, qui
+# rediffuse `billy_changed` : c'est ce signal qui rafraîchit ce menu (et tous les
+# autres exemplaires), il n'y a plus de pont vers un objet « main ».
 func _switch_to_guerrier():
-	print('guerrier')
-	self.main._switch_to_guerrier()
+	Inventory.force_billy_type('guerrier')
 
 
 func _switch_to_paysan():
-	print('paysan')
-	self.main._switch_to_paysan()
+	Inventory.force_billy_type('paysan')
 
 
 func _switch_to_prudent():
-	print('prudent')
-	self.main._switch_to_prudent()
+	Inventory.force_billy_type('prudent')
 
 
 func _switch_to_debrouillard():
-	print('debrouillard')
-	self.main._switch_to_debrouillard()
+	Inventory.force_billy_type('debrouillard')
