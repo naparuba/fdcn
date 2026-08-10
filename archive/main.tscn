@@ -30,7 +30,7 @@
 [ext_resource type="Shader" uid="uid://bykbl3wmjf137" path="res://shaders/gray.gdshader" id="28"]
 [ext_resource type="PackedScene" path="res://popups/GenericConfirmationPopup.tscn" id="29"]
 [ext_resource type="Texture2D" uid="uid://cn7b86vr6dflg" path="res://images/blue-tick.png" id="30"]
-[ext_resource type="PackedScene" path="res://entities/Item.tscn" id="31"]
+[ext_resource type="PackedScene" uid="uid://dvaevmwa362gm" path="res://entities/Item.tscn" id="31"]
 [ext_resource type="Texture2D" uid="uid://dxfxupfx0yafp" path="res://images/fight.svg" id="32"]
 [ext_resource type="Texture2D" uid="uid://qwx2iu4l5rff" path="res://images/dice/6-r.svg" id="33"]
 [ext_resource type="Texture2D" uid="uid://bpvcmsy4jd0xl" path="res://images/barbare_icon_white.png" id="34"]
@@ -1919,6 +1919,7 @@ scale = Vector2(0.342538, 0.342538)
 sprite_frames = SubResource("7")
 
 [node name="Options" type="Panel" parent="." unique_id=1355482604]
+visible = false
 offset_left = 5.0
 offset_top = 51.0
 offset_right = 553.0

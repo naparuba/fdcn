@@ -1,5 +1,8 @@
 extends Node2D
 
+# Some legacy per-book data below (audio/lore dicts, images/dieux & sounds/dieux
+# folders) is still numeric, unrelated to the books/{name}/ folder layout.
+const _BOOK_NUMBERS = {"fdcn": 1, "cdsi": 2}
 
 var current_lines = []
 
@@ -141,7 +144,7 @@ func _play_intro():
 		1: 'intro-fdcn.mp3',
 		2: 'intro-cdsi.mp3',
 	}
-	var book_number = AppParameters.get_book_number()
+	var book_number = _BOOK_NUMBERS[AppParameters.get_book_name()]
 	Sounder.play(intro_sound.get(book_number))
 
 
@@ -149,7 +152,7 @@ func _play_node_sound():
 	var player = $AudioPlayer
 	# In all cases, stop the player
 	player.stop()
-	var book_number = AppParameters.get_book_number()
+	var book_number = _BOOK_NUMBERS[AppParameters.get_book_name()]
 	
 	var node_sound_fnames = {
 		# FDCN
@@ -260,7 +263,7 @@ func insert_all_lore():
 	var all_lore = $Lore/Lore/VScrollBar/persos
 	Utils.delete_children(all_lore)
 	
-	var book_number = AppParameters.get_book_number()
+	var book_number = _BOOK_NUMBERS[AppParameters.get_book_name()]
 	
 	var refs = {
 		1: [
@@ -356,7 +359,7 @@ func __set_sprite_to_not_grey(sprite):
 
 
 func _refresh_options_book_select_display():
-	var book_number = AppParameters.get_book_number()
+	var book_number = _BOOK_NUMBERS[AppParameters.get_book_name()]
 	if book_number == 1:
 		self.__set_sprite_to_not_grey($Options/BookSelect/BoolSelectFcdn/sprite)
 		self.__set_sprite_to_grey($Options/BookSelect/BoolSelectCdsi/sprite)
@@ -554,7 +557,8 @@ func billy_type_is_changed():
 	
 
 func _change_book_number(book_number):
-	var did_change = AppParameters.set_book_number(book_number)
+	var book_name = _BOOK_NUMBERS.find_key(book_number)
+	var did_change = AppParameters.set_book_name(book_name)
 	if !did_change:
 		return
 	self._do_load_book_context()

@@ -1,0 +1,335 @@
+[gd_scene format=3 uid="uid://drwkdrf2idtp5"]
+
+[ext_resource type="Script" uid="uid://c65x3rxdol5ig" path="res://screens/main_menu/combat.gd" id="1"]
+[ext_resource type="FontFile" uid="uid://dvf02ee6hmyyy" path="res://fonts/amon_font.tres" id="2"]
+[ext_resource type="FontFile" uid="uid://b2geetcvtgqo5" path="res://fonts/amon_font_small.tres" id="3"]
+[ext_resource type="Texture2D" uid="uid://dxfxupfx0yafp" path="res://images/fight.svg" id="4"]
+[ext_resource type="Texture2D" uid="uid://qwx2iu4l5rff" path="res://images/dice/6-r.svg" id="5"]
+[ext_resource type="Texture2D" uid="uid://bpvcmsy4jd0xl" path="res://images/barbare_icon_white.png" id="6"]
+[ext_resource type="Texture2D" uid="uid://cn7b86vr6dflg" path="res://images/blue-tick.png" id="7"]
+[ext_resource type="Texture2D" uid="uid://clclwast44cj4" path="res://images/anim-phumtar-1.png" id="8"]
+[ext_resource type="Texture2D" uid="uid://0ke5c6xjavoi" path="res://images/anim-phumtar-2.png" id="9"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_bg"]
+bg_color = Color(1, 1, 1, 1)
+border_width_top = 3
+border_color = Color(0.192157, 0.231373, 0.278431, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_header"]
+bg_color = Color(0.192157, 0.231373, 0.278431, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_dice"]
+bg_color = Color(0.913725, 0.917647, 0.92549, 1)
+corner_radius_top_left = 2
+corner_radius_top_right = 2
+corner_radius_bottom_right = 2
+corner_radius_bottom_left = 2
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_omw45"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("8")
+}, {
+"duration": 1.0,
+"texture": ExtResource("9")
+}],
+"loop": 1,
+"name": &"default",
+"speed": 16.0
+}]
+
+[node name="Combat" type="PanelContainer" unique_id=1137137859]
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme_override_styles/panel = SubResource("StyleBoxFlat_bg")
+script = ExtResource("1")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="." unique_id=1208531042]
+layout_mode = 2
+
+[node name="Header" type="PanelContainer" parent="VBoxContainer" unique_id=1563555775]
+custom_minimum_size = Vector2(0, 42)
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_header")
+
+[node name="Label" type="Label" parent="VBoxContainer/Header" unique_id=1685912177]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("2")
+text = "Combat"
+horizontal_alignment = 1
+
+[node name="Margin" type="MarginContainer" parent="VBoxContainer" unique_id=873438013]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_constants/margin_left = 12
+theme_override_constants/margin_top = 8
+theme_override_constants/margin_right = 12
+theme_override_constants/margin_bottom = 8
+
+[node name="Content" type="VBoxContainer" parent="VBoxContainer/Margin" unique_id=1441979384]
+layout_mode = 2
+theme_override_constants/separation = 10
+
+[node name="NomRow" type="HBoxContainer" parent="VBoxContainer/Margin/Content" unique_id=1659443698]
+layout_mode = 2
+theme_override_constants/separation = 8
+
+[node name="Icone" type="TextureRect" parent="VBoxContainer/Margin/Content/NomRow" unique_id=1291449895]
+custom_minimum_size = Vector2(32, 32)
+layout_mode = 2
+size_flags_vertical = 4
+texture = ExtResource("4")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="Nom" type="Label" parent="VBoxContainer/Margin/Content/NomRow" unique_id=78534215]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_colors/font_color = Color(0, 0.760784, 0.666667, 1)
+theme_override_constants/shadow_offset_x = 0
+theme_override_constants/shadow_offset_y = 0
+theme_override_constants/shadow_outline_size = 0
+theme_override_fonts/font = ExtResource("2")
+text = "XXX"
+horizontal_alignment = 1
+
+[node name="StatsGrid" type="GridContainer" parent="VBoxContainer/Margin/Content" unique_id=1792384947]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/h_separation = 16
+theme_override_constants/v_separation = 4
+columns = 3
+
+[node name="Spacer" type="Control" parent="VBoxContainer/Margin/Content/StatsGrid" unique_id=2013225240]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="PlayerLabel" type="Label" parent="VBoxContainer/Margin/Content/StatsGrid" unique_id=1260637199]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_constants/shadow_offset_x = 0
+theme_override_constants/shadow_offset_y = 0
+theme_override_constants/shadow_outline_size = 0
+theme_override_fonts/font = ExtResource("3")
+text = "Billy"
+horizontal_alignment = 1
+
+[node name="EnnemiLabel" type="Label" parent="VBoxContainer/Margin/Content/StatsGrid" unique_id=1749142624]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_constants/shadow_offset_x = 0
+theme_override_constants/shadow_offset_y = 0
+theme_override_constants/shadow_outline_size = 0
+theme_override_fonts/font = ExtResource("3")
+text = "Ennemi"
+horizontal_alignment = 1
+
+[node name="PVLabel" type="Label" parent="VBoxContainer/Margin/Content/StatsGrid" unique_id=412122683]
+layout_mode = 2
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_constants/shadow_offset_x = 0
+theme_override_constants/shadow_offset_y = 0
+theme_override_constants/shadow_outline_size = 0
+theme_override_fonts/font = ExtResource("3")
+text = "PV:"
+
+[node name="PlayerPvValue" type="Label" parent="VBoxContainer/Margin/Content/StatsGrid" unique_id=263949743]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_constants/shadow_offset_x = 0
+theme_override_constants/shadow_offset_y = 0
+theme_override_constants/shadow_outline_size = 0
+theme_override_fonts/font = ExtResource("2")
+text = "XXX"
+horizontal_alignment = 1
+
+[node name="EnnemiPvValue" type="Label" parent="VBoxContainer/Margin/Content/StatsGrid" unique_id=1919244558]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_constants/shadow_offset_x = 0
+theme_override_constants/shadow_offset_y = 0
+theme_override_constants/shadow_outline_size = 0
+theme_override_fonts/font = ExtResource("2")
+text = "XXX"
+horizontal_alignment = 1
+
+[node name="HabLabel" type="Label" parent="VBoxContainer/Margin/Content/StatsGrid" unique_id=1630053457]
+layout_mode = 2
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_constants/shadow_offset_x = 0
+theme_override_constants/shadow_offset_y = 0
+theme_override_constants/shadow_outline_size = 0
+theme_override_fonts/font = ExtResource("3")
+text = "Hab:"
+
+[node name="PlayerHabValue" type="Label" parent="VBoxContainer/Margin/Content/StatsGrid" unique_id=1354855716]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_constants/shadow_offset_x = 0
+theme_override_constants/shadow_offset_y = 0
+theme_override_constants/shadow_outline_size = 0
+theme_override_fonts/font = ExtResource("2")
+text = "XXX"
+horizontal_alignment = 1
+
+[node name="EnnemiHabValue" type="Label" parent="VBoxContainer/Margin/Content/StatsGrid" unique_id=2048529393]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_constants/shadow_offset_x = 0
+theme_override_constants/shadow_offset_y = 0
+theme_override_constants/shadow_outline_size = 0
+theme_override_fonts/font = ExtResource("2")
+text = "XXX"
+horizontal_alignment = 1
+
+[node name="ArmLabel" type="Label" parent="VBoxContainer/Margin/Content/StatsGrid" unique_id=633814430]
+layout_mode = 2
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_constants/shadow_offset_x = 0
+theme_override_constants/shadow_offset_y = 0
+theme_override_constants/shadow_outline_size = 0
+theme_override_fonts/font = ExtResource("3")
+text = "Armure:"
+
+[node name="PlayerArmValue" type="Label" parent="VBoxContainer/Margin/Content/StatsGrid" unique_id=83630340]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_constants/shadow_offset_x = 0
+theme_override_constants/shadow_offset_y = 0
+theme_override_constants/shadow_outline_size = 0
+theme_override_fonts/font = ExtResource("2")
+text = "XXX"
+horizontal_alignment = 1
+
+[node name="EnnemiArmValue" type="Label" parent="VBoxContainer/Margin/Content/StatsGrid" unique_id=315002924]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_constants/shadow_offset_x = 0
+theme_override_constants/shadow_offset_y = 0
+theme_override_constants/shadow_outline_size = 0
+theme_override_fonts/font = ExtResource("2")
+text = "XXX"
+horizontal_alignment = 1
+
+[node name="DegLabel" type="Label" parent="VBoxContainer/Margin/Content/StatsGrid" unique_id=509914084]
+layout_mode = 2
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_constants/shadow_offset_x = 0
+theme_override_constants/shadow_offset_y = 0
+theme_override_constants/shadow_outline_size = 0
+theme_override_fonts/font = ExtResource("3")
+text = "Dégat:"
+
+[node name="PlayerDegValue" type="Label" parent="VBoxContainer/Margin/Content/StatsGrid" unique_id=604160419]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_constants/shadow_offset_x = 0
+theme_override_constants/shadow_offset_y = 0
+theme_override_constants/shadow_outline_size = 0
+theme_override_fonts/font = ExtResource("2")
+text = "XXX"
+horizontal_alignment = 1
+
+[node name="EnnemiDegValue" type="Label" parent="VBoxContainer/Margin/Content/StatsGrid" unique_id=1802013227]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_constants/shadow_offset_x = 0
+theme_override_constants/shadow_offset_y = 0
+theme_override_constants/shadow_outline_size = 0
+theme_override_fonts/font = ExtResource("2")
+text = "XXX"
+horizontal_alignment = 1
+
+[node name="PyroRow" type="HBoxContainer" parent="VBoxContainer/Margin/Content" unique_id=2061659929]
+visible = false
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/separation = 6
+alignment = 1
+
+[node name="SpritePyro" type="TextureRect" parent="VBoxContainer/Margin/Content/PyroRow" unique_id=694083498]
+custom_minimum_size = Vector2(28, 28)
+layout_mode = 2
+size_flags_vertical = 4
+texture = ExtResource("6")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="PyroHab" type="Label" parent="VBoxContainer/Margin/Content/PyroRow" unique_id=941052154]
+layout_mode = 2
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_constants/shadow_offset_x = 0
+theme_override_constants/shadow_offset_y = 0
+theme_override_constants/shadow_outline_size = 0
+theme_override_fonts/font = ExtResource("2")
+text = "XXX"
+
+[node name="DiceRow" type="HBoxContainer" parent="VBoxContainer/Margin/Content" unique_id=1278596639]
+layout_mode = 2
+size_flags_horizontal = 3
+alignment = 1
+
+[node name="dice" type="PanelContainer" parent="VBoxContainer/Margin/Content/DiceRow" unique_id=2126264694]
+custom_minimum_size = Vector2(57, 58)
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_dice")
+
+[node name="sprite" type="TextureRect" parent="VBoxContainer/Margin/Content/DiceRow/dice" unique_id=1109860419]
+layout_mode = 2
+texture = ExtResource("5")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="button" type="TextureButton" parent="VBoxContainer/Margin/Content/DiceRow/dice" unique_id=509047921]
+layout_mode = 2
+
+[node name="NotFinish" type="Label" parent="VBoxContainer/Margin/Content" unique_id=83670201]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_constants/shadow_offset_x = 0
+theme_override_constants/shadow_offset_y = 0
+theme_override_constants/shadow_outline_size = 0
+theme_override_fonts/font = ExtResource("3")
+text = "Les combats ne sont pas encore fini,
+ dev en cours ^^"
+horizontal_alignment = 1
+autowrap_mode = 3
+
+[node name="phumtar" type="AnimatedSprite2D" parent="VBoxContainer/Margin/Content" unique_id=782405487]
+position = Vector2(0, 30)
+scale = Vector2(0.342538, 0.342538)
+sprite_frames = SubResource("SpriteFrames_omw45")
+
+[node name="IWinRow" type="HBoxContainer" parent="VBoxContainer/Margin/Content" unique_id=707230090]
+layout_mode = 2
+size_flags_horizontal = 3
+alignment = 1
+
+[node name="IWin" type="PanelContainer" parent="VBoxContainer/Margin/Content/IWinRow" unique_id=852766123]
+custom_minimum_size = Vector2(139, 89)
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_dice")
+
+[node name="tick" type="TextureRect" parent="VBoxContainer/Margin/Content/IWinRow/IWin" unique_id=125495749]
+layout_mode = 2
+texture = ExtResource("7")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="button" type="TextureButton" parent="VBoxContainer/Margin/Content/IWinRow/IWin" unique_id=288985787]
+layout_mode = 2
+
+[connection signal="pressed" from="VBoxContainer/Margin/Content/DiceRow/dice/button" to="." method="_on_dice_pressed"]
+[connection signal="pressed" from="VBoxContainer/Margin/Content/IWinRow/IWin/button" to="." method="_on_i_win_pressed"]

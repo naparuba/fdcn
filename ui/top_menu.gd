@@ -42,9 +42,6 @@ func _on_sound_button_toggled(button_pressed):
 
 var main = null
 
-var fdcn_tex = load("res://images/fdcn_icon.png")
-var cdsi_tex = load("res://images/cdsi_logo.png")
-
 
 func set_billy():
 	var type_billy = AppParameters.get_billy_type()
@@ -90,17 +87,9 @@ func set_page(page_name):
 
 
 func set_book_context():
-	var book_number = AppParameters.get_book_number()
-	var book_panels = {
-		1: $BookSelection/BookDisplayFdcn,
-		2: $BookSelection/BookDisplayCdsi,
-	}
-	if book_number == 1:
-		book_panels[1].visible = true
-		book_panels[2].visible = false
-	else:
-		book_panels[1].visible = false
-		book_panels[2].visible = true
+	var book_name = AppParameters.get_book_name()
+	$HBoxContainer/BookSelection/logo.texture = load("res://books/%s/logo.png" % book_name)
+	$HBoxContainer/BookSelection/title.texture = load("res://books/%s/title.png" % book_name)
 
 
 func focus_to_main():

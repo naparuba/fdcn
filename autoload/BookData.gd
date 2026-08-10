@@ -2,7 +2,7 @@ extends Node
 
 var chapter_data_cls = preload('res://entities/chapter_data.gd')
 
-var _current_book_number = 1  # Which book is currently selected
+var _current_book_name = 'fdcn'  # Which book is currently selected (matches books/{name}/)
 var all_nodes = {}
 var chapters_by_arc = {}
 var chapters_by_sub_arc = {}
@@ -19,13 +19,11 @@ var all_objects = {}
 
 func _init():
 	print('BookData: init')
-	
-	
-func do_load_book(book_number):
-	self._current_book_number = int(book_number)
-	print('BookData: switch to book:'+str(self._current_book_number))
-	var book_names = {1: "fdcn", 2: "cdsi"}
-	var book_name = book_names[self._current_book_number]
+
+
+func do_load_book(book_name):
+	self._current_book_name = book_name
+	print('BookData: switch to book:'+self._current_book_name)
 	var book_path = "res://books/"+book_name+"/"+book_name
 	# Load chapter data in chapter_data class
 	var all_nodes_json = Utils.load_json_file(book_path+"-compilated-data.json")
@@ -58,7 +56,7 @@ func do_load_book(book_number):
 
 	# Objects, so we can insert them in the options
 	self.all_objects = Utils.load_json_file(book_path+"-compilated-all-objects.json")
-	
+
 
 # Called when the node enters the scene tree for the first time.
 func get_all_nodes():
@@ -71,7 +69,7 @@ func get_all_objects():
 
 func exists_item_data(item_name):  # for old data migration
 	return self.all_objects.has(item_name)
-	
+
 
 func get_item_data(item_name):
 	return self.all_objects[item_name]

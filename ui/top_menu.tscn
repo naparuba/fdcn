@@ -13,10 +13,8 @@
 [ext_resource type="Texture2D" uid="uid://bvvtnnta0lgpj" path="res://images/items/backpack.svg" id="11"]
 [ext_resource type="FontFile" uid="uid://c4uf1h6831ei2" path="res://fonts/RobotoCondensed-Regular.ttf" id="12"]
 [ext_resource type="Texture2D" uid="uid://byjyttgwtbh64" path="res://images/options.png" id="13"]
-[ext_resource type="Texture2D" uid="uid://vafkgjwnytvs" path="res://images/fdcn_icon.png" id="14"]
-[ext_resource type="Texture2D" uid="uid://co526xfma06tc" path="res://images/cdsi_logo.png" id="15"]
-[ext_resource type="Texture2D" uid="uid://cle6p38iura6d" path="res://images/cdsi_title.png" id="16"]
-[ext_resource type="Texture2D" uid="uid://hj7iyau3r7ph" path="res://images/fdcn_title.png" id="17"]
+[ext_resource type="Texture2D" path="res://books/fdcn/logo.png" id="14"]
+[ext_resource type="Texture2D" path="res://books/fdcn/title.png" id="17"]
 
 [sub_resource type="StyleBoxFlat" id="1"]
 bg_color = Color(1, 1, 1, 1)
@@ -104,50 +102,27 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="BookSelection" type="Panel" parent="HBoxContainer" unique_id=1573136965]
+[node name="BookSelection" type="HBoxContainer" parent="HBoxContainer" unique_id=1573136965]
 custom_minimum_size = Vector2(100, 38)
 layout_mode = 2
 size_flags_vertical = 4
-theme_override_styles/panel = SubResource("2")
+theme_override_constants/separation = 5
 
-[node name="BookDisplayFdcn" type="Panel" parent="HBoxContainer/BookSelection" unique_id=962426752]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-theme_override_styles/panel = SubResource("6")
-
-[node name="logo" type="Sprite2D" parent="HBoxContainer/BookSelection/BookDisplayFdcn" unique_id=484092895]
-position = Vector2(18.8931, 18.841)
-scale = Vector2(0.0664966, 0.0664849)
+[node name="logo" type="TextureRect" parent="HBoxContainer/BookSelection" unique_id=484092895]
+custom_minimum_size = Vector2(30, 36)
+layout_mode = 2
+size_flags_vertical = 4
 texture = ExtResource("14")
+expand_mode = 1
+stretch_mode = 5
 
-[node name="title" type="Sprite2D" parent="HBoxContainer/BookSelection/BookDisplayFdcn" unique_id=580329689]
-position = Vector2(70.7305, 18.3244)
-scale = Vector2(0.20995, 0.209877)
+[node name="title" type="TextureRect" parent="HBoxContainer/BookSelection" unique_id=580329689]
+custom_minimum_size = Vector2(65, 36)
+layout_mode = 2
+size_flags_vertical = 4
 texture = ExtResource("17")
-
-[node name="BookDisplayCdsi" type="Panel" parent="HBoxContainer/BookSelection" unique_id=394274844]
-visible = false
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-theme_override_styles/panel = SubResource("6")
-
-[node name="logo" type="Sprite2D" parent="HBoxContainer/BookSelection/BookDisplayCdsi" unique_id=1143336249]
-position = Vector2(15.7305, 18.3244)
-scale = Vector2(0.122885, 0.122863)
-texture = ExtResource("15")
-
-[node name="title" type="Sprite2D" parent="HBoxContainer/BookSelection/BookDisplayCdsi" unique_id=1493584223]
-position = Vector2(70.7305, 18.3244)
-scale = Vector2(0.20995, 0.209877)
-texture = ExtResource("16")
+expand_mode = 1
+stretch_mode = 5
 
 [node name="Pages" type="Panel" parent="HBoxContainer" unique_id=1654242057]
 visible = false
@@ -361,75 +336,47 @@ offset_bottom = 36.832
 layout_mode = 2
 size_flags_horizontal = 3
 
-[node name="Spoil" type="Panel" parent="HBoxContainer" unique_id=597703534]
-custom_minimum_size = Vector2(72.865, 0)
+[node name="Spoil" type="HBoxContainer" parent="HBoxContainer" unique_id=597703534]
 layout_mode = 2
 size_flags_vertical = 4
+theme_override_constants/separation = 6
 
 [node name="SpoilLabel" type="Label" parent="HBoxContainer/Spoil" unique_id=524758399]
-layout_mode = 1
-anchors_preset = 4
-anchor_top = 0.5
-anchor_bottom = 0.5
-offset_top = -7.5
-offset_right = 29.0
-offset_bottom = 7.5
-grow_vertical = 2
+layout_mode = 2
+size_flags_vertical = 3
 theme_override_colors/font_color = Color(0, 0, 0, 1)
 theme_override_constants/shadow_offset_x = 0
 theme_override_constants/shadow_offset_y = 0
 theme_override_constants/shadow_outline_size = 0
 theme_override_fonts/font = ExtResource("2")
 text = "Spoils"
+vertical_alignment = 1
 
 [node name="SpoilButton" type="CheckButton" parent="HBoxContainer/Spoil" unique_id=354354951]
-layout_mode = 1
-anchors_preset = 6
-anchor_left = 1.0
-anchor_top = 0.5
-anchor_right = 1.0
-anchor_bottom = 0.5
-offset_left = -44.0
-offset_top = -24.0
-offset_bottom = 24.0
-grow_horizontal = 0
-grow_vertical = 2
+layout_mode = 2
+size_flags_vertical = 4
 focus_mode = 0
 flat = true
 
-[node name="Sound" type="Panel" parent="HBoxContainer" unique_id=1714369330]
-custom_minimum_size = Vector2(117.605, 0)
+[node name="Sound" type="HBoxContainer" parent="HBoxContainer" unique_id=1714369330]
 layout_mode = 2
 size_flags_vertical = 4
+theme_override_constants/separation = 6
 
 [node name="SoundLabel" type="Label" parent="HBoxContainer/Sound" unique_id=915585139]
-layout_mode = 1
-anchors_preset = 4
-anchor_top = 0.5
-anchor_bottom = 0.5
-offset_top = -7.5
-offset_right = 76.0
-offset_bottom = 7.5
-grow_vertical = 2
+layout_mode = 2
+size_flags_vertical = 3
 theme_override_colors/font_color = Color(0, 0, 0, 1)
 theme_override_constants/shadow_offset_x = 0
 theme_override_constants/shadow_offset_y = 0
 theme_override_constants/shadow_outline_size = 0
 theme_override_fonts/font = ExtResource("2")
 text = "Voix du Lennon"
+vertical_alignment = 1
 
 [node name="SoundButton" type="CheckButton" parent="HBoxContainer/Sound" unique_id=897088147]
-layout_mode = 1
-anchors_preset = 6
-anchor_left = 1.0
-anchor_top = 0.5
-anchor_right = 1.0
-anchor_bottom = 0.5
-offset_left = -44.0
-offset_top = -24.0
-offset_bottom = 24.0
-grow_horizontal = 0
-grow_vertical = 2
+layout_mode = 2
+size_flags_vertical = 4
 flat = true
 
 [connection signal="pressed" from="HBoxContainer/OptionsBtn/button" to="." method="_on_button_options"]

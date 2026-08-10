@@ -2,6 +2,10 @@ extends Node
 
 @onready var Item = preload('res://entities/Item.tscn')
 
+# Some legacy per-book data (save-file suffixes, the guess table below) is
+# still numeric, unrelated to the books/{name}/ folder layout. Translate here.
+const _BOOK_NUMBERS = {"fdcn": 1, "cdsi": 2}
+
 var _main = null
 var need_force_display_options = false   # if we did guess, show options to show it
 var type_billy = 'guerrier'
@@ -83,7 +87,7 @@ func _load_json_safe(pth):
 
 
 func _get_all_times_already_visited_file():
-	var book_number = AppParameters.get_book_number()
+	var book_number = _BOOK_NUMBERS[AppParameters.get_book_name()]
 	var pth = "user://all_times_already_visited-%s.json" % book_number
 	return pth
 
@@ -110,7 +114,7 @@ func save_all_times_already_visited():
 
 ############### CURRENT NODE ID
 func _get_current_node_id_file():
-	var book_number = AppParameters.get_book_number()
+	var book_number = _BOOK_NUMBERS[AppParameters.get_book_name()]
 	var pth = "user://current_node_id-%s.json" % book_number
 	return pth
 
@@ -131,7 +135,7 @@ func save_current_node_id():
 
 ############### SESSION_VISITED_NODES
 func _get_session_visited_nodes_file():
-	var book_number = AppParameters.get_book_number()
+	var book_number = _BOOK_NUMBERS[AppParameters.get_book_name()]
 	var pth = "user://session_visited_nodes-%s.json" % book_number
 	return pth
 	
@@ -152,7 +156,7 @@ func save_session_visited_nodes():
 
 ############### POSSESSED_ITEM_FILE
 func _get_possessed_items_file():
-	var book_number = AppParameters.get_book_number()
+	var book_number = _BOOK_NUMBERS[AppParameters.get_book_name()]
 	var pth = "user://possessed_item-%s.json" % book_number
 	return pth
 	
@@ -202,7 +206,7 @@ func guess_after_migration():
 		'pegu': [],
 		}
 	}
-	var book_number = AppParameters.get_book_number()
+	var book_number = _BOOK_NUMBERS[AppParameters.get_book_name()]
 	for item_name in guess[book_number][billy_type]:
 		print('GUESS: %s' % item_name)
 		self._raw_add(item_name)

@@ -5,7 +5,7 @@ var parameters = {
 	'billy': 'guerrier',
 	'spoils': true,
 	'sound': true,
-	'current_book': 1,  # which book did the user select
+	'current_book': 'fdcn',  # which book did the user select (matches books/{name}/)
 }
 
 signal settings_changed
@@ -29,9 +29,20 @@ func _load_parameters():
 			var v = loaded_parameters[k]
 			print('PARAM: %s=>' % k, v)
 			parameters[k] = v
+		self._migrate_legacy_book_number()
 	else:
 		# already created in globals
 		pass
+
+
+# Old saves stored current_book as a number (1/2). Migrate it to the book
+# name used by the books/{name}/ folder layout.
+func _migrate_legacy_book_number():
+	var current = self.parameters['current_book']
+	if typeof(current) == TYPE_STRING:
+		return
+	var legacy_names = {1: 'fdcn', 2: 'cdsi'}
+	self.parameters['current_book'] = legacy_names.get(int(current), 'fdcn')
 
 
 func _save_parameters():
@@ -87,16 +98,16 @@ func set_billy_type(billy_type):
 	self._save_parameters()
 
 
-func set_book_number(book_number):
+func set_book_name(book_name):
 	var current = self.parameters['current_book']
-	if current == book_number:
+	if current == book_name:
 		return false
-	print('PARAMETERS: book_number => %s' % book_number)
-	self.parameters['current_book'] = book_number
+	print('PARAMETERS: book_name => %s' % book_name)
+	self.parameters['current_book'] = book_name
 	self._save_parameters()
 	self._apply_parameters()
 	return true
 
 
-func get_book_number():
-	return int(self.parameters['current_book'])
+func get_book_name():
+	return self.parameters['current_book']

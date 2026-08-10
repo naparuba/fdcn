@@ -8,12 +8,13 @@ before making changes. `todo.md` has the concrete action items derived from it.
 
 Two independent halves:
 
-1. **Python data pipeline** (repo root: `fdcn.py`, `node.py`, `condition_node.py`,
-   `graph.py`, `endings.py`) — reads the hand-authored gamebook graph
+1. **Python data pipeline** (`scripts/`: `fdcn.py`, `node.py`, `condition_node.py`,
+   `graph.py`, `endings.py`, `requirements.txt`) — reads the hand-authored gamebook graph
    (`books/fdcn/fdcn.json`, `books/cdsi/cdsi.json`, one per book: FDCN and CDSI) and compiles it
    into the flattened JSON files the app consumes
    (`books/fdcn/fdcn-compilated-*.json`, `books/cdsi/cdsi-compilated-*.json`) plus a Graphviz visualization
-   (`graph/fdcn_full-{book}.png`). Run via `python fdcn.py --book 1|2`.
+   (`graph/fdcn_full-{book}.png`). Run via `python scripts/fdcn.py --book 1|2` (from repo root,
+   since the data paths it reads/writes are relative to the current working directory).
    This half looked untouched by the current refactor — not reviewed in depth.
 
 2. **Godot 4.7 app** (everything else) — a mobile/web/desktop app that lets a
