@@ -15,6 +15,25 @@ const _CHAPTER_FONT_SIZE_WITH_ARC = 24
 const _CHAPTER_FONT_SIZE_NO_ARC = 40
 
 
+func _ready() -> void:
+	Player.chapter_changed.connect(_on_chapter_changed)
+	_on_chapter_changed(Player.get_current_node_id())
+
+
+func _on_chapter_changed(node_id) -> void:
+	var my_node = BookData.get_chapter_node(node_id)
+
+	set_acte(my_node.get_chapter(), BookData.get_acte_completion(node_id, Player.get_visited_nodes_all_times()))
+
+	var arc_name = my_node.get_arc()
+	var pct100_sub_arc = 0
+	if arc_name != null:
+		pct100_sub_arc = BookData.get_sub_arc_completion(node_id, Player.get_visited_nodes_all_times())
+	set_arc(arc_name, pct100_sub_arc)
+
+	set_chapter_number(my_node.get_id())
+
+
 func set_acte(acte_name: String, pct100: int) -> void:
 	_acte_label.text = acte_name
 	_fill_bar.value = pct100

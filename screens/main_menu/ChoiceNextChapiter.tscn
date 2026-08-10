@@ -2,6 +2,7 @@
 
 [ext_resource type="Script" uid="uid://di1bqkn3c5k8p" path="res://screens/main_menu/choice_next_chapiter.gd" id="1"]
 [ext_resource type="FontFile" uid="uid://dvf02ee6hmyyy" path="res://fonts/amon_font.tres" id="2"]
+[ext_resource type="PackedScene" uid="uid://1qa310lgsyuq" path="res://entities/ChapterChoice.tscn" id="3_g52bk"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_bg"]
 bg_color = Color(1, 1, 1, 1)
@@ -42,3 +43,6 @@ size_flags_vertical = 3
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
+
+[node name="ChapterChoice" parent="VBoxContainer/ScrollContainer/Choices" unique_id=1334460027 instance=ExtResource("3_g52bk")]
+layout_mode = 2

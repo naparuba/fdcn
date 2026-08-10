@@ -40,6 +40,11 @@ animations = [{
 }]
 
 [node name="Combat" type="PanelContainer" unique_id=1137137859]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
 theme_override_styles/panel = SubResource("StyleBoxFlat_bg")
@@ -308,7 +313,7 @@ horizontal_alignment = 1
 autowrap_mode = 3
 
 [node name="phumtar" type="AnimatedSprite2D" parent="VBoxContainer/Margin/Content" unique_id=782405487]
-position = Vector2(0, 30)
+position = Vector2(418.00003, 191)
 scale = Vector2(0.342538, 0.342538)
 sprite_frames = SubResource("SpriteFrames_omw45")
 

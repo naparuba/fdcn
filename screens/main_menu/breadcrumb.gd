@@ -7,6 +7,19 @@ signal chapter_selected(chap_number)
 var _bread_scene = preload('res://ui/bread.tscn')
 
 
+func _ready() -> void:
+	Player.chapter_changed.connect(_on_chapter_changed)
+	_refresh()
+
+
+func _on_chapter_changed(_node_id) -> void:
+	_refresh()
+
+
+func _refresh() -> void:
+	set_history(Player.get_last_visited_nodes())
+
+
 func set_history(node_ids: Array) -> void:
 	Utils.delete_children(_breads)
 	var nb = len(node_ids)
@@ -27,4 +40,7 @@ func set_history(node_ids: Array) -> void:
 
 # bread.gd calls self.main_obj.jump_back(chap_number) on click.
 func jump_back(chap_number) -> void:
+	var can_jump_back = Player.jump_back(chap_number)
+	if can_jump_back:
+		Player.go_to_node(chap_number)
 	chapter_selected.emit(chap_number)

@@ -1,9 +1,10 @@
 [gd_scene format=3 uid="uid://dbcjbrs57uov0"]
 
 [ext_resource type="PackedScene" path="res://screens/main_menu/GlobalCompletion.tscn" id="1"]
+[ext_resource type="Script" uid="uid://k14rd1dr6ioa" path="res://screens/main_menu.gd" id="1_iepgy"]
 [ext_resource type="PackedScene" path="res://screens/main_menu/Position.tscn" id="2"]
 [ext_resource type="PackedScene" path="res://screens/main_menu/Breadcrumb.tscn" id="3"]
-[ext_resource type="PackedScene" path="res://screens/main_menu/ChoiceNextChapiter.tscn" id="4"]
+[ext_resource type="PackedScene" uid="uid://dmy0vxuelkna" path="res://screens/main_menu/ChoiceNextChapiter.tscn" id="4"]
 [ext_resource type="PackedScene" uid="uid://drwkdrf2idtp5" path="res://screens/main_menu/Combat.tscn" id="5"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_n4y2n"]
@@ -16,6 +17,7 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_n4y2n")
+script = ExtResource("1_iepgy")
 
 [node name="Padding" type="MarginContainer" parent="." unique_id=1656897925]
 layout_mode = 1
@@ -24,8 +26,8 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-theme_override_constants/margin_left = 25
-theme_override_constants/margin_right = 25
+theme_override_constants/margin_left = 12
+theme_override_constants/margin_right = 12
 
 [node name="VBoxContainer" type="VBoxContainer" parent="Padding" unique_id=1656897926]
 layout_mode = 2

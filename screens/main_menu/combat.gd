@@ -20,6 +20,21 @@ signal combat_finished()
 @onready var _dice_sprite = $VBoxContainer/Margin/Content/DiceRow/dice/sprite
 
 
+func _ready() -> void:
+	Player.chapter_changed.connect(_on_chapter_changed)
+	_on_chapter_changed(Player.get_current_node_id())
+
+
+func _on_chapter_changed(node_id) -> void:
+	var node = BookData.get_chapter_node(node_id)
+	if node.is_combat():
+		set_enemy(node)
+		update_player_stats()
+		visible = true
+	else:
+		visible = false
+
+
 func set_enemy(node) -> void:
 	_nom.text = node.get_combat_name()
 	_ennemi_pv.text = '%s' % node.get_combat_pv()
@@ -46,4 +61,5 @@ func _on_dice_pressed() -> void:
 
 
 func _on_i_win_pressed() -> void:
+	visible = false
 	combat_finished.emit()

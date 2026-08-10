@@ -460,7 +460,7 @@ func refresh():
 	Utils.delete_children(breads)
 	
 		
-	var last_previous = Player.get_last_5_previous_visited_nodes()
+	var last_previous = Player.get_last_visited_nodes()
 	#print('LAST 5: %s' % str(last_previous))
 	var _nb_lasts = len(last_previous)
 	var _i = 0

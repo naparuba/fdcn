@@ -1,5 +1,7 @@
 extends Node
 
+signal chapter_changed(node_id)
+
 @onready var Item = preload('res://entities/Item.tscn')
 
 # Some legacy per-book data (save-file suffixes, the guess table below) is
@@ -296,7 +298,8 @@ func go_to_node(node_id):
 		self.apply_one_chapter_stats(node_id)
 	else:
 		print('%s is a ALREADY VIEW chapter for this billy, NOT updating its stats' % node_id)
-	
+
+	self.chapter_changed.emit(self.current_node_id)
 	return [is_new_node, aquires, removes]
 
 
@@ -348,12 +351,12 @@ func did_all_times_seen(chapter_id):
 	return chapter_id in self.visited_nodes_all_times
 
 
-func get_last_5_previous_visited_nodes():
+func get_last_visited_nodes(nb_chapters: int = 5) -> Array:
 	var nb_previous = len(self.session_visited_nodes)
-	
+
 	var last_previous = self.session_visited_nodes
-	if len(self.session_visited_nodes) > 5:
-		last_previous = self.session_visited_nodes.slice(nb_previous - 5, nb_previous)
+	if nb_previous > nb_chapters:
+		last_previous = self.session_visited_nodes.slice(nb_previous - nb_chapters, nb_previous)
 	return last_previous
 
 
