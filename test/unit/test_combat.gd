@@ -43,6 +43,16 @@ func test_la_table_est_chargee_et_complete() -> void:
 	assert_eq(CombatEngine.get_max_degats(-7), 3, "écart -7, dé 6 : 3 dégâts infligés")
 
 
+## La table sort du json, donc en float, et `-2 in [-2.0]` est faux en GDScript. Sans
+## normalisation au chargement, aucune recherche par situation n'aboutit : ce test
+## couvre les trois symptômes d'un coup (nom de situation vide, coût de fuite à 0,
+## chance non consommée).
+func test_la_table_est_normalisee_en_entiers() -> void:
+	for ecart in range(-7, 8):
+		var situation = CombatEngine.get_situation_for(ecart)
+		assert_ne(situation, "", "l'écart %d a une situation nommée" % ecart)
+
+
 func test_les_situations_portent_le_cout_de_fuite() -> void:
 	# hab d'un pégu neuf = 2, ennemi hab 10, pyro +4 => écart -4 => « Désavantage ».
 	assert_eq(CombatEngine.get_ecart(), -4, "écart calculé avec le bonus pyro")

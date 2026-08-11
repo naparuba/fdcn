@@ -46,16 +46,28 @@ func test_les_ressources_ne_descendent_pas_sous_zero() -> void:
 	assert_eq(PlayerStats.get_cha(), 0, "chance jamais négative")
 
 
-func test_une_ressource_modifiee_est_sauvegardee() -> void:
+## Écriture et lecture se testent séparément, parce qu'on ne peut PAS désynchroniser la
+## mémoire du disque : toute écriture publique sauvegarde au passage. Ma première version
+## de ce test essayait d'« abîmer la valeur en mémoire » avec `add_pv()` avant de relire
+## — mais `add_pv()` écrit aussi sur le disque, donc le test se contredisait lui-même.
+func test_une_ressource_modifiee_est_ecrite_sur_le_disque() -> void:
 	PlayerStats.del_pv(2)
-	var attendu = PlayerStats.get_pv()
-	assert_eq(int(SaveManager.load_value(SaveManager.KEY_PV, -1)), attendu,
+	assert_eq(int(SaveManager.load_value(SaveManager.KEY_PV, -1)), PlayerStats.get_pv(),
 		"les pv sont sur le disque")
+	PlayerStats.del_chance(1)
+	assert_eq(int(SaveManager.load_value(SaveManager.KEY_CHANCE, -1)), PlayerStats.get_cha(),
+		"la chance aussi")
 
-	# On simule un redémarrage : on abîme la valeur en mémoire, puis on relit.
-	PlayerStats.add_pv(3)
+
+func test_les_ressources_relues_viennent_du_disque() -> void:
+	# On pose une valeur sur le disque dans le dos de PlayerStats, puis on recharge :
+	# c'est le trajet exact d'un redémarrage d'application.
+	SaveManager.save_value(SaveManager.KEY_PV, 3)
+	SaveManager.save_value(SaveManager.KEY_CHANCE, 1)
+
 	PlayerStats.load_resources()
-	assert_eq(PlayerStats.get_pv(), attendu, "les pv relus sont ceux du disque")
+	assert_eq(PlayerStats.get_pv(), 3, "les pv viennent du fichier")
+	assert_eq(PlayerStats.get_cha(), 1, "la chance vient du fichier")
 
 
 func test_une_sauvegarde_sans_ressources_demarre_au_plein() -> void:

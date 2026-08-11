@@ -67,6 +67,32 @@ func _ready() -> void:
 	if _table == null or not _table.has("assauts"):
 		push_error("CombatEngine: table de combat illisible: %s" % _TABLE_PATH)
 		_table = {}
+		return
+	_normalize_table()
+
+
+## Le json rend TOUS ses nombres en float, et en GDScript `-2 in [-2.0]` est **faux**.
+## Les listes d'écarts des situations arrivaient donc en `[-2.0, -1.0]` et aucune
+## recherche par écart entier ne pouvait aboutir : plus de nom de situation, coût de
+## fuite à 0, donc aucune chance consommée en fuyant. Trois symptômes, une seule cause.
+##
+## On convertit une fois pour toutes au chargement plutôt que de bricoler chaque
+## comparaison. C'est le même piège que celui documenté dans `review.md` pour les
+## identifiants de chapitre.
+func _normalize_table() -> void:
+	for situation in _table.get("situations", []):
+		var entiers := []
+		for ecart in situation.get("ecarts", []):
+			entiers.append(int(ecart))
+		situation["ecarts"] = entiers
+		situation["fuite_chance"] = int(situation.get("fuite_chance", 0))
+
+	for ligne in _table.get("assauts", {}).values():
+		for de in ligne.keys():
+			ligne[de] = [int(ligne[de][0]), int(ligne[de][1])]
+
+	_table["ecart_min"] = int(_table.get("ecart_min", -7))
+	_table["ecart_max"] = int(_table.get("ecart_max", 7))
 
 
 #
@@ -197,7 +223,12 @@ func is_ecart_plafonne() -> bool:
 
 ## Le nom de la situation ("Désavantage lourd", ...) pour l'écart courant.
 func get_situation() -> String:
-	var situation = _situation_for(get_ecart())
+	return get_situation_for(get_ecart())
+
+
+## Publique pour pouvoir vérifier la table sans démarrer de combat.
+func get_situation_for(ecart: int) -> String:
+	var situation = _situation_for(ecart)
 	return situation.get("nom", "") if situation else ""
 
 
@@ -236,9 +267,17 @@ func can_cancel() -> bool:
 ## plein. La restauration doit avoir le dernier mot.
 ##
 ## Ce que ça remet exactement : pv, chance, objets portés, et la couche de stats
-## « chapitres » recalculée depuis l'historique dépilé. ⚠️ Ce que ça ne remet pas :
-## `visited_nodes_all_times` (volontaire — le chapitre a bien été vu une fois, c'est
-## ce que suivent les succès) et les objets vus/succès obtenus au passage.
+## « chapitres » recalculée depuis l'historique dépilé.
+##
+## ⚠️ Deux limites assumées :
+##  - `visited_nodes_all_times` n'est pas dépilé, volontairement : le chapitre a bien
+##    été vu une fois, et c'est ce que suivent les succès et les marqueurs « déjà lu » ;
+##  - la photo est prise à `start()`, donc **après** que le chapitre a appliqué ses
+##    propres effets (`chapter_changed` part en fin de `go_to_node`). Les 6 chapitres
+##    de combat qui donnent aussi des pv ou de la chance (fdcn 54/58/133, cdsi 40/68/73)
+##    verront donc ce gain conservé. Le vrai correctif serait une photo prise par
+##    `Player.go_to_node()` avant d'appliquer les effets — ce qui offrirait un
+##    « annuler l'arrivée » pour n'importe quel chapitre, pas seulement les combats.
 func cancel() -> bool:
 	if not can_cancel():
 		return false

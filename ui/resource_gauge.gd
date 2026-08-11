@@ -10,11 +10,14 @@ extends VBoxContainer
 ## la ressource au-dessus, comme la feuille de stats.
 
 ## `Resource` est un nom de classe Godot, d'où `Kind`.
-enum Kind {PV, CHANCE}
+enum Kind {PV, CHANCE, ENNEMI}
 
 const _SETUP := {
 	Kind.PV: {"titre": "PV", "couleur": Color('c0392b')},
 	Kind.CHANCE: {"titre": "CHANCE", "couleur": Color('e2b007')},
+	# Rouge plus sombre que celui du joueur : deux barres de vie côte à côte, mais on
+	# doit pouvoir dire d'un coup d'œil laquelle est la sienne.
+	Kind.ENNEMI: {"titre": "ENNEMI", "couleur": Color('8e2f26')},
 }
 
 const _FOND := Color('e9eaec')
@@ -34,8 +37,13 @@ func _ready() -> void:
 	_titre.visible = show_title
 	_paint_bar(_SETUP[kind]["couleur"])
 
-	PlayerStats.stats_changed.connect(_refresh)
-	_refresh()
+	# Chaque source a son signal : les ressources du joueur bougent sur
+	# `stats_changed`, les pv de l'ennemi seulement quand un assaut est résolu.
+	if kind == Kind.ENNEMI:
+		CombatEngine.assault_resolved.connect(func(_rapport): refresh())
+	else:
+		PlayerStats.stats_changed.connect(refresh)
+	refresh()
 
 
 ## La couleur de remplissage d'une `ProgressBar` vient de son thème : on la pose en
@@ -52,7 +60,9 @@ func _paint_bar(couleur: Color) -> void:
 	_bar.add_theme_stylebox_override("background", fond)
 
 
-func _refresh() -> void:
+## Publique : l'écran de combat la rappelle au démarrage d'un affrontement, quand
+## l'ennemi change sans qu'aucun signal ne soit parti.
+func refresh() -> void:
 	var courant = _courant()
 	var maximum = _maximum()
 	# Un `max_value` à 0 rendrait la barre absurde ; on garde au moins 1, et elle
@@ -60,11 +70,25 @@ func _refresh() -> void:
 	_bar.max_value = maxi(maximum, 1)
 	_bar.value = courant
 	_valeur.text = "%d / %d" % [courant, maximum]
+	if kind == Kind.ENNEMI and show_title:
+		_titre.text = CombatEngine.get_enemy().get("nom", "ENNEMI")
 
 
 func _courant() -> int:
-	return PlayerStats.get_pv() if kind == Kind.PV else PlayerStats.get_cha()
+	match kind:
+		Kind.PV:
+			return PlayerStats.get_pv()
+		Kind.CHANCE:
+			return PlayerStats.get_cha()
+		_:
+			return CombatEngine.get_enemy_pv()
 
 
 func _maximum() -> int:
-	return PlayerStats.get_pv_max() if kind == Kind.PV else PlayerStats.get_chance_max()
+	match kind:
+		Kind.PV:
+			return PlayerStats.get_pv_max()
+		Kind.CHANCE:
+			return PlayerStats.get_chance_max()
+		_:
+			return int(CombatEngine.get_enemy().get("pv", 0))

@@ -189,6 +189,15 @@ code. Un seul fichier pour les deux livres (Q4 = oui).
 Trois entrées : `situations` (nom + écarts couverts + coût de fuite), `assauts`
 (`[ecart][de] = [infligés, reçus]`) et les bornes `ecart_min` / `ecart_max`.
 
+🔴 **Piège rencontré en vrai (2026-08-11)** : Godot rend tous les nombres d'un json en
+**float**, et en GDScript `-2 in [-2.0]` est **faux**. Les listes `ecarts` arrivaient
+donc en `[-2.0, -1.0]` et aucune recherche par écart n'aboutissait. Un seul bug, **trois
+symptômes** qui n'avaient l'air de rien avoir en commun : pas de nom de situation
+affiché, coût de fuite à 0 sur le bouton, et aucune chance consommée en fuyant.
+`_normalize_table()` convertit tout en entiers une fois au chargement — jamais par
+comparaison. C'est le même piège que celui documenté pour les identifiants de chapitre
+dans `review.md`.
+
 Si tu corriges une case de la table dans ce fichier-ci, le JSON se régénère
 mécaniquement à partir du markdown — ne le réécris pas à la main, dis-le moi.
 
@@ -441,9 +450,12 @@ la valeur affichée et la valeur appliquée peuvent divergerence.
 2. **L'écart en grand avec son calcul détaillé** (`6 +4 pyro −10`). C'est *le* nombre que
    le joueur recoupe avec son marque-page. Sans le détail, un écart faux est
    indiagnosticable.
-3. **Le journal du dernier assaut**, avec la décomposition. Le moteur se trompera sur les
-   combats à règle spéciale (§1.2) : montrer son arithmétique est ce qui permet de s'en
-   apercevoir au lieu de le subir.
+3. **Le résumé du dernier assaut, en tableau** — colonnes `dé · esquive · infligé · reçu`,
+   les mêmes largeurs que la grille de stats, plus une note en dessous pour ce qui n'est
+   pas chiffrable (CRITIQUE, esquivé, plafond du PAYSAN, survie du PRUDENT), cachée quand
+   il n'y a rien à dire. Une phrase ne permettait pas d'aligner deux assauts successifs.
+   Le moteur se trompera sur les combats à règle spéciale (§1.2) : montrer son
+   arithmétique est ce qui permet de s'en apercevoir au lieu de le subir.
 4. **Le champ de modificateur de règle**, sans lequel les combats à règle spéciale sont
    calculés faux en silence.
 5. **Le compteur de tours**, parce que le livre impose parfois une limite de tours que les
@@ -455,6 +467,55 @@ la valeur affichée et la valeur appliquée peuvent divergerence.
    esquive et journal mais garde tout le reste.
 8. **Le prix de la fuite écrit sur le bouton** (« Fuir — 3 chance »), et grisé avec la
    raison visible : sinon un bouton inerte passe pour cassé.
+
+#### Compactage (2026-08-11) — l'écran faisait 780 px, il en fait ~400
+
+Trop long à l'usage. Ce qui a été coupé, par ordre de gain :
+
+| coupé | gain | pourquoi c'était de la place perdue |
+|---|---|---|
+| `StatsGrid` **transposée** : 3 lignes × 5 colonnes au lieu de 5 × 3 | ~70 px | les pv n'y figurent plus (les deux jauges les portent), et une ligne par camp au lieu d'une ligne par stat. **Transposer plutôt que remplacer par du texte** : deux libellés `hab 10 · arm 0 · dég 0` ne s'alignaient pas d'une ligne à l'autre, une grille aligne par construction |
+| écart et dés **sur la même ligne** (`MidRow`) | ~60 px | le bloc écart ne remplissait pas sa largeur |
+| bouton tick 139×89 → **`Button` « Gagner »** dans la barre du bas | ~80 px | un `Button` porte aussi mieux les changements de style que `PanelContainer` + `TextureRect` |
+| ligne « règle spéciale » | ~34 px | voir ci-dessous |
+| `phumtar` supprimé (un `Node2D` posé à des coordonnées fixes dans un conteneur) ; l'**icône du Pyro-Barbare** remise dans `NomRow`, à droite du nom | ~28 px | l'icône ne coûte plus de ligne : elle occupe la largeur libre à côté du nom de l'ennemi, et n'apparaît que si `pyro != 0` |
+| séparation 10 → 6, marges 12/8 → 10/6, boutons 44 → 42 | ~50 px | — |
+
+Le `ScrollContainer` reste : il ne coûte rien et protège des noms d'ennemis longs et
+d'un journal qui passe à la ligne.
+
+**La ligne « règle spéciale » est retirée.** Le moteur garde `set_hab_modifier()`, plus
+aucune interface ne l'appelle. Assumé : les combats à règle spéciale seront calculés
+faux, et la réparation passe par les boutons ± de la feuille de stats et par « Gagner ».
+Si le besoin se fait sentir en jouant, le moins encombrant serait un ± **sur l'écart
+lui-même**, sans libellé ni ligne dédiée.
+
+⚠️ **Ce qui mériterait plus cette place** : un interrupteur sur le **Pyro-Barbare**.
+Recherche faite dans les deux livres — aucun objet, aucun jeton de condition ne parle de
+lui. Le champ `pyro` du bloc de combat est le seul signal, et c'est le *livre* qui
+l'affirme, pas l'état de la partie : si le PB est mort ou absent dans l'histoire du
+joueur, l'app n'en sait rien et applique quand même son bonus. Ça concerne **29 des 46
+combats de fdcn et 24 des 40 de cdsi** — un cas fréquent et détectable, contrairement aux
+règles spéciales. À trancher.
+
+#### Ce qui a été construit (2026-08-11)
+
+`screens/aventure_menu/Combat.tscn` + `combat.gd` réécrit. Le script est une **vue
+pure** : il lit `CombatEngine`, lui transmet les décisions, et peint. Aucune règle
+dedans — c'est ce qui garde les 33 tests du moteur valables.
+
+Trois choix qui ne sont pas cosmétiques :
+
+- **Le contenu est dans un `ScrollContainer`** (`horizontal_scroll_mode = 0`). Le
+  panneau réclame ~780 px de haut, or `AventureMenu` n'a aucun défilement et lui laisse
+  ~650 px après la barre de progression et le fil d'Ariane. Sans ça, les boutons du bas
+  — dont « Gagner » — étaient tout simplement hors écran sur un 16:9.
+- **Le bouton principal est à deux temps** : « Lancer le dé » puis « Valider l'assaut ».
+  Sans ce second temps, un joueur qui ne veut pas esquiver n'a aucun moyen de résoudre
+  son assaut : la relance et l'esquive sont des décisions qui s'intercalent entre le
+  lancer et la résolution.
+- **`_anime` bloque les clics pendant le roulement du dé.** Deux animations qui se
+  chevauchent afficheraient une face qui n'est pas celle appliquée.
 
 #### Les trois états de l'écran (2026-08-11)
 
@@ -588,8 +649,8 @@ chaque tour, gratuite) : deux mécaniques différentes. Voir Q2.
 | 7 | Persistance de l'état de combat (`KEY_COMBAT`) | 3 |
 | ~~8~~ | ~~Tests unitaires du moteur~~ ✅ **FAIT** : `test/unit/test_combat.gd`, 33 tests | — |
 | ~~8bis~~ | ~~Annuler le combat (photo + retour au chapitre d'avant)~~ ✅ **FAIT** côté moteur | — |
-| 9 | `Combat.tscn` / `combat.gd` : écart, situation, boutons, 3 états, jauges, journal | 3 → 7 |
-| 10 | Jauge d'ennemi (source injectable dans `ResourceGauge`) | 9 |
+| ~~9~~ | ~~`Combat.tscn` / `combat.gd` : écart, situation, boutons, 3 états, jauges, journal~~ ✅ **FAIT** (2026-08-11) | — |
+| ~~10~~ | ~~Jauge d'ennemi dans `ResourceGauge`~~ ✅ **FAIT** : `Kind.ENNEMI`, `refresh()` publique | — |
 | 11 | Multi-ennemis (fdcn ch276) et sentinelles à 99 | 3 |
 
 **Plus aucune étape n'est bloquée** : les 13 questions sont tranchées, et les 4
