@@ -77,6 +77,37 @@ func test_forcer_le_type_emet_le_signal_et_recalcule_les_stats() -> void:
 	Inventory.billy_changed.disconnect(recepteur)
 
 
+# Un aller-retour ne doit pas gonfler les stats. `jump_back()` dépile le chapitre de
+# destination, si bien que le `go_to_node()` qui suit le croit neuf et réapplique ses
+# stats de chapitre : sans le rejeu final de `go_back_to()`, chaque retour en arrière
+# ajoutait une fois de plus les gains du chapitre. Bug silencieux, d'où ce test.
+func test_un_aller_retour_ne_gonfle_pas_les_stats() -> void:
+	# fdcn 112 donne `end: +1` et `hab: +1` dans la couche « chapitres », sans condition
+	# ni combat : c'est le cas le plus lisible pour mesurer un double comptage.
+	Player.go_to_node(1)
+	var hab_depart = PlayerStats.get_stat('hab')
+	var end_depart = PlayerStats.get_stat('end')
+
+	Player.go_to_node(112)
+	assert_eq(PlayerStats.get_stat('hab'), hab_depart + 1, "le 112 donne bien +1 hab")
+
+	# On s'éloigne, puis on y revient : c'est le trajet qui recomptait les gains.
+	Player.go_to_node(100)
+	assert_true(Player.go_back_to(112), "on revient au 112")
+
+	assert_eq(PlayerStats.get_stat('hab'), hab_depart + 1,
+		"l'habileté n'a pas été comptée deux fois")
+	assert_eq(PlayerStats.get_stat('end'), end_depart + 1,
+		"l'endurance non plus")
+	assert_eq(Player.get_current_node_id(), 112, "on est bien revenu au 112")
+
+
+func test_go_back_to_refuse_un_chapitre_hors_historique() -> void:
+	Player.go_to_node(1)
+	assert_false(Player.go_back_to(999), "999 n'est pas dans le fil d'Ariane")
+	assert_eq(Player.get_current_node_id(), 1, "on n'a pas bougé")
+
+
 func test_les_conditions_contiennent_objets_et_type_de_billy() -> void:
 	Inventory.add_item_from_options('EPEE')
 	var conditions = Inventory.get_all_matched_conditions()

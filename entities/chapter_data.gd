@@ -92,13 +92,25 @@ func is_combat():
 	return self._book_data['computed']['is_combat']
 
 
-# TODO: the 276 is a list
-func _get_combat():
+## TOUS les adversaires du chapitre, dans l'ordre où ils se présentent. Un chapitre
+## n'en a normalement qu'un, et le livre écrit alors un dictionnaire ; fdcn ch276 en
+## enchaîne deux (GUARDES CORROMPUS puis TROLESSE) et écrit une liste. On normalise pour
+## que l'appelant n'ait jamais à distinguer les deux formes.
+func get_combats() -> Array:
 	var combat = self._book_data['computed']['combat']
-	#print('type: %s , array=' % typeof(combat), '=%s' % TYPE_ARRAY)
+	if combat == null:
+		return []
 	if typeof(combat) == TYPE_ARRAY:
-		return combat[0]
-	return combat
+		return combat
+	return [combat]
+
+
+## Le premier adversaire. Les accesseurs unitaires ci-dessous s'en servent : ils
+## alimentent la fiche affichée, qui montre l'ennemi en cours. Pour mener un combat en
+## plusieurs manches, passer par `get_combats()`.
+func _get_combat():
+	var combats = self.get_combats()
+	return combats[0] if not combats.is_empty() else null
 
 
 func get_combat_name():

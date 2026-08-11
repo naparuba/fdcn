@@ -25,6 +25,8 @@ extends Control
 var current_index: int = 0
 var current_scene_instance: Node = null
 
+var _confirm_scene = preload('res://popups/GenericConfirmationPopup.tscn')
+
 @onready var scene_container = $SceneContainer
 @onready var popup_container = $PopupContainer
 @onready var _nav_left = $NavLeft
@@ -47,6 +49,35 @@ func _ready():
 #
 #    Popups
 #
+
+## Ouvre une popup par-dessus la page. Cherché par nom de méthode
+## (`Utils.find_ancestor_with_method(self, "open_popup")`) par les composants qui en ont
+## besoin, comme `go_to_page` : ils n'ont ainsi aucune référence à tenir.
+##
+## ⚠️ La popup doit se **libérer** en se fermant, pas se masquer : `is_popup_open()`
+## compte tout enfant non détruit, donc une popup seulement cachée bloquerait la
+## navigation pour de bon.
+func open_popup(popup: Node) -> void:
+	popup_container.add_child(popup)
+
+
+## Demande une confirmation, et n'appelle `on_accept` que si le joueur accepte.
+##
+## Centralisé ici parce que deux pages en ont besoin (nouveau Billy depuis les choix de
+## chapitre et depuis « À propos ») et qu'une confirmation dupliquée finit toujours par
+## divergerence. La popup est **instanciée à chaque fois** et se libère en se fermant :
+## elle vit dans `PopupContainer`, donc elle bloque la navigation tant qu'elle est là,
+## ce qu'une instance posée à même une page ne ferait pas.
+func confirm(texte: String, on_accept: Callable, libelle_accepter := "Confirmer",
+		libelle_annuler := "Annuler") -> void:
+	var popup = _confirm_scene.instantiate()
+	popup.content = texte
+	popup.accept_button = libelle_accepter
+	popup.cancel_button = libelle_annuler
+	popup.generic_popup_accept.connect(on_accept)
+	open_popup(popup)
+	popup.open()
+
 
 ## Vrai si une popup est actuellement affichée par-dessus la page.
 func is_popup_open() -> bool:

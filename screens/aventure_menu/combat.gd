@@ -112,16 +112,33 @@ func _on_chapter_changed(node_id) -> void:
 
 ## ⚠️ Tout passe par `int()` : le json rend ses nombres en float, et un `'%s' % 10.0`
 ## affiche « 10.0 ». C'est le piège documenté du dépôt, il s'applique aussi ici.
+##
+## En mode automatisé la fiche vient du **moteur**, pas du chapitre : un combat peut
+## enchaîner plusieurs adversaires (fdcn ch276), et c'est le moteur qui sait lequel est en
+## cours. En mode manuel il n'y a pas de moteur, on retombe sur les données du chapitre.
 func set_enemy(node) -> void:
-	_nom.text = node.get_combat_name()
-	_lui_hab.text = '%d' % int(node.get_combat_hab())
-	_lui_arm.text = '%d' % int(node.get_combat_armure())
-	_lui_deg.text = '%d' % int(node.get_combat_degat())
+	var e = CombatEngine.get_enemy() if _automatise else {
+		"nom": node.get_combat_name(),
+		"hab": int(node.get_combat_hab()),
+		"arm": int(node.get_combat_armure()),
+		"deg": int(node.get_combat_degat()),
+		"pyro": int(node.get_combat_pyro()),
+	}
+	if e.is_empty():
+		return
+
+	_nom.text = e["nom"]
+	if _automatise and CombatEngine.get_enemy_count() > 1:
+		# Sans ça, un second adversaire qui surgit avec des pv pleins ressemble à un bug.
+		_nom.text += "  (%d/%d)" % [CombatEngine.get_enemy_index() + 1, CombatEngine.get_enemy_count()]
+	_lui_hab.text = '%d' % int(e["hab"])
+	_lui_arm.text = '%d' % int(e["arm"])
+	_lui_deg.text = '%d' % int(e["deg"])
 
 	# L'icône du barbare ne s'affiche que si le livre a posé un bonus sur ce combat :
 	# c'est le seul signal existant sur la présence du Pyro-Barbare, rien dans les
 	# données ne suit son état par ailleurs.
-	var hab_pyro = int(node.get_combat_pyro())
+	var hab_pyro = int(e["pyro"])
 	_pyro_row.visible = hab_pyro != 0
 	if hab_pyro != 0:
 		_pyro_hab.text = '%+d' % hab_pyro
@@ -293,6 +310,9 @@ func _face(valeur: int, couleur: String) -> Texture2D:
 func _resoudre() -> void:
 	var rapport = CombatEngine.resolve()
 	_remplir_journal(rapport)
+	if rapport['ennemi_suivant']:
+		# Nouvel adversaire : la fiche entière change, pas seulement les jauges.
+		set_enemy(BookData.get_chapter_node(Player.get_current_node_id()))
 	if _etat == Etat.EN_COURS:
 		_refresh_stats()
 
@@ -318,6 +338,8 @@ func _remplir_journal(rapport: Dictionary) -> void:
 		notes.append("esquivé")
 	if rapport['coup_fatal_evite']:
 		notes.append("tué avant que son coup ne porte")
+	if rapport['ennemi_suivant']:
+		notes.append("adversaire suivant : %s" % CombatEngine.get_enemy().get("nom", ""))
 	if 'paysan' in rapport['pouvoirs']:
 		notes.append("plafonné à 3, PAYSAN")
 	if 'prudent' in rapport['pouvoirs']:

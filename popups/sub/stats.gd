@@ -52,6 +52,11 @@ func _refresh() -> void:
 	_set_detail("PlayerCha", _detail("chamax"))
 	_set_detail("PlayerPv", "")
 
+	# Compteurs cumulatifs : ils viennent des chapitres, pas des trois couches, donc
+	# pas de ventilation à afficher. `nb_infos` reste volontairement masqué.
+	_set_row("PlayerRichesse", PlayerStats.get_richesse(), "")
+	_set_row("PlayerGloire", PlayerStats.get_gloire(), "")
+
 	_refresh_buttons()
 
 

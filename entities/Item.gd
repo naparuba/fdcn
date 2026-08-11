@@ -8,11 +8,14 @@ extends Panel
 ## minimum en x.
 
 
+## Icône des objets pas encore découverts. Préchargée une fois pour toutes : elle était
+## rechargée par ligne, soit 56 à 82 fois à chaque ouverture de l'inventaire.
+const _ICONE_INCONNUE := preload('res://images/items/question.svg')
+
 var _is_enabled = null
 var _item_name = ''
 var _item_data = {}
 
-var _unkown_icon = null
 var _item_icon = null
 
 # Called when the node enters the scene tree for the first time.
@@ -37,7 +40,6 @@ func load_item_data(item_name, item_data):
 		self._item_icon = Utils.load_external_texture(png_path, null)
 	else:
 		self._item_icon = null
-	self._unkown_icon = Utils.load_external_texture('res://images/items/question.svg', null)
 	self.refresh()
 
 
@@ -77,48 +79,41 @@ func is_ok_to_be_shown():
 # * we already did see it's chapter in the past plays
 func _can_item_be_shown():
 	if self._is_enabled:
-		print('ITEM:: ', self._item_name, 'SHOW :: _is_enabled' )
 		return true
 	if AppParameters.are_spoils_ok():
-		print('ITEM:: ', self._item_name, 'SHOW :: spoils are ok' )
 		return true
-	#print('Can item: %s be shown ' % self._item_name, '%s' % self._item_data)
 	for chapter_id in self._item_data['in_chapters']:
 		if Player.did_all_times_seen(chapter_id):
-			print('Item %s can be seens thanks to chapter' % self._item_name, '%s' % chapter_id)
 			return true
-		#else:
-		#	print('Item %s is not ok with chapter' % self._item_name, '%s' % chapter_id)
 	return false
 
 
+## ⚠️ Aucune trace ici : `refresh()` tourne pour CHAQUE ligne à chaque ouverture de
+## l'inventaire et à chaque case cochée. Les 4 `print()` qui s'y trouvaient coûtaient 200
+## à 350 écritures console par ouverture — c'était le vrai frein de la popup, pas le
+## chargement des textures.
 func refresh():
-	# Maybe we don't need a refresh
+	# Une ligne pas encore alimentée (construction étalée sur plusieurs frames, voir
+	# `popups/sub/inventory.gd`) n'a rien à rafraîchir.
+	if self._item_name == '':
+		return
+
 	var do_have_item = Inventory.have_item(self._item_name)
-	#if do_have_item == self._is_enabled:  # Already up to date, skip
-	#	return
 	self._is_enabled = do_have_item
-	
+
 	var _style = self.get('theme_override_styles/panel')
-	
-	print('ITEM:: ', self._item_name, 'do have item? ',do_have_item )
-	
+
 	if self._can_item_be_shown():
-		print('ITEM:: ', self._item_name, 'SHOW\n' )
 		$Row/Nom.text = self._item_name
 		$Row/sprite.texture = self._item_icon
 	else:
-		print('ITEM:: ', self._item_name, 'HIDE\n' )
-		$Row/Nom.text = ''  # We already have the ? icon
-		$Row/sprite.texture = self._unkown_icon
+		$Row/Nom.text = ''  # l'icône « ? » suffit à dire qu'on ne sait pas
+		$Row/sprite.texture = _ICONE_INCONNUE
 
-	#print('STYLE: %s' % _style)
 	if do_have_item:
-		_style.set_bg_color(Color('c0ffed'))  # set to light grey
-		#print('HAVE item: %s' % self._item_name)
+		_style.set_bg_color(Color('c0ffed'))
 	else:
-		_style.set_bg_color(Color('ffffff'))  # set to light grey
-	# Update the button in the good state
+		_style.set_bg_color(Color('ffffff'))
 	$Row/button.button_pressed = do_have_item
 
 

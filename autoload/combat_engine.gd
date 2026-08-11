@@ -48,6 +48,10 @@ var _table := {}
 
 # État du combat en cours. `_chapter_id` à -1 = aucun combat.
 var _chapter_id := -1
+## Tous les adversaires du chapitre et celui en cours. Un combat à plusieurs manches
+## n'est gagné qu'une fois le dernier tombé.
+var _enemies := []
+var _enemy_index := 0
 var _enemy := {}
 var _enemy_pv := 0
 var _tour := 0
@@ -58,8 +62,6 @@ var _de := 0
 var _de_esquive := 0
 var _a_relance := false
 
-# Photo de l'état du joueur avant l'affrontement, pour pouvoir tout annuler.
-var _snapshot := {}
 
 
 func _ready() -> void:
@@ -99,62 +101,75 @@ func _normalize_table() -> void:
 #    Cycle de vie
 #
 
-## Les six champs du bloc `combat` du livre, en entiers (le json rend des float).
-func read_enemy(chapter_id) -> Dictionary:
+## Tous les adversaires du chapitre, en entiers (le json rend des float). Un chapitre en
+## a normalement un ; fdcn ch276 en enchaîne deux.
+func read_enemies(chapter_id) -> Array:
 	var node = BookData.get_chapter_node(chapter_id)
 	if node == null or not node.is_combat():
-		return {}
-	# Les SIX champs servent : hab et pyro font l'écart, arm réduit ce qu'on inflige,
-	# deg s'ajoute à ce qu'on encaisse, pv est la barre à descendre.
-	return {
-		"nom": node.get_combat_name(),
-		"hab": int(node.get_combat_hab()),
-		"pv": int(node.get_combat_pv()),
-		"arm": int(node.get_combat_armure()),
-		"deg": int(node.get_combat_degat()),
-		"pyro": int(node.get_combat_pyro()),
-	}
+		return []
+	var enemies := []
+	for brut in node.get_combats():
+		# Les SIX champs servent : hab et pyro font l'écart, arm réduit ce qu'on inflige,
+		# deg s'ajoute à ce qu'on encaisse, pv est la barre à descendre.
+		enemies.append({
+			"nom": brut["nom"],
+			"hab": int(brut["hab"]),
+			"pv": int(brut["pv"]),
+			"arm": int(brut["arm"]),
+			"deg": int(brut["deg"]),
+			"pyro": int(brut["pyro"]),
+		})
+	return enemies
+
+
+## Le premier adversaire, ou `{}` s'il n'y a pas de combat.
+func read_enemy(chapter_id) -> Dictionary:
+	var enemies = read_enemies(chapter_id)
+	return enemies[0] if not enemies.is_empty() else {}
 
 
 ## Vrai si le moteur sait mener ce combat. Faux pour un chapitre sans combat **ou**
 ## pour un marqueur à 99 : deux cas que l'interface doit distinguer (ne rien
 ## afficher / afficher la fiche en mode manuel), d'où cette fonction publique.
 func is_automatable(chapter_id) -> bool:
-	var enemy = read_enemy(chapter_id)
-	return not enemy.is_empty() and not is_sentinelle(enemy)
+	var enemies = read_enemies(chapter_id)
+	if enemies.is_empty():
+		return false
+	for enemy in enemies:
+		if is_sentinelle(enemy):
+			return false
+	return true
 
 
 ## Démarre le combat du chapitre. Renvoie false si le moteur ne sait pas le mener —
 ## l'interface reste alors en mode manuel, elle **ne déclare jamais une défaite**
 ## (voir `combat.md` §3.11).
 func start(chapter_id) -> bool:
-	var enemy = read_enemy(chapter_id)
-	if enemy.is_empty():
+	var enemies = read_enemies(chapter_id)
+	if enemies.is_empty():
 		return false
-	if is_sentinelle(enemy):
-		print('COMBAT: %s est un marqueur, pas un ennemi — mode manuel' % enemy['nom'])
-		return false
+	for enemy in enemies:
+		if is_sentinelle(enemy):
+			print('COMBAT: %s est un marqueur, pas un ennemi — mode manuel' % enemy['nom'])
+			return false
 
 	_chapter_id = int(chapter_id)
-	_enemy = enemy
-	_enemy_pv = enemy["pv"]
+	_enemies = enemies
+	_enemy_index = 0
+	_enemy = _enemies[0]
+	_enemy_pv = _enemy["pv"]
 	_tour = 0
 	_hab_modifier = 0
 	_clear_dice()
-	_snapshot = {
-		"pv": PlayerStats.get_pv(),
-		"cha": PlayerStats.get_cha(),
-		"items": Inventory.get_possessed_items().duplicate(),
-		"retour": Player.jump_to_previous_chapter(),
-	}
 	return true
 
 
 func stop() -> void:
 	_chapter_id = -1
+	_enemies = []
+	_enemy_index = 0
 	_enemy = {}
 	_enemy_pv = 0
-	_snapshot = {}
 	_clear_dice()
 
 
@@ -180,6 +195,16 @@ func get_enemy() -> Dictionary:
 
 func get_enemy_pv() -> int:
 	return _enemy_pv
+
+
+## « adversaire 2 sur 2 » : l'écran doit pouvoir le dire, sinon un second ennemi qui
+## surgit avec des pv pleins ressemble à un bug.
+func get_enemy_index() -> int:
+	return _enemy_index
+
+
+func get_enemy_count() -> int:
+	return _enemies.size()
 
 
 func get_tour() -> int:
@@ -255,7 +280,7 @@ func fuir() -> bool:
 ## Faux quand il n'y a pas de chapitre où revenir (premier chapitre de la partie) :
 ## le bouton d'annulation doit alors être grisé, pas absent.
 func can_cancel() -> bool:
-	return is_running() and _snapshot.get("retour", -1) != -1
+	return is_running() and int(Player.arrival_snapshot.get("retour", -1)) != -1
 
 
 ## Annule tout l'affrontement : on retourne au chapitre d'avant et on repose l'état
@@ -272,28 +297,27 @@ func can_cancel() -> bool:
 ## ⚠️ Deux limites assumées :
 ##  - `visited_nodes_all_times` n'est pas dépilé, volontairement : le chapitre a bien
 ##    été vu une fois, et c'est ce que suivent les succès et les marqueurs « déjà lu » ;
-##  - la photo est prise à `start()`, donc **après** que le chapitre a appliqué ses
-##    propres effets (`chapter_changed` part en fin de `go_to_node`). Les 6 chapitres
-##    de combat qui donnent aussi des pv ou de la chance (fdcn 54/58/133, cdsi 40/68/73)
-##    verront donc ce gain conservé. Le vrai correctif serait une photo prise par
-##    `Player.go_to_node()` avant d'appliquer les effets — ce qui offrirait un
-##    « annuler l'arrivée » pour n'importe quel chapitre, pas seulement les combats.
+##  - les succès obtenus et les chapitres marqués « vus » au passage restent acquis.
+##
+## La photo vient de `Player.arrival_snapshot`, prise en tête de `go_to_node()` **avant**
+## que le chapitre n'applique quoi que ce soit : les 6 chapitres de combat qui donnent
+## aussi des pv (fdcn 54/58/133, cdsi 40/68/73) sont donc correctement défaits, ce qui
+## n'était pas le cas quand le moteur prenait la photo lui-même sur `chapter_changed`.
 func cancel() -> bool:
 	if not can_cancel():
 		return false
-	var retour = int(_snapshot["retour"])
-	var pv = int(_snapshot["pv"])
-	var cha = int(_snapshot["cha"])
-	var items: Array = _snapshot["items"]
+	# On copie AVANT de naviguer : `Player.go_to_node()` réécrit `arrival_snapshot`.
+	var photo = Player.arrival_snapshot.duplicate(true)
+	var retour = int(photo["retour"])
+	var pv = int(photo["pv"])
+	var cha = int(photo["cha"])
+	var items: Array = photo["items"]
 	stop()
 
-	if not Player.jump_back(retour):
+	# `go_back_to()` dépile, renavigue et refait la couche « chapitres » : sans ce
+	# dernier point, le chapitre annulé continuerait de compter.
+	if not Player.go_back_to(retour):
 		return false
-	Player.go_to_node(retour)
-
-	# Le fil d'Ariane est plus court : la couche « chapitres » doit être refaite,
-	# sinon le chapitre annulé continue de compter.
-	Player.rebuild_chapter_stats()
 	Inventory.restore_items(items)
 	PlayerStats.set_resources(pv, cha)
 	return true
@@ -360,6 +384,7 @@ func resolve() -> Dictionary:
 		"degats_infliges": 0,
 		"degats_recus": 0,
 		"pv_ennemi_restant": _enemy_pv,
+		"ennemi_suivant": false,
 		"coup_fatal_evite": false,
 		"de_survie": 0,
 		"pouvoirs": [],
@@ -421,8 +446,20 @@ func resolve() -> Dictionary:
 	rapport["degats_recus"] = recus
 	rapport["pv_ennemi_restant"] = _enemy_pv
 
+	# Un adversaire tombé n'est pas forcément la fin : fdcn ch276 en enchaîne deux. Le
+	# combat n'est gagné qu'une fois le dernier à terre, et l'écart se recalcule tout seul
+	# puisqu'il est lu depuis `_enemy`.
+	var reste_un_ennemi = _enemy_pv <= 0 and _enemy_index + 1 < _enemies.size()
+	if reste_un_ennemi:
+		_enemy_index += 1
+		_enemy = _enemies[_enemy_index]
+		_enemy_pv = _enemy["pv"]
+		_tour = 0
+		rapport["ennemi_suivant"] = true
+		rapport["pv_ennemi_restant"] = _enemy_pv
+
 	assault_resolved.emit(rapport)
-	if _enemy_pv <= 0:
+	if _enemy_pv <= 0 and not reste_un_ennemi:
 		combat_won.emit()
 	elif PlayerStats.get_pv() <= 0:
 		combat_lost.emit()

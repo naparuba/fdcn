@@ -40,7 +40,5 @@ func set_history(node_ids: Array) -> void:
 
 # bread.gd calls self.main_obj.jump_back(chap_number) on click.
 func jump_back(chap_number) -> void:
-	var can_jump_back = Player.jump_back(chap_number)
-	if can_jump_back:
-		Player.go_to_node(chap_number)
+	Player.go_back_to(chap_number)
 	chapter_selected.emit(chap_number)

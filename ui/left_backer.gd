@@ -36,5 +36,4 @@ func _jump_to_previous_chapter() -> void:
 	var previous_id = Player.jump_to_previous_chapter()
 	if previous_id == -1:
 		return
-	if Player.jump_back(previous_id):
-		Player.go_to_node(previous_id)
+	Player.go_back_to(previous_id)

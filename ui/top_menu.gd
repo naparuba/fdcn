@@ -39,8 +39,8 @@ func _on_billy_changed(_billy_type) -> void:
 # `set_pressed_no_signal` : `settings_changed` part souvent PARCE QUE le joueur
 # vient de cliquer un de ces deux interrupteurs, inutile de relancer `toggled`.
 func _apply_settings() -> void:
-	$HBoxContainer/Spoil/SpoilButton.set_pressed_no_signal(AppParameters.are_spoils_ok())
-	$HBoxContainer/Sound/SoundButton.set_pressed_no_signal(AppParameters.is_sound_ok())
+	$Margin/HBoxContainer/Spoil/SpoilButton.set_pressed_no_signal(AppParameters.are_spoils_ok())
+	$Margin/HBoxContainer/Sound/SoundButton.set_pressed_no_signal(AppParameters.is_sound_ok())
 	set_billy()
 
 func _on_spoil_button_toggled(button_pressed):
@@ -52,10 +52,10 @@ func _on_sound_button_toggled(button_pressed):
 
 func set_billy():
 	var type_billy = AppParameters.get_billy_type()
-	var billys = {'guerrier': $HBoxContainer/Billys/BlockGuerrier,
-	'paysan':$HBoxContainer/Billys/BlockPaysan,
-	'prudent':$HBoxContainer/Billys/BlockPrudent,
-	'debrouillard':$HBoxContainer/Billys/BlockDebrouillard
+	var billys = {'guerrier': $Margin/HBoxContainer/Billys/BlockGuerrier,
+	'paysan':$Margin/HBoxContainer/Billys/BlockPaysan,
+	'prudent':$Margin/HBoxContainer/Billys/BlockPrudent,
+	'debrouillard':$Margin/HBoxContainer/Billys/BlockDebrouillard
 	}
 	
 	for billy in billys.keys():
@@ -73,7 +73,7 @@ func set_billy():
 		'debrouillard': 'Débrouillard',
 		'pegu': 'Pegu!!'
 	}
-	$HBoxContainer/Billys/BillyTypeLabel.text = billy_strings[type_billy]
+	$Margin/HBoxContainer/Billys/BillyTypeLabel.text = billy_strings[type_billy]
 
 
 #
@@ -81,10 +81,10 @@ func set_billy():
 #
 
 func set_page(page_name):
-	var pages = {'main': $HBoxContainer/Pages/BlockMain,
-	'chapitres':$HBoxContainer/Pages/BlockChapitres,
-	'success':$HBoxContainer/Pages/BlockSuccess,
-	'lore':$HBoxContainer/Pages/BlockLore
+	var pages = {'main': $Margin/HBoxContainer/Pages/BlockMain,
+	'chapitres':$Margin/HBoxContainer/Pages/BlockChapitres,
+	'success':$Margin/HBoxContainer/Pages/BlockSuccess,
+	'lore':$Margin/HBoxContainer/Pages/BlockLore
 	}
 	
 	for page in pages.keys():
@@ -99,8 +99,8 @@ func set_page(page_name):
 
 func set_book_context():
 	var book_name = AppParameters.get_book_name()
-	$HBoxContainer/BookSelection/logo.texture = load("res://books/%s/logo.png" % book_name)
-	$HBoxContainer/BookSelection/title.texture = load("res://books/%s/title.png" % book_name)
+	$Margin/HBoxContainer/BookSelection/logo.texture = load("res://books/%s/logo.png" % book_name)
+	$Margin/HBoxContainer/BookSelection/title.texture = load("res://books/%s/title.png" % book_name)
 
 
 # Le menu du haut est réutilisable : il ne connaît pas son conteneur de pages,

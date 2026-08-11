@@ -198,35 +198,45 @@ func match_chapter_conditions(node_from_id, node_to_id):
 	return r
 
 
-func _check_cond_rec(jump_condition, facts):
-	var r = false
+## Évalue un arbre de condition de saut contre les faits du joueur — `facts` étant
+## `Inventory.get_all_matched_conditions()` : les noms d'objets portés plus le type de
+## Billy en majuscules.
+##
+## Trois opérateurs, et trois seulement : `$end` (une feuille — ce fait est-il vrai ?),
+## `$or`, `$and`.
+##
+## ⚠️ Le `return false` final n'est pas décoratif. Sans lui, la fonction retombait au bout
+## et renvoyait `null` implicitement, ce qui se lit comme « condition non remplie » : une
+## faute de frappe dans les données **fermait donc un chemin de l'aventure en silence**.
+## D'où l'avertissement plutôt qu'un retour muet — les 620 conditions des deux livres
+## n'emploient que ces trois opérateurs, donc une clé inconnue est forcément une anomalie
+## à corriger, jamais un cas normal.
+func _check_cond_rec(jump_condition, facts) -> bool:
+	if not jump_condition is Dictionary:
+		push_warning("BookData: condition de saut malformée, dictionnaire attendu: %s" % [jump_condition])
+		return false
+
 	var end = jump_condition.get('$end')
 	if end != null:
-		#print('FIND $end= %s', end, '<=> facts=%s' % facts)
-		r = end in facts
-		return r
-	# Ors
+		return end in facts
+
 	var ors = jump_condition.get('$or')
 	if ors != null:
 		for sub_condition in ors:
-			#print('OR: sub condition: %s' % sub_condition)
-			r = self._check_cond_rec(sub_condition, facts)
-			if r:
-				#print('OR: sub condition is true STOP: %s' % sub_condition)
+			if self._check_cond_rec(sub_condition, facts):
 				return true
 		return false
-	
-	# Ands
+
 	var ands = jump_condition.get('$and')
 	if ands != null:
 		for sub_condition in ands:
-			#print('AND: sub condition: %s' % sub_condition)
-			r = self._check_cond_rec(sub_condition, facts)
-			if !r:
-				#print('AND: sub condition is wrong STOP: %s' % sub_condition)
+			if not self._check_cond_rec(sub_condition, facts):
 				return false
 		return true
- 
+
+	push_warning("BookData: condition sans opérateur connu ($end/$or/$and): %s" % [jump_condition])
+	return false
+
 
 func get_condition_txt(node_from_id, node_to_id):
 	var chapter_data = self.get_chapter_node(node_from_id)

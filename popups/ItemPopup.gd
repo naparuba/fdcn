@@ -20,7 +20,16 @@ func load_item_data(item_name, item_data):
 	$Nom.text = self._item_name
 	var new_style = StyleBoxFlat.new()
 	self.set('theme_override_styles/panel', new_style)
-	self._item_icon = Utils.load_external_texture('res://images/items/%s.svg' % self._item_name, null)
+	# Repli svg -> png, comme `entities/Item.gd` : sans lui, tout objet dont l'icône est un
+	# PNG s'affichait sans image dans cette popup alors qu'il en a une dans l'inventaire.
+	var svg_path = 'res://images/items/%s.svg' % self._item_name
+	var png_path = 'res://images/items/%s.png' % self._item_name
+	if Utils.is_file_exists(svg_path):
+		self._item_icon = Utils.load_external_texture(svg_path, null)
+	elif Utils.is_file_exists(png_path):
+		self._item_icon = Utils.load_external_texture(png_path, null)
+	else:
+		self._item_icon = null
 
 
 	

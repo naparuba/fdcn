@@ -400,3 +400,73 @@ theme_override_constants/shadow_outline_size = 0
 theme_override_fonts/font = SubResource("FontFile_vsygd")
 text = "XXX"
 horizontal_alignment = 1
+
+[node name="PlayerRichesse" type="HBoxContainer" parent="VBoxContainer"]
+layout_mode = 2
+
+[node name="PlayerRichesseLabel" type="Label" parent="VBoxContainer/PlayerRichesse"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_constants/shadow_offset_x = 0
+theme_override_constants/shadow_offset_y = 0
+theme_override_constants/shadow_outline_size = 0
+theme_override_fonts/font = SubResource("FontFile_r2dc3")
+text = "Richesse:"
+horizontal_alignment = 1
+
+[node name="PlayerRichesseValue" type="Label" parent="VBoxContainer/PlayerRichesse"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_constants/shadow_offset_x = 0
+theme_override_constants/shadow_offset_y = 0
+theme_override_constants/shadow_outline_size = 0
+theme_override_fonts/font = SubResource("FontFile_vsygd")
+text = "XXX"
+horizontal_alignment = 1
+
+[node name="PlayerRichesseValueDetail" type="Label" parent="VBoxContainer/PlayerRichesse"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_constants/shadow_offset_x = 0
+theme_override_constants/shadow_offset_y = 0
+theme_override_constants/shadow_outline_size = 0
+theme_override_fonts/font = SubResource("FontFile_vsygd")
+horizontal_alignment = 1
+
+[node name="PlayerGloire" type="HBoxContainer" parent="VBoxContainer"]
+layout_mode = 2
+
+[node name="PlayerGloireLabel" type="Label" parent="VBoxContainer/PlayerGloire"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_constants/shadow_offset_x = 0
+theme_override_constants/shadow_offset_y = 0
+theme_override_constants/shadow_outline_size = 0
+theme_override_fonts/font = SubResource("FontFile_r2dc3")
+text = "Gloire:"
+horizontal_alignment = 1
+
+[node name="PlayerGloireValue" type="Label" parent="VBoxContainer/PlayerGloire"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_constants/shadow_offset_x = 0
+theme_override_constants/shadow_offset_y = 0
+theme_override_constants/shadow_outline_size = 0
+theme_override_fonts/font = SubResource("FontFile_vsygd")
+text = "XXX"
+horizontal_alignment = 1
+
+[node name="PlayerGloireValueDetail" type="Label" parent="VBoxContainer/PlayerGloire"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_constants/shadow_offset_x = 0
+theme_override_constants/shadow_offset_y = 0
+theme_override_constants/shadow_outline_size = 0
+theme_override_fonts/font = SubResource("FontFile_vsygd")
+horizontal_alignment = 1

@@ -8,7 +8,7 @@
 [ext_resource type="Texture2D" uid="uid://0ke5c6xjavoi" path="res://images/anim-phumtar-2.png" id="8_8stdj"]
 [ext_resource type="FontFile" uid="uid://b2geetcvtgqo5" path="res://fonts/amon_font_small.tres" id="9_5y6us"]
 [ext_resource type="FontFile" uid="uid://c4uf1h6831ei2" path="res://fonts/RobotoCondensed-Regular.ttf" id="10_6kxjy"]
-[ext_resource type="PackedScene" path="res://popups/GenericConfirmationPopup.tscn" id="11_pkvei"]
+[ext_resource type="Script" path="res://screens/about_menu.gd" id="12_about"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_nh3ak"]
 bg_color = Color(0.92549, 0.929412, 0.94902, 1)
@@ -91,6 +91,7 @@ grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 1
 theme_override_styles/panel = SubResource("StyleBoxFlat_nh3ak")
+script = ExtResource("12_about")
 
 [node name="Actions" type="Panel" parent="." unique_id=1169434423]
 layout_mode = 1
@@ -421,12 +422,3 @@ FAN MADE, NON OFFICIELLE
 Tous les droits sont à Bob Lennon
 et LinkDigitalSpirit."
 
-[node name="GenericTextPopup" parent="." unique_id=904256914 instance=ExtResource("11_pkvei")]
-visible = false
-layout_mode = 0
-offset_left = 16.27
-offset_top = 97.6014
-offset_right = 544.27
-offset_bottom = 417.601
-content = "Cette action vous fera recommencer l'histoire depuis le début et perdre tout vos items.
-Êtes-vous sûr de vouloir continuer ?"

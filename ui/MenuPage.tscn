@@ -31,7 +31,6 @@ layout_mode = 1
 anchors_preset = 11
 anchor_left = 1.0
 anchor_right = 1.0
-offset_left = -50.0
 grow_horizontal = 0
 is_mirror = true
 
@@ -50,8 +49,8 @@ offset_right = -50.0
 grow_horizontal = 2
 grow_vertical = 2
 theme_override_constants/margin_left = 12
-theme_override_constants/margin_right = 12
 theme_override_constants/margin_top = 8
+theme_override_constants/margin_right = 12
 theme_override_constants/margin_bottom = 8
 
 [node name="PopupContainer" type="Container" parent="." unique_id=260158530]

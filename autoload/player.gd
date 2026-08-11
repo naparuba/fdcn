@@ -70,6 +70,12 @@ func do_load() -> bool:
 	# Après le recompute : les plafonds doivent être connus pour borner les
 	# ressources relues.
 	PlayerStats.load_resources()
+
+	# Le chapitre courant vient de changer sans passer par `go_to_node()` : sans cette
+	# émission, rien ne le sait. C'est ce qui laissait l'écran Aventure afficher le
+	# chapitre de l'ancien livre après un changement de livre — tous ses composants
+	# se peignent sur `chapter_changed`, et lui seul.
+	chapter_changed.emit(current_node_id)
 	return Inventory.need_force_display_options
 
 
@@ -175,11 +181,34 @@ func get_last_visited_nodes(nb_chapters: int = 5) -> Array:
 #    Navigation
 #
 
+## Photo de l'état du joueur **avant** que le chapitre courant n'applique ses effets.
+## C'est ce qui permet d'annuler une arrivée : pv, chance, objets, et le chapitre d'où
+## l'on venait.
+##
+## Elle est prise ici et pas ailleurs : `CombatEngine.start()` la prenait sur
+## `chapter_changed`, donc **après** les effets du chapitre, et les 6 chapitres de combat
+## qui donnent aussi des pv (fdcn 54/58/133, cdsi 40/68/73) conservaient ce gain quand on
+## annulait. Ici, l'instantané précède tout.
+var arrival_snapshot := {}
+
 ## Déplace le lecteur vers `node_id` : enregistre la visite, applique les objets
 ## du chapitre et (à la première visite seulement) ses stats, puis prévient toute
 ## l'app via `chapter_changed`.
 ## Renvoie [est_nouveau_chapitre, objets_gagnés, objets_perdus].
 func go_to_node(node_id) -> Array:
+	# AVANT toute modification : d'où l'on vient et dans quel état on part.
+	#
+	# ⚠️ Le chapitre de retour est `session_visited_nodes[-1]`, PAS `[-2]` : à cet instant
+	# `node_id` n'a pas encore été empilé, donc le dernier élément est bien celui qu'on
+	# quitte. (`jump_to_previous_chapter()` renvoie `[-2]`, ce qui est correct *après*
+	# l'empilement — s'en servir ici sauterait un chapitre.)
+	arrival_snapshot = {
+		"pv": PlayerStats.get_pv(),
+		"cha": PlayerStats.get_cha(),
+		"items": Inventory.get_possessed_items().duplicate(),
+		"retour": session_visited_nodes[-1] if len(session_visited_nodes) > 0 else -1,
+	}
+
 	current_node_id = node_id
 	save_current_node_id()
 
@@ -216,8 +245,26 @@ func jump_to_previous_chapter() -> int:
 	return session_visited_nodes[-2]
 
 
+## Revient à un chapitre déjà visité, **et remet les stats d'aplomb**.
+##
+## À utiliser partout plutôt que d'enchaîner `jump_back()` + `go_to_node()` à la main :
+## `jump_back()` dépile le chapitre de destination, si bien que le `go_to_node()` qui
+## suit le croit neuf et **réapplique ses stats de chapitre**. Les trois écrans qui
+## faisaient l'enchaînement eux-mêmes gonflaient donc les stats à chaque aller-retour.
+## Le rejeu final, depuis un fil d'Ariane désormais plus court, rend la couche
+## « chapitres » exacte.
+func go_back_to(node_id) -> bool:
+	if not jump_back(node_id):
+		return false
+	go_to_node(node_id)
+	rebuild_chapter_stats()
+	return true
+
+
 ## Dépile le fil d'Ariane jusqu'à retrouver `previous_id`. Renvoie false s'il
 ## n'est pas du tout dans l'historique.
+##
+## ⚠️ Bas niveau : préférer `go_back_to()`, qui enchaîne correctement.
 func jump_back(previous_id) -> bool:
 	print('jump_back::Jumping back to %s' % previous_id)
 	if len(session_visited_nodes) == 1:

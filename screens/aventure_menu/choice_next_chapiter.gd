@@ -6,6 +6,11 @@ signal previous_chapter_requested()
 
 @onready var _choices = $VBoxContainer/ScrollContainer/Choices
 
+## Texte de la seule action destructrice de l'app. Partagé avec `screens/about_menu.gd`,
+## qui propose le même bouton : deux formulations différentes pour la même conséquence
+## seraient un piège.
+const NOUVEAU_BILLY_TEXTE := "Commencer un nouveau Billy ?\n\nTa progression, tes objets et tes stats de cette partie seront effacés. Les chapitres déjà découverts et les succès obtenus sont conservés."
+
 var _chapter_choice_scene = preload('res://entities/ChapterChoice.tscn')
 var _ending_choice_scene = preload('res://entities/EndingChoice.tscn')
 
@@ -57,7 +62,20 @@ func go_to_node(chap_number) -> void:
 
 
 # EndingChoice.gd calls self.main.launch_new_billy() / .jump_to_previous_chapter().
+#
+# Ça efface le fil d'Ariane, l'inventaire et les stats : c'est la seule action
+# destructrice de l'app, elle passe donc par une confirmation. Si la popup ne trouve pas
+# de conteneur (hors d'un MenuPage), on **ne fait rien** plutôt que d'effacer sans
+# demander — une partie perdue coûte plus cher qu'un bouton qui ne réagit pas.
 func launch_new_billy() -> void:
+	var menu_page = Utils.find_ancestor_with_method(self, "confirm")
+	if menu_page == null:
+		push_warning("ChoiceNextChapiter: pas de conteneur de popup, nouveau Billy annulé")
+		return
+	menu_page.confirm(NOUVEAU_BILLY_TEXTE, _do_launch_new_billy, "Nouveau Billy")
+
+
+func _do_launch_new_billy() -> void:
 	Player.launch_new_billy()
 	Player.go_to_node(1)
 	new_billy_requested.emit()
@@ -67,7 +85,5 @@ func jump_to_previous_chapter() -> void:
 	var previous_id = Player.jump_to_previous_chapter()
 	if previous_id == -1:
 		return
-	var can_jump_back = Player.jump_back(previous_id)
-	if can_jump_back:
-		Player.go_to_node(previous_id)
+	Player.go_back_to(previous_id)
 	previous_chapter_requested.emit()

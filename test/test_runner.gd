@@ -42,21 +42,40 @@ func run_all(filter := "") -> bool:
 #    Bac à sable
 #
 
+## Livre imposé pendant les tests. Les fichiers de tests citent des chapitres précis
+## (fdcn 111, 112, 114...), ils ne peuvent donc pas hériter du livre que le développeur
+## a sélectionné dans l'app.
+const SANDBOX_BOOK := "fdcn"
+
+
 func _enter_sandbox() -> void:
 	DirAccess.make_dir_recursive_absolute(SANDBOX_DIR)
 	_saved_state = {
 		"base_dir": SaveManager.base_dir,
 		"parameters_file": AppParameters.parameters_file,
 		"parameters": AppParameters.parameters.duplicate(true),
+		"book": AppParameters.get_book_name(),
 	}
 	SaveManager.base_dir = SANDBOX_DIR
 	AppParameters.parameters_file = SANDBOX_DIR + "parameters.json"
+
+	# `AppParameters` a déjà lu le VRAI `parameters.json` au démarrage : rediriger le
+	# chemin n'annule pas ce qui en a été chargé. Sans épingler le livre ici, la suite
+	# tournait sur celui que le joueur avait choisi dans l'app — 54 assertions ont
+	# basculé le jour où il est passé à cdsi. On écrit le champ directement (pas de
+	# `set_book_name()`, qui sauvegarderait et émettrait `book_changed`).
+	AppParameters.parameters['current_book'] = SANDBOX_BOOK
+	BookData.do_load_book(SANDBOX_BOOK)
 
 
 func _leave_sandbox() -> void:
 	SaveManager.base_dir = _saved_state["base_dir"]
 	AppParameters.parameters_file = _saved_state["parameters_file"]
 	AppParameters.parameters = _saved_state["parameters"]
+	# Le livre du joueur est rechargé : les tests ne laissent pas le processus sur le
+	# livre imposé.
+	if _saved_state["book"] != SANDBOX_BOOK:
+		BookData.do_load_book(_saved_state["book"])
 	_clean_sandbox()
 
 

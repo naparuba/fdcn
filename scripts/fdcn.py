@@ -26,7 +26,7 @@ if book_number is None:
 else:
     print(f'Vous avez choisi le livre {book_number}.')
 
-display_graph = graphviz.Digraph('G', filename=f'graph/fdcn_full-{book_number}', format='png')
+display_graph = graphviz.Digraph('G', filename=f'scripts/graph/fdcn_full-{book_number}', format='png')
 
 
 def load_json_file(file_name):
