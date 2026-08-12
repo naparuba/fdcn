@@ -9,6 +9,6 @@ func _ready() -> void:
 	await get_tree().process_frame
 
 	var runner = load("res://test/test_runner.gd").new()
-	var ok = runner.run_all()
+	var ok = await runner.run_all()
 	print("\n(F6 terminé — %s)" % ("succès" if ok else "ÉCHEC"))
 	get_tree().quit(0 if ok else 1)

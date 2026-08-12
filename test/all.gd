@@ -27,5 +27,5 @@ func _run() -> void:
 	# Le lanceur est chargé à l'exécution : contrairement à ce script `-s`, il
 	# voit les autoloads par leur nom.
 	var runner = load("res://test/test_runner.gd").new()
-	var ok = runner.run_all(filter)
+	var ok = await runner.run_all(filter)
 	quit(0 if ok else 1)

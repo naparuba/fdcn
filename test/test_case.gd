@@ -19,9 +19,24 @@ extends RefCounted
 ## SÉCURITÉ : le lanceur redirige les sauvegardes vers un dossier jetable avant
 ## d'exécuter quoi que ce soit. Un test ne peut donc pas abîmer la partie du
 ## joueur, même s'il appelle `Player.launch_new_billy()`.
+##
+## TESTS D'INTERFACE — un test peut `await`. Le lanceur détecte une méthode asynchrone et
+## l'attend, y compris les crochets. Ça débloque tout ce qui a besoin d'un arbre vivant :
+##
+##     func test_la_ligne_ne_deborde_pas():
+##         var page = await afficher(preload("res://ui/MenuPage.tscn").instantiate())
+##         assert_true(page.size.x <= 540, "la page tient dans l'écran")
+##
+## `afficher()` ajoute le nœud à l'arbre et laisse passer deux images : la première
+## déclenche son `_ready()`, la seconde laisse les conteneurs poser leur mise en page. Sans
+## cette seconde image, **toutes les tailles valent zéro** et un test de mise en page
+## passerait pour de mauvaises raisons.
 
 ## Résultats accumulés par les assertions : [{ok: bool, label: String}]
 var _assertions := []
+
+## Les nœuds ajoutés à l'arbre par `afficher()`, libérés après chaque test.
+var _noeuds_affiches := []
 
 
 #
@@ -39,6 +54,43 @@ func after_each() -> void:
 
 func after_all() -> void:
 	pass
+
+
+#
+#    Arbre vivant (tests d'interface)
+#
+
+## Ajoute `noeud` à l'arbre, attend qu'il soit prêt ET mesuré, puis le renvoie.
+## Le lanceur le libère après le test, il n'y a rien à ranger soi-même.
+func afficher(noeud: Node) -> Node:
+	_arbre().root.add_child(noeud)
+	_noeuds_affiches.append(noeud)
+	await attendre_une_frame()
+	await attendre_une_frame()
+	return noeud
+
+
+func attendre_une_frame() -> void:
+	await _arbre().process_frame
+
+
+## L'arbre de la scène. `test_case.gd` est un `RefCounted` : il n'a pas de `get_tree()`,
+## d'où le passage par la boucle principale.
+func _arbre() -> SceneTree:
+	return Engine.get_main_loop() as SceneTree
+
+
+## Appelé par le lanceur après chaque test. On libère **tout de suite** (`free()` et non
+## `queue_free()`) : un nœud seulement mis en file survivrait à la fin de la suite et
+## serait compté comme une fuite à la sortie.
+func _liberer_les_noeuds() -> void:
+	if _noeuds_affiches.is_empty():
+		return
+	for noeud in _noeuds_affiches:
+		if is_instance_valid(noeud):
+			noeud.free()
+	_noeuds_affiches = []
+	await attendre_une_frame()
 
 
 #

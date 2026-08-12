@@ -13,7 +13,11 @@ signal generic_popup_accept()
 func _ready():
 	$Center/Boite/Margin/Contenu/RichTextLabel.text = content
 	$Center/Boite/Margin/Contenu/Boutons/PopupButtonAccept.text = accept_button
-	$Center/Boite/Margin/Contenu/Boutons/PopupButtonCancel.text = cancel_button
+	# Un libellé d'annulation VIDE cache le bouton : la même popup sert alors d'accusé de
+	# réception (« Partie exportée dans… »), où proposer d'annuler n'aurait aucun sens.
+	var annuler = $Center/Boite/Margin/Contenu/Boutons/PopupButtonCancel
+	annuler.text = cancel_button
+	annuler.visible = cancel_button != ""
 	hide()
 
 func open():

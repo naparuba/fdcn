@@ -23,6 +23,9 @@ var _saved_state := {}
 
 ## Exécute tout. `filter` ne garde que les fichiers dont le nom le contient.
 ## Renvoie true si tout est passé.
+##
+## ⚠️ **Coroutine** : les appelants doivent l'`await`. C'est le prix des tests d'interface,
+## qui ont besoin de laisser passer des images pour qu'un nœud soit prêt et mesuré.
 func run_all(filter := "") -> bool:
 	var files = _find_test_files(filter)
 	if files.is_empty():
@@ -31,7 +34,7 @@ func run_all(filter := "") -> bool:
 
 	_enter_sandbox()
 	for file_name in files:
-		_run_file(file_name)
+		await _run_file(file_name)
 	_leave_sandbox()
 
 	_print_summary()
@@ -123,14 +126,27 @@ func _run_file(file_name: String) -> void:
 		print("   (aucune méthode test_*)")
 		return
 
-	instance.before_all()
+	await _appeler(instance, "before_all")
 	for test_name in test_names:
 		instance._reset_assertions()
-		instance.before_each()
-		instance.call(test_name)
-		instance.after_each()
+		await _appeler(instance, "before_each")
+		await _appeler(instance, test_name)
+		await _appeler(instance, "after_each")
+		await _appeler(instance, "_liberer_les_noeuds")
 		_collect(file_name, test_name, instance._assertions)
-	instance.after_all()
+	await _appeler(instance, "after_all")
+
+
+## Appelle une méthode du test, **qu'elle soit synchrone ou non**.
+##
+## En Godot 4, une fonction qui contient un `await` ne rend pas sa valeur : elle rend le
+## signal de sa propre fin. Sans l'attendre, le lanceur relèverait les assertions d'un test
+## encore en cours — et les tests d'interface, qui doivent laisser passer une image pour
+## qu'un nœud soit prêt, seraient tous comptés vides.
+func _appeler(instance, methode: String) -> void:
+	var resultat = instance.call(methode)
+	if resultat is Signal:
+		await resultat
 
 
 func _find_test_methods(instance) -> Array:

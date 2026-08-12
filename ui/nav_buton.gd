@@ -89,11 +89,12 @@ func _fit_poly_to_height() -> void:
 	$poly.position.y = size.y / 2.0
 
 
+## Met à jour l'ÉTAT autant que la couleur. `is_disabled` était un `@export` lu une seule
+## fois au `_ready()` : appeler `setDisabled()` repeignait le chevron sans jamais le tenir à
+## jour, donc rien — pas même un test — ne pouvait demander si la flèche était active.
 func setDisabled(newValue: bool):
-	if (newValue == true):
-		$poly.color = Color('9ea8b4')
-	else:
-		$poly.color = Color('313b47')
+	is_disabled = newValue
+	$poly.color = Color('9ea8b4') if newValue else Color('313b47')
 
 
 ## Change le libellé après coup. `$txt` est résolu dès l'instanciation, donc l'appel est sûr

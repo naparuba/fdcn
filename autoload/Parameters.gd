@@ -27,12 +27,20 @@ signal settings_changed
 signal book_changed(book_name)
 
 func _ready():
+	reload()
+
+
+## Relit le fichier de réglages et réapplique tout. Appelé au démarrage, et par l'import
+## d'une sauvegarde — qui réécrit `parameters.json` dans le dos de cet autoload, y compris
+## le livre à ouvrir.
+##
+## L'émission finale ne sert à rien au démarrage (les autoloads sont prêts avant la scène
+## principale, personne n'écoute encore) mais tout à l'import : c'est elle qui fait
+## repeindre l'interface déjà affichée.
+func reload() -> void:
 	_load_parameters()
 	_apply_sound()
 	_apply_book()
-	# Les autoloads étant prêts avant la scène principale, personne n'écoute
-	# encore : cette émission ne sert qu'à repeindre une interface qui aurait
-	# déjà affiché les valeurs par défaut avant la lecture du fichier.
 	settings_changed.emit()
 
 

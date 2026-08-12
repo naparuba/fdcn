@@ -13,20 +13,21 @@ Suite de tests, à ne lancer que sur demande :
 ~/_Projects/godot/Godot_v4.7.1-stable_linux.x86_64 --headless -s test/all.gd --path .
 ```
 
-⚠️ Dernier passage vert : **68 tests** — la suite en compte maintenant **100** (8 sur les
-pouvoirs de Billy, 14 sur la notation d'effet et les compteurs, 10 sur le registre, le
-rangement des livres et la grille du sélecteur), et elle n'a plus tourné depuis.
-Entre-temps ont été touchés : `CombatEngine` (3 règles corrigées), `Player`, `BookData`,
-`PlayerStats`, `AppParameters`, `Narrator`, `Sounder`, `SaveManager`, `Inventory`,
-`menu_page`, `top_menu`, `ChapterChoice`, et **l'arbre de 10 scènes** a changé.
-`test_scenes` valide justement les `$Chemin` des scripts contre leur scène : la suite
-mérite un passage avant de continuer.
+⚠️ Dernier passage vert : **68 tests** — la suite en compte maintenant **139**, et elle n'a
+plus tourné depuis. Se sont ajoutés : les pouvoirs de Billy (8), la notation d'effet et les
+compteurs (14), le registre et le rangement des livres (10), **`BookData` et son évaluateur
+de conditions** (13), **l'archive de sauvegarde** (13), et les **deux premiers tests
+d'interface** — `menu_page` et `top_menu` (15), qui exercent enfin un `_ready()`.
+
+⚠️ **Le lanceur est devenu asynchrone** (`await`) : `test/all.gd` et `test/all.tscn`
+l'attendent désormais. Les dix autoloads ont tous été relus, et `archive/` a reçu son
+`.gdignore` — la suite mérite vraiment un passage avant de continuer.
 
 ⚠️ **Godot va réimporter au prochain démarrage de l'éditeur** : tout le contenu des livres
-a changé de place (`books/<nom>/data|img|audio|archive/`). Les **images** ont emporté leur
-`.import`, donc leur **uid est intact** — c'est ce qui garde `archive/src/main.tscn`
-ouvrable. Les **6 mp3** ont perdu le leur (aucune scène ne les référençait) : Godot le
-régénérera.
+a changé de place (`books/<nom>/data|img|audio|archive/`), et 24 assets orphelins sont
+partis dans `archive/unuzed/assets/`. Les **images de livre** ont emporté leur `.import`,
+donc leur **uid est intact** ; les **6 mp3** ont perdu le leur (aucune scène ne les
+référençait), Godot le régénérera.
 
 ---
 
@@ -38,27 +39,19 @@ régénérera.
       **cdsi ch176** qui écrit `"pv_max": true`, soit *+1 de plafond* alors que l'auteur
       voulait probablement « pv au plein » (`"pv": "= max"`). Les deux ne faisaient
       **rien du tout** avant, toute lecture fidèle est déjà un gain. → review §4.4
-- [ ] **1.2** **Tester `BookData`, en priorité `_check_cond_rec`.** C'est lui qui décide
-      quels chapitres sont accessibles : logique pure, aucun test. Couvrir `$or`, `$and`,
-      `$end`, l'imbrication, et la condition absente. → review §2.2
 
 ## 2 — Export / import d'une sauvegarde en zip
 
 À faire tôt : c'est le seul chantier de cette liste **entièrement testable sans interface
 ni appareil**.
 
-- [ ] **2.1** **Moteur d'archive** découplé du transport : 7 clés × chaque livre +
-      `parameters.json` + `manifest.json`, avec `ZIPPacker` (**natif dans Godot 4.7.1,
-      vérifié** — pas de rar, format propriétaire sans encodeur). → review §5.2
-- [ ] **2.2** **Import atomique**, dans cet ordre strict : `user://import_tmp/` → tout
-      valider → **sauvegarde de secours automatique** → bascule → `Player.do_load()`. Un
-      import à moitié appliqué donne une sauvegarde Frankenstein, pire qu'un import raté.
-      Les vieilles archives se migrent gratuitement (`prepare_save()`). → review §5.4
-- [ ] **2.3** **Transport par plateforme** : `FileDialog` desktop d'abord ; **Android**
-      (`user://` privé, scoped storage) et **HTML5** (IndexedDB, `JavaScriptBridge`) en
-      chantiers séparés. → review §5.3
-- [ ] **2.4** Tests : aller-retour complet, archive tronquée, archive de version future,
-      archive d'un seul livre. → review §5.6
+- [ ] **2.3** **Transport Android et HTML5** — le desktop est fait (2026-08-12 : deux
+      boutons dans « À propos », `FileDialog` natif, confirmation avant écrasement). Restent
+      les deux plateformes où `user://` est un cul-de-sac : **Android** (dossier privé,
+      scoped storage à partir de l'API 30) et **HTML5** (IndexedDB, export =
+      téléchargement navigateur via `JavaScriptBridge`, import = `<input type=file>`). En
+      attendant, l'export y écrit dans le dossier de l'app et affiche le chemin, l'import y
+      est annoncé indisponible. → review §5.3
 
 ## 3 — Données de livre
 
@@ -107,18 +100,12 @@ tous les json sortent, seul le png de relecture manque.
 
 ## 5 — Tests et hygiène
 
-- [ ] **5.1** **`test_case.gd` doit savoir `await`.** C'est ce qui bloque *tous* les tests
-      d'interface et de mise en page — dont la classe de bug « lignes qui se chevauchent »,
-      aujourd'hui invisible. → review §2.2
-
-- [ ] **5.2** Tester `ui/menu_page.gd` (navigation bloquée quand une popup est ouverte) et
-      `ui/top_menu.gd`. → review §2.2
-
-- [ ] **5.3** Décider la fin de vie d'`archive/` — et poser son `.gdignore` — une fois la
-      parité atteinte. **Pas avant** : le `.gdignore` rendrait `archive/src/main.tscn`
-      impossible à ouvrir dans l'éditeur, or c'est le plan des pages Lore et À propos qu'il
-      reste à porter. → review §8.1, §8.2
-- [ ] **5.4** **Passage piloté par les données sur `images/` et `sounds/`** : croiser les
-      668 images avec les objets, succès et fins des deux livres. Les noms sont construits à
-      l'exécution (`images/items/%s.svg`…), aucune analyse statique ne peut conclure.
-      Seul orphelin déjà identifié : `images/fight.png`. → review §8.2
+- [ ] **5.5** **14 objets n'ont aucune icône** et affichent donc « ? » dans l'inventaire
+      (mesuré le 2026-08-12, en croisant les objets des deux livres avec `images/items/`) :
+      - **fdcn** : `MEDAILLON DE RUNIR`, `PETIT MEDAILLON` ;
+      - **cdsi** : 4 vrais objets (`AILERON AERODYNAMIQUE INSTALLE`, `DISQUES CLOUTES
+        INSTALLES`, `RETROVISEUR INSTALLE`, `SECRET DU DOUBLE INFINI`) et 8 `EVENEMENT`
+        (`UNE REUSSITE`, `SOUFFLE DANS LA CORNE`…).
+      Deux réponses possibles, à trancher : dessiner les icônes manquantes, ou donner une
+      icône générique par catégorie — les `EVENEMENT` ne sont pas des objets qu'on porte.
+      → review §8.3

@@ -23,12 +23,16 @@ const _URL_TWITTER := "https://twitter.com/naparuba"
 
 const _CHEMIN_VERSION := "VBox/Apropos/Colonne/Scroll/Marge/Infos/VersionTxt"
 
+## Où poser les deux boutons de sauvegarde, construits au `_ready()`.
+const _CHEMIN_ACTIONS := "VBox/Actions/Colonne"
+
 
 func _ready() -> void:
 	$VBox/Actions/Colonne/Marge/Boutons/NouveauBilly/Button.pressed.connect(_on_nouveau_billy)
 	$VBox/Actions/Colonne/Marge/Boutons/NewBug/Button.pressed.connect(func(): OS.shell_open(_URL_BUG))
 	$VBox/Apropos/Colonne/Header/HeaderRow/MarginContainer/twitter/Button.pressed.connect(func(): OS.shell_open(_URL_TWITTER))
 	_afficher_version()
+	_construire_boutons_sauvegarde()
 
 
 ## Le numéro de version vient de `Utils.get_app_version()`, donc de `project.godot`.
@@ -64,3 +68,131 @@ func _do_nouveau_billy() -> void:
 	var menu_page = Utils.find_ancestor_with_method(self, "go_to_page")
 	if menu_page != null:
 		menu_page.go_to_page("aventure")
+
+
+#
+#    Sauvegarde : export et import
+#
+# Le moteur d'archive (`SaveArchive`) ne connaît que des chemins ; c'est ici, et seulement
+# ici, que se décide **où** le fichier atterrit. Sur desktop, un `FileDialog` : le joueur
+# range son archive où il veut. Ailleurs — Android, web — `user://` est privé à l'app et
+# sortir du bac à sable est un chantier à part entière (review §5.3) : on écrit dans le
+# dossier de l'app et on affiche le chemin, ce qui reste utilisable avec un outil de
+# transfert.
+#
+# Les deux boutons sont construits ici plutôt que posés dans la scène : les quatre
+# « pastilles » d'À propos pèsent 35 lignes de `.tscn` chacune, et deux libellés longs ne
+# tiennent pas sur la même ligne que « Nouveau Billy » à 540 px de large.
+
+const _EXTENSION := "*.zip"
+
+
+func _construire_boutons_sauvegarde() -> void:
+	var colonne = get_node_or_null(_CHEMIN_ACTIONS)
+	if colonne == null:
+		push_warning("AboutMenu: colonne des actions introuvable (%s)" % _CHEMIN_ACTIONS)
+		return
+
+	var ligne := HBoxContainer.new()
+	ligne.name = "Sauvegarde"
+	ligne.add_theme_constant_override("separation", 12)
+	ligne.add_child(_bouton("Exporter ma partie", _on_exporter))
+	ligne.add_child(_bouton("Importer une partie", _on_importer))
+	colonne.add_child(ligne)
+
+
+func _bouton(texte: String, action: Callable) -> Button:
+	var bouton := Button.new()
+	bouton.text = texte
+	bouton.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+	bouton.custom_minimum_size = Vector2(0, 44)
+	bouton.pressed.connect(action)
+	return bouton
+
+
+## Nom proposé au joueur : le jour de l'export suffit à s'y retrouver entre deux archives.
+func _nom_archive() -> String:
+	return "fdcn-save-%s.zip" % Time.get_date_string_from_system()
+
+
+func _on_exporter() -> void:
+	if not _est_desktop():
+		_exporter_vers(SaveManager.base_dir + _nom_archive())
+		return
+	_ouvrir_dialogue(FileDialog.FILE_MODE_SAVE_FILE, _nom_archive(), _exporter_vers)
+
+
+func _exporter_vers(chemin: String) -> void:
+	var rapport = SaveArchive.export_to(chemin)
+	if rapport["ok"]:
+		_dire("Partie exportée dans :\n%s" % chemin)
+	else:
+		_dire("Export impossible :\n%s" % rapport["erreur"])
+
+
+## ⚠️ L'import ÉCRASE la partie en cours : on décrit d'abord ce que l'archive contient, et
+## on ne touche à rien tant que le joueur n'a pas confirmé. La sauvegarde de secours part
+## quand même juste avant la bascule, c'est `SaveArchive` qui s'en charge.
+func _on_importer() -> void:
+	if not _est_desktop():
+		_dire("L'import depuis un fichier n'est pas encore disponible sur cet appareil.")
+		return
+	_ouvrir_dialogue(FileDialog.FILE_MODE_OPEN_FILE, "", _demander_confirmation_import)
+
+
+func _demander_confirmation_import(chemin: String) -> void:
+	var description = SaveArchive.describe(chemin)
+	if not description["ok"]:
+		_dire("Archive refusée :\n%s" % description["erreur"])
+		return
+
+	var menu_page = Utils.find_ancestor_with_method(self, "confirm")
+	if menu_page == null:
+		push_warning("AboutMenu: pas de conteneur de popup, import annulé")
+		return
+	var texte = "Remplacer la partie en cours par celle du %s (%s) ?\n\nUne sauvegarde de secours sera écrite avant." % [
+		description["date"], ", ".join(description["livres"])]
+	menu_page.confirm(texte, func(): _importer_depuis(chemin), "Importer")
+
+
+func _importer_depuis(chemin: String) -> void:
+	var rapport = SaveArchive.import_from(chemin)
+	if not rapport["ok"]:
+		_dire("Import impossible :\n%s" % rapport["erreur"])
+		return
+	_dire("Partie importée.\nSecours : %s" % rapport["secours"])
+	var menu_page = Utils.find_ancestor_with_method(self, "go_to_page")
+	if menu_page != null:
+		menu_page.go_to_page("aventure")
+
+
+## Le `FileDialog` est créé à la demande et libéré à la fermeture : en garder un en
+## permanence dans la scène ferait vivre une fenêtre invisible sur toutes les plateformes,
+## y compris celles qui ne s'en servent jamais.
+func _ouvrir_dialogue(mode: int, nom_propose: String, sur_choix: Callable) -> void:
+	var dialogue := FileDialog.new()
+	dialogue.file_mode = mode
+	dialogue.access = FileDialog.ACCESS_FILESYSTEM
+	dialogue.add_filter(_EXTENSION, "Archive de sauvegarde")
+	dialogue.use_native_dialog = true
+	if nom_propose != "":
+		dialogue.current_file = nom_propose
+	dialogue.file_selected.connect(sur_choix)
+	dialogue.close_requested.connect(dialogue.queue_free)
+	dialogue.file_selected.connect(func(_c): dialogue.queue_free())
+	add_child(dialogue)
+	dialogue.popup_centered_ratio(0.9)
+
+
+func _est_desktop() -> bool:
+	return OS.has_feature("pc")
+
+
+## Un simple message : la popup de confirmation sait déjà afficher un texte, et n'avoir
+## qu'un bouton en fait un accusé de réception.
+func _dire(texte: String) -> void:
+	var menu_page = Utils.find_ancestor_with_method(self, "confirm")
+	if menu_page == null:
+		print(texte)
+		return
+	menu_page.confirm(texte, func(): pass, "D'accord", "")

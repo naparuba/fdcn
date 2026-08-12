@@ -32,10 +32,10 @@ la page **À propos**, reconstruite en conteneurs. Il n'y a plus d'écran en att
 
 | | valeur |
 |---|---|
-| code vivant | **5 687** lignes de GDScript en 39 scripts, hors tests et hors `archive/` |
-| tests | **100 tests**, dernier passage vert **avant** les lots des 11 et 12 |
+| code vivant | **6 102** lignes de GDScript en 40 scripts, hors tests et hors `archive/` |
+| tests | 1 671 lignes — **100 tests**, dernier passage vert **avant** les lots des 11 et 12 |
 | scripts sans aucun test | **26 sur 39** — dont 24 d'interface |
-| scènes vivantes | **30**, 105 Ko au total. **5** nœuds encore en position absolue, tous dans des atomes de dessin |
+| scènes vivantes | **28**. Les seuls nœuds encore en position absolue sont des atomes de dessin |
 
 ### 1.1 Écarté volontairement — à ne pas re-proposer
 
@@ -97,6 +97,18 @@ images. Les couvertures n'ont **pas** de taille fixe : `ignore_texture_size` +
 `STRETCH_KEEP_ASPECT_CENTERED` les redessinent dans leur case. Le `custom_minimum_size` de
 400×400 qu'elles portaient débordait déjà l'écran à deux colonnes.
 
+**Les traces sont réservées aux événements, les anomalies passent par `push_warning()`**
+(tranché le 2026-08-12, en relisant les 10 autoloads). Un `print()` par chapitre visité, par
+objet ramassé et par condition évaluée noyait ce qui compte ; il en reste 11 dans les
+autoloads, tous sur un événement unique — chargement d'un livre, migration de sauvegarde,
+fichier illisible. Une anomalie (clé de stat inconnue, stat inconnue dans un objet, effet
+illisible) part en `push_warning()` : elle arrive dans le débogueur **avec sa pile
+d'appel**, ce qu'un `print()` ne donne pas.
+
+Trois conventions appliquées dans la foulée, à ne pas défaire : pas de `self.` (GDScript
+n'en a pas besoin, et deux fichiers sur dix en étaient truffés), `.size()` plutôt que
+`len()`, `maxi()`/`randi_range()` plutôt que `max()` et l'arithmétique modulo.
+
 **Les propriétés Godot 3 meurent en silence.** Aucune ne produit d'erreur ; elles sont
 simplement ignorées. Six familles rencontrées, chacune avait cassé quelque chose :
 
@@ -146,30 +158,26 @@ dans **`themes/README.md`**, à côté du fichier.
 | ✅ | `autoload/inventory.gd` | déduction du type de Billy, surcharge, conditions |
 | ✅ | `autoload/player.gd` | chargement, rejeu d'historique, nouveau Billy, aller-retour |
 | 🟡 | `autoload/Parameters.gd` | utilisé par les tests, mais aucun test ne le cible |
-| 🟡 | toutes les scènes | se chargent et s'instancient, mais `_ready()` ne tourne pas |
-| ❌ | **`autoload/BookData.gd`** (280 l.) | **rien** |
+| ✅ | `ui/menu_page.gd`, `ui/top_menu.gd` | **dans l'arbre, `_ready()` compris** : navigation, bouclage des pages, popup qui bloque et grise les flèches, toast qui ne bloque pas, logo et titre du livre courant, type de Billy |
+| 🟡 | toutes les scènes | se chargent et s'instancient, mais `_ready()` ne tourne que dans les deux tests d'interface ci-dessus |
+| ✅ | `autoload/BookData.gd` | registre et fichiers d'un livre (`test_books.gd`), **évaluateur de conditions** `$end`/`$or`/`$and` avec imbrication, listes vides et condition illisible, complétion, succès, objets (`test_book_data.gd`) |
 | ❌ | `entities/chapter_data.gd` | rien |
 | ❌ | 24 scripts d'interface | rien |
 
 ### 2.2 Les angles morts, par ordre de risque
 
-1. 🔴 **`BookData` n'a aucun test, et `_check_cond_rec` non plus.** C'est l'évaluateur
-   d'arbres `$or`/`$and`/`$end` : **il décide quels chapitres sont accessibles**. Logique
-   pure, sans interface, donc trivialement testable — et sans filet. Une régression ici
-   ouvre ou ferme des chemins de l'aventure sans que rien ne le signale.
-2. 🔴 **Aucun script d'interface n'est testé.** `test_scenes` valide la *structure* des
-   scènes, pas leur comportement : `instantiate()` n'appelle pas `_ready()`, donc ni le
-   branchement des signaux ni la peinture initiale ne sont exercés. Les ~400 lignes de
-   `combat.gd` et les 160 de `top_menu.gd` ne sont couvertes par rien.
-3. 🟠 **La suite est synchrone.** `test_case.gd` ne gère pas `await` : tout ce qui attend
-   est hors de portée, dont l'animation de dé et la construction étalée de l'inventaire.
-4. 🟠 **Rien ne teste la mise en page rendue.** La classe de bug propre à ce dépôt (lignes
-   qui se chevauchent parce que `ROW_HEIGHT` est plus petit que la hauteur minimale réelle,
-   débordement horizontal) est **invisible** pour la suite : mesurer une taille demande un
-   arbre affiché, donc un test asynchrone.
-5. 🟠 **608 objets fuités à la sortie.** Tant que ce bruit existe, une vraie fuite passera
+1. 🟠 **La plupart des scripts d'interface ne sont pas testés.** Le socle existe depuis le
+   2026-08-12 (`await` dans le lanceur, `afficher()` dans `test_case.gd`) et deux écrans en
+   profitent, mais les ~400 lignes de `combat.gd` et les listes virtualisées n'ont toujours
+   rien.
+2. 🟠 **Rien ne teste encore la mise en page rendue.** La classe de bug propre à ce dépôt
+   (lignes qui se chevauchent parce que `ROW_HEIGHT` est plus petit que la hauteur minimale
+   réelle, débordement horizontal) reste **invisible** — mais elle est désormais *à portée* :
+   `afficher()` attend deux images, donc les tailles sont mesurables.
+3. 🟠 **608 objets fuités à la sortie.** Tant que ce bruit existe, une vraie fuite passera
    inaperçue.
-6. 🟡 `Sounder` et `Narrator` n'ont aucun test. `Narrator` est pourtant de la donnée pure (chapitre → fichier) et se testerait sans interface.
+4. 🟡 `Sounder` n'a aucun test. `Narrator` en a un seul (la convention `audio/<chapitre>.mp3`),
+   alors qu'il est de la donnée pure et se testerait entièrement sans interface.
 
 ### 2.3 Ce que la suite fait bien, à ne pas casser
 
@@ -458,7 +466,13 @@ D'où la contrainte de conception : **un moteur d'archive découplé du transpor
 Empaqueter, valider, appliquer est identique partout ; seul « où poser le fichier » change.
 Desktop d'abord.
 
-### 5.4 L'import doit être atomique
+✅ **Desktop fait le 2026-08-12** : deux boutons dans « À propos », un `FileDialog` natif
+créé à la demande, et la confirmation de `MenuPage` avant tout écrasement — elle annonce la
+date et les livres de l'archive, lus dans le manifeste. Sur les autres plateformes, l'export
+écrit dans le dossier de l'app et **affiche le chemin** plutôt que d'échouer, et l'import se
+déclare indisponible : ni mensonge, ni bouton mort.
+
+### 5.4 L'import doit être atomique — ✅ fait le 2026-08-12
 
 Un import à moitié appliqué produit une **sauvegarde Frankenstein** — les objets d'une
 partie avec le chapitre d'une autre — bien pire qu'un import raté. Donc :
@@ -472,6 +486,17 @@ partie avec le chapitre d'une autre — bien pire qu'un import raté. Donc :
 
 **Gratuit grâce au versionnage existant** : `prepare_save()` applique déjà la chaîne de
 migrations et refuse déjà une version future. L'import n'a rien à réimplémenter.
+
+✅ `autoload/save_archive.gd`, avec **un écart assumé sur l'étape 1** : l'archive est lue
+**en mémoire** au lieu d'être décompressée dans `user://import_tmp/`. Une quinzaine de
+fichiers de quelques kilo-octets y tiennent sans peine, et *rien ne touche le disque avant
+que tout soit validé* — c'est exactement ce que le dossier temporaire cherchait à garantir,
+avec une étape et un nettoyage en moins.
+
+Quatre refus, tous testés : archive illisible, manifeste absent, version d'archive ou de
+partie supérieure à ce que l'app sait lire, et **partie amputée** (il manque un des cinq
+fichiers obligatoires). `pv` et `chance` restent facultatifs : leur absence veut dire
+« jamais enregistrés, démarre au plein ».
 
 ### 5.5 Deux dépendances
 
@@ -593,9 +618,9 @@ les données du jeu faute d'une dépendance de confort était le mauvais arbitra
 
 ---
 
-## 8. Dette et hygiène — il ne reste que le sort d'`archive/`
+## 8. Dette et hygiène — soldée
 
-Les six autres lignes de cette section sont traitées (2026-08-12) :
+Toutes les lignes de cette section sont traitées (2026-08-12) :
 
 | | ce qui a été fait |
 |---|---|
@@ -609,9 +634,8 @@ Les six autres lignes de cette section sont traitées (2026-08-12) :
 ⚠️ Le compte de 608 est une **inférence**, pas une mesure : 606 chapitres + 2 nœuds de test.
 La suite de tests doit tourner pour le confirmer.
 
-| | ce qui reste |
-|---|---|
-| 8.1 | **`archive/` est trié** (voir ci-dessous) et **n'a plus de rôle** : la parité est atteinte depuis le 2026-08-12, elle n'est plus la source de vérité de rien. Sa fin de vie est donc décidable **maintenant** |
+| `archive/` sans `.gdignore` | ✅ **posé le 2026-08-12**. La parité étant atteinte, plus rien de vivant n'en dépend : Godot cesse de scanner le dossier, qui reste dans le dépôt comme référence historique. `archive/src/main.tscn` n'est donc plus ouvrable dans l'éditeur — c'était le seul prix, et il est accepté |
+| assets non triés | ✅ **passage piloté par les données** (voir §8.2) : 24 fichiers déplacés dans `archive/unuzed/assets/`, 3 `.import` sans source supprimés, et un `default_env.tres` en double à la racine |
 
 ### 8.2 Le tri d'`archive/`
 
@@ -637,19 +661,36 @@ vivants**, et 13 qui ne l'étaient pas.
 | `shader_grey.tres` | `ShaderMaterial` vide, `format=2`. Le vrai grisage passe par `shaders/gray.gdshader`, bien vivant |
 | `default_env.tres` | seule référence : `[rendering] environment/defaults/default_environment`. Un environnement 3D dans une app **sans un seul nœud 3D** — la ligne a été retirée de `project.godot` |
 
-**Pas de `.gdignore` dans `archive/`, volontairement.** Ce serait cohérent avec
-`scripts/.gdignore`, mais Godot cesse alors de voir le dossier : `archive/src/main.tscn`
-deviendrait impossible à ouvrir dans l'éditeur, alors que c'est justement le plan de la page
-Lore et de la page À propos qu'il restait à porter. **C'est fait**, donc le `.gdignore` est
-posable dès maintenant — plus rien de vivant ne dépend de ce dossier.
+✅ **`.gdignore` posé le 2026-08-12.** Plus rien de vivant ne dépend d'`archive/`, Godot
+cesse de le scanner. Le dossier reste dans le dépôt comme référence, mais ses scènes ne
+s'ouvrent plus dans l'éditeur.
 
-**Les assets ne sont pas triés**, et c'est délibéré : `images/` et `sounds/` sont chargés par
-noms **construits à l'exécution** (`images/items/%s.svg`, `images/success/%s.png`,
-`images/endings/%s.png`, `images/dice/%s-%s.svg`, `sounds/%s`, et `images/<type>/` pour le
-Lore), noms qui viennent des json de livres. Aucune analyse statique ne peut donc conclure —
-il faut un passage piloté par les données, en croisant les 668 images avec les objets, succès
-et fins des deux livres. Seul cas déjà identifié : `images/fight.png`, dont `going_to_line`
-était le seul lecteur.
+### 8.3 Le tri des assets — ✅ fait, piloté par les données
+
+`images/` et `sounds/` sont chargés par des noms **construits à l'exécution**
+(`images/items/%s.svg`, `images/endings/%s.png`, `images/dice/%s-%s.svg`, `sounds/%s`,
+`images/dieux/<n>/` pour le Lore), qui viennent des json de livres : aucune analyse statique
+ne peut conclure. Le croisement a donc été fait dans les deux sens, **objets, succès et fins
+des deux livres contre les fichiers**, en n'oubliant ni `project.godot` ni
+`export_presets.cfg` (c'est là que vivent les icônes de l'app).
+
+**363 fichiers → 339.** Ce qui est parti dans `archive/unuzed/assets/` :
+
+| | |
+|---|---|
+| 6 images | référencées **uniquement par `archive/`** : `fight.png` (le seul lecteur était `going_to_line`), `tick`, `blue-tick`, `soon`, `stop`, `white` |
+| 8 images | référencées par **personne** : `bongo-phumtar.gif`, `button_back`, `end`, `header`, `fleche.jpg`, `fond_livre.jpg`, `element-flat-design.jpg`, `test.png` |
+| 9 icônes d'objets | pour des objets qui n'existent dans **aucun** des deux livres, dont trois doublons parlants : `PETITE MASSUE-old.svg`, `PETITE-MASSE.svg`, `PERROQUET----.svg` — les vrais `PETITE MASSUE.svg` et `PERROQUET.svg` sont bien là |
+| 1 son | `lennon-rire.mp3`, que même l'archive n'appelle pas |
+| 3 `.import` | sans source : `CHUT.png`, `endings/TULIPE.png` (renommé `TULIPES`), `items/TONIQUE MYSTERIEU.svg` (renommé `…MYSTERIEUX`) |
+
+**Deux choses gardées, exprès** : les icônes de l'app (`fdcn_icon_512.png` sert à la fiche du
+magasin, pas au build) et les **10 fichiers `dieux/2/`** — images et voix des dieux de cdsi,
+que la page Lore n'affiche pas encore faute de savoir présenter deux livres. C'est du contenu
+en attente, pas un orphelin ; il déménagera avec **3.7**.
+
+⚠️ Le passage a aussi révélé l'inverse, plus intéressant : **14 objets n'ont aucune icône**
+et affichent donc « ? » dans l'inventaire. → **5.5**
 
 ---
 
@@ -665,16 +706,16 @@ dernières actions sont closes — ce qu'il en reste à savoir est en §1.2.
 | # | tag | action | réf |
 |---|---|---|---|
 | 1.1 | `[bug]` | ✅ **Branche des fins réparée et les deux livres recompilés** (2026-08-12) : fdcn inchangé (19 fins), **cdsi a gagné les 16 siennes**. Reste à vérifier deux règles dans le livre papier (todo 1.1) | §6.1 |
-| 1.2 | `[test]` | Tester `BookData`, en commençant par `_check_cond_rec` (`$or`/`$and`/`$end`, imbrication, condition absente) | §2.2 |
+| 1.2 | `[test]` | ✅ **`BookData` testé** (2026-08-12) : `_check_cond_rec` sous toutes ses formes, plus les conditions de saut réelles de fdcn | §2.2 |
 
 ### 2 — Export / import d'une sauvegarde
 
 | # | tag | action | réf |
 |---|---|---|---|
-| 2.1 | `[feature]` | **Moteur d'archive** découplé du transport : 7 clés × chaque livre + `parameters.json` + `manifest.json`, avec `ZIPPacker` | §5.2 |
-| 2.2 | `[feature]` | **Import atomique** : dossier temporaire → validation complète → sauvegarde de secours automatique → bascule | §5.4 |
-| 2.3 | `[feature]` | Transport par plateforme : `FileDialog` desktop d'abord, Android et HTML5 en chantiers séparés | §5.3 |
-| 2.4 | `[test]` | Aller-retour complet, archive tronquée, archive de version future, archive d'un seul livre | §5.6 |
+| 2.1 | `[feature]` | ✅ **Moteur d'archive** (2026-08-12) : `autoload/save_archive.gd`, `export_to()` / `describe()` / `import_from()`, aucun chemin en dur | §5.2 |
+| 2.2 | `[feature]` | ✅ **Import atomique** (2026-08-12) : tout valider en mémoire → sauvegarde de secours automatique → bascule → rechargement | §5.4 |
+| 2.3 | `[feature]` | Transport **Android et HTML5** — le desktop est fait (2026-08-12), avec un repli honnête ailleurs | §5.3 |
+| 2.4 | `[test]` | ✅ **13 tests** (2026-08-12) : aller-retour, contenu de l'archive, `describe()` sans effet, quatre refus, filet de secours réimportable, archive d'un seul livre | §5.6 |
 
 ### 3 — Données de livre
 
@@ -702,7 +743,8 @@ dernières actions sont closes — ce qu'il en reste à savoir est en §1.2.
 
 | # | tag | action | réf |
 |---|---|---|---|
-| 5.1 | `[test]` | **`test_case.gd` doit savoir `await`** : c'est ce qui bloque *tous* les tests d'interface et de mise en page | §2.2 |
-| 5.2 | `[test]` | Tester `ui/menu_page.gd` (navigation bloquée quand une popup est ouverte) et `ui/top_menu.gd` | §2.2 |
-| 5.3 | `[place]` | Décider la fin de vie d'`archive/` — et poser son `.gdignore` — maintenant que la parité est atteinte | §8.1, §8.2 |
-| 5.4 | `[test]` | **Passage piloté par les données sur `images/` et `sounds/`** : croiser les 668 images avec les objets, succès et fins des deux livres. Aucune analyse statique ne peut le faire | §8.2 |
+| 5.1 | `[test]` | ✅ **Le lanceur sait `await`** (2026-08-12) : il détecte une méthode asynchrone et l'attend, et `test_case.gd` offre `afficher()` / `attendre_une_frame()` | §2.2 |
+| 5.2 | `[test]` | ✅ **`menu_page` et `top_menu` testés dans l'arbre** (2026-08-12), 15 tests | §2.2 |
+| 5.3 | `[place]` | ✅ **`.gdignore` posé dans `archive/`** (2026-08-12) : le dossier reste comme référence, Godot ne le scanne plus | §8.2 |
+| 5.4 | `[test]` | ✅ **Assets triés par les données** (2026-08-12) : 24 fichiers rangés dans `archive/unuzed/assets/`, 3 `.import` sans source | §8.3 |
+| 5.5 | `[bug]` | **14 objets sans icône** affichent « ? » dans l'inventaire — 2 dans fdcn, 12 dans cdsi dont 8 `EVENEMENT` | §8.3 |

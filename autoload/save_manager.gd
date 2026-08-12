@@ -79,7 +79,13 @@ func _init() -> void:
 #
 
 func get_save_path(key: String) -> String:
-	return _path_for(key, AppParameters.get_book_name())
+	return get_save_path_for(key, AppParameters.get_book_name())
+
+
+## Le chemin d'une clé pour un livre DONNÉ. L'archive travaille sur tous les livres à la
+## fois, pas seulement sur celui qui est ouvert.
+func get_save_path_for(key: String, book_name) -> String:
+	return _path_for(key, book_name)
 
 
 ## Le nom d'un fichier de sauvegarde. Le suffixe est le nom du livre aujourd'hui, son
@@ -160,6 +166,12 @@ func _delete(pth: String) -> void:
 ## versionnage = version 1.
 func get_save_version() -> int:
 	return int(load_value(KEY_SAVE_VERSION, 1))
+
+
+## Tout ce qui part dans une archive de sauvegarde : la progression, plus le numéro de
+## version sans lequel on ne saurait pas la relire.
+func archived_keys() -> Array:
+	return _GAMEPLAY_KEYS + [KEY_SAVE_VERSION]
 
 
 ## Vrai s'il existe au moins un fichier de progression au format actuel.
