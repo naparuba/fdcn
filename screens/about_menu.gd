@@ -74,17 +74,26 @@ func _do_nouveau_billy() -> void:
 #    Sauvegarde : export et import
 #
 # Le moteur d'archive (`SaveArchive`) ne connaît que des chemins ; c'est ici, et seulement
-# ici, que se décide **où** le fichier atterrit. Sur desktop, un `FileDialog` : le joueur
-# range son archive où il veut. Ailleurs — Android, web — `user://` est privé à l'app et
-# sortir du bac à sable est un chantier à part entière (review §5.3) : on écrit dans le
-# dossier de l'app et on affiche le chemin, ce qui reste utilisable avec un outil de
-# transfert.
+# ici, que se décide **où** le fichier atterrit.
+#
+# ANDROID — la cible réelle de l'app. `user://` y est **privé** : depuis l'API 30, aucune
+# application ne peut plus écrire dans le stockage partagé par un simple chemin. La seule
+# porte de sortie est le **Storage Access Framework**, le sélecteur de documents du système,
+# et c'est exactement ce que Godot expose sous `FEATURE_NATIVE_DIALOG_FILE` (vérifié dans
+# le binaire 4.7.1, avec son pendant `_MIME`). Un `FileDialog` en mode natif s'y branche
+# tout seul : le joueur choisit Téléchargements, Drive, une carte SD, ce qu'il veut, et
+# **aucune permission n'est à demander** — c'est le système qui ouvre le fichier pour nous.
+#
+# ⚠️ Android filtre par **type MIME**, pas par extension : `*.zip` n'y sélectionne rien.
+# D'où le filtre choisi selon ce que la plateforme annonce.
+#
+# Là où ce sélecteur n'existe pas, on ne laisse pas de bouton mort : l'export écrit dans le
+# dossier de l'app et affiche le chemin, l'import propose la **dernière archive locale**,
+# qui est au minimum la sauvegarde de secours du dernier import.
 #
 # Les deux boutons sont construits ici plutôt que posés dans la scène : les quatre
 # « pastilles » d'À propos pèsent 35 lignes de `.tscn` chacune, et deux libellés longs ne
 # tiennent pas sur la même ligne que « Nouveau Billy » à 540 px de large.
-
-const _EXTENSION := "*.zip"
 
 
 func _construire_boutons_sauvegarde() -> void:
@@ -116,28 +125,38 @@ func _nom_archive() -> String:
 
 
 func _on_exporter() -> void:
-	if not _est_desktop():
+	if not _selecteur_disponible():
 		_exporter_vers(SaveManager.base_dir + _nom_archive())
 		return
 	_ouvrir_dialogue(FileDialog.FILE_MODE_SAVE_FILE, _nom_archive(), _exporter_vers)
 
 
+## On **vérifie que le fichier est là** au lieu de croire le rapport sur parole : sur
+## Android le chemin passe par le système, et un export qui annoncerait « réussi » sans
+## rien avoir écrit serait le pire des messages.
 func _exporter_vers(chemin: String) -> void:
 	var rapport = SaveArchive.export_to(chemin)
-	if rapport["ok"]:
-		_dire("Partie exportée dans :\n%s" % chemin)
-	else:
+	if not rapport["ok"]:
 		_dire("Export impossible :\n%s" % rapport["erreur"])
+		return
+	if not FileAccess.file_exists(chemin):
+		_dire("L'archive n'a pas pu être écrite ici :\n%s" % chemin)
+		return
+	_dire("Partie exportée (%d fichiers) dans :\n%s" % [rapport["fichiers"], chemin])
 
 
 ## ⚠️ L'import ÉCRASE la partie en cours : on décrit d'abord ce que l'archive contient, et
 ## on ne touche à rien tant que le joueur n'a pas confirmé. La sauvegarde de secours part
 ## quand même juste avant la bascule, c'est `SaveArchive` qui s'en charge.
 func _on_importer() -> void:
-	if not _est_desktop():
-		_dire("L'import depuis un fichier n'est pas encore disponible sur cet appareil.")
+	if _selecteur_disponible():
+		_ouvrir_dialogue(FileDialog.FILE_MODE_OPEN_FILE, "", _demander_confirmation_import)
 		return
-	_ouvrir_dialogue(FileDialog.FILE_MODE_OPEN_FILE, "", _demander_confirmation_import)
+	var locales = SaveArchive.archives_locales()
+	if locales.is_empty():
+		_dire("Aucune archive trouvée dans le dossier de l'application.")
+		return
+	_demander_confirmation_import(locales[0])
 
 
 func _demander_confirmation_import(chemin: String) -> void:
@@ -173,7 +192,7 @@ func _ouvrir_dialogue(mode: int, nom_propose: String, sur_choix: Callable) -> vo
 	var dialogue := FileDialog.new()
 	dialogue.file_mode = mode
 	dialogue.access = FileDialog.ACCESS_FILESYSTEM
-	dialogue.add_filter(_EXTENSION, "Archive de sauvegarde")
+	dialogue.add_filter(_filtre(), "Archive de sauvegarde")
 	dialogue.use_native_dialog = true
 	if nom_propose != "":
 		dialogue.current_file = nom_propose
@@ -184,8 +203,16 @@ func _ouvrir_dialogue(mode: int, nom_propose: String, sur_choix: Callable) -> vo
 	dialogue.popup_centered_ratio(0.9)
 
 
-func _est_desktop() -> bool:
-	return OS.has_feature("pc")
+## Le sélecteur du système : natif sur desktop, Storage Access Framework sur Android.
+func _selecteur_disponible() -> bool:
+	return DisplayServer.has_feature(DisplayServer.FEATURE_NATIVE_DIALOG_FILE)
+
+
+## Android ne connaît que les types MIME, les autres plateformes que les extensions.
+func _filtre() -> String:
+	if DisplayServer.has_feature(DisplayServer.FEATURE_NATIVE_DIALOG_FILE_MIME):
+		return "application/zip"
+	return "*.zip"
 
 
 ## Un simple message : la popup de confirmation sait déjà afficher un texte, et n'avoir

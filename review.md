@@ -300,6 +300,89 @@ Le dossier lui-même est rangé en `data/` / `img/` / `audio/` / `archive/` (§3
 
 ---
 
+### 3.7 Plan : simplifier l'encodage d'un livre
+
+Constat de départ, mesuré sur les deux livres : un auteur écrit **8 fichiers à la main**
+(606 à 691 chapitres, 8 à 10 actes, 11 à 35 sous-arcs, 60 à 86 objets, 51 à 52 succès, plus
+trois petites tables), dans **quatre formats différents** — un dictionnaire de chapitres,
+des tableaux **positionnels**, un dictionnaire de tables, et un mini-langage d'expressions.
+Et le compilateur **accepte tout ce qu'il ne comprend pas**.
+
+C'est ce dernier point qui coûte le plus cher, parce qu'il est silencieux. Les quatre fautes
+trouvées jusqu'ici l'ont toutes été **à l'œil**, jamais par un outil :
+
+| faute réelle | ce qui s'est passé |
+|---|---|
+| `cond` au lieu de `stats_cond` (cdsi ch69, ch72) | deux bonus conditionnels jamais appliqués |
+| `critique` au lieu de `crit` (cdsi ×5) | cinq bonus de critique perdus |
+| `pv_1_4_max` **et** `1_4_pv_max` (fdcn) | la même règle sous deux orthographes, aucune des deux gérée |
+| `goto: 608` + `book_number == 1` (fdcn) | **cdsi n'a jamais eu une seule fin compilée** |
+
+#### Étape 1 — le compilateur refuse ce qu'il ne comprend pas
+
+**Aucun changement de format, et c'est ce qui rend les étapes suivantes sûres.** Le
+compilateur lit 14 clés de chapitre ; toute autre est aujourd'hui recopiée sans un mot.
+
+- **clé de chapitre inconnue → erreur.** Aurait attrapé `cond` le jour même ;
+- **clé de stat hors vocabulaire → erreur** (déjà **3.2**) : il les collecte et les imprime,
+  il manque la liste de référence ;
+- **`success` inconnu → erreur** au lieu d'une trace Python ;
+- **expression malformée → message**, au lieu du code 2 muet d'aujourd'hui ;
+- **`&` et `|` mélangés sans parenthèses → refus**, au lieu d'un arbre faux en silence.
+
+Coût : une liste de clés autorisées et cinq `sys.exit(2)`. Bénéfice : les quatre fautes du
+tableau deviennent impossibles, et un troisième livre ne peut plus se tromper en silence.
+
+#### Étape 2 — un seul fichier écrit à la main, en plus des chapitres
+
+Sept des huit fichiers sont de **petites tables** (moins de 6 Ko) qui décrivent le livre, pas
+son texte. Elles tiennent dans un seul `<nom>.livre.json`, et surtout **avec des champs
+nommés** :
+
+```json
+{ "actes":   [ {"depart": 100, "nom": "Lenonia"} ],
+  "sous_arcs": [ {"acte": "Invasion", "depart": 148, "nom": "Quartier boulanger",
+                  "fins": [496, 285, 353]} ],
+  "objets":  { "EPEE": {"categorie": "ARME", "stats": {"deg": 1}} },
+  "succes":  { "TROIE": {"label": "Le cheval des trois", "txt": "…"} },
+  "compteurs": [...], "objets_supposes": {...} }
+```
+
+Ce que ça change vraiment : `["Invasion", 148, "Quartier boulanger", [496, 285, 353]]` est un
+tableau **positionnel de quatre champs**. Rien ne dit lequel est quoi, et intervertir le
+départ et une fin ne produit aucune erreur — juste un découpage faux. Les nommer supprime
+une classe entière de fautes muettes.
+
+⚠️ **Ne PAS déplacer l'acte dans le chapitre.** Un acte se déclare à son chapitre de départ
+et se propage par le graphe : 8 lignes couvrent 606 chapitres. L'écrire chapitre par chapitre
+multiplierait la saisie par 75.
+
+#### Étape 3 — une seule sortie compilée, sans le doublon (**3.6**)
+
+`-compilated-data.json` recopie le livre entier à côté de `computed`, que seul
+`chapter_data.gd` lit : **28 % du plus gros fichier**. Et les 6 sorties de `data/` tiennent
+en un fichier à 6 clés — `BookData` ferait un chargement au lieu de six.
+
+#### Étape 4 — un squelette qui compile
+
+`python3 scripts/fdcn.py --nouveau <nom>` crée le dossier, les deux fichiers à la main avec
+un chapitre 1 valide, et l'entrée dans `books/books.json`. Ajouter un livre commencerait par
+quelque chose qui **compile déjà**, au lieu d'une page blanche et de six formats à deviner.
+
+#### Ce qu'il ne faut PAS toucher
+
+- **le langage des conditions** (`MORGENSTERN|GUERRIER`, `PAYSAN&FER A CHEVAL`) : 141
+  expressions distinctes, compact et lisible pour un auteur. Ses trois pièges se corrigent
+  à l'étape 1, pas en changeant la syntaxe ;
+- **le dictionnaire de chapitres** : une entrée par chapitre, éditée à la main, c'est la
+  forme juste pour 600 entrées ;
+- **la double validation objets** (utilisés ⊆ déclarés **et** déclarés ⊆ utilisés) : elle a
+  déjà attrapé de vraies fautes. ⚠️ Corriger au passage son angle mort — un objet cité
+  **uniquement** dans un `stats_cond` compte comme « déclaré mais pas utilisé » et fait
+  échouer la compilation à tort.
+
+---
+
 ## 4. Vocabulaire de stats par livre
 
 ### 4.1 La mesure
@@ -466,11 +549,30 @@ D'où la contrainte de conception : **un moteur d'archive découplé du transpor
 Empaqueter, valider, appliquer est identique partout ; seul « où poser le fichier » change.
 Desktop d'abord.
 
-✅ **Desktop fait le 2026-08-12** : deux boutons dans « À propos », un `FileDialog` natif
-créé à la demande, et la confirmation de `MenuPage` avant tout écrasement — elle annonce la
-date et les livres de l'archive, lus dans le manifeste. Sur les autres plateformes, l'export
-écrit dans le dossier de l'app et **affiche le chemin** plutôt que d'échouer, et l'import se
-déclare indisponible : ni mensonge, ni bouton mort.
+✅ **Fait le 2026-08-13, Android compris** — et par le même chemin de code que le desktop.
+
+L'app ne sera livrée **qu'en Android**, donc c'est lui qui commande. La bonne nouvelle est
+qu'il n'y a rien à contourner : le **Storage Access Framework** est précisément la porte que
+le système ouvre à une application qui n'a pas le droit d'écrire hors de chez elle, et Godot
+4.7.1 l'expose sous `FEATURE_NATIVE_DIALOG_FILE` — vérifié dans le binaire, avec son pendant
+`FEATURE_NATIVE_DIALOG_FILE_MIME`. Un `FileDialog` en mode natif s'y branche seul.
+
+Trois conséquences, toutes déjà dans le code :
+
+- **aucune permission à demander** : `WRITE_EXTERNAL_STORAGE` ne sert plus à rien depuis
+  l'API 30, et c'est le système qui ouvre le fichier pour nous ;
+- **le filtre est un type MIME** (`application/zip`) et non `*.zip` — Android ne filtre pas
+  par extension, un `*.zip` n'y sélectionnerait **rien** ;
+- **l'export vérifie que le fichier existe** après écriture au lieu de croire son propre
+  rapport : le chemin vient du système, annoncer « réussi » sans rien avoir écrit serait le
+  pire des messages.
+
+Là où ce sélecteur n'existe pas, pas de bouton mort : l'export écrit dans le dossier de
+l'app et **affiche le chemin**, l'import reprend la **dernière archive locale** — au
+minimum la sauvegarde de secours du dernier import.
+
+⚠️ Ce qui reste **ne se vérifie que sur un appareil** : que le chemin rendu par le SAF soit
+lisible par `FileAccess`. → **2.3**
 
 ### 5.4 L'import doit être atomique — ✅ fait le 2026-08-12
 
@@ -714,7 +816,7 @@ dernières actions sont closes — ce qu'il en reste à savoir est en §1.2.
 |---|---|---|---|
 | 2.1 | `[feature]` | ✅ **Moteur d'archive** (2026-08-12) : `autoload/save_archive.gd`, `export_to()` / `describe()` / `import_from()`, aucun chemin en dur | §5.2 |
 | 2.2 | `[feature]` | ✅ **Import atomique** (2026-08-12) : tout valider en mémoire → sauvegarde de secours automatique → bascule → rechargement | §5.4 |
-| 2.3 | `[feature]` | Transport **Android et HTML5** — le desktop est fait (2026-08-12), avec un repli honnête ailleurs | §5.3 |
+| 2.3 | `[test]` | **Vérifier sur un téléphone** : le transport Android passe par le Storage Access Framework, sans aucune permission (2026-08-13). Seul le comportement du chemin rendu par le système reste à constater | §5.3 |
 | 2.4 | `[test]` | ✅ **13 tests** (2026-08-12) : aller-retour, contenu de l'archive, `describe()` sans effet, quatre refus, filet de secours réimportable, archive d'un seul livre | §5.6 |
 
 ### 3 — Données de livre
@@ -722,12 +824,15 @@ dernières actions sont closes — ce qu'il en reste à savoir est en §1.2.
 | # | tag | action | réf |
 |---|---|---|---|
 | 3.1 | `[bug]` | ✅ **Orthographes corrigées à la source** (2026-08-12) : `critique`→`crit` ×5, le `cond` de cdsi ch69/ch72 →`stats_cond`, et les six mots-clés passés à la notation. Les deux livres emploient désormais **le même vocabulaire** | §4.2, §4.4 |
-| 3.2 | `[bug]` | **Faire échouer `scripts/fdcn.py`** sur une clé de stat hors vocabulaire : il les collecte et les imprime déjà, il manque la liste de référence et un `sys.exit(2)` | §4.2 |
+| 3.2 | `[bug]` | **Le compilateur doit refuser ce qu'il ne comprend pas** : clé de chapitre inconnue, clé de stat hors vocabulaire, `success` inconnu, expression malformée, `&`/`|` mélangés — **étape 1 du plan** | §3.7, §4.2 |
 | 3.3 | `[data]` | ✅ **16 occurrences migrées vers la notation d'effet** (2026-08-12) — `_LEGACY_EFFECTS` a disparu avec elles, le moteur n'a plus qu'un chemin | §4.4 |
 | 3.4 | `[feature]` | **`pv_gain`** : modificateur de gain dans la couche chapitres, delta positif seulement, jamais sur une affectation | §4.5 |
 | 3.5 | `[refacto]` | **Compléter le vocabulaire par livre avec `ignorees`** — les `compteurs` sont faits (2026-08-12) ; dépend de §4.3 | §4.6 |
 | 3.6 | `[refacto]` | **Alléger la sortie compilée** : `-compilated-data.json` recopie la source à côté de `computed` (28 % du fichier), et les 6 sorties de `data/` tiendraient en une. Registre et rangement faits | §3.2, §3.6 |
 | 3.7 | `[place]` | Trancher `images/dieux/<n>` → `dieux/<nom>/` **avant** d'écrire la page Lore | §3.5 |
+| 3.8 | `[refacto]` | **Un seul fichier de tables par livre** (`<nom>.livre.json`), à champs nommés : 7 fichiers en 1, et plus un seul tableau positionnel — **étape 2** | §3.7 |
+| 3.9 | `[feature]` | **Squelette de livre** (`--nouveau <nom>`) : un livre neuf part de quelque chose qui compile — **étape 4** | §3.7 |
+| 3.10 | `[bug]` | Un objet cité **uniquement** dans un `stats_cond` fait échouer la compilation à tort (« déclaré mais pas utilisé ») | §3.7 |
 
 ### 4 — Compilateur Python
 

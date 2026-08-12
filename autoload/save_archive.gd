@@ -40,6 +40,23 @@ const PARAMETRES := "parameters.json"
 const NOM_SECOURS := "backup-avant-import.zip"
 
 
+## Les archives déjà présentes dans le dossier de l'app, **la plus récente d'abord**.
+##
+## C'est le filet du filet : sur un appareil où le sélecteur de fichiers du système n'est
+## pas disponible, c'est la seule liste d'archives que l'app puisse proposer — et elle
+## contient toujours au moins la sauvegarde de secours du dernier import.
+func archives_locales() -> Array:
+	var dir = DirAccess.open(SaveManager.base_dir)
+	if dir == null:
+		return []
+	var trouvees := []
+	for nom in dir.get_files():
+		if nom.ends_with(".zip"):
+			trouvees.append(SaveManager.base_dir + nom)
+	trouvees.sort_custom(func(a, b): return FileAccess.get_modified_time(a) > FileAccess.get_modified_time(b))
+	return trouvees
+
+
 ## Ce qu'une partie doit contenir pour être appliquée. `pv` et `chance` n'en sont **pas** :
 ## leur absence a un sens — « jamais enregistrées, démarre au plein » — et une partie neuve
 ## n'en a pas encore.

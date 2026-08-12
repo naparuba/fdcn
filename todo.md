@@ -45,19 +45,44 @@ référençait), Godot le régénérera.
 À faire tôt : c'est le seul chantier de cette liste **entièrement testable sans interface
 ni appareil**.
 
-- [ ] **2.3** **Transport Android et HTML5** — le desktop est fait (2026-08-12 : deux
-      boutons dans « À propos », `FileDialog` natif, confirmation avant écrasement). Restent
-      les deux plateformes où `user://` est un cul-de-sac : **Android** (dossier privé,
-      scoped storage à partir de l'API 30) et **HTML5** (IndexedDB, export =
-      téléchargement navigateur via `JavaScriptBridge`, import = `<input type=file>`). En
-      attendant, l'export y écrit dans le dossier de l'app et affiche le chemin, l'import y
-      est annoncé indisponible. → review §5.3
+- [ ] **2.3** **Vérifier l'export / import sur un vrai téléphone.** Le code est écrit et ne
+      demande **aucune permission** : il passe par le sélecteur de documents du système
+      (Storage Access Framework), que Godot 4.7.1 expose sous `FEATURE_NATIVE_DIALOG_FILE`
+      — vérifié dans le binaire, `_MIME` compris, d'où le filtre `application/zip` au lieu
+      de `*.zip`. Ce qui reste à constater sur appareil, et **seulement là** :
+      - le sélecteur s'ouvre bien à l'export **et** à l'import ;
+      - le chemin rendu par le système est lisible par `FileAccess` (l'export le vérifie
+        déjà et le dit s'il ne l'est pas) ;
+      - l'archive est visible depuis Téléchargements / Drive une fois écrite.
+      Si le SAF ne rendait pas un chemin utilisable, le repli est déjà là : écriture dans
+      le dossier de l'app et reprise de la dernière archive locale. → review §5.3
 
 ## 3 — Données de livre
 
-- [ ] **3.2** **Faire échouer `scripts/fdcn.py`** sur une clé de stat hors vocabulaire : il
-      les collecte et les **imprime déjà**, il manque la liste de référence et un
-      `sys.exit(2)`. → review §4.2
+**Plan d'ensemble : review §3.7.** Les quatre lignes ci-dessous sont ses étapes, dans
+l'ordre — la 3.2 d'abord, parce que c'est elle qui rend les suivantes sûres.
+
+- [ ] **3.2** **Le compilateur doit refuser ce qu'il ne comprend pas** — étape 1 du plan,
+      aucun changement de format :
+      - **clé de chapitre inconnue** → erreur (aurait attrapé le `cond` de cdsi) ;
+      - **clé de stat hors vocabulaire** → erreur : il les collecte et les **imprime déjà**,
+        il manque la liste de référence et un `sys.exit(2)` (aurait attrapé `critique`) ;
+      - **`success` inconnu** → erreur au lieu d'une trace Python ;
+      - **expression malformée** → message, au lieu du code 2 muet ;
+      - **`&` et `|` mélangés sans parenthèses** → refus, au lieu d'un arbre faux en silence.
+      → review §3.7 *Plan*, §4.2
+- [ ] **3.8** **Un seul fichier de tables par livre** (`<nom>.livre.json`) — étape 2 : actes,
+      sous-arcs, objets, succès, compteurs et objets supposés passent de 7 fichiers à 1, et
+      surtout **à des champs nommés**. Aujourd'hui un sous-arc est un tableau positionnel de
+      4 champs (`["Invasion", 148, "…", [496, 285, 353]]`) où intervertir deux valeurs ne
+      produit aucune erreur. ⚠️ **Ne pas** déplacer l'acte dans le chapitre : 8 lignes
+      couvrent 606 chapitres par propagation. → review §3.7 *Plan*
+- [ ] **3.9** **Squelette de livre** : `--nouveau <nom>` crée le dossier, deux fichiers
+      valides et l'entrée du registre — un livre neuf part de quelque chose **qui compile**.
+      → review §3.7 *Plan*
+- [ ] **3.10** Corriger l'angle mort de la validation des objets : un objet cité
+      **uniquement** dans un `stats_cond` compte comme « déclaré mais pas utilisé » et fait
+      échouer la compilation à tort. → review §3.7 *Plan*
 - [ ] **3.4** **`pv_gain`** : modificateur de gain dans la couche chapitres, **delta positif
       seulement** (un bonus de gain ne doit pas amortir les dégâts) et **jamais sur une
       affectation** (sinon « pv au plein » dépasse le plafond). → review §4.5
@@ -74,7 +99,7 @@ ni appareil**.
         `chapter_data.gd` lit : **28 % du plus gros fichier**, ~150 Ko par livre ;
       - et les 6 sorties de `data/` tiendraient dans **un seul fichier à 6 clés**.
       ⚠️ Ça change ce que le compilateur écrit : recompiler les deux livres derrière.
-      → review §3.6
+      C'est l'étape 3 du plan. → review §3.6, §3.7 *Plan*
 - [ ] **3.7** Renommer **`images/dieux/<n>/` → `images/dieux/<nom>/`** (et les sons
       correspondants). **Tranché le 2026-08-12** : c'est le dernier vestige de
       l'identification par numéro, dont tout le reste de l'app est déjà sorti. À faire

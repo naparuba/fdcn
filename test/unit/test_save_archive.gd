@@ -221,3 +221,33 @@ func _ecrire_archive(nom: String, version_archive: int, fichiers: Dictionary) ->
 		packer.write_file(str(fichiers[chemin]).to_utf8_buffer())
 		packer.close_file()
 	packer.close()
+
+
+#
+#    Transport : la liste locale, seul recours sans sélecteur système
+#
+
+## Sur un appareil sans sélecteur de documents, c'est la seule liste d'archives que l'app
+## puisse proposer — et elle doit donner la **plus récente d'abord**, sans quoi le joueur
+## se verrait offrir la plus vieille.
+func test_les_archives_locales_arrivent_de_la_plus_recente() -> void:
+	SaveArchive.export_to(SaveManager.base_dir + "vieille.zip")
+	SaveArchive.export_to(SaveManager.base_dir + "recente.zip")
+
+	var locales = SaveArchive.archives_locales()
+	assert_true(locales.size() >= 2, "les deux archives sont listées")
+
+	# On vérifie la PROPRIÉTÉ (la liste décroît) et non la place d'un fichier précis : deux
+	# écritures dans la même seconde ont la même date, et rien ne les départagerait.
+	var precedente = -1
+	for chemin in locales:
+		var date = FileAccess.get_modified_time(chemin)
+		if precedente != -1:
+			assert_true(date <= precedente, "%s n'est pas plus récente que la précédente" % chemin)
+		precedente = date
+
+
+func test_les_archives_locales_ignorent_le_reste_de_la_sauvegarde() -> void:
+	var locales = SaveArchive.archives_locales()
+	for chemin in locales:
+		assert_false(chemin.ends_with(".json"), "aucun fichier de partie dans la liste")
