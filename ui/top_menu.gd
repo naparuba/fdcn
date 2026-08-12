@@ -32,8 +32,8 @@ func _ready():
 
 	# Le logo et le titre viennent de `books/<nom>/` : ils doivent suivre le livre courant.
 	# `set_book_context()` existait déjà mais **personne ne l'appelait** — seule l'archive
-	# le faisait. La scène montrait donc pour toujours le logo de fdcn, celui qu'elle porte
-	# comme aperçu d'éditeur, même après un passage à cdsi.
+	# le faisait. La scène montrait donc pour toujours le logo du premier livre, qu'elle
+	# portait en dur comme aperçu d'éditeur, même après un changement de livre.
 	#
 	# L'appel immédiat compte autant que l'abonnement : au démarrage sur cdsi, aucun
 	# `book_changed` ne part (le livre n'a pas *changé*), et la barre resterait sur fdcn.
@@ -109,10 +109,22 @@ func set_page(page_name):
 		pages[page_name].get('theme_override_styles/panel').set_bg_color(Color('9ea8b4'))  # set to dark grey
 
 
+## Le logo et le titre du livre courant. La scène ne porte plus ceux de fdcn en dur : elle
+## en aurait fait une dépendance de `top_menu.tscn`, donc un livre impossible à retirer du
+## dépôt sans casser la barre du haut. Un livre sans image laisse simplement la case vide,
+## avec son avertissement — il reste jouable.
 func set_book_context():
 	var book_name = AppParameters.get_book_name()
-	$Margin/HBoxContainer/BookSelection/logo.texture = load("res://books/%s/logo.png" % book_name)
-	$Margin/HBoxContainer/BookSelection/title.texture = load("res://books/%s/title.png" % book_name)
+	$Margin/HBoxContainer/BookSelection/logo.texture = _image_du_livre(book_name, "logo")
+	$Margin/HBoxContainer/BookSelection/title.texture = _image_du_livre(book_name, "title")
+
+
+func _image_du_livre(book_name: String, quoi: String) -> Texture2D:
+	var chemin = "res://books/%s/img/%s.png" % [book_name, quoi]
+	if not Utils.is_file_exists(chemin):
+		push_warning("TopMenu: image de livre introuvable: %s" % chemin)
+		return null
+	return load(chemin)
 
 
 # Le menu du haut est réutilisable : il ne connaît pas son conteneur de pages,

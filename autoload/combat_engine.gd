@@ -154,16 +154,11 @@ func is_automatable(chapter_id) -> bool:
 ## l'interface reste alors en mode manuel, elle **ne déclare jamais une défaite**
 ## (voir `combat.md` §3.11).
 func start(chapter_id) -> bool:
-	var enemies = read_enemies(chapter_id)
-	if enemies.is_empty():
+	if not is_automatable(chapter_id):
 		return false
-	for enemy in enemies:
-		if is_sentinelle(enemy):
-			print('COMBAT: %s est un marqueur, pas un ennemi — mode manuel' % enemy['nom'])
-			return false
 
 	_chapter_id = int(chapter_id)
-	_enemies = enemies
+	_enemies = read_enemies(chapter_id)
 	_enemy_index = 0
 	_enemy = _enemies[0]
 	_enemy_pv = _enemy["pv"]
@@ -269,7 +264,7 @@ func get_situation_for(ecart: int) -> String:
 ## Coût en chance pour passer le combat, selon la situation (combat.md §3.9).
 func get_fuite_cost() -> int:
 	var situation = _situation_for(get_ecart())
-	return int(situation.get("fuite_chance", 0)) if situation else 0
+	return situation.get("fuite_chance", 0) if situation else 0
 
 
 ## ⚠️ **Réservé au PRUDENT.** « Seul lui peut esquiver les combats avec la chance » : c'est
@@ -302,7 +297,7 @@ func can_cancel() -> bool:
 ##
 ## L'ORDRE COMPTE. On navigue d'abord, on restaure ensuite : `go_to_node()` traite le
 ## chapitre de retour comme neuf (il vient d'être dépilé du fil d'Ariane) et
-## réapplique donc ses stats — dont un éventuel `max_pv` qui remettrait les pv au
+## réapplique donc ses stats — dont un éventuel `"pv": "= max"` qui remettrait les pv au
 ## plein. La restauration doit avoir le dernier mot.
 ##
 ## Ce que ça remet exactement : pv, chance, objets portés, et la couche de stats
@@ -443,8 +438,8 @@ func resolve() -> Dictionary:
 	# Les chiffres de la frise sont une BASE : les dégâts supplémentaires s'ajoutent
 	# par-dessus, et l'armure se retire ensuite (combat.md §3.10 étape 5).
 	var base = _cell(ecart, _de)
-	var infliges = int(base[0]) + PlayerStats.get_stat("deg")
-	var recus = int(base[1]) + _enemy["deg"]
+	var infliges = base[0] + PlayerStats.get_stat("deg")
+	var recus = base[1] + _enemy["deg"]
 	var ignore_armure = false
 
 	if _de_esquive != 0:
@@ -554,7 +549,7 @@ func _test_survie_prudent(recus: int, rapport: Dictionary) -> int:
 ## Dégâts maximaux d'un écart : la table étant croissante en dé, c'est la valeur du
 ## dé 6 de la ligne. Sert à la contre-attaque critique.
 func get_max_degats(ecart: int) -> int:
-	return int(_cell(ecart, 6)[0])
+	return _cell(ecart, 6)[0]
 
 
 ## `[dégâts_infligés, dégâts_reçus]` de base pour un écart et un dé donnés.
@@ -577,12 +572,14 @@ func _situation_for(ecart: int):
 	return null
 
 
+## Les bornes de la table, converties une fois pour toutes par `_normalize_table()` — d'où
+## l'absence d'`int()` ici comme dans les autres lectures de la table.
 func _ecart_min() -> int:
-	return int(_table.get("ecart_min", -7))
+	return _table.get("ecart_min", -7)
 
 
 func _ecart_max() -> int:
-	return int(_table.get("ecart_max", 7))
+	return _table.get("ecart_max", 7)
 
 
 func _clear_dice() -> void:

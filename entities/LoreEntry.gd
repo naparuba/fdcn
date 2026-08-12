@@ -50,7 +50,7 @@ func _ready():
 	if Engine.is_editor_hint():
 		return
 
-	_image.texture = Utils.load_external_texture(_chemin_image(), null)
+	_image.texture = Utils.load_external_texture(_chemin_image())
 
 
 ## `billys/<nom>.png` ou `dieux/<numéro>/<nom>.jpg` — deux rangements, deux extensions.

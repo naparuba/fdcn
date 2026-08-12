@@ -1,11 +1,42 @@
 # -*- coding: utf-8 -*-
 
-import graphviz
+import contextlib
 import json
 import sys
 import codecs
 import os
 import argparse
+
+# graphviz ne sert QU'A dessiner le png de relecture : l'app ne le lit jamais, et le
+# compilateur produisait pourtant zero json sans lui. Refuser de compiler les donnees du
+# jeu faute d'une dependance de confort est le mauvais arbitrage -- d'ou l'import garde.
+try:
+    import graphviz
+except ImportError:
+    graphviz = None
+
+
+class GrapheMuet(object):
+    """Bouchon de graphviz : accepte tout, ne dessine rien."""
+
+    def node(self, *args, **kwargs):
+        pass
+
+    def edge(self, *args, **kwargs):
+        pass
+
+    def edges(self, *args, **kwargs):
+        pass
+
+    def attr(self, *args, **kwargs):
+        pass
+
+    def render(self, *args, **kwargs):
+        print('NOTE: graphviz absent, pas de rendu du graphe (pip install graphviz + le binaire dot)')
+
+    @contextlib.contextmanager
+    def subgraph(self, *args, **kwargs):
+        yield self
 
 # NOTE: I don't want a real package name for just a couple of files, so keep like this currently
 my_dir = os.path.dirname(__file__)
@@ -14,19 +45,16 @@ sys.path.insert(0, my_dir)
 from graph import Graph
 from endings import ENDINGS
 
+REGISTRE = 'books/books.json'
+
 parser = argparse.ArgumentParser(description="Compile all .json for the UI app")
-parser.add_argument("--book", type=int, choices=[1, 2], help="Number of the book to compile")
+parser.add_argument("--book", help=f"Nom du livre a compiler (le dossier books/<nom>/), ou son rang dans {REGISTRE}")
 
 args = parser.parse_args()
 
-book_number = args.book
-if book_number is None:
+if args.book is None:
     print('ERROR: Missing --book parameter')
     sys.exit(2)
-else:
-    print(f'Vous avez choisi le livre {book_number}.')
-
-display_graph = graphviz.Digraph('G', filename=f'scripts/graph/fdcn_full-{book_number}', format='png')
 
 
 def load_json_file(file_name):
@@ -36,10 +64,38 @@ def load_json_file(file_name):
     return data
 
 
-book_names = {1: 'fdcn', 2: 'cdsi'}
-book_name = book_names[book_number]
+# Le registre est la SEULE liste de livres du depot : le compilateur la lit comme l'app,
+# donc ajouter un livre ne demande de rouvrir ni ce fichier ni le moindre script Godot.
+livres = load_json_file(REGISTRE)['livres']
+book_names = [livre['nom'] for livre in livres]
+
+book_name = args.book
+# Retro-compatibilite : `--book 1` / `--book 2` designaient les livres par leur rang.
+if book_name.isdigit():
+    rang = int(book_name) - 1
+    if rang < 0 or rang >= len(book_names):
+        print('ERROR: no book number %s, %s declares %d books' % (book_name, REGISTRE, len(book_names)))
+        sys.exit(2)
+    book_name = book_names[rang]
+
+if book_name not in book_names:
+    print('ERROR: unknown book: %s. %s declares: %s' % (book_name, REGISTRE, ', '.join(book_names)))
+    sys.exit(2)
+
+print(f'Vous avez choisi le livre {book_name}.')
+
+if graphviz is None:
+    print('NOTE: graphviz absent : les json seront compiles, mais pas le graphe png')
+    display_graph = GrapheMuet()
+else:
+    display_graph = graphviz.Digraph('G', filename=f'scripts/graph/fdcn_full-{book_name}', format='png')
+
+# Un dossier de livre est range en trois : `data/` ce qui se lit, `archive/` ce que
+# personne ne lit, `img/` et `audio/` les assets. Voir books/README.md.
 book_dir = f'books/{book_name}'
-book_data = load_json_file(f'{book_dir}/{book_name}.json')
+data_dir = f'{book_dir}/data'
+archive_dir = f'{book_dir}/archive'
+book_data = load_json_file(f'{data_dir}/{book_name}.json')
 
 node_created = set()
 
@@ -100,36 +156,42 @@ for idx, n in book_data.items():
     print(f' possible goto:{n.get("goto", [])} => {goto}')
     # goto = n['goto']
     
-    if isinstance(goto, int):
-        if goto == 608 and book_number == 1:
-            ending = n.get('ending', None)
-            if ending is None:
-                print('ERROR: node %s is an end without ending' % idx)
-                sys.exit(2)
-            _ending = {'good': ENDINGS.GOOD, 'bad': ENDINGS.BAD}.get(ending, None)
-            if _ending is None:
-                print('ERROR: node %s have an unknown ending string: %s' % (idx, ending))
-                sys.exit(2)
-            node.set_ending(_ending)
-            ending_id = n.get('ending_id', None)
-            if ending_id:
-                node.set_ending_id(ending_id)
-                node.set_ending_txt(n.get('ending_txt'))
-        else:
-            son = node_graph.get_node(goto)
-            node.add_son(son)
-    else:  # list
+    # Une FIN se reconnait a sa cle `ending`, et a rien d'autre -- ni a un numero de
+    # chapitre ni a un numero de livre. Ce bloc testait `goto == 608 and book_number == 1`,
+    # ce qui n'a jamais compile la moindre fin de cdsi (ses 16 fins n'ecrivent pas de goto,
+    # et son chapitre 608 est un vrai chapitre).
+    #
+    # Une fin n'a PAS de suite : son goto eventuel n'est pas suivi. fdcn fait pointer les
+    # siennes sur un 608 qui n'existe pas chez lui, cdsi n'en met pas du tout.
+    ending = n.get('ending')
+    if ending is not None:
+        _ending = {'good': ENDINGS.GOOD, 'bad': ENDINGS.BAD}.get(ending, None)
+        if _ending is None:
+            print('ERROR: node %s have an unknown ending string: %s' % (idx, ending))
+            sys.exit(2)
+        node.set_ending(_ending)
+        ending_id = n.get('ending_id', None)
+        if ending_id:
+            node.set_ending_id(ending_id)
+            node.set_ending_txt(n.get('ending_txt'))
+    else:
         for dest_idx in goto:
+            # Un saut hors du livre ne peut etre qu'une fin mal declaree : sans ce test,
+            # le graphe se fabrique un chapitre fantome et l'app le proposerait au lecteur.
+            if str(dest_idx) not in book_data:
+                print('ERROR: node %s jumps to %s, which is not a chapter of this book '
+                      '(a chapter that ends the story must declare `ending`)' % (idx, dest_idx))
+                sys.exit(2)
             son = node_graph.get_node(dest_idx)
             node.add_son(son)
 
 # [1, "Plante-Citrouille"]
-arcs = load_json_file(f'{book_dir}/{book_name}.arcs.json')
+arcs = load_json_file(f'{data_dir}/{book_name}.arcs.json')
 
 # (arc_name, Start of sub, name, stops)
-sub_arcs = load_json_file(f'{book_dir}/{book_name}.sub_arcs.json')
+sub_arcs = load_json_file(f'{data_dir}/{book_name}.sub_arcs.json')
 
-manual_sub_arcs = load_json_file(f'{book_dir}/{book_name}.manual_sub_arcs.json')
+manual_sub_arcs = load_json_file(f'{data_dir}/{book_name}.manual_sub_arcs.json')
 
 # Tag nodes with arc, from lower to higher so we don't rewrite them
 for arc_start, arc_name in reversed(arcs):
@@ -243,7 +305,7 @@ print('Condition NOT remove:\n%s' % '\n'.join(sorted([' - %s' % s for s in condi
 
 all_discoverd_objects = all_remove | all_aquire | all_conditions
 
-all_objs = load_json_file(f'{book_dir}/{book_name}.all_objects.json')
+all_objs = load_json_file(f'{data_dir}/{book_name}.all_objects.json')
 all_objs_names = set(all_objs.keys())
 
 if all_discoverd_objects != all_objs_names:
@@ -269,10 +331,10 @@ for node_id_str, node_data in book_data.items():
     node_data['computed'] = node.get_computed()
 
 new_book_data_string = json.dumps(book_data, indent=4, ensure_ascii=False, sort_keys=True)  # allow utf8
-with codecs.open(f'{book_dir}/{book_name}-compilated-data.json', 'w', 'utf8') as f:
+with codecs.open(f'{data_dir}/{book_name}-compilated-data.json', 'w', 'utf8') as f:
     f.write(new_book_data_string)
 
-sucess_txt = load_json_file(f'{book_dir}/all-success.json')
+sucess_txt = load_json_file(f'{data_dir}/{book_name}.all_success.json')
 print('Success txt', sucess_txt)
 
 
@@ -390,11 +452,18 @@ to_dump_as_json = {
     'all-objects':      all_objs,
 }
 
+# Ces cinq sorties, PERSONNE ne les lit : les combats ne sont meme pas charges, et les
+# fins comme les secrets se lisent chapitre par chapitre dans `-compilated-data.json`. On
+# continue de les produire -- elles coutent quelques kilo-octets et documentent le livre --
+# mais dans `archive/`, pour que `data/` ne contienne que ce que l'app ouvre vraiment.
+ARCHIVEES = {'combats', 'endings', 'good-endings', 'bad-endings', 'secrets'}
+
 print('Generating json files for UI')
 for (k, v) in to_dump_as_json.items():
-    with codecs.open(f'{book_dir}/{book_name}-compilated-{k}.json', 'w', 'utf8') as f:
+    dossier = archive_dir if k in ARCHIVEES else data_dir
+    with codecs.open(f'{dossier}/{book_name}-compilated-{k}.json', 'w', 'utf8') as f:
         f.write(json.dumps(v, indent=4, ensure_ascii=False, sort_keys=True))
-        print(' - %s = OK' % k)
+        print(' - %s = OK (%s)' % (k, dossier))
 
 # Windows need too many deps, like dot.exe, so skip on it
 if os.name != 'nt':

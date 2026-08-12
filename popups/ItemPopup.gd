@@ -37,9 +37,9 @@ func load_item_data(item_name, item_data):
 	var svg_path = 'res://images/items/%s.svg' % self._item_name
 	var png_path = 'res://images/items/%s.png' % self._item_name
 	if Utils.is_file_exists(svg_path):
-		self._item_icon = Utils.load_external_texture(svg_path, null)
+		self._item_icon = Utils.load_external_texture(svg_path)
 	elif Utils.is_file_exists(png_path):
-		self._item_icon = Utils.load_external_texture(png_path, null)
+		self._item_icon = Utils.load_external_texture(png_path)
 	else:
 		self._item_icon = null
 

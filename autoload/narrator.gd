@@ -11,24 +11,16 @@ extends Node
 ## cache, et il n'y a qu'un seul lecteur — un nouveau son coupe le précédent, ce qui est le
 ## comportement voulu (on ne veut pas la narration par-dessus l'intro).
 
-## Chapitres qui ont une narration, par livre. ⚠️ C'est du **contenu de livre** codé ici :
-## sa place est dans `books/<nom>/`, comme `MIGRATION_GUESS` (review §11.8). En attendant,
-## au moins la table est indexée par **nom** de livre et non par numéro, contrairement à
-## l'archive.
-const NARRATIONS := {
-	"fdcn": {
-		27: "27-kakaka.mp3",
-		193: "193-la-cathedrale.mp3",
-		216: "216-tour-des-mages.mp3",
-		338: "338-virilus-backstory.mp3",
-	},
-	"cdsi": {},
-}
-
-const INTROS := {
-	"fdcn": "intro-fdcn.mp3",
-	"cdsi": "intro-cdsi.mp3",
-}
+## L'intro et les narrations de chapitre sont du **contenu de livre** : elles vivent dans
+## `books/<nom>/audio/`, et **rien ne les déclare** — le fichier existe ou n'existe pas.
+##
+##   books/<nom>/audio/intro.mp3   joué en arrivant sur le livre
+##   books/<nom>/audio/27.mp3      la narration du chapitre 27
+##
+## Une table de narrations était codée ici, livre par livre : ajouter un livre demandait
+## d'ouvrir ce fichier, et ajouter une voix à un livre existant aussi. Un livre muet est un
+## livre sans dossier `audio/`, pas une erreur.
+const AUDIO_LIVRE := "res://books/%s/audio/%s.mp3"
 
 ## Le son joué quand le type de Billy change. Les cinq fichiers existent.
 const BILLY_SOUNDS := {
@@ -51,17 +43,11 @@ func _ready() -> void:
 
 
 func _on_book_changed(book_name) -> void:
-	var fichier = INTROS.get(book_name)
-	if fichier != null:
-		Sounder.play(fichier)
+	_jouer(_audio_path(book_name, "intro"))
 
 
-## ⚠️ `int()` obligatoire : les identifiants de chapitre arrivent parfois en float depuis
-## les données du livre, et une clé float ne trouve pas une clé int dans un dictionnaire.
 func _on_chapter_changed(node_id) -> void:
-	var fichier = NARRATIONS.get(AppParameters.get_book_name(), {}).get(int(node_id))
-	if fichier != null:
-		Sounder.play(fichier)
+	_jouer(_narration_path(node_id))
 
 
 func _on_billy_changed(billy_type) -> void:
@@ -72,7 +58,25 @@ func _on_billy_changed(billy_type) -> void:
 
 ## Vrai si le chapitre a une narration — l'interface peut ainsi proposer de la rejouer.
 func has_narration(node_id) -> bool:
-	return NARRATIONS.get(AppParameters.get_book_name(), {}).has(int(node_id))
+	return _narration_path(node_id) != ""
+
+
+## ⚠️ `int()` obligatoire : les identifiants de chapitre arrivent parfois en **float**
+## depuis les données du livre, et `"res://.../27.0.mp3"` ne désigne aucun fichier.
+func _narration_path(node_id) -> String:
+	return _audio_path(AppParameters.get_book_name(), "%d" % int(node_id))
+
+
+## Le chemin d'un son du livre, ou "" s'il n'existe pas — **facultatif veut dire
+## silencieux**, un livre sans `audio/` ne joue rien et ne se plaint pas.
+func _audio_path(book_name: String, nom: String) -> String:
+	var chemin = AUDIO_LIVRE % [book_name, nom]
+	return chemin if Utils.is_file_exists(chemin) else ""
+
+
+func _jouer(chemin: String) -> void:
+	if chemin != "":
+		Sounder.play_path(chemin)
 
 
 ## Rejoue la narration du chapitre courant, si elle existe.

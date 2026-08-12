@@ -37,8 +37,8 @@
 [ext_resource type="Texture2D" uid="uid://pihk1g5c7nwh" path="res://images/backpack.png" id="35"]
 [ext_resource type="Texture2D" uid="uid://dbvlv5bpa6h6y" path="res://images/health.png" id="36"]
 [ext_resource type="Texture2D" uid="uid://duoi4s0xyj61" path="res://images/book_select.png" id="37"]
-[ext_resource type="Texture2D" uid="uid://vay5y67r1wo8" path="res://images/cdsi_book.jpg" id="38"]
-[ext_resource type="Texture2D" uid="uid://diiwn4pygknip" path="res://images/fdcn_book.jpg" id="39"]
+[ext_resource type="Texture2D" uid="uid://vay5y67r1wo8" path="res://books/cdsi/img/cover.jpg" id="38"]
+[ext_resource type="Texture2D" uid="uid://diiwn4pygknip" path="res://books/fdcn/img/cover.jpg" id="39"]
 
 [sub_resource type="StyleBoxFlat" id="1"]
 bg_color = Color(0.92549, 0.929412, 0.94902, 1)

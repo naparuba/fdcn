@@ -21,11 +21,27 @@ const _NOUVEAU_BILLY_TEXTE := preload(
 const _URL_BUG := "https://github.com/naparuba/fdcn/issues"
 const _URL_TWITTER := "https://twitter.com/naparuba"
 
+const _CHEMIN_VERSION := "VBox/Apropos/Colonne/Scroll/Marge/Infos/VersionTxt"
+
 
 func _ready() -> void:
 	$VBox/Actions/Colonne/Marge/Boutons/NouveauBilly/Button.pressed.connect(_on_nouveau_billy)
 	$VBox/Actions/Colonne/Marge/Boutons/NewBug/Button.pressed.connect(func(): OS.shell_open(_URL_BUG))
-	$VBox/Apropos/Colonne/Header/HeaderRow/twitter/Button.pressed.connect(func(): OS.shell_open(_URL_TWITTER))
+	$VBox/Apropos/Colonne/Header/HeaderRow/MarginContainer/twitter/Button.pressed.connect(func(): OS.shell_open(_URL_TWITTER))
+	_afficher_version()
+
+
+## Le numéro de version vient de `Utils.get_app_version()`, donc de `project.godot`.
+##
+## Il était écrit **dans la scène** (`text = "0.22"`) : personne ne pensait à rouvrir
+## `AboutMenu.tscn` en livrant, et rien ne reliait ce nombre aux `version/name` de
+## `export_presets.cfg`. La scène ne garde plus qu'un tiret, remplacé au lancement.
+func _afficher_version() -> void:
+	var label = get_node_or_null(_CHEMIN_VERSION)
+	if label == null:
+		push_warning("AboutMenu: label de version introuvable (%s)" % _CHEMIN_VERSION)
+		return
+	label.text = Utils.get_app_version()
 
 
 ## Effacer une partie est la seule action destructrice de l'app : elle passe par la

@@ -20,8 +20,8 @@ extends Node
 ## Les **compteurs** sont la troisième famille : ils s'accumulent au fil des chapitres
 ## et ne servent qu'à être lus. `richesse` est le seul commun aux deux livres, donc une
 ## variable en dur ; les autres (`gloire` et `info` dans fdcn, `rancune` et `respect`
-## dans cdsi) sont **déclarés par le livre** et vivent dans `_compteurs`. Voir
-## `BookData.counters`.
+## dans cdsi) sont **déclarés par le livre** dans `books/books.json` et vivent dans
+## `_compteurs`. Voir `BookData.get_counters()`.
 
 signal stats_changed
 
@@ -63,13 +63,22 @@ const _CHAPTER_LAYERED_KEYS := {
 	"hab": "hab",
 }
 
-## Clés de stats de chapitre connues mais pas encore implémentées (review #25).
-const _CHAPTER_UNMANAGED_KEYS := ["1_4_pv_max", "arc_et_couteau", "pv_1_4_max", "pv_win_plus_1"]
+## Les deux « règles ponctuelles » qui restent à trancher (review §4.3) : `arc_et_couteau`
+## est un trou de saisie (l'effet réel n'est écrit nulle part) et `pv_win_plus_1` attend
+## `pv_gain`. Les quatre autres orthographes de cette liste ont disparu des livres le
+## 2026-08-12, absorbées par la notation d'effet.
+##
+## Être ici veut dire **ignoré en silence** : ce sont des clés connues, pas des fautes de
+## saisie. Une clé inconnue, elle, ressort en avertissement (voir le `_:` plus bas).
+const _CHAPTER_UNMANAGED_KEYS := ["arc_et_couteau", "pv_win_plus_1"]
 
 ## Clés de stats de chapitre qui touchent aux RESSOURCES et non à un cumul. Le
 ## rejeu de l'historique les ignore : les ressources viennent de la sauvegarde,
 ## pas d'un recalcul. Voir la section « Ressources » plus bas.
-const _CHAPTER_RESOURCE_KEYS := ["chance", "half_pv", "max_chance", "max_pv", "pv"]
+##
+## Deux clés suffisent depuis que `max_pv`, `max_chance` et `half_pv` s'écrivent
+## `"pv": "= max"` & co. : la notation passe par la clé de la ressource elle-même.
+const _CHAPTER_RESOURCE_KEYS := ["chance", "pv"]
 
 var _total := {}
 var _items := {}
@@ -301,8 +310,9 @@ func _bound_resources_to_ceilings() -> void:
 # et porte une expression de deux jetons au plus.
 #
 # ⚠️ `moi` et `max` sont explicites parce qu'ils ne disent PAS la même chose : l'ancien
-# `half_pv` prend la moitié du **courant**, tandis que `pv_1_2_max` dit « max ». Un seul
-# mot-clé pour les deux serait une régression silencieuse.
+# `half_pv` prenait la moitié du **courant**, tandis que `pv_1_2_max` disait « max ». Un
+# seul mot-clé pour les deux aurait été une régression silencieuse ; la notation les
+# distingue à l'écrit, et les deux livres l'emploient depuis le 2026-08-12.
 #
 # Seules les RESSOURCES acceptent la notation : ce sont les seules valeurs à avoir un
 # plafond, donc un `max`. Une chaîne sur n'importe quelle autre clé est une faute de
@@ -310,16 +320,6 @@ func _bound_resources_to_ceilings() -> void:
 
 const _EFFECT_OPS := ["=", "+", "-"]
 const _EFFECT_TOKENS := ["max", "moi"]
-
-## Les mots-clés d'avant la notation, réécrits dedans : `clé du livre -> [ressource,
-## effet]`. Les deux livres les emploient encore (16 occurrences), et ils ne survivent
-## que le temps de migrer la donnée — le moteur, lui, n'a plus qu'un seul chemin
-## d'évaluation.
-const _LEGACY_EFFECTS := {
-	"half_pv": ["pv", "= moi/2"],
-	"max_chance": ["chance", "= max"],
-	"max_pv": ["pv", "= max"],
-}
 
 
 ## Ressource -> de quoi évaluer une expression sur elle : sa valeur courante, son
@@ -384,7 +384,7 @@ func _parse_effect(expression: String) -> Dictionary:
 
 func _add_item_stat(stat_name: String, v) -> void:
 	if not _total.has(stat_name):
-		print('ERROR: STATS INCONNUE DANS OBJET: %s' % stat_name)
+		push_warning("PlayerStats: stat inconnue dans un objet: %s" % stat_name)
 		return
 	_total[stat_name] += v
 	_items[stat_name] += v
@@ -397,7 +397,7 @@ func _add_chapter_stat(stat_name: String, v) -> void:
 func _apply_billy_modifiers() -> void:
 	var billy_type = AppParameters.get_billy_type()
 	if not BILLY_MODIFIERS.has(billy_type):
-		print('ERROR: the billy type: %s is unknown' % billy_type)
+		push_warning("PlayerStats: type de Billy inconnu: %s" % billy_type)
 		return
 	var modifiers = BILLY_MODIFIERS[billy_type]
 	for stat_name in modifiers.keys():
@@ -438,18 +438,12 @@ func apply_chapter_stat(k: String, v, with_resources := true) -> void:
 	# additionner une chaîne à un entier au lieu d'être signalé.
 	if typeof(v) == TYPE_STRING:
 		if not _apply_effect(k, v):
-			print('apply_chapter_stat:: effet illisible sur %s: "%s"' % [k, v])
+			push_warning('PlayerStats: effet illisible sur %s: "%s"' % [k, v])
 		return
 	if _CHAPTER_LAYERED_KEYS.has(k):
 		_add_chapter_stat(_CHAPTER_LAYERED_KEYS[k], v)
 		return
 	if k in _CHAPTER_UNMANAGED_KEYS:
-		print('apply_chapter_stat:: %s IS NOT CURRENTLY MANAGED :( )' % k)
-		return
-	# Les mots-clés d'avant la notation, servis par le même évaluateur.
-	if _LEGACY_EFFECTS.has(k):
-		var legacy = _LEGACY_EFFECTS[k]
-		_apply_effect(legacy[0], legacy[1])
 		return
 	# Compteur propre au livre courant : gloire/info dans fdcn, rancune/respect dans
 	# cdsi. Une clé non déclarée tombe dans le `_:` plus bas — c'est ce qui distingue
@@ -469,7 +463,9 @@ func apply_chapter_stat(k: String, v, with_resources := true) -> void:
 		"richesse":
 			richesse += int(v)
 		_:
-			print('THE STATS KEY %s is NOT managed ' % k)
+			# Ni une stat connue du moteur, ni un compteur déclaré par le livre : c'est
+			# une faute de saisie, et elle doit rester visible.
+			push_warning("PlayerStats: clé de stat inconnue: %s" % k)
 
 
 ## Un chapitre vient d'être atteint : on applique ses stats (simples + sous
@@ -477,7 +473,6 @@ func apply_chapter_stat(k: String, v, with_resources := true) -> void:
 ##
 ## `with_resources` à faux pour rejouer un historique — voir `apply_chapter_stat`.
 func apply_chapter_stats(node_id, with_resources := true) -> void:
-	print('apply_chapter_stats:: for node: %s' % node_id)
 	var all_stats = BookData.get_chapter_stats(node_id)
 	for k in all_stats['stats'].keys():
 		apply_chapter_stat(k, all_stats['stats'][k], with_resources)

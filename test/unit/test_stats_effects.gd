@@ -1,8 +1,10 @@
 extends "res://test/test_case.gd"
 ## La notation d'effet (`"pv": "= max/4"`) et les compteurs déclarés par le livre.
 ##
-## Le lanceur impose fdcn : ses compteurs propres sont `gloire` et `info`, et le
-## vocabulaire de cdsi (`rancune`, `respect`) ne doit donc RIEN donner ici.
+## Le lanceur impose fdcn : ses compteurs propres, déclarés dans
+## `books/fdcn/data/compteurs.json`, sont `gloire` et `info`. Ceux de cdsi (`rancune`,
+## `respect`) ne doivent donc RIEN donner ici. Le registre lui-même est testé à part
+## (`test_books.gd`).
 
 
 ## Un Billy pégu part de end=2, donc pv_max=6 et chamax=3.
@@ -84,25 +86,21 @@ func test_la_notation_ne_vaut_que_pour_les_ressources() -> void:
 	assert_eq(PlayerStats.get_stat("end"), depart, "l'endurance n'est pas touchée")
 
 
-func test_les_mots_cles_historiques_passent_par_la_notation() -> void:
-	# Tant que la donnée des deux livres les emploie, ils doivent donner exactement le
-	# même résultat qu'avant.
-	PlayerStats.del_pv(1)
-	var courant = PlayerStats.get_pv()
-	PlayerStats.apply_chapter_stat("half_pv", true)
-	assert_eq(PlayerStats.get_pv(), courant / 2, "half_pv = moitié du courant")
-
+func test_les_anciens_mots_cles_ne_font_plus_rien() -> void:
+	# `max_pv`, `max_chance` et `half_pv` ont quitté les deux livres le 2026-08-12 pour la
+	# notation. S'ils réapparaissaient — un livre recopié d'une vieille source —, ils
+	# doivent être signalés comme une clé inconnue, jamais réinterprétés en douce.
+	PlayerStats.del_pv(2)
+	var depart = PlayerStats.get_pv()
 	PlayerStats.apply_chapter_stat("max_pv", true)
-	assert_eq(PlayerStats.get_pv(), PlayerStats.get_pv_max(), "max_pv remplit les pv")
-
-	PlayerStats.del_chance(1)
-	PlayerStats.apply_chapter_stat("max_chance", true)
-	assert_eq(PlayerStats.get_cha(), PlayerStats.get_chance_max(), "max_chance remplit la chance")
+	assert_eq(PlayerStats.get_pv(), depart, "max_pv n'est plus un mot-clé")
+	PlayerStats.apply_chapter_stat("half_pv", true)
+	assert_eq(PlayerStats.get_pv(), depart, "half_pv non plus")
 
 
 func test_le_rejeu_dhistorique_ignore_toujours_les_ressources() -> void:
 	# La notation passe par `_set_pv`, donc elle sauvegarde : le rejeu ne doit pas plus
-	# l'appliquer qu'il n'appliquait `max_pv`.
+	# l'appliquer qu'il n'appliquait les anciens mots-clés de ressource.
 	PlayerStats.del_pv(3)
 	var apres_degats = PlayerStats.get_pv()
 	PlayerStats.apply_chapter_stat("pv", "= max", false)
@@ -113,15 +111,6 @@ func test_le_rejeu_dhistorique_ignore_toujours_les_ressources() -> void:
 #    Compteurs déclarés par le livre
 #
 
-func test_le_livre_declare_ses_compteurs() -> void:
-	var cles = []
-	for compteur in BookData.get_counters():
-		cles.append(compteur["cle"])
-	assert_true("gloire" in cles, "fdcn compte la gloire")
-	assert_true("info" in cles, "fdcn compte les infos")
-	assert_false("rancune" in cles, "et ignore les compteurs de cdsi")
-
-
 func test_un_compteur_declare_saccumule() -> void:
 	PlayerStats.apply_chapter_stat("gloire", 1)
 	PlayerStats.apply_chapter_stat("gloire", 2)
@@ -130,8 +119,10 @@ func test_un_compteur_declare_saccumule() -> void:
 
 
 func test_un_compteur_non_declare_nest_pas_compte() -> void:
-	# `critique` est une faute de saisie de cdsi, pas un compteur : elle doit rester
-	# visible comme une anomalie, pas se transformer en ligne de feuille de stats.
+	# `critique` était la faute de saisie de cdsi pour `crit` (corrigée le 2026-08-12).
+	# Une clé qui n'est ni connue du moteur ni déclarée par le livre doit rester **visible
+	# comme une anomalie**, jamais se transformer en ligne de feuille de stats — sinon la
+	# prochaine faute de frappe deviendra un compteur fantôme.
 	PlayerStats.apply_chapter_stat("critique", 2)
 	assert_eq(PlayerStats.get_compteur("critique"), 0, "une clé non déclarée ne compte pas")
 

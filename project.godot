@@ -12,6 +12,7 @@ config_version=5
 
 config/name="fdcn"
 config/description="Application de suivi de progression dans le livre La Forteresse du Chaudron Noir"
+config/version="4.0.0.stable"
 run/main_scene="uid://dh580xaobsllt"
 config/features=PackedStringArray("4.7")
 boot_splash/bg_color=Color(0, 0, 0, 1)

@@ -333,7 +333,7 @@ func _animer_de(sprite: TextureRect, resultat: int, couleur: String) -> void:
 
 
 func _face(valeur: int, couleur: String) -> Texture2D:
-	return Utils.load_external_texture('res://images/dice/%s-%s.svg' % [valeur, couleur], null)
+	return Utils.load_external_texture('res://images/dice/%s-%s.svg' % [valeur, couleur])
 
 
 ## Un assaut se résout après l'esquive, ou directement si le joueur ne l'a pas tentée.

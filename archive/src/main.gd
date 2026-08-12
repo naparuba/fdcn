@@ -667,7 +667,7 @@ func popup_remove_item(item_name):
 func _on_dice_pressed():
 	var res = Utils.roll_a_dice(1, 6)
 	print('Dice roll %s' % res)
-	$Combat/dice/sprite.texture = Utils.load_external_texture('res://images/dice/%s-b.svg' % res, null)
+	$Combat/dice/sprite.texture = Utils.load_external_texture('res://images/dice/%s-b.svg' % res)
 	
 
 

@@ -1,0 +1,12 @@
+{
+    "livres": [
+        {
+            "nom": "fdcn",
+            "titre": "La Forteresse du Chaudron Noir"
+        },
+        {
+            "nom": "cdsi",
+            "titre": "La Corne des Sables d'Ivoire"
+        }
+    ]
+}

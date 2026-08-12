@@ -1,9 +1,9 @@
 extends Node
 ## SaveManager — persistance JSON des sauvegardes dans `user://`.
 ##
-## Chaque fichier de sauvegarde est lié à un livre, identifié par son **nom**
-## ('fdcn' / 'cdsi') — le même que celui du dossier `books/<nom>/`. Un fichier
-## s'appelle donc `<clé>-<nom du livre>.json`.
+## Chaque fichier de sauvegarde est lié à un livre, identifié par son **nom** — le même
+## que celui du dossier `books/<nom>/`. Un fichier s'appelle donc
+## `<clé>-<nom du livre>.json`.
 ##
 ## Cette classe ne connaît que la mécanique « poser une valeur sur le disque et
 ## la relire » : ce sont les propriétaires des données (Player, Inventory) qui
@@ -79,7 +79,13 @@ func _init() -> void:
 #
 
 func get_save_path(key: String) -> String:
-	return "%s%s-%s.json" % [base_dir, key, AppParameters.get_book_name()]
+	return _path_for(key, AppParameters.get_book_name())
+
+
+## Le nom d'un fichier de sauvegarde. Le suffixe est le nom du livre aujourd'hui, son
+## numéro dans les sauvegardes v1 — c'est tout ce qui distingue les deux formats.
+func _path_for(key: String, suffixe) -> String:
+	return "%s%s-%s.json" % [base_dir, key, suffixe]
 
 
 func has_save(key: String) -> bool:
@@ -227,21 +233,27 @@ func _migrate(from_version: int) -> int:
 #    Migrations (une fonction par palier, référencée dans `_migrations`)
 #
 
-## Les toutes premières sauvegardes suffixaient les fichiers par le NUMÉRO du
-## livre. Cette table ne sert plus QU'À la migration v1 -> v2 ci-dessous : partout
-## ailleurs, un livre est identifié par son nom.
-const _LEGACY_BOOK_NUMBERS := {1: "fdcn", 2: "cdsi"}
-
-
-func _legacy_path(key: String, book_number: int) -> String:
-	return "%s%s-%s.json" % [base_dir, key, book_number]
+## Les toutes premières sauvegardes suffixaient les fichiers par le NUMÉRO du livre. Ce
+## numéro était le **rang du livre dans le registre** (1 = le premier déclaré), c'est donc
+## `books/books.json` qui le traduit — même règle que
+## `AppParameters._resoudre_livre_courant()`, et raison pour laquelle un nouveau livre
+## s'ajoute à la FIN du registre.
+##
+## Cette conversion ne sert plus QU'À la migration v1 -> v2 ci-dessous : partout ailleurs,
+## un livre est identifié par son nom.
+func _legacy_book_numbers() -> Dictionary:
+	var table := {}
+	var livres = BookData.get_books()
+	for rang in livres.size():
+		table[rang + 1] = livres[rang].get("nom", "")
+	return table
 
 
 ## Vrai s'il reste des fichiers à l'ancien format (suffixés par un numéro).
 func _has_any_legacy_save() -> bool:
-	for book_number in _LEGACY_BOOK_NUMBERS:
+	for book_number in _legacy_book_numbers():
 		for key in _V1_KEYS:
-			if FileAccess.file_exists(_legacy_path(key, book_number)):
+			if FileAccess.file_exists(_path_for(key, book_number)):
 				return true
 	return false
 
@@ -259,13 +271,14 @@ func _migrate_1_to_2() -> void:
 		push_error("SaveManager: dossier de sauvegarde introuvable: %s" % base_dir)
 		return
 
-	for book_number in _LEGACY_BOOK_NUMBERS:
-		var book_name = _LEGACY_BOOK_NUMBERS[book_number]
+	var legacy_book_numbers = _legacy_book_numbers()
+	for book_number in legacy_book_numbers:
+		var book_name = legacy_book_numbers[book_number]
 		for key in _V1_KEYS:
-			var old_path = _legacy_path(key, book_number)
+			var old_path = _path_for(key, book_number)
 			if not FileAccess.file_exists(old_path):
 				continue
-			var new_path = "%s%s-%s.json" % [base_dir, key, book_name]
+			var new_path = _path_for(key, book_name)
 			if FileAccess.file_exists(new_path):
 				# Un fichier au nouveau nom existe déjà : il fait foi, on se
 				# contente de supprimer le doublon hérité.
@@ -276,6 +289,6 @@ func _migrate_1_to_2() -> void:
 
 		# Le fichier de version numéroté ne sert plus à rien : la version est
 		# désormais écrite sous le nom du livre.
-		var old_version = _legacy_path(KEY_SAVE_VERSION, book_number)
+		var old_version = _path_for(KEY_SAVE_VERSION, book_number)
 		if FileAccess.file_exists(old_version):
 			dir.remove(old_version)

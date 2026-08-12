@@ -125,9 +125,9 @@ func set_success_id(success_id):
 	var svg_path = "res://images/success/%s.svg" % success_id
 	var texture = null
 	if Utils.is_file_exists(svg_path):
-		texture = Utils.load_external_texture(svg_path, null)
+		texture = Utils.load_external_texture(svg_path)
 	elif Utils.is_file_exists(png_path):
-		texture = Utils.load_external_texture(png_path, null)
+		texture = Utils.load_external_texture(png_path)
 	_sprite.texture = texture
 
 

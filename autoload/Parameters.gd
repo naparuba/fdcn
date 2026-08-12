@@ -1,11 +1,18 @@
 extends Node
+## AppParameters — les réglages du joueur, et le livre qu'il a ouvert.
+##
+## Quatre valeurs, un fichier json dans `user://`, et deux signaux pour que l'interface se
+## repeigne. Le livre courant est ici plutôt que dans `BookData` parce que c'est un CHOIX
+## du joueur, au même titre que le son : `BookData` détient les données, pas la préférence.
 
-var parameters_file  = "user://parameters.json"
+var parameters_file := "user://parameters.json"
 var parameters = {
 	'billy': 'guerrier',
 	'spoils': true,
 	'sound': true,
-	'current_book': 'fdcn',  # which book did the user select (matches books/{name}/)
+	# Résolu au démarrage depuis le registre (`books/books.json`) : on ne peut pas nommer
+	# un livre en dur ici, ce serait le seul endroit du code à en connaître un.
+	'current_book': '',
 }
 
 ## Unique signal « les réglages valent maintenant ceci, repeins-toi ». Il couvre
@@ -20,52 +27,74 @@ signal settings_changed
 signal book_changed(book_name)
 
 func _ready():
-	print('Parameters: ready')
-	self._load_parameters()
-	self._apply_sound()
-	self._apply_book()
+	_load_parameters()
+	_apply_sound()
+	_apply_book()
 	# Les autoloads étant prêts avant la scène principale, personne n'écoute
 	# encore : cette émission ne sert qu'à repeindre une interface qui aurait
 	# déjà affiché les valeurs par défaut avant la lecture du fichier.
 	settings_changed.emit()
 
 
+## Sans fichier, les valeurs par défaut ci-dessus font foi : une première partie n'est pas
+## un cas d'erreur.
 func _load_parameters():
 	if FileAccess.file_exists(parameters_file):
 		var f = FileAccess.open(parameters_file, FileAccess.READ)
 		var loaded_parameters = JSON.parse_string(f.get_as_text())
-		if not loaded_parameters is Dictionary:
-			print('PARAM: fichier de sauvegarde invalide, réinitialisation')
-			return
-		# NOTE: so we can manage code with new parameters
-		for k in loaded_parameters.keys():
-			var v = loaded_parameters[k]
-			print('PARAM: %s=>' % k, v)
-			parameters[k] = v
-		# Si on a dû convertir un ancien format, on réécrit le fichier tout de
-		# suite : sinon la conversion serait refaite à chaque lancement.
-		if self._migrate_legacy_book_number():
-			self._save_parameters()
-	else:
-		# already created in globals
-		pass
+		# ⚠️ Un fichier illisible ne doit PAS court-circuiter la suite : sans le
+		# `_resoudre_livre_courant()` d'en bas, `current_book` resterait vide et l'app
+		# démarrerait sans aucun livre.
+		if loaded_parameters is Dictionary:
+			# Clé par clé et non un remplacement en bloc : un fichier écrit par une version
+			# plus ancienne ne connaît pas les réglages ajoutés depuis, qui gardent alors
+			# leur valeur par défaut au lieu de disparaître.
+			for k in loaded_parameters:
+				parameters[k] = loaded_parameters[k]
+		else:
+			print('PARAM: fichier de réglages illisible, valeurs par défaut')
+
+	# Après la lecture du fichier, pas avant : c'est la valeur relue qu'il faut valider.
+	# Si on a dû la corriger, on réécrit tout de suite, sinon la correction serait
+	# refaite à chaque lancement.
+	if _resoudre_livre_courant():
+		_save_parameters()
 
 
-# Les anciennes sauvegardes stockaient current_book sous forme de nombre (1/2).
-# On le convertit vers le nom de livre utilisé par le rangement books/<nom>/.
-# Renvoie true si une conversion a eu lieu (donc s'il faut réécrire le fichier).
-func _migrate_legacy_book_number() -> bool:
-	var current = self.parameters['current_book']
-	if typeof(current) == TYPE_STRING:
+## Garantit que `current_book` nomme un livre du registre. Trois cas à rattraper :
+##
+##   - **un nombre** : les sauvegardes d'avant 2026 rangeaient le livre sous forme de
+##     numéro (1, 2). On le convertit par son **rang dans le registre** — d'où la règle
+##     « un nouveau livre s'ajoute à la fin de `books/books.json` » ;
+##   - **vide** : première partie, personne n'a encore choisi ;
+##   - **un nom inconnu** : le livre a été retiré du dépôt depuis la dernière partie.
+##
+## Renvoie true si la valeur a changé (donc s'il faut réécrire le fichier).
+func _resoudre_livre_courant() -> bool:
+	var courant = parameters['current_book']
+
+	if typeof(courant) != TYPE_STRING:
+		var rang = int(courant) - 1
+		var livres = BookData.get_books()
+		var nom = livres[rang].get('nom', '') if rang >= 0 and rang < livres.size() else ''
+		parameters['current_book'] = nom if nom != '' else BookData.get_default_book_name()
+		print('PARAM: conversion current_book %s => %s' % [courant, parameters['current_book']])
+		return true
+
+	if BookData.book_exists(courant):
 		return false
-	var legacy_names = {1: 'fdcn', 2: 'cdsi'}
-	self.parameters['current_book'] = legacy_names.get(int(current), 'fdcn')
-	print('PARAM: conversion current_book %s => %s' % [current, self.parameters['current_book']])
+
+	parameters['current_book'] = BookData.get_default_book_name()
+	if courant != '':
+		push_warning("AppParameters: livre inconnu '%s', repli sur '%s'" % [courant, parameters['current_book']])
 	return true
 
 
 func _save_parameters():
 	var f = FileAccess.open(parameters_file, FileAccess.WRITE)
+	if f == null:
+		push_error("AppParameters: impossible d'écrire %s" % parameters_file)
+		return
 	f.store_string(JSON.stringify(parameters))
 	settings_changed.emit()
 
@@ -73,12 +102,11 @@ func _save_parameters():
 # Applique les paramètres aux autres systèmes. Séparé par domaine : recharger
 # tout le livre parce que le joueur a coupé le son serait absurde.
 func _apply_sound():
-	Sounder.set_enabled(self.parameters['sound'])
+	Sounder.set_enabled(parameters['sound'])
 
 
 func _apply_book():
-	print('PARAMETERS: chargement du livre %s' % self.parameters['current_book'])
-	BookData.do_load_book(self.parameters['current_book'])
+	BookData.do_load_book(parameters['current_book'])
 
 
 ## Écrit un paramètre, le persiste, et renvoie **s'il a changé**.
@@ -95,16 +123,15 @@ func _apply_book():
 ## ⚠️ Ne PAS appeler ce helper `_set` : `Object._set()` est une méthode virtuelle de Godot,
 ## la surcharger casserait toute affectation de propriété sur cet autoload.
 func _ecrire_parametre(cle: String, valeur) -> bool:
-	if self.parameters[cle] == valeur:
+	if parameters[cle] == valeur:
 		return false
-	print('PARAMETERS: %s => %s' % [cle, valeur])
-	self.parameters[cle] = valeur
-	self._save_parameters()
+	parameters[cle] = valeur
+	_save_parameters()
 	return true
 
 
 func are_spoils_ok():
-	return self.parameters['spoils']
+	return parameters['spoils']
 
 
 func set_spoils(b) -> bool:
@@ -112,18 +139,18 @@ func set_spoils(b) -> bool:
 
 
 func is_sound_ok():
-	return self.parameters['sound']
+	return parameters['sound']
 
 
 func set_sound(b) -> bool:
 	if not _ecrire_parametre('sound', b):
 		return false
-	self._apply_sound()
+	_apply_sound()
 	return true
 
 
 func get_billy_type():
-	return self.parameters['billy']
+	return parameters['billy']
 
 
 func set_billy_type(billy_type) -> bool:
@@ -135,10 +162,10 @@ func set_book_name(book_name) -> bool:
 		return false
 	# L'ordre compte : BookData doit contenir le nouveau livre avant que Player
 	# ne recharge la sauvegarde correspondante.
-	self._apply_book()
+	_apply_book()
 	book_changed.emit(book_name)
 	return true
 
 
 func get_book_name():
-	return self.parameters['current_book']
+	return parameters['current_book']

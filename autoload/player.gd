@@ -52,7 +52,6 @@ func _ready() -> void:
 
 
 func _on_book_changed(_book_name) -> void:
-	print('Player: changement de livre, rechargement de la sauvegarde')
 	do_load()
 
 
@@ -132,7 +131,6 @@ func rebuild_chapter_stats() -> void:
 ## sauvegarde. Les rejouer les remonterait au total de tout ce que les chapitres
 ## ont jamais donné, effaçant chaque dégât de combat et chaque ajustement manuel.
 func _redo_all_my_chapters_stats() -> void:
-	print('redo_all_my_chapters_stats:')
 	# La couche « chapitres » s'accumule avec +=, elle doit donc repartir de zéro,
 	# sinon un second do_load() compterait tout l'historique en double.
 	PlayerStats.reset_chapter_layer()
@@ -157,7 +155,7 @@ func get_visited_nodes_all_times() -> Array:
 
 
 func get_nb_all_time_seen() -> int:
-	return len(visited_nodes_all_times)
+	return visited_nodes_all_times.size()
 
 
 ## Vu par le Billy courant (cette partie).
@@ -176,12 +174,12 @@ func did_all_times_seen(chapter_id) -> bool:
 
 
 func have_previous_chapters() -> bool:
-	return len(session_visited_nodes) > 1
+	return session_visited_nodes.size() > 1
 
 
 ## La fin du fil d'Ariane, du plus ancien au plus récent.
 func get_last_visited_nodes(nb_chapters: int = 5) -> Array:
-	var nb_previous = len(session_visited_nodes)
+	var nb_previous = session_visited_nodes.size()
 	if nb_previous > nb_chapters:
 		return session_visited_nodes.slice(nb_previous - nb_chapters, nb_previous)
 	return session_visited_nodes
@@ -216,7 +214,7 @@ func go_to_node(node_id) -> Array:
 		"pv": PlayerStats.get_pv(),
 		"cha": PlayerStats.get_cha(),
 		"items": Inventory.get_possessed_items().duplicate(),
-		"retour": session_visited_nodes[-1] if len(session_visited_nodes) > 0 else -1,
+		"retour": session_visited_nodes[-1] if not session_visited_nodes.is_empty() else -1,
 	}
 
 	current_node_id = node_id
@@ -225,7 +223,7 @@ func go_to_node(node_id) -> Array:
 	var is_new_for_this_billy = not (current_node_id in session_visited_nodes)
 
 	# On ne réempile pas si on ne fait que relancer l'app sur le même chapitre.
-	if len(session_visited_nodes) == 0 or session_visited_nodes[-1] != node_id:
+	if session_visited_nodes.is_empty() or session_visited_nodes[-1] != node_id:
 		session_visited_nodes.append(current_node_id)
 		save_session_visited_nodes()
 
@@ -238,10 +236,7 @@ func go_to_node(node_id) -> Array:
 
 	# Les stats de chapitre sont acquises une fois par Billy, pas à chaque repassage.
 	if is_new_for_this_billy:
-		print('%s is a NEW chapter for this billy, updating its stats' % node_id)
 		PlayerStats.apply_chapter_stats(node_id)
-	else:
-		print('%s is a ALREADY VIEW chapter for this billy, NOT updating its stats' % node_id)
 
 	chapter_changed.emit(current_node_id)
 
@@ -256,8 +251,7 @@ func go_to_node(node_id) -> Array:
 
 ## Le chapitre d'où l'on vient, ou -1 s'il n'y a nulle part où revenir.
 func jump_to_previous_chapter() -> int:
-	if len(session_visited_nodes) <= 1:
-		print('jump_back::CANNOT GO BACK')
+	if session_visited_nodes.size() <= 1:
 		return -1
 	return session_visited_nodes[-2]
 
@@ -283,17 +277,15 @@ func go_back_to(node_id) -> bool:
 ##
 ## ⚠️ Bas niveau : préférer `go_back_to()`, qui enchaîne correctement.
 func jump_back(previous_id) -> bool:
-	print('jump_back::Jumping back to %s' % previous_id)
-	if len(session_visited_nodes) == 1:
-		print('jump_back::CANNOT GO BACK')
+	if session_visited_nodes.size() == 1:
 		return false
 
-	while len(session_visited_nodes) > 0:
-		var node_id = session_visited_nodes.pop_back()
-		if node_id == previous_id:
-			print('jump_back::BACK: get back at %s' % previous_id)
+	while not session_visited_nodes.is_empty():
+		if session_visited_nodes.pop_back() == previous_id:
 			return true
-	print('jump_back::CRITICAL: cannot find the jump back node %s' % previous_id)
+	# Le fil d'Ariane est vidé et on n'a rien trouvé : l'appelant demandait un retour vers
+	# un chapitre que ce Billy n'a jamais traversé.
+	push_warning("Player: chapitre de retour introuvable dans l'historique: %s" % previous_id)
 	return false
 
 

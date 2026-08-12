@@ -27,7 +27,7 @@ var main
 
 
 func set_ending_id(ending_id):
-	_icone.texture = Utils.load_external_texture("res://images/endings/%s.png" % ending_id, null)
+	_icone.texture = Utils.load_external_texture("res://images/endings/%s.png" % ending_id)
 
 
 func set_main(main):

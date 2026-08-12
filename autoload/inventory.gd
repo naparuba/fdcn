@@ -19,9 +19,7 @@ const MAX_CARRIED := 3
 ## catégorie "BILLY", qui contient les marqueurs de type eux-mêmes) est ignoré.
 const BILLY_CATEGORIES := ["ARME", "EQUIPEMENT", "OUTIL"]
 
-## Objets donnés à un Billy restauré depuis une sauvegarde antérieure au suivi
-## des objets.
-## TODO(review #32): c'est du contenu de livre, sa place est dans books/<nom>/.
+## Ce que porte le Billy, dans l'ordre où il l'a ramassé. Sauvegardé tel quel.
 var possessed_items := []
 
 ## Noms d'objets + type de Billy courant, c'est-à-dire tout ce qu'une condition
@@ -98,17 +96,15 @@ func save_items() -> void:
 ## l'équipement de départ à partir du type de Billy qu'avait l'utilisateur.
 func _guess_after_migration() -> void:
 	need_force_display_options = true
-	print('GUESS AFTER MIGRATION:')
+	print('SAVE: sauvegarde sans objets, on les devine depuis l\'historique')
 	for chapter_id in Player.get_session_visited_nodes():
-		print('Playing item chapt in %s' % chapter_id)
 		apply_chapter_items(chapter_id)
-
 	for item_name in _migration_items():
-		print('GUESS: %s' % item_name)
 		_raw_add(item_name)
 
 
-## L'équipement supposé d'un Billy de ce type, lu dans `books/<nom>/<nom>.migration_items.json`.
+## L'équipement supposé d'un Billy de ce type, lu dans
+## `books/<nom>/data/<nom>.migration_items.json`.
 ##
 ## C'était une table `MIGRATION_GUESS` en dur ici, alors que **son contenu dépend du livre** :
 ## fdcn donne EPEE/LANCE/MARMITE là où cdsi donne SABRE/LANCE/SEAU. Du contenu de livre dans
@@ -122,7 +118,7 @@ func _guess_after_migration() -> void:
 ## devinés (et l'inventaire s'ouvre pour qu'il corrige — `need_force_display_options`).
 func _migration_items() -> Array:
 	var book_name = AppParameters.get_book_name()
-	var chemin = "res://books/%s/%s.migration_items.json" % [book_name, book_name]
+	var chemin = "res://books/%s/data/%s.migration_items.json" % [book_name, book_name]
 	var data = Utils.load_json_file(chemin)
 	if data == null:
 		push_warning("Inventory: pas de %s, aucun objet deviné" % chemin)
@@ -175,20 +171,18 @@ func _recompute_matched_conditions() -> void:
 
 ## Objet donné en entrant dans un chapitre. Renvoie true s'il a réellement été
 ## ajouté (on peut déjà le posséder).
-func add_item_from_chapter(item_name, from_chapter) -> bool:
+func add_item_from_chapter(item_name) -> bool:
 	if have_item(item_name):
 		return false
-	print('%s +' % from_chapter, '%s' % item_name)
 	_raw_add(item_name)
 	_after_change()
 	return true
 
 
 ## Objet retiré par un chapitre. Renvoie true si on l'avait réellement.
-func remove_item_from_chapter(item_name, from_chapter) -> bool:
+func remove_item_from_chapter(item_name) -> bool:
 	if not have_item(item_name):
 		return false
-	print('%s -' % from_chapter, '%s' % item_name)
 	_raw_remove(item_name)
 	_after_change()
 	return true
@@ -199,7 +193,6 @@ func remove_item_from_chapter(item_name, from_chapter) -> bool:
 func add_item_from_options(item_name) -> void:
 	if have_item(item_name):
 		return
-	print('OPTIONS +%s' % item_name)
 	_raw_add(item_name)
 	compute_billy_for_option(item_name)
 	_after_change()
@@ -209,7 +202,6 @@ func add_item_from_options(item_name) -> void:
 func remove_item_from_options(item_name) -> void:
 	if not have_item(item_name):
 		return
-	print('OPTIONS -%s' % item_name)
 	_raw_remove(item_name)
 	compute_billy_for_option(item_name)
 	_after_change()
@@ -229,13 +221,12 @@ func apply_chapter_items(chapter_id) -> Array:
 	var node = BookData.get_chapter_node(chapter_id)
 	var really_acquired := []
 	for item_name in node.get_aquire():
-		if add_item_from_chapter(item_name, chapter_id):
+		if add_item_from_chapter(item_name):
 			really_acquired.append(item_name)
 	var really_removed := []
 	for item_name in node.get_remove():
-		if remove_item_from_chapter(item_name, chapter_id):
+		if remove_item_from_chapter(item_name):
 			really_removed.append(item_name)
-	print('ETAT: %s' % chapter_id, possessed_items)
 	return [really_acquired, really_removed]
 
 
@@ -260,8 +251,8 @@ func overload_size() -> int:
 	var by_category = _items_by_category()
 	var nb_objs := 0
 	for category in BILLY_CATEGORIES:
-		nb_objs += len(by_category[category])
-	return max(0, nb_objs - MAX_CARRIED)
+		nb_objs += by_category[category].size()
+	return maxi(0, nb_objs - MAX_CARRIED)
 
 
 ## Retire des objets jusqu'à revenir à MAX_CARRIED, sans jamais retirer
@@ -269,9 +260,7 @@ func overload_size() -> int:
 func clean_overload(keep_item_name) -> void:
 	var to_remove = overload_size()
 	if to_remove == 0:
-		print('Billy is NOT overload')
 		return
-	print('BILLY IS OVERLOAD BY %s item' % to_remove)
 
 	var by_category = _items_by_category()
 	var candidates := []
@@ -285,7 +274,6 @@ func clean_overload(keep_item_name) -> void:
 	for item_name in candidates:
 		if to_remove <= 0:
 			break
-		print('OVERLOAD: removing %s' % item_name)
 		_raw_remove(item_name)
 		to_remove -= 1
 
@@ -302,9 +290,9 @@ func compute_billy_for_option(new_option) -> void:
 	clean_overload(new_option)
 
 	var by_category = _items_by_category()
-	var nb_armes = len(by_category["ARME"])
-	var nb_equipements = len(by_category["EQUIPEMENT"])
-	var nb_outils = len(by_category["OUTIL"])
+	var nb_armes = by_category["ARME"].size()
+	var nb_equipements = by_category["EQUIPEMENT"].size()
+	var nb_outils = by_category["OUTIL"].size()
 
 	var billy_type := 'pegu'
 	if nb_armes + nb_equipements + nb_outils >= MAX_CARRIED:
@@ -316,7 +304,6 @@ func compute_billy_for_option(new_option) -> void:
 			billy_type = 'paysan'
 		elif nb_armes == 1 and nb_equipements == 1 and nb_outils == 1:
 			billy_type = 'debrouillard'
-	print('=> IS A %s' % billy_type.to_upper())
 	_switch_to_billy(billy_type)
 
 

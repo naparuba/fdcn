@@ -1,4 +1,4 @@
-[gd_scene load_steps=23 format=3 uid="uid://d0eiddgya32rs"]
+[gd_scene load_steps=21 format=3 uid="uid://d0eiddgya32rs"]
 
 [ext_resource type="Texture2D" uid="uid://c10x4sqcxosio" path="res://images/success.png" id="1"]
 [ext_resource type="Texture2D" uid="uid://b04egfbv0kly0" path="res://images/fork.png" id="3"]
@@ -11,8 +11,6 @@
 [ext_resource type="Script" uid="uid://di1371eojrbf2" path="res://ui/top_menu.gd" id="10"]
 [ext_resource type="Texture2D" uid="uid://bvvtnnta0lgpj" path="res://images/items/backpack.svg" id="11"]
 [ext_resource type="Texture2D" uid="uid://byjyttgwtbh64" path="res://images/options.png" id="13"]
-[ext_resource type="Texture2D" path="res://books/fdcn/logo.png" id="14"]
-[ext_resource type="Texture2D" path="res://books/fdcn/title.png" id="17"]
 [ext_resource type="Script" path="res://ui/yes_no_switch.gd" id="18"]
 
 [sub_resource type="StyleBoxFlat" id="6"]
@@ -89,7 +87,6 @@ theme_override_constants/separation = 5
 custom_minimum_size = Vector2(30, 36)
 layout_mode = 2
 size_flags_vertical = 4
-texture = ExtResource("14")
 expand_mode = 1
 stretch_mode = 5
 
@@ -98,7 +95,6 @@ custom_minimum_size = Vector2(65, 36)
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 4
-texture = ExtResource("17")
 expand_mode = 1
 stretch_mode = 5
 

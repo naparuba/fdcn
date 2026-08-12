@@ -1,8 +1,6 @@
-[gd_scene load_steps=4 format=3 uid="uid://fpao12pu8jdj"]
+[gd_scene load_steps=2 format=3 uid="uid://fpao12pu8jdj"]
 
 [ext_resource type="Script" uid="uid://dbut7mffbckhf" path="res://popups/sub/book_selection.gd" id="1_t05m3"]
-[ext_resource type="Texture2D" uid="uid://diiwn4pygknip" path="res://images/fdcn_book.jpg" id="2_1ht1s"]
-[ext_resource type="Texture2D" uid="uid://vay5y67r1wo8" path="res://images/cdsi_book.jpg" id="3_gj5ww"]
 
 [node name="BookSelect" type="Panel" unique_id=782383194]
 anchors_preset = 15
@@ -14,37 +12,20 @@ mouse_filter = 1
 theme_type_variation = &"Carte"
 script = ExtResource("1_t05m3")
 
-[node name="VBoxContainer" type="VBoxContainer" parent="." unique_id=980968065]
+[node name="Marge" type="MarginContainer" parent="." unique_id=980968065]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+theme_override_constants/margin_left = 16
+theme_override_constants/margin_top = 16
+theme_override_constants/margin_right = 16
+theme_override_constants/margin_bottom = 16
 
-[node name="CenterContainer" type="CenterContainer" parent="VBoxContainer" unique_id=1845415068]
+[node name="Grille" type="GridContainer" parent="Marge"]
 layout_mode = 2
-size_flags_vertical = 3
-
-[node name="BoolSelectFcdn" type="TextureButton" parent="VBoxContainer/CenterContainer" unique_id=610014581]
-custom_minimum_size = Vector2(400, 400)
-layout_mode = 2
-size_flags_vertical = 3
-texture_normal = ExtResource("2_1ht1s")
-ignore_texture_size = true
-stretch_mode = 5
-
-[node name="CenterContainer2" type="CenterContainer" parent="VBoxContainer" unique_id=225835440]
-layout_mode = 2
-size_flags_vertical = 3
-
-[node name="BoolSelectCdsi" type="TextureButton" parent="VBoxContainer/CenterContainer2" unique_id=568511019]
-custom_minimum_size = Vector2(400, 400)
-layout_mode = 2
-size_flags_vertical = 3
-texture_normal = ExtResource("3_gj5ww")
-ignore_texture_size = true
-stretch_mode = 5
-
-[connection signal="pressed" from="VBoxContainer/CenterContainer/BoolSelectFcdn" to="." method="_on_bool_select_fcdn_pressed"]
-[connection signal="pressed" from="VBoxContainer/CenterContainer2/BoolSelectCdsi" to="." method="_on_bool_select_cdsi_pressed"]
+theme_override_constants/h_separation = 12
+theme_override_constants/v_separation = 12
+columns = 1

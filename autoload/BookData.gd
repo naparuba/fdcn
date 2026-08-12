@@ -1,262 +1,311 @@
 extends Node
+## Les données du livre COURANT, plus le registre de tous les livres.
+##
+## `books/books.json` est la seule liste de livres du dépôt — `{nom, titre}`, rien d'autre.
+## Les couvertures du sélecteur, le livre par défaut, la conversion des vieilles
+## sauvegardes et le compilateur Python en sortent tous : aucun nom de livre n'est écrit
+## dans le code, pour qu'un livre s'ajoute en déposant un dossier et une ligne.
+##
+## Tout le reste d'un livre est **un fichier facultatif de son dossier**, jamais une
+## déclaration : `data/compteurs.json`, `audio/intro.mp3`, `audio/<chapitre>.mp3`. Le
+## fichier existe, la fonctionnalité existe. Voir `books/README.md`.
+##
+## BookData est le 3ᵉ autoload, avant AppParameters : son `_ready()` a donc chargé le
+## registre quand AppParameters demande le livre à ouvrir.
+##
+## ⚠️ **6 fichiers compilés chargés, pas 10.** Les listes de fins et celle des secrets
+## étaient relues à chaque changement de livre et **personne ne les lisait** : les fins
+## s'affichent chapitre par chapitre (`computed.ending`) et le caractère secret aussi
+## (`node.get_secret()`). Elles sont dans `books/<nom>/archive/`, avec les combats que le
+## compilateur produit sans que rien ne les charge. Le détail est dans `scripts/README.md`.
 
-var chapter_data_cls = preload('res://entities/chapter_data.gd')
+const REGISTRE := "res://books/books.json"
 
-var _current_book_name = 'fdcn'  # Which book is currently selected (matches books/{name}/)
+const _CHAPTER_DATA := preload('res://entities/chapter_data.gd')
+
+var _current_book_name := ''
+
+## Chapitre -> `chapter_data`, et les deux tables de découpage en actes. Les noms sont
+## ceux de `scripts/README.md`, qui dit quel fichier compilé alimente quoi.
 var all_nodes = {}
 var chapters_by_arc = {}
 var chapters_by_sub_arc = {}
-
-var secret_node_ids = []
-
-## Les compteurs PROPRES au livre courant, dans l'ordre d'affichage :
-## `[{cle, libelle}, ...]`. Mesuré : fdcn compte `gloire` et `info`, cdsi `rancune` et
-## `respect`, et aucun des deux ne connaît les compteurs de l'autre. Les coder en dur
-## affichait donc une ligne « Gloire: 0 » pour toujours sur cdsi, et y rendait deux
-## compteurs sur trois invisibles.
-##
-## `richesse` n'est **pas** là-dedans : c'est le seul compteur commun aux deux livres
-## (15 occurrences dans fdcn, 13 dans cdsi), il reste une variable en dur de
-## `PlayerStats` avec sa ligne dans la scène des stats.
-var counters = []
-var _counter_keys = []
-
 var all_success = []
-var all_success_chapters = {} # chapter id -> success id
-var all_endings = []
-var good_endings = []
-var end_endings = []
+var all_success_chapters = {}  # chapitre -> identifiant de succès
 var all_objects = {}
 
+## Le registre, dans l'ordre du fichier — **l'ordre est significatif**, voir
+## `AppParameters._resoudre_livre_courant()`.
+var books = []
+var _books_by_name = {}
 
-func _init():
-	print('BookData: init')
+## Les compteurs propres au livre courant, relus à chaque changement de livre.
+var counters = []
 
 
-func do_load_book(book_name):
-	self._current_book_name = book_name
-	print('BookData: switch to book:'+self._current_book_name)
-	var book_path = "res://books/"+book_name+"/"+book_name
-	# Load chapter data in chapter_data class
-	var all_nodes_json = Utils.load_json_file(book_path+"-compilated-data.json")
+func _ready() -> void:
+	_load_registre()
+
+
+#
+#    Registre
+#
+
+## Un registre illisible n'est pas rattrapable : sans lui il n'y a aucun livre à ouvrir,
+## aucune couverture à afficher et aucun défaut à proposer. D'où `push_error` et une liste
+## vide plutôt qu'un livre inventé — l'app démarre et le dit, au lieu de chercher un dossier
+## qui n'existe peut-être pas.
+func _load_registre() -> void:
+	books = []
+	_books_by_name = {}
+
+	var registre = Utils.load_json_file(REGISTRE)
+	if not registre is Dictionary:
+		push_error("BookData: registre illisible: %s" % REGISTRE)
+		return
+
+	for livre in registre.get("livres", []):
+		var nom = livre.get("nom", "") if livre is Dictionary else ""
+		if nom == "":
+			push_warning("BookData: entrée sans `nom` dans %s: %s" % [REGISTRE, livre])
+			continue
+		books.append(livre)
+		_books_by_name[nom] = livre
+
+
+## Tous les livres déclarés, dans l'ordre du registre.
+func get_books() -> Array:
+	return books
+
+
+## L'entrée de registre d'un livre, ou `{}` s'il n'est pas déclaré. Les appelants
+## enchaînent sur `.get("champ", defaut)`, donc un livre inconnu se comporte comme un livre
+## sans option : pas de son d'intro, pas de titre.
+func get_book(book_name) -> Dictionary:
+	return _books_by_name.get(book_name, {})
+
+
+func book_exists(book_name) -> bool:
+	return _books_by_name.has(book_name)
+
+
+## Le premier livre du registre. C'est lui qu'on ouvre quand rien n'a été choisi, ou quand
+## le choix enregistré pointe vers un livre qui n'existe plus.
+func get_default_book_name() -> String:
+	if books.is_empty():
+		return ''
+	return books[0].get("nom", "")
+
+
+#
+#    Chargement d'un livre
+#
+
+func do_load_book(book_name) -> void:
+	_current_book_name = book_name
+	print('BookData: chargement du livre %s' % book_name)
+	var book_path = "res://books/%s/data/%s" % [book_name, book_name]
+
+	var all_nodes_json = Utils.load_json_file(book_path + "-compilated-data.json")
 	if all_nodes_json == null:
 		push_error("BookData: impossible de charger %s-compilated-data.json" % book_path)
 		return
-	# On repart d'un dictionnaire vide : sinon, en changeant de livre, les
-	# chapitres de l'ancien livre dont l'identifiant n'existe pas dans le nouveau
-	# resteraient accessibles (et get_chapter_node renverrait les données du
-	# mauvais livre).
+
+	# On repart d'un dictionnaire vide : sinon, en changeant de livre, les chapitres de
+	# l'ancien livre dont l'identifiant n'existe pas dans le nouveau resteraient
+	# accessibles, et `get_chapter_node()` renverrait les données du mauvais livre.
 	#
 	# Cette ligne **libère** aussi les instances de l'ancien livre, depuis que
 	# `chapter_data.gd` est un `RefCounted` : c'était un `Node`, jamais ajouté à l'arbre,
 	# donc jamais libéré — ~600 objets fuités par changement de livre.
-	self.all_nodes = {}
+	all_nodes = {}
 	for node_id_str in all_nodes_json.keys():
-		var chapter_data = chapter_data_cls.new()
+		var chapter_data = _CHAPTER_DATA.new()
 		chapter_data.create(all_nodes_json[node_id_str])
-		self.all_nodes[node_id_str] = chapter_data
+		all_nodes[node_id_str] = chapter_data
 
-	# Just the list of int of the secret chapters
-	self.secret_node_ids = Utils.load_json_file(book_path+"-compilated-secrets.json")
-
-	# Just a dict arc -> [ chapters ]
-	self.chapters_by_arc = Utils.load_json_file(book_path+"-compilated-nodes-by-chapter.json")
-
-	# Just a dict sub_arc -> [ chapters ]
-	self.chapters_by_sub_arc = Utils.load_json_file(book_path+"-compilated-nodes-by-sub-arc.json")
-
-	# All the success, in a list {id, chapter, txt}
-	self.all_success = Utils.load_json_file(book_path+"-compilated-success.json")
-	# All the success chapters id in a list
-	self.all_success_chapters = Utils.load_json_file(book_path+"-compilated-success-chapters.json")
-
-	# Endings: want all, good and bad
-	self.all_endings = Utils.load_json_file(book_path+"-compilated-endings.json")
-	self.good_endings = Utils.load_json_file(book_path+"-compilated-good-endings.json")
-	self.end_endings = Utils.load_json_file(book_path+"-compilated-bad-endings.json")
-
-	# Objects, so we can insert them in the options
-	self.all_objects = Utils.load_json_file(book_path+"-compilated-all-objects.json")
-
-	# Vocabulaire du livre : écrit à la main, pas compilé — le compilateur n'a rien à
-	# en dire, il recopie les clés de stats telles quelles.
-	self._load_vocabulaire(book_path)
+	chapters_by_arc = Utils.load_json_file(book_path + "-compilated-nodes-by-chapter.json")
+	chapters_by_sub_arc = Utils.load_json_file(book_path + "-compilated-nodes-by-sub-arc.json")
+	all_success = Utils.load_json_file(book_path + "-compilated-success.json")
+	all_success_chapters = Utils.load_json_file(book_path + "-compilated-success-chapters.json")
+	all_objects = Utils.load_json_file(book_path + "-compilated-all-objects.json")
+	counters = _load_counters(book_name)
 
 
-## Lit `books/<nom>/<nom>.vocabulaire.json` et en tire la liste des compteurs.
+## Les compteurs déclarés par le livre, `books/<nom>/data/compteurs.json`.
 ##
-## Un livre sans fichier de vocabulaire n'a **pas** de compteur propre : c'est un
-## avertissement, pas une erreur — le reste du livre s'affiche normalement, seule la
-## feuille de stats est plus courte. Une entrée sans `cle` ou sans `libelle` est ignorée
-## avec son avertissement plutôt que de faire planter la feuille de stats plus tard.
-func _load_vocabulaire(book_path: String) -> void:
-	self.counters = []
-	self._counter_keys = []
+## **Fichier facultatif** : un livre qui ne compte rien n'en a pas, et ce n'est pas une
+## anomalie — il n'aura simplement pas de ligne en plus dans la feuille de stats. D'où le
+## test d'existence AVANT la lecture : `load_json_file()` imprimerait une erreur pour un
+## cas parfaitement normal.
+##
+## Une entrée incomplète, elle, est bien une faute de saisie : on la signale et on l'ignore
+## plutôt que d'afficher une ligne sans nom.
+func _load_counters(book_name) -> Array:
+	var chemin = "res://books/%s/data/compteurs.json" % book_name
+	if not Utils.is_file_exists(chemin):
+		return []
 
-	var vocabulaire = Utils.load_json_file(book_path+".vocabulaire.json")
-	if not vocabulaire is Dictionary:
-		push_warning("BookData: pas de vocabulaire pour %s, aucun compteur propre au livre" % book_path)
-		return
+	var declares = Utils.load_json_file(chemin)
+	if not declares is Dictionary:
+		push_warning("BookData: compteurs illisibles: %s" % chemin)
+		return []
 
-	for compteur in vocabulaire.get("compteurs", []):
+	var trouves := []
+	for compteur in declares.get("compteurs", []):
 		var cle = compteur.get("cle", "") if compteur is Dictionary else ""
 		var libelle = compteur.get("libelle", "") if compteur is Dictionary else ""
 		if cle == "" or libelle == "":
-			push_warning("BookData: compteur incomplet dans le vocabulaire: %s" % [compteur])
+			push_warning("BookData: compteur incomplet dans %s: %s" % [chemin, compteur])
 			continue
-		self.counters.append({"cle": cle, "libelle": libelle})
-		self._counter_keys.append(cle)
+		trouves.append({"cle": cle, "libelle": libelle})
+	return trouves
 
 
-# Called when the node enters the scene tree for the first time.
+#
+#    Chapitres
+#
+
 func get_all_nodes():
-	return self.all_nodes
+	return all_nodes
 
+
+func get_chapter_node(node_id):
+	return all_nodes['%s' % int(node_id)]
+
+
+## Pourcentage de chapitres déjà vus dans l'acte de `node_id`.
+func get_acte_completion(node_id, visited_nodes_all_times) -> int:
+	var chapter = get_chapter_node(node_id).get_chapter()
+	return _completion(chapters_by_arc.get(chapter, []), visited_nodes_all_times)
+
+
+## Même chose pour le sous-arc — un découpage plus fin que l'acte.
+func get_sub_arc_completion(node_id, visited_nodes_all_times) -> int:
+	var sub_arc = get_chapter_node(node_id).get_arc()
+	return _completion(chapters_by_sub_arc.get(sub_arc, []), visited_nodes_all_times)
+
+
+## Un chapitre hors de tout acte n'a rien à compléter : 100 % plutôt que 0, sinon la barre
+## de progression accuserait le joueur d'un retard imaginaire.
+func _completion(chapters: Array, visited) -> int:
+	if chapters.is_empty():
+		return 100
+	var nb_visited := 0
+	for chapter_id in chapters:
+		if chapter_id in visited:
+			nb_visited += 1
+	return int(100.0 * nb_visited / chapters.size())
+
+
+#
+#    Objets et succès
+#
 
 func get_all_objects():
-	return self.all_objects
-
-
-## `[{cle, libelle}, ...]` dans l'ordre où la feuille de stats doit les afficher.
-func get_counters() -> Array:
-	return self.counters
-
-
-## Vrai si cette clé de stat de chapitre est un compteur déclaré par le livre courant.
-## C'est ce qui distingue `rancune` (compteur de cdsi) de `critique` (faute de frappe) :
-## le premier est déclaré, le second finit dans l'avertissement de `apply_chapter_stat()`.
-func is_counter(cle) -> bool:
-	return cle in self._counter_keys
+	return all_objects
 
 
 ## À appeler avant `get_item_data()` quand le nom vient d'une source incertaine.
 func exists_item_data(item_name) -> bool:
-	return self.all_objects != null and self.all_objects.has(item_name)
+	return all_objects != null and all_objects.has(item_name)
 
 
 ## ⚠️ Plante si l'objet n'existe pas — c'est voulu : les appelants enchaînent sur
 ## `.get('stats', {})`, donc renvoyer `null` ne ferait que déplacer l'erreur. Tester avec
 ## `exists_item_data()` d'abord.
 func get_item_data(item_name):
-	return self.all_objects[item_name]
+	return all_objects[item_name]
+
 
 func get_all_success():
-	return self.all_success
-
-func get_chapter_node(node_id):
-	return self.all_nodes['%s' % int(node_id)]
-	
-
-func get_all_nodes_in_the_same_chapter(node_id):
-	var chapter_data = self.get_chapter_node(node_id)
-	var chapter = chapter_data.get_chapter()
-	if chapter == null:
-		return []
-	var other_nodes = self.chapters_by_arc[chapter]
-	return other_nodes
+	return all_success
 
 
-func get_acte_completion(node_id, visited_nodes_all_times):
-	var other_nodes = self.get_all_nodes_in_the_same_chapter(node_id)
-	if other_nodes == []:  # void chatper, let's say 100%
-		return 100
-	var nb_visited = 0
-	for other_id in other_nodes:
-		if other_id in visited_nodes_all_times:
-			nb_visited += 1
-	var pct100 = int(100 * float(nb_visited) / len(other_nodes))
-	return pct100
+func get_success_txt(success_id) -> String:
+	var success = _success_by_id(success_id)
+	return success['txt'] if success else ''
 
 
-
-func get_all_nodes_in_the_same_sub_arc(node_id):
-	var chapter_data = self.get_chapter_node(node_id)
-	var sub_arc = chapter_data.get_arc()
-	if sub_arc == null:
-		return []
-	var other_nodes = self.chapters_by_sub_arc[sub_arc]
-	return other_nodes
-
-
-func get_sub_arc_completion(node_id, visited_nodes_all_times):
-	var other_nodes = self.get_all_nodes_in_the_same_sub_arc(node_id)
-	if other_nodes == []:  # void chatper, let's say 100%
-		return 100
-	var nb_visited = 0
-	for other_id in other_nodes:
-		if other_id in visited_nodes_all_times:
-			nb_visited += 1
-	var pct100 = int(100 * float(nb_visited) / len(other_nodes))
-	return pct100
-
-
-func is_node_id_secret(node_id):
-	# int() obligatoire : les identifiants venant du JSON sont des float.
-	return int(node_id) in self.secret_node_ids
-
-
-func get_success_txt(success_id):
-	for success in self.all_success:
-		if success_id == success['id']:
-			return success['txt']
-	return ''
-
-
-func is_success_chapter(node_id):
-	# WARNING: the all_success_chapters is with str keys, not INT (thanks json)
-	var node_id_str = '%d' % node_id
-	return node_id_str in self.all_success_chapters
+## ⚠️ Les clés de `all_success_chapters` sont des **chaînes** (merci json), alors que les
+## identifiants de chapitre circulent en int — parfois même en float.
+func is_success_chapter(node_id) -> bool:
+	return ('%d' % int(node_id)) in all_success_chapters
 
 
 func get_success_from_chapter(node_id):
-	# WARNING: the all_success_chapters is with str keys, not INT (thanks json)
-	var node_id_str = '%d' % node_id
-	var success_id = self.all_success_chapters[node_id_str]
+	return _success_by_id(all_success_chapters['%d' % int(node_id)])
 
-	for success in self.get_all_success():
+
+func _success_by_id(success_id):
+	for success in all_success:
 		if success['id'] == success_id:
 			return success
 	return null
 
 
-func get_chapter_stats(node_id):
-	var chapter_data = self.get_chapter_node(node_id)
-	var stats = chapter_data.get_stats()
-	var stats_cond_raw = chapter_data.get_stats_cond()
-	var stats_conds = []
-	for condition_pack in stats_cond_raw:
-		var condition = condition_pack['condition']
-		var b = self._check_cond_rec(condition, Inventory.get_all_matched_conditions())
-		print('IS CONDITION MATCH: %s' % str(condition), "=> %s" % b)
-		if b:
-			var stats_cond = condition_pack['stats']
-			stats_conds.append(stats_cond)
-			print('IS OK: %s' % str(stats_cond))
-		
-	var r = {"stats":stats, "stats_conds":stats_conds}
-	print('GIVE BACK %s' % str(r))
-	return r
+#
+#    Compteurs
+#
+
+## Les compteurs PROPRES au livre courant, `[{cle, libelle}, ...]` dans l'ordre où la
+## feuille de stats doit les afficher. Mesuré : fdcn compte `gloire` et `info`, cdsi
+## `rancune` et `respect`, et aucun des deux ne connaît les compteurs de l'autre.
+##
+## `richesse` n'en fait **pas** partie : c'est le seul compteur commun aux deux livres
+## (15 occurrences dans fdcn, 13 dans cdsi), il reste une variable en dur de `PlayerStats`
+## avec sa ligne dans la scène des stats.
+func get_counters() -> Array:
+	return counters
 
 
-func have_chapter_conditions(node_from_id, node_to_id):
-	var chapter_data = self.get_chapter_node(node_from_id)
-	var node_to_id_str = '%s' % node_to_id
-	var all_jump_conditions = chapter_data.get_jump_conditions()
-	var jump_condition = all_jump_conditions.get(node_to_id_str)
+## Vrai si cette clé de stat de chapitre est un compteur déclaré par le livre courant.
+## C'est ce qui sépare `rancune` (déclaré par cdsi) d'une faute de frappe : la seconde
+## finit dans l'avertissement de `PlayerStats.apply_chapter_stat()`.
+func is_counter(cle) -> bool:
+	for compteur in counters:
+		if compteur.get("cle", "") == cle:
+			return true
+	return false
+
+
+#
+#    Effets et conditions d'un chapitre
+#
+
+## `{stats, stats_conds}` : les effets inconditionnels du chapitre, plus ceux dont la
+## condition est remplie par l'inventaire du moment.
+func get_chapter_stats(node_id) -> Dictionary:
+	var chapter_data = get_chapter_node(node_id)
+	var stats_conds := []
+	for condition_pack in chapter_data.get_stats_cond():
+		if _check_cond_rec(condition_pack['condition'], Inventory.get_all_matched_conditions()):
+			stats_conds.append(condition_pack['stats'])
+	return {"stats": chapter_data.get_stats(), "stats_conds": stats_conds}
+
+
+## Vrai si le saut de `node_from_id` vers `node_to_id` est gardé par une condition —
+## indépendamment du fait qu'elle soit remplie.
+func have_chapter_conditions(node_from_id, node_to_id) -> bool:
+	return _jump_condition(node_from_id, node_to_id) != null
+
+
+func match_chapter_conditions(node_from_id, node_to_id) -> bool:
+	var jump_condition = _jump_condition(node_from_id, node_to_id)
 	if jump_condition == null:
 		return false
-	return true
-	
+	return _check_cond_rec(jump_condition, Inventory.get_all_matched_conditions())
 
-func match_chapter_conditions(node_from_id, node_to_id):
-	var chapter_data = self.get_chapter_node(node_from_id)
-	var node_to_id_str = '%s' % node_to_id
-	var all_jump_conditions = chapter_data.get_jump_conditions()
-	var jump_condition = all_jump_conditions.get(node_to_id_str)
-	if jump_condition == null:
-		return false
-	var r = self._check_cond_rec(jump_condition, Inventory.get_all_matched_conditions())
-	return r
+
+## Le libellé de la condition (« ARC et COUTEAU »), ou "" si le saut est libre.
+func get_condition_txt(node_from_id, node_to_id) -> String:
+	var txts = get_chapter_node(node_from_id).get_jump_conditions_txts()
+	return txts.get('%s' % node_to_id, '')
+
+
+func _jump_condition(node_from_id, node_to_id):
+	var conditions = get_chapter_node(node_from_id).get_jump_conditions()
+	return conditions.get('%s' % node_to_id)
 
 
 ## Évalue un arbre de condition de saut contre les faits du joueur — `facts` étant
@@ -284,14 +333,14 @@ func _check_cond_rec(jump_condition, facts) -> bool:
 	var ors = jump_condition.get('$or')
 	if ors != null:
 		for sub_condition in ors:
-			if self._check_cond_rec(sub_condition, facts):
+			if _check_cond_rec(sub_condition, facts):
 				return true
 		return false
 
 	var ands = jump_condition.get('$and')
 	if ands != null:
 		for sub_condition in ands:
-			if not self._check_cond_rec(sub_condition, facts):
+			if not _check_cond_rec(sub_condition, facts):
 				return false
 		return true
 
@@ -299,53 +348,30 @@ func _check_cond_rec(jump_condition, facts) -> bool:
 	return false
 
 
-func get_condition_txt(node_from_id, node_to_id):
-	var chapter_data = self.get_chapter_node(node_from_id)
-	var node_to_id_str = '%s' % node_to_id
-	var all_txts = chapter_data.get_jump_conditions_txts()
-	var txt = all_txts.get(node_to_id_str)
-	if txt == null:
-		return ''
-	return txt
-	
+#
+#    Spoils
+#
 
-# on the all chapters, the "is not a secret" is not a criteria, as we don't want to see this
-# and also secret jumps is not useful here (not link to a specific src jump node)
-func is_node_id_freely_full_on_all_chapters(node_id):
-	if AppParameters.are_spoils_ok():
-			return true
-	# spoils are not known
-	var node = self.get_chapter_node(node_id)
-	# node is a secret, last hope is if we already see it in the past (not a spoil if already see ^^)
-	if Player.did_all_times_seen(node_id):
-		return true
-	# ok, no hope for this one, hide it
-	#print('SPOILS: %s is a secret and CANNOT see it' % node_id)
-	return false
-
-
-# We can show a Choice if:
-# * we are ok with spoils
-# * we are NOT spoils but the node is NOT a secret, and not a secret jump
-# * we are NOT spoils, the node IS a secret but we ALREADY see it
-func is_node_id_freely_showable(node_id, secret_jumps):
+## Peut-on montrer ce chapitre dans la liste de TOUS les chapitres ?
+##
+## Le caractère secret n'entre pas en compte ici, contrairement à
+## `is_node_id_freely_showable()` : cette liste montre le livre entier, chapitre par
+## chapitre, et un secret jamais atteint y a sa ligne comme les autres. Seul compte le fait
+## de l'avoir déjà vu — sinon la liste raconterait l'aventure d'avance.
+func is_node_id_freely_full_on_all_chapters(node_id) -> bool:
 	if AppParameters.are_spoils_ok():
 		return true
-	
-	# spoils are not known
-	var node = BookData.get_chapter_node(node_id)
-	
-	var is_in_secret_jump = node_id in secret_jumps
-	
-	# NOT a secret node, we can show without problem, but only
-	# if it's not a secret jump
-	if !node.get_secret() and !is_in_secret_jump:
+	return Player.did_all_times_seen(node_id)
+
+
+## Peut-on montrer ce chapitre comme CHOIX depuis le chapitre courant ?
+##
+## Trois cas où oui : le joueur accepte les spoils, le chapitre n'est ni secret ni atteint
+## par un saut secret, ou bien il l'est mais on l'a déjà vu une fois.
+func is_node_id_freely_showable(node_id, secret_jumps) -> bool:
+	if AppParameters.are_spoils_ok():
 		return true
-		
-	# node is a secret (or in secret jumps), last hope is if we already see it in the past (not a spoil if already see ^^)
-	if Player.did_all_times_seen(node_id):
-		print('SPOILS: %s is a secret (or a secret jump) but already see it' % node_id)
+	var node = get_chapter_node(node_id)
+	if not node.get_secret() and not (node_id in secret_jumps):
 		return true
-	# ok, no hope for this one, hide it
-	#print('SPOILS: %s is a secret and CANNOT see it' % node_id)
-	return false
+	return Player.did_all_times_seen(node_id)

@@ -13,23 +13,31 @@ Suite de tests, à ne lancer que sur demande :
 ~/_Projects/godot/Godot_v4.7.1-stable_linux.x86_64 --headless -s test/all.gd --path .
 ```
 
-⚠️ Dernier passage vert : **68 tests** — la suite en compte maintenant **91** (8 ajoutés sur
-les pouvoirs de Billy, 15 sur la notation d'effet et les compteurs), et elle n'a plus tourné
-depuis. Entre-temps ont été touchés : `CombatEngine` (3 règles corrigées), `Player`,
-`BookData`, `PlayerStats`, `menu_page`, `top_menu`, `ChapterChoice`, et **l'arbre de 8
-scènes** a changé. `test_scenes` valide justement les `$Chemin` des scripts contre leur
-scène : la suite mérite un passage avant de continuer.
+⚠️ Dernier passage vert : **68 tests** — la suite en compte maintenant **100** (8 sur les
+pouvoirs de Billy, 14 sur la notation d'effet et les compteurs, 10 sur le registre, le
+rangement des livres et la grille du sélecteur), et elle n'a plus tourné depuis.
+Entre-temps ont été touchés : `CombatEngine` (3 règles corrigées), `Player`, `BookData`,
+`PlayerStats`, `AppParameters`, `Narrator`, `Sounder`, `SaveManager`, `Inventory`,
+`menu_page`, `top_menu`, `ChapterChoice`, et **l'arbre de 10 scènes** a changé.
+`test_scenes` valide justement les `$Chemin` des scripts contre leur scène : la suite
+mérite un passage avant de continuer.
+
+⚠️ **Godot va réimporter au prochain démarrage de l'éditeur** : tout le contenu des livres
+a changé de place (`books/<nom>/data|img|audio|archive/`). Les **images** ont emporté leur
+`.import`, donc leur **uid est intact** — c'est ce qui garde `archive/src/main.tscn`
+ouvrable. Les **6 mp3** ont perdu le leur (aucune scène ne les référençait) : Godot le
+régénérera.
 
 ---
 
 ## 1 — Perte de données et angles morts critiques
 
-- [ ] **1.1** 🔴 **Réparer la branche des fins de `scripts/fdcn.py`, et NE PAS RECOMPILER
-      avant.** `goto = [goto]` rend `if isinstance(goto, int)` toujours faux : tout le bloc
-      des fins est inatteignable, y compris l'unique `set_ending()` du dépôt et ses deux
-      validations. Les json compilés datent de **la veille** de cette régression — ils sont
-      corrects mais plus reproductibles. Recompiler viderait `endings` / `good-endings` /
-      `bad-endings` **sans un seul message d'erreur**. → review §6.1
+- [ ] **1.1** **Vérifier dans le livre les deux règles transcrites de mémoire**
+      (2026-08-12) : `pv_1_2_max` de **cdsi ch249**, devenu `"pv": "= max/2"` — la clé dit
+      « max » mais `half_pv` disait « courant », et rien dans les données ne tranche ; et
+      **cdsi ch176** qui écrit `"pv_max": true`, soit *+1 de plafond* alors que l'auteur
+      voulait probablement « pv au plein » (`"pv": "= max"`). Les deux ne faisaient
+      **rien du tout** avant, toute lecture fidèle est déjà un gain. → review §4.4
 - [ ] **1.2** **Tester `BookData`, en priorité `_check_cond_rec`.** C'est lui qui décide
       quels chapitres sont accessibles : logique pure, aucun test. Couvrir `$or`, `$and`,
       `$end`, l'imbrication, et la condition absente. → review §2.2
@@ -54,32 +62,26 @@ ni appareil**.
 
 ## 3 — Données de livre
 
-- [ ] **3.1** **Corriger les orthographes à la source** : `critique`→`crit` (×5) et
-      `pv_1_2_max`→`half_pv` dans `cdsi.json`, unifier `pv_1_4_max`/`1_4_pv_max` dans
-      `fdcn.json`. ⚠️ **Vérifier d'abord dans le livre** si `half_pv` (moitié du *courant*)
-      et `pv_1_2_max` (« max ») sont bien la même règle — les fusionner à tort serait une
-      régression silencieuse. → review §4.2, §4.4
 - [ ] **3.2** **Faire échouer `scripts/fdcn.py`** sur une clé de stat hors vocabulaire : il
       les collecte et les **imprime déjà**, il manque la liste de référence et un
       `sys.exit(2)`. → review §4.2
-- [ ] **3.3** **Migrer les 16 occurrences des 6 mots-clés vers la notation d'effet** :
-      `max_pv` ×10 et `max_chance` ×2 → `"= max"`, `half_pv` → `"= moi/2"`, et les trois
-      orthographes du quart / de la moitié une fois **3.1** tranché. Le moteur accepte déjà
-      la notation ; en attendant, `PlayerStats._LEGACY_EFFECTS` sert les vieux mots-clés par
-      le même évaluateur, et cette table disparaît avec eux. ⚠️ Toucher **`<nom>.json` et
-      `<nom>-compilated-data.json`** ensemble, ou attendre **1.1** pour recompiler.
-      → review §4.4
 - [ ] **3.4** **`pv_gain`** : modificateur de gain dans la couche chapitres, **delta positif
       seulement** (un bonus de gain ne doit pas amortir les dégâts) et **jamais sur une
       affectation** (sinon « pv au plein » dépasse le plafond). → review §4.5
-- [ ] **3.5** **Compléter le vocabulaire par livre avec `ignorees`** : les `compteurs` sont
-      faits (`<nom>.vocabulaire.json`, `PlayerStats._compteurs`, lignes de la feuille de
-      stats générées), il reste à y déplacer `PlayerStats._CHAPTER_UNMANAGED_KEYS`. Dépend
-      des « règles ponctuelles » — **§4.3, à trancher d'abord**. Pas de liste d'alias :
-      les orthographes se corrigent à la source (**3.1**). → review §4.6
-- [ ] **3.6** **Registre des livres** (`books/books.json` ou scan de `books/*/`) : rend
-      `BookSelection` piloté par les données et ramène l'ajout d'un livre à « déposer un
-      dossier, compiler, ajouter une ligne ». → review §3.6
+- [ ] **3.5** **Compléter les déclarations du livre avec `ignorees`** : les `compteurs` sont
+      faits (`books/<nom>/data/compteurs.json`, `PlayerStats._compteurs`, lignes de la
+      feuille de stats générées), il reste à y déplacer
+      `PlayerStats._CHAPTER_UNMANAGED_KEYS`. Dépend des « règles ponctuelles » — **§4.3, à
+      trancher d'abord**. Pas de liste d'alias : les orthographes se corrigent à la source
+      (**3.1**). → review §4.6
+- [ ] **3.6** **Alléger la sortie compilée** — le rangement est fait (2026-08-12 :
+      `data/` / `img/` / `audio/` / `archive/`, `BookData` ne charge plus que 6 fichiers au
+      lieu de 10, `all-success.json` renommé `<nom>.all_success.json`). Reste le poids :
+      - `-compilated-data.json` **recopie le livre entier** à côté de `computed`, que seul
+        `chapter_data.gd` lit : **28 % du plus gros fichier**, ~150 Ko par livre ;
+      - et les 6 sorties de `data/` tiendraient dans **un seul fichier à 6 clés**.
+      ⚠️ Ça change ce que le compilateur écrit : recompiler les deux livres derrière.
+      → review §3.6
 - [ ] **3.7** Renommer **`images/dieux/<n>/` → `images/dieux/<nom>/`** (et les sons
       correspondants). **Tranché le 2026-08-12** : c'est le dernier vestige de
       l'identification par numéro, dont tout le reste de l'app est déjà sorti. À faire
@@ -87,7 +89,9 @@ ni appareil**.
 
 ## 4 — Compilateur Python (`scripts/`)
 
-Ne rien recompiler avant **1.1**.
+Les deux livres ont été recompilés le 2026-08-12, branche des fins réparée : fdcn inchangé
+(19 fins), **cdsi a gagné les 16 siennes**. `graphviz` est désormais facultatif — sans lui,
+tous les json sortent, seul le png de relecture manque.
 
 - [ ] **4.1** **Des niveaux de log** (`--verbose`) : 66 `print()` noient les validations
       utiles (secrets à deux entrées, fin sans type, objets sans chapitre). C'est ce qui a
@@ -100,8 +104,6 @@ Ne rien recompiler avant **1.1**.
 - [ ] **4.4** Nettoyer : code commenté laissé en place, deux commentaires « Get the combat
       entry if any » d'affilée, annotations de type en commentaire Python 2,
       `get_all_stats_keys()` qui imprime. → review §6.2
-- [ ] **4.5** Le cas particulier `goto == 608 and book_number == 1` devra être contourné par
-      un 3ᵉ livre. → review §3.3
 
 ## 5 — Tests et hygiène
 
