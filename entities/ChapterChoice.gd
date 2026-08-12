@@ -16,7 +16,6 @@ extends Panel
 ## Les chemins de nœuds sont rassemblés ci-dessous : la scène a déjà été réorganisée une
 ## fois, et les retrouver dispersés dans quinze fonctions coûtait cher.
 
-@onready var _rubans := $Row/Rubans
 @onready var _deja_vu: Polygon2D = $Row/Rubans/AlreadySeenPolygon
 @onready var _ce_billy: Polygon2D = $Row/Rubans/SessionSeenPolygon
 @onready var _combat: Polygon2D = $Row/Rubans/CombatPolygon
@@ -154,66 +153,59 @@ func _reset_decorations() -> void:
 	disable_special_jump()
 
 
+## Le tronc commun aux deux écrans : les 7 marqueurs qu'un chapitre porte, plus son titre.
+##
+## Les deux appelants ci-dessous ne différaient que par **deux** choses — la façon d'obtenir
+## la donnée du chapitre, et le saut conditionnel qui n'a de sens que depuis un parent. Tout
+## le reste était recopié, et c'est comme ça qu'ils ont **divergé** : le marqueur « Combat »
+## n'était posé que par l'un des deux, donc la liste « tous les chapitres » n'a jamais montré
+## un seul combat.
+func _poser_marqueurs(chapitre) -> void:
+	var id = chapitre.get_id()
+	self._reset_decorations()
+	# Les spoils peuvent être ouverts pour ce chapitre seul, s'il a déjà été vu.
+	self.set_spoil_enabled(BookData.is_node_id_freely_full_on_all_chapters(id))
+
+	if Player.did_billy_seen(id):
+		self.set_session_seen()
+	if Player.did_all_times_seen(id):
+		self.set_already_seen()
+	if chapitre.is_combat():
+		self.set_combat()
+	if chapitre.get_ending():
+		self.set_ending()
+	if chapitre.get_success():
+		self.set_success()
+	if chapitre.get_secret():
+		self.set_secret()
+	var titre = chapitre.get_label()
+	if titre != null and titre != '':
+		self.set_label(titre)
+
+
+## Le « saut spécial » : une flèche verte si la condition est remplie, rouge sinon. Il se lit
+## depuis le chapitre **courant**, donc il n'a de sens que pour la liste des choix — dans la
+## liste de tous les chapitres, il n'y a pas de parent d'où sauter.
+func _poser_saut_conditionnel(son_id) -> void:
+	var depuis = Player.get_current_node_id()
+	if not BookData.have_chapter_conditions(depuis, son_id):
+		return
+	self.set_condition_txt(BookData.get_condition_txt(depuis, son_id))
+	if BookData.match_chapter_conditions(depuis, son_id):
+		self.enable_special_jump()
+	else:
+		self.enable_special_jump_wrong()
+
+
+## Une ligne des **choix du chapitre courant**. Instances neuves à chaque changement.
 func update_from_son_node(son):
-	var son_id = son.get_id()
 	self.set_chapitre(son.get_id())
-	self._reset_decorations()
-	# Les spoils peuvent être ouverts pour ce chapitre seul, s'il a déjà été vu.
-	self.set_spoil_enabled(BookData.is_node_id_freely_full_on_all_chapters(son_id))
-
-	if son.is_combat():
-		self.set_combat()
-	if Player.did_billy_seen(son_id):
-		self.set_session_seen()
-	if Player.did_all_times_seen(son_id):
-		self.set_already_seen()
-	if son.get_ending():
-		self.set_ending()
-	if son.get_success():
-		self.set_success()
-	if son.get_secret():
-		self.set_secret()
-	if son.get_label():
-		self.set_label(son.get_label())
-
-	# Check special jump/conditions
-	var have_jump_conditions = BookData.have_chapter_conditions(Player.get_current_node_id(), son_id)
-	if have_jump_conditions:
-		var jump_condition_txt = BookData.get_condition_txt(Player.get_current_node_id(), son_id)
-		self.set_condition_txt(jump_condition_txt)
-		var is_special = BookData.match_chapter_conditions(Player.get_current_node_id(), son_id)
-		if is_special:
-			self.enable_special_jump()
-		else:
-			self.enable_special_jump_wrong()
+	self._poser_marqueurs(son)
+	self._poser_saut_conditionnel(son.get_id())
 
 
-## Alimente une ligne de la liste « tous les chapitres ». Appelée sur des lignes
-## **recyclées**, donc tout part de `_reset_decorations()` : chaque test n'a plus qu'à
-## poser ce qui est vrai, sans avoir à défaire ce que le chapitre précédent avait posé.
+## Une ligne de la liste **« tous les chapitres »**, sur des lignes **recyclées** — d'où le
+## `_reset_decorations()` que `_poser_marqueurs` fait en premier. Le numéro de chapitre est
+## déjà posé par `chapitres_menu.gd` avant l'appel.
 func update_when_in_all_chapters():
-	var chapter_id = self.get_chapter_id()
-	var chapter_data = BookData.get_chapter_node(chapter_id)
-	self._reset_decorations()
-
-	# Les spoils peuvent être ouverts pour ce chapitre seul, s'il a déjà été vu.
-	self.set_spoil_enabled(BookData.is_node_id_freely_full_on_all_chapters(chapter_id))
-
-	if Player.did_billy_seen(chapter_id):
-		self.set_session_seen()
-	if Player.did_all_times_seen(chapter_id):
-		self.set_already_seen()
-	# Le marqueur « Combat » n'était pas posé du tout ici : la scène a le polygone et son
-	# libellé, mais cette liste ne le colorait jamais, donc tous les chapitres passaient
-	# pour sans combat. L'autre écran (`update_from_son_node`) le posait bien.
-	if chapter_data.is_combat():
-		self.set_combat()
-	if chapter_data.get_ending():
-		self.set_ending()
-	if chapter_data.get_success():
-		self.set_success()
-	if chapter_data.get_secret():
-		self.set_secret()
-	var _label = chapter_data.get_label()
-	if _label != null:
-		self.set_label(_label)
+	self._poser_marqueurs(BookData.get_chapter_node(self.get_chapter_id()))

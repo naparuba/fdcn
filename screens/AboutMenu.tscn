@@ -31,70 +31,85 @@ mouse_filter = 1
 theme_type_variation = &"Fond"
 script = ExtResource("12_about")
 
-[node name="Actions" type="Panel" parent="." unique_id=1169434423]
-layout_mode = 1
-anchors_preset = 10
-anchor_right = 1.0
-offset_bottom = 160.0
-grow_horizontal = 2
-mouse_filter = 1
-theme_type_variation = &"Carte"
-
-[node name="Header" type="Panel" parent="Actions" unique_id=831911662]
-layout_mode = 1
-anchors_preset = 10
-anchor_right = 1.0
-offset_bottom = 40.0
-grow_horizontal = 2
-mouse_filter = 1
-theme_type_variation = &"EnTete"
-
-[node name="Label" type="Label" parent="Actions/Header" unique_id=459165057]
-theme_type_variation = &"TitreHeader"
+[node name="VBox" type="VBoxContainer" parent="."]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+theme_override_constants/separation = 8
+
+[node name="Actions" type="PanelContainer" parent="VBox"]
+layout_mode = 2
+mouse_filter = 1
+theme_type_variation = &"Carte"
+
+[node name="Colonne" type="VBoxContainer" parent="VBox/Actions"]
+layout_mode = 2
+theme_override_constants/separation = 0
+
+[node name="Header" type="PanelContainer" parent="VBox/Actions/Colonne"]
+custom_minimum_size = Vector2(0, 40)
+layout_mode = 2
+mouse_filter = 1
+theme_type_variation = &"EnTete"
+
+[node name="Label" type="Label" parent="VBox/Actions/Colonne/Header"]
+layout_mode = 2
+theme_type_variation = &"TitreHeader"
 text = "Actions"
 horizontal_alignment = 1
+vertical_alignment = 1
 
-[node name="Content" type="Panel" parent="Actions" unique_id=1394732121]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-offset_top = 40.0
-grow_horizontal = 2
-grow_vertical = 2
-theme_type_variation = &"Carte"
+[node name="Marge" type="MarginContainer" parent="VBox/Actions/Colonne"]
+layout_mode = 2
+theme_override_constants/margin_left = 12
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 12
+theme_override_constants/margin_bottom = 10
 
-[node name="NouveauBilly" type="Panel" parent="Actions/Content" unique_id=899277512]
-layout_mode = 1
-anchors_preset = 4
-anchor_top = 0.5
-anchor_bottom = 0.5
-offset_left = 40.0
-offset_top = -44.0
-offset_right = 188.0
-offset_bottom = 43.0
-grow_vertical = 2
+[node name="Boutons" type="HBoxContainer" parent="VBox/Actions/Colonne/Marge"]
+layout_mode = 2
+theme_override_constants/separation = 12
+
+[node name="NouveauBilly" type="Panel" parent="VBox/Actions/Colonne/Marge/Boutons"]
+custom_minimum_size = Vector2(0, 87)
+layout_mode = 2
+size_flags_horizontal = 3
+mouse_filter = 1
 theme_type_variation = &"Pastille"
 
-[node name="Label" type="Label" parent="Actions/Content/NouveauBilly" unique_id=1572076968]
+[node name="sprite" type="TextureRect" parent="VBox/Actions/Colonne/Marge/Boutons/NouveauBilly"]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -25.0
+offset_top = 3.0
+offset_right = 25.0
+offset_bottom = 53.0
+grow_horizontal = 2
+mouse_filter = 2
+texture = ExtResource("4_l61gx")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="Label" type="Label" parent="VBox/Actions/Colonne/Marge/Boutons/NouveauBilly"]
 layout_mode = 1
 anchors_preset = 12
 anchor_top = 1.0
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_top = -34.0
+offset_top = -32.0
 grow_horizontal = 2
 grow_vertical = 0
+mouse_filter = 2
 text = "Nouveau Billy"
 horizontal_alignment = 1
+vertical_alignment = 1
 
-[node name="Button" type="TextureButton" parent="Actions/Content/NouveauBilly" unique_id=596989228]
+[node name="Button" type="TextureButton" parent="VBox/Actions/Colonne/Marge/Boutons/NouveauBilly"]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -102,39 +117,43 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="Sprite2D" type="Sprite2D" parent="Actions/Content/NouveauBilly" unique_id=1221461537]
-position = Vector2(71.5449, 28.0304)
-scale = Vector2(0.0996552, 0.0996552)
-texture = ExtResource("4_l61gx")
-
-[node name="NewBug" type="Panel" parent="Actions/Content" unique_id=1250862293]
-layout_mode = 1
-anchors_preset = 6
-anchor_left = 1.0
-anchor_top = 0.5
-anchor_right = 1.0
-anchor_bottom = 0.5
-offset_left = -190.0
-offset_top = -44.0
-offset_right = -41.0
-offset_bottom = 43.0
-grow_horizontal = 0
-grow_vertical = 2
+[node name="NewBug" type="Panel" parent="VBox/Actions/Colonne/Marge/Boutons"]
+custom_minimum_size = Vector2(0, 87)
+layout_mode = 2
+size_flags_horizontal = 3
+mouse_filter = 1
 theme_type_variation = &"Pastille"
 
-[node name="Label" type="Label" parent="Actions/Content/NewBug" unique_id=1376743688]
+[node name="sprite" type="TextureRect" parent="VBox/Actions/Colonne/Marge/Boutons/NewBug"]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -25.0
+offset_top = 3.0
+offset_right = 25.0
+offset_bottom = 53.0
+grow_horizontal = 2
+mouse_filter = 2
+texture = ExtResource("5_4xf6i")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="Label" type="Label" parent="VBox/Actions/Colonne/Marge/Boutons/NewBug"]
 layout_mode = 1
 anchors_preset = 12
 anchor_top = 1.0
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_top = -34.0
+offset_top = -32.0
 grow_horizontal = 2
 grow_vertical = 0
+mouse_filter = 2
 text = "J'ai un bug"
 horizontal_alignment = 1
+vertical_alignment = 1
 
-[node name="Button" type="TextureButton" parent="Actions/Content/NewBug" unique_id=1754303401]
+[node name="Button" type="TextureButton" parent="VBox/Actions/Colonne/Marge/Boutons/NewBug"]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -142,168 +161,159 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="Sprite2D" type="Sprite2D" parent="Actions/Content/NewBug" unique_id=1412640983]
-position = Vector2(71.5449, 28.0304)
-scale = Vector2(0.0996552, 0.0996552)
-texture = ExtResource("5_4xf6i")
-
-[node name="About" type="Panel" parent="." unique_id=873643578]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-offset_top = 202.0
-grow_horizontal = 2
-grow_vertical = 2
+[node name="Apropos" type="PanelContainer" parent="VBox"]
+layout_mode = 2
+size_flags_vertical = 3
 mouse_filter = 1
 theme_type_variation = &"Carte"
 
-[node name="Header" type="Panel" parent="About" unique_id=119532156]
-layout_mode = 1
-anchors_preset = 10
-anchor_right = 1.0
-offset_bottom = 38.0
-grow_horizontal = 2
+[node name="Colonne" type="VBoxContainer" parent="VBox/Apropos"]
+layout_mode = 2
+theme_override_constants/separation = 0
+
+[node name="Header" type="PanelContainer" parent="VBox/Apropos/Colonne"]
+custom_minimum_size = Vector2(0, 40)
+layout_mode = 2
 mouse_filter = 1
 theme_type_variation = &"EnTete"
 
-[node name="Label" type="Label" parent="About/Header" unique_id=958795236]
+[node name="HeaderRow" type="HBoxContainer" parent="VBox/Apropos/Colonne/Header"]
+layout_mode = 2
+theme_override_constants/separation = 8
+
+[node name="Label" type="Label" parent="VBox/Apropos/Colonne/Header/HeaderRow"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 4
 theme_type_variation = &"TitreHeader"
+text = "A propos"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="PhumtarBox" type="Control" parent="VBox/Apropos/Colonne/Header/HeaderRow"]
+custom_minimum_size = Vector2(60, 24)
+layout_mode = 2
+size_flags_vertical = 4
+mouse_filter = 2
+
+[node name="phumtar" type="AnimatedSprite2D" parent="VBox/Apropos/Colonne/Header/HeaderRow/PhumtarBox"]
+position = Vector2(30, 12)
+scale = Vector2(0.12, 0.12)
+sprite_frames = SubResource("SpriteFrames_kwb3n")
+autoplay = "default"
+
+[node name="twitter" type="Panel" parent="VBox/Apropos/Colonne/Header/HeaderRow"]
+custom_minimum_size = Vector2(30, 30)
+layout_mode = 2
+size_flags_vertical = 4
+mouse_filter = 1
+theme_type_variation = &"Pastille"
+
+[node name="sprite" type="TextureRect" parent="VBox/Apropos/Colonne/Header/HeaderRow/twitter"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 3.0
+offset_top = 3.0
+offset_right = -3.0
+offset_bottom = -3.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+texture = ExtResource("6_bkxrd")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="Button" type="TextureButton" parent="VBox/Apropos/Colonne/Header/HeaderRow/twitter"]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-text = "A propos"
-horizontal_alignment = 1
 
-[node name="twitter" type="Panel" parent="About" unique_id=1972265070]
-layout_mode = 0
-offset_left = 251.412
-offset_top = 75.301
-offset_right = 278.412
-offset_bottom = 101.301
-theme_type_variation = &"Pastille"
+[node name="Scroll" type="ScrollContainer" parent="VBox/Apropos/Colonne"]
+layout_mode = 2
+size_flags_vertical = 3
+horizontal_scroll_mode = 0
 
-[node name="Button" type="TextureButton" parent="About/twitter" unique_id=1905550338]
-layout_mode = 0
-offset_right = 145.0
-offset_bottom = 87.0
+[node name="Marge" type="MarginContainer" parent="VBox/Apropos/Colonne/Scroll"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/margin_left = 12
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 12
+theme_override_constants/margin_bottom = 10
 
-[node name="Sprite2D" type="Sprite2D" parent="About/twitter" unique_id=340071626]
-position = Vector2(14.1465, 12.6797)
-scale = Vector2(0.0996552, 0.0996552)
-texture = ExtResource("6_bkxrd")
+[node name="Infos" type="VBoxContainer" parent="VBox/Apropos/Colonne/Scroll/Marge"]
+layout_mode = 2
+theme_override_constants/separation = 2
 
-[node name="phumtar" type="AnimatedSprite2D" parent="About" unique_id=251493930]
-position = Vector2(392.257, 88.6701)
-scale = Vector2(0.342538, 0.342538)
-sprite_frames = SubResource("SpriteFrames_kwb3n")
-
-[node name="DevLabel" type="Label" parent="About" unique_id=791876207]
-layout_mode = 0
-offset_left = 12.7327
-offset_top = 57.4765
-offset_right = 82.7331
-offset_bottom = 71.4765
+[node name="DevLabel" type="Label" parent="VBox/Apropos/Colonne/Scroll/Marge/Infos"]
+layout_mode = 2
 text = "Développeur"
 
-[node name="DevTxt" type="Label" parent="About" unique_id=1198695336]
-layout_mode = 0
-offset_left = 12.4751
-offset_top = 71.2005
-offset_right = 242.475
-offset_bottom = 102.2
+[node name="DevTxt" type="Label" parent="VBox/Apropos/Colonne/Scroll/Marge/Infos"]
+layout_mode = 2
 theme_type_variation = &"TexteAccent"
 text = "Jean Gabès
 naparuba@gmail.com"
+autowrap_mode = 3
 
-[node name="VersionLabel" type="Label" parent="About" unique_id=1999671342]
-layout_mode = 0
-offset_left = 13.1025
-offset_top = 135.209
-offset_right = 83.103
-offset_bottom = 149.209
+[node name="VersionLabel" type="Label" parent="VBox/Apropos/Colonne/Scroll/Marge/Infos"]
+layout_mode = 2
 text = "Version"
 
-[node name="VersionTxt" type="Label" parent="About" unique_id=145294132]
-layout_mode = 0
-offset_left = 12.8449
-offset_top = 155.233
-offset_right = 242.845
-offset_bottom = 186.233
+[node name="VersionTxt" type="Label" parent="VBox/Apropos/Colonne/Scroll/Marge/Infos"]
+layout_mode = 2
 theme_type_variation = &"TexteAccent"
 text = "0.22"
 
-[node name="SrcLabel" type="Label" parent="About" unique_id=640583782]
-layout_mode = 0
-offset_left = 15.593
-offset_top = 187.26
-offset_right = 85.5938
-offset_bottom = 201.26
+[node name="SrcLabel" type="Label" parent="VBox/Apropos/Colonne/Scroll/Marge/Infos"]
+layout_mode = 2
 text = "Sources"
 
-[node name="SrcTxt" type="Label" parent="About" unique_id=696799908]
-layout_mode = 0
-offset_left = 15.3354
-offset_top = 200.984
-offset_right = 354.336
-offset_bottom = 231.984
-pivot_offset = Vector2(227.935, 35.6174)
+[node name="SrcTxt" type="Label" parent="VBox/Apropos/Colonne/Scroll/Marge/Infos"]
+layout_mode = 2
 theme_type_variation = &"TexteAccent"
 text = "https://github.com/naparuba/fdcn"
+autowrap_mode = 3
 
-[node name="ThnksLabel" type="Label" parent="About" unique_id=550090580]
-layout_mode = 0
-offset_left = 15.7058
-offset_top = 238.83
-offset_right = 85.7061
-offset_bottom = 252.83
+[node name="ThnksLabel" type="Label" parent="VBox/Apropos/Colonne/Scroll/Marge/Infos"]
+layout_mode = 2
 text = "Remerciements"
 
-[node name="ThnksTxt" type="Label" parent="About" unique_id=275068742]
-layout_mode = 0
-offset_left = 15.0
-offset_top = 253.0
-offset_right = 362.0
-offset_bottom = 427.0
+[node name="ThnksTxt" type="Label" parent="VBox/Apropos/Colonne/Scroll/Marge/Infos"]
+layout_mode = 2
 theme_type_variation = &"TexteAccent"
 text = "- Bob pour cette super oeuvre
 - Les dev de \"Godot\" qui ont
 permis à cette application d'exister
 - Pour leur patchs: Anael Closson & Linklinsse
 - Report de bug: Mystorage09, Polurax & Holorim"
+autowrap_mode = 3
 
-[node name="NotesLabel" type="Label" parent="About" unique_id=1800753158]
-layout_mode = 0
-offset_left = 12.2959
-offset_top = 448.107
-offset_right = 82.2967
-offset_bottom = 462.107
+[node name="NotesLabel" type="Label" parent="VBox/Apropos/Colonne/Scroll/Marge/Infos"]
+layout_mode = 2
 text = "Notes"
 
-[node name="NotesTxt" type="Label" parent="About" unique_id=1302327911]
-layout_mode = 0
-offset_left = 12.0383
-offset_top = 461.831
-offset_right = 351.039
-offset_bottom = 628.831
+[node name="NotesTxt" type="Label" parent="VBox/Apropos/Colonne/Scroll/Marge/Infos"]
+layout_mode = 2
 theme_type_variation = &"TexteAccent"
 text = "Toute aide pour dev ou debugguer
 est la bienvenue ^^"
+autowrap_mode = 3
 
-[node name="Disclaimer" type="Label" parent="About" unique_id=983867539]
-layout_mode = 0
-offset_left = 15.1111
-offset_top = 555.179
-offset_right = 440.111
-offset_bottom = 798.179
-theme_override_colors/font_color = Color(0.760784, 0.447059, 0, 1)
+[node name="Disclaimer" type="Label" parent="VBox/Apropos/Colonne/Scroll/Marge/Infos"]
+custom_minimum_size = Vector2(0, 40)
+layout_mode = 2
+theme_type_variation = &"TexteAlerte"
 text = "IMPORTANT:
 Ceci est une application
 FAN MADE, NON OFFICIELLE
 
 Tous les droits sont à Bob Lennon
 et LinkDigitalSpirit."
-
+autowrap_mode = 3
+vertical_alignment = 2

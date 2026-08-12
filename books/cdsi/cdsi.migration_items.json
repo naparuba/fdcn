@@ -1,0 +1,8 @@
+{
+  "_comment": "Équipement supposé d'un Billy selon son type, UNIQUEMENT pour migrer une sauvegarde antérieure à la persistance des objets. Ce n'est pas l'équipement de départ d'une nouvelle partie : celui-là vient des 'aquire' du chapitre 1. Voir autoload/inventory.gd:_guess_after_migration.",
+  "guerrier": ["SABRE", "LANCE", "SEAU"],
+  "prudent": ["SEAU", "COTTE DE MAILLES", "GUIDE TOURISTIQUE"],
+  "paysan": ["FLEAU A GRAINS", "FILET DE PECHE", "SAC DE GRAINS"],
+  "debrouillard": ["SABRE", "COTTE DE MAILLES", "SAC DE GRAINS"],
+  "pegu": []
+}

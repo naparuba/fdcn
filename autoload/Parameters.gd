@@ -81,53 +81,58 @@ func _apply_book():
 	BookData.do_load_book(self.parameters['current_book'])
 
 
+## Écrit un paramètre, le persiste, et renvoie **s'il a changé**.
+##
+## Les quatre setters recopiaient ces cinq lignes. Ils renvoient tous un booléen maintenant :
+## avant, `set_book_name` renvoyait `false` en cas de non-changement et les trois autres ne
+## renvoyaient rien, ce qui rendait leur contrat illisible.
+##
+## ⚠️ **Sortir tôt quand la valeur est identique n'est pas une micro-optimisation.** Chaque
+## écriture appelle `_save_parameters()`, qui **émet `settings_changed`**. Sans ce garde-fou,
+## une interface qui repeint sur ce signal — donc qui réécrit la valeur qu'elle affiche déjà —
+## relancerait le cycle.
+##
+## ⚠️ Ne PAS appeler ce helper `_set` : `Object._set()` est une méthode virtuelle de Godot,
+## la surcharger casserait toute affectation de propriété sur cet autoload.
+func _ecrire_parametre(cle: String, valeur) -> bool:
+	if self.parameters[cle] == valeur:
+		return false
+	print('PARAMETERS: %s => %s' % [cle, valeur])
+	self.parameters[cle] = valeur
+	self._save_parameters()
+	return true
+
+
 func are_spoils_ok():
 	return self.parameters['spoils']
 
 
-func set_spoils(b):
-	var current = self.parameters['spoils']
-	if b == current:
-		return
-	print('PARAMETERS: spoils => %s' % b)
-	self.parameters['spoils'] = b
-	self._save_parameters()
+func set_spoils(b) -> bool:
+	return _ecrire_parametre('spoils', b)
 
 
 func is_sound_ok():
 	return self.parameters['sound']
 
 
-func set_sound(b):
-	var current = self.parameters['sound']
-	if b == current:
-		return
-	print('PARAMETERS: sound => %s' % b)
-	self.parameters['sound'] = b
-	self._save_parameters()
+func set_sound(b) -> bool:
+	if not _ecrire_parametre('sound', b):
+		return false
 	self._apply_sound()
+	return true
 
 
 func get_billy_type():
 	return self.parameters['billy']
 
 
-func set_billy_type(billy_type):
-	var current = self.parameters['billy']
-	if current == billy_type:
-		return
-	print('PARAMETERS: billy_type => %s' % billy_type)
-	self.parameters['billy'] = billy_type
-	self._save_parameters()
+func set_billy_type(billy_type) -> bool:
+	return _ecrire_parametre('billy', billy_type)
 
 
-func set_book_name(book_name):
-	var current = self.parameters['current_book']
-	if current == book_name:
+func set_book_name(book_name) -> bool:
+	if not _ecrire_parametre('current_book', book_name):
 		return false
-	print('PARAMETERS: book_name => %s' % book_name)
-	self.parameters['current_book'] = book_name
-	self._save_parameters()
 	# L'ordre compte : BookData doit contenir le nouveau livre avant que Player
 	# ne recharge la sauvegarde correspondante.
 	self._apply_book()

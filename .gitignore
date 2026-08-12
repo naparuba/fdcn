@@ -1,6 +1,7 @@
 # Godot 4+ specific ignores
 .godot/
-/android/
+/android/*
+!/android/.build_version
 
 # Godot 3 legacy import cache, superseded by .godot/imported/
 .import/

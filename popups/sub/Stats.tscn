@@ -262,23 +262,3 @@ horizontal_alignment = 1
 layout_mode = 2
 size_flags_horizontal = 3
 horizontal_alignment = 1
-
-[node name="PlayerGloire" type="HBoxContainer" parent="VBoxContainer"]
-layout_mode = 2
-
-[node name="PlayerGloireLabel" type="Label" parent="VBoxContainer/PlayerGloire"]
-layout_mode = 2
-size_flags_horizontal = 3
-text = "Gloire:"
-horizontal_alignment = 1
-
-[node name="PlayerGloireValue" type="Label" parent="VBoxContainer/PlayerGloire"]
-layout_mode = 2
-size_flags_horizontal = 3
-text = "XXX"
-horizontal_alignment = 1
-
-[node name="PlayerGloireValueDetail" type="Label" parent="VBoxContainer/PlayerGloire"]
-layout_mode = 2
-size_flags_horizontal = 3
-horizontal_alignment = 1

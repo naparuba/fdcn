@@ -1,6 +1,7 @@
-[gd_scene load_steps=2 format=3 uid="uid://7stcmvicuxim"]
+[gd_scene load_steps=3 format=3 uid="uid://7stcmvicuxim"]
 
 [ext_resource type="PackedScene" uid="uid://cfkcs1clvo2in" path="res://entities/LoreEntry.tscn" id="5_10ojw"]
+[ext_resource type="Script" path="res://screens/lore_menu.gd" id="6_lore"]
 
 [node name="Lore" type="Panel" unique_id=1286280979]
 anchors_preset = 15
@@ -10,174 +11,174 @@ grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 1
 theme_type_variation = &"Carte"
+script = ExtResource("6_lore")
 
-[node name="Header" type="Panel" parent="." unique_id=1426944545]
+[node name="VBox" type="VBoxContainer" parent="."]
 layout_mode = 1
-anchors_preset = 10
+anchors_preset = 15
 anchor_right = 1.0
-offset_bottom = 40.0
+anchor_bottom = 1.0
 grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 0
+
+[node name="Header" type="PanelContainer" parent="VBox" unique_id=1426944545]
+custom_minimum_size = Vector2(0, 40)
+layout_mode = 2
 mouse_filter = 1
 theme_type_variation = &"EnTete"
 
-[node name="Label" type="Label" parent="Header" unique_id=93887115]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
+[node name="HeaderRow" type="HBoxContainer" parent="VBox/Header"]
+layout_mode = 2
+theme_override_constants/separation = 8
+
+[node name="Label" type="Label" parent="VBox/Header/HeaderRow" unique_id=93887115]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 4
 theme_type_variation = &"TitreHeader"
 text = "Le lore"
 horizontal_alignment = 1
-vertical_alignment = 1
 
-[node name="LinkButton" type="LinkButton" parent="Header" unique_id=14284911]
-layout_mode = 1
-anchors_preset = 3
-anchor_left = 1.0
-anchor_top = 1.0
-anchor_right = 1.0
-anchor_bottom = 1.0
-offset_left = -175.0
-offset_top = -19.0
-grow_horizontal = 0
-grow_vertical = 0
+[node name="LinkButton" type="LinkButton" parent="VBox/Header/HeaderRow" unique_id=14284911]
+layout_mode = 2
+size_flags_vertical = 4
 text = "Plus de LORE? Le WIKI!"
 
-[node name="VScrollBar" type="ScrollContainer" parent="." unique_id=1940641642]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-offset_top = 40.0
-grow_horizontal = 2
-grow_vertical = 2
+[node name="VScrollBar" type="ScrollContainer" parent="VBox" unique_id=1940641642]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+horizontal_scroll_mode = 0
 
-[node name="persos" type="VBoxContainer" parent="VScrollBar" unique_id=935091160]
+[node name="persos" type="VBoxContainer" parent="VBox/VScrollBar" unique_id=935091160]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
 
-[node name="BillyGuerrier" parent="VScrollBar/persos" unique_id=1988655031 instance=ExtResource("5_10ojw")]
+[node name="BillyGuerrier" parent="VBox/VScrollBar/persos" unique_id=1988655031 instance=ExtResource("5_10ojw")]
 layout_mode = 2
 titre = "Billy Guerrier"
 
-[node name="BillyPaysan" parent="VScrollBar/persos" unique_id=1361114115 instance=ExtResource("5_10ojw")]
+[node name="BillyPaysan" parent="VBox/VScrollBar/persos" unique_id=1361114115 instance=ExtResource("5_10ojw")]
 layout_mode = 2
 entry_name = "paysan"
 titre = "Billy Paysan"
 
-[node name="BillyPrudent" parent="VScrollBar/persos" unique_id=169444757 instance=ExtResource("5_10ojw")]
+[node name="BillyPrudent" parent="VBox/VScrollBar/persos" unique_id=169444757 instance=ExtResource("5_10ojw")]
 layout_mode = 2
 entry_name = "prudent"
 titre = "Billy Prudent"
 
-[node name="BillyDebrouillard" parent="VScrollBar/persos" unique_id=609916470 instance=ExtResource("5_10ojw")]
+[node name="BillyDebrouillard" parent="VBox/VScrollBar/persos" unique_id=609916470 instance=ExtResource("5_10ojw")]
 layout_mode = 2
 entry_name = "debrouillard"
 titre = "Billy Debrouillard"
 
-[node name="DieuxAtella" parent="VScrollBar/persos" unique_id=710943777 instance=ExtResource("5_10ojw")]
+[node name="DieuxAtella" parent="VBox/VScrollBar/persos" unique_id=710943777 instance=ExtResource("5_10ojw")]
 layout_mode = 2
 type_entry = "dieux"
 entry_name = "atella"
 titre = "Atella"
 
-[node name="DieuxBlathnat" parent="VScrollBar/persos" unique_id=1761508685 instance=ExtResource("5_10ojw")]
+[node name="DieuxBlathnat" parent="VBox/VScrollBar/persos" unique_id=1761508685 instance=ExtResource("5_10ojw")]
 layout_mode = 2
 type_entry = "dieux"
 entry_name = "blathnat"
 titre = "Blathnat"
 
-[node name="DieuxEdire" parent="VScrollBar/persos" unique_id=424421868 instance=ExtResource("5_10ojw")]
+[node name="DieuxEdire" parent="VBox/VScrollBar/persos" unique_id=424421868 instance=ExtResource("5_10ojw")]
 layout_mode = 2
 type_entry = "dieux"
 entry_name = "edire"
 titre = "Edire"
 
-[node name="DieuxMutra" parent="VScrollBar/persos" unique_id=1042205401 instance=ExtResource("5_10ojw")]
+[node name="DieuxMutra" parent="VBox/VScrollBar/persos" unique_id=1042205401 instance=ExtResource("5_10ojw")]
 layout_mode = 2
 type_entry = "dieux"
 entry_name = "mutra"
 titre = "Mutra"
 
-[node name="DieuxMelene" parent="VScrollBar/persos" unique_id=1574162563 instance=ExtResource("5_10ojw")]
+[node name="DieuxMelene" parent="VBox/VScrollBar/persos" unique_id=1574162563 instance=ExtResource("5_10ojw")]
 layout_mode = 2
 type_entry = "dieux"
 entry_name = "melene"
 titre = "Melene"
 
-[node name="DieuxNeit" parent="VScrollBar/persos" unique_id=388036895 instance=ExtResource("5_10ojw")]
+[node name="DieuxNeit" parent="VBox/VScrollBar/persos" unique_id=388036895 instance=ExtResource("5_10ojw")]
 layout_mode = 2
 type_entry = "dieux"
 entry_name = "neit"
 titre = "Neit"
 
-[node name="DieuxNyses" parent="VScrollBar/persos" unique_id=48675644 instance=ExtResource("5_10ojw")]
+[node name="DieuxNyses" parent="VBox/VScrollBar/persos" unique_id=48675644 instance=ExtResource("5_10ojw")]
 layout_mode = 2
 type_entry = "dieux"
 entry_name = "nyses"
 titre = "Nyses"
 
-[node name="DieuxPhumtar" parent="VScrollBar/persos" unique_id=713206129 instance=ExtResource("5_10ojw")]
+[node name="DieuxParodikos" parent="VBox/VScrollBar/persos" instance=ExtResource("5_10ojw")]
+layout_mode = 2
+type_entry = "dieux"
+entry_name = "parodikos"
+titre = "Parodikos"
+
+[node name="DieuxPhumtar" parent="VBox/VScrollBar/persos" unique_id=713206129 instance=ExtResource("5_10ojw")]
 layout_mode = 2
 type_entry = "dieux"
 entry_name = "phumtar"
 titre = "Phumtar"
 
-[node name="DieuxRunir" parent="VScrollBar/persos" unique_id=1657162651 instance=ExtResource("5_10ojw")]
+[node name="DieuxRunir" parent="VBox/VScrollBar/persos" unique_id=1657162651 instance=ExtResource("5_10ojw")]
 layout_mode = 2
 type_entry = "dieux"
 entry_name = "runir"
 titre = "Runir"
 
-[node name="DieuxVetherr" parent="VScrollBar/persos" unique_id=1667707394 instance=ExtResource("5_10ojw")]
+[node name="DieuxVetherr" parent="VBox/VScrollBar/persos" unique_id=1667707394 instance=ExtResource("5_10ojw")]
 layout_mode = 2
 type_entry = "dieux"
 entry_name = "vetherr"
 titre = "Vetherr"
 
-[node name="DieuxVirilus" parent="VScrollBar/persos" unique_id=1661495499 instance=ExtResource("5_10ojw")]
+[node name="DieuxVirilus" parent="VBox/VScrollBar/persos" unique_id=1661495499 instance=ExtResource("5_10ojw")]
 layout_mode = 2
 type_entry = "dieux"
 entry_name = "virilus"
 titre = "Virilus"
 
-[node name="DieuxYtia" parent="VScrollBar/persos" unique_id=855141950 instance=ExtResource("5_10ojw")]
+[node name="DieuxYtia" parent="VBox/VScrollBar/persos" unique_id=855141950 instance=ExtResource("5_10ojw")]
 layout_mode = 2
 type_entry = "dieux"
 entry_name = "ytia"
 titre = "Ytia"
 
-[node name="DieuxZarkan" parent="VScrollBar/persos" unique_id=622574823 instance=ExtResource("5_10ojw")]
+[node name="DieuxZarkan" parent="VBox/VScrollBar/persos" unique_id=622574823 instance=ExtResource("5_10ojw")]
 layout_mode = 2
 type_entry = "dieux"
 entry_name = "zarkan"
 titre = "Zarkan"
 
-[node name="LoreAuthor" type="Panel" parent="." unique_id=2127559868]
-layout_mode = 0
-offset_top = 928.601
-offset_right = 442.0
-offset_bottom = 970.601
+[node name="LoreAuthor" type="PanelContainer" parent="VBox" unique_id=2127559868]
+custom_minimum_size = Vector2(0, 42)
+layout_mode = 2
 mouse_filter = 1
 theme_type_variation = &"EnTete"
 
-[node name="Label" type="Label" parent="LoreAuthor" unique_id=589606896]
-layout_mode = 0
-offset_top = 4.00003
-offset_right = 294.31
-offset_bottom = 35.0
-theme_type_variation = &"TitreHeader"
-text = "Auteur des images:"
-horizontal_alignment = 1
+[node name="AuthorRow" type="HBoxContainer" parent="VBox/LoreAuthor"]
+layout_mode = 2
+theme_override_constants/separation = 8
 
-[node name="LinkButton" type="LinkButton" parent="LoreAuthor" unique_id=984535810]
-layout_mode = 0
-offset_left = 294.31
-offset_top = 3.00002
-offset_right = 384.31
-offset_bottom = 34.0
+[node name="Label" type="Label" parent="VBox/LoreAuthor/AuthorRow" unique_id=589606896]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 4
+theme_type_variation = &"TitreHeader"
+text = "Auteur des images :"
+horizontal_alignment = 2
+
+[node name="LinkButton" type="LinkButton" parent="VBox/LoreAuthor/AuthorRow" unique_id=984535810]
+layout_mode = 2
+size_flags_vertical = 4
 focus_mode = 2
 text = "Draziel"

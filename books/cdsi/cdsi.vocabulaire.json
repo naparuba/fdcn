@@ -1,0 +1,12 @@
+{
+    "compteurs": [
+        {
+            "cle": "rancune",
+            "libelle": "Rancune"
+        },
+        {
+            "cle": "respect",
+            "libelle": "Respect"
+        }
+    ]
+}

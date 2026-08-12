@@ -22,23 +22,6 @@ const BILLY_CATEGORIES := ["ARME", "EQUIPEMENT", "OUTIL"]
 ## Objets donnés à un Billy restauré depuis une sauvegarde antérieure au suivi
 ## des objets.
 ## TODO(review #32): c'est du contenu de livre, sa place est dans books/<nom>/.
-const MIGRATION_GUESS := {
-	"fdcn": {
-		"guerrier": ["EPEE", "LANCE", "MARMITE"],
-		"prudent": ["KIT DE SOIN", "COTTE DE MAILLES", "MARMITE"],
-		"paysan": ["COUTEAU", "KIT D'ESCALADE", "SAC DE GRAINS"],
-		"debrouillard": ["EPEE", "COTTE DE MAILLES", "COUTEAU"],
-		"pegu": [],
-	},
-	"cdsi": {
-		"guerrier": ["SABRE", "LANCE", "SEAU"],
-		"prudent": ["SEAU", "COTTE DE MAILLES", "GUIDE TOURISTIQUE"],
-		"paysan": ["FLEAU A GRAINS", "FILET DE PECHE", "SAC DE GRAINS"],
-		"debrouillard": ["SABRE", "COTTE DE MAILLES", "SAC DE GRAINS"],
-		"pegu": [],
-	},
-}
-
 var possessed_items := []
 
 ## Noms d'objets + type de Billy courant, c'est-à-dire tout ce qu'une condition
@@ -120,12 +103,31 @@ func _guess_after_migration() -> void:
 		print('Playing item chapt in %s' % chapter_id)
 		apply_chapter_items(chapter_id)
 
-	var book_name = AppParameters.get_book_name()
-	var billy_type = AppParameters.get_billy_type()
-	var guessed = MIGRATION_GUESS.get(book_name, {}).get(billy_type, [])
-	for item_name in guessed:
+	for item_name in _migration_items():
 		print('GUESS: %s' % item_name)
 		_raw_add(item_name)
+
+
+## L'équipement supposé d'un Billy de ce type, lu dans `books/<nom>/<nom>.migration_items.json`.
+##
+## C'était une table `MIGRATION_GUESS` en dur ici, alors que **son contenu dépend du livre** :
+## fdcn donne EPEE/LANCE/MARMITE là où cdsi donne SABRE/LANCE/SEAU. Du contenu de livre dans
+## un autoload, c'est-à-dire un endroit qu'un troisième livre aurait obligé à rouvrir.
+##
+## ⚠️ Ce n'est **pas** l'équipement de départ d'une nouvelle partie — celui-là vient des
+## `aquire` du chapitre 1. Ces listes ne servent qu'à deviner ce que portait un joueur dont la
+## sauvegarde est antérieure à la persistance des objets. D'où le nom du fichier.
+##
+## Un livre sans ce fichier ne casse rien : la liste est vide, le joueur repart sans objet
+## devinés (et l'inventaire s'ouvre pour qu'il corrige — `need_force_display_options`).
+func _migration_items() -> Array:
+	var book_name = AppParameters.get_book_name()
+	var chemin = "res://books/%s/%s.migration_items.json" % [book_name, book_name]
+	var data = Utils.load_json_file(chemin)
+	if data == null:
+		push_warning("Inventory: pas de %s, aucun objet deviné" % chemin)
+		return []
+	return data.get(AppParameters.get_billy_type(), [])
 
 
 func _clean_not_existing_items() -> void:

@@ -12,10 +12,16 @@ extends Node
 ## renvoie une seule couche. Toute nouvelle source de stat DOIT passer par un des
 ## helpers `_add_*_stat()`, sinon les trois couches se désynchronisent.
 ##
-## Quelques valeurs sont dynamiques plutôt qu'en couches (pv, cha, gloire, ...) :
+## Quelques valeurs sont dynamiques plutôt qu'en couches (pv, cha, richesse, ...) :
 ## elles ont leurs propres accesseurs et ne font pas partie de BASE_STATS. Parmi
 ## elles, `pv` et `cha` sont des **ressources** — bornées, sauvegardées, et hors du
 ## rejeu d'historique. Voir la section « Ressources ».
+##
+## Les **compteurs** sont la troisième famille : ils s'accumulent au fil des chapitres
+## et ne servent qu'à être lus. `richesse` est le seul commun aux deux livres, donc une
+## variable en dur ; les autres (`gloire` et `info` dans fdcn, `rancune` et `respect`
+## dans cdsi) sont **déclarés par le livre** et vivent dans `_compteurs`. Voir
+## `BookData.counters`.
 
 signal stats_changed
 
@@ -74,9 +80,12 @@ var pv := 0
 var pv_max := 0
 var pv_max_bonus := 0
 var cha := 0
-var gloire := 0
 var richesse := 0
-var nb_infos := 0
+
+## Compteurs déclarés par le livre : clé -> valeur cumulée. Reconstruits par le rejeu
+## de l'historique, comme la couche `chapters` et pour la même raison : leur unique
+## source est `apply_chapter_stat()`.
+var _compteurs := {}
 
 
 func _init() -> void:
@@ -113,14 +122,15 @@ func get_pv_max() -> int:
 func get_cha() -> int:
 	return cha
 
-func get_gloire() -> int:
-	return gloire
-
 func get_richesse() -> int:
 	return richesse
 
-func get_nb_infos() -> int:
-	return nb_infos
+
+## Un compteur déclaré par le livre courant (voir `BookData.get_counters()`). Zéro pour
+## un compteur jamais crédité : la feuille de stats affiche ses lignes dès le premier
+## chapitre, avant que le moindre gain soit tombé.
+func get_compteur(cle: String) -> int:
+	return _compteurs.get(cle, 0)
 
 
 #
@@ -149,9 +159,8 @@ func full_reset() -> void:
 	reset_base()
 	_reset_layer(_chapters)
 	pv_max_bonus = 0
-	nb_infos = 0
-	gloire = 0
 	richesse = 0
+	_compteurs.clear()
 	cha = 0
 	pv = 0
 
@@ -159,20 +168,19 @@ func full_reset() -> void:
 ## Remet à zéro tout ce que les chapitres ont donné, pour pouvoir rejouer un
 ## historique sans compter en double les valeurs du rejeu précédent.
 ##
-## Ça comprend la couche `chapters` **et** les quatre compteurs cumulatifs, qui
-## viennent eux aussi exclusivement des chapitres (`apply_chapter_stat` est leur
-## unique source). Les oublier rendait le rejeu non idempotent : un second
-## `do_load()` — au changement de livre, par exemple — doublait la gloire, la
-## richesse, le nombre d'infos et le bonus de pv max.
+## Ça comprend la couche `chapters` **et** tous les compteurs, qui viennent eux aussi
+## exclusivement des chapitres (`apply_chapter_stat` est leur unique source). Les
+## oublier rendait le rejeu non idempotent : un second `do_load()` — au changement de
+## livre, par exemple — doublait la richesse, les compteurs du livre et le bonus de
+## pv max.
 ##
 ## Les ressources (`pv`, `cha`) ne sont PAS touchées ici : elles viennent de la
 ## sauvegarde, pas du rejeu (voir la section « Ressources »).
 func reset_chapter_layer() -> void:
 	_reset_layer(_chapters)
 	pv_max_bonus = 0
-	nb_infos = 0
-	gloire = 0
 	richesse = 0
+	_compteurs.clear()
 
 
 #
@@ -278,6 +286,99 @@ func _bound_resources_to_ceilings() -> void:
 
 
 #
+#    Notation d'effet
+#
+# La valeur d'une stat de chapitre peut être un NOMBRE ou une CHAÎNE :
+#
+#     "stats": { "pv": 5 }           -> += 5, le sens additif historique
+#     "stats": { "pv": "= max" }     -> affectation au plafond
+#     "stats": { "pv": "= max/4" }   -> au quart du plafond
+#     "stats": { "pv": "= moi/2" }   -> la moitié de la valeur COURANTE
+#     "stats": { "chance": "- max/2" }
+#
+# Un nombre garde donc exactement le sens qu'il avait : les ~200 entrées chiffrées des
+# deux livres n'ont rien à migrer. Une chaîne commence par son opérateur (`=`, `+`, `-`)
+# et porte une expression de deux jetons au plus.
+#
+# ⚠️ `moi` et `max` sont explicites parce qu'ils ne disent PAS la même chose : l'ancien
+# `half_pv` prend la moitié du **courant**, tandis que `pv_1_2_max` dit « max ». Un seul
+# mot-clé pour les deux serait une régression silencieuse.
+#
+# Seules les RESSOURCES acceptent la notation : ce sont les seules valeurs à avoir un
+# plafond, donc un `max`. Une chaîne sur n'importe quelle autre clé est une faute de
+# saisie, et `apply_chapter_stat()` l'annonce.
+
+const _EFFECT_OPS := ["=", "+", "-"]
+const _EFFECT_TOKENS := ["max", "moi"]
+
+## Les mots-clés d'avant la notation, réécrits dedans : `clé du livre -> [ressource,
+## effet]`. Les deux livres les emploient encore (16 occurrences), et ils ne survivent
+## que le temps de migrer la donnée — le moteur, lui, n'a plus qu'un seul chemin
+## d'évaluation.
+const _LEGACY_EFFECTS := {
+	"half_pv": ["pv", "= moi/2"],
+	"max_chance": ["chance", "= max"],
+	"max_pv": ["pv", "= max"],
+}
+
+
+## Ressource -> de quoi évaluer une expression sur elle : sa valeur courante, son
+## plafond, et le setter borné qui pose le résultat.
+func _effect_context(resource_name: String) -> Dictionary:
+	match resource_name:
+		"pv":
+			return {"moi": pv, "max": pv_max, "poser": _set_pv}
+		"chance":
+			return {"moi": cha, "max": get_chance_max(), "poser": _set_chance}
+	return {}
+
+
+## Applique `"= max/4"` & co. à une ressource. Renvoie false si la notation n'a pas de
+## sens pour cette clé ou si l'expression est illisible — à l'appelant d'avertir.
+func _apply_effect(resource_name: String, expression: String) -> bool:
+	var contexte = _effect_context(resource_name)
+	if contexte.is_empty():
+		return false
+	var effet = _parse_effect(expression)
+	if effet.is_empty():
+		return false
+
+	# Division entière, comme toutes les valeurs du livre : la moitié de 7 pv fait 3.
+	var valeur: int = contexte[effet["jeton"]] / effet["diviseur"]
+	var courant: int = contexte["moi"]
+	match effet["op"]:
+		"=":
+			contexte["poser"].call(valeur)
+		"+":
+			contexte["poser"].call(courant + valeur)
+		"-":
+			contexte["poser"].call(courant - valeur)
+	return true
+
+
+## `"= max/4"` -> `{"op": "=", "jeton": "max", "diviseur": 4}`. Dictionnaire vide si
+## l'expression est illisible : mieux vaut un avertissement qu'un effet inventé.
+func _parse_effect(expression: String) -> Dictionary:
+	var nettoye = expression.replace(" ", "")
+	if nettoye.length() < 2 or not (nettoye[0] in _EFFECT_OPS):
+		return {}
+
+	var morceaux = nettoye.substr(1).split("/")
+	if morceaux.size() > 2 or not (morceaux[0] in _EFFECT_TOKENS):
+		return {}
+
+	var diviseur := 1
+	if morceaux.size() == 2:
+		if not morceaux[1].is_valid_int():
+			return {}
+		diviseur = int(morceaux[1])
+		if diviseur <= 0:
+			return {}
+
+	return {"op": nettoye[0], "jeton": morceaux[0], "diviseur": diviseur}
+
+
+#
 #    Écriture
 #
 
@@ -331,33 +432,42 @@ func recompute() -> void:
 func apply_chapter_stat(k: String, v, with_resources := true) -> void:
 	if not with_resources and k in _CHAPTER_RESOURCE_KEYS:
 		return
+	# Avant tout aiguillage par clé : une chaîne est une EXPRESSION, jamais un nombre
+	# (voir « Notation d'effet »). Ce test doit passer devant les stats en couches,
+	# sinon un `"end": "= max/2"` — une faute, l'endurance n'a pas de plafond — irait
+	# additionner une chaîne à un entier au lieu d'être signalé.
+	if typeof(v) == TYPE_STRING:
+		if not _apply_effect(k, v):
+			print('apply_chapter_stat:: effet illisible sur %s: "%s"' % [k, v])
+		return
 	if _CHAPTER_LAYERED_KEYS.has(k):
 		_add_chapter_stat(_CHAPTER_LAYERED_KEYS[k], v)
 		return
 	if k in _CHAPTER_UNMANAGED_KEYS:
 		print('apply_chapter_stat:: %s IS NOT CURRENTLY MANAGED :( )' % k)
 		return
+	# Les mots-clés d'avant la notation, servis par le même évaluateur.
+	if _LEGACY_EFFECTS.has(k):
+		var legacy = _LEGACY_EFFECTS[k]
+		_apply_effect(legacy[0], legacy[1])
+		return
+	# Compteur propre au livre courant : gloire/info dans fdcn, rancune/respect dans
+	# cdsi. Une clé non déclarée tombe dans le `_:` plus bas — c'est ce qui distingue
+	# un compteur d'une faute de saisie.
+	if BookData.is_counter(k):
+		_compteurs[k] = _compteurs.get(k, 0) + int(v)
+		return
 	# Le json rend tous ses nombres en float, d'où les `int()` avant les
 	# ressources, qui sont des entiers bornés.
 	match k:
 		"chance":
 			add_chance(int(v))
-		"gloire":
-			gloire += v
-		"half_pv":
-			_set_pv(pv / 2)
-		"info":
-			nb_infos += v
-		"max_chance":
-			_set_chance(get_chance_max())
-		"max_pv":
-			_set_pv(pv_max)
 		"pv":
 			add_pv(int(v))
 		"pv_max":
-			pv_max_bonus += v
+			pv_max_bonus += int(v)
 		"richesse":
-			richesse += v
+			richesse += int(v)
 		_:
 			print('THE STATS KEY %s is NOT managed ' % k)
 

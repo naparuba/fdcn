@@ -1,9 +1,17 @@
 extends Panel
 ## Page « À propos » : branchement de ses boutons, qui n'étaient reliés à rien.
 ##
-## La scène est encore celle de l'archive — 14 nœuds à position fixe, zéro conteneur
-## (voir `review.md` §3). Ce script se contente de rendre les boutons vivants ; la
-## reconstruction en conteneurs reste à faire (action P3).
+## La scène est reconstruite en conteneurs (2026-08-12) : c'était la dernière de l'app en
+## position absolue pure — 13 `layout_mode = 0`, 65 `offset_*`, zéro conteneur.
+##
+## Deux bugs sont tombés avec la réécriture, tous deux invisibles à la lecture du script :
+##
+## - le bouton Twitter avait une zone cliquable de **145×87 pour un panneau de 27×26**, donc
+##   cinq fois trop grande — on ouvrait Twitter en cliquant à côté ;
+## - `Disclaimer` (y 555→798) **chevauchait** `NotesTxt` (y 461→628).
+##
+## Le texte vit maintenant dans un `ScrollContainer` : il dépassait de l'écran (le dernier
+## libellé finissait à y ≈ 1000 pour une zone d'environ 870) et rien ne permettait d'y accéder.
 
 ## Le texte de confirmation vient de `choice_next_chapiter`, qui offre le même bouton :
 ## une seule formulation pour une seule conséquence.
@@ -15,9 +23,9 @@ const _URL_TWITTER := "https://twitter.com/naparuba"
 
 
 func _ready() -> void:
-	$Actions/Content/NouveauBilly/Button.pressed.connect(_on_nouveau_billy)
-	$Actions/Content/NewBug/Button.pressed.connect(func(): OS.shell_open(_URL_BUG))
-	$About/twitter/Button.pressed.connect(func(): OS.shell_open(_URL_TWITTER))
+	$VBox/Actions/Colonne/Marge/Boutons/NouveauBilly/Button.pressed.connect(_on_nouveau_billy)
+	$VBox/Actions/Colonne/Marge/Boutons/NewBug/Button.pressed.connect(func(): OS.shell_open(_URL_BUG))
+	$VBox/Apropos/Colonne/Header/HeaderRow/twitter/Button.pressed.connect(func(): OS.shell_open(_URL_TWITTER))
 
 
 ## Effacer une partie est la seule action destructrice de l'app : elle passe par la

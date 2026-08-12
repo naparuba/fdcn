@@ -9,6 +9,18 @@ var chapters_by_sub_arc = {}
 
 var secret_node_ids = []
 
+## Les compteurs PROPRES au livre courant, dans l'ordre d'affichage :
+## `[{cle, libelle}, ...]`. Mesuré : fdcn compte `gloire` et `info`, cdsi `rancune` et
+## `respect`, et aucun des deux ne connaît les compteurs de l'autre. Les coder en dur
+## affichait donc une ligne « Gloire: 0 » pour toujours sur cdsi, et y rendait deux
+## compteurs sur trois invisibles.
+##
+## `richesse` n'est **pas** là-dedans : c'est le seul compteur commun aux deux livres
+## (15 occurrences dans fdcn, 13 dans cdsi), il reste une variable en dur de
+## `PlayerStats` avec sa ligne dans la scène des stats.
+var counters = []
+var _counter_keys = []
+
 var all_success = []
 var all_success_chapters = {} # chapter id -> success id
 var all_endings = []
@@ -34,6 +46,10 @@ func do_load_book(book_name):
 	# chapitres de l'ancien livre dont l'identifiant n'existe pas dans le nouveau
 	# resteraient accessibles (et get_chapter_node renverrait les données du
 	# mauvais livre).
+	#
+	# Cette ligne **libère** aussi les instances de l'ancien livre, depuis que
+	# `chapter_data.gd` est un `RefCounted` : c'était un `Node`, jamais ajouté à l'arbre,
+	# donc jamais libéré — ~600 objets fuités par changement de livre.
 	self.all_nodes = {}
 	for node_id_str in all_nodes_json.keys():
 		var chapter_data = chapter_data_cls.new()
@@ -62,6 +78,35 @@ func do_load_book(book_name):
 	# Objects, so we can insert them in the options
 	self.all_objects = Utils.load_json_file(book_path+"-compilated-all-objects.json")
 
+	# Vocabulaire du livre : écrit à la main, pas compilé — le compilateur n'a rien à
+	# en dire, il recopie les clés de stats telles quelles.
+	self._load_vocabulaire(book_path)
+
+
+## Lit `books/<nom>/<nom>.vocabulaire.json` et en tire la liste des compteurs.
+##
+## Un livre sans fichier de vocabulaire n'a **pas** de compteur propre : c'est un
+## avertissement, pas une erreur — le reste du livre s'affiche normalement, seule la
+## feuille de stats est plus courte. Une entrée sans `cle` ou sans `libelle` est ignorée
+## avec son avertissement plutôt que de faire planter la feuille de stats plus tard.
+func _load_vocabulaire(book_path: String) -> void:
+	self.counters = []
+	self._counter_keys = []
+
+	var vocabulaire = Utils.load_json_file(book_path+".vocabulaire.json")
+	if not vocabulaire is Dictionary:
+		push_warning("BookData: pas de vocabulaire pour %s, aucun compteur propre au livre" % book_path)
+		return
+
+	for compteur in vocabulaire.get("compteurs", []):
+		var cle = compteur.get("cle", "") if compteur is Dictionary else ""
+		var libelle = compteur.get("libelle", "") if compteur is Dictionary else ""
+		if cle == "" or libelle == "":
+			push_warning("BookData: compteur incomplet dans le vocabulaire: %s" % [compteur])
+			continue
+		self.counters.append({"cle": cle, "libelle": libelle})
+		self._counter_keys.append(cle)
+
 
 # Called when the node enters the scene tree for the first time.
 func get_all_nodes():
@@ -70,6 +115,18 @@ func get_all_nodes():
 
 func get_all_objects():
 	return self.all_objects
+
+
+## `[{cle, libelle}, ...]` dans l'ordre où la feuille de stats doit les afficher.
+func get_counters() -> Array:
+	return self.counters
+
+
+## Vrai si cette clé de stat de chapitre est un compteur déclaré par le livre courant.
+## C'est ce qui distingue `rancune` (compteur de cdsi) de `critique` (faute de frappe) :
+## le premier est déclaré, le second finit dans l'avertissement de `apply_chapter_stat()`.
+func is_counter(cle) -> bool:
+	return cle in self._counter_keys
 
 
 ## À appeler avant `get_item_data()` quand le nom vient d'une source incertaine.

@@ -1,4 +1,15 @@
-extends Node
+extends RefCounted
+## Lecture seule sur un chapitre compilé : une enveloppe d'accesseurs autour du dictionnaire
+## que `BookData` sort du json.
+##
+## **`RefCounted` et non `Node`.** Ces instances ne sont **jamais ajoutées à l'arbre** —
+## `BookData` en crée une par chapitre avec `.new()` et les garde dans un dictionnaire. Or un
+## `Node` n'est pas compté par référence : vider le dictionnaire n'en libérait aucun, donc
+## chaque changement de livre **fuyait ~600 objets**. En `RefCounted`, ils partent tout seuls
+## quand `BookData.all_nodes` est réinitialisé.
+##
+## Aucune méthode de `Node` n'était utilisée : les 27 fonctions ci-dessous sont toutes des
+## accesseurs de données, et aucun appelant ne traite le résultat comme un nœud.
 
 var _book_data = {}
 # Exemple of book_data entry

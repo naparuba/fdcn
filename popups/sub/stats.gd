@@ -10,6 +10,11 @@ extends Panel
 ## même nombre à deux endroits. Chacune a sa jauge (`ui/ResourceGauge.tscn`) juste
 ## sous sa ligne, encadrée par les boutons − / +. Elles n'ont donc **pas** de label
 ## de valeur : c'est la jauge qui porte le « courant / max ».
+##
+## Les COMPTEURS propres au livre (gloire et info dans fdcn, rancune et respect dans
+## cdsi) ne peuvent pas être dans la scène : leurs lignes sont construites au
+## `_ready()` depuis `BookData.get_counters()`. La scène n'en garde qu'une en dur,
+## `PlayerRichesse` — le seul compteur que les deux livres partagent.
 
 ## Ligne de la scène -> nom de la stat dans PlayerStats.
 const _STAT_ROWS := {
@@ -28,8 +33,16 @@ const _STAT_ROWS := {
 @onready var _cha_moins: Button = $VBoxContainer/ChaBlock/ChaControls/Moins
 @onready var _cha_plus: Button = $VBoxContainer/ChaBlock/ChaControls/Plus
 
+## Clé du compteur -> le Label qui porte sa valeur. Rempli par `_build_counter_rows()`.
+var _counter_values := {}
+
 
 func _ready() -> void:
+	# Avant le premier `_refresh()` : il a besoin des lignes pour les remplir. La
+	# popup réinstancie cette scène à chaque ouverture d'onglet, donc les lignes
+	# suivent toujours le livre courant, sans reconstruction à surveiller.
+	_build_counter_rows()
+
 	# `.bind(1)` explicite le pas : une paire de boutons ±5 se brancherait ici de
 	# la même façon. Le bornage vit dans PlayerStats, marteler un bouton ne peut
 	# pas sortir des limites.
@@ -53,11 +66,37 @@ func _refresh() -> void:
 	_set_detail("PlayerPv", "")
 
 	# Compteurs cumulatifs : ils viennent des chapitres, pas des trois couches, donc
-	# pas de ventilation à afficher. `nb_infos` reste volontairement masqué.
+	# pas de ventilation à afficher.
 	_set_row("PlayerRichesse", PlayerStats.get_richesse(), "")
-	_set_row("PlayerGloire", PlayerStats.get_gloire(), "")
+	for cle in _counter_values:
+		_counter_values[cle].text = "%s" % PlayerStats.get_compteur(cle)
 
 	_refresh_buttons()
+
+
+## Une ligne par compteur déclaré par le livre, à l'image de celles de la scène :
+## trois colonnes de largeur égale, texte centré, la troisième vide (un compteur n'a
+## pas de ventilation à montrer).
+func _build_counter_rows() -> void:
+	for compteur in BookData.get_counters():
+		var row := HBoxContainer.new()
+		row.name = "Compteur%s" % compteur["cle"]
+		row.add_child(_counter_label("%s:" % compteur["libelle"]))
+
+		var value := _counter_label("0")
+		row.add_child(value)
+		row.add_child(_counter_label(""))
+
+		_rows.add_child(row)
+		_counter_values[compteur["cle"]] = value
+
+
+func _counter_label(txt: String) -> Label:
+	var label := Label.new()
+	label.text = txt
+	label.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+	label.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
+	return label
 
 
 ## Un bouton qui ne peut plus rien faire est grisé : à zéro ou au plafond, un

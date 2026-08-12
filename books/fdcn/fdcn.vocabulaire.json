@@ -1,0 +1,12 @@
+{
+    "compteurs": [
+        {
+            "cle": "gloire",
+            "libelle": "Gloire"
+        },
+        {
+            "cle": "info",
+            "libelle": "Informations"
+        }
+    ]
+}

@@ -58,7 +58,10 @@ func test_success_item_stocke_un_entier() -> void:
 	item.update()
 	assert_false(item._get_polygon.color.is_equal_approx(Color('00c2aa')),
 		"le ruban reste gris pour un succès non acquis")
-	item.queue_free()
+	# `free()` et non `queue_free()` : celui-ci diffère à la fin de la frame, or le lanceur
+	# appelle `quit()` juste après le dernier test. Le nœud n'était donc jamais libéré et
+	# comptait comme une fuite dans le bilan de sortie.
+	item.free()
 
 
 func test_chapter_choice_stocke_un_entier() -> void:
@@ -67,4 +70,4 @@ func test_chapter_choice_stocke_un_entier() -> void:
 	choice.set_chapitre(26.0)
 	assert_eq(typeof(choice.chap_number), TYPE_INT, "chap_number est un entier")
 	assert_eq(choice.get_chapter_id(), 26, "valeur conservée")
-	choice.queue_free()
+	choice.free()  # immédiat, pas différé : voir la note du test précédent

@@ -39,9 +39,9 @@ Mesuré le 2026-08-11 sur les 30 scènes vivantes :
 « déjà vu », « fin atteinte », « succès », « secret trouvé », rouge pour le refus. Les
 switches oui/non reprennent le vocabulaire visuel en place.
 
-Deux écritures du même gris traînent dans les scènes : `Color(0.92549, 0.929412, 0.94902, 1)`
-et `Color(0.9254902, 0.92941177, 0.9490196, 1)` (`AventureMenu.tscn`). Même couleur,
-précision différente — à unifier lors de l'action 5.1.
+Les deux écritures du même gris qui traînaient (`0.92549…` et `0.9254902…` dans
+`AventureMenu.tscn`, un écart de 2·10⁻⁷) sont unifiées : les deux nœuds prennent la
+variation `Fond`.
 
 ## Le style principal, et les variations
 
@@ -55,73 +55,82 @@ ligne, et la couleur reste ici :
 theme_type_variation = &"TitreHeader"
 ```
 
-| variation | base | ce que c'est |
-|---|---|---|
-| `TitreHeader` | `Label` | titre blanc posé sur un en-tête navy |
-| `TexteAccent` | `Label` | `#00c2aa` |
-| `TexteAtenue` | `Label` | `#666b70`, texte secondaire |
-| `TexteAppuye` | `Label` | `#4a4f54` |
-| `TexteAlerte` | `Label` | `#ff6b00` |
-| `Carte` | `Panel` | carte blanche, rayon 2 |
-| `Fond` | `Panel` | fond d'application |
-| `EnTete` | `PanelContainer` | bandeau navy |
-| `Encart` | `PanelContainer` | encart gris, rayon 2 |
-| `SwitchOui` / `SwitchNon` | `CheckButton` | vert/rouge, texte blanc — pilotés par `ui/yes_no_switch.gd` |
+| variation | base | ce que c'est | usages |
+|---|---|---|---|
+| `TitreHeader` | `Label` | titre blanc, posé sur un en-tête navy | 16 |
+| `TexteAccent` | `Label` | `#00c2aa` | 15 |
+| `TexteAtenue` | `Label` | `#666b70`, texte secondaire | 10 |
+| `TexteAppuye` | `Label` | `#4a4f54` | 5 |
+| `TexteAlerte` | `Label` | `#ff6b00` | 3 |
+| `Carte` | `Panel` | blanc plein | 14 |
+| `EnTete` | `Panel` | bandeau navy | 12 |
+| `Pastille` | `Panel` | `#ecedf2`, rayon 2 — les boîtes cliquables | 8 |
+| `Ligne` | `Panel` | blanc + bordure basse de 2 — les rangées de liste | 5 |
+| `Fond` | `Panel` | fond d'application `#ecedf2` | 4 |
+| `Encart` | `Panel` | `#e9eaec`, rayon 2 | 3 |
+| `EncartPlat` | `Panel` | `#e9eaec` sans rayon | 2 |
+| `Voile` | `Panel` | `#1e242b` à 59 % — le voile des surcouches | 2 |
+| `SwitchOui` / `SwitchNon` | `CheckButton` | vert/rouge, texte blanc — posées par `ui/yes_no_switch.gd` à l'exécution | 2 |
 
-C'est ce mécanisme qui a retiré **450 surcharges de style**, ramenées à 41 (review §8.3) :
-la scène ne déclare plus qu'un rôle. **99 variations** sont posées dans les 30 scènes.
+C'est ce mécanisme qui a ramené les surcharges de style de **570 à 41** : la scène ne
+déclare plus qu'un rôle. **101 variations** sont posées dans les scènes et les scripts.
+
+⚠️ **Les variations de panneau n'ont aucune marge de contenu, et c'est délibéré.** Elles ont
+été définies pour être *exactement* les styleboxes qu'elles remplacent. Leur donner du
+rembourrage aurait ajouté de l'espace à 50 endroits d'un coup. Une scène qui veut de la marge
+met un `MarginContainer` — c'est l'idiome de l'app.
+
+⚠️ **`base_type = &"Panel"` marche aussi pour un `PanelContainer"`** : la variation est
+consultée avant la classe du nœud, et les deux types lisent le même item `panel`.
 
 ## Ce qui n'est volontairement pas défini
 
-**`Panel/styles/panel`.** Les 41 `Panel` de l'app se répartissent en 38 qui portent leur
-propre stylebox et 3 qui s'appuient sur le défaut de Godot — dont les **deux bandes de
-navigation** (`ui/NavButon.tscn`), qui n'ont qu'un `Polygon2D` par-dessus. Un fond par
-défaut sur `Panel` leur peindrait un bloc visible sur toute la hauteur de l'écran, des
-deux côtés. La carte blanche est donc portée par `PanelContainer` ; un `Panel` qui la
-veut prend la variation `Carte`.
+**`Panel/styles/panel`.** Les deux **bandes de navigation** (`ui/NavButon.tscn`) n'ont qu'un
+`Polygon2D` par-dessus et s'appuient sur le défaut de Godot. Un fond par défaut sur `Panel`
+leur peindrait un bloc visible sur toute la hauteur de l'écran, des deux côtés. La carte
+blanche est donc portée par `PanelContainer` ; un `Panel` qui la veut prend `Carte`.
 
 **Les `constants/separation` des conteneurs.** L'app utilise 6, 8, 4, 2, 12 et 0 selon
 l'endroit ; Godot vaut 4 par défaut. Imposer une valeur déplacerait la mise en page des
-20 conteneurs qui n'en déclarent aucune, sans rien gagner.
+conteneurs qui n'en déclarent aucune, sans rien gagner. Les 85 `separation` et `margin_*`
+qui restent dans les scènes sont de la **mise en page**, pas du style : elles ne partiront
+jamais ici.
 
-**Les `constants/shadow_offset_*`.** 55 `Label` les mettent à 0 pour éteindre une ombre
-héritée de Godot 3. En Godot 4 `font_shadow_color` est déjà transparent, donc ces
-165 lignes ne font rien. Le thème pose explicitement `font_shadow_color` transparent pour
-qu'on puisse les supprimer sans y réfléchir.
+**Les 18 styleboxes que six scripts mutent en place.** Voir `review.md` §1.2 — les retirer
+casserait la coloration des onglets, des blocs de Billy et de l'issue de combat.
 
-## ⚠️ Pourquoi le thème pointe sur le `.ttf` et pas sur `amon_font.tres`
+## ⚠️ Pourquoi le thème pointe sur le `.ttf`, et pas sur un `.tres`
 
 ```
 default_font = res://fonts/RobotoCondensed-Regular.ttf
 default_font_size = 16
 ```
 
-**`fonts/amon_font.tres` ne porte aucune police.** Il déclare `size = 25` et
-`font_data = ...`, qui sont des **noms de propriétés Godot 3** : le `FontFile` de Godot 4
-ne les expose pas. La preuve est dans l'historique du fichier — quand l'éditeur Godot 4 a
-réécrit cette ressource (commit `eabcbbc`), il a produit `fixed_size` et des entrées
-`cache/*`, **sans aucun `font_data`**. Les deux propriétés actuelles ont été remises à la
-main ensuite (`f31b957`).
+`fonts/amon_font.tres` **ne portait aucune police**. Il déclarait `size = 25` et
+`font_data = …`, des **noms de propriétés Godot 3** que le `FontFile` de Godot 4 n'expose
+pas. La preuve était dans l'historique du fichier : quand l'éditeur Godot 4 a réécrit cette
+ressource (commit `eabcbbc`), il a produit `fixed_size` et des entrées `cache/*`, **sans
+aucun `font_data`**.
 
-Ce n'est pas cosmétique, et ça s'est vu tout de suite : **une police vide mesure 0.**
+Ce n'était pas cosmétique — **une police vide mesure 0** :
 
 1. `get_string_size()` renvoie une largeur nulle ;
 2. `Button.get_minimum_size()` dimensionne donc le bouton **comme si son texte était large
    de 0 px** ;
 3. mais le *dessin* passe par la substitution système et produit bien des glyphes ;
-4. ils sont envoyés dans une boîte trop petite → **le texte est rogné au premier
-   caractère**. « Oui » s'affichait « O », ce qui se lit « 0 ».
+4. envoyés dans une boîte trop petite, ils sont **rognés au premier caractère**. « Oui »
+   s'affichait « O », ce qui se lit « 0 ».
 
-Les `Label` ne le montraient pas : ils ont presque tous des ancres ou une taille minimale
-explicite, donc leur largeur ne dépend pas de la mesure du texte. Les boutons, eux, se
-dimensionnent sur leur contenu — d'où un symptôme visible seulement sur eux.
+Les `Label` ne le montraient pas : presque tous ont des ancres ou une taille minimale
+explicite, donc leur largeur ne dépend pas de la mesure du texte. **Seuls les widgets qui se
+dimensionnent sur leur contenu révélaient la panne** — les boutons.
 
-Le thème utilise donc la police **réellement importée**. Cela ne touche que les nœuds qui
-n'avaient aucune police à eux ; les **104 surcharges** qui référencent encore
-`amon_font.tres` ou une de ses coquilles gardent leur situation d'avant, mesure nulle
-comprise. Elles ne sont plus utilisées par personne :
-les 104 surcharges qui les citaient sont parties avec le repli, et les deux `.tres` ont
-rejoint `archive/src/`. Voir `review.md` §8.5.
+**C'est réglé, et pas en réparant la police.** Les 104 surcharges qui la citaient sont
+parties avec le repli : chacun de ces nœuds prend maintenant la police du thème, la vraie.
+`amon_font.tres` et `amon_font_small.tres` n'étaient plus lues que par l'archive → parties
+dans `archive/src/`. `Pancis-Regular` (l'`.otf` **et** le `.ttf`), la police d'origine du
+projet Godot 3, n'était référencée par rien → `archive/unuzed/`. `fonts/` ne contient plus
+que RobotoCondensed.
 
-`default_font_size = 16` vaut le défaut de Godot : c'est la taille effective actuelle,
-écrite explicitement. `amon_font.tres` prétend 25, sans effet.
+`default_font_size = 16` vaut le défaut de Godot : c'est la taille effective, écrite
+explicitement.
