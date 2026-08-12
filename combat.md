@@ -230,13 +230,40 @@ La chance se consomme pour **passer** le combat (Q3, §3.9) : le moteur appelle
 Ils vivent dans le moteur, dans **une seule** table lisible à côté de
 `PlayerStats.BILLY_MODIFIERS` (qui, lui, ne gère que les bonus de stats) :
 
+Énoncé de référence, **corrigé le 2026-08-12** :
+
 | type | effet en combat | où ça s'applique |
 |---|---|---|
 | GUERRIER | +1 dégât infligé | ⚠️ **NE PAS CODER** — voir ci-dessous |
-| PAYSAN | plafonne les dégâts reçus à 3 | tout à la fin du calcul des dégâts reçus |
-| DÉBROUILLARD | relance le dé une fois par assaut | **au choix du joueur** (Q6) : il voit le dé, puis décide |
-| PRUDENT | survit à un coup mortel via un test de Chance | quand les dégâts reçus feraient tomber à 0 |
+| PAYSAN | ne peut pas perdre plus de 3 pv | tout à la fin du calcul des dégâts reçus |
+| DÉBROUILLARD | relance le dé d'attaque et **garde le meilleur** | **au choix du joueur** (Q6) : il voit le dé, puis décide |
+| PRUDENT | dépense de la chance pour **esquiver une attaque** *ou* **esquiver le combat** — et il est le **seul** à pouvoir fuir avec la chance | avant la résolution, sur décision du joueur |
 | PÉGU | aucun | — |
+
+⚠️ **Deux erreurs corrigées ce jour-là, toutes deux dans le sens de l'affaiblissement du
+pouvoir :**
+
+1. **DÉBROUILLARD** — `reroll()` *remplaçait* le dé au lieu de garder le meilleur.
+   Relancer un 6 pouvait donner un 1 : le pouvoir était un pari, pas un avantage.
+   « Meilleur » = le plus haut, sans ambiguïté — sur les 15 écarts de la table un dé plus
+   haut donne **plus de dégâts infligés et moins de dégâts reçus** (vérifié, monotone sur
+   les deux colonnes, et un test le verrouille).
+2. **La fuite était ouverte à tous.** `can_fuir()` exige maintenant le PRUDENT. Les trois
+   autres types doivent livrer l'affrontement, ou passer par « Gagner », l'échappatoire
+   hors-règles.
+
+Et une règle **ajoutée** : l'esquive à la chance du PRUDENT (`can_dodge_with_chance()` /
+`dodge_with_chance()`), à ne pas confondre avec l'esquive à l'ADRESSE (§3.4) — celle-là
+lance un second dé, est ouverte à tous ceux qui ont adr ≥ 2, et **peut rater**. Celle du
+PRUDENT se paie, ne rate jamais, et annule les dégâts reçus sans toucher à ceux qu'on
+infligera. Coût : **1 point de chance**, ⚠️ *hypothèse* — la règle ne le chiffre pas, la
+constante `PRUDENT_COUT_ESQUIVE` est là pour ça.
+
+🔴 **Le jet de survie du PRUDENT (Q14) est en sursis.** Il est conservé tel quel, mais
+l'énoncé ci-dessus ne le mentionne pas : le PRUDENT a donc aujourd'hui **trois** pouvoirs.
+Trois lectures possibles — il reste (le prudent est le survivant), il disparaît, ou il
+devient général (tout Billy tente de survivre). À trancher ; voir la note sur
+`_test_survie_prudent`.
 
 🔴 **Le +1 dégât du GUERRIER est déjà implémenté.** `PlayerStats.BILLY_MODIFIERS` vaut
 `"guerrier": {"hab": 2, "chamax": -1, "deg": 1}` : ce `+1` est déjà dans la couche
@@ -248,7 +275,13 @@ pouvoir de combat, mais le code la traite (correctement) comme un modificateur d
 Même vigilance pour les trois autres : leurs modificateurs de stats sont déjà là
 (`prudent` hab −1 / chamax +2, `paysan` adr −1 / end +2, `debrouillard` adr +2 / end −1).
 Le moteur n'implémente donc **que** ce que la table de stats ne peut pas exprimer : le
-plafond à 3 du PAYSAN, la relance du DÉBROUILLARD, la survie du PRUDENT.
+plafond à 3 du PAYSAN, la relance du DÉBROUILLARD, l'esquive et la fuite à la chance du
+PRUDENT.
+
+⚠️ Conséquence à ne pas oublier en écrivant un test : le `chamax +2` du PRUDENT lui donne
+**5** de chance à neuf, et son `hab −1` **décale l'écart de 1**. Sur le chapitre témoin
+(fdcn 114) l'écart passe de −4 à −3 — les deux tombent dans « Désavantage », donc le coût
+de fuite reste 3, mais ce n'est pas une coïncidence sur laquelle s'appuyer ailleurs.
 
 **La séquence d'un assaut**, une fois Q2 et Q6 tranchés :
 
@@ -283,7 +316,11 @@ points marqués ⚠️.
    base_infligés, base_reçus = table.assauts[écart][dé]
 
 3. RELANCE — DÉBROUILLARD seulement, une fois par assaut, au choix du joueur
-   -> retour à l'étape 2 avec le nouveau dé
+   ⚠️ garde le MEILLEUR des deux dés, il ne remplace pas
+   -> retour à l'étape 2 avec le dé retenu
+3 bis. ESQUIVE À LA CHANCE — PRUDENT seulement, au choix du joueur, avant résolution
+   paie 1 chance, annule les dégâts reçus, ne peut pas rater
+   -> ne relance rien : l'assaut se résout avec le dé déjà en main
 
 4. ESQUIVE — au choix, si adresse > 2. SECOND dé, indépendant.
    dé_esquive == 1        -> CONTRE-ATTAQUE CRITIQUE
@@ -645,7 +682,7 @@ chaque tour, gratuite) : deux mécaniques différentes. Voir Q2.
 | ~~3~~ | ~~`combat_engine.gd` : état, écart borné, situation, `roll()` / `resolve()`~~ ✅ **FAIT** | — |
 | ~~4~~ | ~~Passer le combat (coût en chance selon la situation, §3.9)~~ ✅ **FAIT** | — |
 | ~~5~~ | ~~Armures + critiques + esquive par assaut (second dé)~~ ✅ **FAIT** | — |
-| ~~6~~ | ~~Les pouvoirs de CARACTÈRE~~ ✅ **FAIT** : PAYSAN, DÉBROUILLARD, PRUDENT (Q14 tranchée) | — |
+| ~~6~~ | ~~Les pouvoirs de CARACTÈRE~~ ✅ **FAIT**, puis **corrigé le 2026-08-12** : relance du DÉBROUILLARD qui garde le meilleur, fuite réservée au PRUDENT, esquive à la chance ajoutée (§3.5) | — |
 | 7 | Persistance de l'état de combat (`KEY_COMBAT`) | 3 |
 | ~~8~~ | ~~Tests unitaires du moteur~~ ✅ **FAIT** : `test/unit/test_combat.gd`, 33 tests | — |
 | ~~8bis~~ | ~~Annuler le combat (photo + retour au chapitre d'avant)~~ ✅ **FAIT** côté moteur | — |

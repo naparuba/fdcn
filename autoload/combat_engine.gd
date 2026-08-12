@@ -35,6 +35,13 @@ const ADRESSE_MIN_ESQUIVE := 2
 ## Plafond de dégâts reçus du PAYSAN.
 const PAYSAN_DEGATS_MAX := 3
 
+## Coût en chance d'une esquive du PRUDENT.
+##
+## ⚠️ **Hypothèse** : 1 point par attaque esquivée. La règle dit « peut utiliser la chance
+## pour esquiver une attaque » sans chiffrer le coût. Une seule constante à changer si le
+## livre en demande davantage.
+const PRUDENT_COUT_ESQUIVE := 1
+
 ## Un bloc `combat` dont tous les chiffres valent ça n'est pas un ennemi mais un
 ## marqueur (cdsi ch256 « Mimine ») : on refuse de l'automatiser.
 const SENTINELLE := 99
@@ -61,6 +68,8 @@ var _hab_modifier := 0
 var _de := 0
 var _de_esquive := 0
 var _a_relance := false
+## Le PRUDENT a payé son esquive pour cet assaut. Vrai jusqu'à la résolution.
+var _esquive_chance := false
 
 
 
@@ -263,7 +272,12 @@ func get_fuite_cost() -> int:
 	return int(situation.get("fuite_chance", 0)) if situation else 0
 
 
+## ⚠️ **Réservé au PRUDENT.** « Seul lui peut esquiver les combats avec la chance » : c'est
+## la moitié de son pouvoir, pas une option ouverte à tous. Les trois autres types doivent
+## livrer l'affrontement (ou passer par « Gagner », l'échappatoire hors-règles).
 func can_fuir() -> bool:
+	if AppParameters.get_billy_type() != "prudent":
+		return false
 	return is_running() and PlayerStats.get_cha() >= get_fuite_cost()
 
 
@@ -349,16 +363,48 @@ func can_reroll() -> bool:
 	return _de != 0 and not _a_relance and AppParameters.get_billy_type() == "debrouillard"
 
 
+## ⚠️ **Garde le meilleur des deux dés**, il ne remplace pas. C'est la règle : « relancer le
+## dé d'attaque et garder le meilleur ». La version précédente écrasait le premier jet, ce
+## qui rendait le pouvoir *risqué* au lieu d'être un avantage — relancer un 6 pouvait
+## donner un 1.
+##
+## « Meilleur » = le plus haut, sans ambiguïté : sur les 15 écarts de la table, un dé plus
+## haut donne **plus de dégâts infligés et moins de dégâts reçus** (vérifié, la table est
+## monotone sur les deux colonnes).
 func reroll() -> int:
 	if not can_reroll():
 		return _de
-	_de = dice_roller.call()
+	var second = dice_roller.call()
 	_a_relance = true
+	_de = maxi(_de, second)
 	return _de
 
 
+## Esquive à l'ADRESSE : un second dé, ouvert à tous ceux qui ont adr ≥ 2, et qui **peut
+## rater**. À ne pas confondre avec l'esquive à la chance du PRUDENT juste en dessous.
 func can_dodge() -> bool:
 	return _de != 0 and PlayerStats.get_stat("adr") >= ADRESSE_MIN_ESQUIVE
+
+
+## L'autre moitié du pouvoir du PRUDENT : dépenser de la chance pour annuler les dégâts
+## d'un assaut. Une fois par assaut.
+func can_dodge_with_chance() -> bool:
+	if AppParameters.get_billy_type() != "prudent":
+		return false
+	if not is_running() or _de == 0 or _esquive_chance:
+		return false
+	return PlayerStats.get_cha() >= PRUDENT_COUT_ESQUIVE
+
+
+## La chance est consommée **tout de suite** : le joueur décide avant la résolution, et
+## `resolve()` en tient compte. Contrairement à l'esquive à l'adresse, celle-ci ne peut
+## pas échouer — c'est précisément ce qu'on paie.
+func dodge_with_chance() -> bool:
+	if not can_dodge_with_chance():
+		return false
+	PlayerStats.del_chance(PRUDENT_COUT_ESQUIVE)
+	_esquive_chance = true
+	return true
 
 
 ## Second dé, indépendant de celui de l'assaut. Un échec ne coûte rien, d'où
@@ -380,6 +426,7 @@ func resolve() -> Dictionary:
 		"ecart_brut": get_ecart_brut(),
 		"esquive_tentee": _de_esquive != 0,
 		"esquive_reussie": false,
+		"esquive_chance": false,
 		"critique": false,
 		"degats_infliges": 0,
 		"degats_recus": 0,
@@ -413,6 +460,14 @@ func resolve() -> Dictionary:
 			# Esquive réussie : seuls les dégâts reçus sont annulés.
 			rapport["esquive_reussie"] = true
 			recus = 0
+
+	# L'esquive à la chance du PRUDENT est payée d'avance et ne peut pas rater : elle annule
+	# ce qu'on encaisse, sans rien changer à ce qu'on infligera. Placée après le bloc
+	# d'esquive à l'adresse pour qu'une contre-attaque critique garde tous ses effets.
+	if _esquive_chance:
+		rapport["esquive_chance"] = true
+		rapport["pouvoirs"].append("prudent")
+		recus = 0
 
 	if not ignore_armure:
 		infliges -= _enemy["arm"]
@@ -473,6 +528,14 @@ func resolve() -> Dictionary:
 ## ⚠️ Le jet ne **consomme pas** de chance : tu l'as décrit comme un simple lancer. Si
 ## c'était un « tentez votre chance » classique (qui décrémente), c'est ici et nulle
 ## part ailleurs qu'il faut ajouter `PlayerStats.del_chance(1)`.
+##
+## ⚠️⚠️ **À CONFIRMER (2026-08-12).** Cette règle vient de la question 14 de `combat.md`, où
+## elle a été décrite comme un jet après la mort. L'énoncé des quatre pouvoirs de Billy donné
+## depuis ne la mentionne pas : le PRUDENT y a « la chance pour esquiver une attaque ou le
+## combat », rien de plus. Elle est donc **conservée telle quelle** — supprimer une règle
+## demandée n'est pas à moi de le décider — mais elle donne aujourd'hui **trois** pouvoirs au
+## PRUDENT. Trois lectures possibles : elle reste (il est le survivant), elle disparaît, ou
+## elle devient générale (tout Billy tente de survivre). Un mot suffit.
 func _test_survie_prudent(recus: int, rapport: Dictionary) -> int:
 	if AppParameters.get_billy_type() != "prudent":
 		return recus
@@ -526,3 +589,4 @@ func _clear_dice() -> void:
 	_de = 0
 	_de_esquive = 0
 	_a_relance = false
+	_esquive_chance = false

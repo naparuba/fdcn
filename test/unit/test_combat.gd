@@ -281,28 +281,146 @@ func test_seul_le_debrouillard_peut_relancer() -> void:
 	_forcer_des([2, 5])
 	CombatEngine.roll()
 	assert_true(CombatEngine.can_reroll(), "le débrouillard peut relancer")
-	assert_eq(CombatEngine.reroll(), 5, "le nouveau dé remplace l'ancien")
+	assert_eq(CombatEngine.reroll(), 5, "5 vaut mieux que 2, il le garde")
 	assert_false(CombatEngine.can_reroll(), "une seule relance par assaut")
+
+
+## La règle dit « relancer et **garder le meilleur** » : la relance est un pur bonus, elle
+## ne peut pas empirer le jet. La première version remplaçait le dé, donc relancer un 6
+## pouvait donner un 1 — le pouvoir devenait un risque.
+func test_le_debrouillard_garde_le_meilleur_de_ses_deux_des() -> void:
+	AppParameters.set_billy_type('debrouillard')
+	PlayerStats.recompute()
+	_forcer_des([6, 1])
+	CombatEngine.roll()
+	assert_eq(CombatEngine.reroll(), 6, "la relance est pire : il garde son 6")
+
+
+## Un dé plus haut est meilleur sur les DEUX colonnes de la table, à tous les écarts.
+## C'est ce qui donne son sens à « le meilleur » — sans quoi maximiser serait arbitraire.
+func test_un_de_plus_haut_est_toujours_meilleur() -> void:
+	for ecart in range(-7, 8):
+		var infliges := []
+		var recus := []
+		for de in range(1, 7):
+			# `_cell` est privée par convention ; un test a le droit de la lire, et c'est
+			# la source exacte que la règle « garder le meilleur » interroge.
+			var cellule = CombatEngine._cell(ecart, de)
+			infliges.append(int(cellule[0]))
+			recus.append(int(cellule[1]))
+		var infliges_tries = infliges.duplicate()
+		infliges_tries.sort()
+		var recus_tries = recus.duplicate()
+		recus_tries.sort()
+		recus_tries.reverse()
+		assert_eq(infliges, infliges_tries, "écart %d : dégâts infligés croissants" % ecart)
+		assert_eq(recus, recus_tries, "écart %d : dégâts reçus décroissants" % ecart)
 
 
 #
 #    Fuite et issues
 #
 
+## Prépare un PRUDENT en combat. Son hab −1 fait passer l'écart de −4 à −3, mais les deux
+## sont « Désavantage » : le coût de fuite reste 3. Sa chance, elle, monte à 5 (chamax +2).
+func _devenir_prudent() -> void:
+	AppParameters.set_billy_type('prudent')
+	PlayerStats.recompute()
+
+
 func test_fuir_coute_de_la_chance_selon_la_situation() -> void:
-	# Situation « Désavantage » => 3 points. Un pégu neuf a chamax 3.
+	_devenir_prudent()
 	assert_eq(CombatEngine.get_fuite_cost(), 3, "coût de la situation")
-	assert_true(CombatEngine.can_fuir(), "3 de chance disponibles")
+	assert_eq(PlayerStats.get_cha(), 5, "un prudent neuf a 5 de chance")
+	assert_true(CombatEngine.can_fuir(), "5 de chance pour un coût de 3")
 	assert_true(CombatEngine.fuir(), "la fuite aboutit")
-	assert_eq(PlayerStats.get_cha(), 0, "les 3 points sont dépensés")
+	assert_eq(PlayerStats.get_cha(), 2, "les 3 points sont dépensés")
 	assert_false(CombatEngine.is_running(), "le combat est terminé")
 
 
 func test_on_ne_peut_pas_fuir_sans_assez_de_chance() -> void:
-	PlayerStats.del_chance(3)
+	_devenir_prudent()
+	PlayerStats.del_chance(PlayerStats.get_cha())
 	assert_false(CombatEngine.can_fuir(), "0 de chance, coût 3")
 	assert_false(CombatEngine.fuir(), "la fuite est refusée")
 	assert_true(CombatEngine.is_running(), "le combat continue")
+
+
+## « Seul lui peut esquiver les combats avec la chance. » La fuite n'est pas une option
+## générale : c'est la moitié du pouvoir du PRUDENT.
+func test_seul_le_prudent_peut_fuir_avec_la_chance() -> void:
+	assert_eq(PlayerStats.get_cha(), 3, "un pégu neuf a bien de la chance à dépenser")
+	assert_eq(CombatEngine.get_fuite_cost(), 3, "et le coût est atteignable")
+	assert_false(CombatEngine.can_fuir(), "un pégu ne fuit pas malgré la chance")
+	assert_false(CombatEngine.fuir(), "et l'appel direct est refusé")
+	assert_true(CombatEngine.is_running(), "le combat continue")
+
+	# PAYSAN et DÉBROUILLARD seulement : ils laissent hab et chamax intacts, donc l'écart
+	# reste −4 et la chance reste à 3 ≥ 3. Le refus ne peut venir que du **type**.
+	# Le GUERRIER est exclu exprès : son chamax −1 le mettrait à 2 de chance pour un coût
+	# de 3, et le test passerait pour la mauvaise raison.
+	for type_billy in ['paysan', 'debrouillard']:
+		AppParameters.set_billy_type(type_billy)
+		PlayerStats.recompute()
+		assert_eq(PlayerStats.get_cha(), 3, "%s a de quoi payer" % type_billy)
+		assert_false(CombatEngine.can_fuir(), "%s ne fuit pas non plus" % type_billy)
+
+	_devenir_prudent()
+	assert_true(CombatEngine.can_fuir(), "le prudent, lui, peut")
+
+
+#
+#    Esquive à la chance du PRUDENT
+#
+
+## L'autre moitié de son pouvoir. Écart −3, dé 3 : 2 infligés, 4 reçus. L'esquive annule
+## les 4 reçus **sans** toucher aux 2 infligés — on esquive, on ne renonce pas à frapper.
+func test_le_prudent_esquive_une_attaque_en_payant_de_la_chance() -> void:
+	_devenir_prudent()
+	_forcer_des([3])
+	CombatEngine.roll()
+	assert_true(CombatEngine.can_dodge_with_chance(), "il a la chance qu'il faut")
+	assert_true(CombatEngine.dodge_with_chance(), "l'esquive est payée")
+	assert_eq(PlayerStats.get_cha(), 4, "un point de chance dépensé")
+
+	var r = CombatEngine.resolve()
+	assert_true(r["esquive_chance"], "le rapport le dit")
+	assert_eq(r["degats_recus"], 0, "rien d'encaissé")
+	assert_eq(r["degats_infliges"], 2, "les dégâts infligés sont intacts")
+
+
+## Sans l'esquive, le même assaut fait mal : c'est le témoin du test précédent.
+func test_sans_esquive_le_meme_assaut_blesse() -> void:
+	_devenir_prudent()
+	_forcer_des([3])
+	CombatEngine.roll()
+	var r = CombatEngine.resolve()
+	assert_false(r["esquive_chance"], "aucune esquive payée")
+	assert_eq(r["degats_recus"], 4, "les 4 dégâts de la table passent")
+
+
+func test_seul_le_prudent_esquive_avec_la_chance() -> void:
+	_forcer_des([3])
+	CombatEngine.roll()
+	assert_false(CombatEngine.can_dodge_with_chance(), "un pégu ne peut pas")
+	assert_false(CombatEngine.dodge_with_chance(), "et l'appel direct est refusé")
+
+
+func test_une_seule_esquive_a_la_chance_par_assaut() -> void:
+	_devenir_prudent()
+	_forcer_des([3])
+	CombatEngine.roll()
+	assert_true(CombatEngine.dodge_with_chance(), "la première passe")
+	assert_false(CombatEngine.can_dodge_with_chance(), "pas deux fois sur le même dé")
+	assert_eq(PlayerStats.get_cha(), 4, "un seul point dépensé")
+
+
+func test_l_esquive_a_la_chance_est_refusee_sans_chance() -> void:
+	_devenir_prudent()
+	PlayerStats.del_chance(PlayerStats.get_cha())
+	_forcer_des([3])
+	CombatEngine.roll()
+	assert_false(CombatEngine.can_dodge_with_chance(), "0 de chance, rien à dépenser")
 
 
 func test_la_victoire_part_quand_lennemi_tombe() -> void:

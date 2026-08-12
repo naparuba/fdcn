@@ -55,6 +55,15 @@ func _ready() -> void:
 
 	Inventory.items_changed.connect(_on_items_changed)
 	Inventory.billy_changed.connect(_on_billy_changed)
+	# Les **spoils** décident du nom affiché de chaque objet non possédé
+	# (`Item._can_item_be_shown`), et le réglage est atteignable pendant que l'inventaire
+	# est ouvert : la barre du haut n'est pas recouverte par la popup, qui commence à
+	# y = 48. Sans cet abonnement, la liste restait dans son état précédent.
+	#
+	# Un rafraîchissement par ligne suffit : `get_visible_item_names()` ne regarde pas les
+	# spoils, donc l'ENSEMBLE des lignes ne change pas — seul leur contenu. Reconstruire
+	# les ~200 lignes serait payer une coroutine entière pour rien.
+	AppParameters.settings_changed.connect(_refresh_rows)
 
 	_refresh_billy_blocks()
 	_build_rows()
@@ -82,6 +91,11 @@ func _build_rows() -> void:
 
 
 func _on_items_changed() -> void:
+	_refresh_rows()
+
+
+## Redemande à chaque ligne de se repeindre, sans toucher à la structure de la liste.
+func _refresh_rows() -> void:
 	for item in items_panel.get_children():
 		item.refresh()
 

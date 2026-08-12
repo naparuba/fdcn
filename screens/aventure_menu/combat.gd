@@ -57,6 +57,9 @@ const _ANIM_PAS := 0.05
 @onready var _lancer = $VBoxContainer/Scroll/Margin/Content/ActionsRow/Lancer
 @onready var _relancer = $VBoxContainer/Scroll/Margin/Content/ActionsRow/Relancer
 @onready var _esquiver = $VBoxContainer/Scroll/Margin/Content/ActionsRow/Esquiver
+## Esquive à la chance du PRUDENT — masquée pour les trois autres types, comme « Relancer »
+## l'est hors DÉBROUILLARD : un bouton grisé en permanence n'apprend rien.
+@onready var _esquive_chance = $VBoxContainer/Scroll/Margin/Content/ActionsRow/EsquiveChance
 
 @onready var _journal = $VBoxContainer/Scroll/Margin/Content/Journal
 @onready var _val_de = $VBoxContainer/Scroll/Margin/Content/Journal/Grid/ValDe
@@ -84,12 +87,23 @@ func _ready() -> void:
 	_lancer.pressed.connect(_on_lancer)
 	_relancer.pressed.connect(_on_relancer)
 	_esquiver.pressed.connect(_on_esquiver)
+	_esquive_chance.pressed.connect(_on_esquive_chance)
 	_fuir.pressed.connect(_on_fuir)
 	_annuler.pressed.connect(_on_annuler)
 	_gagner.pressed.connect(_on_gagner)
 
 	CombatEngine.combat_won.connect(func(): _set_etat(Etat.VICTOIRE))
 	CombatEngine.combat_lost.connect(func(): _set_etat(Etat.DEFAITE))
+
+	# « Gagner » ne déclare que son `normal` dans la scène : ses états de survol et
+	# d'enfoncement viennent donc du thème global, en gris neutre. Sans ces deux copies,
+	# survoler le bouton **effacerait le rouge de la défaite** — l'information la plus
+	# importante que ce bouton porte. On duplique une fois pour toutes ; `_styler_gagner`
+	# repeint ensuite les trois états d'un coup.
+	var normal = _gagner.get('theme_override_styles/normal')
+	if normal != null:
+		for etat in ['hover', 'pressed']:
+			_gagner.add_theme_stylebox_override(etat, normal.duplicate())
 
 	_on_chapter_changed(Player.get_current_node_id())
 
@@ -187,8 +201,10 @@ func _peindre(noeud: Control, cle: String, couleur: Color) -> void:
 ## En défaite le bouton devient rouge mais **reste actif** : seul son style dit « mes
 ## calculs disent que tu es mort », jamais « tu n'as pas le droit » (combat.md §3.6).
 func _styler_gagner(fond: Color, texte: Color) -> void:
-	_peindre(_gagner, 'normal', fond)
-	_gagner.add_theme_color_override('font_color', texte)
+	for etat in ['normal', 'hover', 'pressed']:
+		_peindre(_gagner, etat, fond)
+	for cle in ['font_color', 'font_hover_color', 'font_pressed_color']:
+		_gagner.add_theme_color_override(cle, texte)
 
 
 func _refresh_stats() -> void:
@@ -236,6 +252,11 @@ func _refresh_actions() -> void:
 		_lancer.text = "Lancer le dé"
 	_relancer.visible = CombatEngine.can_reroll() and not _anime
 	_esquiver.disabled = _anime or not CombatEngine.can_dodge()
+	# Deux esquives coexistent et ne se confondent pas : celle à l'ADRESSE lance un second
+	# dé et peut rater ; celle du PRUDENT se paie en chance et ne rate jamais. Le coût est
+	# écrit sur le bouton, comme sur « Fuir ».
+	_esquive_chance.visible = CombatEngine.can_dodge_with_chance() and not _anime
+	_esquive_chance.text = "Esquive (%d ch)" % CombatEngine.PRUDENT_COUT_ESQUIVE
 
 	# Le coût en chance est écrit sur le bouton, et sa couleur vient de la scène : jaune
 	# — le jaune de la jauge de chance, pour dire ce qu'on dépense — quand la fuite est
@@ -285,6 +306,15 @@ func _on_esquiver() -> void:
 		return
 	_dice_dodge.visible = true
 	await _animer_de(_dice_dodge_sprite, CombatEngine.roll_dodge(), 'r')
+	_resoudre()
+
+
+## Pas d'animation de dé ici : il n'y a pas de jet. Le PRUDENT paie, l'attaque ne porte
+## pas, et l'assaut se résout immédiatement avec le dé déjà lancé.
+func _on_esquive_chance() -> void:
+	if _anime or not CombatEngine.can_dodge_with_chance():
+		return
+	CombatEngine.dodge_with_chance()
 	_resoudre()
 
 
@@ -340,9 +370,14 @@ func _remplir_journal(rapport: Dictionary) -> void:
 		notes.append("tué avant que son coup ne porte")
 	if rapport['ennemi_suivant']:
 		notes.append("adversaire suivant : %s" % CombatEngine.get_enemy().get("nom", ""))
+	if rapport['esquive_chance']:
+		notes.append("esquive payée en chance, PRUDENT")
 	if 'paysan' in rapport['pouvoirs']:
 		notes.append("plafonné à 3, PAYSAN")
-	if 'prudent' in rapport['pouvoirs']:
+	# `pouvoirs` contient « prudent » pour DEUX règles distinctes — l'esquive payée et le jet
+	# de survie. `de_survie` les sépare : il ne vaut autre chose que 0 que si un dé a
+	# réellement été lancé. Sans ce test, une esquive affichait « survie sur 0 ».
+	if rapport['de_survie'] != 0 and 'prudent' in rapport['pouvoirs']:
 		notes.append("survie sur %d, PRUDENT" % rapport['de_survie'])
 	_journal_note.text = " · ".join(notes)
 	_journal_note.visible = not notes.is_empty()

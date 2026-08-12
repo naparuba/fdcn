@@ -1,7 +1,7 @@
 [gd_scene format=3 uid="uid://l54yt3gtae6v"]
 
-[ext_resource type="FontFile" uid="uid://dvf02ee6hmyyy" path="res://fonts/amon_font.tres" id="1"]
-[ext_resource type="Script" uid="uid://bxmg5k8j310bn" path="res://ui/left_backer.gd" id="3"]
+[ext_resource type="FontFile" uid="uid://dvf02ee6hmyyy" path="res://archive/src/amon_font.tres" id="1"]
+[ext_resource type="Script" uid="uid://bxmg5k8j310bn" path="res://archive/src/left_backer.gd" id="3"]
 
 [sub_resource type="StyleBoxEmpty" id="1"]
 

@@ -1,11 +1,8 @@
-[gd_scene format=3 uid="uid://fpao12pu8jdj"]
+[gd_scene load_steps=4 format=3 uid="uid://fpao12pu8jdj"]
 
 [ext_resource type="Script" uid="uid://dbut7mffbckhf" path="res://popups/sub/book_selection.gd" id="1_t05m3"]
 [ext_resource type="Texture2D" uid="uid://diiwn4pygknip" path="res://images/fdcn_book.jpg" id="2_1ht1s"]
 [ext_resource type="Texture2D" uid="uid://vay5y67r1wo8" path="res://images/cdsi_book.jpg" id="3_gj5ww"]
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_emqs3"]
-bg_color = Color(1, 1, 1, 1)
 
 [node name="BookSelect" type="Panel" unique_id=782383194]
 anchors_preset = 15
@@ -14,7 +11,7 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 1
-theme_override_styles/panel = SubResource("StyleBoxFlat_emqs3")
+theme_type_variation = &"Carte"
 script = ExtResource("1_t05m3")
 
 [node name="VBoxContainer" type="VBoxContainer" parent="." unique_id=980968065]

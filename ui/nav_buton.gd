@@ -11,7 +11,13 @@ extends Panel
 ## On étire le dessin d'origine au lieu de le redessiner : la forme (barre
 ## légèrement biseautée), sa largeur et sa couleur sont conservées telles quelles.
 
-@export var txt: String = 'unset'
+## Libellé écrit verticalement le long de la barre : **le titre de la page où la flèche
+## mène**. `MenuPage` le repose à chaque changement de page (`_refresh_nav_labels`).
+##
+## Vide par défaut, et non `'unset'` comme avant : cette valeur de remplissage s'affichait
+## telle quelle, personne ne branchant le libellé. Vide, une flèche non branchée ne montre
+## que son chevron au lieu d'un mot faux.
+@export var txt: String = ''
 @export var is_disabled: bool = false
 @export var is_mirror: bool = false
 
@@ -53,6 +59,26 @@ func _on_resized() -> void:
 	# flèche droite hors de l'écran dès que la hauteur change.
 	pivot_offset = size / 2.0
 	_fit_poly_to_height()
+	_fit_label_to_bar()
+
+
+## Écrit le libellé **le long** de la barre : une boîte aux dimensions du bouton avec largeur
+## et hauteur **échangées** (960 × 50 au lieu de 50 × 960), centrée sur lui, puis tournée d'un
+## quart de tour autour de son propre centre. Le rectangle tourné retombe alors exactement sur
+## la barre, à toute hauteur d'écran.
+##
+## ⚠️ C'est un correctif, pas une préférence de style. La géométrie d'origine venait de
+## l'éditeur Godot 3 : une boîte de 880 × 40 tournant autour d'un pivot décalé, si bien que le
+## texte atterrissait centré à **x ≈ 54,7** pour une barre large de **50** — 4,7 px À CÔTÉ,
+## donc en blanc sur le fond clair de la page. Le libellé était bien dessiné mais
+## **invisible**, ce qui explique que le texte de remplissage « unset » n'ait jamais été
+## remarqué par personne.
+func _fit_label_to_bar() -> void:
+	var l: Label = $txt
+	l.size = Vector2(size.y, size.x)
+	l.position = (size - l.size) / 2.0
+	l.pivot_offset = l.size / 2.0
+	l.rotation = PI / 2.0
 
 
 ## Étire la barre pour qu'elle couvre exactement la hauteur du bouton.
@@ -68,6 +94,13 @@ func setDisabled(newValue: bool):
 		$poly.color = Color('9ea8b4')
 	else:
 		$poly.color = Color('313b47')
+
+
+## Change le libellé après coup. `$txt` est résolu dès l'instanciation, donc l'appel est sûr
+## même avant `_ready()` — qui repose `txt` de toute façon, la valeur restant cohérente.
+func set_txt(value: String) -> void:
+	txt = value
+	$txt.text = value
 
 
 func setMirror(newValue: bool):

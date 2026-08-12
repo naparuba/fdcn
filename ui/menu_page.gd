@@ -19,6 +19,12 @@ extends Control
 ## que le menu du haut appelle pour aller directement sur un écran.
 @export var page_names: Array[String] = ["aventure", "chapitres", "lore", "succes", "about"]
 
+## Titres **affichés**, dans le même ordre. Séparés de `page_names`, qui sont des clés
+## internes : « succes » est un identifiant, « Succès » est ce que le joueur lit.
+##
+## Ils servent aux libellés des deux flèches, qui annoncent chacune la page où elle mène.
+@export var page_titles: Array[String] = ["Aventure", "Chapitres", "Lore", "Succès", "À propos"]
+
 ## Distance minimale, en pixels, pour qu'un glissement compte comme un balayage.
 @export var swipe_threshold: float = 100.0
 
@@ -29,6 +35,14 @@ var _confirm_scene = preload('res://popups/GenericConfirmationPopup.tscn')
 
 @onready var scene_container = $SceneContainer
 @onready var popup_container = $PopupContainer
+## Les toasts (objet gagné / perdu) vivent dans **leur propre** couche, pas dans
+## `PopupContainer` : celui-ci bloque la navigation tant qu'il a un enfant, et un message
+## qui s'efface au bout de 3 s aurait donc figé les pages pendant 3 s. `mouse_filter = 2`
+## la rend transparente aux clics.
+@onready var toast_layer = $ToastLayer
+
+var _item_popup_scene = preload('res://popups/ItemPopup.tscn')
+var _success_popup_scene = preload('res://popups/SuccessPopup.tscn')
 @onready var _nav_left = $NavLeft
 @onready var _nav_right = $NavRight
 
@@ -36,7 +50,14 @@ var _drag_start_pos: Vector2 = Vector2.ZERO
 var _is_dragging: bool = false
 
 
+## Nom de type de thème sous lequel vivent les deux retraits de cette page. `MenuPage`
+## n'est pas une classe Godot : `get_theme_constant()` accepte un type explicite, donc
+## aucune `theme_type_variation` n'est nécessaire sur le nœud.
+const _TYPE_THEME := "MenuPage"
+
+
 func _ready():
+	_apply_insets()
 	_load_scene(current_index)
 	_nav_left._on_nav_pressed.connect(func(): _change_page(-1))
 	_nav_right._on_nav_pressed.connect(func(): _change_page(1))
@@ -44,6 +65,70 @@ func _ready():
 	# On suit l'ouverture/fermeture des popups pour griser les flèches.
 	popup_container.child_entered_tree.connect(func(_n): _update_nav_state())
 	popup_container.child_exiting_tree.connect(func(_n): _update_nav_state.call_deferred())
+
+	# MenuPage est le seul nœud toujours vivant qui possède une couche d'affichage
+	# par-dessus les pages : c'est donc lui qui montre ce qui doit apparaître quel que
+	# soit l'écran courant.
+	Player.chapter_items_changed.connect(_on_chapter_items_changed)
+	Player.chapter_discovered.connect(_on_chapter_discovered)
+
+
+## Creuse la place des deux flèches latérales et du menu du haut.
+##
+## Ces retraits étaient écrits **quatre fois** en dur dans la scène (les trois `offset_*`
+## de `SceneContainer` et le `offset_top` de `PopupContainer`) : changer la largeur d'une
+## flèche demandait de retrouver les quatre. Ils viennent maintenant du thème, où ils sont
+## déclarés une fois — `MenuPage/constants/inset_nav` et `inset_top`.
+func _apply_insets() -> void:
+	var nav := get_theme_constant("inset_nav", _TYPE_THEME)
+	var haut := get_theme_constant("inset_top", _TYPE_THEME)
+	scene_container.offset_left = nav
+	scene_container.offset_right = -nav
+	scene_container.offset_top = haut
+	popup_container.offset_top = haut
+
+
+#
+#    Annonces : objets gagnés/perdus et nouveaux succès
+#
+
+## Un toast par objet, gagnés d'abord. `ItemPopup` porte son propre `Timer` de 3 s et se
+## libère tout seul — rien à nettoyer ici.
+func _on_chapter_items_changed(acquired: Array, removed: Array) -> void:
+	for item_name in acquired:
+		_toast_item(item_name, true)
+	for item_name in removed:
+		_toast_item(item_name, false)
+
+
+func _toast_item(item_name: String, gagne: bool) -> void:
+	# `get_item_data()` plante sur une clé absente, d'où le test préalable : le nom vient
+	# des données du livre, une coquille y est possible.
+	if not BookData.exists_item_data(item_name):
+		push_warning("MenuPage: objet inconnu dans les données du livre: %s" % item_name)
+		return
+	var item_data = BookData.get_item_data(item_name)
+	var toast = _item_popup_scene.instantiate()
+	toast_layer.add_child(toast)
+	toast.load_item_data(item_name, item_data)
+	toast.set_is_new(gagne)
+
+
+## Un succès ne se fête qu'à la **découverte** du chapitre : `chapter_discovered` ne part
+## qu'à la première visite toutes parties confondues, donc repasser par là ne relance pas
+## la fanfare.
+func _on_chapter_discovered(node_id) -> void:
+	if not BookData.is_success_chapter(node_id):
+		return
+	var success = BookData.get_success_from_chapter(node_id)
+	if success == null:
+		push_warning("MenuPage: chapitre %s marqué succès mais introuvable" % node_id)
+		return
+	# `SuccessPopup` a une racine `Popup`, donc sa propre fenêtre : elle n'a pas besoin
+	# d'un conteneur, mais elle doit être dans l'arbre avant d'être montrée.
+	var popup = _success_popup_scene.instantiate()
+	add_child(popup)
+	popup.update_and_show(success)
 
 
 #
@@ -104,6 +189,28 @@ func _load_scene(index: int):
 		current_scene_instance.queue_free()
 	current_scene_instance = scenes[index].instantiate()
 	scene_container.add_child(current_scene_instance)
+	_refresh_nav_labels()
+
+
+## Chaque flèche annonce **la page où elle mène**. Sans ça le chevron ne dit que le sens, pas
+## la destination — et le joueur doit balayer pour savoir ce qu'il y a à côté.
+func _refresh_nav_labels() -> void:
+	_nav_left.set_txt(_titre_page(current_index - 1))
+	_nav_right.set_txt(_titre_page(current_index + 1))
+
+
+## Titre de la page à cet index, **bouclage compris** : la navigation tourne en rond
+## (`wrapi` dans `_change_page`), donc la flèche gauche de la première page annonce bien la
+## dernière. Repli sur la clé interne si un titre manque, plutôt qu'un libellé vide.
+func _titre_page(index: int) -> String:
+	if scenes.is_empty():
+		return ""
+	var i = wrapi(index, 0, scenes.size())
+	if i < page_titles.size():
+		return page_titles[i]
+	if i < page_names.size():
+		return page_names[i]
+	return ""
 
 
 ## Va directement à la page nommée (voir `page_names`).

@@ -1,4 +1,4 @@
-[gd_scene format=3 uid="uid://dl8om1ckn2xks"]
+[gd_scene load_steps=7 format=3 uid="uid://dl8om1ckn2xks"]
 
 [ext_resource type="Script" uid="uid://bucjm3uly80gx" path="res://popups/sub/inventory.gd" id="1_fspqf"]
 [ext_resource type="Texture2D" uid="uid://dpfh3vylax3qp" path="res://images/billys/guerrier.png" id="2_sar11"]
@@ -7,9 +7,6 @@
 [ext_resource type="Texture2D" uid="uid://b5mcl7hdp84lk" path="res://images/billys/debrouillard.png" id="5_glsjr"]
 [ext_resource type="PackedScene" path="res://entities/Item.tscn" id="6_dqggf"]
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_xv1mr"]
-bg_color = Color(1, 1, 1, 1)
-
 [node name="Inventory" type="Panel" unique_id=1221126853]
 anchors_preset = 15
 anchor_right = 1.0
@@ -17,7 +14,7 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 1
-theme_override_styles/panel = SubResource("StyleBoxFlat_xv1mr")
+theme_type_variation = &"Carte"
 script = ExtResource("1_fspqf")
 
 [node name="HBoxContainer" type="HBoxContainer" parent="." unique_id=1072375197]

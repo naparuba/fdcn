@@ -13,6 +13,16 @@ extends Node
 
 signal chapter_changed(node_id)
 
+## Première visite d'un chapitre, **toutes parties confondues** — pas « nouveau pour ce
+## Billy ». C'est la condition d'un nouveau succès : le revoir ne doit pas re-déclencher la
+## fanfare.
+signal chapter_discovered(node_id)
+
+## Objets réellement gagnés / perdus en arrivant dans un chapitre. Les deux listes sont
+## déjà filtrées par `Inventory` (un objet qu'on possède déjà n'est pas « gagné »), donc un
+## retour en arrière n'émet rien.
+signal chapter_items_changed(acquired, removed)
+
 ## Où en est le lecteur maintenant.
 var current_node_id := 1
 
@@ -234,6 +244,13 @@ func go_to_node(node_id) -> Array:
 		print('%s is a ALREADY VIEW chapter for this billy, NOT updating its stats' % node_id)
 
 	chapter_changed.emit(current_node_id)
+
+	# Après `chapter_changed` : les vues sont déjà repeintes quand les popups arrivent.
+	if is_new_node:
+		chapter_discovered.emit(current_node_id)
+	if not acquired_and_removed[0].is_empty() or not acquired_and_removed[1].is_empty():
+		chapter_items_changed.emit(acquired_and_removed[0], acquired_and_removed[1])
+
 	return [is_new_node, acquired_and_removed[0], acquired_and_removed[1]]
 
 

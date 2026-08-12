@@ -17,6 +17,21 @@ var _ending_choice_scene = preload('res://entities/EndingChoice.tscn')
 
 func _ready() -> void:
 	Player.chapter_changed.connect(_on_chapter_changed)
+	# Le chapitre courant n'est pas la seule entrée de cette liste : les **spoils**
+	# décident quels choix sont affichés (`is_node_id_freely_showable`, plus la décoration
+	# de chaque ligne). Sans cet abonnement, basculer le réglage ne changeait rien jusqu'au
+	# chapitre suivant.
+	#
+	# `settings_changed` est volontairement grossier — il part aussi pour le son ou le type
+	# de Billy. Reconstruire une quinzaine de lignes pour rien est sans conséquence, et
+	# c'est le même compromis que les deux écrans de listes.
+	AppParameters.settings_changed.connect(_rebuild)
+	_on_chapter_changed(Player.get_current_node_id())
+
+
+## Reconstruit la liste pour le chapitre courant, sans changer de chapitre.
+## `set_choices()` vide ses enfants d'abord, donc l'appel est idempotent.
+func _rebuild() -> void:
 	_on_chapter_changed(Player.get_current_node_id())
 
 
@@ -42,17 +57,22 @@ func set_choices(son_ids: Array, secret_jumps: Array) -> void:
 		var son = BookData.get_chapter_node(son_id)
 		var choice = _chapter_choice_scene.instantiate()
 		choice.set_main(self)
-		choice.update_from_son_node(son)
+		# ⚠️ `add_child` AVANT d'alimenter : `ChapterChoice` a rassemblé ses chemins de
+		# nœuds dans des `@onready`, qui ne sont affectés qu'à l'entrée dans l'arbre.
+		# L'ordre inverse leur laisserait la valeur `null`.
 		_choices.add_child(choice)
+		choice.update_from_son_node(son)
 
 
 func add_ending_choice(ending_id, ending_txt: String, ending_type) -> void:
 	var choice = _ending_choice_scene.instantiate()
 	choice.set_main(self)
+	# `add_child` AVANT les setters, même raison que dans `set_choices` : `EndingChoice`
+	# rassemble ses chemins de nœuds dans des `@onready`, nuls hors de l'arbre.
+	_choices.add_child(choice)
 	choice.set_ending_id(ending_id)
 	choice.set_label(ending_txt)
 	choice.set_ending_type(ending_type)
-	_choices.add_child(choice)
 
 
 # ChapterChoice.gd calls self.main.go_to_node(chap_number) on click.

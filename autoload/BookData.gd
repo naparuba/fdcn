@@ -72,10 +72,14 @@ func get_all_objects():
 	return self.all_objects
 
 
-func exists_item_data(item_name):  # for old data migration
-	return self.all_objects.has(item_name)
+## À appeler avant `get_item_data()` quand le nom vient d'une source incertaine.
+func exists_item_data(item_name) -> bool:
+	return self.all_objects != null and self.all_objects.has(item_name)
 
 
+## ⚠️ Plante si l'objet n'existe pas — c'est voulu : les appelants enchaînent sur
+## `.get('stats', {})`, donc renvoyer `null` ne ferait que déplacer l'erreur. Tester avec
+## `exists_item_data()` d'abord.
 func get_item_data(item_name):
 	return self.all_objects[item_name]
 

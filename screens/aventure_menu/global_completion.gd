@@ -1,6 +1,8 @@
 extends PanelContainer
 
-@onready var _gauge = $VBoxContainer/GaugeWrap/GaugeSizer/Gauge
+## Plus de `GaugeSizer` entre les deux : la jauge est passée de `Node2D` à `Control`, un
+## conteneur sait donc la placer lui-même (review §6.1).
+@onready var _gauge = $VBoxContainer/GaugeWrap/Gauge
 @onready var _footnode = $VBoxContainer/footnode
 
 

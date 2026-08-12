@@ -46,8 +46,11 @@ func _ready() -> void:
 	refresh()
 
 
-## La couleur de remplissage d'une `ProgressBar` vient de son thème : on la pose en
-## override, pour ne pas dépendre d'un thème global que l'app n'a pas.
+## La couleur de remplissage d'une `ProgressBar` vient de son thème. Elle reste posée en
+## override ici, et c'est voulu même depuis que `themes/fdcn.tres` existe : la teinte
+## dépend de `kind` (rouge joueur, jaune chance, rouge sombre ennemi), donc elle se décide
+## à l'exécution. Le thème ne définit exprès aucune entrée `ProgressBar`, pour que ces
+## trois couleurs restent la seule source de vérité.
 func _paint_bar(couleur: Color) -> void:
 	var remplissage := StyleBoxFlat.new()
 	remplissage.bg_color = couleur

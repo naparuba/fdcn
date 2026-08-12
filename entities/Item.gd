@@ -57,10 +57,6 @@ func is_enabled():
 	return self._is_enabled
 
 
-#func raw_disable():
-#	$button.pressed = false
-#	self._is_enabled = false
-
 
 func get_category():
 	return self._item_data['category']
@@ -114,7 +110,12 @@ func refresh():
 		_style.set_bg_color(Color('c0ffed'))
 	else:
 		_style.set_bg_color(Color('ffffff'))
-	$Row/button.button_pressed = do_have_item
+	# `set_state` et non une affectation de `button_pressed` : celle-ci émet `toggled`,
+	# donc `refresh()` — un simple rafraîchissement d'affichage — rappelait
+	# `Inventory.add_item_from_options()` pour chaque objet déjà possédé, à chaque
+	# construction de la liste. C'était sans dégât (les deux fonctions sortent tout de
+	# suite si l'état est déjà le bon) mais c'était un aller-retour inutile par ligne.
+	$Row/button.set_state(do_have_item)
 
 
 func _on_button_toggled(button_pressed):

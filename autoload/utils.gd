@@ -48,8 +48,24 @@ func roll_a_dice(minimum, maximum):
 	return roll
 
 
+## Vrai si la **ressource** existe, importée comprise.
+##
+## 🔴 Remplace `FileAccess.file_exists()`, qui était faux pour cet usage. Les 7 appelants
+## testent tous des ressources importées — `images/items/*.svg`, `images/success/*.png`,
+## `sounds/dieux/*.mp3`. Or un export n'embarque **pas** les fichiers sources : seuls les
+## artefacts de `.godot/imported/` partent dans le PCK, et `res://images/items/arc.svg`
+## n'existe plus en tant que fichier. `FileAccess.file_exists()` renvoyait donc **false pour
+## tout** dans un build, ce qui aurait donné l'icône « ? » sur chaque objet, aucune image de
+## succès ni de fin, et aucune voix du Lore.
+##
+## Invisible depuis l'éditeur, où les sources sont encore là : c'est exactement le genre de
+## bug qui ne se découvre qu'au premier export.
+##
+## `ResourceLoader.exists()` suit les remaps `.import`, donc il répond juste dans les deux
+## cas. ⚠️ Il ne convient PAS pour un fichier de `user://` (sauvegardes) : là, c'est bien
+## `FileAccess.file_exists()` qu'il faut, et `SaveManager` l'appelle directement.
 func is_file_exists(path):
-	return FileAccess.file_exists(path)
+	return ResourceLoader.exists(path)
 
 
 ## Remonte l'arbre depuis `node` jusqu'au premier nœud qui expose `method_name`,

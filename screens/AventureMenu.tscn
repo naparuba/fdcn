@@ -1,14 +1,11 @@
-[gd_scene format=3 uid="uid://dbcjbrs57uov0"]
+[gd_scene load_steps=7 format=3 uid="uid://dbcjbrs57uov0"]
 
 [ext_resource type="PackedScene" path="res://screens/aventure_menu/GlobalCompletion.tscn" id="1"]
-[ext_resource type="Script" uid="uid://k14rd1dr6ioa" path="res://screens/aventure_menu.gd" id="1_iepgy"]
+[ext_resource type="Script" uid="uid://cimbnvgc3pw6a" path="res://screens/aventure_menu.gd" id="1_iepgy"]
 [ext_resource type="PackedScene" path="res://screens/aventure_menu/Position.tscn" id="2"]
 [ext_resource type="PackedScene" path="res://screens/aventure_menu/Breadcrumb.tscn" id="3"]
 [ext_resource type="PackedScene" uid="uid://dmy0vxuelkna" path="res://screens/aventure_menu/ChoiceNextChapiter.tscn" id="4"]
 [ext_resource type="PackedScene" uid="uid://drwkdrf2idtp5" path="res://screens/aventure_menu/Combat.tscn" id="5"]
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_n4y2n"]
-bg_color = Color(0.9254902, 0.92941177, 0.9490196, 1)
 
 [node name="AventureMenu" type="Panel" unique_id=475443025]
 anchors_preset = 15
@@ -16,7 +13,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-theme_override_styles/panel = SubResource("StyleBoxFlat_n4y2n")
+theme_type_variation = &"Fond"
 script = ExtResource("1_iepgy")
 
 [node name="VBoxContainer" type="VBoxContainer" parent="." unique_id=1656897926]

@@ -1,6 +1,16 @@
 extends Control
-
-
+## Un chevron du fil d'Ariane : le numéro d'un chapitre visité, cliquable pour y revenir.
+##
+## **Atome de taille fixe** (review §6.3) : les deux `Polygon2D` gardent leurs points, le
+## conteneur ne place que la boîte.
+##
+## ⚠️ La largeur minimale (70) est plus PETITE que le dessin (91) — et c'est voulu : c'est
+## ce débordement qui fait **chevaucher** les chevrons, la queue de l'un passant sous la
+## pointe du suivant. Ne pas « corriger » en la portant à 91, ça déplierait le fil.
+## La hauteur, elle, était à 0 : un conteneur pouvait donc écraser la boîte sous le dessin.
+##
+## Deux `Label` masqués et jamais référencés par ce script traînaient dans la scène
+## (`Label`, `Label2`) : supprimés.
 
 
 

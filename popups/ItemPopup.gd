@@ -1,4 +1,13 @@
 extends Panel
+## Bandeau « objet gagné / perdu », affiché 3 s dans le `ToastLayer` de `MenuPage`.
+##
+## Converti en conteneurs : l'icône était un `Sprite2D`, donc un `Node2D` — **aucun
+## conteneur ne sait placer ça**, faute de `size`. Elle est devenue un `TextureRect`, comme
+## dans `entities/Item.tscn`.
+##
+## La racine reste un `Panel` : son stylebox est **remplacé à l'exécution**, une instance
+## par toast (voir `load_item_data`). Un stylebox partagé venu de la scène repeindrait tous
+## les toasts affichés d'un coup.
 
 var is_new = false
 var _item_name = ''
@@ -17,8 +26,11 @@ func load_item_data(item_name, item_data):
 	self._item_name = item_name
 	self._item_data = item_data
 	#print('Loading item data: %s' % self._item_name)
-	$Nom.text = self._item_name
+	$Row/Nom.text = self._item_name
+	# Un stylebox par instance, avec le rayon 2 des cartes de l'app : la scène ne sert que
+	# d'aperçu d'éditeur puisque celui-ci l'écrase.
 	var new_style = StyleBoxFlat.new()
+	new_style.set_corner_radius_all(2)
 	self.set('theme_override_styles/panel', new_style)
 	# Repli svg -> png, comme `entities/Item.gd` : sans lui, tout objet dont l'icône est un
 	# PNG s'affichait sans image dans cette popup alors qu'il en a une dans l'inventaire.
@@ -41,8 +53,8 @@ func set_is_new(b):
 func refresh():
 	var _style = self.get('theme_override_styles/panel')
 	
-	$Nom.text = self._item_name
-	$sprite.texture = self._item_icon
+	$Row/Nom.text = self._item_name
+	$Row/sprite.texture = self._item_icon
 
 	#print('STYLE: %s' % _style)
 	if self.is_new:

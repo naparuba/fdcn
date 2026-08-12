@@ -30,17 +30,29 @@ func _ready():
 	# seul quand il change, personne n'a besoin de le lui pousser.
 	Inventory.billy_changed.connect(_on_billy_changed)
 
+	# Le logo et le titre viennent de `books/<nom>/` : ils doivent suivre le livre courant.
+	# `set_book_context()` existait déjà mais **personne ne l'appelait** — seule l'archive
+	# le faisait. La scène montrait donc pour toujours le logo de fdcn, celui qu'elle porte
+	# comme aperçu d'éditeur, même après un passage à cdsi.
+	#
+	# L'appel immédiat compte autant que l'abonnement : au démarrage sur cdsi, aucun
+	# `book_changed` ne part (le livre n'a pas *changé*), et la barre resterait sur fdcn.
+	AppParameters.book_changed.connect(func(_nom): set_book_context())
+	set_book_context()
+
 
 func _on_billy_changed(_billy_type) -> void:
 	set_billy()
 
 
 # Tout ce que le menu lit dans les paramètres persistés, dont le type de Billy.
-# `set_pressed_no_signal` : `settings_changed` part souvent PARCE QUE le joueur
-# vient de cliquer un de ces deux interrupteurs, inutile de relancer `toggled`.
+# `set_state` et non `set_pressed_no_signal` : les deux interrupteurs portent
+# `ui/yes_no_switch.gd`, qui doit repeindre sa couleur et son libellé. Le silence est le
+# même — `settings_changed` part souvent PARCE QUE le joueur vient de cliquer l'un des
+# deux, inutile de relancer `toggled` — mais l'affichage suit.
 func _apply_settings() -> void:
-	$Margin/HBoxContainer/Spoil/SpoilButton.set_pressed_no_signal(AppParameters.are_spoils_ok())
-	$Margin/HBoxContainer/Sound/SoundButton.set_pressed_no_signal(AppParameters.is_sound_ok())
+	$Margin/HBoxContainer/Spoil/SpoilButton.set_state(AppParameters.are_spoils_ok())
+	$Margin/HBoxContainer/Sound/SoundButton.set_state(AppParameters.is_sound_ok())
 	set_billy()
 
 func _on_spoil_button_toggled(button_pressed):

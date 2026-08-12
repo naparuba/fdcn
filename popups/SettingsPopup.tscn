@@ -1,15 +1,9 @@
-[gd_scene format=3 uid="uid://d22f4hvbegtpx"]
+[gd_scene load_steps=8 format=3 uid="uid://d22f4hvbegtpx"]
 
 [ext_resource type="Script" uid="uid://bdpkvmdivkpoj" path="res://popups/settings_popup.gd" id="1_poww5"]
 [ext_resource type="Texture2D" uid="uid://pihk1g5c7nwh" path="res://images/backpack.png" id="1_x4vfi"]
 [ext_resource type="Texture2D" uid="uid://dbvlv5bpa6h6y" path="res://images/health.png" id="2_poww5"]
 [ext_resource type="Texture2D" uid="uid://duoi4s0xyj61" path="res://images/book_select.png" id="3_mnro2"]
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_hxjy5"]
-bg_color = Color(1, 1, 1, 1)
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_3fmic"]
-bg_color = Color(0.192157, 0.231373, 0.278431, 1)
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_2ds13"]
 
@@ -25,7 +19,7 @@ anchor_bottom = 1.0
 offset_right = 4.0
 grow_horizontal = 2
 grow_vertical = 2
-theme_override_styles/panel = SubResource("StyleBoxFlat_hxjy5")
+theme_type_variation = &"Carte"
 script = ExtResource("1_poww5")
 
 [node name="Header" type="Panel" parent="." unique_id=1438613454]
@@ -35,7 +29,7 @@ anchor_bottom = 1.0
 offset_right = 99.0
 grow_vertical = 2
 mouse_filter = 1
-theme_override_styles/panel = SubResource("StyleBoxFlat_3fmic")
+theme_type_variation = &"EnTete"
 
 [node name="VBoxContainer" type="VBoxContainer" parent="Header" unique_id=1040864817]
 layout_mode = 1

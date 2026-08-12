@@ -1,4 +1,4 @@
-[gd_scene format=3 uid="uid://dh580xaobsllt"]
+[gd_scene load_steps=2 format=3 uid="uid://dh580xaobsllt"]
 
 [ext_resource type="PackedScene" uid="uid://bewefyuln6tbh" path="res://ui/MenuPage.tscn" id="1_ig7tw"]
 

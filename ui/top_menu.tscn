@@ -1,7 +1,6 @@
-[gd_scene format=3 uid="uid://d0eiddgya32rs"]
+[gd_scene load_steps=23 format=3 uid="uid://d0eiddgya32rs"]
 
 [ext_resource type="Texture2D" uid="uid://c10x4sqcxosio" path="res://images/success.png" id="1"]
-[ext_resource type="FontFile" uid="uid://b2geetcvtgqo5" path="res://fonts/amon_font_small.tres" id="2"]
 [ext_resource type="Texture2D" uid="uid://b04egfbv0kly0" path="res://images/fork.png" id="3"]
 [ext_resource type="Texture2D" uid="uid://pihk1g5c7nwh" path="res://images/backpack.png" id="4"]
 [ext_resource type="Texture2D" uid="uid://bp8v5mqe2jkik" path="res://images/caution.png" id="5"]
@@ -11,19 +10,10 @@
 [ext_resource type="Texture2D" uid="uid://dtdlfmwjc36uy" path="res://images/chapter.png" id="9"]
 [ext_resource type="Script" uid="uid://di1371eojrbf2" path="res://ui/top_menu.gd" id="10"]
 [ext_resource type="Texture2D" uid="uid://bvvtnnta0lgpj" path="res://images/items/backpack.svg" id="11"]
-[ext_resource type="FontFile" uid="uid://c4uf1h6831ei2" path="res://fonts/RobotoCondensed-Regular.ttf" id="12"]
 [ext_resource type="Texture2D" uid="uid://byjyttgwtbh64" path="res://images/options.png" id="13"]
 [ext_resource type="Texture2D" path="res://books/fdcn/logo.png" id="14"]
 [ext_resource type="Texture2D" path="res://books/fdcn/title.png" id="17"]
-
-[sub_resource type="StyleBoxFlat" id="1"]
-bg_color = Color(1, 1, 1, 1)
-
-[sub_resource type="StyleBoxFlat" id="3"]
-bg_color = Color(0.913725, 0.917647, 0.92549, 1)
-
-[sub_resource type="StyleBoxFlat" id="2"]
-bg_color = Color(1, 1, 1, 1)
+[ext_resource type="Script" path="res://ui/yes_no_switch.gd" id="18"]
 
 [sub_resource type="StyleBoxFlat" id="6"]
 bg_color = Color(0.913725, 0.917647, 0.92549, 1)
@@ -37,26 +27,6 @@ bg_color = Color(0.913725, 0.917647, 0.92549, 1)
 [sub_resource type="StyleBoxFlat" id="14"]
 bg_color = Color(0.913725, 0.917647, 0.92549, 1)
 
-[sub_resource type="FontFile" id="7"]
-fallbacks = Array[Font]([ExtResource("12"), ExtResource("12")])
-subpixel_positioning = 0
-msdf_pixel_range = 14
-msdf_size = 128
-cache/0/variation_coordinates = {}
-cache/0/face_index = 0
-cache/0/embolden = 0.0
-cache/0/transform = Transform2D(1, 0, 0, 1, 0, 0)
-cache/0/spacing_top = 0
-cache/0/spacing_bottom = 0
-cache/0/spacing_space = 0
-cache/0/spacing_glyph = 0
-cache/0/baseline_offset = 0.0
-cache/0/16/0/ascent = 0.0
-cache/0/16/0/descent = 0.0
-cache/0/16/0/underline_position = 0.0
-cache/0/16/0/underline_thickness = 0.0
-cache/0/16/0/scale = 1.0
-
 [sub_resource type="StyleBoxFlat" id="8"]
 bg_color = Color(0.913725, 0.917647, 0.92549, 1)
 
@@ -69,16 +39,13 @@ bg_color = Color(0.913725, 0.917647, 0.92549, 1)
 [sub_resource type="StyleBoxFlat" id="11"]
 bg_color = Color(0.913725, 0.917647, 0.92549, 1)
 
-[sub_resource type="StyleBoxFlat" id="15"]
-bg_color = Color(0.913725, 0.917647, 0.92549, 1)
-
 [node name="TopMenu" type="Panel" unique_id=1007437282]
 anchors_preset = 10
 anchor_right = 1.0
 offset_bottom = 48.0
 grow_horizontal = 2
 size_flags_vertical = 0
-theme_override_styles/panel = SubResource("1")
+theme_type_variation = &"Carte"
 script = ExtResource("10")
 
 [node name="Margin" type="MarginContainer" parent="."]
@@ -101,7 +68,7 @@ theme_override_constants/separation = 6
 custom_minimum_size = Vector2(38, 38)
 layout_mode = 2
 size_flags_vertical = 4
-theme_override_styles/panel = SubResource("3")
+theme_type_variation = &"EncartPlat"
 
 [node name="sprite" type="TextureRect" parent="Margin/HBoxContainer/OptionsBtn" unique_id=892049770]
 layout_mode = 2
@@ -262,7 +229,7 @@ layout_mode = 2
 [node name="BlockOptions" type="PanelContainer" parent="Margin/HBoxContainer/Billys" unique_id=724385878]
 custom_minimum_size = Vector2(37, 37)
 layout_mode = 2
-theme_override_styles/panel = SubResource("15")
+theme_type_variation = &"EncartPlat"
 
 [node name="sprite" type="TextureRect" parent="Margin/HBoxContainer/Billys/BlockOptions" unique_id=1066886523]
 layout_mode = 2
@@ -276,11 +243,7 @@ layout_mode = 2
 [node name="BillyTypeLabel" type="Label" parent="Margin/HBoxContainer/Billys" unique_id=242129389]
 layout_mode = 2
 size_flags_vertical = 4
-theme_override_colors/font_color = Color(0, 0.760784, 0.666667, 1)
-theme_override_constants/shadow_offset_x = 0
-theme_override_constants/shadow_offset_y = 0
-theme_override_constants/shadow_outline_size = 0
-theme_override_fonts/font = SubResource("7")
+theme_type_variation = &"TexteAccent"
 text = "Débrouillard"
 
 [node name="Spacer" type="Control" parent="Margin/HBoxContainer"]
@@ -295,11 +258,6 @@ theme_override_constants/separation = 6
 [node name="SpoilLabel" type="Label" parent="Margin/HBoxContainer/Spoil" unique_id=524758399]
 layout_mode = 2
 size_flags_vertical = 4
-theme_override_colors/font_color = Color(0, 0, 0, 1)
-theme_override_constants/shadow_offset_x = 0
-theme_override_constants/shadow_offset_y = 0
-theme_override_constants/shadow_outline_size = 0
-theme_override_fonts/font = ExtResource("2")
 text = "Spoils"
 vertical_alignment = 1
 
@@ -307,7 +265,7 @@ vertical_alignment = 1
 layout_mode = 2
 size_flags_vertical = 4
 focus_mode = 0
-flat = true
+script = ExtResource("18")
 
 [node name="Sound" type="HBoxContainer" parent="Margin/HBoxContainer" unique_id=1714369330]
 layout_mode = 2
@@ -317,18 +275,14 @@ theme_override_constants/separation = 6
 [node name="SoundLabel" type="Label" parent="Margin/HBoxContainer/Sound" unique_id=915585139]
 layout_mode = 2
 size_flags_vertical = 4
-theme_override_colors/font_color = Color(0, 0, 0, 1)
-theme_override_constants/shadow_offset_x = 0
-theme_override_constants/shadow_offset_y = 0
-theme_override_constants/shadow_outline_size = 0
-theme_override_fonts/font = ExtResource("2")
 text = "Voix du Lennon"
 vertical_alignment = 1
 
 [node name="SoundButton" type="CheckButton" parent="Margin/HBoxContainer/Sound" unique_id=897088147]
 layout_mode = 2
 size_flags_vertical = 4
-flat = true
+focus_mode = 0
+script = ExtResource("18")
 
 [connection signal="pressed" from="Margin/HBoxContainer/OptionsBtn/button" to="." method="_on_button_options"]
 [connection signal="pressed" from="Margin/HBoxContainer/Pages/BlockMain/button" to="." method="focus_to_main"]

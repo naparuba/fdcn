@@ -1,4 +1,13 @@
-extends Node2D
+extends Node
+## Lecteur de son unique de l'app, avec cache de chargement.
+##
+## `Node` et `AudioStreamPlayer`, plus `Node2D` / `AudioStreamPlayer2D` : un son d'interface
+## n'a pas de position. Le lecteur 2D appliquait une atténuation et un panoramique selon la
+## coordonnée du nœud — sans effet audible ici puisqu'il restait à l'origine, mais c'était
+## un piège dormant : déplacer le nœud aurait déséquilibré le son.
+##
+## Un seul lecteur, donc **un son à la fois** : `play()` coupe le précédent. C'est voulu —
+## une narration de chapitre ne doit pas se superposer à l'intro d'un livre.
 
 
 var _is_enabled = true  # parameters can change this

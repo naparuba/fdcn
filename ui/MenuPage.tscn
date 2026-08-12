@@ -1,4 +1,4 @@
-[gd_scene format=3 uid="uid://bewefyuln6tbh"]
+[gd_scene load_steps=9 format=3 uid="uid://bewefyuln6tbh"]
 
 [ext_resource type="Script" uid="uid://doo7xyd7xfu8k" path="res://ui/menu_page.gd" id="1_6qgt4"]
 [ext_resource type="PackedScene" uid="uid://b5ropk16ihd1s" path="res://screens/AboutMenu.tscn" id="3_nnrcc"]
@@ -9,9 +9,6 @@
 [ext_resource type="PackedScene" uid="uid://dbcjbrs57uov0" path="res://screens/AventureMenu.tscn" id="6_gkt6k"]
 [ext_resource type="PackedScene" uid="uid://f03y5mpch8wv" path="res://screens/SuccesMenu.tscn" id="7_2aepl"]
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_m6ur5"]
-bg_color = Color(0.92549, 0.929412, 0.94902, 1)
-
 [node name="MenuPage" type="Panel" unique_id=747344229]
 anchors_preset = 15
 anchor_right = 1.0
@@ -19,7 +16,7 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 1
-theme_override_styles/panel = SubResource("StyleBoxFlat_m6ur5")
+theme_type_variation = &"Fond"
 script = ExtResource("1_6qgt4")
 scenes = Array[PackedScene]([ExtResource("6_gkt6k"), ExtResource("4_enyyd"), ExtResource("5_ukqj7"), ExtResource("7_2aepl"), ExtResource("3_nnrcc")])
 
@@ -62,3 +59,20 @@ offset_top = 48.0
 grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
+
+[node name="ToastLayer" type="VBoxContainer" parent="."]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -125.0
+offset_top = -220.0
+offset_right = 125.0
+offset_bottom = -20.0
+grow_horizontal = 2
+grow_vertical = 0
+mouse_filter = 2
+alignment = 2
+theme_override_constants/separation = 4

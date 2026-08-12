@@ -1,82 +1,103 @@
 @tool
-
 extends Panel
-
+## Une fiche du Lore : un portrait, un titre, un bouton qui joue la voix.
+##
+## `@tool` pour que le titre s'affiche **dans l'éditeur** : la page Lore aligne 16 instances
+## qui ne diffèrent que par leurs trois propriétés exportées, et sans ça elles seraient
+## impossibles à distinguer en la composant.
+##
+## MISE EN PAGE — reconstruite en conteneurs (review §6.1). Trois points valent d'être sus :
+##
+## 1. **Les trois `Sprite2D` sont devenus des `TextureRect`.** Un `Sprite2D` est un `Node2D` :
+##    il n'a pas de `size`, donc aucun conteneur ne sait le placer. C'était le vrai blocage
+##    de cette scène.
+## 2. **L'image de 2,7 Mo embarquée dans le `.tscn` a disparu.** Le `Sprite2D` portait une
+##    `ImageTexture` construite sur un `Image` de 320×435 sérialisé en base64 — soit une
+##    copie exacte de `images/billys/guerrier.png`, que la scène référence maintenant. Elle
+##    ne servait que d'aperçu d'éditeur : `_ready()` remplace la texture à l'exécution.
+##    C'était **99 % du poids des scènes du dépôt** (review §11.1).
+## 3. **Le titre et le portrait ne se chevauchent plus.** Le libellé occupait toute la
+##    largeur en absolu, donc il passait par-dessus le haut du portrait. Il est maintenant
+##    au-dessus, dans un `VBoxContainer` : le portrait prend la hauteur qui reste et se
+##    redimensionne avec la carte, sans jamais se déformer (`stretch_mode` en aspect
+##    conservé).
 
 @export var type_entry = 'billys'
 @export var entry_name = 'guerrier'
 @export var titre = 'XXXX'
+
+## ⚠️ Les images et sons des dieux sont rangés par **numéro** de livre
+## (`images/dieux/1/atella.jpg`). C'est le dernier vestige de l'identification par numéro,
+## dont tout le reste de l'app est sorti — le renommage vers `dieux/<nom>/` est l'action 4.7.
+## Quand il sera fait, c'est ici et dans `_on_play_pressed()` qu'il faudra suivre.
 @export var book_number = 1
 
 
 var is_playing = false
 
-# Called when the node enters the scene tree for the first time.
-func _ready():
-	$Label.text = titre
+@onready var _titre: Label = $Marge/Contenu/Titre
+@onready var _image: TextureRect = $Marge/Contenu/Corps/Image
+@onready var _play: TextureRect = $Marge/Contenu/Corps/click/sprite_play
+@onready var _stop: TextureRect = $Marge/Contenu/Corps/click/sprite_stop
+@onready var _player: AudioStreamPlayer = $AudioStreamPlayer
 
+
+func _ready():
+	_titre.text = titre
+
+	# Dans l'éditeur on s'arrête au titre : charger le portrait passerait par `Utils`, un
+	# autoload dont le `_ready()` n'a pas tourné côté éditeur.
 	if Engine.is_editor_hint():
 		return
 
-	var ext = 'png'  # default for billy
-	if type_entry == 'dieux':
-		ext = 'jpg'
-	var pth = 'res://images/%s/'%type_entry
-	if type_entry == 'dieux':
-		pth += '%s/' % self.book_number
-	pth += entry_name
-	pth += '.%s' % ext
+	_image.texture = Utils.load_external_texture(_chemin_image(), null)
 
-	var texture = Utils.load_external_texture(pth, null)
-	$Sprite2D.texture = texture
 
+## `billys/<nom>.png` ou `dieux/<numéro>/<nom>.jpg` — deux rangements, deux extensions.
+func _chemin_image() -> String:
+	if type_entry == 'dieux':
+		return 'res://images/dieux/%d/%s.jpg' % [book_number, entry_name]
+	return 'res://images/%s/%s.png' % [type_entry, entry_name]
+
+
+## Même arborescence que les images, en mp3.
+func _chemin_son() -> String:
+	if type_entry == 'dieux':
+		return 'res://sounds/dieux/%d/%s.mp3' % [book_number, entry_name]
+	return 'res://sounds/%s/%s.mp3' % [type_entry, entry_name]
 
 
 func _set_can_play():
-	var sprite_play = $click/sprite_play
-	var sprite_stop = $click/sprite_stop
 	self.is_playing = false
-	sprite_play.visible = true
-	sprite_stop.visible = false
+	_play.visible = true
+	_stop.visible = false
 
 
 func _set_playing():
-	var sprite_play = $click/sprite_play
-	var sprite_stop = $click/sprite_stop
 	self.is_playing = true
-	sprite_play.visible = false
-	sprite_stop.visible = true
+	_play.visible = false
+	_stop.visible = true
 
 
 func _on_play_pressed():
 	if !Sounder.is_enabled():
 		return
-	var player = $AudioStreamPlayer
 
-	# Play
-	if ! self.is_playing:
-		var pth = ''
-		if type_entry == 'dieux':
-			pth = 'res://sounds/%s/' % type_entry
-			pth += '%s/' % self.book_number
-		else:
-			pth = 'res://sounds/%s/' % type_entry
-		pth += entry_name
-		pth += '.mp3'
-		print('FULL PATH: %s' % pth)
-		var sound = load(pth)
-		print('%s is load '% sound, 'for ', entry_name)
-		
-		player.stream = sound
-		player.play()
-		self._set_playing()
+	if self.is_playing:
+		_player.stop()
+		_set_can_play()
+		return
 
-	else:  #STOP
-		#Sounder.stop()  # need a callback system
-		player.stop()
-		self._set_can_play()
-
+	# `load()` planterait sur un fichier absent, et il en manque (tous les dieux n'ont pas
+	# leur voix) : on vérifie avant, et on ne bascule l'icône que si le son existe.
+	var pth = _chemin_son()
+	if not Utils.is_file_exists(pth):
+		push_warning("LoreEntry: pas de son pour %s (%s)" % [entry_name, pth])
+		return
+	_player.stream = load(pth)
+	_player.play()
+	_set_playing()
 
 
 func _on_AudioStreamPlayer_finished():
-	self._set_can_play()
+	_set_can_play()

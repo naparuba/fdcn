@@ -1,67 +1,59 @@
-extends Node2D
+extends Control
+## Jauge circulaire : un disque dont une couronne montre la progression, avec le
+## pourcentage écrit au centre.
+##
+## **`Control` et non `Node2D`** — un conteneur ne sait pas placer un `Node2D`, qui n'a
+## pas de `size`. `GlobalCompletion.tscn` contournait avec un `GaugeSizer` : un `Control`
+## de 100×100 dans lequel la jauge était posée à `position = (50, 50)`, soit son centre
+## calculé à la main. Le rayon se déduit maintenant de la boîte, et le contournement a
+## disparu.
+##
+## Politique des widgets à polygones (review §6.3, tranchée le 2026-08-12) : **atome de
+## taille fixe**. Ici le dessin est déjà paramétrique, donc la jauge fait mieux que le
+## contrat — elle suit sa boîte — mais elle garde une taille minimale pour ne jamais être
+## écrasée par un conteneur trop serré.
+
+const _NB_POINTS := 64
+
+## Épaisseur de la couronne, en pixels. Un ratio ferait maigrir la couronne sur une petite
+## jauge et l'épaissirait sur une grande : ce sont des pixels, comme les pentes des rubans.
+const _EPAISSEUR := 10.0
+
+var inside_color := Color('313b47')
+var outside_color := Color('01bcdb')
+
+var _value_pct := 0.25
+
+@onready var _label: Label = $label
 
 
-# Declare member variables here. Examples:
-# var a = 2
-# var b = "text"
-@onready var label_value = $label
+func _ready() -> void:
+	# Le rayon dépend de `size` : sans ce redessin, la jauge garderait celui qu'elle avait
+	# au premier affichage, avant que le conteneur ne l'ait dimensionnée.
+	resized.connect(queue_redraw)
 
 
-var radius = 50
-var inside_color = Color('313b47')
-var outside_color = Color('01bcdb')
-var angle_to = 90
-var value_pct = 0.25
-
-# Called when the node enters the scene tree for the first time.
-func _ready():
-	pass
-	
-func set_parameters(color, radius, value_pct):
-	self.radius = radius
-	self.color = color
-	self.angle_to = 360 * value_pct
+func set_value(value_pct: float) -> void:
+	_value_pct = clampf(value_pct, 0.0, 1.0)
+	_label.text = '%d%%' % int(100.0 * _value_pct)
+	queue_redraw()
 
 
-func set_value(value_pct):
-	#print('Gauge: set value to %s' % value_pct)
-	self.angle_to = 360 * value_pct
-	self.label_value.text = '%s%%' % int(100*value_pct)
-	
-
-func _draw_inside(center, radius):
-	var nb_points = 64
-	var points_arc = PackedVector2Array()
-	points_arc.push_back(center)
-	var colors = PackedColorArray([self.inside_color])
-
-	for i in range(nb_points + 1):
-		var angle_point = deg_to_rad(0 + i * (360 ) / nb_points - 90)
-		points_arc.push_back(center + Vector2(cos(angle_point), sin(angle_point)) * radius)
-	draw_polygon(points_arc, colors)
+func _draw() -> void:
+	var centre := size / 2.0
+	var rayon := minf(size.x, size.y) / 2.0
+	_secteur(centre, rayon, 360.0 * _value_pct, outside_color)
+	_secteur(centre, rayon - _EPAISSEUR, 360.0, inside_color)
 
 
-func _draw():
-	#print("PRINT CIRCLE")
-	var center = Vector2(0, 0)
-	#var radius = 60
-	var angle_from = 0
-	#var angle_to = 195
-	#var color = Color('313b47')
-	
-	var nb_points = 64
-	var points_arc = PackedVector2Array()
-	points_arc.push_back(center)
-	var colors = PackedColorArray([self.outside_color])
-
-	for i in range(nb_points + 1):
-		var angle_point = deg_to_rad(angle_from + i * (angle_to - angle_from) / nb_points - 90)
-		points_arc.push_back(center + Vector2(cos(angle_point), sin(angle_point)) * radius)
-	draw_polygon(points_arc, colors)
-
-	self._draw_inside(center, radius-10)
-
-
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-#func _process(delta):
-#	pass
+## Un secteur circulaire partant du haut (−90°), dessiné en éventail de triangles.
+## Rayon négatif ou nul : on ne dessine rien plutôt que de produire un polygone retourné.
+func _secteur(centre: Vector2, rayon: float, angle: float, couleur: Color) -> void:
+	if rayon <= 0.0:
+		return
+	var points := PackedVector2Array()
+	points.push_back(centre)
+	for i in _NB_POINTS + 1:
+		var a := deg_to_rad(i * angle / _NB_POINTS - 90.0)
+		points.push_back(centre + Vector2(cos(a), sin(a)) * rayon)
+	draw_polygon(points, PackedColorArray([couleur]))

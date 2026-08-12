@@ -1,8 +1,6 @@
-[gd_scene format=3 uid="uid://drwkdrf2idtp5"]
+[gd_scene load_steps=12 format=3 uid="uid://drwkdrf2idtp5"]
 
 [ext_resource type="Script" uid="uid://c65x3rxdol5ig" path="res://screens/aventure_menu/combat.gd" id="1"]
-[ext_resource type="FontFile" uid="uid://dvf02ee6hmyyy" path="res://fonts/amon_font.tres" id="2"]
-[ext_resource type="FontFile" uid="uid://b2geetcvtgqo5" path="res://fonts/amon_font_small.tres" id="3"]
 [ext_resource type="Texture2D" uid="uid://dxfxupfx0yafp" path="res://images/fight.svg" id="4"]
 [ext_resource type="Texture2D" uid="uid://qwx2iu4l5rff" path="res://images/dice/6-r.svg" id="5"]
 [ext_resource type="Texture2D" uid="uid://bpvcmsy4jd0xl" path="res://images/barbare_icon_white.png" id="6"]
@@ -12,23 +10,6 @@
 bg_color = Color(1, 1, 1, 1)
 border_width_top = 3
 border_color = Color(0.192157, 0.231373, 0.278431, 1)
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_header"]
-bg_color = Color(0.192157, 0.231373, 0.278431, 1)
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_dice"]
-bg_color = Color(0.913725, 0.917647, 0.92549, 1)
-corner_radius_top_left = 2
-corner_radius_top_right = 2
-corner_radius_bottom_right = 2
-corner_radius_bottom_left = 2
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ecart"]
-bg_color = Color(0.913725, 0.917647, 0.92549, 1)
-corner_radius_top_left = 3
-corner_radius_top_right = 3
-corner_radius_bottom_right = 3
-corner_radius_bottom_left = 3
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_issue"]
 bg_color = Color(0.913725, 0.917647, 0.92549, 1)
@@ -82,23 +63,23 @@ layout_mode = 2
 [node name="Header" type="PanelContainer" parent="VBoxContainer" unique_id=1563555775]
 custom_minimum_size = Vector2(0, 34)
 layout_mode = 2
-theme_override_styles/panel = SubResource("StyleBoxFlat_header")
+theme_type_variation = &"EnTete"
 
 [node name="HeaderRow" type="HBoxContainer" parent="VBoxContainer/Header"]
 layout_mode = 2
 theme_override_constants/separation = 8
 
 [node name="Label" type="Label" parent="VBoxContainer/Header/HeaderRow" unique_id=1685912177]
+theme_type_variation = &"TitreHeader"
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 4
-theme_override_fonts/font = ExtResource("3")
 text = "Combat"
 
 [node name="Tour" type="Label" parent="VBoxContainer/Header/HeaderRow"]
+theme_type_variation = &"TitreHeader"
 layout_mode = 2
 size_flags_vertical = 4
-theme_override_fonts/font = ExtResource("3")
 text = "tour 1"
 
 [node name="Scroll" type="ScrollContainer" parent="VBoxContainer"]
@@ -134,11 +115,7 @@ stretch_mode = 5
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 4
-theme_override_colors/font_color = Color(0, 0.760784, 0.666667, 1)
-theme_override_constants/shadow_offset_x = 0
-theme_override_constants/shadow_offset_y = 0
-theme_override_constants/shadow_outline_size = 0
-theme_override_fonts/font = ExtResource("2")
+theme_type_variation = &"TexteAccent"
 text = "XXX"
 autowrap_mode = 3
 
@@ -159,11 +136,6 @@ stretch_mode = 5
 [node name="PyroHab" type="Label" parent="VBoxContainer/Scroll/Margin/Content/NomRow/PyroRow"]
 layout_mode = 2
 size_flags_vertical = 4
-theme_override_colors/font_color = Color(0, 0, 0, 1)
-theme_override_constants/shadow_offset_x = 0
-theme_override_constants/shadow_offset_y = 0
-theme_override_constants/shadow_outline_size = 0
-theme_override_fonts/font = ExtResource("2")
 text = "+0"
 
 [node name="EnemyGauge" parent="VBoxContainer/Scroll/Margin/Content" instance=ExtResource("10")]
@@ -180,115 +152,94 @@ columns = 5
 [node name="ColVide" type="Label" parent="VBoxContainer/Scroll/Margin/Content/StatsGrid"]
 layout_mode = 2
 size_flags_horizontal = 3
-theme_override_fonts/font = ExtResource("3")
 
 [node name="HeadHab" type="Label" parent="VBoxContainer/Scroll/Margin/Content/StatsGrid"]
 layout_mode = 2
 size_flags_horizontal = 3
-theme_override_colors/font_color = Color(0.4, 0.42, 0.44, 1)
-theme_override_fonts/font = ExtResource("3")
+theme_type_variation = &"TexteAtenue"
 text = "hab"
 horizontal_alignment = 1
 
 [node name="HeadArm" type="Label" parent="VBoxContainer/Scroll/Margin/Content/StatsGrid"]
 layout_mode = 2
 size_flags_horizontal = 3
-theme_override_colors/font_color = Color(0.4, 0.42, 0.44, 1)
-theme_override_fonts/font = ExtResource("3")
+theme_type_variation = &"TexteAtenue"
 text = "arm"
 horizontal_alignment = 1
 
 [node name="HeadDeg" type="Label" parent="VBoxContainer/Scroll/Margin/Content/StatsGrid"]
 layout_mode = 2
 size_flags_horizontal = 3
-theme_override_colors/font_color = Color(0.4, 0.42, 0.44, 1)
-theme_override_fonts/font = ExtResource("3")
+theme_type_variation = &"TexteAtenue"
 text = "dég"
 horizontal_alignment = 1
 
 [node name="HeadAdr" type="Label" parent="VBoxContainer/Scroll/Margin/Content/StatsGrid"]
 layout_mode = 2
 size_flags_horizontal = 3
-theme_override_colors/font_color = Color(0.4, 0.42, 0.44, 1)
-theme_override_fonts/font = ExtResource("3")
+theme_type_variation = &"TexteAtenue"
 text = "adr"
 horizontal_alignment = 1
 
 [node name="LabelLui" type="Label" parent="VBoxContainer/Scroll/Margin/Content/StatsGrid"]
 layout_mode = 2
 size_flags_horizontal = 3
-theme_override_colors/font_color = Color(0.290196, 0.309804, 0.329412, 1)
-theme_override_fonts/font = ExtResource("3")
+theme_type_variation = &"TexteAppuye"
 text = "Ennemi"
 
 [node name="LuiHab" type="Label" parent="VBoxContainer/Scroll/Margin/Content/StatsGrid"]
 layout_mode = 2
 size_flags_horizontal = 3
-theme_override_colors/font_color = Color(0, 0, 0, 1)
-theme_override_fonts/font = ExtResource("2")
 text = "0"
 horizontal_alignment = 1
 
 [node name="LuiArm" type="Label" parent="VBoxContainer/Scroll/Margin/Content/StatsGrid"]
 layout_mode = 2
 size_flags_horizontal = 3
-theme_override_colors/font_color = Color(0, 0, 0, 1)
-theme_override_fonts/font = ExtResource("2")
 text = "0"
 horizontal_alignment = 1
 
 [node name="LuiDeg" type="Label" parent="VBoxContainer/Scroll/Margin/Content/StatsGrid"]
 layout_mode = 2
 size_flags_horizontal = 3
-theme_override_colors/font_color = Color(0, 0, 0, 1)
-theme_override_fonts/font = ExtResource("2")
 text = "0"
 horizontal_alignment = 1
 
 [node name="LuiAdr" type="Label" parent="VBoxContainer/Scroll/Margin/Content/StatsGrid"]
+theme_type_variation = &"TexteAtenue"
 layout_mode = 2
 size_flags_horizontal = 3
 theme_override_colors/font_color = Color(0.6, 0.62, 0.64, 1)
-theme_override_fonts/font = ExtResource("2")
 text = "-"
 horizontal_alignment = 1
 
 [node name="LabelMoi" type="Label" parent="VBoxContainer/Scroll/Margin/Content/StatsGrid"]
 layout_mode = 2
 size_flags_horizontal = 3
-theme_override_colors/font_color = Color(0.290196, 0.309804, 0.329412, 1)
-theme_override_fonts/font = ExtResource("3")
+theme_type_variation = &"TexteAppuye"
 text = "Billy"
 
 [node name="MoiHab" type="Label" parent="VBoxContainer/Scroll/Margin/Content/StatsGrid"]
 layout_mode = 2
 size_flags_horizontal = 3
-theme_override_colors/font_color = Color(0, 0, 0, 1)
-theme_override_fonts/font = ExtResource("2")
 text = "0"
 horizontal_alignment = 1
 
 [node name="MoiArm" type="Label" parent="VBoxContainer/Scroll/Margin/Content/StatsGrid"]
 layout_mode = 2
 size_flags_horizontal = 3
-theme_override_colors/font_color = Color(0, 0, 0, 1)
-theme_override_fonts/font = ExtResource("2")
 text = "0"
 horizontal_alignment = 1
 
 [node name="MoiDeg" type="Label" parent="VBoxContainer/Scroll/Margin/Content/StatsGrid"]
 layout_mode = 2
 size_flags_horizontal = 3
-theme_override_colors/font_color = Color(0, 0, 0, 1)
-theme_override_fonts/font = ExtResource("2")
 text = "0"
 horizontal_alignment = 1
 
 [node name="MoiAdr" type="Label" parent="VBoxContainer/Scroll/Margin/Content/StatsGrid"]
 layout_mode = 2
 size_flags_horizontal = 3
-theme_override_colors/font_color = Color(0, 0, 0, 1)
-theme_override_fonts/font = ExtResource("2")
 text = "0"
 horizontal_alignment = 1
 
@@ -299,7 +250,7 @@ theme_override_constants/separation = 10
 [node name="EcartPanel" type="PanelContainer" parent="VBoxContainer/Scroll/Margin/Content/MidRow"]
 layout_mode = 2
 size_flags_horizontal = 3
-theme_override_styles/panel = SubResource("StyleBoxFlat_ecart")
+theme_type_variation = &"Encart"
 
 [node name="EcartMargin" type="MarginContainer" parent="VBoxContainer/Scroll/Margin/Content/MidRow/EcartPanel"]
 layout_mode = 2
@@ -319,14 +270,11 @@ theme_override_constants/separation = 8
 [node name="EcartTitre" type="Label" parent="VBoxContainer/Scroll/Margin/Content/MidRow/EcartPanel/EcartMargin/EcartBox/EcartRow"]
 layout_mode = 2
 size_flags_vertical = 4
-theme_override_colors/font_color = Color(0.290196, 0.309804, 0.329412, 1)
-theme_override_fonts/font = ExtResource("3")
+theme_type_variation = &"TexteAppuye"
 text = "Écart:"
 
 [node name="Ecart" type="Label" parent="VBoxContainer/Scroll/Margin/Content/MidRow/EcartPanel/EcartMargin/EcartBox/EcartRow"]
 layout_mode = 2
-theme_override_colors/font_color = Color(0, 0, 0, 1)
-theme_override_fonts/font = ExtResource("2")
 theme_override_font_sizes/font_size = 26
 text = "0"
 
@@ -334,23 +282,20 @@ text = "0"
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 4
-theme_override_colors/font_color = Color(0.290196, 0.309804, 0.329412, 1)
-theme_override_fonts/font = ExtResource("3")
+theme_type_variation = &"TexteAppuye"
 text = "Egalite"
 autowrap_mode = 3
 
 [node name="Detail" type="Label" parent="VBoxContainer/Scroll/Margin/Content/MidRow/EcartPanel/EcartMargin/EcartBox"]
 layout_mode = 2
-theme_override_colors/font_color = Color(0.4, 0.42, 0.44, 1)
-theme_override_fonts/font = ExtResource("3")
+theme_type_variation = &"TexteAtenue"
 text = "hab 0 contre 0"
 autowrap_mode = 3
 
 [node name="Plafonne" type="Label" parent="VBoxContainer/Scroll/Margin/Content/MidRow/EcartPanel/EcartMargin/EcartBox"]
 visible = false
 layout_mode = 2
-theme_override_colors/font_color = Color(1, 0.419608, 0, 1)
-theme_override_fonts/font = ExtResource("3")
+theme_type_variation = &"TexteAlerte"
 text = "hors table"
 autowrap_mode = 3
 
@@ -358,7 +303,7 @@ autowrap_mode = 3
 custom_minimum_size = Vector2(50, 50)
 layout_mode = 2
 size_flags_vertical = 4
-theme_override_styles/panel = SubResource("StyleBoxFlat_dice")
+theme_type_variation = &"Encart"
 
 [node name="sprite" type="TextureRect" parent="VBoxContainer/Scroll/Margin/Content/MidRow/dice" unique_id=1109860419]
 layout_mode = 2
@@ -374,7 +319,7 @@ visible = false
 custom_minimum_size = Vector2(50, 50)
 layout_mode = 2
 size_flags_vertical = 4
-theme_override_styles/panel = SubResource("StyleBoxFlat_dice")
+theme_type_variation = &"Encart"
 
 [node name="sprite" type="TextureRect" parent="VBoxContainer/Scroll/Margin/Content/MidRow/diceDodge"]
 layout_mode = 2
@@ -384,11 +329,7 @@ stretch_mode = 5
 [node name="Banner" type="Label" parent="VBoxContainer/Scroll/Margin/Content" unique_id=83670201]
 visible = false
 layout_mode = 2
-theme_override_colors/font_color = Color(1, 0.419608, 0, 1)
-theme_override_constants/shadow_offset_x = 0
-theme_override_constants/shadow_offset_y = 0
-theme_override_constants/shadow_outline_size = 0
-theme_override_fonts/font = ExtResource("3")
+theme_type_variation = &"TexteAlerte"
 text = "Combat non automatise : a toi de jouer."
 horizontal_alignment = 1
 autowrap_mode = 3
@@ -416,6 +357,13 @@ layout_mode = 2
 size_flags_horizontal = 3
 text = "Esquiver"
 
+[node name="EsquiveChance" type="Button" parent="VBoxContainer/Scroll/Margin/Content/ActionsRow"]
+visible = false
+custom_minimum_size = Vector2(0, 42)
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Esquive (1 ch)"
+
 [node name="Journal" type="VBoxContainer" parent="VBoxContainer/Scroll/Margin/Content"]
 layout_mode = 2
 theme_override_constants/separation = 2
@@ -429,64 +377,52 @@ columns = 4
 [node name="HeadDe" type="Label" parent="VBoxContainer/Scroll/Margin/Content/Journal/Grid"]
 layout_mode = 2
 size_flags_horizontal = 3
-theme_override_colors/font_color = Color(0.4, 0.42, 0.44, 1)
-theme_override_fonts/font = ExtResource("3")
+theme_type_variation = &"TexteAtenue"
 text = "dé"
 horizontal_alignment = 1
 
 [node name="HeadEsq" type="Label" parent="VBoxContainer/Scroll/Margin/Content/Journal/Grid"]
 layout_mode = 2
 size_flags_horizontal = 3
-theme_override_colors/font_color = Color(0.4, 0.42, 0.44, 1)
-theme_override_fonts/font = ExtResource("3")
+theme_type_variation = &"TexteAtenue"
 text = "esquive"
 horizontal_alignment = 1
 
 [node name="HeadInf" type="Label" parent="VBoxContainer/Scroll/Margin/Content/Journal/Grid"]
 layout_mode = 2
 size_flags_horizontal = 3
-theme_override_colors/font_color = Color(0.4, 0.42, 0.44, 1)
-theme_override_fonts/font = ExtResource("3")
+theme_type_variation = &"TexteAtenue"
 text = "infligé"
 horizontal_alignment = 1
 
 [node name="HeadRec" type="Label" parent="VBoxContainer/Scroll/Margin/Content/Journal/Grid"]
 layout_mode = 2
 size_flags_horizontal = 3
-theme_override_colors/font_color = Color(0.4, 0.42, 0.44, 1)
-theme_override_fonts/font = ExtResource("3")
+theme_type_variation = &"TexteAtenue"
 text = "reçu"
 horizontal_alignment = 1
 
 [node name="ValDe" type="Label" parent="VBoxContainer/Scroll/Margin/Content/Journal/Grid"]
 layout_mode = 2
 size_flags_horizontal = 3
-theme_override_colors/font_color = Color(0, 0, 0, 1)
-theme_override_fonts/font = ExtResource("2")
 text = "-"
 horizontal_alignment = 1
 
 [node name="ValEsq" type="Label" parent="VBoxContainer/Scroll/Margin/Content/Journal/Grid"]
 layout_mode = 2
 size_flags_horizontal = 3
-theme_override_colors/font_color = Color(0, 0, 0, 1)
-theme_override_fonts/font = ExtResource("2")
 text = "-"
 horizontal_alignment = 1
 
 [node name="ValInf" type="Label" parent="VBoxContainer/Scroll/Margin/Content/Journal/Grid"]
 layout_mode = 2
 size_flags_horizontal = 3
-theme_override_colors/font_color = Color(0, 0, 0, 1)
-theme_override_fonts/font = ExtResource("2")
 text = "-"
 horizontal_alignment = 1
 
 [node name="ValRec" type="Label" parent="VBoxContainer/Scroll/Margin/Content/Journal/Grid"]
 layout_mode = 2
 size_flags_horizontal = 3
-theme_override_colors/font_color = Color(0, 0, 0, 1)
-theme_override_fonts/font = ExtResource("2")
 text = "-"
 horizontal_alignment = 1
 
@@ -494,7 +430,6 @@ horizontal_alignment = 1
 visible = false
 layout_mode = 2
 theme_override_colors/font_color = Color(0, 0.6, 0.45, 1)
-theme_override_fonts/font = ExtResource("3")
 autowrap_mode = 3
 
 [node name="IssuePanel" type="PanelContainer" parent="VBoxContainer/Scroll/Margin/Content"]
@@ -511,8 +446,7 @@ theme_override_constants/margin_bottom = 6
 
 [node name="IssueLabel" type="Label" parent="VBoxContainer/Scroll/Margin/Content/IssuePanel/IssueMargin"]
 layout_mode = 2
-theme_override_colors/font_color = Color(1, 1, 1, 1)
-theme_override_fonts/font = ExtResource("2")
+theme_type_variation = &"TitreHeader"
 text = "XXX"
 horizontal_alignment = 1
 autowrap_mode = 3
@@ -538,7 +472,6 @@ theme_override_constants/separation = 6
 custom_minimum_size = Vector2(0, 42)
 layout_mode = 2
 size_flags_horizontal = 3
-theme_override_colors/font_color = Color(0, 0, 0, 1)
 theme_override_colors/font_hover_color = Color(0, 0, 0, 1)
 theme_override_colors/font_pressed_color = Color(0, 0, 0, 1)
 theme_override_colors/font_disabled_color = Color(0.6, 0.62, 0.64, 1)

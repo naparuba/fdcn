@@ -1,7 +1,7 @@
 [gd_scene load_steps=4 format=2]
 
-[ext_resource path="res://fonts/amon_font.tres" type="FontFile" id=1]
-[ext_resource path="res://ui/left_backer.gd" type="Script" id=3]
+[ext_resource path="res://archive/src/amon_font.tres" type="FontFile" id=1]
+[ext_resource path="res://archive/src/left_backer.gd" type="Script" id=3]
 
 [sub_resource type="StyleBoxEmpty" id=1]
 

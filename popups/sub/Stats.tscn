@@ -1,51 +1,7 @@
-[gd_scene format=3 uid="uid://c454b8i052jaq"]
+[gd_scene load_steps=3 format=3 uid="uid://c454b8i052jaq"]
 
 [ext_resource type="Script" uid="uid://cgadnncp6suto" path="res://popups/sub/stats.gd" id="1_h4pf3"]
-[ext_resource type="FontFile" uid="uid://c4uf1h6831ei2" path="res://fonts/RobotoCondensed-Regular.ttf" id="1_os7dy"]
 [ext_resource type="PackedScene" path="res://ui/ResourceGauge.tscn" id="3_gauge"]
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_h4pf3"]
-bg_color = Color(1, 1, 1, 1)
-
-[sub_resource type="FontFile" id="FontFile_r2dc3"]
-fallbacks = Array[Font]([ExtResource("1_os7dy")])
-subpixel_positioning = 0
-msdf_pixel_range = 14
-msdf_size = 128
-cache/0/variation_coordinates = {}
-cache/0/face_index = 0
-cache/0/embolden = 0.0
-cache/0/transform = Transform2D(1, 0, 0, 1, 0, 0)
-cache/0/spacing_top = 0
-cache/0/spacing_bottom = 0
-cache/0/spacing_space = 0
-cache/0/spacing_glyph = 0
-cache/0/baseline_offset = 0.0
-cache/0/16/0/ascent = 0.0
-cache/0/16/0/descent = 0.0
-cache/0/16/0/underline_position = 0.0
-cache/0/16/0/underline_thickness = 0.0
-cache/0/16/0/scale = 1.0
-
-[sub_resource type="FontFile" id="FontFile_vsygd"]
-fallbacks = Array[Font]([ExtResource("1_os7dy")])
-subpixel_positioning = 0
-msdf_pixel_range = 14
-msdf_size = 128
-cache/0/variation_coordinates = {}
-cache/0/face_index = 0
-cache/0/embolden = 0.0
-cache/0/transform = Transform2D(1, 0, 0, 1, 0, 0)
-cache/0/spacing_top = 0
-cache/0/spacing_bottom = 0
-cache/0/spacing_space = 0
-cache/0/spacing_glyph = 0
-cache/0/baseline_offset = 0.0
-cache/0/16/0/ascent = 0.0
-cache/0/16/0/descent = 0.0
-cache/0/16/0/underline_position = 0.0
-cache/0/16/0/underline_thickness = 0.0
-cache/0/16/0/scale = 1.0
 
 [node name="Stats" type="Panel" unique_id=1078769074]
 anchors_preset = 15
@@ -54,7 +10,7 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 1
-theme_override_styles/panel = SubResource("StyleBoxFlat_h4pf3")
+theme_type_variation = &"Carte"
 script = ExtResource("1_h4pf3")
 
 [node name="VBoxContainer" type="VBoxContainer" parent="." unique_id=1994566425]
@@ -70,11 +26,7 @@ theme_override_constants/separation = 35
 
 [node name="WarningText" type="Label" parent="VBoxContainer" unique_id=1815592670]
 layout_mode = 2
-theme_override_colors/font_color = Color(1, 0.419608, 0, 1)
-theme_override_constants/shadow_offset_x = 0
-theme_override_constants/shadow_offset_y = 0
-theme_override_constants/shadow_outline_size = 0
-theme_override_fonts/font = SubResource("FontFile_r2dc3")
+theme_type_variation = &"TexteAlerte"
 text = "Attention: fonctionalité non finie, bugs possibles :)"
 horizontal_alignment = 1
 
@@ -88,22 +40,12 @@ layout_mode = 2
 [node name="PlayerPvLabel" type="Label" parent="VBoxContainer/PvBlock/PlayerPv" unique_id=389803614]
 layout_mode = 2
 size_flags_horizontal = 3
-theme_override_colors/font_color = Color(0, 0, 0, 1)
-theme_override_constants/shadow_offset_x = 0
-theme_override_constants/shadow_offset_y = 0
-theme_override_constants/shadow_outline_size = 0
-theme_override_fonts/font = SubResource("FontFile_r2dc3")
 text = "PV:"
 horizontal_alignment = 1
 
 [node name="PlayerPvValueDetail" type="Label" parent="VBoxContainer/PvBlock/PlayerPv" unique_id=1813322417]
 layout_mode = 2
 size_flags_horizontal = 3
-theme_override_colors/font_color = Color(0, 0, 0, 1)
-theme_override_constants/shadow_offset_x = 0
-theme_override_constants/shadow_offset_y = 0
-theme_override_constants/shadow_outline_size = 0
-theme_override_fonts/font = SubResource("FontFile_vsygd")
 text = "XXX"
 horizontal_alignment = 1
 
@@ -137,33 +79,18 @@ layout_mode = 2
 [node name="PlayerEndLabel" type="Label" parent="VBoxContainer/PlayerEnd" unique_id=1304494928]
 layout_mode = 2
 size_flags_horizontal = 3
-theme_override_colors/font_color = Color(0, 0, 0, 1)
-theme_override_constants/shadow_offset_x = 0
-theme_override_constants/shadow_offset_y = 0
-theme_override_constants/shadow_outline_size = 0
-theme_override_fonts/font = SubResource("FontFile_r2dc3")
 text = "Endurance:"
 horizontal_alignment = 1
 
 [node name="PlayerEndValue" type="Label" parent="VBoxContainer/PlayerEnd" unique_id=1057740307]
 layout_mode = 2
 size_flags_horizontal = 3
-theme_override_colors/font_color = Color(0, 0, 0, 1)
-theme_override_constants/shadow_offset_x = 0
-theme_override_constants/shadow_offset_y = 0
-theme_override_constants/shadow_outline_size = 0
-theme_override_fonts/font = SubResource("FontFile_vsygd")
 text = "XXX"
 horizontal_alignment = 1
 
 [node name="PlayerEndValueDetail" type="Label" parent="VBoxContainer/PlayerEnd" unique_id=1345076317]
 layout_mode = 2
 size_flags_horizontal = 3
-theme_override_colors/font_color = Color(0, 0, 0, 1)
-theme_override_constants/shadow_offset_x = 0
-theme_override_constants/shadow_offset_y = 0
-theme_override_constants/shadow_outline_size = 0
-theme_override_fonts/font = SubResource("FontFile_vsygd")
 text = "XXX"
 horizontal_alignment = 1
 
@@ -173,33 +100,18 @@ layout_mode = 2
 [node name="PlayerHabLabel" type="Label" parent="VBoxContainer/PlayerHab" unique_id=1416068723]
 layout_mode = 2
 size_flags_horizontal = 3
-theme_override_colors/font_color = Color(0, 0, 0, 1)
-theme_override_constants/shadow_offset_x = 0
-theme_override_constants/shadow_offset_y = 0
-theme_override_constants/shadow_outline_size = 0
-theme_override_fonts/font = SubResource("FontFile_r2dc3")
 text = "Habilité:"
 horizontal_alignment = 1
 
 [node name="PlayerHabValue" type="Label" parent="VBoxContainer/PlayerHab" unique_id=770360765]
 layout_mode = 2
 size_flags_horizontal = 3
-theme_override_colors/font_color = Color(0, 0, 0, 1)
-theme_override_constants/shadow_offset_x = 0
-theme_override_constants/shadow_offset_y = 0
-theme_override_constants/shadow_outline_size = 0
-theme_override_fonts/font = SubResource("FontFile_vsygd")
 text = "XXX"
 horizontal_alignment = 1
 
 [node name="PlayerHabValueDetail" type="Label" parent="VBoxContainer/PlayerHab" unique_id=623811551]
 layout_mode = 2
 size_flags_horizontal = 3
-theme_override_colors/font_color = Color(0, 0, 0, 1)
-theme_override_constants/shadow_offset_x = 0
-theme_override_constants/shadow_offset_y = 0
-theme_override_constants/shadow_outline_size = 0
-theme_override_fonts/font = SubResource("FontFile_vsygd")
 text = "XXX"
 horizontal_alignment = 1
 
@@ -209,33 +121,18 @@ layout_mode = 2
 [node name="PlayerAdrLabel" type="Label" parent="VBoxContainer/PlayerAdr" unique_id=960420059]
 layout_mode = 2
 size_flags_horizontal = 3
-theme_override_colors/font_color = Color(0, 0, 0, 1)
-theme_override_constants/shadow_offset_x = 0
-theme_override_constants/shadow_offset_y = 0
-theme_override_constants/shadow_outline_size = 0
-theme_override_fonts/font = SubResource("FontFile_r2dc3")
 text = "Adresse:"
 horizontal_alignment = 1
 
 [node name="PlayerAdrValue" type="Label" parent="VBoxContainer/PlayerAdr" unique_id=104778880]
 layout_mode = 2
 size_flags_horizontal = 3
-theme_override_colors/font_color = Color(0, 0, 0, 1)
-theme_override_constants/shadow_offset_x = 0
-theme_override_constants/shadow_offset_y = 0
-theme_override_constants/shadow_outline_size = 0
-theme_override_fonts/font = SubResource("FontFile_vsygd")
 text = "XXX"
 horizontal_alignment = 1
 
 [node name="PlayerAdrValueDetail" type="Label" parent="VBoxContainer/PlayerAdr" unique_id=165348262]
 layout_mode = 2
 size_flags_horizontal = 3
-theme_override_colors/font_color = Color(0, 0, 0, 1)
-theme_override_constants/shadow_offset_x = 0
-theme_override_constants/shadow_offset_y = 0
-theme_override_constants/shadow_outline_size = 0
-theme_override_fonts/font = SubResource("FontFile_vsygd")
 text = "XXX"
 horizontal_alignment = 1
 
@@ -249,22 +146,12 @@ layout_mode = 2
 [node name="PlayerChaLabel" type="Label" parent="VBoxContainer/ChaBlock/PlayerCha" unique_id=854466462]
 layout_mode = 2
 size_flags_horizontal = 3
-theme_override_colors/font_color = Color(0, 0, 0, 1)
-theme_override_constants/shadow_offset_x = 0
-theme_override_constants/shadow_offset_y = 0
-theme_override_constants/shadow_outline_size = 0
-theme_override_fonts/font = SubResource("FontFile_r2dc3")
 text = "Chance:"
 horizontal_alignment = 1
 
 [node name="PlayerChaValueDetail" type="Label" parent="VBoxContainer/ChaBlock/PlayerCha" unique_id=1160686796]
 layout_mode = 2
 size_flags_horizontal = 3
-theme_override_colors/font_color = Color(0, 0, 0, 1)
-theme_override_constants/shadow_offset_x = 0
-theme_override_constants/shadow_offset_y = 0
-theme_override_constants/shadow_outline_size = 0
-theme_override_fonts/font = SubResource("FontFile_vsygd")
 text = "XXX"
 horizontal_alignment = 1
 
@@ -299,33 +186,18 @@ layout_mode = 2
 [node name="PlayerCritLabel" type="Label" parent="VBoxContainer/PlayerCrit" unique_id=363331720]
 layout_mode = 2
 size_flags_horizontal = 3
-theme_override_colors/font_color = Color(0, 0, 0, 1)
-theme_override_constants/shadow_offset_x = 0
-theme_override_constants/shadow_offset_y = 0
-theme_override_constants/shadow_outline_size = 0
-theme_override_fonts/font = SubResource("FontFile_r2dc3")
 text = "Critique:"
 horizontal_alignment = 1
 
 [node name="PlayerCritValue" type="Label" parent="VBoxContainer/PlayerCrit" unique_id=1857849190]
 layout_mode = 2
 size_flags_horizontal = 3
-theme_override_colors/font_color = Color(0, 0, 0, 1)
-theme_override_constants/shadow_offset_x = 0
-theme_override_constants/shadow_offset_y = 0
-theme_override_constants/shadow_outline_size = 0
-theme_override_fonts/font = SubResource("FontFile_vsygd")
 text = "XXX"
 horizontal_alignment = 1
 
 [node name="PlayerCritValueDetail" type="Label" parent="VBoxContainer/PlayerCrit" unique_id=19883977]
 layout_mode = 2
 size_flags_horizontal = 3
-theme_override_colors/font_color = Color(0, 0, 0, 1)
-theme_override_constants/shadow_offset_x = 0
-theme_override_constants/shadow_offset_y = 0
-theme_override_constants/shadow_outline_size = 0
-theme_override_fonts/font = SubResource("FontFile_vsygd")
 text = "XXX"
 horizontal_alignment = 1
 
@@ -335,33 +207,18 @@ layout_mode = 2
 [node name="PlayerDegLabel" type="Label" parent="VBoxContainer/PlayerDeg" unique_id=1509018729]
 layout_mode = 2
 size_flags_horizontal = 3
-theme_override_colors/font_color = Color(0, 0, 0, 1)
-theme_override_constants/shadow_offset_x = 0
-theme_override_constants/shadow_offset_y = 0
-theme_override_constants/shadow_outline_size = 0
-theme_override_fonts/font = SubResource("FontFile_r2dc3")
 text = "Dégâts:"
 horizontal_alignment = 1
 
 [node name="PlayerDegValue" type="Label" parent="VBoxContainer/PlayerDeg" unique_id=1607784566]
 layout_mode = 2
 size_flags_horizontal = 3
-theme_override_colors/font_color = Color(0, 0, 0, 1)
-theme_override_constants/shadow_offset_x = 0
-theme_override_constants/shadow_offset_y = 0
-theme_override_constants/shadow_outline_size = 0
-theme_override_fonts/font = SubResource("FontFile_vsygd")
 text = "XXX"
 horizontal_alignment = 1
 
 [node name="PlayerDegValueDetail" type="Label" parent="VBoxContainer/PlayerDeg" unique_id=1780393205]
 layout_mode = 2
 size_flags_horizontal = 3
-theme_override_colors/font_color = Color(0, 0, 0, 1)
-theme_override_constants/shadow_offset_x = 0
-theme_override_constants/shadow_offset_y = 0
-theme_override_constants/shadow_outline_size = 0
-theme_override_fonts/font = SubResource("FontFile_vsygd")
 text = "XXX"
 horizontal_alignment = 1
 
@@ -371,33 +228,18 @@ layout_mode = 2
 [node name="PlayerArmLabel" type="Label" parent="VBoxContainer/PlayerArm" unique_id=669686413]
 layout_mode = 2
 size_flags_horizontal = 3
-theme_override_colors/font_color = Color(0, 0, 0, 1)
-theme_override_constants/shadow_offset_x = 0
-theme_override_constants/shadow_offset_y = 0
-theme_override_constants/shadow_outline_size = 0
-theme_override_fonts/font = SubResource("FontFile_r2dc3")
 text = "Armure:"
 horizontal_alignment = 1
 
 [node name="PlayerArmValue" type="Label" parent="VBoxContainer/PlayerArm" unique_id=168665170]
 layout_mode = 2
 size_flags_horizontal = 3
-theme_override_colors/font_color = Color(0, 0, 0, 1)
-theme_override_constants/shadow_offset_x = 0
-theme_override_constants/shadow_offset_y = 0
-theme_override_constants/shadow_outline_size = 0
-theme_override_fonts/font = SubResource("FontFile_vsygd")
 text = "XXX"
 horizontal_alignment = 1
 
 [node name="PlayerArmValueDetail" type="Label" parent="VBoxContainer/PlayerArm" unique_id=1848212021]
 layout_mode = 2
 size_flags_horizontal = 3
-theme_override_colors/font_color = Color(0, 0, 0, 1)
-theme_override_constants/shadow_offset_x = 0
-theme_override_constants/shadow_offset_y = 0
-theme_override_constants/shadow_outline_size = 0
-theme_override_fonts/font = SubResource("FontFile_vsygd")
 text = "XXX"
 horizontal_alignment = 1
 
@@ -407,33 +249,18 @@ layout_mode = 2
 [node name="PlayerRichesseLabel" type="Label" parent="VBoxContainer/PlayerRichesse"]
 layout_mode = 2
 size_flags_horizontal = 3
-theme_override_colors/font_color = Color(0, 0, 0, 1)
-theme_override_constants/shadow_offset_x = 0
-theme_override_constants/shadow_offset_y = 0
-theme_override_constants/shadow_outline_size = 0
-theme_override_fonts/font = SubResource("FontFile_r2dc3")
 text = "Richesse:"
 horizontal_alignment = 1
 
 [node name="PlayerRichesseValue" type="Label" parent="VBoxContainer/PlayerRichesse"]
 layout_mode = 2
 size_flags_horizontal = 3
-theme_override_colors/font_color = Color(0, 0, 0, 1)
-theme_override_constants/shadow_offset_x = 0
-theme_override_constants/shadow_offset_y = 0
-theme_override_constants/shadow_outline_size = 0
-theme_override_fonts/font = SubResource("FontFile_vsygd")
 text = "XXX"
 horizontal_alignment = 1
 
 [node name="PlayerRichesseValueDetail" type="Label" parent="VBoxContainer/PlayerRichesse"]
 layout_mode = 2
 size_flags_horizontal = 3
-theme_override_colors/font_color = Color(0, 0, 0, 1)
-theme_override_constants/shadow_offset_x = 0
-theme_override_constants/shadow_offset_y = 0
-theme_override_constants/shadow_outline_size = 0
-theme_override_fonts/font = SubResource("FontFile_vsygd")
 horizontal_alignment = 1
 
 [node name="PlayerGloire" type="HBoxContainer" parent="VBoxContainer"]
@@ -442,31 +269,16 @@ layout_mode = 2
 [node name="PlayerGloireLabel" type="Label" parent="VBoxContainer/PlayerGloire"]
 layout_mode = 2
 size_flags_horizontal = 3
-theme_override_colors/font_color = Color(0, 0, 0, 1)
-theme_override_constants/shadow_offset_x = 0
-theme_override_constants/shadow_offset_y = 0
-theme_override_constants/shadow_outline_size = 0
-theme_override_fonts/font = SubResource("FontFile_r2dc3")
 text = "Gloire:"
 horizontal_alignment = 1
 
 [node name="PlayerGloireValue" type="Label" parent="VBoxContainer/PlayerGloire"]
 layout_mode = 2
 size_flags_horizontal = 3
-theme_override_colors/font_color = Color(0, 0, 0, 1)
-theme_override_constants/shadow_offset_x = 0
-theme_override_constants/shadow_offset_y = 0
-theme_override_constants/shadow_outline_size = 0
-theme_override_fonts/font = SubResource("FontFile_vsygd")
 text = "XXX"
 horizontal_alignment = 1
 
 [node name="PlayerGloireValueDetail" type="Label" parent="VBoxContainer/PlayerGloire"]
 layout_mode = 2
 size_flags_horizontal = 3
-theme_override_colors/font_color = Color(0, 0, 0, 1)
-theme_override_constants/shadow_offset_x = 0
-theme_override_constants/shadow_offset_y = 0
-theme_override_constants/shadow_outline_size = 0
-theme_override_fonts/font = SubResource("FontFile_vsygd")
 horizontal_alignment = 1

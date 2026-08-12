@@ -1,13 +1,6 @@
-[gd_scene format=3 uid="uid://f03y5mpch8wv"]
+[gd_scene load_steps=2 format=3 uid="uid://f03y5mpch8wv"]
 
-[ext_resource type="FontFile" uid="uid://dvf02ee6hmyyy" path="res://fonts/amon_font.tres" id="1_mx0dr"]
 [ext_resource type="Script" uid="uid://brty6tleeebow" path="res://screens/succes_menu.gd" id="2_script"]
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_x0std"]
-bg_color = Color(1, 1, 1, 1)
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_hj48q"]
-bg_color = Color(0.192157, 0.231373, 0.278431, 1)
 
 [node name="SuccesMenu" type="Panel" unique_id=1009424153]
 anchors_preset = 15
@@ -16,7 +9,7 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 1
-theme_override_styles/panel = SubResource("StyleBoxFlat_x0std")
+theme_type_variation = &"Carte"
 script = ExtResource("2_script")
 
 [node name="VBox" type="VBoxContainer" parent="." unique_id=1610954481]
@@ -32,11 +25,11 @@ theme_override_constants/separation = 0
 custom_minimum_size = Vector2(0, 39)
 layout_mode = 2
 mouse_filter = 1
-theme_override_styles/panel = SubResource("StyleBoxFlat_hj48q")
+theme_type_variation = &"EnTete"
 
 [node name="Label" type="Label" parent="VBox/Header" unique_id=2069930319]
+theme_type_variation = &"TitreHeader"
 layout_mode = 2
-theme_override_fonts/font = ExtResource("1_mx0dr")
 text = "Tous les Succès"
 horizontal_alignment = 1
 vertical_alignment = 1
@@ -44,7 +37,6 @@ vertical_alignment = 1
 [node name="Counter" type="Label" parent="VBox" unique_id=374028301]
 custom_minimum_size = Vector2(0, 24)
 layout_mode = 2
-theme_override_colors/font_color = Color(0, 0, 0, 1)
 text = "0 / 0"
 horizontal_alignment = 2
 vertical_alignment = 1
