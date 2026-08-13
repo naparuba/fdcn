@@ -32,6 +32,15 @@ var current_index: int = 0
 var current_scene_instance: Node = null
 
 var _confirm_scene = preload('res://popups/GenericConfirmationPopup.tscn')
+var _settings_scene = preload('res://popups/SettingsPopup.tscn')
+
+## La popup d'options s'ouvre sur l'inventaire : c'est son premier onglet.
+const _TEXTE_REVISION := """Votre sauvegarde ne contenait pas la liste de vos objets.
+
+Les chapitres traversés ont été rejoués pour retrouver ce que le livre vous a donné, mais
+l'équipement choisi au départ, lui, ne peut pas être deviné.
+
+Vérifiez votre inventaire et cochez ce que vous portez."""
 
 @onready var scene_container = $SceneContainer
 @onready var popup_container = $PopupContainer
@@ -71,6 +80,7 @@ func _ready():
 	# soit l'écran courant.
 	Player.chapter_items_changed.connect(_on_chapter_items_changed)
 	Player.chapter_discovered.connect(_on_chapter_discovered)
+	Player.items_need_review.connect(_on_items_need_review)
 
 
 ## Creuse la place des deux flèches latérales et du menu du haut.
@@ -144,6 +154,26 @@ func _on_chapter_discovered(node_id) -> void:
 ## navigation pour de bon.
 func open_popup(popup: Node) -> void:
 	popup_container.add_child(popup)
+
+
+## La sauvegarde relue n'avait pas la liste des objets. On explique, puis on ouvre
+## l'inventaire — c'est le seul écran où le joueur peut rétablir la vérité, et lui seul la
+## connaît : l'équipement de départ se choisit **avant** le chapitre 1, aucun chapitre ne le
+## donne, donc rien ne permet de le reconstituer.
+##
+## `call_deferred` parce que ce signal part depuis `Player.do_load()`, c'est-à-dire pendant
+## le `_ready()` des autoloads : le conteneur de popups n'est pas encore dans l'arbre au
+## premier chargement.
+func _on_items_need_review() -> void:
+	_demander_revision_inventaire.call_deferred()
+
+
+func _demander_revision_inventaire() -> void:
+	confirm(_TEXTE_REVISION, _ouvrir_inventaire, "Vérifier mon inventaire", "")
+
+
+func _ouvrir_inventaire() -> void:
+	open_popup(_settings_scene.instantiate())
 
 
 ## Demande une confirmation, et n'appelle `on_accept` que si le joueur accepte.

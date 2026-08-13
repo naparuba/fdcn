@@ -1,15 +1,33 @@
 # scripts/ — le compilateur de livre
 
-Un livre s'écrit à la main dans `books/<nom>/data/<nom>.json` : un chapitre par entrée, des
-`goto`, des objets, des conditions. **L'app Godot ne lit jamais ce fichier.** Elle lit les
-`<nom>-compilated-*.json`, que ces scripts produisent.
+**Tout ce qui s'écrit à la main est dans `scripts/src/<nom>/`. Point.** L'app Godot n'y lit
+jamais rien : `scripts/` porte un `.gdignore`, elle ne voit même pas le dossier. Elle lit ce
+que le générateur dépose dans `books/<nom>/data/`.
 
 ```
-books/<nom>/data/<nom>.json  ──►  python3 scripts/fdcn.py --book <nom>  ──►  <nom>-compilated-*.json
-   (+ arcs, objets, succès)                                              (+ scripts/graph/*.png)
+scripts/src/<nom>/          ──►   generator.py --book <nom>   ──►   books/<nom>/data/
+  <nom>.json                                                          3 fichiers calculés
+  .arcs / .sub_arcs / .manual_sub_arcs                                 + 2 tables recopiées
+  .all_objects / .all_success                                        scripts/graph/*.png
 ```
 
-Le compilateur ne se contente pas de recopier : il **résout le graphe** (qui mène où, quels
+`books/<nom>/data/` est donc une **sortie**, à ne pas éditer : la prochaine compilation
+l'écrase. La seule exception y est `compteurs.json`, qui n'intéresse que l'app et que le
+générateur ne regarde pas.
+
+⚠️ **La distinction qui compte : écrit à la main, ou généré.** Deux fichiers *édités* au
+même titre finissent toujours par diverger — c'est ce que faisaient
+`-compilated-all-objects.json` et `-compilated-success.json`, qui répétaient des catégories
+et des libellés déjà écrits ailleurs (supprimés le 2026-08-13). Une copie **générée**, elle,
+ne diverge pas : elle se refait. La règle est « une seule source éditable », pas « un seul
+fichier ».
+
+⚠️ **Tant que le générateur n'a pas tourné, rien n'a bougé pour l'app.** Éditer un chapitre,
+un objet ou un succès dans `src/` ne change rien avant une compilation.
+
+## Ce que le générateur apporte
+
+Il ne se contente pas de recopier : il **résout le graphe** (qui mène où, quels
 chapitres appartiennent à quel acte), **compile les conditions** en arbres que GDScript sait
 évaluer, et **refuse de produire** un livre incohérent. C'est le seul endroit où un objet
 fantôme ou un `goto` dans le vide est attrapé — l'app, elle, fait confiance.
@@ -17,11 +35,16 @@ fantôme ou un `goto` dans le vide est attrapé — l'app, elle, fait confiance.
 Il se lance **à la main**, après chaque modification d'un `.json` de livre. Rien ne
 l'appelle : ni Godot, ni un hook git.
 
+⚠️ **Il ne valide pas tout, loin de là** : une clé de chapitre qu'il ne connaît pas est
+recopiée sans un mot, et une clé de stat inconnue passe jusqu'à l'app. C'est l'étape 1 du
+plan de simplification (`todo.md` 3.2), et c'est ce qui a laissé passer quatre fautes
+silencieuses jusqu'ici.
+
 ## Lancer
 
 ```bash
 cd <racine du dépôt>            # obligatoire : tous les chemins sont relatifs
-python3 scripts/fdcn.py --book cdsi
+python3 scripts/generator.py --book cdsi
 ```
 
 | | |
@@ -38,7 +61,7 @@ mauvais arbitrage — d'où le bouchon `GrapheMuet`.
 
 ⚠️ **Une seule erreur laisse le dossier à moitié à jour** : un `success` inconnu de
 `<nom>.all_success.json` lève une `Exception` (une trace Python, pas un `ERROR:`) **après**
-l'écriture de `-compilated-data.json`, donc les neuf autres sorties restent périmées.
+l'écriture de `-compilated-data.json`, donc les quatre autres sorties restent périmées.
 Toutes les autres erreurs surviennent avant la moindre écriture. En cas de trace Python,
 **relancer après correction** avant de commiter.
 
@@ -46,13 +69,14 @@ Toutes les autres erreurs surviennent avant la moindre écriture. En cas de trac
 
 | fichier | rôle | taille |
 |---|---|---|
-| `fdcn.py` | **le script** : lit, valide, écrit. De haut en bas, sans fonctions | 475 l. |
-| `node.py` | `Node` : un chapitre. Porte ses données, ses fils, son arc, et se sait dessiner | 379 l. |
+| `generator.py` | **le script** : lit, valide, écrit. De haut en bas, sans fonctions. S'appelait `fdcn.py` — un nom de livre pour un outil qui les compile tous | 476 l. |
+| `node.py` | `Node` : un chapitre. Porte ses données, ses fils, son arc, se sait dessiner, et décide de ce qui part dans le json (`NEUTRES`) | 407 l. |
 | `graph.py` | `Graph` : le dictionnaire `id → Node`, et deux boucles de dessin | 27 l. |
 | `condition_node.py` | l'analyseur d'expressions (`ARC & (CORDE \| PIOCHE)`) et sa sortie JSON | 144 l. |
 | `endings.py` | `ENDINGS.GOOD = 1`, `ENDINGS.BAD = 2`. C'est tout | 4 l. |
 | `requirements.txt` | `graphviz==0.20.1`, **facultatif** | |
-| `.gdignore` | vide, et c'est le but : Godot n'importe pas ce dossier | |
+| `.gdignore` | vide, et c'est le but : Godot n'importe pas ce dossier — **donc `src/` non plus** | |
+| `src/<nom>/` | **tout ce qui s'écrit à la main** : le livre, son découpage en actes, ses objets, ses succès. Déplacés ici le 2026-08-13 — l'app ne lit rien de `scripts/` | ~68 Ko / livre |
 | `graph/` | les PNG produits. `fdcn_full*` (2024) sont d'anciens rendus, plus personne ne les régénère sous ce nom | |
 
 ## Le pipeline
@@ -66,7 +90,7 @@ Toutes les autres erreurs surviennent avant la moindre écriture. En cas de trac
 | 5 | graphe | graphviz | nœuds, arêtes, `cluster_<arc>` et `cluster_<sous-arc>`. **Zéro effet sur les `.json`** |
 | 6 | conditions | `parse_conditions()`, `parse_stats_conditions()` | expressions → arbres `{$and/$or/$end}` + texte lisible |
 | 7 | validations | objets, sauts, fins | tout ce qui fait sortir en `2` |
-| 8 | écriture | `data/` et `archive/` | `computed` injecté dans chaque chapitre + 9 fichiers de synthèse |
+| 8 | écriture | `data/` | 3 fichiers calculés + les 2 tables recopiées |
 
 Les étapes 5 et 6 sont **indépendantes** : le graphe est déjà dessiné quand les conditions
 sont analysées. C'est pourquoi supprimer graphviz ne changerait rien aux données.
@@ -97,52 +121,61 @@ ne la remplace pas.
 
 ## Les sorties
 
-| fichier | dossier | lu par |
+```
+scripts/src/<nom>/            ──►   books/<nom>/data/
+6 fichiers écrits à la main         3 calculés + 2 recopiés
+```
+
+| fichier | ce que c'est | lu par |
 |---|---|---|
-| `<nom>-compilated-data.json` | `data/` | `BookData.do_load_book()` → un `chapter_data` par chapitre |
-| `-compilated-nodes-by-chapter.json` | `data/` | `BookData.chapters_by_arc` |
-| `-compilated-nodes-by-sub-arc.json` | `data/` | `BookData.chapters_by_sub_arc` |
-| `-compilated-success.json` | `data/` | `BookData.all_success` |
-| `-compilated-success-chapters.json` | `data/` | `BookData.all_success_chapters` |
-| `-compilated-all-objects.json` | `data/` | `BookData.all_objects` |
-| `-compilated-combats.json`, `-endings`, `-good-endings`, `-bad-endings`, `-secrets` | `archive/` | **personne** — l'app lit ces états chapitre par chapitre dans `computed` |
-| `scripts/graph/fdcn_full-<nom>.png` | — | un humain, pour relire la structure du livre |
+| `<nom>-compilated-data.json` | **calculé** : les chapitres, fils résolus, actes propagés, conditions en arbres | `BookData.do_load_book()` → un `chapter_data` par chapitre |
+| `<nom>-compilated-nodes-by-chapter.json` | **calculé** : les chapitres de chaque acte | `BookData.chapters_by_arc` |
+| `<nom>-compilated-nodes-by-sub-arc.json` | **calculé** : ceux de chaque sous-arc | `BookData.chapters_by_sub_arc` |
+| `<nom>.all_objects.json` | **recopié** depuis `src/`, tel quel | `BookData.all_objects`, complété au chargement |
+| `<nom>.all_success.json` | **recopié** depuis `src/`, tel quel | `BookData.all_success`, complété au chargement |
+| `scripts/graph/fdcn_full-<nom>.png` | le graphe du livre | un humain, pour relire la structure |
 
-Tous sont commités : l'app d'un joueur ne compile rien.
+Tout est commité : l'app d'un joueur ne compile rien.
 
-### `-compilated-all-objects.json`
+**Sept sorties ont disparu le 2026-08-13.** Cinq que personne ne chargeait — la liste des
+combats, celle des secrets, les trois listes de fins : tout ça se lit chapitre par chapitre
+dans `-compilated-data.json`. Et deux copies enrichies, `-compilated-success.json` et
+`-compilated-all-objects.json`, qui répétaient les libellés, catégories et textes déjà
+écrits à la main, pour un champ ajouté chacune — `BookData` lit les tables et calcule
+`in_chapters`, `chapter` et l'index chapitre → succès au chargement.
 
-C'est `<nom>.all_objects.json` **enrichi** : chaque objet reçoit la liste `in_chapters` des
-chapitres qui le donnent ou le retirent, et un `stats: {}` par défaut. Un objet qui
-n'apparaît nulle part reçoit `in_chapters: [1]` — « connu depuis le début », donc toujours
-affichable.
+**Ce que l'app complète elle-même, à partir de ce qu'elle a déjà :**
+
+| champ | comment |
+|---|---|
+| `in_chapters` d'un objet | balayage des `aquire`/`remove` de tous les chapitres. Un objet cité nulle part reçoit `[1]` — « connu depuis le début », donc toujours affichable : c'est l'équipement choisi avant le chapitre 1 |
+| `chapter` d'un succès | le premier chapitre qui le déclare |
+| chapitre → succès | l'index inverse, **tous** les chapitres compris — un succès peut se gagner à deux endroits |
 
 ## Le contrat `computed`
 
-Les clés produites par `Node.get_computed()`, consommées par `entities/chapter_data.gd`.
-**Y toucher casse l'app en silence** : GDScript indexe le dictionnaire sans vérifier.
+Chaque entrée de `-compilated-data.json` ne porte **que ce qui n'est pas neutre**. Un
+chapitre ordinaire tient en une ligne :
 
-| clé | contenu |
-|---|---|
-| `id` | l'entier du chapitre |
-| `sons` | les suites **triées** (tri = diff stable d'un run à l'autre) |
-| `chapter` | ⚠️ le nom de l'**arc** (l'acte : « L'Exode ») |
-| `arc` | ⚠️ le nom du **sous-arc** (« Jungle ») |
-| `ending` | booléen — est-ce une fin ? |
-| `ending_type` | `1` (bonne) / `2` (mauvaise) / `null` |
-| `ending_id`, `ending_txt` | l'entrée du tableau des fins |
-| `is_combat` / `combat` | booléen / le bloc brut |
-| `success` | l'identifiant du succès, ou `null` |
-| `secret`, `secret_jumps` | le chapitre est caché / les sauts cachés qu'il émet |
-| `label` | le libellé du graphe |
-| `jump_conditions` | `{ "<fils>": <arbre $and/$or/$end> }` |
-| `jump_conditions_txts` | la même chose en français (`«  ARC et CORDE  »`), pour l'affichage |
-| `aquire`, `remove`, `stats` | recopiés du source |
-| `stats_cond` | `[{condition, stats, txt}, …]` |
+```json
+"273": {"id": 273, "chapter": "Tour des mages", "sons": [423], "stats": {"chance": 3}}
+"1":   {"id": 1, "chapter": "Plante-Citrouille", "sons": [2]}
+```
 
-**Les deux noms sont inversés par rapport à l'intuition** : `computed.chapter` est l'acte,
-`computed.arc` est le sous-arc. Le renommer demanderait de reprendre `chapter_data.gd`,
-`BookData` et les écrans en même temps — tant que ce n'est pas fait, se fier à ce tableau.
+`Node.NEUTRES` (dans `node.py`) liste les 17 clés et leur valeur neutre ; `get_computed()`
+n'écrit que ce qui en diffère, plus `id`, toujours présent. Sur fdcn, **9 538 des 12 120
+clés** ne disaient rien d'autre que « rien à signaler » : le fichier est passé de 391 à
+149 Ko, **−62 %** (cdsi : 442 → 173 Ko).
+
+⚠️ **`Node.NEUTRES` et les `.get(clé, défaut)` de `entities/chapter_data.gd` sont les deux
+moitiés d'un seul contrat.** Une clé absente veut dire « rien à signaler », jamais « donnée
+manquante » — si les deux listes divergent, l'app lira un défaut que le générateur n'a pas
+voulu dire. `test_book_data.gd` garde ce contrat : il prend un chapitre dépouillé et vérifie
+les 16 valeurs neutres une par une.
+
+**Deux clés ont disparu**, `ending` et `is_combat` : des booléens dérivés de `ending_type`
+et `combat`, vérifiés identiques sur les 1 297 chapitres des deux livres. L'app les
+recalcule (`get_ending()`, `is_combat()`).
 
 ## Arcs et sous-arcs
 
@@ -206,7 +239,7 @@ Résultat compilé (`{$end}` = feuille, évalué par `BookData._check_cond_rec()
    `Exception: <ConditionNode UNKNOWN>` au moment d'écrire le JSON. Un seul niveau.
 3. **Une expression malformée sort en code 2 sans le moindre message** (`X(A|B)`, une `)`
    en trop) : les `print` d'erreur de `condition_node.py` sont commentés. Un `python3
-   scripts/fdcn.py` muet qui rend `2` juste après la ligne `Conditions parsing:` = une
+   scripts/generator.py` muet qui rend `2` juste après la ligne `Conditions parsing:` = une
    expression cassée dans un chapitre.
 
 ⚠️ Les objets cités **uniquement** dans un `stats_cond` ne comptent pas comme utilisés :
@@ -238,9 +271,9 @@ Les points de contact à ne pas oublier, selon ce qu'on touche :
 
 | si vous… | pensez à |
 |---|---|
-| ajoutez une clé à `computed` | `entities/chapter_data.gd` (un accesseur), et **recompiler les deux livres** — un livre non recompilé n'aura pas la clé, et GDScript plantera à l'indexation |
-| renommez une sortie `-compilated-*` | `autoload/BookData.gd:do_load_book()`, et le tableau `ARCHIVEES` |
-| ajoutez une clé de chapitre | la lire dans la boucle principale de `fdcn.py`, la stocker dans `Node`, l'exporter dans `get_computed()`, l'exposer dans `chapter_data.gd` — les quatre, sinon elle disparaît en silence |
+| ajoutez une clé à `computed` | la déclarer dans `Node.NEUTRES` avec sa valeur neutre, l'exposer dans `entities/chapter_data.gd` **avec le même défaut**, et recompiler les deux livres |
+| renommez une sortie `-compilated-*` | `autoload/BookData.gd:do_load_book()` |
+| ajoutez une clé de chapitre | la lire dans la boucle principale de `generator.py`, la stocker dans `Node`, l'exporter dans `get_computed()`, l'exposer dans `chapter_data.gd` — les quatre, sinon elle disparaît en silence |
 | touchez à `condition_node.py` | vérifier contre `BookData._check_cond_rec()` : les deux moitiés du même langage, dans deux langages différents. Trois opérateurs, et trois seulement |
 | ajoutez une validation | la placer **avant** l'écriture de `-compilated-data.json` (sinon elle laisse le dossier à moitié à jour) |
 | modifiez l'ordre de `arcs.json` | c'est un **redécoupage du livre**, pas un détail de présentation (voir plus haut) |
@@ -253,13 +286,13 @@ Après toute modification : **recompiler les deux livres** et lire le `git diff`
 Recensée dans [`review.md`](../review.md) et [`todo.md`](../todo.md), à ne pas
 redécouvrir :
 
-- **`fdcn.py` n'a aucune fonction** hors `load_json_file` : 475 lignes de haut en bas et une
+- **`generator.py` n'a aucune fonction** hors `load_json_file` : 476 lignes de haut en bas et une
   quarantaine de variables globales mutées au fil du fichier. Découpage prévu (`todo.md` 4.2).
 - **Les clés de stat ne sont pas validées** : le script les collecte et les imprime déjà
   (`Checking all stats keys`), il manque la comparaison avec le vocabulaire du livre
   (`data/compteurs.json` + les stats du moteur) et un `sys.exit(2)` (`todo.md` 3.2). Une
   faute de frappe dans un `stats` passe donc jusqu'à l'app.
-- `node_created` (`fdcn.py`) ne sert à rien.
+- `node_created` (`generator.py`) ne sert à rien.
 - Dans le dessin des clusters, le `print` « skipping not related edge » affiche un
   `sub_arc_name` hérité de la boucle précédente : le libellé du log est faux, le graphe non.
 - `Node` expose des accesseurs que personne n'appelle (`get_ending_id`, `is_bad_ending`…).

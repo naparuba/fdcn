@@ -21,8 +21,11 @@ extends Node
 ## déterministes. Ne JAMAIS appeler `Utils.roll_a_dice()` directement d'ici.
 ##
 ## PAS ENCORE FAIT (voir `combat.md` §4) : la persistance de l'état en sauvegarde
-## (étape 7), le pouvoir du PRUDENT (Q14 ouverte) et les combats à plusieurs ennemis
-## (fdcn ch276, étape 11).
+## (étape 7) et le pouvoir du PRUDENT (Q14 ouverte).
+##
+## Les combats à plusieurs adversaires **sont** gérés : ils se mènent **dans l'ordre du
+## tableau**, un adversaire à la fois. Seul fdcn ch274 s'en sert (GUARDES CORROMPUS puis
+## TROLESSE).
 
 ## Émis après chaque `resolve()`, avec le rapport détaillé de l'assaut.
 signal assault_resolved(rapport)
@@ -110,8 +113,8 @@ func _normalize_table() -> void:
 #    Cycle de vie
 #
 
-## Tous les adversaires du chapitre, en entiers (le json rend des float). Un chapitre en
-## a normalement un ; fdcn ch276 en enchaîne deux.
+## Tous les adversaires du chapitre, en entiers (le json rend des float), **dans l'ordre où
+## le livre les enchaîne**. Un chapitre n'en a normalement qu'un ; fdcn ch274 en a deux.
 func read_enemies(chapter_id) -> Array:
 	var node = BookData.get_chapter_node(chapter_id)
 	if node == null or not node.is_combat():
@@ -496,8 +499,9 @@ func resolve() -> Dictionary:
 	rapport["degats_recus"] = recus
 	rapport["pv_ennemi_restant"] = _enemy_pv
 
-	# Un adversaire tombé n'est pas forcément la fin : fdcn ch276 en enchaîne deux. Le
-	# combat n'est gagné qu'une fois le dernier à terre, et l'écart se recalcule tout seul
+	# Un adversaire tombé n'est pas forcément la fin : fdcn ch274 en enchaîne deux. Le
+	# suivant arrive avec ses pv pleins et le compteur de tours remis à zéro ; le combat
+	# n'est gagné qu'une fois le dernier à terre, et l'écart se recalcule tout seul
 	# puisqu'il est lu depuis `_enemy`.
 	var reste_un_ennemi = _enemy_pv <= 0 and _enemy_index + 1 < _enemies.size()
 	if reste_un_ennemi:

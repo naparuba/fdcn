@@ -129,11 +129,15 @@ Quatre pièges à traiter explicitement dans le moteur :
    comme un combat normal (probablement : afficher la fiche, refuser d'automatiser).
 3. **`deg: -1`** existe (ch293 « Gnoll surpris », ch43 « SERGENT », ch584). À
    confirmer : dégâts réduits, ou autre sentinelle ? → Q10.
-4. **Les combats à plusieurs ennemis sont silencieusement tronqués.**
-   `entities/chapter_data.gd:_get_combat()` fait `return combat[0]` quand le champ est
-   un tableau : dans fdcn ch276, la `TROLESSE` (hab 13, pv 16) qui suit les
-   `GUARDES CORROMPUS` **n'est jamais affichée**. Un seul cas dans les deux livres,
-   mais il faut soit le gérer (combat en deux manches), soit l'assumer par écrit.
+4. **Les combats à plusieurs ennemis** — géré depuis, et le seul cas du dépôt est
+   **fdcn ch274** : `GUARDES CORROMPUS` (hab 6, pv 8) **puis** `TROLESSE` (hab 13, pv 16).
+   L'ordre du tableau est l'ordre du combat : on abat le premier, le second arrive avec ses
+   pv pleins et le compteur de tours remis à zéro, et le combat n'est gagné qu'au dernier.
+
+   🔴 **Deux fautes de saisie corrigées le 2026-08-13**, toutes deux dans fdcn : ces deux
+   adversaires étaient sur **ch276**, qui n'oppose en réalité que **MORTELLE** (hab 12,
+   pv 26, arm 0, deg 0) ; et **ch274** portait un bouche-trou, `XXXX` avec tous ses
+   chiffres à 1, qui partait dans l'application.
 
 ---
 
@@ -688,7 +692,7 @@ chaque tour, gratuite) : deux mécaniques différentes. Voir Q2.
 | ~~8bis~~ | ~~Annuler le combat (photo + retour au chapitre d'avant)~~ ✅ **FAIT** côté moteur | — |
 | ~~9~~ | ~~`Combat.tscn` / `combat.gd` : écart, situation, boutons, 3 états, jauges, journal~~ ✅ **FAIT** (2026-08-11) | — |
 | ~~10~~ | ~~Jauge d'ennemi dans `ResourceGauge`~~ ✅ **FAIT** : `Kind.ENNEMI`, `refresh()` publique | — |
-| 11 | Multi-ennemis (fdcn ch276) et sentinelles à 99 | 3 |
+| 11 | Multi-ennemis (fdcn ch274) et sentinelles à 99 | 3 |
 
 **Plus aucune étape n'est bloquée** : les 13 questions sont tranchées, et les 4
 dernières ont un défaut proposé qu'un simple « ok » valide (§5).

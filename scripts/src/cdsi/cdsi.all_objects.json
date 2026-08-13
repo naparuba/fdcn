@@ -1,0 +1,342 @@
+{
+  "ARC": {
+    "category": "ARME",
+    "stats": {
+      "hab": 3,
+      "adr": 1,
+      "crit": 4
+    }
+  },
+  "FDCN LU": {
+    "category": "EVENEMENT"
+  },
+  "CHLOROGLYCERINE": {
+    "category": "OBJET"
+  },
+  "COTTE DE MAILLES": {
+    "category": "EQUIPEMENT",
+    "stats": {
+      "hab": -1,
+      "adr": -1,
+      "end": 1,
+      "arm": 2
+    }
+  },
+  "COUTEAU CEREMONIAL": {
+    "category": "OUTIL",
+    "stats": {
+      "hab": 1,
+      "crit": 5,
+      "richesse": 1
+    }
+  },
+  "DEBROUILLARD": {
+    "category": "BILLY",
+    "stats": {
+      "adr": 2,
+      "end": -1
+    }
+  },
+  "SABRE": {
+    "category": "ARME",
+    "stats": {
+      "hab": 3,
+      "crit": 2
+    }
+  },
+  "FLASQUE D'HUILE": {
+    "category": "OBJET"
+  },
+  "FLEAU A GRAINS": {
+    "category": "OUTIL",
+    "stats": {
+      "hab": 1,
+      "end": 2,
+      "pv_max": 2
+    }
+  },
+  "GUERRIER": {
+    "category": "BILLY",
+    "stats": {
+      "hab": 2,
+      "cha": -1,
+      "deg": 1
+    }
+  },
+  "FILET DE PECHE": {
+    "category": "OUTIL",
+    "stats": {
+      "adr": 1,
+      "end": 1
+    }
+  },
+  "BOITE DE CRAYONS": {
+    "category": "EQUIPEMENT",
+    "stats": {
+      "cha": 2,
+      "crit": 1
+    }
+  },
+  "PELUCHE BON MARCHE": {
+    "category": "OBJET"
+  },
+  "LANCE": {
+    "category": "ARME",
+    "stats": {
+      "hab": 3,
+      "adr": 1
+    }
+  },
+  "SABLIER PERPETUEL": {
+    "category": "OBJET"
+  },
+  "SEAU": {
+    "category": "EQUIPEMENT",
+    "stats": {
+      "end": 1,
+      "arm": 1,
+      "pv_max": 2
+    }
+  },
+  "PIOCHE": {
+    "category": "ARME",
+    "stats": {
+      "hab": 2,
+      "pv_max": 2,
+      "deg": 1
+    }
+  },
+  "GUIDE TOURISTIQUE": {
+    "category": "EQUIPEMENT",
+    "stats": {
+      "cha": 3
+    }
+  },
+  "FORMULAIRE DE NATIONALITE": {
+    "category": "OBJET"
+  },
+  "PAYSAN": {
+    "category": "BILLY",
+    "stats": {
+      "end": 2,
+      "adr": -1
+    }
+  },
+  "AVIS DE RECHERCHE": {
+    "category": "OBJET"
+  },
+  "AILERON AERODYNAMIQUE": {
+    "category": "OBJET"
+  },
+  "AILERON AERODYNAMIQUE INSTALLE": {
+    "category": "OBJET",
+    "stats": {
+      "arm": 1
+    }
+  },
+  "TAMPON ROUGE": {
+    "category": "EVENEMENT"
+  },
+  "TAMPON JAUNE": {
+    "category": "EVENEMENT"
+  },
+  "TAMPON VERT": {
+    "category": "EVENEMENT"
+  },
+  "SOUFFLE DANS LA CORNE": {
+    "category": "EVENEMENT"
+  },
+  "LOI-19": {
+    "category": "EVENEMENT"
+  },
+  "LOI-234": {
+    "category": "EVENEMENT"
+  },
+  "LOI-269": {
+    "category": "EVENEMENT"
+  },
+  "LOI-22": {
+    "category": "EVENEMENT"
+  },
+  "LOI-299": {
+    "category": "EVENEMENT"
+  },
+  "LOI-188": {
+    "category": "EVENEMENT"
+  },
+  "LOI-120": {
+    "category": "EVENEMENT"
+  },
+  "LOI-49-3": {
+    "category": "EVENEMENT"
+  },
+  "LOI-521": {
+    "category": "EVENEMENT"
+  },
+  "FLUTE": {
+    "category": "OBJET"
+  },
+  "RETROVISEUR": {
+    "category": "OBJET"
+  },
+  "RETROVISEUR INSTALLE": {
+    "category": "OBJET"
+  },
+  "PRUDENT": {
+    "category": "BILLY",
+    "stats": {
+      "cha": 2,
+      "hab": -1
+    }
+  },
+  "SAC DE GRAINS": {
+    "category": "OUTIL",
+    "stats": {
+      "end": 2,
+      "cha": 2
+    }
+  },
+  "GRI-GRI": {
+    "category": "OBJET"
+  },
+  "OEUFS DE SCORPYDRE": {
+    "category": "OBJET"
+  },
+  "BOUTEILLE DE VIN": {
+    "category": "OBJET"
+  },
+  "BRACELET IOTOS": {
+    "category": "OBJET"
+  },
+  "KHAZIN": {
+    "category": "OBJET"
+  },
+  "PLOUF": {
+    "category": "OBJET"
+  },
+  "TURBAN POUR KHAZIN": {
+    "category": "OBJET"
+  },
+  "DISQUES CLOUTES": {
+    "category": "OBJET"
+  },
+  "DISQUES CLOUTES INSTALLES": {
+    "category": "OBJET",
+    "stats": {
+      "hab": 1,
+      "deg": 1
+    }
+  },
+
+  "APPEAU": {
+    "category": "OBJET"
+  },
+  "CARTE GOLD": {
+    "category": "OBJET"
+  },
+  "NADEE": {
+    "category": "OBJET"
+  },
+  "SUCRE": {
+    "category": "OBJET"
+  },
+  "CREME SOLAIRE": {
+    "category": "OBJET"
+  },
+  "SCORPION DORE": {
+    "category": "OBJET"
+  },
+  "FUSEE ECLAIRANTE": {
+    "category": "OBJET"
+  },
+  "MIROIR FERME": {
+    "category": "OBJET"
+  },
+  "LUCIOLES": {
+    "category": "OBJET"
+  },
+  "BRACELET A POINTES": {
+    "category": "OBJET"
+  },
+  "TONIQUE MYSTERIEUX": {
+    "category": "OBJET"
+  },
+  "BON POUR DE L'ARGENT": {
+    "category": "OBJET"
+  },
+  "GOURDE SCELLEE": {
+    "category": "OBJET"
+  },
+  "TROMBONE": {
+    "category": "OBJET"
+  },
+  "BOUCLIER A PLUMES": {
+    "category": "OBJET"
+  },
+  "CORNE DES SABLES D'IVOIRE": {
+    "category": "OBJET"
+  },
+  "SECRET DU DOUBLE INFINI": {
+    "category": "OBJET"
+  },
+  "MIROIR DE NADEE": {
+    "category": "OBJET"
+  },
+  "SA'PANNA": {
+    "category": "OBJET"
+  },
+  "SCORPYDE DE SA'PANNA": {
+    "category": "OBJET",
+    "stats": {
+      "hab": 2
+    }
+  },
+  "AUTORISATION SPECIALE": {
+    "category": "OBJET"
+  },
+  "HALISTAIR SAMRAAT REGISTAAN": {
+    "category": "OBJET"
+  },
+  "TRIBUNAL": {
+    "category": "EVENEMENT"
+  },
+  "DEBRIDAGE DE SCORPIONS": {
+    "category": "EVENEMENT"
+  },
+  "PARI GAGNE": {
+    "category": "EVENEMENT"
+  },
+  "SCORPIODROME": {
+    "category": "EVENEMENT"
+  },
+  "UN ECHEC": {
+    "category": "EVENEMENT"
+  },
+  "UNE REUSSITE": {
+    "category": "EVENEMENT"
+  },
+  "DEUX REUSSITES": {
+    "category": "EVENEMENT"
+  },
+  "TROIS REUSSITES": {
+    "category": "EVENEMENT"
+  },
+  "MECANISME DEESSE DEUX FOIS": {
+    "category": "EVENEMENT"
+  },
+  "SECRET SULTAN SUR SA FILLE": {
+    "category": "EVENEMENT"
+  },
+  "CONSEIL DE CUSHOM DERRIERE": {
+    "category": "EVENEMENT"
+  },
+  "CONSEIL NE PAS BAISSER LES YEUX": {
+    "category": "EVENEMENT"
+  },
+  "TROIS COUPS DE FOUET": {
+    "category": "EVENEMENT"
+  },
+  "BROCHE DOREE": {
+    "category": "OBJET"
+  }
+}

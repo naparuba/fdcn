@@ -3,7 +3,7 @@
 Application permettant de voir les chapitres du livre "La forteresse du Chaudron noir" de Bob Lennon
 
 Elle est décomposée en deux parties:
-* partie en Python reposant sur le fichier books/fdcn/data/fdcn.json qui permet de générer:
+* partie en Python reposant sur le fichier scripts/src/fdcn/fdcn.json qui permet de générer:
   * l'image de tous les liens entre chapitre dans /graph
   * les fichiers nécessaires à la seconde partie
 * une application (web, windows et surtout Android) en Godot permettant 

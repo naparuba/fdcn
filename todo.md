@@ -13,7 +13,7 @@ Suite de tests, à ne lancer que sur demande :
 ~/_Projects/godot/Godot_v4.7.1-stable_linux.x86_64 --headless -s test/all.gd --path .
 ```
 
-⚠️ Dernier passage vert : **68 tests** — la suite en compte maintenant **139**, et elle n'a
+⚠️ Dernier passage vert : **68 tests** — la suite en compte maintenant **146**, et elle n'a
 plus tourné depuis. Se sont ajoutés : les pouvoirs de Billy (8), la notation d'effet et les
 compteurs (14), le registre et le rangement des livres (10), **`BookData` et son évaluateur
 de conditions** (13), **l'archive de sauvegarde** (13), et les **deux premiers tests
@@ -23,15 +23,34 @@ d'interface** — `menu_page` et `top_menu` (15), qui exercent enfin un `_ready(
 l'attendent désormais. Les dix autoloads ont tous été relus, et `archive/` a reçu son
 `.gdignore` — la suite mérite vraiment un passage avant de continuer.
 
-⚠️ **Godot va réimporter au prochain démarrage de l'éditeur** : tout le contenu des livres
-a changé de place (`books/<nom>/data|img|audio|archive/`), et 24 assets orphelins sont
-partis dans `archive/unuzed/assets/`. Les **images de livre** ont emporté leur `.import`,
-donc leur **uid est intact** ; les **6 mp3** ont perdu le leur (aucune scène ne les
-référençait), Godot le régénérera.
+✅ **Générateur et données remis d'équerre** (2026-08-13). `fdcn.py` est devenu
+`scripts/generator.py`, il lit **toute** sa source dans `scripts/src/<nom>/` et n'écrit plus
+que ce que l'app ouvre. Les json des livres sont passés de **1 340 à 388 Ko** dans la
+journée, à contenu strictement identique pour l'app — vérifié clé par clé sur les
+1 297 chapitres. Les deux README (`scripts/`, `books/`) décrivent l'état actuel.
+
+⚠️ **Contrat à ne pas casser** : `Node.NEUTRES` (générateur) et les `.get(clé, défaut)` de
+`entities/chapter_data.gd` (app) doivent lister les **mêmes 17 clés avec les mêmes valeurs**.
+Une clé absente veut dire « rien à signaler ». `test_book_data.gd` le vérifie.
+
+⚠️ **Godot va réimporter au prochain démarrage de l'éditeur** : le contenu des livres a
+changé de place (`books/<nom>/data|img|audio/`, et la source dans `scripts/src/`), et
+24 assets orphelins sont partis dans `archive/unuzed/assets/`. Les **images de livre** ont
+emporté leur `.import`, donc leur **uid est intact** ; les **6 mp3** ont perdu le leur
+(aucune scène ne les référençait), Godot le régénérera.
 
 ---
 
 ## 1 — Perte de données et angles morts critiques
+
+- [ ] **1.4** **Relire les 85 combats des deux livres contre le livre papier.** Deux fautes
+      trouvées le 2026-08-13 rien qu'en en vérifiant un : **fdcn ch276** portait les deux
+      adversaires de ch274 (`GUARDES CORROMPUS` + `TROLESSE`) au lieu de **MORTELLE**
+      (hab 12, pv 26), et **ch274** un bouche-trou `XXXX` avec tous ses chiffres à 1, qui
+      partait tel quel dans l'application. Aucun outil ne peut les attraper : le compilateur
+      recopie le bloc `combat` sans le regarder, et les chiffres sont plausibles. Un balayage
+      automatique n'a trouvé **aucun autre** bouche-trou évident, mais ça ne dit rien des
+      chiffres faux.
 
 - [ ] **1.1** **Vérifier dans le livre les deux règles transcrites de mémoire**
       (2026-08-12) : `pv_1_2_max` de **cdsi ch249**, devenu `"pv": "= max/2"` — la clé dit
@@ -62,7 +81,7 @@ ni appareil**.
 **Plan d'ensemble : review §3.7.** Les quatre lignes ci-dessous sont ses étapes, dans
 l'ordre — la 3.2 d'abord, parce que c'est elle qui rend les suivantes sûres.
 
-- [ ] **3.2** **Le compilateur doit refuser ce qu'il ne comprend pas** — étape 1 du plan,
+- [ ] **3.2** **Le générateur doit refuser ce qu'il ne comprend pas** — étape 1 du plan,
       aucun changement de format :
       - **clé de chapitre inconnue** → erreur (aurait attrapé le `cond` de cdsi) ;
       - **clé de stat hors vocabulaire** → erreur : il les collecte et les **imprime déjà**,
@@ -70,16 +89,48 @@ l'ordre — la 3.2 d'abord, parce que c'est elle qui rend les suivantes sûres.
       - **`success` inconnu** → erreur au lieu d'une trace Python ;
       - **expression malformée** → message, au lieu du code 2 muet ;
       - **`&` et `|` mélangés sans parenthèses** → refus, au lieu d'un arbre faux en silence.
+      ⚠️ **Et rattraper les données, qui ont pris de l'avance le 2026-08-13** : ne plus
+      écrire les 5 sorties que personne ne lit (supprimées, et le dossier `archive/` avec —
+      le compilateur le recrée aujourd'hui pour ne pas échouer en pleine écriture), ne plus
+      écrire les **trois
+      copies enrichies** — `-compilated-success-chapters`, `-compilated-success` et
+      `-compilated-all-objects` — qui répétaient des valeurs de `<nom>.all_success.json` et
+      `<nom>.all_objects.json` (supprimées : l'app lit les fichiers de l'auteur et les
+      complète au chargement), ne plus recopier la source dans
+      `-compilated-data.json` et l'écrire **à plat** (déjà fait dans les données ;
+      `chapter_data.gd` accepte les deux formes en attendant).
       → review §3.7 *Plan*, §4.2
-- [ ] **3.8** **Un seul fichier de tables par livre** (`<nom>.livre.json`) — étape 2 : actes,
-      sous-arcs, objets, succès, compteurs et objets supposés passent de 7 fichiers à 1, et
-      surtout **à des champs nommés**. Aujourd'hui un sous-arc est un tableau positionnel de
-      4 champs (`["Invasion", 148, "…", [496, 285, 353]]`) où intervertir deux valeurs ne
-      produit aucune erreur. ⚠️ **Ne pas** déplacer l'acte dans le chapitre : 8 lignes
-      couvrent 606 chapitres par propagation. → review §3.7 *Plan*
+- [ ] **3.8** **Un seul fichier de tables par livre** (`<nom>.livre.json`) — étape 2. Les
+      six fichiers sont déjà réunis dans `scripts/src/<nom>/` (2026-08-13) ; reste à les
+      fondre et surtout à passer **à des champs nommés**. Aujourd'hui un sous-arc est un
+      tableau positionnel de 4 champs (`["Invasion", 148, "…", [496, 285, 353]]`) où
+      intervertir deux valeurs ne produit aucune erreur. ⚠️ **Ne pas** déplacer l'acte dans
+      le chapitre : 8 lignes couvrent 606 chapitres par propagation. → review §3.7 *Plan*
+- [ ] **3.13** **Le pipeline visé : `src/` → `gen/` → `books/`.** La moitié est faite
+      (2026-08-13 : tout ce qui s'écrit à la main est dans `scripts/src/<nom>/`, et le
+      compilateur y recopie les objets et succès vers `books/`). Reste à écrire :
+      - le compilateur **produit dans `scripts/gen/<nom>/data/`**, puis **copie** vers
+        `books/<nom>/data/` — une étape de génération, une étape de livraison, chacune
+        vérifiable séparément ;
+      - `books/<nom>/data/` devient **entièrement généré**, donc jetable et regénérable ;
+      - ⚠️ à décider en même temps : `gen/` est-il commité, ou seulement `books/` ? Deux
+        copies commitées du même contenu se contrediraient à la première compilation
+        oubliée. Mon avis : `gen/` dans le `.gitignore`, `books/` commité — c'est lui que
+        l'app embarque.
+      ⚠️ **Un seul point d'entrée existe déjà** : `python3 scripts/generator.py --book <nom>`.
+      `node.py`, `graph.py`, `condition_node.py` et `endings.py` ne se lancent pas, ce sont
+      des modules qu'il importe. Les fondre en un fichier irait **contre 4.2**, qui demande
+      au contraire de découper les 475 lignes à plat de `generator.py` — à trancher.
 - [ ] **3.9** **Squelette de livre** : `--nouveau <nom>` crée le dossier, deux fichiers
       valides et l'entrée du registre — un livre neuf part de quelque chose **qui compile**.
       → review §3.7 *Plan*
+- [ ] **3.11** **Écrire le mode d'emploi d'un livre ajouté à la main.** `books/README.md`
+      dit *quels* fichiers déposer, jamais *comment les remplir* : il manque le format de
+      chaque clé de chapitre avec un exemple réel, le langage des conditions et ses trois
+      pièges, la propagation des actes (19 déclarations couvrent 606 chapitres), et une
+      liste de vérification avant la première compilation. Aujourd'hui la seule source
+      complète est `scripts/README.md`, écrite pour qui touche au compilateur — pas pour
+      qui saisit un livre. **À reprendre après 3.8**, sinon la moitié sera déjà périmée.
 - [ ] **3.10** Corriger l'angle mort de la validation des objets : un objet cité
       **uniquement** dans un `stats_cond` compte comme « déclaré mais pas utilisé » et fait
       échouer la compilation à tort. → review §3.7 *Plan*
@@ -92,14 +143,10 @@ l'ordre — la 3.2 d'abord, parce que c'est elle qui rend les suivantes sûres.
       `PlayerStats._CHAPTER_UNMANAGED_KEYS`. Dépend des « règles ponctuelles » — **§4.3, à
       trancher d'abord**. Pas de liste d'alias : les orthographes se corrigent à la source
       (**3.1**). → review §4.6
-- [ ] **3.6** **Alléger la sortie compilée** — le rangement est fait (2026-08-12 :
-      `data/` / `img/` / `audio/` / `archive/`, `BookData` ne charge plus que 6 fichiers au
-      lieu de 10, `all-success.json` renommé `<nom>.all_success.json`). Reste le poids :
-      - `-compilated-data.json` **recopie le livre entier** à côté de `computed`, que seul
-        `chapter_data.gd` lit : **28 % du plus gros fichier**, ~150 Ko par livre ;
-      - et les 6 sorties de `data/` tiendraient dans **un seul fichier à 6 clés**.
-      ⚠️ Ça change ce que le compilateur écrit : recompiler les deux livres derrière.
-      C'est l'étape 3 du plan. → review §3.6, §3.7 *Plan*
+- [ ] **3.6** **Réunir les 3 sorties compilées en un seul fichier** — étape 3 du plan. Le
+      poids, lui, est réglé (2026-08-13 : plus de source recopiée, puis plus de valeurs
+      neutres — **391 → 149 Ko** pour fdcn, 442 → 173 pour cdsi). Reste que `BookData` ouvre
+      cinq fichiers là où un suffirait. → review §3.6, §3.7 *Plan*
 - [ ] **3.7** Renommer **`images/dieux/<n>/` → `images/dieux/<nom>/`** (et les sons
       correspondants). **Tranché le 2026-08-12** : c'est le dernier vestige de
       l'identification par numéro, dont tout le reste de l'app est déjà sorti. À faire
@@ -114,14 +161,17 @@ tous les json sortent, seul le png de relecture manque.
 - [ ] **4.1** **Des niveaux de log** (`--verbose`) : 66 `print()` noient les validations
       utiles (secrets à deux entrées, fin sans type, objets sans chapitre). C'est ce qui a
       laissé passer `critique`. → review §6.2
-- [ ] **4.2** **Découper `fdcn.py`** : 405 lignes à plat, **aucune fonction** hors
+- [ ] **4.2** **Découper `generator.py`** : 476 lignes à plat, **aucune fonction** hors
       `load_json_file`, **40 variables globales**. Le graphviz est la moitié du fichier et
       l'app ne s'en sert pas — candidat évident à l'extraction. → review §6.2
 - [ ] **4.3** Sortir la présentation graphviz de `node.py` (`get_label()` renvoie du HTML
       coloré depuis le modèle de données). → review §6.2
 - [ ] **4.4** Nettoyer : code commenté laissé en place, deux commentaires « Get the combat
       entry if any » d'affilée, annotations de type en commentaire Python 2,
-      `get_all_stats_keys()` qui imprime. → review §6.2
+      `get_all_stats_keys()` qui imprime. Les accumulateurs devenus morts avec les sorties
+      supprimées (`all_combats`, `all_endings`, `all_secrets`…) ont déjà été retirés le
+      2026-08-13, et `node.py` garde probablement les méthodes qui les servaient
+      (`have_combat()`, `is_good_ending()`…) — à vérifier. → review §6.2
 
 ## 5 — Tests et hygiène
 

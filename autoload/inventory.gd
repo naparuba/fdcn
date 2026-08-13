@@ -26,8 +26,10 @@ var possessed_items := []
 ## de saut peut tester. Reconstruit à chaque changement d'inventaire.
 var all_matched_conditions := []
 
-## Vrai quand une sauvegarde a été migrée et que les objets ont dû être devinés,
-## pour que l'interface propose à l'utilisateur de les corriger.
+## Vrai quand la sauvegarde relue ne contenait pas la liste des objets : ce qui a pu être
+## reconstitué l'a été en rejouant les chapitres, mais **l'équipement de départ, lui, est
+## perdu** — aucun chapitre ne le donne, c'est le lecteur qui l'a choisi dans le livre.
+## `Player` en fait un signal, et l'interface ouvre l'inventaire pour que le joueur corrige.
 var need_force_display_options := false
 
 
@@ -92,38 +94,23 @@ func save_items() -> void:
 	SaveManager.save_value(SaveManager.KEY_POSSESSED_ITEMS, possessed_items)
 
 
-## Pas de fichier de sauvegarde : on rejoue les chapitres connus, puis on devine
-## l'équipement de départ à partir du type de Billy qu'avait l'utilisateur.
+## Pas de fichier d'objets : on **rejoue les chapitres visités**, et rien d'autre.
+##
+## On ne devine plus l'équipement de départ. Une table `type de Billy -> 3 objets` existait
+## par livre, écrite à la main : elle **inventait une information que la sauvegarde n'avait
+## jamais eue** (le type, oui ; les objets, non), et elle empilait ses 3 objets par-dessus le
+## rejeu sans passer par `clean_overload()` — un Billy migré pouvait porter 6 objets, tous
+## comptés dans ses stats.
+##
+## Le rejeu, lui, ne restitue que du réel : ce que les chapitres traversés ont donné. Ce qui
+## manque à l'arrivée, c'est l'équipement choisi **avant** le chapitre 1, qu'aucun chapitre
+## ne donne — et c'est justement ce que le joueur est le seul à savoir. D'où le drapeau, et
+## l'inventaire ouvert d'office.
 func _guess_after_migration() -> void:
 	need_force_display_options = true
-	print('SAVE: sauvegarde sans objets, on les devine depuis l\'historique')
+	print('SAVE: sauvegarde sans liste d\'objets, reconstitution depuis les chapitres visités')
 	for chapter_id in Player.get_session_visited_nodes():
 		apply_chapter_items(chapter_id)
-	for item_name in _migration_items():
-		_raw_add(item_name)
-
-
-## L'équipement supposé d'un Billy de ce type, lu dans
-## `books/<nom>/data/<nom>.migration_items.json`.
-##
-## C'était une table `MIGRATION_GUESS` en dur ici, alors que **son contenu dépend du livre** :
-## fdcn donne EPEE/LANCE/MARMITE là où cdsi donne SABRE/LANCE/SEAU. Du contenu de livre dans
-## un autoload, c'est-à-dire un endroit qu'un troisième livre aurait obligé à rouvrir.
-##
-## ⚠️ Ce n'est **pas** l'équipement de départ d'une nouvelle partie — celui-là vient des
-## `aquire` du chapitre 1. Ces listes ne servent qu'à deviner ce que portait un joueur dont la
-## sauvegarde est antérieure à la persistance des objets. D'où le nom du fichier.
-##
-## Un livre sans ce fichier ne casse rien : la liste est vide, le joueur repart sans objet
-## devinés (et l'inventaire s'ouvre pour qu'il corrige — `need_force_display_options`).
-func _migration_items() -> Array:
-	var book_name = AppParameters.get_book_name()
-	var chemin = "res://books/%s/data/%s.migration_items.json" % [book_name, book_name]
-	var data = Utils.load_json_file(chemin)
-	if data == null:
-		push_warning("Inventory: pas de %s, aucun objet deviné" % chemin)
-		return []
-	return data.get(AppParameters.get_billy_type(), [])
 
 
 func _clean_not_existing_items() -> void:

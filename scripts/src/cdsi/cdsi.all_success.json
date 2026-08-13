@@ -1,0 +1,262 @@
+[
+  {
+	"id": "CEST-REPARTI",
+	"label": "Oh oh... Et c'est reparti",
+	"txt": "Vous avez choisi de rempiler"
+  },
+  {
+	"label": "Punished Bouli",
+	"id": "PUNISHED-BOULI",
+	"txt": "Vous avez refusé l'existence d'un bonhomme de neige"
+  },
+  {
+	"id": "BESOIN-AIDE",
+	"label": "Avez-vous besoin de mon aide?",
+	"txt": "Vous avez tout prévu, naturellement"
+  },
+  {
+	"label": "A mon plus grand fan: Billy!",
+	"id": "GRAND-FAN",
+	"txt": "Vous avez obtenu une édition collector"
+  },
+  {
+	"label": "YAMEROOO!!",
+	"id": "YAMEROOO",
+	"txt": "Vous avez été extirpé d'un enfer personnel"
+  },
+  {
+	"label": "Laissez-passer A38",
+	"id": "A38",
+	"txt": "Vous avez fait les choses jusqu'au bout"
+  },
+  {
+	"label": "Le coude de Billy",
+	"id": "COUDE",
+	"txt": "Vous n'avez pas su tirer votre épingle du jeu"
+  },
+  {
+	"label": "Argument de pointe",
+	"id": "ARGUMENT-POINTE",
+	"txt": "Vous n'avez pas l'habitude d'y aller par quatre chemins"
+  },
+  {
+	"label": "Galaxy brain",
+	"id": "GALAXY-BRAIN",
+	"txt": "Vous avez trouvé la réponse que le facteur attendait"
+  },
+  {
+	"label": "GET OVER HERE!",
+	"id": "GET-OVER-HERE",
+	"txt": "Vous n'avez pas été du genre à lâcher prise"
+  },
+  {
+	"label": "Phobie administrative",
+	"id": "PHOBIE-ADMINISTRATIVE",
+	"txt": "Vous avez été méthodique,ou très chanceux"
+  },
+  {
+	"label": "Le Big Dead",
+	"id": "BIG-DEAL",
+	"txt": "Vous avez cédé face au maitre du commerce"
+  },
+  {
+	"id": "NOT-GUILTY",
+	"label": "Not guilty!",
+	"txt": "Vous avez été un peu trop honnête"
+  },
+  {
+	"id": "GLISSE-CHEF",
+	"label": "J'ai glissé chef",
+	"txt": "Vous n'avez même pas commencé"
+  },
+  {
+	"label": "Ca compte quand même que pour un!",
+	"id": "CA-COMPTE-POUR-UN",
+	"txt": "Vous avez refusé de vous laisser intimider"
+  },
+  {
+	"label": "Parkour? Parkour!",
+	"id": "PARKOUR",
+	"txt": "Vous êtes parfaitement inconscient, mais vivant"
+  },
+  {
+	"id": "SIXIEME-SENS",
+	"label": "Sixième sens",
+	"txt": "Vous avez aidé une vieille à traverser sa dernière route"
+  },
+  {
+	"id": "NENETTE",
+	"label": "Nenette bat tout",
+	"txt": "Vous avez eu la chance du débutant"
+  },
+  {
+	"label": "Les aventures de Xilly",
+	"id": "XILLY",
+	"txt": "Vous avez adapté votre histoire à votre public"
+  },
+  {
+	"label": "J'ai trouvé lé Titre™",
+	"id": "TROUVE-LE-TITRE",
+	"txt": "Vous l'avez enfin récupéré"
+  },
+  {
+	"label": "Orgie syndicale",
+	"id": "ORGIE-SYNDICALE",
+	"txt": "Vous avez rendu es naines extra-lucides"
+  },
+  {
+	"label": "La maison gagne toujours",
+	"id": "MAISON-GAGNE-TOUJOURS",
+	"txt": "Vous avez prouvé ne pas être n'importe qui"
+  },
+  {
+	"label": "GUNDAAAAAAAAAAM!",
+	"id": "GUNDAAAM",
+	"txt": "Vous avez usé de stratégies alternatives"
+  },
+  {
+	"label": "Il en faut peu pour être heureux",
+	"id": "PEU-POUR-ETRE-HEUREUX",
+	"txt": "Vous avez cherché un autre sens à votre vie"
+  },
+  {
+	"label": "J'ai couvert des guerres vous savez?",
+	"id": "COUVERT-GUERRE",
+	"txt": "Vous avez fait étalage de votre ténacité"
+  },
+  {
+	"label": "Un ventre plus gros que vos yeux",
+	"id": "VENTRE-PLUS-GROS",
+	"txt": "Vous avez nourri Mimine"
+  },
+  {
+	"label": "Technique secrête: Mentir!",
+	"id": "MENTIR",
+	"txt": "Vous avez excellé dans la pratique d l'art judiciaire"
+  },
+  {
+	"label": "Zigmaâ Male",
+	"id": "ZIGMAA-MALE",
+	"txt": "Vous avez rendu le PB à son état naturel"
+  },
+  {
+	"id": "VERY-BAD-TRIP",
+	"label": "Very bad trip",
+	"txt": "Vous avez vu des choses"
+  },
+  {
+	"label": "POTION D'EXPLOSION!",
+	"id": "POTION-EXPLOSION",
+	"txt": "Vous avez opté pour une solution détonante"
+  },
+  {
+	"label": "Etal des lieux",
+	"id": "ETALS-LIEUX",
+	"txt": "Vous avez découvert meilleur explorateur que vous"
+  },
+  {
+	"label": "Izallgoud",
+	"id": "IZALLGOUD",
+	"txt": "Vous avez invoqué le Sultanétat d'urgence"
+  },
+  {
+	"label": "No way pan",
+	"id": "NO-WAY-PAN",
+	"txt": "Vous avez refusé les heures suplémentaires"
+  },
+  {
+	"label": "Pipautage professionnel",
+	"id": "PIPAUTAGE-PROFESSIONNEL",
+	"txt": "Vous avez bâti une défense imparable"
+  },
+  {
+	"label": "JE suis, donc je suis",
+	"id": "JE-SUIS-DONC-JE-SUIS",
+	"txt": "Vous avez nié votre inexistence"
+  },
+  {
+	"label": "Appropriation culturelle",
+	"id": "APPROPRIATION-CULTURELLE",
+	"txt": "Vous avez déposé quelqu'un à la mauvaise adresse"
+  },
+  {
+	"label": "Full throttle",
+	"id": "FULL-THROTTLE",
+	"txt": "Terminez le jeu avec la fin alternative GUERRIER"
+  },
+  {
+	"id": "ME-TOO",
+	"label": "#MeToo",
+	"txt": "Vous avez brisé le silence avec le Pyro Barbare"
+  },
+  {
+	"label": "Fusil de Tchekhov",
+	"id": "FUSIL-TCHEKHOV",
+	"txt": "Vous aviez gardé ça pour le boss de fin"
+  },
+  {
+	"id": "RUISSELLEMENT",
+	"label": "Théorie du ruissellement",
+	"txt": "Vous avez atteint la fin RICHESSE MAX"
+  },
+  {
+	"label": "L'ordre des choses",
+	"id": "ORDRE-CHOSES",
+	"txt": "Vous avez libéré Khazin du poids de ses regrets"
+  },
+  {
+	"id": "MILLES-ET-UNE-NEIGE",
+	"label": "Les Mille et Une Neiges",
+	"txt": "Vous avez rejoint les personnages de conte"
+  },
+  {
+	"id": "POSTERITE-ADMINISTRATIVE",
+	"label": "Postériété administrative",
+	"txt": "Vous avez élevé Plouf au rang d'archiviste"
+  },
+  {
+	"label": "Bonne chance au prochain",
+	"id": "BONNE-CHANCE",
+	"txt": "Terminez le jeu avec un Billy DEBROUILLARD"
+  },
+  {
+	"label": "Elevage Arrangé",
+	"id": "ELEVAGE-ARRANGE",
+	"txt": "Terminez le jeu avec la fin alternative PAYSAN"
+  },
+  {
+	"label": "Je n'aime pas le sable",
+	"id": "AIME-PAS-LE-SABLE",
+	"txt": "Vous avez atteint le fin RANCUNE MAX"
+  },
+  {
+	"label": "Je t'aime aussi, citoyen ordinaire",
+	"id": "CITOYEN-ORDINAIRE",
+	"txt": "Vous avez obtenu la fin RESPECT MAX"
+  },
+  {
+	"label": "Pyro-Montana",
+	"id": "PYRO-MONTANA",
+	"txt": "Terminez le jeu avec la fin alternative DEBROUILLARD"
+  },
+  {
+	"label": "Ace Attorney",
+	"id": "ACE-ATTORNEY",
+	"txt": "Terminez le jeu avec la fin alternative PRUDENT"
+  },
+  {
+	"label": "Un bon tuteur",
+	"id": "BON-TUTEUR",
+	"txt": "Terminez le jeu avec un Billy PAYSAN"
+  },
+  {
+	"label": "Sa place est dans un musée",
+	"id": "PLACE-MUSEE",
+	"txt": "Terminez le jeu avec un Billy PRUDENT"
+  },
+  {
+	"label": "Ni guide, ni maitre",
+	"id": "NI-GUIDE",
+	"txt": "Terminez le jeu avec un Billy GUERRIER"
+  }
+]

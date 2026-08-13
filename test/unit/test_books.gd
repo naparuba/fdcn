@@ -22,8 +22,10 @@ func test_chaque_livre_declare_a_ses_donnees_sur_le_disque() -> void:
 		var base = "res://books/%s/data/%s" % [nom, nom]
 		assert_true(Utils.is_file_exists(base + "-compilated-data.json"),
 			"%s : les chapitres compilés sont là" % nom)
-		assert_true(Utils.is_file_exists(base + "-compilated-all-objects.json"),
-			"%s : les objets compilés sont là" % nom)
+		assert_true(Utils.is_file_exists(base + ".all_objects.json"),
+			"%s : les objets écrits à la main sont là" % nom)
+		assert_true(Utils.is_file_exists(base + ".all_success.json"),
+			"%s : les succès aussi" % nom)
 
 
 ## Les images d'un livre sont trouvées par convention de nommage, jamais déclarées : rien
@@ -82,13 +84,53 @@ func test_l_intro_du_livre_est_dans_son_dossier() -> void:
 	assert_false(Utils.is_file_exists("res://sounds/intro-fdcn.mp3"), "et plus rien dans sounds/")
 
 
-## `archive/` n'est pas un cimetière : le compilateur y écrit toujours, mais **rien ne doit
-## le charger**. Si un de ces fichiers redevient utile, il remonte dans `data/`.
-func test_larchive_du_livre_nest_pas_chargee() -> void:
-	assert_true(Utils.is_file_exists("res://books/fdcn/archive/fdcn-compilated-combats.json"),
-		"les sorties inutilisées sont conservées dans archive/")
-	assert_false(Utils.is_file_exists("res://books/fdcn/data/fdcn-compilated-combats.json"),
-		"et ne traînent plus dans data/")
+## Les cinq sorties que personne ne lisait ont été supprimées le 2026-08-13 : la liste des
+## combats, celle des secrets et les trois listes de fins. Tout ça se lit chapitre par
+## chapitre. ⚠️ Le compilateur les réécrira tant qu'il n'aura pas été repris (todo 3.2) —
+## ce test est justement là pour le faire remarquer ce jour-là.
+func test_les_sorties_inutiles_nexistent_plus() -> void:
+	for inutile in ["combats", "secrets", "endings", "good-endings", "bad-endings",
+			"success", "success-chapters", "all-objects"]:
+		assert_false(Utils.is_file_exists("res://books/fdcn/data/fdcn-compilated-%s.json" % inutile),
+			"fdcn-compilated-%s.json n'a plus de raison d'être" % inutile)
+
+
+## Les données compilées ne contiennent plus que le CALCULÉ : le chapitre écrit à la main
+## vit dans `<nom>.json`, à côté, et n'y est plus recopié. `chapter_data.gd` accepte encore
+## l'ancienne forme, donc ce test décrit l'état des données, pas une obligation du code.
+func test_les_donnees_compilees_ne_repetent_pas_la_source() -> void:
+	var chapitre = BookData.get_chapter_node(1)
+	assert_not_null(chapitre.get_sons(), "un chapitre a bien ses fils calculés")
+	assert_eq(chapitre.get_id(), 1, "et son identifiant")
+
+
+## Objets et succès sont lus dans les fichiers de l'auteur, puis **complétés** de ce que les
+## chapitres en disent. C'est ce complément qu'on vérifie : sans lui, l'inventaire cacherait
+## tous les objets et l'écran des succès n'afficherait aucun chapitre.
+func test_les_objets_et_succes_sont_completes_au_chargement() -> void:
+	var epee = BookData.get_item_data("EPEE")
+	assert_true(epee.has('in_chapters'), "un objet sait où il se gagne")
+	assert_true(epee.has('stats'), "et porte toujours un dictionnaire de stats")
+
+	var succes = BookData.get_all_success()
+	assert_true(succes.size() > 0, "le livre a des succès")
+	for s in succes:
+		assert_true(s.has('chapter'), "le succès %s sait où il se gagne" % s['id'])
+
+	# fdcn 112 donne TROIE : le chemin complet, du chapitre au succès.
+	var troie = BookData.get_success_from_chapter(112)
+	assert_eq(troie['id'], "TROIE", "chapitre -> succès")
+	assert_eq(troie['chapter'], 112, "et le succès sait d'où il vient")
+	assert_ne(BookData.get_success_txt("TROIE"), "", "son texte est là")
+
+
+## ⚠️ Un succès qui se gagne dans DEUX chapitres ne doit apparaître qu'une fois — et compter
+## comme obtenu si l'un ou l'autre a été traversé. Le fichier compilé en faisait deux lignes.
+func test_un_succes_gagne_deux_fois_napparait_quune_fois() -> void:
+	var ids := []
+	for s in BookData.get_all_success():
+		assert_false(s['id'] in ids, "le succès %s n'est listé qu'une fois" % s['id'])
+		ids.append(s['id'])
 
 
 #
@@ -97,8 +139,8 @@ func test_larchive_du_livre_nest_pas_chargee() -> void:
 
 ## La règle de mise en page du sélecteur de livre : plus il y a de livres, plus la grille
 ## s'élargit — mais jamais plus large que haute, l'app étant en portrait et les couvertures
-## plus hautes que larges. C'est une fonction pure, donc testable sans afficher la scène
-## (`test_case.gd` ne sait pas encore `await`).
+## plus hautes que larges. C'est une fonction pure : elle se teste sans afficher la scène,
+## donc sans attendre la moindre image.
 func test_la_grille_du_selecteur_reste_en_portrait() -> void:
 	var selecteur = load("res://popups/sub/book_selection.gd")
 	assert_eq(selecteur.colonnes_pour(1), 1, "1 livre : une colonne")

@@ -58,26 +58,48 @@ class Node(object):
         return self._ending == ENDINGS.BAD
     
     
+    # Chaque cle exportee, avec sa valeur NEUTRE. Une valeur neutre n'est pas ecrite : sur
+    # fdcn, 9 538 des 12 120 cles ne disaient rien d'autre que « rien a signaler », soit
+    # 61 % du fichier. `chapter_data.gd` applique exactement les memes defauts a la lecture
+    # -- les deux listes doivent rester d'accord, c'est le seul point de vigilance.
+    #
+    # `id` n'y figure pas : il est toujours ecrit. `ending` et `is_combat` ont disparu :
+    # c'etaient des booleens derives de `ending_type` et `combat`, verifies identiques sur
+    # les 1 297 chapitres des deux livres. L'app les recalcule.
+    NEUTRES = {
+        'sons': [],
+        'chapter': None,
+        'arc': None,
+        'combat': None,
+        'label': None,
+        'secret': False,
+        'secret_jumps': [],
+        'success': None,
+        'ending_id': None,
+        'ending_txt': None,
+        'ending_type': None,
+        'jump_conditions': {},
+        'jump_conditions_txts': {},
+        'aquire': [],
+        'remove': [],
+        'stats': {},
+        'stats_cond': [],
+    }
+    
+    
     def get_computed(self):
         son_ids = [son.get_id() for son in self._sons]
         son_ids.sort()  # try to always have the same result
         
-        ending = False
-        if self._ending is not None:
-            ending = True
-        
-        return {
-            'id':                   self._id,
-            'ending':               ending,
-            'success':              self._success,
+        valeurs = {
             'sons':                 son_ids,
             'chapter':              self._arc,
             'arc':                  self._sub_arc,
-            'is_combat':            self._combat is not None,
             'combat':               self._combat,
             'label':                self._label,
             'secret':               self._secret,
             'secret_jumps':         self._secret_jumps,
+            'success':              self._success,
             'ending_id':            self._ending_id,
             'ending_txt':           self._ending_txt,
             'ending_type':          self._ending,
@@ -88,6 +110,12 @@ class Node(object):
             'stats':                self._stats,
             'stats_cond':           self._stats_cond,
         }
+        
+        computed = {'id': self._id}
+        for cle, valeur in valeurs.items():
+            if valeur != self.NEUTRES[cle]:
+                computed[cle] = valeur
+        return computed
     
     
     def get_label(self):

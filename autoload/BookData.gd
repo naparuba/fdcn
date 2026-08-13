@@ -13,11 +13,14 @@ extends Node
 ## BookData est le 3ᵉ autoload, avant AppParameters : son `_ready()` a donc chargé le
 ## registre quand AppParameters demande le livre à ouvrir.
 ##
-## ⚠️ **6 fichiers compilés chargés, pas 10.** Les listes de fins et celle des secrets
-## étaient relues à chaque changement de livre et **personne ne les lisait** : les fins
-## s'affichent chapitre par chapitre (`computed.ending`) et le caractère secret aussi
-## (`node.get_secret()`). Elles sont dans `books/<nom>/archive/`, avec les combats que le
-## compilateur produit sans que rien ne les charge. Le détail est dans `scripts/README.md`.
+## ⚠️ **3 fichiers compilés chargés, pas 10** (2026-08-13). Cinq ne servaient à personne
+## (combats, secrets, les trois listes de fins), et quatre autres étaient des **doublons de
+## valeur** : l'index des chapitres à succès répétait `-compilated-success.json`, qui
+## répétait lui-même `<nom>.all_success.json` pour un champ ajouté — de même pour les
+## objets. Les libellés, catégories et textes ne s'écrivent donc plus qu'à un seul endroit :
+## le fichier que l'auteur édite. Ce que le compilateur ajoutait (`in_chapters`, `chapter`,
+## l'index) se reconstruit ici en une passe sur les chapitres. Le détail est dans
+## `scripts/README.md`.
 
 const REGISTRE := "res://books/books.json"
 
@@ -126,9 +129,12 @@ func do_load_book(book_name) -> void:
 
 	chapters_by_arc = Utils.load_json_file(book_path + "-compilated-nodes-by-chapter.json")
 	chapters_by_sub_arc = Utils.load_json_file(book_path + "-compilated-nodes-by-sub-arc.json")
-	all_success = Utils.load_json_file(book_path + "-compilated-success.json")
-	all_success_chapters = Utils.load_json_file(book_path + "-compilated-success-chapters.json")
-	all_objects = Utils.load_json_file(book_path + "-compilated-all-objects.json")
+	# Objets et succès sont lus dans les fichiers **écrits à la main** puis complétés ici.
+	# Le compilateur en produisait des copies enrichies : les mêmes libellés, catégories et
+	# textes écrits deux fois dans le dépôt, pour deux champs ajoutés.
+	all_objects = _completer_objets(Utils.load_json_file(book_path + ".all_objects.json"))
+	all_success = _completer_succes(Utils.load_json_file(book_path + ".all_success.json"))
+	all_success_chapters = _index_succes_par_chapitre()
 	counters = _load_counters(book_name)
 
 
@@ -160,6 +166,86 @@ func _load_counters(book_name) -> Array:
 			continue
 		trouves.append({"cle": cle, "libelle": libelle})
 	return trouves
+
+
+## Les objets du livre, complétés de ce que les chapitres en disent :
+##
+##   `in_chapters`  où l'objet se gagne ou se perd — ce qui décide s'il est montrable sans
+##                  spoiler. Un objet qu'aucun chapitre ne cite est **connu depuis le
+##                  début** (`[1]`) : c'est l'équipement que le lecteur choisit avant le
+##                  chapitre 1 ;
+##   `stats`        un dictionnaire vide plutôt qu'une clé absente, pour les appelants.
+func _completer_objets(objets) -> Dictionary:
+	if not objets is Dictionary:
+		push_error("BookData: objets illisibles pour %s" % _current_book_name)
+		return {}
+
+	var par_objet := {}
+	for node_id_str in all_nodes:
+		var chapitre = int(node_id_str)
+		var chapter_data = all_nodes[node_id_str]
+		for item_name in chapter_data.get_aquire() + chapter_data.get_remove():
+			if not par_objet.has(item_name):
+				par_objet[item_name] = []
+			if not (chapitre in par_objet[item_name]):
+				par_objet[item_name].append(chapitre)
+
+	for item_name in objets:
+		var complet = objets[item_name].duplicate()
+		complet['in_chapters'] = par_objet.get(item_name, [1])
+		complet['stats'] = complet.get('stats', {})
+		objets[item_name] = complet
+	return objets
+
+
+## Les succès du livre, complétés du chapitre qui les donne.
+##
+## ⚠️ **Un succès par identifiant, même s'il se gagne à deux endroits.** Le fichier compilé
+## était une liste de paires (succès × chapitre) : `PHOBIE-ADMINISTRATIVE` de cdsi, déclaré
+## par les chapitres 98 et 498, y figurait **deux fois** — et l'écran des succès affichait
+## donc deux lignes identiques. `chapter` garde le premier chapitre, pour l'afficher ;
+## savoir si le succès est obtenu passe par `is_success_obtenu()`, qui les regarde tous.
+func _completer_succes(succes) -> Array:
+	if not succes is Array:
+		push_error("BookData: succès illisibles pour %s" % _current_book_name)
+		return []
+
+	var par_succes := {}
+	for node_id_str in all_nodes:
+		var success_id = all_nodes[node_id_str].get_success()
+		if success_id == null:
+			continue
+		if not par_succes.has(success_id):
+			par_succes[success_id] = []
+		par_succes[success_id].append(int(node_id_str))
+
+	var complets := []
+	for success in succes:
+		var chapitres = par_succes.get(success['id'], [])
+		chapitres.sort()
+		var complet = success.duplicate()
+		complet['chapter'] = chapitres[0] if not chapitres.is_empty() else 1
+		complets.append(complet)
+	return complets
+
+
+## Chapitre -> identifiant de succès. Tous les chapitres qui donnent un succès y sont, y
+## compris quand deux en donnent le même.
+func _index_succes_par_chapitre() -> Dictionary:
+	var index := {}
+	for node_id_str in all_nodes:
+		var success_id = all_nodes[node_id_str].get_success()
+		if success_id != null:
+			index['%d' % int(node_id_str)] = success_id
+	return index
+
+
+## Vrai si le joueur a traversé **l'un** des chapitres qui donnent ce succès.
+func is_success_obtenu(success_id) -> bool:
+	for node_id_str in all_success_chapters:
+		if all_success_chapters[node_id_str] == success_id and Player.did_all_times_seen(int(node_id_str)):
+			return true
+	return false
 
 
 #

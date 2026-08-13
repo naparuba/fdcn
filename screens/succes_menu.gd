@@ -66,12 +66,16 @@ func _on_state_changed() -> void:
 	_update_counter()
 
 
-## « obtenus / total » : un succès compte comme obtenu si son chapitre a déjà
-## été visité, toutes parties confondues.
+## « obtenus / total » : un succès compte comme obtenu si **l'un** des chapitres qui le
+## donnent a déjà été visité, toutes parties confondues.
+##
+## ⚠️ « l'un » et pas « le sien » : `PHOBIE-ADMINISTRATIVE` de cdsi se gagne aux chapitres
+## 98 **et** 498. Ne regarder que le premier le déclarait manquant à qui l'avait obtenu par
+## l'autre.
 func _update_counter() -> void:
 	var obtained := 0
 	for success in _successes:
-		if Player.did_all_times_seen(int(success['chapter'])):
+		if BookData.is_success_obtenu(success['id']):
 			obtained += 1
 	_counter.text = "%d / %d" % [obtained, _successes.size()]
 

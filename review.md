@@ -206,39 +206,30 @@ Constat de départ : **il n'existe aucun registre des livres**. Aucune liste, au
 | ~~**`ui/top_menu.tscn`** qui référence `books/fdcn/logo.png`~~ | ✅ retiré le 2026-08-12 : l'aperçu d'éditeur faisait de fdcn une **dépendance de la scène**. `set_book_context()` pose logo et titre à l'exécution |
 | **La table de combat** | un seul fichier partagé — sauf si le marque-page du nouveau livre diffère, auquel cas il faut la passer par livre (`combat.md` §3.2) |
 
-### 3.2 Les fichiers à fournir dans `books/<nom>/`
+### 3.2 Les fichiers à fournir — ✅ tranché le 2026-08-13
 
-✅ **Rangé le 2026-08-12** en quatre dossiers : `data/` (ce que l'app et le compilateur
-ouvrent), `img/` (logo, titre, couverture), `audio/` (intro et narrations), `archive/` (ce
-que personne ne lit). Plus rien à la racine d'un livre.
+**Une source, une sortie.** Tout ce qui s'écrit à la main est dans `scripts/src/<nom>/` (6
+fichiers : le livre, ses trois tables de découpage, ses objets, ses succès) ;
+`books/<nom>/data/` est produit par le générateur et ne s'édite pas. `scripts/` portant un
+`.gdignore`, la source ne part même plus dans l'APK.
 
-**Écrits à la main** (6, dans `data/`) : `<nom>.json`, `<nom>.arcs.json`,
-`<nom>.sub_arcs.json`, `<nom>.manual_sub_arcs.json`, `<nom>.all_objects.json`,
-`<nom>.all_success.json` (renommé : c'était le seul fichier non préfixé) — plus
-**`img/logo.png`**, **`img/title.png`** et **`img/cover.jpg`**.
+Le dossier d'un livre garde donc **trois dossiers** : `data/` (la sortie, plus
+`compteurs.json` qui n'intéresse que l'app), `img/` (logo, titre, couverture), `audio/`
+(intro et narrations). Tout `img/` et `audio/` est facultatif.
 
-**Facultatifs** : `data/compteurs.json`, `audio/intro.mp3`, `audio/<chapitre>.mp3`,
-`data/<nom>.migration_items.json`. Rien ne les déclare — **le fichier existe ou n'existe
-pas**.
+**Facultatifs** : `data/compteurs.json`, `audio/intro.mp3`, `audio/<chapitre>.mp3`. Rien ne
+les déclare — **le fichier existe ou n'existe pas**.
 
-**Produits par le compilateur** : les 11 `<nom>-compilated-*.json`, dont `BookData` chargeait
-10. 🔴 **5 ne servaient à personne** (mesuré le 2026-08-12) :
-
-| fichier | état |
-|---|---|
-| `-compilated-combats.json` | **jamais chargé** — les combats vivent dans `-compilated-data.json` |
-| `-compilated-secrets.json` | chargé, **jamais lu** : `is_node_id_secret()` n'avait aucun appelant |
-| `-compilated-endings.json` + `-good-endings` + `-bad-endings` | chargés à chaque changement de livre, **jamais lus** : les écrans passent par `computed.ending`, chapitre par chapitre |
-
-Ni l'app ni `archive/` ne les ont jamais consultés. ✅ Rangés dans `books/<nom>/archive/`
-le 2026-08-12, où le compilateur continue de les écrire ; `BookData` ne charge plus que
-**6** fichiers, et `is_node_id_secret()` a été supprimé avec les trois listes de fins.
+**Produits par le générateur** : il en écrivait 11, `BookData` en chargeait 10. Il en écrit
+**3**, et l'app en ouvre **5** (les 3 calculés plus les 2 tables recopiées). Ont disparu :
+5 sorties que personne ne chargeait, et 3 copies qui répétaient des valeurs déjà écrites à
+la main. Détail dans `books/README.md`.
 
 ### 3.3 Les trois endroits de code à modifier — ✅ faits le 2026-08-12
 
 | | fichier | quoi |
 |---|---|---|
-| 1 | ~~**`scripts/fdcn.py`**~~ | ✅ `--book` prend le **nom** du livre (le rang reste accepté), la liste vient du registre, et le cas particulier `goto == 608 and book_number == 1` a disparu (§6.1) |
+| 1 | ~~**`scripts/generator.py`**~~ | ✅ `--book` prend le **nom** du livre (le rang reste accepté), la liste vient du registre, et le cas particulier `goto == 608 and book_number == 1` a disparu (§6.1) |
 | 2 | ~~**`popups/sub/book_selection.gd` + `BookSelection.tscn`**~~ | ✅ une couverture par livre du registre, construite au `_ready()`. La scène ne contient plus qu'un `VBoxContainer` vide |
 | 3 | ~~**`autoload/inventory.gd`** `MIGRATION_GUESS`~~ | ✅ déjà déplacé dans `books/<nom>/<nom>.migration_items.json` |
 
@@ -359,15 +350,69 @@ multiplierait la saisie par 75.
 
 #### Étape 3 — une seule sortie compilée, sans le doublon (**3.6**)
 
-`-compilated-data.json` recopie le livre entier à côté de `computed`, que seul
-`chapter_data.gd` lit : **28 % du plus gros fichier**. Et les 6 sorties de `data/` tiennent
-en un fichier à 6 clés — `BookData` ferait un chargement au lieu de six.
+✅ **Le doublon est parti le 2026-08-13, côté données.** `-compilated-data.json` ne contient
+plus que le calculé, et **à plat** : le niveau `computed` n'avait plus de raison d'être une
+fois la source retirée. Résultat, sur les deux livres :
+
+| | avant | après |
+|---|---|---|
+| fdcn | 552 Ko | **401 Ko** (−27 %) |
+| cdsi | 613 Ko | **453 Ko** (−26 %) |
+
+`chapter_data.gd` accepte les deux formes (`book_data.get("computed", book_data)`) : une
+recompilation avec le compilateur actuel regonfle les fichiers **sans rien casser**. C'est
+ce qui permet de laisser les scripts pour plus tard.
+
+✅ **Et les valeurs neutres ne s'écrivent plus** (2026-08-13). Un chapitre ne porte que ce
+qui le distingue : `{"id": 1, "chapter": "Plante-Citrouille", "sons": [2]}`. Sur fdcn,
+**9 538 des 12 120 clés** ne disaient rien — `"ending": false`, `"secret_jumps": []`,
+`"ending_id": null`… Deux clés ont disparu en prime, `ending` et `is_combat`, booléens
+dérivés de `ending_type` et `combat` (vérifiés identiques sur les 1 297 chapitres).
+
+| | avant la journée | après |
+|---|---|---|
+| fdcn | 552 Ko | **149 Ko** (−73 %) |
+| cdsi | 613 Ko | **173 Ko** (−72 %) |
+
+⚠️ Le prix : `Node.NEUTRES` et les `.get(clé, défaut)` de `chapter_data.gd` sont **les deux
+moitiés d'un seul contrat**. `test_book_data.gd` le garde — un chapitre dépouillé, ses
+16 valeurs neutres vérifiées une par une.
+
+Reste à réunir les 3 sorties compilées en un fichier — `BookData` ferait un chargement au
+lieu de cinq.
 
 #### Étape 4 — un squelette qui compile
 
-`python3 scripts/fdcn.py --nouveau <nom>` crée le dossier, les deux fichiers à la main avec
+`python3 scripts/generator.py --nouveau <nom>` crée le dossier, les deux fichiers à la main avec
 un chapitre 1 valide, et l'entrée dans `books/books.json`. Ajouter un livre commencerait par
 quelque chose qui **compile déjà**, au lieu d'une page blanche et de six formats à deviner.
+
+#### Où vit quoi, depuis le 2026-08-13
+
+La séparation est devenue nette, et c'est elle qui rend la suite lisible :
+
+| | contenu | statut |
+|---|---|---|
+| `scripts/src/<nom>/` | **tout ce qui s'écrit à la main** : chapitres, actes, sous-arcs, objets, succès (68 Ko) | la **source**, unique, hors de l'APK |
+| `books/<nom>/data/` | 3 sorties calculées + les 2 tables recopiées (388 Ko pour les deux livres) | une **sortie**, regénérable, à ne pas éditer |
+
+La distinction n'est pas « une fois chacun » mais **« édité, ou généré »**. Les objets et
+les succès existent des deux côtés : l'app les lit et ne peut pas aller les chercher dans
+`scripts/`, que Godot ignore — le compilateur les y dépose. Une copie générée ne diverge
+pas, elle se refait ; deux fichiers *édités* au même titre, si.
+
+#### Deux doublons supprimés le 2026-08-13
+
+- **l'index des chapitres à succès** : `-compilated-success-chapters.json` était exactement
+  `-compilated-success.json` retourné, chaque succès portant déjà son `chapter`. Vérifié
+  entrée par entrée (51 pour fdcn, 53 pour cdsi) avant suppression ; `BookData` le rebâtit
+  au chargement. ⚠️ Un index n'est pas une règle : il ne peut pas diverger de sa source,
+  contrairement à une interprétation du livre — qui reste au compilateur ;
+- **l'équipement deviné** (`<nom>.migration_items.json`) : voir §11.
+
+Reste un doublon **non résolu** : `<nom>.all_objects.json` et `<nom>.all_success.json` sont
+intégralement contenus dans les fichiers compilés qui les enrichissent, et pourtant les deux
+partent dans l'APK — avec le livre source lui-même. → **3.12**
 
 #### Ce qu'il ne faut PAS toucher
 
@@ -380,6 +425,29 @@ quelque chose qui **compile déjà**, au lieu d'une page blanche et de six forma
   déjà attrapé de vraies fautes. ⚠️ Corriger au passage son angle mort — un objet cité
   **uniquement** dans un `stats_cond` compte comme « déclaré mais pas utilisé » et fait
   échouer la compilation à tort.
+
+#### §11 — la sauvegarde sans objets, et la promesse qui n'était pas tenue
+
+Une table `type de Billy -> 3 objets`, écrite à la main dans chaque livre, servait à
+reconstituer l'équipement d'une sauvegarde qui ne contenait pas la liste des objets. Trois
+raisons de l'avoir supprimée le 2026-08-13 :
+
+1. **elle inventait.** La vieille sauvegarde connaissait le *type*, jamais les objets. Le
+   type se **déduit** des objets partout ailleurs (`Inventory.compute_billy_for_option()`, à
+   partir des catégories déclarées dans `all_objects.json`) : cette table était le seul
+   endroit du dépôt à écrire la relation à l'envers, livre par livre ;
+2. **elle empilait sans compter.** Ses 3 objets s'ajoutaient par-dessus le rejeu des
+   chapitres, par `_raw_add()`, sans passer par `clean_overload()` : un Billy migré pouvait
+   porter 6 objets, tous comptés dans ses stats ;
+3. 🔴 **et l'interface ne prévenait de rien.** `do_load()` renvoyait bien
+   `need_force_display_options`, les commentaires annonçaient un inventaire ouvert d'office —
+   **aucun appelant ne lisait ce retour**. La promesse n'était tenue nulle part.
+
+À la place : le rejeu des chapitres (du réel), un **signal** `Player.items_need_review` — un
+signal a un abonné ou n'en a pas, il ne se perd pas par distraction —, une popup qui explique
+ce qui manque et pourquoi, puis l'inventaire ouvert. C'est le seul écran où le joueur peut
+rétablir la vérité, et lui seul la connaît : l'équipement de départ se choisit **avant** le
+chapitre 1, aucun chapitre ne le donne.
 
 ---
 
@@ -410,11 +478,11 @@ stats génère leurs lignes, `info` compris : il était accumulé mais jamais af
 
 | source écrite à la main | contenu |
 |---|---|
-| `books/fdcn/data/fdcn.json` | `"crit"` ×5, `"half_pv"` ×1 |
-| `books/cdsi/data/cdsi.json` | `"critique"` ×5, `"pv_1_2_max"` ×1, et `"cond"` ×2 au lieu de `"stats_cond"` |
+| `scripts/src/fdcn/fdcn.json` | `"crit"` ×5, `"half_pv"` ×1 |
+| `scripts/src/cdsi/cdsi.json` | `"critique"` ×5, `"pv_1_2_max"` ×1, et `"cond"` ×2 au lieu de `"stats_cond"` |
 
 Le compilateur n'invente rien (`node.py:set_stats()` recopie tel quel). 🔴 **Et il avait
-déjà tout pour l'attraper** : `scripts/fdcn.py` collecte et **imprime** toutes les clés
+déjà tout pour l'attraper** : `scripts/generator.py` collecte et **imprime** toutes les clés
 de stats du livre — il lui manque la **liste de référence** et un `sys.exit(2)`. `critique`
 était listé à chaque compilation de cdsi, noyé dans les traces.
 
@@ -617,10 +685,15 @@ seul livre : tout se teste sans interface et sans appareil.
 
 ---
 
-## 6. Le compilateur Python (`scripts/`, 959 lignes)
+## 6. Le générateur Python (`scripts/`, 1 058 lignes)
 
-`fdcn.py` (405 l.), `node.py` (379), `condition_node.py` (144), `graph.py` (27),
-`endings.py` (4).
+`generator.py` (476 l.), `node.py` (407), `condition_node.py` (144), `graph.py` (27),
+`endings.py` (4). S'appelait `fdcn.py` jusqu'au 2026-08-13 — un nom de livre pour un outil
+qui les compile tous.
+
+**Son mode d'emploi complet est dans [`scripts/README.md`](scripts/README.md)** : entrées,
+sorties, pipeline en 8 étapes, langage des conditions et ses trois pièges, refus en code 2,
+et les points de contact à ne pas oublier quand on y touche.
 
 ### 6.1 🔴 Le traitement des fins était du code mort — ✅ réparé le 2026-08-12
 
@@ -689,7 +762,7 @@ les données du jeu faute d'une dépendance de confort était le mauvais arbitra
 
 | | constat |
 |---|---|
-| **Script à plat** | `fdcn.py` n'a **aucune fonction** hors `load_json_file` : 405 lignes de haut en bas, **40 variables globales** mutées au fil du fichier |
+| **Script à plat** | `generator.py` n'a **aucune fonction** hors `load_json_file` : 476 lignes de haut en bas, **40 variables globales** mutées au fil du fichier |
 | **66 `print()`** | 42 + 15 + 9. Aucun niveau de log : la validation utile est noyée. **C'est pour ça que `critique` est passé inaperçu** (§4.2) |
 | **Code commenté laissé en place** | `# goto = n['goto']` juste sous la ligne qui le remplace, `# print(...)` en série |
 | **Copié-collé du bloc de lecture** | 10 fois `x = n.get('x', défaut)` / `if x: node.set_x(x)`, avec des défauts incohérents (`{}` pour `stats_cond` alors que `node.py` l'initialise à `None`) |
@@ -786,6 +859,10 @@ des deux livres contre les fichiers**, en n'oubliant ni `project.godot` ni
 | 1 son | `lennon-rire.mp3`, que même l'archive n'appelle pas |
 | 3 `.import` | sans source : `CHUT.png`, `endings/TULIPE.png` (renommé `TULIPES`), `items/TONIQUE MYSTERIEU.svg` (renommé `…MYSTERIEUX`) |
 
+⚠️ `archive/unuzed/assets/` a survécu à la suppression des `books/<nom>/archive/` du
+2026-08-13 : ce sont deux choses différentes — des assets mis de côté d'un côté, des
+sorties de compilateur inutiles de l'autre.
+
 **Deux choses gardées, exprès** : les icônes de l'app (`fdcn_icon_512.png` sert à la fiche du
 magasin, pas au build) et les **10 fichiers `dieux/2/`** — images et voix des dieux de cdsi,
 que la page Lore n'affiche pas encore faute de savoir présenter deux livres. C'est du contenu
@@ -808,6 +885,7 @@ dernières actions sont closes — ce qu'il en reste à savoir est en §1.2.
 | # | tag | action | réf |
 |---|---|---|---|
 | 1.1 | `[bug]` | ✅ **Branche des fins réparée et les deux livres recompilés** (2026-08-12) : fdcn inchangé (19 fins), **cdsi a gagné les 16 siennes**. Reste à vérifier deux règles dans le livre papier (todo 1.1) | §6.1 |
+| 1.4 | `[data]` | **Relire les 85 combats contre le livre** : deux fautes trouvées en en vérifiant un seul (ch276 portait les adversaires de ch274, ch274 un bouche-trou `XXXX`). Le compilateur recopie `combat` sans le regarder | §6.3 |
 | 1.2 | `[test]` | ✅ **`BookData` testé** (2026-08-12) : `_check_cond_rec` sous toutes ses formes, plus les conditions de saut réelles de fdcn | §2.2 |
 
 ### 2 — Export / import d'une sauvegarde
@@ -828,18 +906,20 @@ dernières actions sont closes — ce qu'il en reste à savoir est en §1.2.
 | 3.3 | `[data]` | ✅ **16 occurrences migrées vers la notation d'effet** (2026-08-12) — `_LEGACY_EFFECTS` a disparu avec elles, le moteur n'a plus qu'un chemin | §4.4 |
 | 3.4 | `[feature]` | **`pv_gain`** : modificateur de gain dans la couche chapitres, delta positif seulement, jamais sur une affectation | §4.5 |
 | 3.5 | `[refacto]` | **Compléter le vocabulaire par livre avec `ignorees`** — les `compteurs` sont faits (2026-08-12) ; dépend de §4.3 | §4.6 |
-| 3.6 | `[refacto]` | **Alléger la sortie compilée** : `-compilated-data.json` recopie la source à côté de `computed` (28 % du fichier), et les 6 sorties de `data/` tiendraient en une. Registre et rangement faits | §3.2, §3.6 |
+| 3.6 | `[refacto]` | **Réunir les 3 sorties calculées en une** — le poids est réglé (2026-08-13 : 1 340 → 388 Ko pour les deux livres) | §3.2, §3.6 |
 | 3.7 | `[place]` | Trancher `images/dieux/<n>` → `dieux/<nom>/` **avant** d'écrire la page Lore | §3.5 |
 | 3.8 | `[refacto]` | **Un seul fichier de tables par livre** (`<nom>.livre.json`), à champs nommés : 7 fichiers en 1, et plus un seul tableau positionnel — **étape 2** | §3.7 |
 | 3.9 | `[feature]` | **Squelette de livre** (`--nouveau <nom>`) : un livre neuf part de quelque chose qui compile — **étape 4** | §3.7 |
 | 3.10 | `[bug]` | Un objet cité **uniquement** dans un `stats_cond` fait échouer la compilation à tort (« déclaré mais pas utilisé ») | §3.7 |
+| 3.11 | `[place]` | **Mode d'emploi d'un livre ajouté à la main** : `books/README.md` dit quels fichiers déposer, jamais comment les remplir. À écrire **après 3.8** | §3.7 |
+| 3.12 | `[refacto]` | ✅ **Le livre écrit à la main est passé dans `scripts/src/<nom>/`** (2026-08-13) : `scripts/` porte un `.gdignore`, l'APK n'embarque plus 136 Ko qu'il n'ouvrait jamais | §3.7 |
 
 ### 4 — Compilateur Python
 
 | # | tag | action | réf |
 |---|---|---|---|
 | 4.1 | `[refacto]` | **Des niveaux de log** (`--verbose`) : 66 `print()` noient les validations utiles | §6.2 |
-| 4.2 | `[refacto]` | **Découper `fdcn.py`** : `lire_les_noeuds()` / `taguer_les_arcs()` / `construire_le_graphe()` / `ecrire_les_json()`. Le graphviz est la moitié du fichier et l'app ne s'en sert pas | §6.2 |
+| 4.2 | `[refacto]` | **Découper `generator.py`** (476 l. à plat) : `lire_les_noeuds()` / `taguer_les_arcs()` / `construire_le_graphe()` / `ecrire_les_json()`. Le graphviz est la moitié du fichier et l'app ne s'en sert pas | §6.2 |
 | 4.3 | `[refacto]` | Sortir la présentation graphviz de `node.py` (`get_label()`) | §6.2 |
 | 4.4 | `[hygiene]` | Nettoyer : code commenté, commentaires dupliqués, annotations Python 2, `get_all_stats_keys()` qui imprime | §6.2 |
 | 4.5 | `[hygiene]` | ✅ **Le cas particulier `goto == 608 and book_number == 1` a disparu** (2026-08-12) : une fin se reconnaît à sa clé `ending`, et fdcn n'écrit plus de `goto` sur les siennes | §3.3, §6.1 |

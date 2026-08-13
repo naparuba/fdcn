@@ -14,6 +14,9 @@ extends PanelContainer
 @onready var _click: Control = $Row/click
 
 var chap_number
+## L'identifiant du succès, gardé : le ruban « Obtenu » en a besoin, un succès pouvant se
+## gagner dans plusieurs chapitres alors que la ligne n'en affiche qu'un.
+var success_id = ''
 var spoil_enabled = false
 var main
 
@@ -103,7 +106,10 @@ func update():
 	else:
 		self.set_spoil_enabled(false)
 
-	if Player.did_all_times_seen(chapter_id):
+	# ⚠️ Le ruban « Obtenu » regarde **tous** les chapitres qui donnent ce succès, pas
+	# seulement celui affiché : `PHOBIE-ADMINISTRATIVE` de cdsi se gagne aux chapitres 98 et
+	# 498, et la ligne n'en montre qu'un.
+	if BookData.is_success_obtenu(self.success_id):
 		self.set_already_seen()
 	else:
 		self.set_not_already_seen()
@@ -114,15 +120,18 @@ func get_chapter_id():
 
 
 func set_from_success_object(success_object):
+	# `set_success_id()` d'abord : `update()`, appelé ensuite, s'en sert pour savoir si le
+	# succès est obtenu.
+	self.set_success_id(success_object['id'])
 	self.set_chapitre(success_object['chapter'])
 	self.set_label(success_object['label'])
 	self.set_txt(success_object['txt'])
-	self.set_success_id(success_object['id'])
 
 
-func set_success_id(success_id):
-	var png_path = "res://images/success/%s.png" % success_id
-	var svg_path = "res://images/success/%s.svg" % success_id
+func set_success_id(new_success_id):
+	self.success_id = new_success_id
+	var png_path = "res://images/success/%s.png" % new_success_id
+	var svg_path = "res://images/success/%s.svg" % new_success_id
 	var texture = null
 	if Utils.is_file_exists(svg_path):
 		texture = Utils.load_external_texture(svg_path)

@@ -132,6 +132,44 @@ func test_les_succes_se_retrouvent_par_chapitre() -> void:
 	assert_eq(BookData.get_success_txt("SUCCES-QUI-NEXISTE-PAS"), "", "un succès inconnu n'a pas de texte")
 
 
+## ⚠️ **Le contrat des valeurs absentes.** Une entrée compilée ne porte que ce qui n'est pas
+## neutre : 61 % du fichier ne s'écrit plus. Un chapitre sans combat n'a pas de clé
+## `combat`, un chapitre sans objet n'a pas d'`aquire`. Chaque accesseur doit donc rendre la
+## valeur neutre — et **la même** que celle que le générateur a décidé de ne pas écrire
+## (`Node.NEUTRES`, côté Python). Si les deux moitiés du contrat divergent, c'est ici que ça
+## se voit.
+func test_un_chapitre_depouille_rend_des_valeurs_neutres() -> void:
+	# fdcn 273 ne déclare qu'un `goto` et un `stats` : tout le reste est absent du fichier.
+	var nu = BookData.get_chapter_node(273)
+	assert_eq(nu.get_id(), 273, "l'identifiant est toujours écrit")
+	assert_eq(nu.get_sons(), [423], "et ce qui n'est pas neutre aussi")
+
+	assert_false(nu.is_combat(), "pas de combat")
+	assert_eq(nu.get_combats(), [], "donc aucun adversaire")
+	assert_false(nu.get_ending(), "pas une fin")
+	assert_null(nu.get_ending_type(), "donc pas de type de fin")
+	assert_null(nu.get_ending_id(), "ni d'identifiant")
+	assert_null(nu.get_ending_txt(), "ni de texte")
+	assert_false(nu.get_secret(), "pas un secret")
+	assert_eq(nu.get_secret_jumps(), [], "aucun saut secret")
+	assert_null(nu.get_success(), "aucun succès")
+	assert_null(nu.get_label(), "aucun libellé")
+	assert_null(nu.get_arc(), "aucun sous-arc")
+	assert_eq(nu.get_aquire(), [], "aucun objet gagné")
+	assert_eq(nu.get_remove(), [], "aucun objet perdu")
+	assert_eq(nu.get_stats_cond(), [], "aucun effet conditionnel")
+	assert_eq(nu.get_jump_conditions(), {}, "aucune condition de saut")
+	assert_eq(nu.get_jump_conditions_txts(), {}, "aucun libellé de condition")
+
+
+## Les deux booléens dérivés : ils ne sont plus écrits du tout, l'app les recalcule.
+func test_les_booleens_derives_suivent_leur_source() -> void:
+	assert_true(BookData.get_chapter_node(274).is_combat(), "274 a des adversaires")
+	assert_eq(BookData.get_chapter_node(274).get_combats().size(), 2, "et il en a deux, dans l'ordre")
+	assert_true(BookData.get_chapter_node(559).get_ending(), "559 est une fin")
+	assert_eq(BookData.get_chapter_node(559).get_ending_type(), 1, "une bonne fin")
+
+
 func test_les_objets_du_livre() -> void:
 	assert_true(BookData.exists_item_data("EPEE"), "fdcn connaît l'EPEE")
 	assert_false(BookData.exists_item_data("SABRE LASER"), "et pas le sabre laser")

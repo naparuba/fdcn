@@ -128,7 +128,7 @@ func _on_chapter_changed(node_id) -> void:
 ## affiche « 10.0 ». C'est le piège documenté du dépôt, il s'applique aussi ici.
 ##
 ## En mode automatisé la fiche vient du **moteur**, pas du chapitre : un combat peut
-## enchaîner plusieurs adversaires (fdcn ch276), et c'est le moteur qui sait lequel est en
+## enchaîner plusieurs adversaires (fdcn ch274), et c'est le moteur qui sait lequel est en
 ## cours. En mode manuel il n'y a pas de moteur, on retombe sur les données du chapitre.
 func set_enemy(node) -> void:
 	var e = CombatEngine.get_enemy() if _automatise else {

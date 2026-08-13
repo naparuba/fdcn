@@ -23,6 +23,16 @@ signal chapter_discovered(node_id)
 ## retour en arrière n'émet rien.
 signal chapter_items_changed(acquired, removed)
 
+## La sauvegarde relue ne contenait pas la liste des objets : ce qui pouvait l'être a été
+## reconstitué en rejouant les chapitres, mais l'équipement de départ est perdu.
+##
+## ⚠️ Ce signal remplace une **promesse non tenue** : `do_load()` renvoyait déjà
+## `Inventory.need_force_display_options`, les commentaires annonçaient que l'interface
+## ouvrait l'inventaire — et **aucun appelant ne lisait ce retour**. Le joueur n'était donc
+## prévenu de rien. Un signal ne peut pas être ignoré par distraction : il n'a pas
+## d'abonné, ou il en a un.
+signal items_need_review
+
 ## Où en est le lecteur maintenant.
 var current_node_id := 1
 
@@ -85,6 +95,9 @@ func do_load() -> bool:
 	# chapitre de l'ancien livre après un changement de livre — tous ses composants
 	# se peignent sur `chapter_changed`, et lui seul.
 	chapter_changed.emit(current_node_id)
+
+	if Inventory.need_force_display_options:
+		items_need_review.emit()
 	return Inventory.need_force_display_options
 
 

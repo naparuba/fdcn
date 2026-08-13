@@ -90,12 +90,26 @@ if graphviz is None:
 else:
     display_graph = graphviz.Digraph('G', filename=f'scripts/graph/fdcn_full-{book_name}', format='png')
 
-# Un dossier de livre est range en trois : `data/` ce qui se lit, `archive/` ce que
-# personne ne lit, `img/` et `audio/` les assets. Voir books/README.md.
+# DEUX dossiers, et la separation est nette :
+#
+#   scripts/src/<nom>/   ce qu'un humain ECRIT, et que l'app n'ouvre jamais : le livre et
+#                        son decoupage en actes. `scripts/` porte un `.gdignore`, donc rien
+#                        de tout ca ne part dans l'application.
+#   books/<nom>/data/    ce que l'app LIT : les sorties compilees, plus les objets et les
+#                        succes -- ecrits a la main mais completes au chargement par
+#                        `BookData`, donc de vrais fichiers d'application.
+#
+# Voir books/README.md et l'entete de ce README.
+src_dir = f'scripts/src/{book_name}'
 book_dir = f'books/{book_name}'
 data_dir = f'{book_dir}/data'
-archive_dir = f'{book_dir}/archive'
-book_data = load_json_file(f'{data_dir}/{book_name}.json')
+
+# Cree AVANT la premiere ecriture : un livre neuf n'a pas encore de dossier de sortie, et
+# echouer au milieu du travail serait le pire moment.
+if not os.path.isdir(data_dir):
+    os.makedirs(data_dir)
+
+book_data = load_json_file(f'{src_dir}/{book_name}.json')
 
 node_created = set()
 
@@ -186,12 +200,12 @@ for idx, n in book_data.items():
             node.add_son(son)
 
 # [1, "Plante-Citrouille"]
-arcs = load_json_file(f'{data_dir}/{book_name}.arcs.json')
+arcs = load_json_file(f'{src_dir}/{book_name}.arcs.json')
 
 # (arc_name, Start of sub, name, stops)
-sub_arcs = load_json_file(f'{data_dir}/{book_name}.sub_arcs.json')
+sub_arcs = load_json_file(f'{src_dir}/{book_name}.sub_arcs.json')
 
-manual_sub_arcs = load_json_file(f'{data_dir}/{book_name}.manual_sub_arcs.json')
+manual_sub_arcs = load_json_file(f'{src_dir}/{book_name}.manual_sub_arcs.json')
 
 # Tag nodes with arc, from lower to higher so we don't rewrite them
 for arc_start, arc_name in reversed(arcs):
@@ -305,7 +319,7 @@ print('Condition NOT remove:\n%s' % '\n'.join(sorted([' - %s' % s for s in condi
 
 all_discoverd_objects = all_remove | all_aquire | all_conditions
 
-all_objs = load_json_file(f'{data_dir}/{book_name}.all_objects.json')
+all_objs = load_json_file(f'{src_dir}/{book_name}.all_objects.json')
 all_objs_names = set(all_objs.keys())
 
 if all_discoverd_objects != all_objs_names:
@@ -325,16 +339,19 @@ if remove_but_not_add:
     print('ERROR: Remove but NOT add:\n%s' % '\n'.join(sorted([' - %s' % s for s in remove_but_not_add])))
     sys.exit(2)
 
+# On n'exporte que le CALCULE, et a plat. Le chapitre ecrit a la main vit dans
+# `scripts/src/`, il n'a aucune raison d'etre recopie ici : c'etait 28 % du plus gros
+# fichier du depot, et un deuxieme endroit ou lire la meme chose.
 print('Export computed nodes:')
-for node_id_str, node_data in book_data.items():
-    node = node_graph.get_node(int(node_id_str))
-    node_data['computed'] = node.get_computed()
+computed_nodes = {}
+for node_id_str in book_data:
+    computed_nodes[node_id_str] = node_graph.get_node(int(node_id_str)).get_computed()
 
-new_book_data_string = json.dumps(book_data, indent=4, ensure_ascii=False, sort_keys=True)  # allow utf8
+new_book_data_string = json.dumps(computed_nodes, indent=4, ensure_ascii=False, sort_keys=True)  # allow utf8
 with codecs.open(f'{data_dir}/{book_name}-compilated-data.json', 'w', 'utf8') as f:
     f.write(new_book_data_string)
 
-sucess_txt = load_json_file(f'{data_dir}/{book_name}.all_success.json')
+sucess_txt = load_json_file(f'{src_dir}/{book_name}.all_success.json')
 print('Success txt', sucess_txt)
 
 
@@ -347,29 +364,11 @@ def get_success_txt(_id):
 
 reverse_jumps = {}
 
-all_combats = []
-all_endings = []
-good_endings = []
-bad_endings = []
-all_secrets = []
 nodes_by_chapter = {}
 nodes_by_sub_arc = {}
-all_success = []
-all_success_chapters = {}
 all_stats_keys = set()
 for node_id_str in book_data.keys():
     node = node_graph.get_node(int(node_id_str))
-    if node.have_combat():
-        all_combats.append(node.get_id())
-    if node.have_ending():
-        all_endings.append(node.get_id())
-        if node.is_good_ending():
-            good_endings.append(node.get_id())
-        else:  # bad
-            bad_endings.append(node.get_id())
-    
-    if node.is_secret():
-        all_secrets.append(node.get_id())
     # Flag reverse jumps
     for son in node.get_sons():
         son_id = son.get_id()
@@ -391,10 +390,10 @@ for node_id_str in book_data.keys():
     
     success = node.get_success()
     if success:
-        label, txt = get_success_txt(success)
-        print('%s have the success %s: %s:%s' % (node_id_str, success, label, txt))
-        all_success.append({'id': success, 'chapter': int(node_id_str), 'label': label, 'txt': txt})
-        all_success_chapters[int(node_id_str)] = success
+        # L'appel VALIDE : un succes que `<nom>.all_success.json` ne declare pas leve une
+        # exception. Le resultat, lui, ne sert plus a rien -- l'app lit la table elle-meme
+        # et y ajoute le chapitre au chargement.
+        get_success_txt(success)
     
     # If the node have some items, list them
     aquire = set(node.get_aquire())
@@ -439,31 +438,34 @@ all_stats_keys.sort()
 for stat_key in all_stats_keys:
     print(' - %s' % stat_key)
 
+# CE QUE L'APP OUVRE, ET RIEN D'AUTRE. Sept sorties ont disparu le 2026-08-13 :
+#
+#   combats, secrets, endings, good-endings, bad-endings   personne ne les chargeait : tout
+#       ca se lit chapitre par chapitre dans `-compilated-data.json` ;
+#   success, success-chapters, all-objects   des copies enrichies qui repetaient les
+#       libelles, categories et textes de `<nom>.all_success.json` et
+#       `<nom>.all_objects.json`. `BookData` lit ces deux-la et les complete au chargement
+#       (`in_chapters`, `chapter`, index chapitre -> succes).
+#
 to_dump_as_json = {
-    'combats':          all_combats,
-    'endings':          all_endings,
-    'good-endings':     good_endings,
-    'bad-endings':      bad_endings,
-    'secrets':          all_secrets,
     'nodes-by-chapter': nodes_by_chapter,
     'nodes-by-sub-arc': nodes_by_sub_arc,
-    'success':          all_success,
-    'success-chapters': all_success_chapters,
-    'all-objects':      all_objs,
 }
 
-# Ces cinq sorties, PERSONNE ne les lit : les combats ne sont meme pas charges, et les
-# fins comme les secrets se lisent chapitre par chapitre dans `-compilated-data.json`. On
-# continue de les produire -- elles coutent quelques kilo-octets et documentent le livre --
-# mais dans `archive/`, pour que `data/` ne contienne que ce que l'app ouvre vraiment.
-ARCHIVEES = {'combats', 'endings', 'good-endings', 'bad-endings', 'secrets'}
+# Les deux tables ecrites a la main que l'app lit AUSSI : elle ne peut pas aller les
+# chercher dans `scripts/` (dossier ignore par Godot), donc le compilateur les recopie
+# telles quelles. C'est une sortie comme une autre -- la source, elle, reste unique.
+for a_copier in (f'{book_name}.all_objects.json', f'{book_name}.all_success.json'):
+    with codecs.open(f'{src_dir}/{a_copier}', 'r', 'utf8') as source:
+        with codecs.open(f'{data_dir}/{a_copier}', 'w', 'utf8') as destination:
+            destination.write(source.read())
+    print(' - %s = COPIE' % a_copier)
 
 print('Generating json files for UI')
 for (k, v) in to_dump_as_json.items():
-    dossier = archive_dir if k in ARCHIVEES else data_dir
-    with codecs.open(f'{dossier}/{book_name}-compilated-{k}.json', 'w', 'utf8') as f:
+    with codecs.open(f'{data_dir}/{book_name}-compilated-{k}.json', 'w', 'utf8') as f:
         f.write(json.dumps(v, indent=4, ensure_ascii=False, sort_keys=True))
-        print(' - %s = OK (%s)' % (k, dossier))
+        print(' - %s = OK' % k)
 
 # Windows need too many deps, like dot.exe, so skip on it
 if os.name != 'nt':

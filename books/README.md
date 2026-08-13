@@ -18,34 +18,58 @@ s'ajoute donc **à la fin**, jamais au milieu.
 
 ## Ajouter un livre
 
-1. créer `books/<nom>/` et y déposer les fichiers ci-dessous ;
-2. ajouter son bloc à la fin de `books.json` ;
-3. compiler : `python3 scripts/fdcn.py --book <nom>`.
+1. écrire le livre dans **`scripts/src/<nom>/`** : les chapitres, les actes, les sous-arcs,
+   les objets et les succès — **tout ce qui s'écrit à la main est là** ;
+2. créer `books/<nom>/` avec ses images et ses sons (`img/`, `audio/`), plus `compteurs.json` ;
+3. ajouter son bloc à la fin de `books.json` ;
+4. compiler : `python3 scripts/generator.py --book <nom>`, qui remplit `books/<nom>/data/`.
 
 Rien d'autre. Aucun script ni aucune scène à rouvrir.
 
 ## Ce qu'un dossier de livre contient
 
-Quatre dossiers, et rien à la racine :
+Trois dossiers, et rien à la racine :
 
 ```
 books/<nom>/
     data/      ce que l'app et le compilateur ouvrent
     img/       logo.png, title.png, cover.jpg
     audio/     intro.mp3, <chapitre>.mp3
-    archive/   produit par le compilateur, lu par personne
 ```
 
-### `data/`
+### `data/` — **uniquement ce que l'app ouvre**
 
 | fichier | rôle | obligatoire |
 |---|---|---|
-| `<nom>.json` | le livre : un chapitre par entrée | ✅ |
-| `<nom>.arcs.json`, `<nom>.sub_arcs.json`, `<nom>.manual_sub_arcs.json` | le découpage en actes, pour le compilateur | ✅ |
-| `<nom>.all_objects.json`, `<nom>.all_success.json` | objets et succès, pour le compilateur | ✅ |
-| `<nom>-compilated-*.json` | **produits par le compilateur**, jamais édités à la main | ✅ |
-| `<nom>.migration_items.json` | l'équipement *deviné* d'une sauvegarde trop ancienne pour l'avoir enregistré | facultatif |
+| `<nom>-compilated-data.json` | les chapitres, calculés : fils, acte, sous-arc, arbres de conditions | ✅ |
+| `<nom>-compilated-nodes-by-chapter.json`, `-by-sub-arc.json` | les chapitres de chaque acte et sous-arc, pour les barres de complétion | ✅ |
+| `<nom>.all_objects.json`, `<nom>.all_success.json` | objets et succès, **écrits à la main** et complétés au chargement (`in_chapters`, `chapter`) | ✅ |
 | `compteurs.json` | les compteurs propres au livre, affichés par la feuille de stats | facultatif |
+
+⚠️ **Ce dossier est une sortie, pas une source.** Tout ce qu'il contient est produit ou
+recopié par `python3 scripts/generator.py --book <nom>`, à partir de `scripts/src/<nom>/`. Les
+objets et les succès y sont **recopiés tels quels** — ils s'écrivent à la main, mais l'app
+ne peut pas aller les lire dans `scripts/`, que Godot ignore. **Ne rien éditer ici** : la
+prochaine compilation l'écraserait.
+
+⚠️ **Le livre lui-même n'est plus ici.** Chapitres, actes, sous-arcs, objets et succès
+s'écrivent dans **`scripts/src/<nom>/`** depuis le 2026-08-13. Les objets et les succès
+reviennent ici **par copie**, parce que l'app les lit et ne peut pas ouvrir `scripts/`, que
+Godot ignore ; les autres n'ont jamais servi qu'à compiler et partaient dans l'APK pour
+rien.
+
+⚠️ **Une entrée compilée ne porte que ce qui n'est pas neutre.** Un chapitre sans combat n'a
+pas de clé `combat`, un chapitre sans objet pas d'`aquire` :
+
+```json
+"1":   {"id": 1, "chapter": "Plante-Citrouille", "sons": [2]}
+"273": {"id": 273, "chapter": "Tour des mages", "sons": [423], "stats": {"chance": 3}}
+```
+
+Une clé absente veut dire « rien à signaler », **jamais** « donnée manquante » : c'est
+61 % du fichier qui ne s'écrit plus. La liste des valeurs neutres est en double —
+`Node.NEUTRES` côté générateur, les `.get(clé, défaut)` de `entities/chapter_data.gd` côté
+app — et les deux moitiés doivent rester d'accord.
 
 ### `img/` et `audio/`
 
@@ -60,20 +84,18 @@ books/<nom>/
 jouable. Rien n'est à déclarer nulle part : c'est le fichier lui-même qui, en existant,
 active la fonctionnalité.
 
-### `archive/`
+### Ce qui a disparu le 2026-08-13, et pourquoi
 
-Le compilateur produit **cinq fichiers que personne ne charge**, et il continue — ils
-coûtent quelques kilo-octets et documentent le livre — mais rangés à part pour que `data/`
-ne contienne que ce que l'app ouvre vraiment :
-
-| fichier | pourquoi il ne sert pas |
+| | pourquoi |
 |---|---|
-| `-compilated-combats.json` | la liste des chapitres de combat ; l'app lit `computed.combat`, chapitre par chapitre |
-| `-compilated-secrets.json` | idem avec `computed.secret` |
-| `-compilated-endings.json`, `-good-endings`, `-bad-endings` | idem avec `computed.ending` |
+| 5 sorties compilées : combats, secrets, et les trois listes de fins | **personne ne les chargeait**. L'app lit tout ça chapitre par chapitre |
+| `-compilated-success.json`, `-compilated-all-objects.json`, `-compilated-success-chapters.json` | des **valeurs en double** : catégories, libellés et textes déjà écrits à la main, pour un champ ajouté. L'app lit les tables de l'auteur et les complète au chargement. Vérifié avant suppression : les 146 objets et 103 succès retrouvent exactement les mêmes valeurs |
+| la source recopiée dans `-compilated-data.json` | le chapitre écrit à la main vit dans `scripts/src/`, un seul exemplaire suffit |
+| les valeurs neutres de chaque chapitre | 9 538 clés sur 12 120, pour fdcn, ne disaient rien |
+| `<nom>.migration_items.json` | une table `type de Billy → 3 objets` qui **inventait** ce que la sauvegarde n'avait jamais su. Une sauvegarde sans liste d'objets rejoue maintenant ses chapitres, prévient le joueur et ouvre son inventaire — lui seul connaît son équipement de départ |
 
-Si l'un d'eux redevient utile — un écran « fins découvertes », par exemple — il remonte
-dans `data/` et `BookData` le charge.
+**Les json des livres sont passés de 1 340 à 388 Ko**, à contenu strictement identique pour
+l'app — vérifié clé par clé sur les 1 297 chapitres des deux livres.
 
 ### `data/compteurs.json`
 
@@ -93,4 +115,15 @@ sépare `rancune` de `critique`.
 Une fin est un chapitre qui porte `"ending": "good"` ou `"ending": "bad"`, et **une fin n'a
 pas de suite** : son `goto` éventuel n'est pas suivi. fdcn fait pointer les siennes sur un
 chapitre 608 qui n'existe pas dans le livre ; cdsi n'écrit pas de `goto` du tout. Les deux
-formes marchent, et aucun numéro n'est écrit dans le compilateur.
+formes marchent, et aucun numéro n'est écrit dans le générateur.
+
+### Les combats
+
+Un adversaire s'écrit en dictionnaire, plusieurs en tableau — et **l'ordre du tableau est
+l'ordre du combat** : on abat le premier, le suivant arrive avec ses pv pleins. Un seul
+chapitre s'en sert, fdcn ch274 (GUARDES CORROMPUS puis TROLESSE).
+
+⚠️ Le générateur **recopie le bloc `combat` sans le regarder** : ni les six champs, ni leurs
+valeurs. C'est le seul endroit du livre où une faute de saisie ne peut être attrapée que par
+une relecture humaine — deux l'ont été le 2026-08-13, dont un bouche-trou `XXXX` avec tous
+ses chiffres à 1 qui partait dans l'application.
