@@ -127,7 +127,6 @@ func disable_special_jump():
 
 
 func _on_Button_pressed():
-	print('CLICK: on chapter: %s' % self.chap_number)
 	Player.go_to_node(self.chap_number)
 
 

@@ -36,7 +36,6 @@ func _update_label():
 func _set_color(color):
 	$poly_for_first.color = color
 	$Polygon2D.color = color
-	#print('Changed to color= %s' % color)
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -67,7 +66,5 @@ func set_normal_color():
 ### NOTE: the button is invisible, normal ^^
 func _on_button_pressed():
 	if self.is_current:
-		print('Cannot jump back to current node..')
 		return
-	print('BUTTON: %s pressed' % self.chap_number)
 	self.main_obj.jump_back(self.chap_number)

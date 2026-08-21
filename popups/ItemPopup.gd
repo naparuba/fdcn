@@ -25,7 +25,6 @@ func _ready():
 func load_item_data(item_name, item_data):
 	self._item_name = item_name
 	self._item_data = item_data
-	#print('Loading item data: %s' % self._item_name)
 	$Row/Nom.text = self._item_name
 	# Un stylebox par instance, avec le rayon 2 des cartes de l'app : la scène ne sert que
 	# d'aperçu d'éditeur puisque celui-ci l'écrase.
@@ -56,7 +55,6 @@ func refresh():
 	$Row/Nom.text = self._item_name
 	$Row/sprite.texture = self._item_icon
 
-	#print('STYLE: %s' % _style)
 	if self.is_new:
 		_style.set_bg_color(Color('c0ffed'))  # set to light grey
 	else:
@@ -67,5 +65,4 @@ func refresh():
 
 
 func _on_Timer_timeout():
-	print('GOOD BYE ITEM popup %s' % self._item_name)
 	self.queue_free()

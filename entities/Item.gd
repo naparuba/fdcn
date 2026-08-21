@@ -27,7 +27,6 @@ func _ready():
 func load_item_data(item_name, item_data):
 	self._item_name = item_name
 	self._item_data = item_data
-	#print('Loading item data: %s' % self._item_name)
 	$Row/Nom.text = self._item_name
 	self._display_stats()
 	var new_style = StyleBoxFlat.new()
@@ -119,7 +118,6 @@ func refresh():
 
 
 func _on_button_toggled(button_pressed):
-	print('ITEM: %s goes' % self._item_name, '%s' % button_pressed)
 	if button_pressed:
 		Inventory.add_item_from_options(self._item_name)
 	else:  # remove it

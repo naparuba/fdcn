@@ -7,7 +7,6 @@ var _settings_open: bool = false
 @onready var popup_settings: PackedScene = preload("res://popups/SettingsPopup.tscn")
 
 func _on_button_options():
-	print('SHOW OPTIONS')
 	if _opened_popup:
 		_opened_popup.queue_free()
 
@@ -73,7 +72,6 @@ func set_billy():
 	for billy in billys.keys():
 		var panel = billys[billy]
 		var _style = panel.get('theme_override_styles/panel')
-		#print('STYLE: %s' % _style)
 		_style.set_bg_color(Color('e9eaec'))  # set to light grey
 	if type_billy != 'pegu':
 		billys[type_billy].get('theme_override_styles/panel').set_bg_color(Color('9ea8b4'))  # set to dark grey
@@ -88,10 +86,6 @@ func set_billy():
 	$Margin/HBoxContainer/Billys/BillyTypeLabel.text = billy_strings[type_billy]
 
 
-#
-#    TODO
-#
-
 func set_page(page_name):
 	var pages = {'main': $Margin/HBoxContainer/Pages/BlockMain,
 	'chapitres':$Margin/HBoxContainer/Pages/BlockChapitres,
@@ -102,7 +96,6 @@ func set_page(page_name):
 	for page in pages.keys():
 		var panel = pages[page]
 		var _style = panel.get('theme_override_styles/panel')
-		#print('STYLE: %s' % _style)
 		_style.set_bg_color(Color('e9eaec'))  # set to light grey
 	# NOTE: about is not an icon, only with swipe
 	if page_name in pages:

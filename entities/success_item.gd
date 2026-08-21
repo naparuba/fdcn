@@ -170,6 +170,5 @@ func hide_chapter():
 
 
 func _on_Button_pressed():
-	print('CLICK: on chapter: %s' % self.chap_number)
 	if self.main != null:
 		self.main.go_to_node(self.chap_number)
