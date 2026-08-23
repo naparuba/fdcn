@@ -2,7 +2,7 @@ class_name VirtualListPool
 extends RefCounted
 ## Fabrique et recycle les lignes d'une liste virtualisée : `screens/succes_menu.gd` et
 ## `screens/chapitres_menu.gd` partageaient ~90 lignes identiques (pool + repositionnement
-## au défilement) qui n'avaient divergé qu'à force de copier-coller (review §9.1, todo 6.5).
+## au défilement) qui n'avaient divergé qu'à force de copier-coller.
 ##
 ## Ne connaît ni le type de ligne ni ce qu'une ligne affiche : `update_row`, passé à
 ## `refresh_rows()`, reçoit `(row, index, refresh)` et décide seule quoi faire — chaque

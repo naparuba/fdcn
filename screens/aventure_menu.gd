@@ -1,4 +1,10 @@
 extends Panel
+## L'écran Aventure : bascule entre la liste de choix du chapitre et le combat.
+##
+## Ne fait rien d'autre qu'arbitrer les deux : `ChoiceNextChapiter` est masqué pendant un
+## combat (`is_combat()`), et remontre dès `combat_finished`, que l'issue soit une victoire,
+## une défaite ou une fuite — le moteur ne pousse qu'un seul signal pour les trois (§3.7 de
+## `review-combat.md`, à étendre en trois issues distinctes si besoin un jour).
 
 @onready var _choice_next_chapiter = $VBoxContainer/ChoiceNextChapiter
 @onready var _combat = $VBoxContainer/Combat

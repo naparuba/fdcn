@@ -2,10 +2,10 @@ extends PanelContainer
 ## L'écran de combat : une VUE par-dessus `CombatEngine`, qui ne calcule rien.
 ##
 ## Toute règle vit dans le moteur (`autoload/combat_engine.gd`, spec dans
-## `combat.md`). Ici on lit son état, on lui transmet les décisions du joueur, et on
+## `review-combat.md`). Ici on lit son état, on lui transmet les décisions du joueur, et on
 ## peint. La séparation est ce qui rend les règles testables sans interface.
 ##
-## TROIS ÉTATS, un seul panneau (combat.md §3.6) :
+## TROIS ÉTATS, un seul panneau (review-combat.md §3.6) :
 ##   EN_COURS  dés, esquive, journal
 ##   VICTOIRE  bandeau vert, dés masqués
 ##   DEFAITE   bandeau rouge, dés masqués — mais « gagner » RESTE cliquable, parce que
@@ -167,7 +167,7 @@ func _set_etat(etat: int) -> void:
 	var en_cours = etat == Etat.EN_COURS
 
 	# Le mode manuel garde la fiche et les boutons de sortie, mais rien qui prétende
-	# calculer : ni dés, ni esquive, ni écart (combat.md §3.11).
+	# calculer : ni dés, ni esquive, ni écart (review-combat.md §3.11).
 	_banner.visible = not _automatise
 	_mid_row.visible = _automatise and en_cours
 	_enemy_gauge.visible = _automatise
@@ -199,7 +199,7 @@ func _peindre(noeud: Control, cle: String, couleur: Color) -> void:
 
 
 ## En défaite le bouton devient rouge mais **reste actif** : seul son style dit « mes
-## calculs disent que tu es mort », jamais « tu n'as pas le droit » (combat.md §3.6).
+## calculs disent que tu es mort », jamais « tu n'as pas le droit » (review-combat.md §3.6).
 func _styler_gagner(fond: Color, texte: Color) -> void:
 	for etat in ['normal', 'hover', 'pressed']:
 		_peindre(_gagner, etat, fond)

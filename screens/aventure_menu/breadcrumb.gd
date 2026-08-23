@@ -1,4 +1,11 @@
 extends PanelContainer
+## Le fil d'Ariane de l'écran Aventure : un chevron cliquable par chapitre visité durant la
+## session, pour revenir en arrière sans perdre sa place dans l'historique.
+##
+## Reconstruit entièrement à chaque changement de chapitre (`Utils.delete_children` puis
+## une instance de `ui/bread.gd` par entrée) plutôt que mis à jour incrémentalement :
+## `Player.get_last_visited_nodes()` ne rend que les 5 derniers chapitres par défaut, refaire
+## coûte moins cher que diffuser une si petite liste.
 
 @onready var _breads = $VBoxContainer/breads
 

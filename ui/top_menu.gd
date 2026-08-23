@@ -1,4 +1,12 @@
 extends Panel
+## La barre du haut : navigation entre pages, réglages, type de Billy, logo du livre.
+##
+## **Plusieurs exemplaires vivent en même temps** (un par `MenuPage`) : rien ici ne pousse
+## une mise à jour vers « les autres », chaque instance se repeint elle-même via les
+## signaux globaux (`AppParameters.settings_changed`/`book_changed`, `Inventory.billy_changed`).
+##
+## Réutilisable hors d'un `MenuPage` : `_go_to_page()` retrouve son conteneur en remontant
+## l'arbre et ne fait rien s'il n'y en a pas (cas de l'archive), plutôt que de planter.
 
 @export var popup_container: Container
 var _opened_popup: Node
@@ -6,6 +14,9 @@ var _opened_popup: Node
 var _settings_open: bool = false
 @onready var popup_settings: PackedScene = preload("res://popups/SettingsPopup.tscn")
 
+## Bouton à bascule : ferme la popup si elle est ouverte, sinon en ouvre une neuve.
+## `queue_free()` inconditionnel d'abord — rouvrir doit repartir d'une instance propre,
+## pas de celle laissée par le clic précédent.
 func _on_button_options():
 	if _opened_popup:
 		_opened_popup.queue_free()
@@ -61,6 +72,9 @@ func _on_sound_button_toggled(button_pressed):
 	AppParameters.set_sound(button_pressed)
 
 
+## Surligne le bloc du type de Billy courant, et rien de plus si c'est `pegu` — le type
+## « aucune affinité déterminée » (`Inventory.compute_billy_for_option()`) n'a pas de bloc
+## à lui, il n'en existe que 4 dans `billys`.
 func set_billy():
 	var type_billy = AppParameters.get_billy_type()
 	var billys = {'guerrier': $Margin/HBoxContainer/Billys/BlockGuerrier,
@@ -86,18 +100,20 @@ func set_billy():
 	$Margin/HBoxContainer/Billys/BillyTypeLabel.text = billy_strings[type_billy]
 
 
+## Surligne le bloc de la page courante. La page « à propos » n'a pas d'icône dans cette
+## barre (accessible seulement par swipe) : `page_name` peut donc valoir une page absente
+## de `pages`, auquel cas `set_page()` désurligne tout sans rien resurligner.
 func set_page(page_name):
 	var pages = {'main': $Margin/HBoxContainer/Pages/BlockMain,
 	'chapitres':$Margin/HBoxContainer/Pages/BlockChapitres,
 	'success':$Margin/HBoxContainer/Pages/BlockSuccess,
 	'lore':$Margin/HBoxContainer/Pages/BlockLore
 	}
-	
+
 	for page in pages.keys():
 		var panel = pages[page]
 		var _style = panel.get('theme_override_styles/panel')
 		_style.set_bg_color(Color('e9eaec'))  # set to light grey
-	# NOTE: about is not an icon, only with swipe
 	if page_name in pages:
 		pages[page_name].get('theme_override_styles/panel').set_bg_color(Color('9ea8b4'))  # set to dark grey
 
@@ -120,9 +136,9 @@ func _image_du_livre(book_name: String, quoi: String) -> Texture2D:
 	return load(chemin)
 
 
-# Le menu du haut est réutilisable : il ne connaît pas son conteneur de pages,
-# il le retrouve en remontant l'arbre. Renvoie null hors d'un MenuPage (cas de
-# l'archive), auquel cas les boutons de page ne font simplement rien.
+## Retrouve le conteneur de pages en remontant l'arbre plutôt que de le connaître
+## directement : hors d'un `MenuPage`, `menu_page` vaut `null` et les boutons de page ne
+## font simplement rien, au lieu de planter.
 func _go_to_page(page_name: String) -> void:
 	var menu_page = Utils.find_ancestor_with_method(self, "go_to_page")
 	if menu_page == null:
@@ -142,8 +158,6 @@ func focus_to_success():
 
 func focus_to_lore():
 	_go_to_page("lore")
-
-# NOTE: page about do NOT have a button
 
 
 # Les quatre boutons de type imposent le Billy directement à l'Inventory, qui

@@ -1,4 +1,10 @@
 extends PanelContainer
+## Bandeau de position dans le livre : nom de l'acte et sa progression, nom du sous-arc et
+## sa progression s'il y en a un, numéro du chapitre courant.
+##
+## Un chapitre n'a pas forcément de sous-arc (`get_arc()` peut rendre `null`) : la section
+## correspondante se masque, et le numéro de chapitre grossit pour occuper la place laissée
+## (`_CHAPTER_FONT_SIZE_NO_ARC` contre `_CHAPTER_FONT_SIZE_WITH_ARC`).
 
 @onready var _acte_label = $VBoxContainer/Content/Acte
 @onready var _fill_bar = $VBoxContainer/Content/ProgressRow/fill_bar

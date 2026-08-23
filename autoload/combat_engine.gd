@@ -1,7 +1,7 @@
 extends Node
 ## CombatEngine — les règles d'un affrontement, sans aucune interface.
 ##
-## Spec complète et raisonnement dans `combat.md` (§3.10 pour l'algorithme d'un
+## Spec complète et raisonnement dans `review-combat.md` (§3.10 pour l'algorithme d'un
 ## assaut). Les règles viennent du marque-page « table des situations », normalisé
 ## dans `data/combat-table.json`.
 ##
@@ -20,7 +20,7 @@ extends Node
 ## Les dés sont injectables (`dice_roller`) : sans ça les tests seraient non
 ## déterministes. Ne JAMAIS appeler `Utils.roll_a_dice()` directement d'ici.
 ##
-## PAS ENCORE FAIT (voir `combat.md` §4) : la persistance de l'état en sauvegarde
+## PAS ENCORE FAIT (voir `review-combat.md` §4) : la persistance de l'état en sauvegarde
 ## (étape 7) et le pouvoir du PRUDENT (Q14 ouverte).
 ##
 ## Les combats à plusieurs adversaires **sont** gérés : ils se mènent **dans l'ordre du
@@ -155,7 +155,7 @@ func is_automatable(chapter_id) -> bool:
 
 ## Démarre le combat du chapitre. Renvoie false si le moteur ne sait pas le mener —
 ## l'interface reste alors en mode manuel, elle **ne déclare jamais une défaite**
-## (voir `combat.md` §3.11).
+## (voir `review-combat.md` §3.11).
 func start(chapter_id) -> bool:
 	if not is_automatable(chapter_id):
 		return false
@@ -218,7 +218,7 @@ func get_tour() -> int:
 	return _tour
 
 
-## La règle spéciale du combat, saisie à la main par le joueur (combat.md §1.2) :
+## La règle spéciale du combat, saisie à la main par le joueur (review-combat.md §1.2) :
 ## les données du livre ne la contiennent pas.
 func set_hab_modifier(v: int) -> void:
 	_hab_modifier = v
@@ -264,7 +264,7 @@ func get_situation_for(ecart: int) -> String:
 	return situation.get("nom", "") if situation else ""
 
 
-## Coût en chance pour passer le combat, selon la situation (combat.md §3.9).
+## Coût en chance pour passer le combat, selon la situation (review-combat.md §3.9).
 func get_fuite_cost() -> int:
 	var situation = _situation_for(get_ecart())
 	return situation.get("fuite_chance", 0) if situation else 0
@@ -415,7 +415,7 @@ func roll_dodge() -> int:
 
 
 ## Résout l'assaut avec les dés mémorisés et applique les dégâts. Renvoie le
-## rapport détaillé (voir `combat.md` §3.1) plutôt que de peindre quoi que ce soit.
+## rapport détaillé (voir `review-combat.md` §3.1) plutôt que de peindre quoi que ce soit.
 func resolve() -> Dictionary:
 	var rapport = {
 		"de": _de,
@@ -439,7 +439,7 @@ func resolve() -> Dictionary:
 
 	var ecart = get_ecart()
 	# Les chiffres de la frise sont une BASE : les dégâts supplémentaires s'ajoutent
-	# par-dessus, et l'armure se retire ensuite (combat.md §3.10 étape 5).
+	# par-dessus, et l'armure se retire ensuite (review-combat.md §3.10 étape 5).
 	var base = _cell(ecart, _de)
 	var infliges = base[0] + PlayerStats.get_stat("deg")
 	var recus = base[1] + _enemy["deg"]
@@ -528,7 +528,7 @@ func resolve() -> Dictionary:
 ## c'était un « tentez votre chance » classique (qui décrémente), c'est ici et nulle
 ## part ailleurs qu'il faut ajouter `PlayerStats.del_chance(1)`.
 ##
-## ⚠️⚠️ **À CONFIRMER (2026-08-12).** Cette règle vient de la question 14 de `combat.md`, où
+## ⚠️⚠️ **À CONFIRMER (2026-08-12).** Cette règle vient de la question 14 de `review-combat.md`, où
 ## elle a été décrite comme un jet après la mort. L'énoncé des quatre pouvoirs de Billy donné
 ## depuis ne la mentionne pas : le PRUDENT y a « la chance pour esquiver une attaque ou le
 ## combat », rien de plus. Elle est donc **conservée telle quelle** — supprimer une règle

@@ -6,6 +6,15 @@ extends Panel
 ## options laisse à sa colonne de contenu : la liste affichait donc une barre de
 ## défilement horizontale. La largeur appartient au conteneur, ne remets pas de
 ## minimum en x.
+##
+## Presque un jumeau de `popups/ItemPopup.gd` (même repli d'icône svg→png→« ? »), mais pour
+## une ligne recyclée de la liste d'inventaire plutôt qu'un toast éphémère : les deux
+## copies existent parce qu'elles n'ont ni le même cycle de vie ni la même scène hôte.
+##
+## Une ligne peut afficher un objet **non découvert** (jamais ramassé, dans aucune partie) :
+## `_is_enabled` distingue « le Billy courant le porte » de « `refresh()` a le droit de
+## montrer son vrai nom et sa vraie icône » (`_can_item_be_shown()`), ce qui couvre aussi le
+## mode spoils et l'historique toutes parties confondues.
 
 
 ## Icône des objets pas encore découverts. Préchargée une fois pour toutes : elle était
@@ -31,6 +40,9 @@ func load_item_data(item_name, item_data):
 	_display_stats()
 	var new_style = StyleBoxFlat.new()
 	set('theme_override_styles/panel', new_style)
+	# svg d'abord, png ensuite, « ? » sinon : la plupart des objets ont un svg dessiné,
+	# quelques-uns n'ont qu'un png de récupération, et 14 (review §5.5) n'ont ni l'un ni
+	# l'autre — le repli n'est donc pas une erreur à corriger, il est attendu.
 	var svg_path = 'res://images/items/%s.svg' % _item_name
 	var png_path = 'res://images/items/%s.png' % _item_name
 	if Utils.is_file_exists(svg_path):
@@ -61,17 +73,18 @@ func get_category():
 	return _item_data['category']
 
 
-# Depends on the item category, some won't be display: the BILLY one
+## La catégorie `BILLY` ne contient pas des objets à afficher, mais les marqueurs de type
+## de Billy eux-mêmes (voir `Inventory.compute_billy_for_option()`) : une ligne d'inventaire
+## n'a rien à en montrer.
 func is_ok_to_be_shown():
 	if get_category() == 'BILLY':
 		return false
 	return true
-	
 
-# Is an item name can be shown?
-# * we have it, so of course we can
-# * we are spoills ok, so we can too
-# * we already did see it's chapter in the past plays
+
+## Trois façons indépendantes d'avoir le droit de voir le vrai nom/icône plutôt que le
+## repli « ? » : l'avoir en ce moment (`_is_enabled`), le mode spoils activé, ou l'avoir
+## déjà croisé dans une partie précédente (peu importe laquelle).
 func _can_item_be_shown():
 	if _is_enabled:
 		return true
