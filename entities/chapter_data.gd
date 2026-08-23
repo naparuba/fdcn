@@ -33,63 +33,63 @@ var _book_data = {}
 ## Sans cette ligne, alléger les données et reprendre le compilateur devraient se faire
 ## dans le même mouvement, sous peine d'une app qui ne lit plus rien entre les deux.
 func create(book_data):
-	self._book_data = book_data.get("computed", book_data)
+	_book_data = book_data.get("computed", book_data)
 
 
 func get_id():
-	return self._book_data['id']
+	return _book_data['id']
 
 
 func get_chapter():
-	return self._book_data.get('chapter', null)
+	return _book_data.get('chapter', null)
 
 func get_arc():
-	return self._book_data.get('arc', null)
+	return _book_data.get('arc', null)
 
 func get_jump_conditions():
-	return self._book_data.get('jump_conditions', {})
+	return _book_data.get('jump_conditions', {})
 
 func get_jump_conditions_txts():
-	return self._book_data.get('jump_conditions_txts', {})
+	return _book_data.get('jump_conditions_txts', {})
 
 func get_stats():
-	return self._book_data.get('stats', {})
+	return _book_data.get('stats', {})
 
 func get_stats_cond():
-	return self._book_data.get('stats_cond', [])
+	return _book_data.get('stats_cond', [])
 
 ## Dérivé, comme côté générateur : une fin est un chapitre qui déclare son type.
 func get_ending():
-	return self._book_data.get('ending_type', null) != null
+	return _book_data.get('ending_type', null) != null
 
 func get_ending_id():
-	return self._book_data.get('ending_id', null)
+	return _book_data.get('ending_id', null)
 
 func get_ending_txt():
-	return self._book_data.get('ending_txt', null)
+	return _book_data.get('ending_txt', null)
 
 func get_ending_type():
-	return self._book_data.get('ending_type', null)
+	return _book_data.get('ending_type', null)
 
 func get_success():
-	return self._book_data.get('success', null)
+	return _book_data.get('success', null)
 
 func get_label():
-	return self._book_data.get('label', null)
+	return _book_data.get('label', null)
 
 
 func get_secret():
-	return self._book_data.get('secret', false)
+	return _book_data.get('secret', false)
 
 func get_sons():
-	return self._book_data.get('sons', [])
+	return _book_data.get('sons', [])
 
 func get_secret_jumps():
-	return self._book_data.get('secret_jumps', [])
+	return _book_data.get('secret_jumps', [])
 
 ## Dérivé : un chapitre de combat est un chapitre qui porte un adversaire.
 func is_combat():
-	return self._book_data.get('combat', null) != null
+	return _book_data.get('combat', null) != null
 
 
 ## TOUS les adversaires du chapitre, dans l'ordre où ils se présentent.
@@ -99,7 +99,7 @@ func is_combat():
 ## (GUARDES CORROMPUS puis TROLESSE). On normalise les deux formes pour que l'appelant
 ## n'ait jamais à les distinguer.
 func get_combats() -> Array:
-	var combat = self._book_data.get('combat', null)
+	var combat = _book_data.get('combat', null)
 	if combat == null:
 		return []
 	if typeof(combat) == TYPE_ARRAY:
@@ -111,30 +111,30 @@ func get_combats() -> Array:
 ## alimentent la fiche affichée, qui montre l'ennemi en cours. Pour mener un combat en
 ## plusieurs manches, passer par `get_combats()`.
 func _get_combat():
-	var combats = self.get_combats()
+	var combats = get_combats()
 	return combats[0] if not combats.is_empty() else null
 
 
 func get_combat_name():
-	return self._get_combat()['nom']
+	return _get_combat()['nom']
 	
 func get_combat_hab():
-	return self._get_combat()['hab']
+	return _get_combat()['hab']
 
 func get_combat_pv():
-	return self._get_combat()['pv']
+	return _get_combat()['pv']
 
 func get_combat_pyro():
-	return self._get_combat()['pyro']
+	return _get_combat()['pyro']
 
 func get_combat_armure():
-	return self._get_combat()['arm']
+	return _get_combat()['arm']
 
 func get_combat_degat():
-	return self._get_combat()['deg']
+	return _get_combat()['deg']
 
 func get_aquire():
-	return self._book_data.get('aquire', [])
+	return _book_data.get('aquire', [])
 	
 func get_remove():
-	return self._book_data.get('remove', [])
+	return _book_data.get('remove', [])

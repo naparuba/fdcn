@@ -1,9 +1,5 @@
 extends PanelContainer
 
-signal chapter_chosen(chap_number)
-signal new_billy_requested()
-signal previous_chapter_requested()
-
 @onready var _choices = $VBoxContainer/ScrollContainer/Choices
 
 ## Texte de la seule action destructrice de l'app. Partagé avec `screens/about_menu.gd`,
@@ -78,7 +74,6 @@ func add_ending_choice(ending_id, ending_txt: String, ending_type) -> void:
 # ChapterChoice.gd calls self.main.go_to_node(chap_number) on click.
 func go_to_node(chap_number) -> void:
 	Player.go_to_node(chap_number)
-	chapter_chosen.emit(chap_number)
 
 
 # EndingChoice.gd calls self.main.launch_new_billy() / .jump_to_previous_chapter().
@@ -98,7 +93,6 @@ func launch_new_billy() -> void:
 func _do_launch_new_billy() -> void:
 	Player.launch_new_billy()
 	Player.go_to_node(1)
-	new_billy_requested.emit()
 
 
 func jump_to_previous_chapter() -> void:
@@ -106,4 +100,3 @@ func jump_to_previous_chapter() -> void:
 	if previous_id == -1:
 		return
 	Player.go_back_to(previous_id)
-	previous_chapter_requested.emit()

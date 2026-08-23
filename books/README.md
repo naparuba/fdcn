@@ -26,6 +26,103 @@ s'ajoute donc **à la fin**, jamais au milieu.
 
 Rien d'autre. Aucun script ni aucune scène à rouvrir.
 
+## Remplir un livre à la main
+
+⚠️ **Décrit le format actuel, pas le format visé.** Le plan (`todo.md` 3.8) prévoit de fondre
+les six fichiers ci-dessous en un seul `<nom>.livre.json`, à champs nommés. Tant que ce n'est
+pas fait, voici comment les remplir tels qu'ils existent.
+
+Tout s'écrit dans **`scripts/src/<nom>/`**, jamais dans `books/<nom>/data/` (une sortie,
+écrasée à chaque compilation). Six fichiers :
+
+| fichier | contient |
+|---|---|
+| `<nom>.json` | un chapitre par clé — voir ci-dessous |
+| `<nom>.arcs.json` | le découpage en actes |
+| `<nom>.sub_arcs.json`, `<nom>.manual_sub_arcs.json` | le découpage en sous-arcs (détours) |
+| `<nom>.all_objects.json` | tout objet/événement/type de personnage cité dans le livre |
+| `<nom>.all_success.json` | tous les succès |
+
+Après chaque modification : `python3 scripts/generator.py --book <nom>`, code `0` = compilé,
+`2` = refusé avec un `ERROR:` en clair (liste complète dans
+[`scripts/README.md`](../scripts/README.md#les-refus-code-2)).
+
+### Le format d'un chapitre (`<nom>.json`)
+
+Une clé absente veut dire « rien à signaler » — n'écrire **que** ce qui s'écarte du défaut.
+Exemples réels, tirés de `fdcn.json` :
+
+| clé | exemple réel | effet |
+|---|---|---|
+| `goto` | `234: {"goto": [146, 155, 76]}` | les suites. Un entier seul est accepté (`"goto": 168`) |
+| `conditions` | `234: {"conditions": {"146": "LANCE\|FOURCHE"}}` | à quelle condition ce saut apparaît. **La clé doit être un fils** — mais elle en devient un d'office, même absente de `goto` |
+| `secret_jumps` | `234: {"secret_jumps": [76]}` | des sauts cachés vers 76, en plus des sauts visibles |
+| `secret` | `13: {"secret": true}` | ce chapitre est un secret (affichage orange dans le graphe de relecture) |
+| `combat` | `274: {"combat": [{"nom": "GUARDES CORROMPUS", "hab": 6, "pv": 8, "arm": 0, "deg": 0, "pyro": 0}, {"nom": "TROLESSE", ...}]}` | un adversaire en dictionnaire, plusieurs en tableau — **l'ordre du tableau est l'ordre du combat**, on abat le premier avant que le suivant n'arrive |
+| `ending`, `ending_id`, `ending_txt` | `163: {"ending": "bad", "ending_id": "TULIPES", "ending_txt": "Elles avaient faim, très faim ^^"}` | ce chapitre **termine** l'histoire. `ending_txt` n'est lu **que si** `ending_id` existe. Une fin n'a pas de suite : un `goto` éventuel n'est pas suivi |
+| `success` | `26: {"success": "POLIR-LANCE"}` | doit exister dans `<nom>.all_success.json` |
+| `aquire`, `remove` | `119: {"aquire": ["PETITE BOUTEILLE D'ACIDE"]}` | objets gagnés/perdus. Chaque nom doit exister dans `<nom>.all_objects.json` |
+| `stats` | `273: {"stats": {"chance": 3}}` | modificateurs appliqués en entrant. Nombre = `+=` ; chaîne = expression (`"= max"`, `"+ max/2"`, `"- moi/4"` — voir `scripts/README.md`) |
+| `stats_cond` | `35: {"stats_cond": {"PRUDENT": {"gloire": 1}}}` | même chose, mais **conditionnel** : ici, +1 gloire seulement si le joueur est Prudent |
+| `label` | `10: {"label": "Tour nord"}` | nom affiché sur le nœud, dans le graphe de relecture uniquement |
+
+⚠️ **`combat` n'est pas relu par le compilateur** : ni les six champs, ni leurs valeurs, il
+recopie tel quel. C'est le seul endroit du livre où une faute de saisie ne peut être
+attrapée que par une relecture humaine contre le livre papier — deux fautes y ont été
+trouvées le 2026-08-13 en ne vérifiant qu'un seul des 85 combats des deux livres (`todo.md`
+1.4).
+
+### Le langage des conditions
+
+Utilisé dans `conditions` (quels sauts sont visibles) et `stats_cond` (quels bonus
+s'appliquent) — même syntaxe. Une expression relie des **noms** (objet, événement, type de
+personnage — chacun doit exister dans `<nom>.all_objects.json`) avec `&` (et), `|` (ou), et
+`( )` pour grouper, **un seul niveau**.
+
+**Trois pièges, tous silencieux :**
+
+1. **Mélanger `&` et `|` sans parenthèses donne un résultat faux.** `A & B | C` compile en
+   `A ou B ou C` : le `&` est perdu. **Toujours parenthéser** dès qu'on mélange les deux —
+   `(A & B) | C`.
+2. **Les parenthèses imbriquées cassent.** `((A|B)&C)|D` fait planter la compilation. Un
+   seul niveau de parenthèses, sans exception.
+3. **Une expression malformée sort en code 2 sans aucun message.** Une compilation muette
+   qui rend `2` juste après la ligne `Conditions parsing:` = une expression cassée quelque
+   part — relire les `conditions`/`stats_cond` ajoutés dans le lot.
+
+### La propagation des actes
+
+Aucun chapitre ne déclare son acte à la main : `<nom>.arcs.json` donne juste un chapitre de
+départ par acte, et le nom se propage à tous ses descendants en suivant les sauts —
+**8 déclarations couvrent les 606 chapitres de fdcn, 10 les 691 de cdsi.**
+
+```json
+[[1, "Plante-Citrouille"], [100, "Lenonia"], [193, "Cathedrale"]]
+```
+
+⚠️ **La liste se parcourt à l'envers** : si deux actes peuvent atteindre le même chapitre,
+**le dernier déclaré dans le fichier gagne**. Réordonner ce fichier redécoupe le livre, ce
+n'est jamais un détail cosmétique.
+
+`<nom>.sub_arcs.json` fait la même chose pour les détours, avec un point d'arrêt
+(`[arc, départ, nom, [arrêts]]`) où la propagation s'arrête au lieu de continuer jusqu'à la
+fin de l'acte ; au-delà de 60 chapitres elle refuse — c'est presque toujours un `[arrêts]`
+oublié. `<nom>.manual_sub_arcs.json` tague une liste de chapitres **sans** propagation, pour
+les cas qu'aucune règle n'attrape ; il ne peut que combler des trous, jamais reprendre un
+chapitre déjà tagué par les deux fichiers précédents.
+
+### Avant de compiler pour la première fois
+
+- chaque nom cité dans `aquire`, `remove`, `conditions` ou `stats_cond` existe dans
+  `<nom>.all_objects.json` (sinon : `some objects are USED but not declared`) ;
+- inversement, chaque entrée de `<nom>.all_objects.json` est utilisée quelque part (sinon :
+  `some objects are DECLARED but not used`) ;
+- chaque `success` existe dans `<nom>.all_success.json` (sinon : une trace Python plutôt
+  qu'un `ERROR:` propre — et le dossier de sortie reste à moitié à jour, il faut recompiler
+  après correction) ;
+- chaque clé de `<nom>.arcs.json` est un chapitre qui existe réellement ;
+- les combats sont relus contre le livre papier — le compilateur ne le fait pas.
+
 ## Ce qu'un dossier de livre contient
 
 Trois dossiers, et rien à la racine :

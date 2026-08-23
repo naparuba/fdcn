@@ -16,7 +16,7 @@ func _on_chapter_changed(_node_id) -> void:
 
 
 func _refresh() -> void:
-	var nb_all_nodes = len(BookData.get_all_nodes())
+	var nb_all_nodes = BookData.get_all_nodes().size()
 	if nb_all_nodes == 0:
 		return
 	set_completion(Player.get_nb_all_time_seen(), nb_all_nodes)

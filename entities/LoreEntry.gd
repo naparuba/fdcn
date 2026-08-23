@@ -26,11 +26,9 @@ extends Panel
 @export var entry_name = 'guerrier'
 @export var titre = 'XXXX'
 
-## ⚠️ Les images et sons des dieux sont rangés par **numéro** de livre
-## (`images/dieux/1/atella.jpg`). C'est le dernier vestige de l'identification par numéro,
-## dont tout le reste de l'app est sorti — le renommage vers `dieux/<nom>/` est l'action 4.7.
-## Quand il sera fait, c'est ici et dans `_on_play_pressed()` qu'il faudra suivre.
-@export var book_number = 1
+## Les images et sons des dieux sont rangés par nom de livre (`images/dieux/fdcn/atella.jpg`),
+## comme le reste de l'app depuis le 2026-08-22 (todo 3.7) — plus d'identification par numéro.
+@export var book_name = 'fdcn'
 
 
 var is_playing = false
@@ -53,28 +51,28 @@ func _ready():
 	_image.texture = Utils.load_external_texture(_chemin_image())
 
 
-## `billys/<nom>.png` ou `dieux/<numéro>/<nom>.jpg` — deux rangements, deux extensions.
+## `billys/<nom>.png` ou `dieux/<livre>/<nom>.jpg` — deux rangements, deux extensions.
 func _chemin_image() -> String:
 	if type_entry == 'dieux':
-		return 'res://images/dieux/%d/%s.jpg' % [book_number, entry_name]
+		return 'res://images/dieux/%s/%s.jpg' % [book_name, entry_name]
 	return 'res://images/%s/%s.png' % [type_entry, entry_name]
 
 
 ## Même arborescence que les images, en mp3.
 func _chemin_son() -> String:
 	if type_entry == 'dieux':
-		return 'res://sounds/dieux/%d/%s.mp3' % [book_number, entry_name]
+		return 'res://sounds/dieux/%s/%s.mp3' % [book_name, entry_name]
 	return 'res://sounds/%s/%s.mp3' % [type_entry, entry_name]
 
 
 func _set_can_play():
-	self.is_playing = false
+	is_playing = false
 	_play.visible = true
 	_stop.visible = false
 
 
 func _set_playing():
-	self.is_playing = true
+	is_playing = true
 	_play.visible = false
 	_stop.visible = true
 
@@ -83,7 +81,7 @@ func _on_play_pressed():
 	if !Sounder.is_enabled():
 		return
 
-	if self.is_playing:
+	if is_playing:
 		_player.stop()
 		_set_can_play()
 		return

@@ -5,7 +5,7 @@ qui reste à faire** : tout ce qui a été réglé en a été retiré, l'histori
 `git log`.
 
 Documents voisins : **`combat.md`** (spec complète du combat) et **`todo.md`** (la liste
-d'actions du §9, en cases à cocher).
+d'actions du §10, en cases à cocher).
 
 Mesures reproductibles :
 
@@ -260,11 +260,13 @@ print(sorted(c.items(), key=lambda x:-x[1]))"
 
 ### 3.5 À trancher **avant** d'intégrer
 
-- **Les dossiers d'assets numérotés.** `images/dieux/1`, `images/dieux/2`,
-  `sounds/dieux/1`, `sounds/dieux/2` existent. Dans l'app vivante **rien ne les lit
-  encore** — mais la page Lore en a besoin. Décider **maintenant** entre
-  `dieux/3` et `dieux/<nom>/` : la page Lore écrite avant ce choix héritera d'une
-  numérotation que le reste du dépôt a abandonnée au profit des noms.
+✅ **Dossiers d'assets renommés par nom de livre** (2026-08-22, todo 3.7) : `images/dieux/1`
+et `2`, `sounds/dieux/1` et `2` sont devenus `dieux/fdcn/` et `dieux/cdsi/`.
+`entities/LoreEntry.gd` prend un `book_name: String` (défaut `'fdcn'`) au lieu d'un
+`book_number: int` — la page Lore n'affiche toujours que fdcn (`screens/LoreMenu.tscn` ne
+positionne `book_name` sur aucune instance, donc elles gardent le défaut), cdsi reste en
+attente d'une page qui sache présenter deux livres.
+
 - **`ROW_HEIGHT`** des listes virtualisées si le nouveau livre a des libellés plus longs :
   la hauteur de ligne doit rester ≥ la hauteur minimale réelle à 416 px de large, sinon les
   lignes se chevauchent.
@@ -422,9 +424,11 @@ partent dans l'APK — avec le livre source lui-même. → **3.12**
 - **le dictionnaire de chapitres** : une entrée par chapitre, éditée à la main, c'est la
   forme juste pour 600 entrées ;
 - **la double validation objets** (utilisés ⊆ déclarés **et** déclarés ⊆ utilisés) : elle a
-  déjà attrapé de vraies fautes. ⚠️ Corriger au passage son angle mort — un objet cité
-  **uniquement** dans un `stats_cond` compte comme « déclaré mais pas utilisé » et fait
-  échouer la compilation à tort.
+  déjà attrapé de vraies fautes. ✅ **Angle mort corrigé** (2026-08-22) : un objet cité
+  **uniquement** dans un `stats_cond` compte désormais comme utilisé
+  (`Node.get_all_stats_cond_tokens()`) — aucun des deux livres n'avait de cas réel, la
+  recompilation est identique octet pour octet, mais un futur livre en aurait profité pour
+  échouer à tort.
 
 #### §11 — la sauvegarde sans objets, et la promesse qui n'était pas tenue
 
@@ -532,11 +536,9 @@ c'est la seule question que les données ne tranchent pas.
 une chaîne sur toute autre clé est signalée au lieu d'être additionnée. Les **16
 occurrences** des deux livres sont migrées, `_LEGACY_EFFECTS` a disparu avec elles.
 
-⚠️ **Une transcription reste à confirmer dans le livre papier** : `pv_1_2_max` (cdsi ch249)
-est devenu `"pv": "= max/2"` — la lecture littérale de son propre nom, pas une fusion avec
-`half_pv`. La question ci-dessus n'est donc pas tranchée, seulement **rendue visible dans
-les données** : avant, la règle ne faisait **rien du tout** (clé non gérée), toute lecture
-fidèle est déjà un gain. → todo 1.1
+✅ **Transcription confirmée dans le livre** (2026-08-22) : `pv_1_2_max` (cdsi ch249) redonne
+la moitié des pv en soin, pas une fusion avec `half_pv` ni une remise à plat — c'est un
+gain, donc `"pv": "= max/2"` est devenu `"pv": "+ max/2"`.
 
 ### 4.5 `pv_win_plus_1` est un modificateur de gain
 
@@ -685,11 +687,12 @@ seul livre : tout se teste sans interface et sans appareil.
 
 ---
 
-## 6. Le générateur Python (`scripts/`, 1 058 lignes)
+## 6. Le générateur Python (`scripts/`, 1 028 lignes)
 
-`generator.py` (476 l.), `node.py` (407), `condition_node.py` (144), `graph.py` (27),
-`endings.py` (4). S'appelait `fdcn.py` jusqu'au 2026-08-13 — un nom de livre pour un outil
-qui les compile tous.
+`generator.py` (430 l.), `node.py` (304), `condition_node.py` (131), `graph_render.py` (115,
+depuis 2026-08-22), `graph.py` (26), `logger.py` (18, depuis 2026-08-22), `endings.py` (4).
+S'appelait `fdcn.py` jusqu'au 2026-08-13 — un nom de livre pour un outil qui les compile
+tous.
 
 **Son mode d'emploi complet est dans [`scripts/README.md`](scripts/README.md)** : entrées,
 sorties, pipeline en 8 étapes, langage des conditions et ses trois pièges, refus en code 2,
@@ -760,23 +763,26 @@ les données du jeu faute d'une dépendance de confort était le mauvais arbitra
 
 ### 6.2 Ce qui rend le code difficile à lire
 
+Réglé le 2026-08-22 (todo `4.1`-`4.4`), sauf une ligne :
+
 | | constat |
 |---|---|
-| **Script à plat** | `generator.py` n'a **aucune fonction** hors `load_json_file` : 476 lignes de haut en bas, **40 variables globales** mutées au fil du fichier |
-| **66 `print()`** | 42 + 15 + 9. Aucun niveau de log : la validation utile est noyée. **C'est pour ça que `critique` est passé inaperçu** (§4.2) |
-| **Code commenté laissé en place** | `# goto = n['goto']` juste sous la ligne qui le remplace, `# print(...)` en série |
-| **Copié-collé du bloc de lecture** | 10 fois `x = n.get('x', défaut)` / `if x: node.set_x(x)`, avec des défauts incohérents (`{}` pour `stats_cond` alors que `node.py` l'initialise à `None`) |
-| **Deux commentaires « Get the combat entry if any »** | à la suite, dont un sur le bloc `secret` |
-| **Mélange des responsabilités** | `node.py` fait le modèle, la sérialisation **et** la présentation graphviz (`get_label()` renvoie du HTML coloré) |
-| **Annotations de type en commentaire** | `# type: (list) -> list`, style Python 2, alors que le projet est en f-strings |
-| **`get_all_stats_keys()` imprime** | une fonction « get » qui écrit sur la sortie standard |
+| **Copié-collé du bloc de lecture** | 10 fois `x = n.get('x', défaut)` / `if x: node.set_x(x)`, avec des défauts incohérents (`{}` pour `stats_cond` alors que `node.py` l'initialise à `None`). **Pas touché** : chaque champ a sa propre condition (`is not None` pour `combat`/`secret_jumps`, valeur truthy pour `label`/`success`/`conditions`) — les collapser sans connaître l'intention livre par livre serait un changement de comportement, pas une simplification |
+| ~~**Script à plat**~~ | ✅ `generator.py` découpé en fonctions (`lire_les_noeuds`, `taguer_les_arcs`, `construire_le_graphe`, `ecrire_les_json`, `main`) |
+| ~~**66 `print()`**~~ | ✅ `--verbose` sépare trace et validation (`scripts/logger.py`) |
+| ~~**Code commenté laissé en place**~~ | ✅ retiré de `generator.py`, `condition_node.py`, `graph.py` |
+| ~~**Deux commentaires « Get the combat entry if any »**~~ | ✅ les commentaires ont disparu avec le bloc qu'ils décrivaient |
+| ~~**Mélange des responsabilités**~~ | ✅ présentation graphviz sortie vers `scripts/graph_render.py` |
+| ~~**Annotations de type en commentaire**~~ | ✅ converties en vraies annotations Python 3 |
+| ~~**`get_all_stats_keys()` imprime**~~ | ✅ le `print` a disparu de la fonction |
 
 ### 6.3 Ce qui est sain, à ne pas casser
 
 - La **séparation `Graph` / `Node` / `ConditionNode`** est correcte, et le parseur de
   conditions produit bien deux sorties (l'arbre pour le moteur, le texte pour l'affichage).
 - Les **validations existent** (secrets à deux entrées, fin sans type, objets sans
-  chapitre) : elles sont juste invisibles faute de niveaux de log.
+  chapitre) et sont visibles par défaut (`logger.info`) ; c'est la trace par nœud/arc qui
+  est maintenant silencieuse sauf `--verbose` (2026-08-22).
 - La **sortie est déterministe** (`sort()`, `sort_keys=True`) : les json compilés ne bougent
   pas sans raison, ce qui rend un diff lisible.
 
@@ -864,28 +870,109 @@ des deux livres contre les fichiers**, en n'oubliant ni `project.godot` ni
 sorties de compilateur inutiles de l'autre.
 
 **Deux choses gardées, exprès** : les icônes de l'app (`fdcn_icon_512.png` sert à la fiche du
-magasin, pas au build) et les **10 fichiers `dieux/2/`** — images et voix des dieux de cdsi,
-que la page Lore n'affiche pas encore faute de savoir présenter deux livres. C'est du contenu
-en attente, pas un orphelin ; il déménagera avec **3.7**.
+magasin, pas au build) et les **7 fichiers `dieux/cdsi/`** (`images/` et `sounds/`, renommés
+depuis `dieux/2/` le 2026-08-22, **3.7**) — les dieux de cdsi, que la page Lore n'affiche pas
+encore faute de savoir présenter deux livres. C'est du contenu en attente, pas un orphelin.
 
-⚠️ Le passage a aussi révélé l'inverse, plus intéressant : **14 objets n'ont aucune icône**
-et affichent donc « ? » dans l'inventaire. → **5.5**
+✅ Le passage avait aussi révélé l'inverse : **14 objets sans icône**, réglé le 2026-08-22
+par une icône générique (**5.5**) plutôt que par du dessin.
 
 ---
 
-## 9. Liste d'actions
+## 9. Revue de propreté — 2026-08-22
+
+Revue demandée sur l'ensemble du dépôt (code GDScript, documentation, tests, assets), hors
+`scripts/` (revu en détail en §6 le même jour) et `archive/` (supprimé le 2026-08-21).
+Détail des actions en §10 sous les catégories **6 à 9**.
+
+### 9.1 Code GDScript — ✅ soldé (2026-08-23)
+
+| | quoi |
+|---|---|
+| ✅ bug mineur | **4 signaux jamais connectés** : `chapter_selected`/`chapter_chosen` (`breadcrumb.gd:44`), `new_billy_requested`/`previous_chapter_requested` (`choice_next_chapiter.gd:81,101,109`) étaient déclarés et émis sans aucun `.connect()` nulle part. Supprimés (déclarations + `.emit()`) : le vrai travail passait déjà par un appel direct (`Player.go_to_node()` etc.) juste avant chaque `emit` |
+| ✅ conventions balayées | `self.` retiré des 8 fichiers qui en portaient en code réel (pas juste en commentaire, contrairement au compte initial de 12) — y compris les 3 setters (`ChapterChoice.gd`/`EndingChoice.gd`/`bread.gd:set_main`, `EndingChoice.gd:set_ending_type`) où un paramètre du même nom que le champ rendait `self.` nécessaire : réglé en renommant le paramètre plutôt qu'en gardant `self.`. `max()`/`min()` → `maxi()`/`mini()` sur les sites entiers, mais → `minf()`/`maxf()` dans `nav_buton.gd` (des `float`, que `maxi()`/`mini()` auraient tronqués — la convention telle qu'écrite ne distinguait pas les deux). `len()` → `.size()` partout |
+| ✅ casse des autoloads | Les 3 fichiers en PascalCase renommés en snake_case : `BookData.gd`→`book_data.gd`, `Sounder.gd`/`.tscn`→`sounder.gd`/`.tscn`, `Parameters.gd`→`app_parameters.gd` (aligné sur l'alias `AppParameters`). Les noms de *singleton* (`BookData`, `AppParameters`, `Sounder`, utilisés dans des dizaines de scripts) restent inchangés à dessein — ils sont indépendants du nom de fichier en Godot, les renommer aurait un rayon d'effet sans rapport avec le gain |
+| ✅ duplication | Les ~100 lignes de liste virtualisée (pool, recyclage au scroll) partagées par `succes_menu.gd` et `chapitres_menu.gd` sont factorisées dans `ui/virtual_list_pool.gd` (`class_name VirtualListPool`) ; chaque écran ne garde que ce qui lui est propre. ⚠️ Comportement vérifié à la lecture contre l'original, mais **pas rejoué dans l'éditeur** (indisponible ici) — à valider visuellement sur les deux écrans |
+| ✅ référence obsolète | `succes_menu.gd` citait « review §5bis/§5ter », sections disparues à une renumérotation. Repointées : la première vers l'en-tête de `chapitres_menu.gd` (qui documente le motif en clair), la seconde vers `review §3.5` |
+
+Vérifié sain au passage : pas de `TODO`/`FIXME`, pas de RNG en modulo, `push_warning`/
+`push_error` appliqués partout où regardé, `screens/aventure_menu/combat.gd` (le fichier le
+plus complexe et le seul non testé de cette taille) relu à la main sans trouver de bug.
+
+### 9.2 Documentation
+
+| | quoi |
+|---|---|
+| le plus visible | **le `README.md` racine ne mentionne jamais cdsi** — ne décrit que fdcn alors que l'app embarque deux livres et que `docs/playstore/` a déjà des captures cdsi |
+| carte manquante | **`autoload/` n'a pas de README** malgré 10 singletons couplés entre eux ; chaque fichier est bien documenté seul, mais rien n'explique qui fait quoi entre eux |
+| fichiers creux | `entities/Item.gd` (~10 % de lignes documentées) et `ui/top_menu.gd` (~2 %) sont les plus bas de leur dossier, malgré une logique non triviale |
+| dérive possible | `combat.md` (2026-08-10) prescrit 3 fichiers de test séparés ; le système livré n'en a qu'un, `test_combat.gd` (544 lignes) — à relire pour voir si le doc a dérivé de l'implémentation, ou l'inverse |
+| en-têtes absents | `aventure_menu.gd`, `global_completion.gd`, `breadcrumb.gd`, `position.gd` n'ont aucun commentaire de tête de fichier |
+
+### 9.3 Tests — angles morts restants
+
+Au-delà du chiffre déjà connu (26/39 scripts sans test, dont 24 d'interface, §2) :
+
+| | quoi |
+|---|---|
+| `entities/LoreEntry.gd` | zéro test — `_chemin_image()`/`_chemin_son()` sont de la pure construction de chaîne, faciles à tester, et viennent de changer (**3.7**, `book_number` → `book_name`) : le renommage n'est vérifié que par « ça compile » |
+| `autoload/Sounder.gd` | seul autoload sans aucun test comportemental |
+| `entities/Item.gd`, `popups/ItemPopup.gd` | zéro test ; le repli `question.svg` (**5.5**) n'est vérifié par rien |
+| `screens/aventure_menu.gd` | probablement le contrôleur le plus complexe de l'app (combat, choix, fil d'Ariane) — zéro test |
+
+### 9.4 Assets — un angle mort du tri du 2026-08-12 (§8.3)
+
+Le tri précédent croisait **objets, succès et fins contre les fichiers** — mais par nom, pas
+par dossier. Conséquence découverte le 2026-08-22 :
+
+✅ **16 images de `images/endings/` traitées** (2026-08-23) : `ARSENE`, `BULIAAA`, `METAAAL`,
+`HONNEUR`, `TU-QUOQUE-BILLY`, `PERSONNEL`, `VIVANT`, `CERCLE-VICIEUX`, `INNOCENT`, `SEYMOUR`,
+`SABOT`, `ESCALADED-QUICKLY`, `TRAVAIL-TERMINE`, `ROI-LICHE`, `MEMOIRE-HONOREE`, `FLEURS`
+(296 Ko) ne correspondaient à aucun `ending_id` (`entities/EndingChoice.gd:30` ne charge que
+par `ending_id`, jamais par `success`), mais à des **identifiants de succès valides** déjà
+illustrés dans `images/success/`. Vérifié au hash (sha256) : 15 sur 16 différaient
+réellement de leur homonyme — et la différence n'était pas un brouillon concurrent mais une
+**résolution différente** (128×128 dans `endings/` contre 40×40 partout dans `success/`,
+confirmé aux dimensions sur les 15). `images/success/<nom>.png` mis à jour avec la version
+128×128 pour les 15 ; `FLEURS.png` était un doublon octet pour octet, ignoré. Les 16 fichiers
+(`.png` + `.import`) supprimés de `images/endings/`, `.import` de `images/success/` laissés
+intacts (même chemin/uid). ⚠️ Reste à constater dans l'éditeur Godot que les 15 icônes
+réimportent sans régression visuelle (pas testable hors Godot).
+
+⚠️ **11 fins nommées sur 14 n'ont aucune image** : les 10 de cdsi, plus `TRICHE` (fdcn).
+Seules `SOUFLE`, `TULIPES`, `VIGNES` (fdcn) en ont une. Silencieux (`push_warning` dans
+`Utils.load_external_texture`), pas un crash — mais l'écran de fin de cdsi n'a jamais eu
+d'illustration. **Confirmé sur le projet source** (2026-08-23, `naparuba/fdcn`, les 5
+branches distantes) : `images/endings/` y contient exactement le même mélange que celui
+nettoyé ci-dessus (les 3 légitimes de fdcn + les 16 mêmes fichiers mal placés) — le mélange
+préexistait, il n'a pas été introduit par ce refacto. Et le trou d'illustration est bien
+d'origine : 7 des 10 fins cdsi ont un repli via leur icône de succès (comme en local), mais
+`MIRROIRS-OVERLOAD`, `SOUFFLER`, `VALKAR` et `TRICHE` n'ont **aucune** image nulle part dans
+le dépôt source, sur aucune branche — l'auteur original ne les a jamais dessinées. À trancher
+en connaissance de cause : dessiner, ou assumer l'absence sur cdsi/`TRICHE`.
+
+Vérifié sain : `images/items/` (119 fichiers, 0 orphelin réel — les deux faux positifs sont
+`question.svg`, le repli **5.5**, et `backpack.svg`, référencé en dur par `top_menu.tscn`),
+`images/success/` (103/103), `images/dice/` (12/12, les 6 valeurs × 2 couleurs), `sounds/`
+racine (6/6), `images/dieux/` et `sounds/dieux/` (cohérents avec **3.7**).
+
+---
+
+## 10. Liste d'actions
 
 Numérotation **catégorie.rang**, les catégories étant dans l'ordre de priorité.
 
-**22 actions en 5 catégories.** La catégorie « Style et flex » a disparu : ses deux
-dernières actions sont closes — ce qu'il en reste à savoir est en §1.2.
+**46 actions en 9 catégories.** La catégorie « Style et flex » a disparu : ses deux
+dernières actions sont closes — ce qu'il en reste à savoir est en §1.2. Les catégories 6 à 9
+viennent de la revue de propreté du 2026-08-22 (§9) : code GDScript, documentation, tests,
+assets.
 
 ### 1 — Perte de données et angles morts critiques
 
 | # | tag | action | réf |
 |---|---|---|---|
-| 1.1 | `[bug]` | ✅ **Branche des fins réparée et les deux livres recompilés** (2026-08-12) : fdcn inchangé (19 fins), **cdsi a gagné les 16 siennes**. Reste à vérifier deux règles dans le livre papier (todo 1.1) | §6.1 |
-| 1.4 | `[data]` | **Relire les 85 combats contre le livre** : deux fautes trouvées en en vérifiant un seul (ch276 portait les adversaires de ch274, ch274 un bouche-trou `XXXX`). Le compilateur recopie `combat` sans le regarder | §6.3 |
+| 1.1 | `[bug]` | ✅ **Branche des fins réparée et les deux livres recompilés** (2026-08-12) : fdcn inchangé (19 fins), **cdsi a gagné les 16 siennes**. Les deux règles transcrites de mémoire sont vérifiées (2026-08-22, voir §4.4) | §6.1 |
+| 1.4 | `[data]` | ✅ **85 combats relus contre le livre.** Deux fautes trouvées en en vérifiant un seul (ch276 portait les adversaires de ch274, ch274 un bouche-trou `XXXX`), corrigées | §6.3 |
 | 1.2 | `[test]` | ✅ **`BookData` testé** (2026-08-12) : `_check_cond_rec` sous toutes ses formes, plus les conditions de saut réelles de fdcn | §2.2 |
 
 ### 2 — Export / import d'une sauvegarde
@@ -907,21 +994,22 @@ dernières actions sont closes — ce qu'il en reste à savoir est en §1.2.
 | 3.4 | `[feature]` | **`pv_gain`** : modificateur de gain dans la couche chapitres, delta positif seulement, jamais sur une affectation | §4.5 |
 | 3.5 | `[refacto]` | **Compléter le vocabulaire par livre avec `ignorees`** — les `compteurs` sont faits (2026-08-12) ; dépend de §4.3 | §4.6 |
 | 3.6 | `[refacto]` | **Réunir les 3 sorties calculées en une** — le poids est réglé (2026-08-13 : 1 340 → 388 Ko pour les deux livres) | §3.2, §3.6 |
-| 3.7 | `[place]` | Trancher `images/dieux/<n>` → `dieux/<nom>/` **avant** d'écrire la page Lore | §3.5 |
+| 3.7 | `[place]` | ✅ **`images/dieux/<n>` → `dieux/<nom>/`** (2026-08-22) : dossiers renommés, `LoreEntry.gd` prend `book_name` au lieu de `book_number` | §3.5 |
 | 3.8 | `[refacto]` | **Un seul fichier de tables par livre** (`<nom>.livre.json`), à champs nommés : 7 fichiers en 1, et plus un seul tableau positionnel — **étape 2** | §3.7 |
 | 3.9 | `[feature]` | **Squelette de livre** (`--nouveau <nom>`) : un livre neuf part de quelque chose qui compile — **étape 4** | §3.7 |
-| 3.10 | `[bug]` | Un objet cité **uniquement** dans un `stats_cond` fait échouer la compilation à tort (« déclaré mais pas utilisé ») | §3.7 |
-| 3.11 | `[place]` | **Mode d'emploi d'un livre ajouté à la main** : `books/README.md` dit quels fichiers déposer, jamais comment les remplir. À écrire **après 3.8** | §3.7 |
+| 3.10 | `[bug]` | ✅ **Corrigé** (2026-08-22) : un objet cité **uniquement** dans un `stats_cond` compte désormais comme utilisé, ne fait plus échouer la compilation à tort | §3.7 |
+| 3.11 | `[place]` | ✅ **Mode d'emploi écrit** (2026-08-22) dans `books/README.md` — décrit le format actuel (6 fichiers), à revoir quand 3.8 fondra tout en `<nom>.livre.json` | §3.7 |
 | 3.12 | `[refacto]` | ✅ **Le livre écrit à la main est passé dans `scripts/src/<nom>/`** (2026-08-13) : `scripts/` porte un `.gdignore`, l'APK n'embarque plus 136 Ko qu'il n'ouvrait jamais | §3.7 |
+| 3.13 | `[refacto]` | **Le pipeline visé `src/` → `gen/` → `books/`** : moitié faite (2026-08-13), reste à écrire dans `gen/` puis copier vers `books/`, et trancher si `gen/` est commité | §3.7 *Plan* |
 
 ### 4 — Compilateur Python
 
 | # | tag | action | réf |
 |---|---|---|---|
-| 4.1 | `[refacto]` | **Des niveaux de log** (`--verbose`) : 66 `print()` noient les validations utiles | §6.2 |
-| 4.2 | `[refacto]` | **Découper `generator.py`** (476 l. à plat) : `lire_les_noeuds()` / `taguer_les_arcs()` / `construire_le_graphe()` / `ecrire_les_json()`. Le graphviz est la moitié du fichier et l'app ne s'en sert pas | §6.2 |
-| 4.3 | `[refacto]` | Sortir la présentation graphviz de `node.py` (`get_label()`) | §6.2 |
-| 4.4 | `[hygiene]` | Nettoyer : code commenté, commentaires dupliqués, annotations Python 2, `get_all_stats_keys()` qui imprime | §6.2 |
+| 4.1 | `[refacto]` | ✅ **Des niveaux de log** (2026-08-22) : `--verbose` (`scripts/logger.py`), silencieux par défaut — un run de fdcn passe de 2 050 à 56 lignes | §6.2 |
+| 4.2 | `[refacto]` | ✅ **`generator.py` découpé** (2026-08-22) : `lire_les_noeuds()` / `taguer_les_arcs()` / `construire_le_graphe()` / `ecrire_les_json()` / `main()`, plus de variables globales mutées | §6.2 |
+| 4.3 | `[refacto]` | ✅ **Présentation graphviz sortie de `Node`** (2026-08-22) vers `scripts/graph_render.py` : le modèle de données ne connaît plus graphviz | §6.2 |
+| 4.4 | `[hygiene]` | ✅ **Nettoyé** (2026-08-22) : code commenté (`condition_node.py`, `graph.py`), annotations Python 2, `get_all_stats_keys()` qui imprimait, accesseurs morts (`have_combat`, `is_good_ending`, `is_bad_ending`, `have_ending`, `get_ending_id`), et le `sub_arc_name` hérité dans le `print` « skipping not related edge » | §6.2 |
 | 4.5 | `[hygiene]` | ✅ **Le cas particulier `goto == 608 and book_number == 1` a disparu** (2026-08-12) : une fin se reconnaît à sa clé `ending`, et fdcn n'écrit plus de `goto` sur les siennes | §3.3, §6.1 |
 
 ### 5 — Tests et hygiène
@@ -932,4 +1020,40 @@ dernières actions sont closes — ce qu'il en reste à savoir est en §1.2.
 | 5.2 | `[test]` | ✅ **`menu_page` et `top_menu` testés dans l'arbre** (2026-08-12), 15 tests | §2.2 |
 | 5.3 | `[place]` | ✅ **`.gdignore` posé dans `archive/`** (2026-08-12) : le dossier reste comme référence, Godot ne le scanne plus | §8.2 |
 | 5.4 | `[test]` | ✅ **Assets triés par les données** (2026-08-12) : 24 fichiers rangés dans `archive/unuzed/assets/`, 3 `.import` sans source | §8.3 |
-| 5.5 | `[bug]` | **14 objets sans icône** affichent « ? » dans l'inventaire — 2 dans fdcn, 12 dans cdsi dont 8 `EVENEMENT` | §8.3 |
+| 5.5 | `[bug]` | ✅ **14 objets sans icône** (2 dans fdcn, 12 dans cdsi dont 8 `EVENEMENT`) affichent désormais l'icône générique `question.svg`, tranché plutôt que de les dessiner (2026-08-22) | §8.3 |
+
+### 6 — Code GDScript (revue du 2026-08-22)
+
+| # | tag | action | réf |
+|---|---|---|---|
+| 6.1 | `[bug]` | ✅ **4 signaux morts supprimés** (2026-08-23) : `chapter_selected`/`chapter_chosen`/`new_billy_requested`/`previous_chapter_requested`, aucun n'était connecté | §9.1 |
+| 6.2 | `[hygiene]` | ✅ **`self.` retiré** (2026-08-23) des 8 fichiers concernés — 3 setters renommaient un paramètre pour éviter le conflit avec le champ plutôt que de garder `self.` | §9.1 |
+| 6.3 | `[hygiene]` | ✅ **`maxi()`/`mini()`/`.size()` appliqués** (2026-08-23) — sauf `nav_buton.gd`, en `minf()`/`maxf()` (des `float`, pas des int) | §9.1 |
+| 6.4 | `[hygiene]` | ✅ **Casse des autoloads uniformisée en snake_case** (2026-08-23) : `book_data.gd`, `app_parameters.gd`, `sounder.gd`/`.tscn` — noms de singleton inchangés | §9.1 |
+| 6.5 | `[refacto]` | ✅ **Pool de liste virtualisée factorisé** (2026-08-23) dans `ui/virtual_list_pool.gd` | §9.1 |
+| 6.6 | `[place]` | ✅ **Références obsolètes corrigées** (2026-08-23) : `succes_menu.gd` pointe maintenant vers `chapitres_menu.gd` et `review §3.5` | §9.1 |
+
+### 7 — Documentation (revue du 2026-08-22)
+
+| # | tag | action | réf |
+|---|---|---|---|
+| 7.1 | `[place]` | **Le `README.md` racine ne mentionne jamais cdsi**, alors que l'app embarque deux livres | §9.2 |
+| 7.2 | `[place]` | **`autoload/` n'a pas de README** malgré 10 singletons couplés entre eux | §9.2 |
+| 7.3 | `[hygiene]` | **`entities/Item.gd` et `ui/top_menu.gd` sous-documentés** (~10 % et ~2 % de lignes commentées) malgré une logique non triviale | §9.2 |
+| 7.4 | `[place]` | **`combat.md` potentiellement désynchronisé** : prescrit 3 fichiers de test séparés, le système livré n'en a qu'un | §9.2 |
+
+### 8 — Tests (revue du 2026-08-22)
+
+| # | tag | action | réf |
+|---|---|---|---|
+| 8.1 | `[test]` | **`entities/LoreEntry.gd` : zéro test**, alors que `book_number` → `book_name` (**3.7**) n'est vérifié que par la compilation | §9.3 |
+| 8.2 | `[test]` | **`autoload/Sounder.gd` : zéro test**, seul autoload dans ce cas | §9.3 |
+| 8.3 | `[test]` | **`entities/Item.gd`, `popups/ItemPopup.gd` : zéro test**, le repli `question.svg` (**5.5**) n'est vérifié par rien | §9.3 |
+| 8.4 | `[test]` | **`screens/aventure_menu.gd` : zéro test**, probablement le contrôleur le plus complexe de l'app | §9.3 |
+
+### 9 — Assets (revue du 2026-08-22)
+
+| # | tag | action | réf |
+|---|---|---|---|
+| 9.1 | `[bug]` | ✅ **16 images orphelines de `images/endings/` corrigées** (2026-08-23) : c'était un upscale 128×128 jamais intégré des icônes de succès (vérifié au hash) — `images/success/` mis à jour pour les 15 concernées, les 16 fichiers supprimés de `endings/` | §9.4 |
+| 9.2 | `[content]` | **11 fins nommées sur 14 sans image** (tout cdsi, + `TRICHE` de fdcn) — silencieux, mais l'écran de fin de cdsi n'a jamais eu d'illustration. Confirmé sur le projet source (2026-08-23) : gap hérité, jamais dessiné par l'auteur original non plus | §9.4 |

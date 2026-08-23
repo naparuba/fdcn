@@ -1,6 +1,6 @@
 # TODO — fdcn v4
 
-Cases à cocher dérivées de **`review.md`** §9, même numérotation **catégorie.rang**. Les
+Cases à cocher dérivées de **`review.md`** §10, même numérotation **catégorie.rang**. Les
 mesures et le *pourquoi* de chaque ligne sont dans la review ; le combat a son propre
 document, **`combat.md`**.
 
@@ -20,8 +20,15 @@ de conditions** (13), **l'archive de sauvegarde** (13), et les **deux premiers t
 d'interface** — `menu_page` et `top_menu` (15), qui exercent enfin un `_ready()`.
 
 ⚠️ **Le lanceur est devenu asynchrone** (`await`) : `test/all.gd` et `test/all.tscn`
-l'attendent désormais. Les dix autoloads ont tous été relus, et `archive/` a reçu son
-`.gdignore` — la suite mérite vraiment un passage avant de continuer.
+l'attendent désormais. Les dix autoloads ont tous été relus — la suite mérite vraiment un
+passage avant de continuer.
+
+✅ **`archive/` et `sample.json` supprimés** (2026-08-21). La parité avec l'ancienne app
+étant atteinte, la copie de référence (`archive/src/`, `archive/unuzed/`, dont les 24 assets
+orphelins ci-dessous) n'avait plus d'usage ; `sample.json` n'était référencé nulle part. Les
+`print()` de trace pure (clics, boutons, ouverture/fermeture de popup) ont aussi été retirés
+des scripts hors tests — ne restent que ceux qui signalent un événement ou une anomalie
+(convention de review.md §1.2).
 
 ✅ **Générateur et données remis d'équerre** (2026-08-13). `fdcn.py` est devenu
 `scripts/generator.py`, il lit **toute** sa source dans `scripts/src/<nom>/` et n'écrit plus
@@ -34,30 +41,20 @@ journée, à contenu strictement identique pour l'app — vérifié clé par cl�
 Une clé absente veut dire « rien à signaler ». `test_book_data.gd` le vérifie.
 
 ⚠️ **Godot va réimporter au prochain démarrage de l'éditeur** : le contenu des livres a
-changé de place (`books/<nom>/data|img|audio/`, et la source dans `scripts/src/`), et
-24 assets orphelins sont partis dans `archive/unuzed/assets/`. Les **images de livre** ont
+changé de place (`books/<nom>/data|img|audio/`, et la source dans `scripts/src/`). Les 24
+assets orphelins repérés à cette occasion ont fini dans `archive/unuzed/assets/`, supprimé
+depuis (voir ci-dessus). Les **images de livre** ont
 emporté leur `.import`, donc leur **uid est intact** ; les **6 mp3** ont perdu le leur
 (aucune scène ne les référençait), Godot le régénérera.
 
 ---
 
-## 1 — Perte de données et angles morts critiques
-
-- [ ] **1.4** **Relire les 85 combats des deux livres contre le livre papier.** Deux fautes
-      trouvées le 2026-08-13 rien qu'en en vérifiant un : **fdcn ch276** portait les deux
-      adversaires de ch274 (`GUARDES CORROMPUS` + `TROLESSE`) au lieu de **MORTELLE**
-      (hab 12, pv 26), et **ch274** un bouche-trou `XXXX` avec tous ses chiffres à 1, qui
-      partait tel quel dans l'application. Aucun outil ne peut les attraper : le compilateur
-      recopie le bloc `combat` sans le regarder, et les chiffres sont plausibles. Un balayage
-      automatique n'a trouvé **aucun autre** bouche-trou évident, mais ça ne dit rien des
-      chiffres faux.
-
-- [ ] **1.1** **Vérifier dans le livre les deux règles transcrites de mémoire**
-      (2026-08-12) : `pv_1_2_max` de **cdsi ch249**, devenu `"pv": "= max/2"` — la clé dit
-      « max » mais `half_pv` disait « courant », et rien dans les données ne tranche ; et
-      **cdsi ch176** qui écrit `"pv_max": true`, soit *+1 de plafond* alors que l'auteur
-      voulait probablement « pv au plein » (`"pv": "= max"`). Les deux ne faisaient
-      **rien du tout** avant, toute lecture fidèle est déjà un gain. → review §4.4
+✅ **Les deux règles transcrites de mémoire, vérifiées** (2026-08-22). **cdsi ch176**
+("Nouvelle-Nouvelle-Azur") ne fait que donner le `TONIQUE MYSTERIEUX` : le
+`"stats": {"pv_max": true}` qui trainait dessus était erroné et a été retiré. **cdsi ch249**
+("Le Palais") redonne bien la moitié des pv en soin, pas une remise à plat : `"pv": "= max/2"`
+est devenu `"pv": "+ max/2"`. Source et données recompilées (`scripts/src/cdsi/cdsi.json`,
+`books/cdsi/data/`).
 
 ## 2 — Export / import d'une sauvegarde en zip
 
@@ -90,9 +87,8 @@ l'ordre — la 3.2 d'abord, parce que c'est elle qui rend les suivantes sûres.
       - **expression malformée** → message, au lieu du code 2 muet ;
       - **`&` et `|` mélangés sans parenthèses** → refus, au lieu d'un arbre faux en silence.
       ⚠️ **Et rattraper les données, qui ont pris de l'avance le 2026-08-13** : ne plus
-      écrire les 5 sorties que personne ne lit (supprimées, et le dossier `archive/` avec —
-      le compilateur le recrée aujourd'hui pour ne pas échouer en pleine écriture), ne plus
-      écrire les **trois
+      écrire les 5 sorties que personne ne lit (supprimées — le compilateur ne touche plus à
+      `archive/`, lui-même supprimé du dépôt le 2026-08-21), ne plus écrire les **trois
       copies enrichies** — `-compilated-success-chapters`, `-compilated-success` et
       `-compilated-all-objects` — qui répétaient des valeurs de `<nom>.all_success.json` et
       `<nom>.all_objects.json` (supprimées : l'app lit les fichiers de l'auteur et les
@@ -118,22 +114,26 @@ l'ordre — la 3.2 d'abord, parce que c'est elle qui rend les suivantes sûres.
         oubliée. Mon avis : `gen/` dans le `.gitignore`, `books/` commité — c'est lui que
         l'app embarque.
       ⚠️ **Un seul point d'entrée existe déjà** : `python3 scripts/generator.py --book <nom>`.
-      `node.py`, `graph.py`, `condition_node.py` et `endings.py` ne se lancent pas, ce sont
-      des modules qu'il importe. Les fondre en un fichier irait **contre 4.2**, qui demande
-      au contraire de découper les 475 lignes à plat de `generator.py` — à trancher.
+      `node.py`, `graph.py`, `condition_node.py`, `endings.py`, et depuis 2026-08-22
+      `graph_render.py` et `logger.py`, ne se lancent pas, ce sont des modules qu'il importe.
+      Les fondre en un fichier irait **contre 4.2 et 4.3** (réglés le 2026-08-22), qui ont au
+      contraire découpé `generator.py` en fonctions et sorti la présentation graphviz de
+      `Node` — à trancher.
 - [ ] **3.9** **Squelette de livre** : `--nouveau <nom>` crée le dossier, deux fichiers
       valides et l'entrée du registre — un livre neuf part de quelque chose **qui compile**.
       → review §3.7 *Plan*
-- [ ] **3.11** **Écrire le mode d'emploi d'un livre ajouté à la main.** `books/README.md`
-      dit *quels* fichiers déposer, jamais *comment les remplir* : il manque le format de
-      chaque clé de chapitre avec un exemple réel, le langage des conditions et ses trois
-      pièges, la propagation des actes (19 déclarations couvrent 606 chapitres), et une
-      liste de vérification avant la première compilation. Aujourd'hui la seule source
-      complète est `scripts/README.md`, écrite pour qui touche au compilateur — pas pour
-      qui saisit un livre. **À reprendre après 3.8**, sinon la moitié sera déjà périmée.
-- [ ] **3.10** Corriger l'angle mort de la validation des objets : un objet cité
-      **uniquement** dans un `stats_cond` compte comme « déclaré mais pas utilisé » et fait
-      échouer la compilation à tort. → review §3.7 *Plan*
+✅ **3.11 fait** (2026-08-22) : `books/README.md` a sa section « Remplir un livre à la
+main » — format de chaque clé de chapitre avec un exemple réel tiré de `fdcn.json`, le
+langage des conditions et ses trois pièges, la propagation des actes (8 déclarations
+couvrent les 606 chapitres de fdcn, 10 les 691 de cdsi — mesuré, pas la « 19 » approximative
+d'avant), et une liste de vérification avant la première compilation. ⚠️ Décrit le format
+**actuel** (6 fichiers) : à revoir quand 3.8 fondra tout en `<nom>.livre.json`.
+
+✅ **3.10 fait** (2026-08-22) : un objet cité **uniquement** dans un `stats_cond` compte
+désormais comme utilisé (`Node.get_all_stats_cond_tokens()`), ne fait plus échouer la
+compilation à tort — aucun des deux livres n'avait de cas réel, recompilation identique
+octet pour octet.
+
 - [ ] **3.4** **`pv_gain`** : modificateur de gain dans la couche chapitres, **delta positif
       seulement** (un bonus de gain ne doit pas amortir les dégâts) et **jamais sur une
       affectation** (sinon « pv au plein » dépasse le plafond). → review §4.5
@@ -147,10 +147,9 @@ l'ordre — la 3.2 d'abord, parce que c'est elle qui rend les suivantes sûres.
       poids, lui, est réglé (2026-08-13 : plus de source recopiée, puis plus de valeurs
       neutres — **391 → 149 Ko** pour fdcn, 442 → 173 pour cdsi). Reste que `BookData` ouvre
       cinq fichiers là où un suffirait. → review §3.6, §3.7 *Plan*
-- [ ] **3.7** Renommer **`images/dieux/<n>/` → `images/dieux/<nom>/`** (et les sons
-      correspondants). **Tranché le 2026-08-12** : c'est le dernier vestige de
-      l'identification par numéro, dont tout le reste de l'app est déjà sorti. À faire
-      *avant* la page Lore (2.1), qui va chercher ces dossiers. → review §3.5
+✅ **3.7 fait** (2026-08-22) : `images/dieux/1|2` et `sounds/dieux/1|2` renommés en
+`dieux/fdcn/` et `dieux/cdsi/`, `entities/LoreEntry.gd` prend `book_name` au lieu de
+`book_number`.
 
 ## 4 — Compilateur Python (`scripts/`)
 
@@ -158,29 +157,131 @@ Les deux livres ont été recompilés le 2026-08-12, branche des fins réparée 
 (19 fins), **cdsi a gagné les 16 siennes**. `graphviz` est désormais facultatif — sans lui,
 tous les json sortent, seul le png de relecture manque.
 
-- [ ] **4.1** **Des niveaux de log** (`--verbose`) : 66 `print()` noient les validations
-      utiles (secrets à deux entrées, fin sans type, objets sans chapitre). C'est ce qui a
-      laissé passer `critique`. → review §6.2
-- [ ] **4.2** **Découper `generator.py`** : 476 lignes à plat, **aucune fonction** hors
-      `load_json_file`, **40 variables globales**. Le graphviz est la moitié du fichier et
-      l'app ne s'en sert pas — candidat évident à l'extraction. → review §6.2
-- [ ] **4.3** Sortir la présentation graphviz de `node.py` (`get_label()` renvoie du HTML
-      coloré depuis le modèle de données). → review §6.2
-- [ ] **4.4** Nettoyer : code commenté laissé en place, deux commentaires « Get the combat
-      entry if any » d'affilée, annotations de type en commentaire Python 2,
-      `get_all_stats_keys()` qui imprime. Les accumulateurs devenus morts avec les sorties
-      supprimées (`all_combats`, `all_endings`, `all_secrets`…) ont déjà été retirés le
-      2026-08-13, et `node.py` garde probablement les méthodes qui les servaient
-      (`have_combat()`, `is_good_ending()`…) — à vérifier. → review §6.2
+✅ **4.1 à 4.4 réglés** (2026-08-22) — recompilation des deux livres vérifiée **octet pour
+octet identique** avant/après, `--verbose` et `--book <numéro>` testés :
+
+- **4.1** `--verbose` sépare la trace par nœud/arc de ce qui compte (résumé, avertissement,
+  erreur) : silencieux, un run de fdcn passe de 2 050 à 56 lignes. `scripts/logger.py`
+  (`trace()` / `info()`).
+- **4.2** `generator.py` découpé en fonctions — `lire_les_noeuds()` / `taguer_les_arcs()` /
+  `construire_le_graphe()` / `ecrire_les_json()`, plus `main()` — plus une seule variable
+  globale mutée en cours de script.
+- **4.3** La présentation graphviz (`get_label()`, couleurs, ajout au graphe) a quitté
+  `Node` pour `scripts/graph_render.py` : le modèle de données ne sait plus rien de
+  graphviz, `graph.py` délègue.
+- **4.4** Code mort retiré : `node_created` (inutile), les accesseurs jamais appelés
+  (`have_combat`, `is_good_ending`, `is_bad_ending`, `have_ending`, `get_ending_id` —
+  bien les vestiges des accumulateurs supprimés le 2026-08-13), tout le code commenté de
+  `condition_node.py` et `graph.py`, les annotations de type en commentaire Python 2
+  (`# type: ...`) devenues de vraies annotations, `get_all_stats_keys()` qui imprimait à
+  chaque appel. Au passage : le `print` « skipping not related edge » affichait un
+  `sub_arc_name` hérité de la boucle précédente (déjà repéré dans `scripts/README.md`) —
+  corrigé pour référencer le bon arc.
 
 ## 5 — Tests et hygiène
 
-- [ ] **5.5** **14 objets n'ont aucune icône** et affichent donc « ? » dans l'inventaire
-      (mesuré le 2026-08-12, en croisant les objets des deux livres avec `images/items/`) :
-      - **fdcn** : `MEDAILLON DE RUNIR`, `PETIT MEDAILLON` ;
-      - **cdsi** : 4 vrais objets (`AILERON AERODYNAMIQUE INSTALLE`, `DISQUES CLOUTES
-        INSTALLES`, `RETROVISEUR INSTALLE`, `SECRET DU DOUBLE INFINI`) et 8 `EVENEMENT`
-        (`UNE REUSSITE`, `SOUFFLE DANS LA CORNE`…).
-      Deux réponses possibles, à trancher : dessiner les icônes manquantes, ou donner une
-      icône générique par catégorie — les `EVENEMENT` ne sont pas des objets qu'on porte.
-      → review §8.3
+✅ **5.5 tranché** (2026-08-22) : icône générique plutôt que du dessin. Les 14 objets sans
+illustration (`MEDAILLON DE RUNIR`, `PETIT MEDAILLON` pour fdcn ; 4 objets + 8 `EVENEMENT`
+pour cdsi) affichent désormais le même `question.svg` que les objets non découverts, dans
+l'inventaire (`entities/Item.gd`) et le toast (`popups/ItemPopup.gd`).
+
+## 6 — Code GDScript (revue de propreté du 2026-08-22)
+
+✅ **Catégorie 6 soldée** (2026-08-23) — détail des 6 points :
+
+- ✅ **6.1** Les 4 signaux jamais connectés supprimés : `chapter_selected`
+  (`breadcrumb.gd`), `chapter_chosen`/`new_billy_requested`/`previous_chapter_requested`
+  (`choice_next_chapiter.gd`) — déclarations et `.emit()` retirés, le vrai appel
+  (`Player.go_to_node()` etc.) qui se faisait déjà en direct juste avant est inchangé.
+  Vérifié qu'aucun test ne s'y connectait.
+- ✅ **6.2** `self.` retiré partout où il ne sert à rien (8 fichiers réels : `Item.gd` 29×,
+  `chapter_data.gd` 28×, `ChapterChoice.gd` 27×, `success_item.gd` 20×, `ItemPopup.gd` 16×,
+  `bread.gd` 14×, `EndingChoice.gd` 5×, `LoreEntry.gd` 3× — les autres fichiers listés dans
+  l'ancienne revue ne portaient le mot que dans des commentaires, pas du code réel). 3
+  setters (`ChapterChoice.gd`/`EndingChoice.gd`/`bread.gd:set_main`,
+  `EndingChoice.gd:set_ending_type`) prenaient un paramètre du même nom que le champ qu'il
+  alimentait — `self.` y était réellement nécessaire ; réglé en renommant le paramètre
+  (`main_obj`, `new_ending_type`, `new_main`) plutôt qu'en gardant `self.`.
+- ✅ **6.3** `max()`/`min()` → `maxi()`/`mini()` sur les sites entiers
+  (`succes_menu.gd`, `chapitres_menu.gd`), mais → `minf()`/`maxf()` dans `nav_buton.gd` où
+  les valeurs sont des `float` (composantes de `Vector2`) — `mini()`/`maxi()` les auraient
+  tronquées en entier, une régression que la convention telle qu'écrite ne distinguait pas.
+  `len()` → `.size()` (`global_completion.gd`, `breadcrumb.gd`). Balayage complet du dépôt
+  refait après coup : plus aucune occurrence hors `test/`.
+- ✅ **6.4** Les 3 autoloads en PascalCase renommés en snake_case :
+  `BookData.gd`→`book_data.gd`, `Sounder.gd`/`.tscn`→`sounder.gd`/`.tscn`,
+  `Parameters.gd`→`app_parameters.gd` (aligné sur l'alias `AppParameters`, qui ne
+  correspondait à aucun des deux anciens noms). **Décision prise** : seuls les noms de
+  *fichiers* et `project.godot` changent — les noms de singleton (`BookData`,
+  `AppParameters`, `Sounder`) restent inchangés, ils sont indépendants du nom de fichier en
+  Godot et sont utilisés tels quels dans des dizaines de scripts ; les renommer aurait un
+  rayon d'effet sans rapport avec le gain.
+- ✅ **6.5** Pool de liste virtualisée factorisé dans `ui/virtual_list_pool.gd`
+  (`class_name VirtualListPool`) : `succes_menu.gd` et `chapitres_menu.gd` délèguent
+  `_ensure_pool()`/`_refresh_rows()` à une instance commune, ne gardant que ce qui leur est
+  propre (quel objet afficher, et pour `chapitres_menu.gd` son test additionnel « la ligne
+  a-t-elle changé de chapitre »). Comportement vérifié ligne à ligne contre l'original — pas
+  rejoué dans l'éditeur (indisponible ici), **à valider visuellement sur les deux écrans**
+  avant de considérer ce point clos pour de bon.
+- ✅ **6.6** Les références obsolètes `§5bis`/`§5ter` dans `succes_menu.gd` corrigées : la
+  première pointe maintenant vers l'en-tête de `chapitres_menu.gd` (qui documente le motif
+  en clair), la seconde vers `review §3.5` (où vit la mesure des 416 px).
+
+## 7 — Documentation (revue de propreté du 2026-08-22)
+
+- [ ] **7.1** **Le `README.md` racine ne mentionne jamais cdsi** — ne décrit que « La
+      Forteresse du Chaudron Noir » alors que l'app embarque deux livres et que
+      `docs/playstore/` a déjà des captures cdsi. Le trou le plus visible de cette liste.
+      → review §9.2
+- [ ] **7.2** **`autoload/` n'a pas de README** malgré 10 singletons couplés
+      (BookData, Player, PlayerStats, Inventory, SaveManager, SaveArchive, CombatEngine,
+      Parameters, Sounder, Utils) — chaque fichier est bien documenté seul, rien n'explique
+      qui fait quoi entre eux. → review §9.2
+- [ ] **7.3** **`entities/Item.gd` et `ui/top_menu.gd` sous-documentés** (~10 % et ~2 % de
+      lignes en `##`, les plus bas de leur dossier) malgré une logique non triviale
+      (repli d'icône, mise en surbrillance de page/Billy). → review §9.2
+- [ ] **7.4** **`combat.md` (2026-08-10) potentiellement désynchronisé** : prescrit 3
+      fichiers de test séparés (`test_combat_table.gd`, `test_combat_engine.gd`,
+      `test_combat_fuite.gd`, §3.8), le système livré n'en a qu'un (`test_combat.gd`,
+      544 lignes). À relire pour voir si c'est le doc ou l'implémentation qui a dérivé.
+      → review §9.2
+
+## 8 — Tests, angles morts (revue de propreté du 2026-08-22)
+
+Au-delà du chiffre déjà connu (26/39 scripts sans test, dont 24 d'interface, §2 ci-dessus) :
+
+- [ ] **8.1** **`entities/LoreEntry.gd` : zéro test.** `_chemin_image()`/`_chemin_son()` sont
+      de la pure construction de chaîne (facile à tester sans arbre de scène), et viennent de
+      changer (**3.7**, `book_number` → `book_name`) — le renommage n'est vérifié que par
+      « ça compile ». → review §9.3
+- [ ] **8.2** **`autoload/sounder.gd` : zéro test**, seul autoload dans ce cas
+      (`set_enabled`/`is_enabled`/`play`/`play_path`/`stop`). → review §9.3
+- [ ] **8.3** **`entities/Item.gd`, `popups/ItemPopup.gd` : zéro test** — le repli
+      `question.svg` (**5.5**) et le chargement svg→png→repli ne sont vérifiés par rien.
+      → review §9.3
+- [ ] **8.4** **`screens/aventure_menu.gd` : zéro test**, probablement le contrôleur le plus
+      complexe de l'app (combat, choix, fil d'Ariane). → review §9.3
+
+## 9 — Assets (revue de propreté du 2026-08-22)
+
+✅ **9.1 fait** (2026-08-23) : les 16 images de `images/endings/` ne correspondaient à aucun
+`ending_id` mais à des `success` déjà illustrés dans `images/success/` — vérifié au hash
+(sha256), 15 sur 16 différaient bel et bien de leur homonyme, `FLEURS.png` seul étant un
+doublon identique. Vérification des dimensions : les 15 différentes sont toutes en
+**128×128** contre du **40×40** partout ailleurs dans `images/success/` — pas des brouillons
+concurrents, mais des **redessins haute résolution** jamais intégrés. `images/success/<nom>.png`
+mis à jour avec la version 128×128 pour les 15 (`ARSENE`, `BULIAAA`, `METAAAL`, `HONNEUR`,
+`TU-QUOQUE-BILLY`, `PERSONNEL`, `VIVANT`, `CERCLE-VICIEUX`, `INNOCENT`, `SEYMOUR`, `SABOT`,
+`ESCALADED-QUICKLY`, `TRAVAIL-TERMINE`, `ROI-LICHE`, `MEMOIRE-HONOREE`), `.import` d'origine
+conservé (même chemin/uid, Godot réimportera). Les 16 fichiers de `images/endings/` supprimés.
+⚠️ **Reste à vérifier dans l'éditeur** : que les 15 icônes réimportent correctement en
+128×128 sans régression visuelle (pas testable hors Godot).
+- [ ] **9.2** **11 fins nommées sur 14 sans image** : les 10 de cdsi, plus `TRICHE` (fdcn) —
+      seules `SOUFLE`, `TULIPES`, `VIGNES` (fdcn) en ont une. Silencieux
+      (`push_warning` dans `Utils.load_external_texture`), pas un crash, mais l'écran de fin
+      de cdsi n'a jamais eu d'illustration. **Vérifié sur le projet source** (2026-08-23,
+      `naparuba/fdcn`, 5 branches) : `images/endings/` y a le même mélange qu'ici avant
+      nettoyage (préexistant, pas introduit par ce refacto), et `MIRROIRS-OVERLOAD`,
+      `SOUFFLER`, `VALKAR`, `TRICHE` n'ont **aucune** image nulle part chez l'auteur non plus
+      (les 7 autres fins cdsi ont un repli via leur icône de succès, comme en local). À
+      trancher en connaissance de cause : dessiner, ou assumer l'absence. → review §9.4

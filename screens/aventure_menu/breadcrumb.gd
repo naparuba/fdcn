@@ -1,7 +1,5 @@
 extends PanelContainer
 
-signal chapter_selected(chap_number)
-
 @onready var _breads = $VBoxContainer/breads
 
 var _bread_scene = preload('res://ui/bread.tscn')
@@ -22,7 +20,7 @@ func _refresh() -> void:
 
 func set_history(node_ids: Array) -> void:
 	Utils.delete_children(_breads)
-	var nb = len(node_ids)
+	var nb = node_ids.size()
 	for i in range(nb):
 		var bread = _bread_scene.instantiate()
 		bread.set_chap_number(node_ids[i])
@@ -41,4 +39,3 @@ func set_history(node_ids: Array) -> void:
 # bread.gd calls self.main_obj.jump_back(chap_number) on click.
 func jump_back(chap_number) -> void:
 	Player.go_back_to(chap_number)
-	chapter_selected.emit(chap_number)

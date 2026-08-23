@@ -21,10 +21,10 @@ config/icon="res://images/fdcn_icon.png"
 
 [autoload]
 
-Sounder="*res://autoload/Sounder.tscn"
+Sounder="*res://autoload/sounder.tscn"
 Utils="*res://autoload/utils.gd"
-BookData="*res://autoload/BookData.gd"
-AppParameters="*res://autoload/Parameters.gd"
+BookData="*res://autoload/book_data.gd"
+AppParameters="*res://autoload/app_parameters.gd"
 SaveManager="*res://autoload/save_manager.gd"
 SaveArchive="*res://autoload/save_archive.gd"
 PlayerStats="*res://autoload/player_stats.gd"

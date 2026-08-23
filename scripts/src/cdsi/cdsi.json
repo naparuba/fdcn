@@ -1340,9 +1340,6 @@
     "aquire": [
       "TONIQUE MYSTERIEUX"
     ],
-    "stats": {
-      "pv_max": true
-    },
     "goto": 36
   },
   "177": {
@@ -1887,7 +1884,7 @@
   "249": {
     "stats": {
       "respect": 1,
-      "pv": "= max/2"
+      "pv": "+ max/2"
     },
     "goto": 366
   },

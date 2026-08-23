@@ -18,19 +18,19 @@ var chap_number = 1
 var main_obj = null
 var is_current = false
 
-func set_main(main_obj):
-	self.main_obj = main_obj
+func set_main(new_main):
+	main_obj = new_main
 
 func set_chap_number(nb):
-	self.chap_number = nb
+	chap_number = nb
 	
 
 # The current label should be wihtout the _, so people don't want to click on it
 func _update_label():
-	if !self.is_current:
-		$ElLabel.text = '[u]%d[/u]' % self.chap_number
+	if !is_current:
+		$ElLabel.text = '[u]%d[/u]' % chap_number
 	else:
-		$ElLabel.text = '%d' % self.chap_number
+		$ElLabel.text = '%d' % chap_number
 
 
 func _set_color(color):
@@ -39,7 +39,7 @@ func _set_color(color):
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	#self._set_color()
+	#_set_color()
 	pass
 
 
@@ -48,23 +48,23 @@ func set_first():
 	
 
 func set_current():
-	self._set_color(Color('00c2aa'))
-	self.is_current = true  # means: don't jump here ^^
-	self._update_label()
+	_set_color(Color('00c2aa'))
+	is_current = true  # means: don't jump here ^^
+	_update_label()
 	
 
 func set_previous():
-	self._set_color(Color('01bcdb'))
-	self._update_label()
+	_set_color(Color('01bcdb'))
+	_update_label()
 
 
 func set_normal_color():
-	self._set_color(Color('9ea8b4'))
-	self._update_label()
+	_set_color(Color('9ea8b4'))
+	_update_label()
 
 
 ### NOTE: the button is invisible, normal ^^
 func _on_button_pressed():
-	if self.is_current:
+	if is_current:
 		return
-	self.main_obj.jump_back(self.chap_number)
+	main_obj.jump_back(chap_number)

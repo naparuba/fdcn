@@ -87,49 +87,49 @@ func _place_ribbon_label(h: float) -> void:
 
 
 func set_main(main_obj):
-	self.main = main_obj
+	main = main_obj
 
 
 func set_spoil_enabled(b):
-	self.spoil_enabled = b
-	_click.visible = self.spoil_enabled
-	_nb_chapitre.visible = self.spoil_enabled
+	spoil_enabled = b
+	_click.visible = spoil_enabled
+	_nb_chapitre.visible = spoil_enabled
 
 
 ## Remet la ligne à jour d'après l'état du joueur (spoils, chapitre déjà vu).
 func update():
-	var chapter_id = self.get_chapter_id()
+	var chapter_id = get_chapter_id()
 
 	# Les spoils peuvent être autorisés au cas par cas si on a déjà vu le chapitre.
 	if BookData.is_node_id_freely_full_on_all_chapters(chapter_id):
-		self.set_spoil_enabled(true)
+		set_spoil_enabled(true)
 	else:
-		self.set_spoil_enabled(false)
+		set_spoil_enabled(false)
 
 	# ⚠️ Le ruban « Obtenu » regarde **tous** les chapitres qui donnent ce succès, pas
 	# seulement celui affiché : `PHOBIE-ADMINISTRATIVE` de cdsi se gagne aux chapitres 98 et
 	# 498, et la ligne n'en montre qu'un.
-	if BookData.is_success_obtenu(self.success_id):
-		self.set_already_seen()
+	if BookData.is_success_obtenu(success_id):
+		set_already_seen()
 	else:
-		self.set_not_already_seen()
+		set_not_already_seen()
 
 
 func get_chapter_id():
-	return self.chap_number
+	return chap_number
 
 
 func set_from_success_object(success_object):
 	# `set_success_id()` d'abord : `update()`, appelé ensuite, s'en sert pour savoir si le
 	# succès est obtenu.
-	self.set_success_id(success_object['id'])
-	self.set_chapitre(success_object['chapter'])
-	self.set_label(success_object['label'])
-	self.set_txt(success_object['txt'])
+	set_success_id(success_object['id'])
+	set_chapitre(success_object['chapter'])
+	set_label(success_object['label'])
+	set_txt(success_object['txt'])
 
 
 func set_success_id(new_success_id):
-	self.success_id = new_success_id
+	success_id = new_success_id
 	var png_path = "res://images/success/%s.png" % new_success_id
 	var svg_path = "res://images/success/%s.svg" % new_success_id
 	var texture = null
@@ -144,8 +144,8 @@ func set_chapitre(chapitre):
 	# On force l'entier : le JSON rend les nombres en float, et un 26.0 ne
 	# correspond à aucun 26 dans les listes de chapitres visités — le ruban
 	# « Obtenu » restait donc gris même pour un succès acquis.
-	self.chap_number = int(chapitre)
-	_nb_chapitre.text = '%3d' % self.chap_number
+	chap_number = int(chapitre)
+	_nb_chapitre.text = '%3d' % chap_number
 
 
 func set_label(label):
@@ -170,5 +170,5 @@ func hide_chapter():
 
 
 func _on_Button_pressed():
-	if self.main != null:
-		self.main.go_to_node(self.chap_number)
+	if main != null:
+		main.go_to_node(chap_number)

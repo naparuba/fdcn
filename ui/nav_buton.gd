@@ -49,8 +49,8 @@ func _measure_poly() -> void:
 	var x_max = x_min
 	for p in points:
 		var x = p.x + offset.x
-		x_min = min(x_min, x)
-		x_max = max(x_max, x)
+		x_min = minf(x_min, x)
+		x_max = maxf(x_max, x)
 	_poly_half_length = (x_max - x_min) / 2.0
 
 

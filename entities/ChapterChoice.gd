@@ -35,29 +35,29 @@ var spoil_enabled = false
 var main
 
 
-func set_main(main):
-	self.main = main
+func set_main(main_obj):
+	main = main_obj
 
 
 ## Les 4 marqueurs de contenu et le titre sont des spoils ; « Déjà Vu » et « Ce Billy »
 ## n'en sont pas — ils parlent du joueur, pas du livre — donc ils restent toujours visibles.
 func set_spoil_enabled(b):
-	self.spoil_enabled = b
-	_combat.visible = self.spoil_enabled
-	_fin.visible = self.spoil_enabled
-	_succes.visible = self.spoil_enabled
-	_secret.visible = self.spoil_enabled
-	_titre.visible = self.spoil_enabled
+	spoil_enabled = b
+	_combat.visible = spoil_enabled
+	_fin.visible = spoil_enabled
+	_succes.visible = spoil_enabled
+	_secret.visible = spoil_enabled
+	_titre.visible = spoil_enabled
 
 
 func get_chapter_id():
-	return self.chap_number
+	return chap_number
 
 
 func set_chapitre(chapitre):
 	# int() : le JSON rend les identifiants en float (voir Player.did_all_times_seen).
-	self.chap_number = int(chapitre)
-	_numero.text = '%3d' % self.chap_number
+	chap_number = int(chapitre)
+	_numero.text = '%3d' % chap_number
 
 
 func set_label(label):
@@ -127,7 +127,7 @@ func disable_special_jump():
 
 
 func _on_Button_pressed():
-	Player.go_to_node(self.chap_number)
+	Player.go_to_node(chap_number)
 
 
 ## Remet TOUS les marqueurs à leur état neutre — exactement les valeurs de la scène
@@ -161,25 +161,25 @@ func _reset_decorations() -> void:
 ## un seul combat.
 func _poser_marqueurs(chapitre) -> void:
 	var id = chapitre.get_id()
-	self._reset_decorations()
+	_reset_decorations()
 	# Les spoils peuvent être ouverts pour ce chapitre seul, s'il a déjà été vu.
-	self.set_spoil_enabled(BookData.is_node_id_freely_full_on_all_chapters(id))
+	set_spoil_enabled(BookData.is_node_id_freely_full_on_all_chapters(id))
 
 	if Player.did_billy_seen(id):
-		self.set_session_seen()
+		set_session_seen()
 	if Player.did_all_times_seen(id):
-		self.set_already_seen()
+		set_already_seen()
 	if chapitre.is_combat():
-		self.set_combat()
+		set_combat()
 	if chapitre.get_ending():
-		self.set_ending()
+		set_ending()
 	if chapitre.get_success():
-		self.set_success()
+		set_success()
 	if chapitre.get_secret():
-		self.set_secret()
+		set_secret()
 	var titre = chapitre.get_label()
 	if titre != null and titre != '':
-		self.set_label(titre)
+		set_label(titre)
 
 
 ## Le « saut spécial » : une flèche verte si la condition est remplie, rouge sinon. Il se lit
@@ -189,22 +189,22 @@ func _poser_saut_conditionnel(son_id) -> void:
 	var depuis = Player.get_current_node_id()
 	if not BookData.have_chapter_conditions(depuis, son_id):
 		return
-	self.set_condition_txt(BookData.get_condition_txt(depuis, son_id))
+	set_condition_txt(BookData.get_condition_txt(depuis, son_id))
 	if BookData.match_chapter_conditions(depuis, son_id):
-		self.enable_special_jump()
+		enable_special_jump()
 	else:
-		self.enable_special_jump_wrong()
+		enable_special_jump_wrong()
 
 
 ## Une ligne des **choix du chapitre courant**. Instances neuves à chaque changement.
 func update_from_son_node(son):
-	self.set_chapitre(son.get_id())
-	self._poser_marqueurs(son)
-	self._poser_saut_conditionnel(son.get_id())
+	set_chapitre(son.get_id())
+	_poser_marqueurs(son)
+	_poser_saut_conditionnel(son.get_id())
 
 
 ## Une ligne de la liste **« tous les chapitres »**, sur des lignes **recyclées** — d'où le
 ## `_reset_decorations()` que `_poser_marqueurs` fait en premier. Le numéro de chapitre est
 ## déjà posé par `chapitres_menu.gd` avant l'appel.
 func update_when_in_all_chapters():
-	self._poser_marqueurs(BookData.get_chapter_node(self.get_chapter_id()))
+	_poser_marqueurs(BookData.get_chapter_node(get_chapter_id()))

@@ -25,45 +25,45 @@ func _ready():
 
 
 func load_item_data(item_name, item_data):
-	self._item_name = item_name
-	self._item_data = item_data
-	$Row/Nom.text = self._item_name
-	self._display_stats()
+	_item_name = item_name
+	_item_data = item_data
+	$Row/Nom.text = _item_name
+	_display_stats()
 	var new_style = StyleBoxFlat.new()
-	self.set('theme_override_styles/panel', new_style)
-	var svg_path = 'res://images/items/%s.svg' % self._item_name
-	var png_path = 'res://images/items/%s.png' % self._item_name
+	set('theme_override_styles/panel', new_style)
+	var svg_path = 'res://images/items/%s.svg' % _item_name
+	var png_path = 'res://images/items/%s.png' % _item_name
 	if Utils.is_file_exists(svg_path):
-		self._item_icon = Utils.load_external_texture(svg_path)
+		_item_icon = Utils.load_external_texture(svg_path)
 	elif Utils.is_file_exists(png_path):
-		self._item_icon = Utils.load_external_texture(png_path)
+		_item_icon = Utils.load_external_texture(png_path)
 	else:
-		self._item_icon = null
-	self.refresh()
+		_item_icon = _ICONE_INCONNUE
+	refresh()
 
 
 func _display_stats():
 	var s = ''
-	for k in self._item_data['stats'].keys():
-		var v = self._item_data['stats'][k]
+	for k in _item_data['stats'].keys():
+		var v = _item_data['stats'][k]
 		s += ('%s=' % k.to_upper()) + str(v) + '    '
 	$Row/Stats.text = s
 
 func get_item_name():
-	return self._item_name
+	return _item_name
 
 func is_enabled():
-	return self._is_enabled
+	return _is_enabled
 
 
 
 func get_category():
-	return self._item_data['category']
+	return _item_data['category']
 
 
 # Depends on the item category, some won't be display: the BILLY one
 func is_ok_to_be_shown():
-	if self.get_category() == 'BILLY':
+	if get_category() == 'BILLY':
 		return false
 	return true
 	
@@ -73,11 +73,11 @@ func is_ok_to_be_shown():
 # * we are spoills ok, so we can too
 # * we already did see it's chapter in the past plays
 func _can_item_be_shown():
-	if self._is_enabled:
+	if _is_enabled:
 		return true
 	if AppParameters.are_spoils_ok():
 		return true
-	for chapter_id in self._item_data['in_chapters']:
+	for chapter_id in _item_data['in_chapters']:
 		if Player.did_all_times_seen(chapter_id):
 			return true
 	return false
@@ -90,17 +90,17 @@ func _can_item_be_shown():
 func refresh():
 	# Une ligne pas encore alimentée (construction étalée sur plusieurs frames, voir
 	# `popups/sub/inventory.gd`) n'a rien à rafraîchir.
-	if self._item_name == '':
+	if _item_name == '':
 		return
 
-	var do_have_item = Inventory.have_item(self._item_name)
-	self._is_enabled = do_have_item
+	var do_have_item = Inventory.have_item(_item_name)
+	_is_enabled = do_have_item
 
-	var _style = self.get('theme_override_styles/panel')
+	var _style = get('theme_override_styles/panel')
 
-	if self._can_item_be_shown():
-		$Row/Nom.text = self._item_name
-		$Row/sprite.texture = self._item_icon
+	if _can_item_be_shown():
+		$Row/Nom.text = _item_name
+		$Row/sprite.texture = _item_icon
 	else:
 		$Row/Nom.text = ''  # l'icône « ? » suffit à dire qu'on ne sait pas
 		$Row/sprite.texture = _ICONE_INCONNUE
@@ -119,7 +119,7 @@ func refresh():
 
 func _on_button_toggled(button_pressed):
 	if button_pressed:
-		Inventory.add_item_from_options(self._item_name)
+		Inventory.add_item_from_options(_item_name)
 	else:  # remove it
-		Inventory.remove_item_from_options(self._item_name)
-	self.refresh()
+		Inventory.remove_item_from_options(_item_name)
+	refresh()

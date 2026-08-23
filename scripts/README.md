@@ -69,10 +69,12 @@ Toutes les autres erreurs surviennent avant la moindre écriture. En cas de trac
 
 | fichier | rôle | taille |
 |---|---|---|
-| `generator.py` | **le script** : lit, valide, écrit. De haut en bas, sans fonctions. S'appelait `fdcn.py` — un nom de livre pour un outil qui les compile tous | 476 l. |
-| `node.py` | `Node` : un chapitre. Porte ses données, ses fils, son arc, se sait dessiner, et décide de ce qui part dans le json (`NEUTRES`) | 407 l. |
-| `graph.py` | `Graph` : le dictionnaire `id → Node`, et deux boucles de dessin | 27 l. |
-| `condition_node.py` | l'analyseur d'expressions (`ARC & (CORDE \| PIOCHE)`) et sa sortie JSON | 144 l. |
+| `generator.py` | **le script** : `lire_les_noeuds()` / `taguer_les_arcs()` / `construire_le_graphe()` / `ecrire_les_json()` / `main()`. S'appelait `fdcn.py` — un nom de livre pour un outil qui les compile tous | 430 l. |
+| `node.py` | `Node` : un chapitre. Porte ses données, ses fils, son arc, et décide de ce qui part dans le json (`NEUTRES`) — plus aucune notion de graphviz depuis le 2026-08-22 | 304 l. |
+| `graph_render.py` | la présentation graphviz (`get_label()`, couleurs, ajout au graphe), sortie de `Node` le 2026-08-22 : le modèle de données ne sait plus rien du dessin | 115 l. |
+| `condition_node.py` | l'analyseur d'expressions (`ARC & (CORDE \| PIOCHE)`) et sa sortie JSON | 131 l. |
+| `graph.py` | `Graph` : le dictionnaire `id → Node`, délègue le dessin à `graph_render.py` | 26 l. |
+| `logger.py` | `trace()` / `info()` derrière `--verbose`, depuis le 2026-08-22 | 18 l. |
 | `endings.py` | `ENDINGS.GOOD = 1`, `ENDINGS.BAD = 2`. C'est tout | 4 l. |
 | `requirements.txt` | `graphviz==0.20.1`, **facultatif** | |
 | `.gdignore` | vide, et c'est le but : Godot n'importe pas ce dossier — **donc `src/` non plus** | |
@@ -242,9 +244,9 @@ Résultat compilé (`{$end}` = feuille, évalué par `BookData._check_cond_rec()
    scripts/generator.py` muet qui rend `2` juste après la ligne `Conditions parsing:` = une
    expression cassée dans un chapitre.
 
-⚠️ Les objets cités **uniquement** dans un `stats_cond` ne comptent pas comme utilisés :
-`get_all_conditions_token()` ne collecte que les conditions de saut. Un objet dont c'est le
-seul usage fera échouer la compilation en « DECLARED but not used ».
+✅ **Un objet cité uniquement dans un `stats_cond` compte comme utilisé** (2026-08-22,
+`Node.get_all_stats_cond_tokens()`) — ce n'était pas le cas avant, et ça faisait échouer la
+compilation à tort en « DECLARED but not used ».
 
 ## Les refus (code 2)
 
@@ -256,7 +258,7 @@ seul usage fera échouer la compilation en « DECLARED but not used ».
 | `node X have an unknown ending string` | `ending` ≠ `good`/`bad` | corriger |
 | `[X] The condition: K is not in our sons` | une clé de `conditions` qui n'est pas un fils. Deux cas seulement : le chapitre est **une fin** (une fin n'a pas de fils), ou la clé n'est pas un nombre (précédé alors d'un `ERROR: invalid condition jump`) | retirer la condition, retirer la fin, ou corriger la clé |
 | `some objects are USED but not declared` | un `aquire`/`remove`/condition inconnu de `all_objects.json` | déclarer l'objet (ou corriger la faute de frappe) |
-| `some objects are DECLARED but not used` | l'inverse — **y compris** un objet cité seulement en `stats_cond` | supprimer la déclaration, ou l'utiliser |
+| `some objects are DECLARED but not used` | l'inverse | supprimer la déclaration, ou l'utiliser |
 | `Remove but NOT add` | un objet retiré que rien ne donne | ajouter un `aquire` quelque part |
 | `Exception: Success: X not found` | `success` absent de `all_success.json` | le déclarer, **puis relancer** (des sorties sont déjà écrites) |
 | `The sub arc is too big` | > 60 chapitres | compléter les `[arrêts]` du sous-arc |
@@ -272,7 +274,7 @@ Les points de contact à ne pas oublier, selon ce qu'on touche :
 | si vous… | pensez à |
 |---|---|
 | ajoutez une clé à `computed` | la déclarer dans `Node.NEUTRES` avec sa valeur neutre, l'exposer dans `entities/chapter_data.gd` **avec le même défaut**, et recompiler les deux livres |
-| renommez une sortie `-compilated-*` | `autoload/BookData.gd:do_load_book()` |
+| renommez une sortie `-compilated-*` | `autoload/book_data.gd:do_load_book()` |
 | ajoutez une clé de chapitre | la lire dans la boucle principale de `generator.py`, la stocker dans `Node`, l'exporter dans `get_computed()`, l'exposer dans `chapter_data.gd` — les quatre, sinon elle disparaît en silence |
 | touchez à `condition_node.py` | vérifier contre `BookData._check_cond_rec()` : les deux moitiés du même langage, dans deux langages différents. Trois opérateurs, et trois seulement |
 | ajoutez une validation | la placer **avant** l'écriture de `-compilated-data.json` (sinon elle laisse le dossier à moitié à jour) |
@@ -286,13 +288,18 @@ Après toute modification : **recompiler les deux livres** et lire le `git diff`
 Recensée dans [`review.md`](../review.md) et [`todo.md`](../todo.md), à ne pas
 redécouvrir :
 
-- **`generator.py` n'a aucune fonction** hors `load_json_file` : 476 lignes de haut en bas et une
-  quarantaine de variables globales mutées au fil du fichier. Découpage prévu (`todo.md` 4.2).
 - **Les clés de stat ne sont pas validées** : le script les collecte et les imprime déjà
   (`Checking all stats keys`), il manque la comparaison avec le vocabulaire du livre
   (`data/compteurs.json` + les stats du moteur) et un `sys.exit(2)` (`todo.md` 3.2). Une
   faute de frappe dans un `stats` passe donc jusqu'à l'app.
-- `node_created` (`generator.py`) ne sert à rien.
-- Dans le dessin des clusters, le `print` « skipping not related edge » affiche un
-  `sub_arc_name` hérité de la boucle précédente : le libellé du log est faux, le graphe non.
-- `Node` expose des accesseurs que personne n'appelle (`get_ending_id`, `is_bad_ending`…).
+
+✅ **Section 4 de `todo.md` réglée (2026-08-22)** : `generator.py` est découpé en fonctions
+(`lire_les_noeuds` / `taguer_les_arcs` / `construire_le_graphe` / `ecrire_les_json`) plutôt
+que 476 lignes à plat ; `--verbose` sépare la trace par nœud/arc (silencieuse par défaut) des
+validations qui comptent ; la présentation graphviz (`get_label()` et les méthodes
+d'affichage) a quitté `Node` pour `graph_render.py`, qui ne modélise rien, seulement du
+rendu ; `node_created`, les accesseurs `get_ending_id`/`have_combat`/`is_good_ending`/
+`is_bad_ending`/`have_ending` (morts depuis la suppression des accumulateurs le 2026-08-13),
+et le code commenté (`condition_node.py`, `graph.py`) sont partis. Le bug du `sub_arc_name`
+hérité dans « skipping not related edge » est corrigé au passage — recompilation des deux
+livres vérifiée **octet pour octet identique** avant/après.

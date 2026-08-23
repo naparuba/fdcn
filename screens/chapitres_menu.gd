@@ -35,12 +35,11 @@ var _row_scene: PackedScene = preload("res://entities/ChapterChoice.tscn")
 ## Identifiants de chapitres, triés numériquement.
 var _chapter_ids: Array = []
 
-## Les lignes recyclées. `_pool[i]` affiche le chapitre `_first_index + i`.
-var _pool: Array = []
-var _first_index := -1
+var _pool: VirtualListPool
 
 
 func _ready() -> void:
+	_pool = VirtualListPool.new(_row_scene, _content, self, ROW_HEIGHT, BUFFER_ROWS)
 	_build_jump_buttons()
 	_scroll.get_v_scroll_bar().value_changed.connect(func(_v): _refresh_rows())
 	_scroll.resized.connect(_on_scroll_resized)
@@ -67,7 +66,7 @@ func _load_chapters() -> void:
 	# qui donne sa course à la barre de défilement.
 	_content.custom_minimum_size.y = _chapter_ids.size() * ROW_HEIGHT
 	_scroll.scroll_vertical = 0
-	_first_index = -1
+	_pool.first_index = -1
 	_refresh_rows(true)
 
 
@@ -82,61 +81,27 @@ func _on_scroll_resized() -> void:
 
 ## Crée juste assez de lignes pour couvrir la hauteur visible (+ marge).
 func _ensure_pool() -> void:
-	var visible_height = _scroll.size.y
-	if visible_height <= 0.0:
-		return
-	var needed = int(ceil(visible_height / ROW_HEIGHT)) + BUFFER_ROWS * 2
-	needed = min(needed, _chapter_ids.size())
-
-	while _pool.size() < needed:
-		var row = _row_scene.instantiate()
-		row.set_main(self)
-		# Ancrages gauche/droite conservés : la ligne suit la largeur du
-		# conteneur toute seule. On ne pilote que sa position verticale.
-		row.offset_left = 0
-		row.offset_right = 0
-		_content.add_child(row)
-		_pool.append(row)
-
-	# Le livre est plus court que la zone visible : on rend le surplus inutile.
-	while _pool.size() > needed:
-		var row = _pool.pop_back()
-		row.queue_free()
+	_pool.ensure_pool(_scroll.size.y, _chapter_ids.size())
 
 
 ## Replace et réalimente les lignes selon la position de défilement.
 ## `force` réactualise même les lignes qui n'ont pas changé de chapitre (utile
 ## quand c'est l'état du joueur, et non le défilement, qui a bougé).
 func _refresh_rows(force := false) -> void:
-	if _pool.is_empty():
+	if _pool.rows.is_empty():
 		_ensure_pool()
-		if _pool.is_empty():
+		if _pool.rows.is_empty():
 			return
 
-	var first = int(_scroll.scroll_vertical / ROW_HEIGHT) - BUFFER_ROWS
-	first = clampi(first, 0, max(0, _chapter_ids.size() - _pool.size()))
-
-	var moved = first != _first_index
-	_first_index = first
-
-	for i in _pool.size():
-		var row = _pool[i]
-		var index = first + i
-		if index >= _chapter_ids.size():
-			row.visible = false
-			continue
-
-		row.visible = true
-		var y = index * ROW_HEIGHT
-		row.offset_top = y
-		row.offset_bottom = y + ROW_HEIGHT
-
+	var update_row := func(row, index, refresh):
 		# On ne réalimente que si la ligne change de chapitre : inutile de
 		# refaire les lectures BookData à chaque pixel de défilement.
 		var chapter_id = _chapter_ids[index]
-		if force or moved or row.get_chapter_id() != chapter_id:
+		if refresh or row.get_chapter_id() != chapter_id:
 			row.set_chapitre(chapter_id)
 			row.update_when_in_all_chapters()
+
+	_pool.refresh_rows(_scroll.scroll_vertical, _chapter_ids.size(), force, update_row)
 
 
 #
