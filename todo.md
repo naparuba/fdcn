@@ -63,12 +63,14 @@ fichiers de `books/<nom>/data/` (3 calculés + 2 tables recopiées) par un seul,
 Bonus : l'écriture ne se fait plus qu'une fois, à la fin, une fois tout validé — plus de
 dossier à moitié à jour sur un refus. `books/README.md`/`scripts/README.md` mis à jour.
 
-- [ ] **3.8** **Un seul fichier de tables par livre** (`<nom>.livre.json`) — étape 2. Les
-      six fichiers sont déjà réunis dans `scripts/src/<nom>/` ; reste à les fondre et
-      surtout à passer **à des champs nommés**. Aujourd'hui un sous-arc est un tableau
-      positionnel de 4 champs (`["Invasion", 148, "…", [496, 285, 353]]`) où intervertir
-      deux valeurs ne produit aucune erreur. ⚠️ **Ne pas** déplacer l'acte dans le
-      chapitre : 8 lignes couvrent 606 chapitres par propagation. → review §3.7
+✅ **3.8 fait (2026-08-29)** — étape 2 du plan : les 5 tables (`arcs`, `sub_arcs`,
+`manual_sub_arcs`, `all_objects`, `all_success`) plus `compteurs`/`ignorees` (venu de
+`books/<nom>/data/compteurs.json`, cf. décision prise avec l'utilisateur d'inclure ce
+fichier dans la fusion) sont réunies dans `scripts/src/<nom>/<nom>.livre.json`, à champs
+nommés — un sous-arc est maintenant `{"acte", "depart", "nom", "fins"}`, plus un tableau
+positionnel. L'acte n'a **pas** été déplacé dans le chapitre (8 lignes couvrent toujours
+606 chapitres par propagation). `books/README.md`/`scripts/README.md` mis à jour.
+
 - [ ] **3.9** **Squelette de livre** : `--nouveau <nom>` crée le dossier, deux fichiers
       valides et l'entrée du registre — un livre neuf part de quelque chose **qui compile**.
       → review §3.7

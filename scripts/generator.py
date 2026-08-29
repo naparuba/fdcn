@@ -275,23 +275,13 @@ def _valider_les_objets(book_data: dict, node_graph: Graph, all_objs: dict) -> N
         sys.exit(2)
 
 
-def _vocabulaire_du_livre(data_dir: str) -> set:
-    """Ce que le livre declare lui-meme, dans son `compteurs.json` facultatif : ses
-    compteurs (`gloire`/`info` pour fdcn, `rancune`/`respect` pour cdsi) et ses clefs
-    sans effet (`ignorees`, ex. `arc_et_couteau` -- todo 3.5, review §4.6). Meme fichier,
-    meme lecture, cote app (`BookData._load_counters`/`_load_ignorees`)."""
-    chemin = f'{data_dir}/compteurs.json'
-    if not os.path.isfile(chemin):
-        return set()
-    declares = load_json_file(chemin)
-    compteurs = {c['cle'] for c in declares.get('compteurs', []) if 'cle' in c}
-    return compteurs | set(declares.get('ignorees', []))
-
-
-def _valider_les_stats(all_stats_keys: set, data_dir: str) -> None:
+def _valider_les_stats(all_stats_keys: set, livre: dict) -> None:
     """Une cle de stat hors vocabulaire (`critique` au lieu de `crit`, par exemple) passait
-    jusqu'ici jusqu'a l'app, qui se contentait d'un `push_warning` (todo 3.2)."""
-    vocabulaire = ENGINE_STATS_VOCABULARY | _vocabulaire_du_livre(data_dir)
+    jusqu'ici jusqu'a l'app, qui se contentait d'un `push_warning` (todo 3.2). Le vocabulaire
+    PROPRE au livre (ses compteurs, ex. `gloire`/`info`, et ses clefs sans effet comme
+    `arc_et_couteau` -- todo 3.5, review §4.6) vient de `<nom>.livre.json`, pas d'ici."""
+    compteurs = {c['cle'] for c in livre.get('compteurs', []) if 'cle' in c}
+    vocabulaire = ENGINE_STATS_VOCABULARY | compteurs | set(livre.get('ignorees', []))
     inconnues = all_stats_keys - vocabulaire
     if inconnues:
         print('ERROR: unknown stat key(s): %s (known: %s)' % (sorted(inconnues), sorted(vocabulaire)))
@@ -313,7 +303,7 @@ def _verifier_les_secrets(node_graph: Graph, reverse_jumps: dict) -> None:
         logger.info('%s%3d <- %s' % (prefix, node_id, ', '.join(['%s' % i for i in froms])))
 
 
-def ecrire_les_json(book_name: str, src_dir: str, data_dir: str, book_data: dict, node_graph: Graph,
+def ecrire_les_json(book_name: str, data_dir: str, book_data: dict, livre: dict, node_graph: Graph,
                      display_graph) -> None:
     """Valide les donnees calculees puis ecrit tout ce que l'app ouvre, en UN SEUL fichier
     (todo 3.6) : les chapitres a plat, les deux tables recopiees telles quelles, et les deux
@@ -326,7 +316,7 @@ def ecrire_les_json(book_name: str, src_dir: str, data_dir: str, book_data: dict
         node.parse_conditions()
         node.parse_stats_conditions()
 
-    all_objs = load_json_file(f'{src_dir}/{book_name}.all_objects.json')
+    all_objs = livre['objets']
     _valider_les_objets(book_data, node_graph, all_objs)
 
     # Le CALCULE, et a plat. Le chapitre ecrit a la main vit dans `scripts/src/`, il n'a
@@ -335,14 +325,14 @@ def ecrire_les_json(book_name: str, src_dir: str, data_dir: str, book_data: dict
     logger.info('Export computed nodes:')
     computed_nodes = {node_id_str: node_graph.get_node(int(node_id_str)).get_computed() for node_id_str in book_data}
 
-    all_success = load_json_file(f'{src_dir}/{book_name}.all_success.json')
+    all_success = livre['succes']
     logger.trace('Success txt %s' % all_success)
 
     def get_success_txt(_id):
         for success in all_success:
             if success['id'] == _id:
                 return success['label'], success['txt']
-        print('ERROR: success %s is not declared in %s.all_success.json' % (_id, book_name))
+        print('ERROR: success %s is not declared in %s.livre.json (succes)' % (_id, book_name))
         sys.exit(2)
 
     reverse_jumps = {}
@@ -365,9 +355,9 @@ def ecrire_les_json(book_name: str, src_dir: str, data_dir: str, book_data: dict
 
         success = node.get_success()
         if success:
-            # L'appel VALIDE : un succes que `<nom>.all_success.json` ne declare pas leve une
-            # exception. Le resultat, lui, ne sert plus a rien -- l'app lit la table elle-meme
-            # et y ajoute le chapitre au chargement.
+            # L'appel VALIDE : un succes que `succes` de `<nom>.livre.json` ne declare pas
+            # refuse la compilation. Le resultat, lui, ne sert plus a rien -- l'app lit la
+            # table elle-meme et y ajoute le chapitre au chargement.
             get_success_txt(success)
 
         all_stats_keys |= node.get_all_stats_keys()
@@ -377,7 +367,7 @@ def ecrire_les_json(book_name: str, src_dir: str, data_dir: str, book_data: dict
     logger.info('Checking all stats keys: %d' % len(all_stats_keys))
     for stat_key in sorted(all_stats_keys):
         logger.info(' - %s' % stat_key)
-    _valider_les_stats(all_stats_keys, data_dir)
+    _valider_les_stats(all_stats_keys, livre)
 
     # CE QUE L'APP OUVRE, ET RIEN D'AUTRE, EN UN SEUL FICHIER (todo 3.6). Sept sorties
     # avaient deja disparu le 2026-08-13 (combats, secrets, endings, good-endings,
@@ -386,13 +376,16 @@ def ecrire_les_json(book_name: str, src_dir: str, data_dir: str, book_data: dict
     # au chargement). Il restait 3 fichiers calcules + 2 tables recopiees telles quelles :
     # `objects`/`success` sont ces memes tables, RAW -- `BookData` les complete encore au
     # chargement (`in_chapters`, `chapter`, index chapitre -> succes), rien ne change de ce
-    # cote-la.
+    # cote-la. `counters`/`ignored` viennent de `<nom>.livre.json` (todo 3.8) : plus de
+    # `compteurs.json` a part dans `data/`.
     compiled = {
         'chapters': computed_nodes,
         'nodes_by_chapter': nodes_by_chapter,
         'nodes_by_sub_arc': nodes_by_sub_arc,
         'objects': all_objs,
         'success': all_success,
+        'counters': livre.get('compteurs', []),
+        'ignored': livre.get('ignorees', []),
     }
     with codecs.open(f'{data_dir}/{book_name}-compilated.json', 'w', 'utf8') as f:
         f.write(json.dumps(compiled, indent=4, ensure_ascii=False, sort_keys=True))
@@ -437,18 +430,23 @@ def main():
         os.makedirs(data_dir)
 
     book_data = load_json_file(f'{src_dir}/{book_name}.json')
+    # Les tables du livre (todo 3.8) : actes, sous-arcs (propages et manuels), objets,
+    # succes, compteurs et clefs ignorees -- tout ce qu'un auteur ecrit a la main a cote du
+    # dictionnaire de chapitres, dans UN fichier a champs nommes plutot que 5 tableaux
+    # positionnels.
+    livre = load_json_file(f'{src_dir}/{book_name}.livre.json')
     node_graph = Graph()
     lire_les_noeuds(book_data, node_graph)
 
-    arcs = load_json_file(f'{src_dir}/{book_name}.arcs.json')  # [1, "Plante-Citrouille"]
-    sub_arcs = load_json_file(f'{src_dir}/{book_name}.sub_arcs.json')  # (arc_name, Start of sub, name, stops)
-    manual_sub_arcs = load_json_file(f'{src_dir}/{book_name}.manual_sub_arcs.json')
+    arcs = [(acte['depart'], acte['nom']) for acte in livre['actes']]
+    sub_arcs = [(sa['acte'], sa['depart'], sa['nom'], sa['fins']) for sa in livre['sous_arcs']]
+    manual_sub_arcs = livre['sous_arcs_manuels']
     taguer_les_arcs(node_graph, arcs, sub_arcs, manual_sub_arcs)
 
     construire_le_graphe(node_graph, display_graph, arcs)
 
     print('Writing compilated data')
-    ecrire_les_json(book_name, src_dir, data_dir, book_data, node_graph, display_graph)
+    ecrire_les_json(book_name, data_dir, book_data, livre, node_graph, display_graph)
 
     print('Finish')
 

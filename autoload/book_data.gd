@@ -7,8 +7,8 @@ extends Node
 ## dans le code, pour qu'un livre s'ajoute en déposant un dossier et une ligne.
 ##
 ## Tout le reste d'un livre est **un fichier facultatif de son dossier**, jamais une
-## déclaration : `data/compteurs.json`, `audio/intro.mp3`, `audio/<chapitre>.mp3`. Le
-## fichier existe, la fonctionnalité existe. Voir `books/README.md`.
+## déclaration : `audio/intro.mp3`, `audio/<chapitre>.mp3`. Le fichier existe, la
+## fonctionnalité existe. Voir `books/README.md`.
 ##
 ## BookData est le 3ᵉ autoload, avant AppParameters : son `_ready()` a donc chargé le
 ## registre quand AppParameters demande le livre à ouvrir.
@@ -22,7 +22,10 @@ extends Node
 ## compilateur ajoutait (`in_chapters`, `chapter`, l'index) se reconstruit ici en une passe
 ## sur les chapitres. Les 3 fichiers calculés + 2 tables recopiées qui restaient sont
 ## maintenant réunis en un seul `<nom>-compilated.json` (`chapters`/`nodes_by_chapter`/
-## `nodes_by_sub_arc`/`objects`/`success`). Le détail est dans `scripts/README.md`.
+## `nodes_by_sub_arc`/`objects`/`success`/`counters`/`ignored`) — les deux dernières clés
+## depuis le 2026-08-29 (todo 3.8), quand `data/compteurs.json` a rejoint les autres tables
+## du livre dans `scripts/src/<nom>/<nom>.livre.json`. Le détail est dans
+## `scripts/README.md`.
 
 const REGISTRE := "res://books/books.json"
 
@@ -146,54 +149,27 @@ func do_load_book(book_name) -> void:
 	all_objects = _completer_objets(compiled["objects"])
 	all_success = _completer_succes(compiled["success"])
 	all_success_chapters = _index_succes_par_chapitre()
-	counters = _load_counters(book_name)
-	_ignorees = _load_ignorees(book_name)
+	counters = _parse_counters(compiled.get("counters", []))
+	_ignorees = compiled.get("ignored", [])
 
 
-## Les compteurs déclarés par le livre, `books/<nom>/data/compteurs.json`.
-##
-## **Fichier facultatif** : un livre qui ne compte rien n'en a pas, et ce n'est pas une
-## anomalie — il n'aura simplement pas de ligne en plus dans la feuille de stats. D'où le
-## test d'existence AVANT la lecture : `load_json_file()` imprimerait une erreur pour un
-## cas parfaitement normal.
+## Les compteurs déclarés par le livre — `compteurs` dans `<nom>.livre.json` côté source
+## (todo 3.8), recopié tel quel dans le fichier compilé. Un livre qui ne compte rien
+## déclare une liste vide, et ce n'est pas une anomalie : il n'aura simplement pas de ligne
+## en plus dans la feuille de stats.
 ##
 ## Une entrée incomplète, elle, est bien une faute de saisie : on la signale et on l'ignore
 ## plutôt que d'afficher une ligne sans nom.
-func _load_counters(book_name) -> Array:
-	var chemin = "res://books/%s/data/compteurs.json" % book_name
-	if not Utils.is_file_exists(chemin):
-		return []
-
-	var declares = Utils.load_json_file(chemin)
-	if not declares is Dictionary:
-		push_warning("BookData: compteurs illisibles: %s" % chemin)
-		return []
-
+func _parse_counters(brut: Array) -> Array:
 	var trouves := []
-	for compteur in declares.get("compteurs", []):
+	for compteur in brut:
 		var cle = compteur.get("cle", "") if compteur is Dictionary else ""
 		var libelle = compteur.get("libelle", "") if compteur is Dictionary else ""
 		if cle == "" or libelle == "":
-			push_warning("BookData: compteur incomplet dans %s: %s" % [chemin, compteur])
+			push_warning("BookData: compteur incomplet pour %s: %s" % [_current_book_name, compteur])
 			continue
 		trouves.append({"cle": cle, "libelle": libelle})
 	return trouves
-
-
-## Les clés de stat de chapitre que le livre déclare sans effet, dans le même fichier
-## facultatif que les compteurs. `PlayerStats._CHAPTER_UNMANAGED_KEYS` vivait ici en dur
-## avant le 2026-08-29 (todo 3.5) : la déclaration vit maintenant dans le livre, pas dans
-## le moteur, comme les compteurs.
-func _load_ignorees(book_name) -> Array:
-	var chemin = "res://books/%s/data/compteurs.json" % book_name
-	if not Utils.is_file_exists(chemin):
-		return []
-
-	var declares = Utils.load_json_file(chemin)
-	if not declares is Dictionary:
-		return []  # deja signale par _load_counters(), pas la peine de le redire
-
-	return declares.get("ignorees", [])
 
 
 ## Les objets du livre, complétés de ce que les chapitres en disent :

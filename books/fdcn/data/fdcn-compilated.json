@@ -7713,6 +7713,19 @@
             ]
         }
     },
+    "counters": [
+        {
+            "cle": "gloire",
+            "libelle": "Gloire"
+        },
+        {
+            "cle": "info",
+            "libelle": "Informations"
+        }
+    ],
+    "ignored": [
+        "arc_et_couteau"
+    ],
     "nodes_by_chapter": {
         "Cathedrale": [
             7,

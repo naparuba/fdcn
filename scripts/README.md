@@ -6,14 +6,13 @@ que le générateur dépose dans `books/<nom>/data/`.
 
 ```
 scripts/src/<nom>/          ──►   generator.py --book <nom>   ──►   books/<nom>/data/
-  <nom>.json                                                          3 fichiers calculés
-  .arcs / .sub_arcs / .manual_sub_arcs                                 + 2 tables recopiées
-  .all_objects / .all_success                                        scripts/graph/*.png
+  <nom>.json                                                          <nom>-compilated.json
+  <nom>.livre.json                                                    scripts/graph/*.png
 ```
 
 `books/<nom>/data/` est donc une **sortie**, à ne pas éditer : la prochaine compilation
-l'écrase. La seule exception y est `compteurs.json`, qui n'intéresse que l'app et que le
-générateur ne regarde pas.
+l'écrase — plus aucune exception depuis que `compteurs.json` a rejoint `<nom>.livre.json`
+(todo 3.8, 2026-08-29).
 
 ⚠️ **La distinction qui compte : écrit à la main, ou généré.** Deux fichiers *édités* au
 même titre finissent toujours par diverger — c'est ce que faisaient
@@ -87,7 +86,7 @@ moitié à jour, contrairement à avant quand les 3 sorties calculées s'écriva
 | 1 | registre | `books/books.json` | `--book` → nom de dossier. Un livre inconnu s'arrête ici |
 | 2 | chargement | `<nom>.json` | un `Node` par clé, **avant** tout lien : un chapitre peut sauter vers un chapitre déclaré plus bas |
 | 3 | arêtes | `goto` + `conditions` + `secret_jumps` | `get_all_possibles_goto()` fusionne les trois. **Une fin n'a pas de fils** : son `goto` n'est pas suivi |
-| 4 | arcs | `.arcs.json`, `.sub_arcs.json`, `.manual_sub_arcs.json` | propagation de proche en proche (voir plus bas) |
+| 4 | arcs | `actes`, `sous_arcs`, `sous_arcs_manuels` de `<nom>.livre.json` | propagation de proche en proche (voir plus bas) |
 | 5 | graphe | graphviz | nœuds, arêtes, `cluster_<arc>` et `cluster_<sous-arc>`. **Zéro effet sur les `.json`** |
 | 6 | conditions | `parse_conditions()`, `parse_stats_conditions()` | expressions → arbres `{$and/$or/$end}` + texte lisible |
 | 7 | validations | objets, sauts, fins | tout ce qui fait sortir en `2` |
@@ -110,8 +109,8 @@ Voici les clés que le compilateur lit dans `<nom>.json`, chapitre par chapitre 
 | `combat` | `{"nom": …, "hab": 5, …}` | **recopié tel quel** : le compilateur ne regarde pas son contenu |
 | `ending` | `"good"` / `"bad"` | ce chapitre **termine** l'histoire. Toute autre valeur = erreur |
 | `ending_id`, `ending_txt` | `"COUDE"`, `"Oups…"` | l'entrée du tableau des fins. `ending_txt` n'est lu **que si** `ending_id` existe |
-| `success` | `"CEST-REPARTI"` | doit exister dans `<nom>.all_success.json`, sinon refus en code 2 |
-| `aquire`, `remove` | `["SEAU"]` | objets gagnés/perdus. Tout nom doit exister dans `<nom>.all_objects.json` |
+| `success` | `"CEST-REPARTI"` | doit exister dans `succes` de `<nom>.livre.json`, sinon refus en code 2 |
+| `aquire`, `remove` | `["SEAU"]` | objets gagnés/perdus. Tout nom doit exister dans `objets` de `<nom>.livre.json` |
 | `stats` | `{"pv": 5}` | modificateurs appliqués en entrant |
 | `stats_cond` | `{"PRUDENT": {"hab": 1}}` | modificateurs **conditionnels**, même langage d'expression |
 | `label` | `"Jungle"` | nom affiché sur le nœud du graphe |
@@ -124,7 +123,7 @@ en code 2 plutôt que d'être recopiée en silence.
 
 ```
 scripts/src/<nom>/            ──►   books/<nom>/data/<nom>-compilated.json
-6 fichiers écrits à la main         1 fichier, 5 clés (todo 3.6)
+2 fichiers écrits à la main         1 fichier, 7 clés
 ```
 
 | clé | ce que c'est | lu par |
@@ -132,8 +131,10 @@ scripts/src/<nom>/            ──►   books/<nom>/data/<nom>-compilated.json
 | `chapters` | **calculé** : les chapitres, fils résolus, actes propagés, conditions en arbres | `BookData.do_load_book()` → un `chapter_data` par chapitre |
 | `nodes_by_chapter` | **calculé** : les chapitres de chaque acte | `BookData.chapters_by_arc` |
 | `nodes_by_sub_arc` | **calculé** : ceux de chaque sous-arc | `BookData.chapters_by_sub_arc` |
-| `objects` | **recopié** depuis `<nom>.all_objects.json` de `src/`, tel quel | `BookData.all_objects`, complété au chargement |
-| `success` | **recopié** depuis `<nom>.all_success.json` de `src/`, tel quel | `BookData.all_success`, complété au chargement |
+| `objects` | **recopié** depuis `objets` de `<nom>.livre.json`, tel quel | `BookData.all_objects`, complété au chargement |
+| `success` | **recopié** depuis `succes` de `<nom>.livre.json`, tel quel | `BookData.all_success`, complété au chargement |
+| `counters` | **recopié** depuis `compteurs` de `<nom>.livre.json`, tel quel | `BookData.counters`/`is_counter()` |
+| `ignored` | **recopié** depuis `ignorees` de `<nom>.livre.json`, tel quel | `BookData.is_ignored()` |
 
 Plus, à part : `scripts/graph/fdcn_full-<nom>.png`, le graphe du livre, pour un humain qui
 relit la structure.
@@ -184,28 +185,31 @@ recalcule (`get_ending()`, `is_combat()`).
 
 Aucun chapitre ne déclare son acte : le compilateur le **déduit en suivant les sauts**.
 
-**Arcs** (`<nom>.arcs.json`, `[[1, "Nouvelle-Nouvelle-Azur"], …]`) — chaque entrée donne un
-chapitre de départ ; le nom se propage à tous ses descendants, et s'arrête dès qu'il
-rencontre un chapitre **déjà tagué** (ou une fin, qui n'a pas de fils).
+**Actes** (`actes` de `<nom>.livre.json`, `[{"depart": 1, "nom": "Nouvelle-Nouvelle-Azur"}, …]`
+— named fields depuis todo 3.8, un tableau positionnel `[[1, "…"], …]` avant le
+2026-08-29) — chaque entrée donne un chapitre de départ ; le nom se propage à tous ses
+descendants, et s'arrête dès qu'il rencontre un chapitre **déjà tagué** (ou une fin, qui n'a
+pas de fils).
 
 ⚠️ La liste est parcourue **à l'envers** (`reversed(arcs)`), malgré le commentaire du code
 qui prétend l'inverse. Conséquence : quand plusieurs actes peuvent atteindre un chapitre,
 c'est **le dernier déclaré qui gagne**. Ce n'est pas une bizarrerie sans effet — dans cdsi,
 le chapitre 32 est rangé dans « Violence Vraie » (départ 340), pas dans le premier acte.
-Réordonner `arcs.json` **redécoupe le livre**.
+Réordonner `actes` **redécoupe le livre**.
 
-**Sous-arcs** (`<nom>.sub_arcs.json`, `[arc, départ, nom, [arrêts]]`) — même propagation,
-avec deux différences :
+**Sous-arcs** (`sous_arcs` de `<nom>.livre.json`,
+`{"acte": …, "depart": …, "nom": …, "fins": [...]}` — même changement de format) — même
+propagation, avec deux différences :
 
-- elle **s'arrête** sur les chapitres listés dans `[arrêts]` (le point de convergence où le
+- elle **s'arrête** sur les chapitres listés dans `fins` (le point de convergence où le
   détour rejoint l'histoire principale) ;
 - au-delà de **60 chapitres** elle lève une exception : un sous-arc de cette taille est
-  toujours un `[arrêts]` oublié, et sans ce garde-fou il avalerait la moitié du livre.
+  toujours un `fins` oublié, et sans ce garde-fou il avalerait la moitié du livre.
 
-Le **premier champ (`arc`) n'est pas utilisé** par le code : il documente, rien de plus.
-Le premier sous-arc déclaré qui atteint un chapitre le garde.
+Le **champ `acte` n'est pas utilisé** par le code : il documente, rien de plus. Le premier
+sous-arc déclaré qui atteint un chapitre le garde.
 
-**`<nom>.manual_sub_arcs.json`** (`{"nom": [12, 13]}`) tague **sans propagation**, pour les
+**`sous_arcs_manuels`** (`{"nom": [12, 13]}`, inchangé) tague **sans propagation**, pour les
 chapitres qu'aucune règle n'attrape. Il passe en dernier : il ne peut que combler des trous,
 jamais reprendre un chapitre déjà tagué.
 
@@ -221,8 +225,8 @@ s'appliquent). Une expression est faite de **noms d'objets** — au sens large :
 | `\|` | ou |
 | `( )` | groupement, **un seul niveau** |
 
-Pas de négation, pas de comparaison de stat. Chaque nom doit exister dans
-`<nom>.all_objects.json`.
+Pas de négation, pas de comparaison de stat. Chaque nom doit exister dans `objets` de
+`<nom>.livre.json`.
 
 Résultat compilé (`{$end}` = feuille, évalué par `BookData._check_cond_rec()`) :
 
@@ -258,12 +262,12 @@ compilation à tort en « DECLARED but not used ».
 | `node X jumps to Y, which is not a chapter` | `goto` vers un chapitre inexistant | soit le chapitre manque, soit c'est une fin : lui mettre `ending` |
 | `node X have an unknown ending string` | `ending` ≠ `good`/`bad` | corriger |
 | `[X] The condition: K is not in our sons` | une clé de `conditions` qui n'est pas un fils. Deux cas seulement : le chapitre est **une fin** (une fin n'a pas de fils), ou la clé n'est pas un nombre (précédé alors d'un `ERROR: invalid condition jump`) | retirer la condition, retirer la fin, ou corriger la clé |
-| `some objects are USED but not declared` | un `aquire`/`remove`/condition inconnu de `all_objects.json` | déclarer l'objet (ou corriger la faute de frappe) |
+| `some objects are USED but not declared` | un `aquire`/`remove`/condition inconnu d'`objets` | déclarer l'objet (ou corriger la faute de frappe) |
 | `some objects are DECLARED but not used` | l'inverse | supprimer la déclaration, ou l'utiliser |
 | `Remove but NOT add` | un objet retiré que rien ne donne | ajouter un `aquire` quelque part |
 | `node X uses unknown chapter key(s)` | une clé hors des 14 de `CHAPTER_ALLOWED_KEYS` (`cond` au lieu de `stats_cond`, par ex.) | corriger la clé |
-| `unknown stat key(s)` | une clé de `stats`/`stats_cond` hors du vocabulaire moteur + `compteurs.json` du livre (`critique` au lieu de `crit`, par ex.) | corriger la clé, ou la déclarer dans `compteurs.json` (`compteurs` ou `ignorees`) |
-| `success X is not declared` | `success` absent de `all_success.json` | le déclarer |
+| `unknown stat key(s)` | une clé de `stats`/`stats_cond` hors du vocabulaire moteur + `compteurs`/`ignorees` du livre (`critique` au lieu de `crit`, par ex.) | corriger la clé, ou la déclarer dans `<nom>.livre.json` (`compteurs` ou `ignorees`) |
+| `success X is not declared` | `success` absent de `succes` | le déclarer |
 | `'(' inattendue`, `')' sans '(' correspondante`, `'(' jamais refermée`, `'&' et '\|' mélangés` | expression de condition malformée | corriger l'expression citée dans le message |
 | `The sub arc is too big` | > 60 chapitres | compléter les `[arrêts]` du sous-arc |
 
@@ -286,7 +290,7 @@ Les points de contact à ne pas oublier, selon ce qu'on touche :
 | ajoutez une clé de **stat** (chapitre ou objet) | la déclarer dans `ENGINE_STATS_VOCABULARY` (`generator.py`) **et** dans `PlayerStats` (`_CHAPTER_LAYERED_KEYS` ou le `match` d'`apply_chapter_stat()`) — les deux moitiés du même contrat, comme `Node.NEUTRES`/`chapter_data.gd` |
 | touchez à `condition_node.py` | vérifier contre `BookData._check_cond_rec()` : les deux moitiés du même langage, dans deux langages différents. Trois opérateurs, et trois seulement |
 | ajoutez une validation | n'importe où avant la fin de `ecrire_les_json()` : une seule écriture, à la fin, depuis le 2026-08-29 (todo 3.6) — plus besoin de doser son emplacement |
-| modifiez l'ordre de `arcs.json` | c'est un **redécoupage du livre**, pas un détail de présentation (voir plus haut) |
+| modifiez l'ordre d'`actes` dans `<nom>.livre.json` | c'est un **redécoupage du livre**, pas un détail de présentation (voir plus haut) |
 
 Après toute modification : **recompiler les deux livres** et lire le `git diff` des
 `-compilated-*.json`. C'est la seule vérification qui existe — il n'y a pas de test.
@@ -294,12 +298,8 @@ Après toute modification : **recompiler les deux livres** et lire le `git diff`
 ### Dette connue
 
 Recensée dans [`review.md`](../review.md) et [`todo.md`](../todo.md), à ne pas
-redécouvrir :
-
-- **Les clés de stat ne sont pas validées** : le script les collecte et les imprime déjà
-  (`Checking all stats keys`), il manque la comparaison avec le vocabulaire du livre
-  (`data/compteurs.json` + les stats du moteur) et un `sys.exit(2)` (`todo.md` 3.2). Une
-  faute de frappe dans un `stats` passe donc jusqu'à l'app.
+redécouvrir. Rien d'ouvert ici à ce jour — voir `todo.md` pour ce qui reste côté livre
+(3.9, 3.13).
 
 ✅ **Section 4 de `todo.md` réglée (2026-08-22)** : `generator.py` est découpé en fonctions
 (`lire_les_noeuds` / `taguer_les_arcs` / `construire_le_graphe` / `ecrire_les_json`) plutôt

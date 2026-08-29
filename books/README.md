@@ -19,8 +19,8 @@ s'ajoute donc **à la fin**, jamais au milieu.
 ## Ajouter un livre
 
 1. écrire le livre dans **`scripts/src/<nom>/`** : les chapitres, les actes, les sous-arcs,
-   les objets et les succès — **tout ce qui s'écrit à la main est là** ;
-2. créer `books/<nom>/` avec ses images et ses sons (`img/`, `audio/`), plus `compteurs.json` ;
+   les objets, les succès et les compteurs — **tout ce qui s'écrit à la main est là** ;
+2. créer `books/<nom>/` avec ses images et ses sons (`img/`, `audio/`) ;
 3. ajouter son bloc à la fin de `books.json` ;
 4. compiler : `python3 scripts/generator.py --book <nom>`, qui remplit `books/<nom>/data/`.
 
@@ -28,20 +28,34 @@ Rien d'autre. Aucun script ni aucune scène à rouvrir.
 
 ## Remplir un livre à la main
 
-⚠️ **Décrit le format actuel, pas le format visé.** Le plan (`todo.md` 3.8) prévoit de fondre
-les six fichiers ci-dessous en un seul `<nom>.livre.json`, à champs nommés. Tant que ce n'est
-pas fait, voici comment les remplir tels qu'ils existent.
-
 Tout s'écrit dans **`scripts/src/<nom>/`**, jamais dans `books/<nom>/data/` (une sortie,
-écrasée à chaque compilation). Six fichiers :
+écrasée à chaque compilation). Deux fichiers (todo 3.8, 2026-08-29) :
 
 | fichier | contient |
 |---|---|
 | `<nom>.json` | un chapitre par clé — voir ci-dessous |
-| `<nom>.arcs.json` | le découpage en actes |
-| `<nom>.sub_arcs.json`, `<nom>.manual_sub_arcs.json` | le découpage en sous-arcs (détours) |
-| `<nom>.all_objects.json` | tout objet/événement/type de personnage cité dans le livre |
-| `<nom>.all_success.json` | tous les succès |
+| `<nom>.livre.json` | tout le reste, à champs nommés : `actes`, `sous_arcs`, `sous_arcs_manuels`, `objets`, `succes`, `compteurs`, `ignorees` |
+
+```json
+{ "actes":     [ {"depart": 1, "nom": "Plante-Citrouille"} ],
+  "sous_arcs": [ {"acte": "Invasion", "depart": 148, "nom": "Quartier boulanger",
+                  "fins": [496, 285, 353]} ],
+  "sous_arcs_manuels": { "Couloirs": [184, 10, 447] },
+  "objets":  { "EPEE": {"category": "ARME", "stats": {"deg": 1}} },
+  "succes":  [ {"id": "TROIE", "label": "Le cheval des trois", "txt": "…"} ],
+  "compteurs": [ {"cle": "gloire", "libelle": "Gloire"} ],
+  "ignorees":  [ "arc_et_couteau" ] }
+```
+
+Avant le 2026-08-29, ces sept champs étaient six fichiers séparés
+(`<nom>.arcs.json`, `<nom>.sub_arcs.json` — un sous-arc y était un tableau **positionnel**
+de 4 valeurs, `["Invasion", 148, "Quartier boulanger", [496, 285, 353]]`, où intervertir le
+départ et une fin ne produisait aucune erreur —, `<nom>.manual_sub_arcs.json`,
+`<nom>.all_objects.json`, `<nom>.all_success.json`) plus `books/<nom>/data/compteurs.json`
+à part. Les nommer supprime cette classe de faute muette.
+
+`compteurs`/`ignorees` sont **facultatifs** : un livre qui ne compte rien et n'a rien à
+ignorer omet les deux champs, ou les laisse vides.
 
 Après chaque modification : `python3 scripts/generator.py --book <nom>`, code `0` = compilé,
 `2` = refusé avec un `ERROR:` en clair (liste complète dans
@@ -60,8 +74,8 @@ Exemples réels, tirés de `fdcn.json` :
 | `secret` | `13: {"secret": true}` | ce chapitre est un secret (affichage orange dans le graphe de relecture) |
 | `combat` | `274: {"combat": [{"nom": "GUARDES CORROMPUS", "hab": 6, "pv": 8, "arm": 0, "deg": 0, "pyro": 0}, {"nom": "TROLESSE", ...}]}` | un adversaire en dictionnaire, plusieurs en tableau — **l'ordre du tableau est l'ordre du combat**, on abat le premier avant que le suivant n'arrive |
 | `ending`, `ending_id`, `ending_txt` | `163: {"ending": "bad", "ending_id": "TULIPES", "ending_txt": "Elles avaient faim, très faim ^^"}` | ce chapitre **termine** l'histoire. `ending_txt` n'est lu **que si** `ending_id` existe. Une fin n'a pas de suite : un `goto` éventuel n'est pas suivi |
-| `success` | `26: {"success": "POLIR-LANCE"}` | doit exister dans `<nom>.all_success.json` |
-| `aquire`, `remove` | `119: {"aquire": ["PETITE BOUTEILLE D'ACIDE"]}` | objets gagnés/perdus. Chaque nom doit exister dans `<nom>.all_objects.json` |
+| `success` | `26: {"success": "POLIR-LANCE"}` | doit exister dans `succes` de `<nom>.livre.json` |
+| `aquire`, `remove` | `119: {"aquire": ["PETITE BOUTEILLE D'ACIDE"]}` | objets gagnés/perdus. Chaque nom doit exister dans `objets` de `<nom>.livre.json` |
 | `stats` | `273: {"stats": {"chance": 3}}` | modificateurs appliqués en entrant. Nombre = `+=` ; chaîne = expression (`"= max"`, `"+ max/2"`, `"- moi/4"` — voir `scripts/README.md`) |
 | `stats_cond` | `35: {"stats_cond": {"PRUDENT": {"gloire": 1}}}` | même chose, mais **conditionnel** : ici, +1 gloire seulement si le joueur est Prudent |
 | `label` | `10: {"label": "Tour nord"}` | nom affiché sur le nœud, dans le graphe de relecture uniquement |
@@ -76,51 +90,52 @@ trouvées le 2026-08-13 en ne vérifiant qu'un seul des 85 combats des deux livr
 
 Utilisé dans `conditions` (quels sauts sont visibles) et `stats_cond` (quels bonus
 s'appliquent) — même syntaxe. Une expression relie des **noms** (objet, événement, type de
-personnage — chacun doit exister dans `<nom>.all_objects.json`) avec `&` (et), `|` (ou), et
-`( )` pour grouper, **un seul niveau**.
+personnage — chacun doit exister dans `objets` de `<nom>.livre.json`) avec `&` (et), `|`
+(ou), et `( )` pour grouper, **un seul niveau**.
 
-**Trois pièges, tous silencieux :**
+**Trois pièges :**
 
-1. **Mélanger `&` et `|` sans parenthèses donne un résultat faux.** `A & B | C` compile en
-   `A ou B ou C` : le `&` est perdu. **Toujours parenthéser** dès qu'on mélange les deux —
-   `(A & B) | C`.
-2. **Les parenthèses imbriquées cassent.** `((A|B)&C)|D` fait planter la compilation. Un
-   seul niveau de parenthèses, sans exception.
-3. **Une expression malformée sort en code 2 sans aucun message.** Une compilation muette
-   qui rend `2` juste après la ligne `Conditions parsing:` = une expression cassée quelque
-   part — relire les `conditions`/`stats_cond` ajoutés dans le lot.
+1. ✅ **Mélanger `&` et `|` sans parenthèses est refusé** (2026-08-29). `A & B | C` compilait
+   silencieusement en `A ou B ou C` (le `&` perdu) ; c'est maintenant un refus en code 2 qui
+   nomme l'expression. **Toujours parenthéser** dès qu'on mélange les deux — `(A & B) | C`.
+2. **Les parenthèses imbriquées cassent toujours.** `((A|B)&C)|D` fait planter la
+   compilation. Un seul niveau de parenthèses, sans exception.
+3. ✅ **Une expression malformée sort en code 2 avec un message** (2026-08-29) qui nomme
+   l'expression fautive — plus besoin de deviner laquelle dans le lot de `conditions`/
+   `stats_cond` ajouté.
 
 ### La propagation des actes
 
-Aucun chapitre ne déclare son acte à la main : `<nom>.arcs.json` donne juste un chapitre de
-départ par acte, et le nom se propage à tous ses descendants en suivant les sauts —
-**8 déclarations couvrent les 606 chapitres de fdcn, 10 les 691 de cdsi.**
+Aucun chapitre ne déclare son acte à la main : `actes` de `<nom>.livre.json` donne juste un
+chapitre de départ par acte, et le nom se propage à tous ses descendants en suivant les
+sauts — **8 déclarations couvrent les 606 chapitres de fdcn, 10 les 691 de cdsi.**
 
 ```json
-[[1, "Plante-Citrouille"], [100, "Lenonia"], [193, "Cathedrale"]]
+"actes": [ {"depart": 1, "nom": "Plante-Citrouille"}, {"depart": 100, "nom": "Lenonia"} ]
 ```
 
 ⚠️ **La liste se parcourt à l'envers** : si deux actes peuvent atteindre le même chapitre,
-**le dernier déclaré dans le fichier gagne**. Réordonner ce fichier redécoupe le livre, ce
+**le dernier déclaré dans le fichier gagne**. Réordonner cette liste redécoupe le livre, ce
 n'est jamais un détail cosmétique.
 
-`<nom>.sub_arcs.json` fait la même chose pour les détours, avec un point d'arrêt
-(`[arc, départ, nom, [arrêts]]`) où la propagation s'arrête au lieu de continuer jusqu'à la
-fin de l'acte ; au-delà de 60 chapitres elle refuse — c'est presque toujours un `[arrêts]`
-oublié. `<nom>.manual_sub_arcs.json` tague une liste de chapitres **sans** propagation, pour
+`sous_arcs` fait la même chose pour les détours, avec un point d'arrêt
+(`{"acte", "depart", "nom", "fins"}`) où la propagation s'arrête au lieu de continuer
+jusqu'à la fin de l'acte ; au-delà de 60 chapitres elle refuse — c'est presque toujours un
+`fins` oublié. `sous_arcs_manuels` tague une liste de chapitres **sans** propagation, pour
 les cas qu'aucune règle n'attrape ; il ne peut que combler des trous, jamais reprendre un
-chapitre déjà tagué par les deux fichiers précédents.
+chapitre déjà tagué par `sous_arcs`.
 
 ### Avant de compiler pour la première fois
 
-- chaque nom cité dans `aquire`, `remove`, `conditions` ou `stats_cond` existe dans
-  `<nom>.all_objects.json` (sinon : `some objects are USED but not declared`) ;
-- inversement, chaque entrée de `<nom>.all_objects.json` est utilisée quelque part (sinon :
+- chaque nom cité dans `aquire`, `remove`, `conditions` ou `stats_cond` existe dans `objets`
+  (sinon : `some objects are USED but not declared`) ;
+- inversement, chaque entrée d'`objets` est utilisée quelque part (sinon :
   `some objects are DECLARED but not used`) ;
-- chaque `success` existe dans `<nom>.all_success.json` (sinon : une trace Python plutôt
-  qu'un `ERROR:` propre — et le dossier de sortie reste à moitié à jour, il faut recompiler
-  après correction) ;
-- chaque clé de `<nom>.arcs.json` est un chapitre qui existe réellement ;
+- chaque `success` existe dans `succes` (sinon : refus en code 2) ;
+- chaque clé de chapitre est l'une des 14 acceptées, et chaque clé de `stats`/`stats_cond`
+  est dans le vocabulaire du moteur ou déclarée par `compteurs`/`ignorees` (sinon : refus en
+  code 2 — todo 3.2) ;
+- chaque `depart` d'`actes` est un chapitre qui existe réellement ;
 - les combats sont relus contre le livre papier — le compilateur ne le fait pas.
 
 ## Ce qu'un dossier de livre contient
@@ -138,8 +153,10 @@ books/<nom>/
 
 | fichier | rôle | obligatoire |
 |---|---|---|
-| `<nom>-compilated.json` | **un seul fichier** (todo 3.6), 5 clés : `chapters` (les chapitres calculés : fils, acte, sous-arc, arbres de conditions), `nodes_by_chapter`/`nodes_by_sub_arc` (pour les barres de complétion), `objects`/`success` (écrits à la main, recopiés tels quels, complétés au chargement — `in_chapters`, `chapter`) | ✅ |
-| `compteurs.json` | les compteurs propres au livre, affichés par la feuille de stats, et les clés de stat de chapitre sans effet (`ignorees`) | facultatif |
+| `<nom>-compilated.json` | **un seul fichier**, 7 clés : `chapters` (les chapitres calculés : fils, acte, sous-arc, arbres de conditions), `nodes_by_chapter`/`nodes_by_sub_arc` (pour les barres de complétion), `objects`/`success` (écrits à la main, recopiés tels quels, complétés au chargement — `in_chapters`, `chapter`), `counters`/`ignored` (idem, recopiés depuis `compteurs`/`ignorees` de `<nom>.livre.json` — todo 3.8) | ✅ |
+
+Plus rien d'autre : `compteurs.json` a quitté ce dossier le 2026-08-29 (todo 3.8), voir plus
+bas.
 
 ⚠️ **Ce dossier est une sortie, pas une source.** Tout ce qu'il contient est produit ou
 recopié par `python3 scripts/generator.py --book <nom>`, à partir de `scripts/src/<nom>/`. Les
@@ -200,18 +217,15 @@ rien du tout, là où elle pouvait avant laisser 1 sortie calculée à jour et 4
 **Les json des livres sont passés de 1 340 à 388 Ko**, à contenu strictement identique pour
 l'app — vérifié clé par clé sur les 1 297 chapitres des deux livres.
 
-### `data/compteurs.json`
+### Et le 2026-08-29 (todo 3.8)
 
-Les compteurs que le livre accumule au fil des chapitres, dans l'ordre d'affichage :
-
-```json
-{ "compteurs": [ {"cle": "rancune", "libelle": "Rancune"} ] }
-```
-
-`cle` est la clé écrite dans les `stats` des chapitres. **`richesse` n'y figure pas** :
-commune à tous les livres, elle est câblée dans `PlayerStats`. Une clé de stat qui n'est ni
-connue du moteur ni déclarée ici est signalée comme une faute de saisie — c'est ce qui
-sépare `rancune` de `critique`.
+`books/<nom>/data/compteurs.json` a rejoint les autres tables du livre, sous les clés
+`compteurs`/`ignorees` de `scripts/src/<nom>/<nom>.livre.json` — voir « Remplir un livre à
+la main » plus haut. Le compilateur les recopie dans `<nom>-compilated.json`
+(`counters`/`ignored`), comme `objects`/`success`. `cle` est la clé écrite dans les `stats`
+des chapitres. **`richesse` n'y figure pas** : commune à tous les livres, elle est câblée
+dans `PlayerStats`. Une clé de stat qui n'est ni connue du moteur ni déclarée ici est
+refusée à la compilation (todo 3.2) — c'est ce qui sépare `rancune` de `critique`.
 
 ### Les fins
 

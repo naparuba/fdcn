@@ -8823,6 +8823,17 @@
             ]
         }
     },
+    "counters": [
+        {
+            "cle": "rancune",
+            "libelle": "Rancune"
+        },
+        {
+            "cle": "respect",
+            "libelle": "Respect"
+        }
+    ],
+    "ignored": [],
     "nodes_by_chapter": {
         "Justice Juste": [
             10,

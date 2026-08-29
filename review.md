@@ -275,25 +275,31 @@ dans `generator.py`, plus `MalformedExpressionError` dans `condition_node.py` :
 Les deux livres recompilent à l'identique (aucun diff dans `books/`) avec ces cinq garde-fous
 actifs.
 
-#### Étape 2 — un seul fichier écrit à la main, en plus des chapitres (todo 3.8)
+#### Étape 2 — un seul fichier écrit à la main, en plus des chapitres ✅ fait (2026-08-29, todo 3.8)
 
-Sept des huit fichiers sont de **petites tables** (moins de 6 Ko) qui décrivent le livre,
-pas son texte. Elles tiennent dans un seul `<nom>.livre.json`, et surtout **avec des
-champs nommés** :
+Les cinq petites tables qui décrivaient le livre, pas son texte (arcs, sous-arcs propagés,
+sous-arcs manuels, objets, succès), plus `compteurs`/`ignorees` (venu de
+`books/<nom>/data/compteurs.json`, todo 3.5) tiennent maintenant dans un seul
+`scripts/src/<nom>/<nom>.livre.json`, à **champs nommés** :
 
 ```json
 { "actes":   [ {"depart": 100, "nom": "Lenonia"} ],
   "sous_arcs": [ {"acte": "Invasion", "depart": 148, "nom": "Quartier boulanger",
                   "fins": [496, 285, 353]} ],
+  "sous_arcs_manuels": { "Couloirs": [184, 10, 447] },
   "objets":  { "EPEE": {"categorie": "ARME", "stats": {"deg": 1}} },
-  "succes":  { "TROIE": {"label": "Le cheval des trois", "txt": "…"} },
-  "compteurs": [...], "objets_supposes": {...} }
+  "succes":  [ {"id": "TROIE", "label": "Le cheval des trois", "txt": "…"} ],
+  "compteurs": [ {"cle": "gloire", "libelle": "Gloire"} ], "ignorees": ["arc_et_couteau"] }
 ```
 
-Ce que ça change vraiment : `["Invasion", 148, "Quartier boulanger", [496, 285, 353]]` est
-un tableau **positionnel de quatre champs**. Rien ne dit lequel est quoi, et intervertir
-le départ et une fin ne produit aucune erreur — juste un découpage faux. Les nommer
-supprime une classe entière de fautes muettes.
+Ce que ça change vraiment : `["Invasion", 148, "Quartier boulanger", [496, 285, 353]]` était
+un tableau **positionnel de quatre champs**. Rien ne disait lequel est quoi, et intervertir
+le départ et une fin ne produisait aucune erreur — juste un découpage faux. Les nommer
+supprime cette classe de fautes muettes.
+
+`generator.py` lit `<nom>.livre.json` en un seul `load_json_file()` puis destructure ;
+`compteurs`/`ignorees` sont recopiés dans le fichier compilé (`counters`/`ignored`,
+todo 3.6) — `BookData` ne lit plus `data/compteurs.json`, qui a disparu.
 
 ⚠️ **Ne PAS déplacer l'acte dans le chapitre.** Un acte se déclare à son chapitre de
 départ et se propage par le graphe : 8 lignes couvrent 606 chapitres. L'écrire chapitre
@@ -316,16 +322,16 @@ la clé `chapters` maintenant. `test_book_data.gd` le garde — un chapitre dép
 #### Étape 4 — un squelette qui compile (todo 3.9)
 
 `python3 scripts/generator.py --nouveau <nom>` créerait le dossier, les deux fichiers à la
-main avec un chapitre 1 valide, et l'entrée dans `books/books.json`. Ajouter un livre
-commencerait par quelque chose qui **compile déjà**, au lieu d'une page blanche et de six
-formats à deviner.
+main (`<nom>.json`, `<nom>.livre.json` — todo 3.8, fait) avec un chapitre 1 valide, et
+l'entrée dans `books/books.json`. Ajouter un livre commencerait par quelque chose qui
+**compile déjà**, au lieu d'une page blanche et de sept champs à deviner.
 
 #### Où vit quoi
 
 | | contenu | statut |
 |---|---|---|
-| `scripts/src/<nom>/` | **tout ce qui s'écrit à la main** : chapitres, actes, sous-arcs, objets, succès (68 Ko) | la **source**, unique, hors de l'APK |
-| `books/<nom>/data/` | 3 sorties calculées + les 2 tables recopiées (388 Ko pour les deux livres) | une **sortie**, regénérable, à ne pas éditer |
+| `scripts/src/<nom>/` | **tout ce qui s'écrit à la main** : `<nom>.json` (chapitres) + `<nom>.livre.json` (actes, sous-arcs, objets, succès, compteurs, ignorées — todo 3.8) | la **source**, unique, hors de l'APK |
+| `books/<nom>/data/` | `<nom>-compilated.json`, 7 clés (3 calculées + 4 recopiées — todo 3.6, 3.8) | une **sortie**, regénérable, à ne pas éditer |
 
 La distinction n'est pas « une fois chacun » mais **« édité, ou généré »**. Les objets et
 les succès existent des deux côtés : l'app les lit et ne peut pas aller les chercher dans
@@ -333,9 +339,9 @@ les succès existent des deux côtés : l'app les lit et ne peut pas aller les c
 pas, elle se refait ; deux fichiers *édités* au même titre, si.
 
 Reste un doublon **non résolu** (todo 3.13, pipeline `src/` → `gen/` → `books/`) :
-`<nom>.all_objects.json` et `<nom>.all_success.json` sont intégralement contenus dans les
-fichiers compilés qui les enrichissent, et pourtant les deux partent dans l'APK — avec le
-livre source lui-même.
+`objets`/`succes` de `<nom>.livre.json` sont intégralement contenus dans le fichier compilé
+qui les enrichit, et pourtant les deux partent dans l'APK — avec le livre source
+lui-même.
 
 #### Ce qu'il ne faut PAS toucher
 
@@ -574,7 +580,6 @@ Numérotation **catégorie.rang**, reprise telle quelle dans `todo.md` en cases 
 
 | # | tag | action | réf |
 |---|---|---|---|
-| 3.8 | `[refacto]` | **Un seul fichier de tables par livre** (`<nom>.livre.json`), à champs nommés — **étape 2** | §3.7 |
 | 3.9 | `[feature]` | **Squelette de livre** (`--nouveau <nom>`) — **étape 4** | §3.7 |
 | 3.13 | `[refacto]` | **Le pipeline visé `src/` → `gen/` → `books/`** : moitié faite, reste à écrire dans `gen/` puis copier vers `books/`, et trancher si `gen/` est commité | §3.7 |
 
