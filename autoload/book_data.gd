@@ -13,14 +13,16 @@ extends Node
 ## BookData est le 3ᵉ autoload, avant AppParameters : son `_ready()` a donc chargé le
 ## registre quand AppParameters demande le livre à ouvrir.
 ##
-## ⚠️ **3 fichiers compilés chargés, pas 10** (2026-08-13). Cinq ne servaient à personne
-## (combats, secrets, les trois listes de fins), et quatre autres étaient des **doublons de
-## valeur** : l'index des chapitres à succès répétait `-compilated-success.json`, qui
-## répétait lui-même `<nom>.all_success.json` pour un champ ajouté — de même pour les
-## objets. Les libellés, catégories et textes ne s'écrivent donc plus qu'à un seul endroit :
-## le fichier que l'auteur édite. Ce que le compilateur ajoutait (`in_chapters`, `chapter`,
-## l'index) se reconstruit ici en une passe sur les chapitres. Le détail est dans
-## `scripts/README.md`.
+## ⚠️ **1 fichier compilé chargé, pas 10** (2026-08-13 puis 2026-08-29, todo 3.6).
+## Cinq sorties ne servaient à personne (combats, secrets, les trois listes de fins), et
+## quatre autres étaient des **doublons de valeur** : l'index des chapitres à succès
+## répétait `-compilated-success.json`, qui répétait lui-même `<nom>.all_success.json` pour
+## un champ ajouté — de même pour les objets. Les libellés, catégories et textes ne
+## s'écrivent donc plus qu'à un seul endroit : le fichier que l'auteur édite. Ce que le
+## compilateur ajoutait (`in_chapters`, `chapter`, l'index) se reconstruit ici en une passe
+## sur les chapitres. Les 3 fichiers calculés + 2 tables recopiées qui restaient sont
+## maintenant réunis en un seul `<nom>-compilated.json` (`chapters`/`nodes_by_chapter`/
+## `nodes_by_sub_arc`/`objects`/`success`). Le détail est dans `scripts/README.md`.
 
 const REGISTRE := "res://books/books.json"
 
@@ -114,9 +116,12 @@ func do_load_book(book_name) -> void:
 	print('BookData: chargement du livre %s' % book_name)
 	var book_path = "res://books/%s/data/%s" % [book_name, book_name]
 
-	var all_nodes_json = Utils.load_json_file(book_path + "-compilated-data.json")
-	if all_nodes_json == null:
-		push_error("BookData: impossible de charger %s-compilated-data.json" % book_path)
+	# Un seul fichier compilé (todo 3.6) : `chapters` + les deux index générés pour l'UI +
+	# les deux tables écrites à la main, recopiées telles quelles par le compilateur — il ne
+	# peut pas aller les lire dans `scripts/`, un dossier que Godot ignore.
+	var compiled = Utils.load_json_file(book_path + "-compilated.json")
+	if compiled == null:
+		push_error("BookData: impossible de charger %s-compilated.json" % book_path)
 		return
 
 	# On repart d'un dictionnaire vide : sinon, en changeant de livre, les chapitres de
@@ -127,18 +132,19 @@ func do_load_book(book_name) -> void:
 	# `chapter_data.gd` est un `RefCounted` : c'était un `Node`, jamais ajouté à l'arbre,
 	# donc jamais libéré — ~600 objets fuités par changement de livre.
 	all_nodes = {}
+	var all_nodes_json = compiled["chapters"]
 	for node_id_str in all_nodes_json.keys():
 		var chapter_data = _CHAPTER_DATA.new()
 		chapter_data.create(all_nodes_json[node_id_str])
 		all_nodes[node_id_str] = chapter_data
 
-	chapters_by_arc = Utils.load_json_file(book_path + "-compilated-nodes-by-chapter.json")
-	chapters_by_sub_arc = Utils.load_json_file(book_path + "-compilated-nodes-by-sub-arc.json")
+	chapters_by_arc = compiled["nodes_by_chapter"]
+	chapters_by_sub_arc = compiled["nodes_by_sub_arc"]
 	# Objets et succès sont lus dans les fichiers **écrits à la main** puis complétés ici.
 	# Le compilateur en produisait des copies enrichies : les mêmes libellés, catégories et
 	# textes écrits deux fois dans le dépôt, pour deux champs ajoutés.
-	all_objects = _completer_objets(Utils.load_json_file(book_path + ".all_objects.json"))
-	all_success = _completer_succes(Utils.load_json_file(book_path + ".all_success.json"))
+	all_objects = _completer_objets(compiled["objects"])
+	all_success = _completer_succes(compiled["success"])
 	all_success_chapters = _index_succes_par_chapitre()
 	counters = _load_counters(book_name)
 	_ignorees = _load_ignorees(book_name)

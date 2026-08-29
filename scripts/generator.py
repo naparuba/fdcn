@@ -315,8 +315,11 @@ def _verifier_les_secrets(node_graph: Graph, reverse_jumps: dict) -> None:
 
 def ecrire_les_json(book_name: str, src_dir: str, data_dir: str, book_data: dict, node_graph: Graph,
                      display_graph) -> None:
-    """Valide les donnees calculees puis ecrit tout ce que l'app ouvre : les chapitres a
-    plat, les deux tables recopiees telles quelles, et les deux index generes pour l'UI."""
+    """Valide les donnees calculees puis ecrit tout ce que l'app ouvre, en UN SEUL fichier
+    (todo 3.6) : les chapitres a plat, les deux tables recopiees telles quelles, et les deux
+    index generes pour l'UI. Rien n'est ecrit avant que toutes les validations passent --
+    contrairement aux 5 fichiers d'avant, une compilation refusee ne laisse plus le dossier
+    de sortie a moitie a jour."""
     logger.info('Conditions parsing:')
     for node_id_str in book_data.keys():
         node = node_graph.get_node(int(node_id_str))
@@ -326,20 +329,17 @@ def ecrire_les_json(book_name: str, src_dir: str, data_dir: str, book_data: dict
     all_objs = load_json_file(f'{src_dir}/{book_name}.all_objects.json')
     _valider_les_objets(book_data, node_graph, all_objs)
 
-    # On n'exporte que le CALCULE, et a plat. Le chapitre ecrit a la main vit dans
-    # `scripts/src/`, il n'a aucune raison d'etre recopie ici : c'etait 28 % du plus gros
-    # fichier du depot, et un deuxieme endroit ou lire la meme chose.
+    # Le CALCULE, et a plat. Le chapitre ecrit a la main vit dans `scripts/src/`, il n'a
+    # aucune raison d'etre recopie ici : c'etait 28 % du plus gros fichier du depot, et un
+    # deuxieme endroit ou lire la meme chose.
     logger.info('Export computed nodes:')
     computed_nodes = {node_id_str: node_graph.get_node(int(node_id_str)).get_computed() for node_id_str in book_data}
-    new_book_data_string = json.dumps(computed_nodes, indent=4, ensure_ascii=False, sort_keys=True)
-    with codecs.open(f'{data_dir}/{book_name}-compilated-data.json', 'w', 'utf8') as f:
-        f.write(new_book_data_string)
 
-    sucess_txt = load_json_file(f'{src_dir}/{book_name}.all_success.json')
-    logger.trace('Success txt %s' % sucess_txt)
+    all_success = load_json_file(f'{src_dir}/{book_name}.all_success.json')
+    logger.trace('Success txt %s' % all_success)
 
     def get_success_txt(_id):
-        for success in sucess_txt:
+        for success in all_success:
             if success['id'] == _id:
                 return success['label'], success['txt']
         print('ERROR: success %s is not declared in %s.all_success.json' % (_id, book_name))
@@ -370,23 +370,7 @@ def ecrire_les_json(book_name: str, src_dir: str, data_dir: str, book_data: dict
             # et y ajoute le chapitre au chargement.
             get_success_txt(success)
 
-        # If the node have some items, list them
-        node_all_objs = set(node.get_aquire()) | set(node.get_remove())
-        for obj in node_all_objs:
-            entry = all_objs[obj]
-            in_chapters = entry.get('in_chapters', [])
-            in_chapters.append(int(node_id_str))
-            entry['in_chapters'] = in_chapters
-
         all_stats_keys |= node.get_all_stats_keys()
-
-    # Set objects that are not in specific chapter that they are ok since chapter 1
-    for obj_name, entry in all_objs.items():
-        if 'in_chapters' not in entry:
-            entry['in_chapters'] = [1]  # so will be seens always
-            logger.trace('  ** Defaulting object: %s' % obj_name)
-        if 'stats' not in entry:
-            entry['stats'] = {}
 
     _verifier_les_secrets(node_graph, reverse_jumps)
 
@@ -395,34 +379,24 @@ def ecrire_les_json(book_name: str, src_dir: str, data_dir: str, book_data: dict
         logger.info(' - %s' % stat_key)
     _valider_les_stats(all_stats_keys, data_dir)
 
-    # CE QUE L'APP OUVRE, ET RIEN D'AUTRE. Sept sorties ont disparu le 2026-08-13 :
-    #
-    #   combats, secrets, endings, good-endings, bad-endings   personne ne les chargeait : tout
-    #       ca se lit chapitre par chapitre dans `-compilated-data.json` ;
-    #   success, success-chapters, all-objects   des copies enrichies qui repetaient les
-    #       libelles, categories et textes de `<nom>.all_success.json` et
-    #       `<nom>.all_objects.json`. `BookData` lit ces deux-la et les complete au chargement
-    #       (`in_chapters`, `chapter`, index chapitre -> succes).
-    #
-    to_dump_as_json = {
-        'nodes-by-chapter': nodes_by_chapter,
-        'nodes-by-sub-arc': nodes_by_sub_arc,
+    # CE QUE L'APP OUVRE, ET RIEN D'AUTRE, EN UN SEUL FICHIER (todo 3.6). Sept sorties
+    # avaient deja disparu le 2026-08-13 (combats, secrets, endings, good-endings,
+    # bad-endings -- tout ca se lit chapitre par chapitre dans `chapters` ; success,
+    # success-chapters, all-objects -- des copies enrichies que `BookData` refait elle-meme
+    # au chargement). Il restait 3 fichiers calcules + 2 tables recopiees telles quelles :
+    # `objects`/`success` sont ces memes tables, RAW -- `BookData` les complete encore au
+    # chargement (`in_chapters`, `chapter`, index chapitre -> succes), rien ne change de ce
+    # cote-la.
+    compiled = {
+        'chapters': computed_nodes,
+        'nodes_by_chapter': nodes_by_chapter,
+        'nodes_by_sub_arc': nodes_by_sub_arc,
+        'objects': all_objs,
+        'success': all_success,
     }
-
-    # Les deux tables ecrites a la main que l'app lit AUSSI : elle ne peut pas aller les
-    # chercher dans `scripts/` (dossier ignore par Godot), donc le compilateur les recopie
-    # telles quelles. C'est une sortie comme une autre -- la source, elle, reste unique.
-    for a_copier in (f'{book_name}.all_objects.json', f'{book_name}.all_success.json'):
-        with codecs.open(f'{src_dir}/{a_copier}', 'r', 'utf8') as source:
-            with codecs.open(f'{data_dir}/{a_copier}', 'w', 'utf8') as destination:
-                destination.write(source.read())
-        logger.info(' - %s = COPIE' % a_copier)
-
-    logger.info('Generating json files for UI')
-    for (k, v) in to_dump_as_json.items():
-        with codecs.open(f'{data_dir}/{book_name}-compilated-{k}.json', 'w', 'utf8') as f:
-            f.write(json.dumps(v, indent=4, ensure_ascii=False, sort_keys=True))
-        logger.info(' - %s = OK' % k)
+    with codecs.open(f'{data_dir}/{book_name}-compilated.json', 'w', 'utf8') as f:
+        f.write(json.dumps(compiled, indent=4, ensure_ascii=False, sort_keys=True))
+    logger.info(' - %s-compilated.json = OK' % book_name)
 
     # Windows need too many deps, like dot.exe, so skip on it
     if os.name != 'nt':

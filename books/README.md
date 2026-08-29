@@ -138,10 +138,8 @@ books/<nom>/
 
 | fichier | rôle | obligatoire |
 |---|---|---|
-| `<nom>-compilated-data.json` | les chapitres, calculés : fils, acte, sous-arc, arbres de conditions | ✅ |
-| `<nom>-compilated-nodes-by-chapter.json`, `-by-sub-arc.json` | les chapitres de chaque acte et sous-arc, pour les barres de complétion | ✅ |
-| `<nom>.all_objects.json`, `<nom>.all_success.json` | objets et succès, **écrits à la main** et complétés au chargement (`in_chapters`, `chapter`) | ✅ |
-| `compteurs.json` | les compteurs propres au livre, affichés par la feuille de stats | facultatif |
+| `<nom>-compilated.json` | **un seul fichier** (todo 3.6), 5 clés : `chapters` (les chapitres calculés : fils, acte, sous-arc, arbres de conditions), `nodes_by_chapter`/`nodes_by_sub_arc` (pour les barres de complétion), `objects`/`success` (écrits à la main, recopiés tels quels, complétés au chargement — `in_chapters`, `chapter`) | ✅ |
+| `compteurs.json` | les compteurs propres au livre, affichés par la feuille de stats, et les clés de stat de chapitre sans effet (`ignorees`) | facultatif |
 
 ⚠️ **Ce dossier est une sortie, pas une source.** Tout ce qu'il contient est produit ou
 recopié par `python3 scripts/generator.py --book <nom>`, à partir de `scripts/src/<nom>/`. Les
@@ -190,6 +188,14 @@ active la fonctionnalité.
 | la source recopiée dans `-compilated-data.json` | le chapitre écrit à la main vit dans `scripts/src/`, un seul exemplaire suffit |
 | les valeurs neutres de chaque chapitre | 9 538 clés sur 12 120, pour fdcn, ne disaient rien |
 | `<nom>.migration_items.json` | une table `type de Billy → 3 objets` qui **inventait** ce que la sauvegarde n'avait jamais su. Une sauvegarde sans liste d'objets rejoue maintenant ses chapitres, prévient le joueur et ouvre son inventaire — lui seul connaît son équipement de départ |
+
+### Et le 2026-08-29 (todo 3.6)
+
+Les 3 sorties calculées (`-compilated-data.json`, `-compilated-nodes-by-chapter.json`,
+`-compilated-nodes-by-sub-arc.json`) et les 2 tables recopiées (`<nom>.all_objects.json`,
+`<nom>.all_success.json`) — cinq fichiers dans `data/` — ont été réunies en un seul
+`<nom>-compilated.json`, à 5 clés. Effet de bord : une compilation refusée n'écrit plus
+rien du tout, là où elle pouvait avant laisser 1 sortie calculée à jour et 4 périmées.
 
 **Les json des livres sont passés de 1 340 à 388 Ko**, à contenu strictement identique pour
 l'app — vérifié clé par clé sur les 1 297 chapitres des deux livres.

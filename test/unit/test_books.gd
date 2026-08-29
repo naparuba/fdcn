@@ -19,13 +19,11 @@ func test_le_registre_declare_des_livres() -> void:
 func test_chaque_livre_declare_a_ses_donnees_sur_le_disque() -> void:
 	for livre in BookData.get_books():
 		var nom = livre.get("nom", "")
-		var base = "res://books/%s/data/%s" % [nom, nom]
-		assert_true(Utils.is_file_exists(base + "-compilated-data.json"),
-			"%s : les chapitres compilés sont là" % nom)
-		assert_true(Utils.is_file_exists(base + ".all_objects.json"),
-			"%s : les objets écrits à la main sont là" % nom)
-		assert_true(Utils.is_file_exists(base + ".all_success.json"),
-			"%s : les succès aussi" % nom)
+		var chemin = "res://books/%s/data/%s-compilated.json" % [nom, nom]
+		assert_true(Utils.is_file_exists(chemin), "%s : le fichier compilé est là" % nom)
+		var compiled = Utils.load_json_file(chemin)
+		for cle in ["chapters", "nodes_by_chapter", "nodes_by_sub_arc", "objects", "success"]:
+			assert_true(compiled.has(cle), "%s : la clé %s est là" % [nom, cle])
 
 
 ## Les images d'un livre sont trouvées par convention de nommage, jamais déclarées : rien
@@ -93,13 +91,19 @@ func test_l_intro_du_livre_est_dans_son_dossier() -> void:
 
 ## Les cinq sorties que personne ne lisait ont été supprimées le 2026-08-13 : la liste des
 ## combats, celle des secrets et les trois listes de fins. Tout ça se lit chapitre par
-## chapitre. ⚠️ Le compilateur les réécrira tant qu'il n'aura pas été repris (todo 3.2) —
-## ce test est justement là pour le faire remarquer ce jour-là.
+## chapitre. Et les cinq qui restaient (3 calculées + 2 tables recopiées) ont été réunies en
+## un seul fichier le 2026-08-29 (todo 3.6). Si un futur passage sur le générateur les
+## réécrit par erreur, c'est ce test qui doit le remarquer.
 func test_les_sorties_inutiles_nexistent_plus() -> void:
 	for inutile in ["combats", "secrets", "endings", "good-endings", "bad-endings",
-			"success", "success-chapters", "all-objects"]:
+			"success", "success-chapters", "all-objects", "data",
+			"nodes-by-chapter", "nodes-by-sub-arc"]:
 		assert_false(Utils.is_file_exists("res://books/fdcn/data/fdcn-compilated-%s.json" % inutile),
 			"fdcn-compilated-%s.json n'a plus de raison d'être" % inutile)
+	assert_false(Utils.is_file_exists("res://books/fdcn/data/fdcn.all_objects.json"),
+		"fdcn.all_objects.json est maintenant dans la clé `objects` du fichier compilé")
+	assert_false(Utils.is_file_exists("res://books/fdcn/data/fdcn.all_success.json"),
+		"fdcn.all_success.json est maintenant dans la clé `success` du fichier compilé")
 
 
 ## Les données compilées ne contiennent plus que le CALCULÉ : le chapitre écrit à la main

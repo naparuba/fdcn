@@ -58,8 +58,11 @@ maintenant `"pv_gain": 1` au lieu de `pv_win_plus_1`. 5 tests dans `test_stats_e
 `arc_et_couteau`), lu par `BookData.is_ignored()` comme `is_counter()` lit `compteurs`.
 `PlayerStats._CHAPTER_UNMANAGED_KEYS` a disparu — la déclaration vit dans le livre.
 
-- [ ] **3.6** **Réunir les 3 sorties compilées en un seul fichier** — étape 3 du plan.
-      `BookData` ouvre aujourd'hui cinq fichiers là où un suffirait. → review §3.7
+✅ **3.6 fait (2026-08-29)** — étape 3 du plan : `<nom>-compilated.json` remplace les 5
+fichiers de `books/<nom>/data/` (3 calculés + 2 tables recopiées) par un seul, à 5 clés.
+Bonus : l'écriture ne se fait plus qu'une fois, à la fin, une fois tout validé — plus de
+dossier à moitié à jour sur un refus. `books/README.md`/`scripts/README.md` mis à jour.
+
 - [ ] **3.8** **Un seul fichier de tables par livre** (`<nom>.livre.json`) — étape 2. Les
       six fichiers sont déjà réunis dans `scripts/src/<nom>/` ; reste à les fondre et
       surtout à passer **à des champs nommés**. Aujourd'hui un sous-arc est un tableau

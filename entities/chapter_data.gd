@@ -11,7 +11,8 @@ extends RefCounted
 ## Aucune méthode de `Node` n'était utilisée : les 27 fonctions ci-dessous sont toutes des
 ## accesseurs de données, et aucun appelant ne traite le résultat comme un nœud.
 
-## Une entrée de `<nom>-compilated-data.json` ne porte **que ce qui n'est pas neutre** :
+## Une entrée de la clé `chapters` de `<nom>-compilated.json` ne porte **que ce qui n'est
+## pas neutre** :
 ##
 ##     {"id": 212, "chapter": "Forteresse", "arc": "Catacombes", "sons": [25],
 ##      "remove": ["MEDAILLON D'EDIRE"]}

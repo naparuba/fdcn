@@ -299,15 +299,19 @@ supprime une classe entière de fautes muettes.
 départ et se propage par le graphe : 8 lignes couvrent 606 chapitres. L'écrire chapitre
 par chapitre multiplierait la saisie par 75.
 
-#### Étape 3 — une seule sortie compilée (todo 3.6)
+#### Étape 3 — une seule sortie compilée ✅ fait (2026-08-29, todo 3.6)
 
-`chapter_data.gd` accepte déjà les deux formes (`book_data.get("computed", book_data)`),
-ce qui permet de laisser cette étape pour plus tard sans rien casser : `BookData` ouvre
-aujourd'hui 3 fichiers calculés + 2 tables recopiées là où un seul suffirait.
+`<nom>-compilated.json` remplace les 5 fichiers de `books/<nom>/data/` (3 calculés +
+2 tables recopiées) par un seul, à 5 clés (`chapters`/`nodes_by_chapter`/`nodes_by_sub_arc`/
+`objects`/`success`). Effet de bord profitable : l'écriture ne se fait plus qu'**une fois,
+à la fin**, une fois toutes les validations passées — une compilation refusée ne laisse
+plus le dossier de sortie à moitié à jour (c'était le cas avant : un `success` inconnu
+levait après l'écriture de `-compilated-data.json`).
 
-⚠️ Le prix de l'allègement déjà fait : `Node.NEUTRES` et les `.get(clé, défaut)` de
-`chapter_data.gd` sont **les deux moitiés d'un seul contrat**. `test_book_data.gd` le
-garde — un chapitre dépouillé, ses 16 valeurs neutres vérifiées une par une.
+⚠️ Le prix de l'allègement déjà fait avant cette étape : `Node.NEUTRES` et les
+`.get(clé, défaut)` de `chapter_data.gd` sont **les deux moitiés d'un seul contrat**, sous
+la clé `chapters` maintenant. `test_book_data.gd` le garde — un chapitre dépouillé, ses
+16 valeurs neutres vérifiées une par une.
 
 #### Étape 4 — un squelette qui compile (todo 3.9)
 
@@ -570,7 +574,6 @@ Numérotation **catégorie.rang**, reprise telle quelle dans `todo.md` en cases 
 
 | # | tag | action | réf |
 |---|---|---|---|
-| 3.6 | `[refacto]` | **Réunir les 3 sorties calculées en une** — le poids est déjà réglé | §3.7 |
 | 3.8 | `[refacto]` | **Un seul fichier de tables par livre** (`<nom>.livre.json`), à champs nommés — **étape 2** | §3.7 |
 | 3.9 | `[feature]` | **Squelette de livre** (`--nouveau <nom>`) — **étape 4** | §3.7 |
 | 3.13 | `[refacto]` | **Le pipeline visé `src/` → `gen/` → `books/`** : moitié faite, reste à écrire dans `gen/` puis copier vers `books/`, et trancher si `gen/` est commité | §3.7 |
