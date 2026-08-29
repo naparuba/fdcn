@@ -54,10 +54,10 @@ recompilent à l'identique (aucun diff dans `books/`). Détail dans `git log`.
 chapitres, delta positif seulement, jamais sur une affectation. fdcn ch126 (PAYSAN) s'écrit
 maintenant `"pv_gain": 1` au lieu de `pv_win_plus_1`. 5 tests dans `test_stats_effects.gd`.
 
-- [ ] **3.5** **Compléter les déclarations du livre avec `ignorees`** : reste à y déplacer
-      `PlayerStats._CHAPTER_UNMANAGED_KEYS`. Dépend des « règles ponctuelles » — **§4.3, à
-      trancher d'abord**. Pas de liste d'alias : les orthographes se corrigent à la source.
-      → review §4.6
+✅ **3.5 fait (2026-08-29)** — `ignorees` dans `compteurs.json` (fdcn déclare
+`arc_et_couteau`), lu par `BookData.is_ignored()` comme `is_counter()` lit `compteurs`.
+`PlayerStats._CHAPTER_UNMANAGED_KEYS` a disparu — la déclaration vit dans le livre.
+
 - [ ] **3.6** **Réunir les 3 sorties compilées en un seul fichier** — étape 3 du plan.
       `BookData` ouvre aujourd'hui cinq fichiers là où un suffirait. → review §3.7
 - [ ] **3.8** **Un seul fichier de tables par livre** (`<nom>.livre.json`) — étape 2. Les

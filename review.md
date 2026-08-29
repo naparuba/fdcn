@@ -361,7 +361,7 @@ livre source lui-même.
 une variable en dur de `PlayerStats` ; les quatre autres sont **déclarés par le livre**
 (§4.6), et la feuille de stats génère leurs lignes.
 
-### 4.3 Les « règles ponctuelles » : encore une vraie règle non codée (todo 3.5)
+### 4.3 Les « règles ponctuelles »
 
 | clé | où | verdict |
 |---|---|---|
@@ -406,22 +406,23 @@ fdcn ch126 s'écrit maintenant `"PAYSAN": {"pv_gain": 1}` au lieu de `pv_win_plu
 donnée dit enfin ce qu'elle veut dire. Testé (`test_stats_effects.gd`) : le bonus double bien
 un gain de 1, ne s'applique ni à une perte ni à une affectation, et disparaît au rejeu.
 
-### 4.6 La forme du vocabulaire — todo 3.5
+### 4.6 La forme du vocabulaire ✅ fait (2026-08-29, todo 3.5)
 
 `books/<nom>/data/compteurs.json`, **fichier facultatif** :
 
 ```json
-{ "compteurs": [ {"cle": "rancune", "libelle": "Rancune"},
-                 {"cle": "respect", "libelle": "Respect"} ],
+{ "compteurs": [ {"cle": "gloire", "libelle": "Gloire"} ],
   "ignorees":  [ "arc_et_couteau" ] }
 ```
 
 Pas de liste d'alias : les orthographes se corrigent à la source, les entretenir dans le
 moteur serait entretenir la faute.
 
-`ignorees` reste à raccorder : `PlayerStats._CHAPTER_UNMANAGED_KEYS` (`arc_et_couteau`
-seul, depuis que `pv_win_plus_1` en est sorti le 2026-08-29) doit en sortir une fois §4.3
-tranché, pour que la déclaration vive dans le livre plutôt que dans le moteur.
+`ignorees` est raccordé : `BookData._load_ignorees()`/`is_ignored()` le lisent comme
+`_load_counters()`/`is_counter()` lisent `compteurs`, et `PlayerStats.apply_chapter_stat()`
+demande à `BookData` plutôt qu'à une constante en dur — `_CHAPTER_UNMANAGED_KEYS` a disparu.
+Le générateur Python vérifie la même union (vocabulaire moteur + `compteurs.json` du livre)
+avant de compiler (§3.7 étape 1). fdcn déclare `arc_et_couteau` ; cdsi n'a rien à ignorer.
 
 ---
 
@@ -516,9 +517,7 @@ serait un changement de comportement, pas une simplification.
 
 ## 7. Bugs et risques ouverts
 
-| | gravité | quoi |
-|---|---|---|
-| 10.3 | 🟡 | **4 clés de stats ignorées** — élucidées en §4.3, deviennent la liste `ignorees` du vocabulaire (todo 3.5) |
+Aucun connu à ce jour — voir `git log` pour l'historique de ce qui a été trouvé et réglé.
 
 ---
 
@@ -571,7 +570,6 @@ Numérotation **catégorie.rang**, reprise telle quelle dans `todo.md` en cases 
 
 | # | tag | action | réf |
 |---|---|---|---|
-| 3.5 | `[refacto]` | **Compléter le vocabulaire par livre avec `ignorees`** — dépend de §4.3 | §4.6 |
 | 3.6 | `[refacto]` | **Réunir les 3 sorties calculées en une** — le poids est déjà réglé | §3.7 |
 | 3.8 | `[refacto]` | **Un seul fichier de tables par livre** (`<nom>.livre.json`), à champs nommés — **étape 2** | §3.7 |
 | 3.9 | `[feature]` | **Squelette de livre** (`--nouveau <nom>`) — **étape 4** | §3.7 |

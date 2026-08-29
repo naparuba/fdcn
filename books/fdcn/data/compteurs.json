@@ -8,5 +8,8 @@
             "cle": "info",
             "libelle": "Informations"
         }
+    ],
+    "ignorees": [
+        "arc_et_couteau"
     ]
 }

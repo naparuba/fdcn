@@ -98,6 +98,15 @@ func test_les_anciens_mots_cles_ne_font_plus_rien() -> void:
 	assert_eq(PlayerStats.get_pv(), depart, "half_pv non plus")
 
 
+func test_une_clef_ignoree_par_le_livre_ne_change_rien() -> void:
+	# `arc_et_couteau` (fdcn ch284, todo 3.5) : un trou de saisie dans le livre lui-même,
+	# déclaré dans `compteurs.json` -- pas une faute à signaler comme `critique`.
+	var depart = PlayerStats.get_pv()
+	PlayerStats.apply_chapter_stat("arc_et_couteau", true)
+	assert_eq(PlayerStats.get_pv(), depart, "ignorée, comme documenté par le livre")
+	assert_eq(PlayerStats.get_compteur("arc_et_couteau"), 0, "et ce n'est pas devenu un compteur")
+
+
 func test_le_rejeu_dhistorique_ignore_toujours_les_ressources() -> void:
 	# La notation passe par `_set_pv`, donc elle sauvegarde : le rejeu ne doit pas plus
 	# l'appliquer qu'il n'appliquait les anciens mots-clés de ressource.

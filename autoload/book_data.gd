@@ -45,6 +45,11 @@ var _books_by_name = {}
 ## Les compteurs propres au livre courant, relus à chaque changement de livre.
 var counters = []
 
+## Les clés de stat de chapitre que le livre déclare lui-même comme sans effet (todo 3.5,
+## review §4.6) — `arc_et_couteau` pour fdcn : un trou de saisie dans le livre, pas une
+## faute qu'un futur passage devrait "corriger" en lui inventant un effet.
+var _ignorees: Array = []
+
 
 func _ready() -> void:
 	_load_registre()
@@ -136,6 +141,7 @@ func do_load_book(book_name) -> void:
 	all_success = _completer_succes(Utils.load_json_file(book_path + ".all_success.json"))
 	all_success_chapters = _index_succes_par_chapitre()
 	counters = _load_counters(book_name)
+	_ignorees = _load_ignorees(book_name)
 
 
 ## Les compteurs déclarés par le livre, `books/<nom>/data/compteurs.json`.
@@ -166,6 +172,22 @@ func _load_counters(book_name) -> Array:
 			continue
 		trouves.append({"cle": cle, "libelle": libelle})
 	return trouves
+
+
+## Les clés de stat de chapitre que le livre déclare sans effet, dans le même fichier
+## facultatif que les compteurs. `PlayerStats._CHAPTER_UNMANAGED_KEYS` vivait ici en dur
+## avant le 2026-08-29 (todo 3.5) : la déclaration vit maintenant dans le livre, pas dans
+## le moteur, comme les compteurs.
+func _load_ignorees(book_name) -> Array:
+	var chemin = "res://books/%s/data/compteurs.json" % book_name
+	if not Utils.is_file_exists(chemin):
+		return []
+
+	var declares = Utils.load_json_file(chemin)
+	if not declares is Dictionary:
+		return []  # deja signale par _load_counters(), pas la peine de le redire
+
+	return declares.get("ignorees", [])
 
 
 ## Les objets du livre, complétés de ce que les chapitres en disent :
@@ -355,6 +377,13 @@ func is_counter(cle) -> bool:
 		if compteur.get("cle", "") == cle:
 			return true
 	return false
+
+
+## Vrai si le livre courant déclare explicitement cette clé de stat de chapitre comme sans
+## effet (todo 3.5). C'est ce qui distingue `arc_et_couteau` (un trou de saisie connu, dans
+## le livre) d'une clé qui doit rester visible comme une anomalie.
+func is_ignored(cle) -> bool:
+	return cle in _ignorees
 
 
 #

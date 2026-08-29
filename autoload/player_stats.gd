@@ -63,16 +63,6 @@ const _CHAPTER_LAYERED_KEYS := {
 	"hab": "hab",
 }
 
-## La « règle ponctuelle » qui reste à trancher (review §4.3) : `arc_et_couteau` est un trou
-## de saisie dans le livre lui-même (l'effet réel n'est écrit nulle part, rien à faire côté
-## moteur). `pv_win_plus_1` a quitté cette liste le 2026-08-29 : fdcn ch126 s'écrit
-## maintenant `"pv_gain": 1` (todo 3.4). Les quatre autres orthographes de cette liste ont
-## disparu des livres le 2026-08-12, absorbées par la notation d'effet.
-##
-## Être ici veut dire **ignoré en silence** : ce sont des clés connues, pas des fautes de
-## saisie. Une clé inconnue, elle, ressort en avertissement (voir le `_:` plus bas).
-const _CHAPTER_UNMANAGED_KEYS := ["arc_et_couteau"]
-
 ## Clés de stats de chapitre qui touchent aux RESSOURCES et non à un cumul. Le
 ## rejeu de l'historique les ignore : les ressources viennent de la sauvegarde,
 ## pas d'un recalcul. Voir la section « Ressources » plus bas.
@@ -463,7 +453,9 @@ func apply_chapter_stat(k: String, v, with_resources := true) -> void:
 	if _CHAPTER_LAYERED_KEYS.has(k):
 		_add_chapter_stat(_CHAPTER_LAYERED_KEYS[k], v)
 		return
-	if k in _CHAPTER_UNMANAGED_KEYS:
+	# Déclarée par le livre lui-même comme sans effet (todo 3.5, review §4.6) : un trou de
+	# saisie connu (`arc_et_couteau`), pas une faute qu'il faudrait signaler.
+	if BookData.is_ignored(k):
 		return
 	# Compteur propre au livre courant : gloire/info dans fdcn, rancune/respect dans
 	# cdsi. Une clé non déclarée tombe dans le `_:` plus bas — c'est ce qui distingue

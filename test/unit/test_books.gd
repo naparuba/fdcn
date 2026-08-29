@@ -69,6 +69,13 @@ func test_les_compteurs_viennent_du_fichier_du_livre() -> void:
 	assert_true(BookData.is_counter("gloire"), "is_counter suit le fichier du livre")
 
 
+func test_les_clefs_ignorees_viennent_aussi_du_fichier_du_livre() -> void:
+	# Meme fichier que les compteurs, meme test de nature : todo 3.5.
+	assert_true(BookData.is_ignored("arc_et_couteau"), "fdcn ignore arc_et_couteau (ch284)")
+	assert_false(BookData.is_ignored("gloire"), "un compteur n'est pas une clef ignoree")
+	assert_false(BookData.is_ignored("critique"), "une clef inconnue n'est pas ignoree pour autant")
+
+
 ## La narration d'un chapitre est **un fichier, pas une déclaration** :
 ## `books/<nom>/audio/<chapitre>.mp3`. Le test vérifie la convention de bout en bout.
 func test_une_narration_est_un_fichier_du_livre() -> void:

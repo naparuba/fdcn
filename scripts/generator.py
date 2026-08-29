@@ -25,13 +25,14 @@ CHAPTER_ALLOWED_KEYS = {
 }
 
 # Vocabulaire de stats connu du MOTEUR (autoload/player_stats.gd) : les stats en couches
-# (`_CHAPTER_LAYERED_KEYS`), les deux ressources et leurs modificateurs (plafond, gain),
-# le compteur commun aux deux livres, et la clé "connue mais ignorée" (review §4.3).
+# (`_CHAPTER_LAYERED_KEYS`), les deux ressources et leurs modificateurs (plafond, gain), et
+# le compteur commun aux deux livres. Les compteurs et clés ignorées PROPRES a un livre
+# (`gloire`, `arc_et_couteau`, ...) viennent de son `compteurs.json` (todo 3.5, review §4.6),
+# pas d'ici.
 ENGINE_STATS_VOCABULARY = {
     'adr', 'arm', 'chance_max', 'crit', 'deg', 'end', 'hab',  # stats en couches
     'chance', 'pv', 'pv_max', 'pv_gain', 'chance_gain',        # ressources + modificateurs
     'richesse',                                                # compteur commun
-    'arc_et_couteau',                                          # connue, ignorée exprès
 }
 
 
@@ -274,21 +275,23 @@ def _valider_les_objets(book_data: dict, node_graph: Graph, all_objs: dict) -> N
         sys.exit(2)
 
 
-def _compteurs_du_livre(data_dir: str) -> set:
-    """Les compteurs propres au livre (`gloire`/`info` pour fdcn, `rancune`/`respect` pour
-    cdsi), declares a la main dans `compteurs.json` -- facultatif, comme cote app
-    (`BookData._load_counters`)."""
+def _vocabulaire_du_livre(data_dir: str) -> set:
+    """Ce que le livre declare lui-meme, dans son `compteurs.json` facultatif : ses
+    compteurs (`gloire`/`info` pour fdcn, `rancune`/`respect` pour cdsi) et ses clefs
+    sans effet (`ignorees`, ex. `arc_et_couteau` -- todo 3.5, review §4.6). Meme fichier,
+    meme lecture, cote app (`BookData._load_counters`/`_load_ignorees`)."""
     chemin = f'{data_dir}/compteurs.json'
     if not os.path.isfile(chemin):
         return set()
     declares = load_json_file(chemin)
-    return {c['cle'] for c in declares.get('compteurs', []) if 'cle' in c}
+    compteurs = {c['cle'] for c in declares.get('compteurs', []) if 'cle' in c}
+    return compteurs | set(declares.get('ignorees', []))
 
 
 def _valider_les_stats(all_stats_keys: set, data_dir: str) -> None:
     """Une cle de stat hors vocabulaire (`critique` au lieu de `crit`, par exemple) passait
     jusqu'ici jusqu'a l'app, qui se contentait d'un `push_warning` (todo 3.2)."""
-    vocabulaire = ENGINE_STATS_VOCABULARY | _compteurs_du_livre(data_dir)
+    vocabulaire = ENGINE_STATS_VOCABULARY | _vocabulaire_du_livre(data_dir)
     inconnues = all_stats_keys - vocabulaire
     if inconnues:
         print('ERROR: unknown stat key(s): %s (known: %s)' % (sorted(inconnues), sorted(vocabulaire)))
