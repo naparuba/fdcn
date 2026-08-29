@@ -25,13 +25,13 @@ CHAPTER_ALLOWED_KEYS = {
 }
 
 # Vocabulaire de stats connu du MOTEUR (autoload/player_stats.gd) : les stats en couches
-# (`_CHAPTER_LAYERED_KEYS`), les deux ressources et leur plafond, le compteur commun aux
-# deux livres, et les deux clés "connues mais ignorées" (review §4.3, todo 3.4/3.5).
+# (`_CHAPTER_LAYERED_KEYS`), les deux ressources et leurs modificateurs (plafond, gain),
+# le compteur commun aux deux livres, et la clé "connue mais ignorée" (review §4.3).
 ENGINE_STATS_VOCABULARY = {
     'adr', 'arm', 'chance_max', 'crit', 'deg', 'end', 'hab',  # stats en couches
-    'chance', 'pv', 'pv_max',                                  # ressources
+    'chance', 'pv', 'pv_max', 'pv_gain', 'chance_gain',        # ressources + modificateurs
     'richesse',                                                # compteur commun
-    'arc_et_couteau', 'pv_win_plus_1',                         # connues, ignorées exprès
+    'arc_et_couteau',                                          # connue, ignorée exprès
 }
 
 

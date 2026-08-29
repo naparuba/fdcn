@@ -63,14 +63,15 @@ const _CHAPTER_LAYERED_KEYS := {
 	"hab": "hab",
 }
 
-## Les deux « règles ponctuelles » qui restent à trancher (review §4.3) : `arc_et_couteau`
-## est un trou de saisie (l'effet réel n'est écrit nulle part) et `pv_win_plus_1` attend
-## `pv_gain`. Les quatre autres orthographes de cette liste ont disparu des livres le
-## 2026-08-12, absorbées par la notation d'effet.
+## La « règle ponctuelle » qui reste à trancher (review §4.3) : `arc_et_couteau` est un trou
+## de saisie dans le livre lui-même (l'effet réel n'est écrit nulle part, rien à faire côté
+## moteur). `pv_win_plus_1` a quitté cette liste le 2026-08-29 : fdcn ch126 s'écrit
+## maintenant `"pv_gain": 1` (todo 3.4). Les quatre autres orthographes de cette liste ont
+## disparu des livres le 2026-08-12, absorbées par la notation d'effet.
 ##
 ## Être ici veut dire **ignoré en silence** : ce sont des clés connues, pas des fautes de
 ## saisie. Une clé inconnue, elle, ressort en avertissement (voir le `_:` plus bas).
-const _CHAPTER_UNMANAGED_KEYS := ["arc_et_couteau", "pv_win_plus_1"]
+const _CHAPTER_UNMANAGED_KEYS := ["arc_et_couteau"]
 
 ## Clés de stats de chapitre qui touchent aux RESSOURCES et non à un cumul. Le
 ## rejeu de l'historique les ignore : les ressources viennent de la sauvegarde,
@@ -90,6 +91,14 @@ var pv_max := 0
 var pv_max_bonus := 0
 var cha := 0
 var richesse := 0
+
+## Majoration d'un GAIN de ressource (todo 3.4, review §4.5) : `pv_gain`/`chance_gain`
+## viennent d'un chapitre, donc remis à zéro par `reset_chapter_layer()` et reconstruits
+## par le rejeu, exactement comme `pv_max_bonus`. Appliqués dans `add_pv()`/`add_chance()`,
+## jamais dans `_apply_effect()` : une affectation (`"= max"`) ne doit pas dépasser le
+## plafond, et un delta négatif ne doit pas être amorti.
+var pv_gain_bonus := 0
+var chance_gain_bonus := 0
 
 ## Compteurs déclarés par le livre : clé -> valeur cumulée. Reconstruits par le rejeu
 ## de l'historique, comme la couche `chapters` et pour la même raison : leur unique
@@ -168,6 +177,8 @@ func full_reset() -> void:
 	reset_base()
 	_reset_layer(_chapters)
 	pv_max_bonus = 0
+	pv_gain_bonus = 0
+	chance_gain_bonus = 0
 	richesse = 0
 	_compteurs.clear()
 	cha = 0
@@ -188,6 +199,8 @@ func full_reset() -> void:
 func reset_chapter_layer() -> void:
 	_reset_layer(_chapters)
 	pv_max_bonus = 0
+	pv_gain_bonus = 0
+	chance_gain_bonus = 0
 	richesse = 0
 	_compteurs.clear()
 
@@ -208,7 +221,12 @@ func reset_chapter_layer() -> void:
 # 3. Trois sources les modifient, toutes via les fonctions ci-dessous : les
 #    chapitres, les boutons + / − de l'onglet ressources, et un jour le combat.
 
+## `pv_gain_bonus` majore un GAIN, jamais une perte : un bonus de gain n'a pas à amortir
+## les dégâts (review §4.5). D'où le garde sur `x > 0`, pas sur le signe de `pv_gain_bonus`
+## lui-même.
 func add_pv(x := 1) -> void:
+	if x > 0:
+		x += pv_gain_bonus
 	_set_pv(pv + x)
 
 
@@ -217,6 +235,8 @@ func del_pv(x := 1) -> void:
 
 
 func add_chance(x := 1) -> void:
+	if x > 0:
+		x += chance_gain_bonus
 	_set_chance(cha + x)
 
 
@@ -460,6 +480,10 @@ func apply_chapter_stat(k: String, v, with_resources := true) -> void:
 			add_pv(int(v))
 		"pv_max":
 			pv_max_bonus += int(v)
+		"pv_gain":
+			pv_gain_bonus += int(v)
+		"chance_gain":
+			chance_gain_bonus += int(v)
 		"richesse":
 			richesse += int(v)
 		_:

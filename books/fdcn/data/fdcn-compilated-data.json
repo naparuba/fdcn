@@ -330,7 +330,7 @@
                     "$end": "PAYSAN"
                 },
                 "stats": {
-                    "pv_win_plus_1": true
+                    "pv_gain": 1
                 },
                 "txt": "PAYSAN"
             },

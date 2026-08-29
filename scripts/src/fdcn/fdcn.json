@@ -941,7 +941,7 @@
 				"hab": 1
 			},
 			"PAYSAN": {
-				"pv_win_plus_1": true
+				"pv_gain": 1
 			},
 			"PRUDENT": {
 				"chance_max": 3

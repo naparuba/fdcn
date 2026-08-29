@@ -50,9 +50,10 @@ expression malformée, `&`/`|` mélangés sans parenthèses. Les 4 fautes réell
 §3.7 sont vérifiées rejetées (testé en les réinjectant une par une) ; les deux livres
 recompilent à l'identique (aucun diff dans `books/`). Détail dans `git log`.
 
-- [ ] **3.4** **`pv_gain`** : modificateur de gain dans la couche chapitres, **delta positif
-      seulement** (un bonus de gain ne doit pas amortir les dégâts) et **jamais sur une
-      affectation** (sinon « pv au plein » dépasse le plafond). → review §4.5
+✅ **3.4 fait (2026-08-29)** — `pv_gain`/`chance_gain` : modificateur de gain dans la couche
+chapitres, delta positif seulement, jamais sur une affectation. fdcn ch126 (PAYSAN) s'écrit
+maintenant `"pv_gain": 1` au lieu de `pv_win_plus_1`. 5 tests dans `test_stats_effects.gd`.
+
 - [ ] **3.5** **Compléter les déclarations du livre avec `ignorees`** : reste à y déplacer
       `PlayerStats._CHAPTER_UNMANAGED_KEYS`. Dépend des « règles ponctuelles » — **§4.3, à
       trancher d'abord**. Pas de liste d'alias : les orthographes se corrigent à la source.

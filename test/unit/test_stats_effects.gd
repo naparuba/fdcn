@@ -108,6 +108,54 @@ func test_le_rejeu_dhistorique_ignore_toujours_les_ressources() -> void:
 
 
 #
+#    Modificateur de gain (todo 3.4, review §4.5)
+#
+
+func test_pv_gain_majore_les_gains_suivants() -> void:
+	PlayerStats.apply_chapter_stat("pv_gain", 1)
+	PlayerStats.del_pv(5)
+	var depart = PlayerStats.get_pv()
+	PlayerStats.apply_chapter_stat("pv", 1)
+	assert_eq(PlayerStats.get_pv(), depart + 2, "gagner 1 pv en donne 2, le bonus PAYSAN de fdcn ch126")
+
+
+func test_chance_gain_suit_la_meme_mecanique() -> void:
+	PlayerStats.apply_chapter_stat("chance_gain", 2)
+	PlayerStats.del_chance(3)
+	var depart = PlayerStats.get_cha()
+	PlayerStats.apply_chapter_stat("chance", 1)
+	assert_eq(PlayerStats.get_cha(), depart + 3, "1 + le bonus de 2 = 3")
+
+
+func test_le_gain_ne_samortit_jamais_en_perte() -> void:
+	# Un bonus de gain ne doit pas amortir les dégâts : le garde porte sur le signe du
+	# delta, pas sur `pv_gain_bonus` lui-même.
+	PlayerStats.apply_chapter_stat("pv_gain", 1)
+	var plein = PlayerStats.get_pv()
+	PlayerStats.apply_chapter_stat("pv", -2)
+	assert_eq(PlayerStats.get_pv(), plein - 2, "une perte de 2 reste une perte de 2")
+
+
+func test_le_gain_ne_sapplique_jamais_sur_une_affectation() -> void:
+	# Sinon "pv au plein" (`= max`) dépasserait le plafond.
+	PlayerStats.apply_chapter_stat("pv_gain", 1)
+	PlayerStats.del_pv(3)
+	PlayerStats.apply_chapter_stat("pv", "= max")
+	assert_eq(PlayerStats.get_pv(), PlayerStats.get_pv_max(), "= max reste au plafond, jamais au-delà")
+
+
+func test_le_gain_est_remis_a_zero_par_le_rejeu() -> void:
+	# Comme `pv_max_bonus` : un bonus de chapitre ne doit pas survivre à un rejeu, sous
+	# peine de doubler encore le prochain gain à chaque rechargement.
+	PlayerStats.apply_chapter_stat("pv_gain", 1)
+	PlayerStats.reset_chapter_layer()
+	PlayerStats.del_pv(5)
+	var depart = PlayerStats.get_pv()
+	PlayerStats.apply_chapter_stat("pv", 1)
+	assert_eq(PlayerStats.get_pv(), depart + 1, "le bonus a disparu avec la couche chapitres")
+
+
+#
 #    Compteurs déclarés par le livre
 #
 

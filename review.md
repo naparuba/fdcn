@@ -361,12 +361,13 @@ livre source lui-même.
 une variable en dur de `PlayerStats` ; les quatre autres sont **déclarés par le livre**
 (§4.6), et la feuille de stats génère leurs lignes.
 
-### 4.3 Les « règles ponctuelles » : encore une vraie règle non codée (todo 3.4, 3.5)
+### 4.3 Les « règles ponctuelles » : encore une vraie règle non codée (todo 3.5)
 
 | clé | où | verdict |
 |---|---|---|
-| `pv_win_plus_1` | fdcn **ch126**, condition PAYSAN | 🟠 **vraie règle**, pas codée : « gagner 1 pv en donne 2 ». Les 3 autres types du même chapitre ont des bonus chiffrés, le PAYSAN un booléen — voir §4.5 |
 | `arc_et_couteau` | fdcn **ch284** | 🔴 **trou de saisie** dans le livre lui-même : l'effet déclaré est le nom de la condition recopié dans la case de l'effet, l'effet réel n'est écrit nulle part. Rien à faire côté moteur, la condition s'évalue déjà correctement |
+
+`pv_win_plus_1` (fdcn ch126, PAYSAN) est réglé ✅ le 2026-08-29 : voir §4.5.
 
 ### 4.4 Notation d'effet
 
@@ -386,20 +387,24 @@ Une chaîne sur toute autre clé que les ressources est signalée au lieu d'êtr
 additionnée. Les deux jetons possibles sont **`max`** (le plafond de la stat) et
 **`moi`** (sa valeur courante), éventuellement divisés par un entier.
 
-### 4.5 `pv_win_plus_1` est un modificateur de gain — todo 3.4
+### 4.5 `pv_gain` : le modificateur de gain ✅ fait (2026-08-29, todo 3.4)
 
 ```json
 "stats": { "pv_gain": 1 }     // chaque gain de pv est majoré de 1
 "stats": { "chance_gain": 1 } // même mécanique pour n'importe quelle ressource
 ```
 
-- un `_gain_bonus` par ressource, **dans la couche « chapitres »** : il vient d'un
-  chapitre, donc remis à zéro par `reset_chapter_layer()` et reconstruit par le rejeu,
-  exactement comme `pv_max_bonus` ;
-- à appliquer dans `add_pv()` / `add_chance()`, **uniquement sur un delta positif** — un
-  bonus de gain ne doit pas amortir les dégâts ;
-- **jamais sur une affectation** (`"= max"`), sinon « pv au plein » devient « au plein +
-  1 », donc au-dessus du plafond.
+`pv_gain_bonus`/`chance_gain_bonus` dans `PlayerStats`, un par ressource, **dans la couche
+« chapitres »** : posés par `apply_chapter_stat()`, remis à zéro par `reset_chapter_layer()`
+et reconstruits par le rejeu, exactement comme `pv_max_bonus`. Appliqués dans `add_pv()` /
+`add_chance()`, **uniquement sur un delta positif** (`if x > 0`) — un bonus de gain n'amortit
+pas les dégâts, qui passent par `del_pv()`/`del_chance()` ou un `add_pv(-N)` négatif. **Jamais
+sur une affectation** : `_apply_effect()` (`"= max"`) appelle le setter borné directement,
+jamais `add_pv()`, donc hérite du garde sans code dédié.
+
+fdcn ch126 s'écrit maintenant `"PAYSAN": {"pv_gain": 1}` au lieu de `pv_win_plus_1` — la
+donnée dit enfin ce qu'elle veut dire. Testé (`test_stats_effects.gd`) : le bonus double bien
+un gain de 1, ne s'applique ni à une perte ni à une affectation, et disparaît au rejeu.
 
 ### 4.6 La forme du vocabulaire — todo 3.5
 
@@ -414,9 +419,9 @@ additionnée. Les deux jetons possibles sont **`max`** (le plafond de la stat) e
 Pas de liste d'alias : les orthographes se corrigent à la source, les entretenir dans le
 moteur serait entretenir la faute.
 
-`ignorees` reste à raccorder : `PlayerStats._CHAPTER_UNMANAGED_KEYS` (`arc_et_couteau`,
-`pv_win_plus_1`) doit en sortir une fois §4.3/4.5 tranchés, pour que la déclaration vive
-dans le livre plutôt que dans le moteur.
+`ignorees` reste à raccorder : `PlayerStats._CHAPTER_UNMANAGED_KEYS` (`arc_et_couteau`
+seul, depuis que `pv_win_plus_1` en est sorti le 2026-08-29) doit en sortir une fois §4.3
+tranché, pour que la déclaration vive dans le livre plutôt que dans le moteur.
 
 ---
 
@@ -566,7 +571,6 @@ Numérotation **catégorie.rang**, reprise telle quelle dans `todo.md` en cases 
 
 | # | tag | action | réf |
 |---|---|---|---|
-| 3.4 | `[feature]` | **`pv_gain`** : modificateur de gain dans la couche chapitres, delta positif seulement, jamais sur une affectation | §4.5 |
 | 3.5 | `[refacto]` | **Compléter le vocabulaire par livre avec `ignorees`** — dépend de §4.3 | §4.6 |
 | 3.6 | `[refacto]` | **Réunir les 3 sorties calculées en une** — le poids est déjà réglé | §3.7 |
 | 3.8 | `[refacto]` | **Un seul fichier de tables par livre** (`<nom>.livre.json`), à champs nommés — **étape 2** | §3.7 |
