@@ -43,14 +43,13 @@ def load_json_file(file_name: str):
 
 def parse_args():
     parser = argparse.ArgumentParser(description="Compile all .json for the UI app")
-    parser.add_argument("--book", help=f"Nom du livre a compiler (le dossier books/<nom>/), ou son rang dans {REGISTRE}")
+    action = parser.add_mutually_exclusive_group(required=True)
+    action.add_argument("--book", help=f"Nom du livre a compiler (le dossier books/<nom>/), ou son rang dans {REGISTRE}")
+    action.add_argument("--nouveau", metavar="NOM",
+                         help="Cree scripts/src/<nom>/ (chapitre 1 valide) et l'entree dans %s, prets a compiler" % REGISTRE)
     parser.add_argument("--verbose", action="store_true",
                          help="Affiche la trace detaillee par noeud/arc/sous-arc, silencieuse par defaut")
-    args = parser.parse_args()
-    if args.book is None:
-        print('ERROR: Missing --book parameter')
-        sys.exit(2)
-    return args
+    return parser.parse_args()
 
 
 def resolve_book_name(book_arg: str, book_names: list) -> str:
@@ -66,6 +65,59 @@ def resolve_book_name(book_arg: str, book_names: list) -> str:
         print('ERROR: unknown book: %s. %s declares: %s' % (book_name, REGISTRE, ', '.join(book_names)))
         sys.exit(2)
     return book_name
+
+
+def creer_nouveau_livre(nom: str) -> None:
+    """Un livre neuf part de quelque chose qui COMPILE deja (todo 3.9), pas d'une page
+    blanche et de sept champs a deviner : un chapitre 1 qui est sa propre fin, le
+    `<nom>.livre.json` vide qui va avec, et l'entree dans le registre."""
+    registre = load_json_file(REGISTRE)
+    if any(livre['nom'] == nom for livre in registre['livres']):
+        print('ERROR: le livre %s existe deja dans %s' % (nom, REGISTRE))
+        sys.exit(2)
+
+    src_dir = f'scripts/src/{nom}'
+    if os.path.isdir(src_dir):
+        print('ERROR: %s existe deja' % src_dir)
+        sys.exit(2)
+    os.makedirs(src_dir)
+
+    chapitres = {
+        '1': {
+            'label': 'Premier chapitre',
+            'ending': 'good',
+            'ending_id': 'PREMIER-PAS',
+            'ending_txt': 'Votre histoire commence ici.',
+        }
+    }
+    with codecs.open(f'{src_dir}/{nom}.json', 'w', 'utf8') as f:
+        f.write(json.dumps(chapitres, indent=4, ensure_ascii=False, sort_keys=True))
+
+    # Vide plutot qu'absent : `ecrire_les_json()` fait `livre['objets']`/`livre['succes']`
+    # sans `.get()`, comme pour le chapitre 1 lui-meme -- un livre neuf n'a besoin
+    # d'aucun objet ni d'aucun succes pour compiler.
+    livre = {
+        'actes': [{'depart': 1, 'nom': 'Acte 1'}],
+        'sous_arcs': [],
+        'sous_arcs_manuels': {},
+        'objets': {},
+        'succes': [],
+        'compteurs': [],
+        'ignorees': [],
+    }
+    with codecs.open(f'{src_dir}/{nom}.livre.json', 'w', 'utf8') as f:
+        f.write(json.dumps(livre, indent=4, ensure_ascii=False, sort_keys=True))
+
+    # A la fin, jamais ailleurs : une sauvegarde d'avant 2026 range le livre courant par
+    # RANG dans cette liste (review §3.6 / books/README.md) -- s'insérer plus tot decalerait
+    # les livres suivants.
+    registre['livres'].append({'nom': nom, 'titre': nom})
+    with codecs.open(REGISTRE, 'w', 'utf8') as f:
+        f.write(json.dumps(registre, indent=4, ensure_ascii=False, sort_keys=False))
+
+    print('Livre %s cree : %s/, entree ajoutee a %s.' % (nom, src_dir, REGISTRE))
+    print('Reste : books/%s/img/, books/%s/audio/ (facultatifs), puis compiler avec '
+          'python3 scripts/generator.py --book %s' % (nom, nom, nom))
 
 
 def lire_les_noeuds(book_data: dict, node_graph: Graph) -> None:
@@ -400,6 +452,10 @@ def ecrire_les_json(book_name: str, data_dir: str, book_data: dict, livre: dict,
 def main():
     args = parse_args()
     logger.VERBOSE = args.verbose
+
+    if args.nouveau is not None:
+        creer_nouveau_livre(args.nouveau)
+        return
 
     # Le registre est la SEULE liste de livres du depot : le compilateur la lit comme l'app,
     # donc ajouter un livre ne demande de rouvrir ni ce fichier ni le moindre script Godot.

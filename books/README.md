@@ -18,11 +18,17 @@ s'ajoute donc **à la fin**, jamais au milieu.
 
 ## Ajouter un livre
 
+```bash
+python3 scripts/generator.py --nouveau <nom>   # scripts/src/<nom>/ + l'entrée dans books.json
+```
+
+Ça crée un chapitre 1 qui **compile déjà** (il est sa propre fin) plutôt que de partir
+d'une page blanche (todo 3.9). Ensuite :
+
 1. écrire le livre dans **`scripts/src/<nom>/`** : les chapitres, les actes, les sous-arcs,
    les objets, les succès et les compteurs — **tout ce qui s'écrit à la main est là** ;
-2. créer `books/<nom>/` avec ses images et ses sons (`img/`, `audio/`) ;
-3. ajouter son bloc à la fin de `books.json` ;
-4. compiler : `python3 scripts/generator.py --book <nom>`, qui remplit `books/<nom>/data/`.
+2. créer `books/<nom>/` avec ses images et ses sons (`img/`, `audio/`), facultatifs ;
+3. compiler : `python3 scripts/generator.py --book <nom>`, qui remplit `books/<nom>/data/`.
 
 Rien d'autre. Aucun script ni aucune scène à rouvrir.
 

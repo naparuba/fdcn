@@ -319,12 +319,15 @@ levait après l'écriture de `-compilated-data.json`).
 la clé `chapters` maintenant. `test_book_data.gd` le garde — un chapitre dépouillé, ses
 16 valeurs neutres vérifiées une par une.
 
-#### Étape 4 — un squelette qui compile (todo 3.9)
+#### Étape 4 — un squelette qui compile ✅ fait (2026-08-29, todo 3.9)
 
-`python3 scripts/generator.py --nouveau <nom>` créerait le dossier, les deux fichiers à la
-main (`<nom>.json`, `<nom>.livre.json` — todo 3.8, fait) avec un chapitre 1 valide, et
-l'entrée dans `books/books.json`. Ajouter un livre commencerait par quelque chose qui
-**compile déjà**, au lieu d'une page blanche et de sept champs à deviner.
+`python3 scripts/generator.py --nouveau <nom>` crée `scripts/src/<nom>/` (`<nom>.json` avec
+un chapitre 1 qui est sa propre fin, `<nom>.livre.json` vide) et ajoute l'entrée à la fin de
+`books/books.json`. **Ne compile pas** — enchaîner avec `--book <nom>`, testé (compile
+proprement, aucun diff sur fdcn/cdsi après). Refuse un nom déjà pris dans le registre ou un
+dossier `scripts/src/<nom>/` déjà là, plutôt que d'écraser. Ajouter un livre commence donc
+par quelque chose qui **compile déjà**, au lieu d'une page blanche et de sept champs à
+deviner.
 
 #### Où vit quoi
 
@@ -580,7 +583,6 @@ Numérotation **catégorie.rang**, reprise telle quelle dans `todo.md` en cases 
 
 | # | tag | action | réf |
 |---|---|---|---|
-| 3.9 | `[feature]` | **Squelette de livre** (`--nouveau <nom>`) — **étape 4** | §3.7 |
 | 3.13 | `[refacto]` | **Le pipeline visé `src/` → `gen/` → `books/`** : moitié faite, reste à écrire dans `gen/` puis copier vers `books/`, et trancher si `gen/` est commité | §3.7 |
 
 ### 8 — Tests

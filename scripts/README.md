@@ -34,10 +34,10 @@ fantôme ou un `goto` dans le vide est attrapé — l'app, elle, fait confiance.
 Il se lance **à la main**, après chaque modification d'un `.json` de livre. Rien ne
 l'appelle : ni Godot, ni un hook git.
 
-⚠️ **Il ne valide pas tout, loin de là** : une clé de chapitre qu'il ne connaît pas est
-recopiée sans un mot, et une clé de stat inconnue passe jusqu'à l'app. C'est l'étape 1 du
-plan de simplification (`todo.md` 3.2), et c'est ce qui a laissé passer quatre fautes
-silencieuses jusqu'ici.
+✅ **Depuis le 2026-08-29 (todo 3.2)**, une clé de chapitre qu'il ne connaît pas ou une clé
+de stat hors vocabulaire refusent la compilation en code 2 plutôt que d'être recopiées sans
+un mot — c'était l'étape 1 du plan de simplification, et ce qui avait laissé passer quatre
+fautes silencieuses (voir « Les refus » plus bas).
 
 ## Lancer
 
@@ -52,7 +52,8 @@ python3 scripts/generator.py --book cdsi
 | Dépendances | **aucune obligatoire.** `pip install -r scripts/requirements.txt` + le binaire `dot` ajoutent le PNG |
 | Répertoire courant | **la racine du dépôt** — `books/books.json`, `books/<nom>/…` et `scripts/graph/` sont écrits en relatif |
 | `--book` | le **nom** du dossier (`cdsi`), ou son **rang** dans `books/books.json` (`1`, `2`) — le rang ne survit qu'à la rétro-compatibilité |
-| Code de sortie | `0` = compilé ; `2` = refusé, avec un `ERROR:` en clair |
+| `--nouveau NOM` | crée `scripts/src/NOM/` avec un chapitre 1 valide et ajoute `NOM` à la fin de `books/books.json` — **ne compile pas**, enchaîner avec `--book NOM` (todo 3.9, 2026-08-29) |
+| Code de sortie | `0` = compilé (ou livre créé) ; `2` = refusé, avec un `ERROR:` en clair |
 
 Sans graphviz le script le dit et continue : les `.json` du jeu sont compilés, seul le PNG
 manque. Refuser de compiler les données du jeu faute d'une dépendance de confort serait le

@@ -71,9 +71,11 @@ nommés — un sous-arc est maintenant `{"acte", "depart", "nom", "fins"}`, plus
 positionnel. L'acte n'a **pas** été déplacé dans le chapitre (8 lignes couvrent toujours
 606 chapitres par propagation). `books/README.md`/`scripts/README.md` mis à jour.
 
-- [ ] **3.9** **Squelette de livre** : `--nouveau <nom>` crée le dossier, deux fichiers
-      valides et l'entrée du registre — un livre neuf part de quelque chose **qui compile**.
-      → review §3.7
+✅ **3.9 fait (2026-08-29)** — `--nouveau <nom>` crée `scripts/src/<nom>/` (chapitre 1 qui
+est sa propre fin, `<nom>.livre.json` vide) et ajoute l'entrée à la fin du registre. Ne
+compile pas — enchaîner avec `--book <nom>`. Refuse un nom déjà pris ou un dossier déjà là.
+Testé avec un livre jetable : crée, compile, recompile fdcn/cdsi sans diff.
+
 - [ ] **3.13** **Le pipeline visé : `src/` → `gen/` → `books/`.** La moitié est faite
       (tout ce qui s'écrit à la main est dans `scripts/src/<nom>/`, et le compilateur y
       recopie les objets et succès vers `books/`). Reste à écrire :
