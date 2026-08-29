@@ -59,4 +59,6 @@ func set_arc(arc_name, pct100_sub_arc: int) -> void:
 
 
 func set_chapter_number(node_id) -> void:
-	_numero_chapitre.text = '%s' % node_id
+	# int() : le JSON rend les identifiants en float, et `'%s' % 1.0` afficherait "1.0" au
+	# lieu de "1" (voir ChapterChoice.gd:set_chapitre).
+	_numero_chapitre.text = '%s' % int(node_id)

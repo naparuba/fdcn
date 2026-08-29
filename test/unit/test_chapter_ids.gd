@@ -77,3 +77,15 @@ func test_chapter_choice_stocke_un_entier() -> void:
 	assert_eq(typeof(choice.chap_number), TYPE_INT, "chap_number est un entier")
 	assert_eq(choice.get_chapter_id(), 26, "valeur conservée")
 	choice.free()  # immédiat, pas différé : voir la note du test précédent
+
+
+## `Chapter.get_id()` (chapter_data.gd) rend un float, comme tout ce qui vient du json.
+## `set_chapter_number()` ne le convertissait pas avant de le formater : `'%s' % 1.0`
+## affiche "1.0", pas "1" — trouvé en vérifiant que le générateur et l'app restent
+## d'accord (2026-08-29).
+func test_position_affiche_un_entier() -> void:
+	var position = preload("res://screens/aventure_menu/Position.tscn").instantiate()
+	Engine.get_main_loop().root.add_child(position)
+	position.set_chapter_number(26.0)
+	assert_eq(position._numero_chapitre.text, "26", "pas de \".0\" affiché")
+	position.free()
