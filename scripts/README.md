@@ -1,18 +1,28 @@
 # scripts/ — le compilateur de livre
 
 **Tout ce qui s'écrit à la main est dans `scripts/src/<nom>/`. Point.** L'app Godot n'y lit
-jamais rien : `scripts/` porte un `.gdignore`, elle ne voit même pas le dossier. Elle lit ce
-que le générateur dépose dans `books/<nom>/data/`.
+jamais rien : `scripts/` porte un `.gdignore`, elle ne voit même pas le dossier dans
+l'éditeur. Elle lit ce que le générateur dépose dans `books/<nom>/data/`.
 
 ```
-scripts/src/<nom>/          ──►   generator.py --book <nom>   ──►   books/<nom>/data/
-  <nom>.json                                                          <nom>-compilated.json
-  <nom>.livre.json                                                    scripts/graph/*.png
+scripts/src/<nom>/      ──►   scripts/gen/<nom>/data/   ──►   books/<nom>/data/
+  <nom>.json                    <nom>-compilated.json          <nom>-compilated.json
+  <nom>.livre.json               (gitignore, jetable)           (commité, LIVRÉ)
+                          generator.py --book <nom>, en deux étapes (todo 3.13) :
+                          GÉNÉRATION puis LIVRAISON — chacune vérifiable séparément.
 ```
 
 `books/<nom>/data/` est donc une **sortie**, à ne pas éditer : la prochaine compilation
 l'écrase — plus aucune exception depuis que `compteurs.json` a rejoint `<nom>.livre.json`
 (todo 3.8, 2026-08-29).
+
+⚠️ **`.gdignore` ne protège que l'éditeur, pas l'export.** Les 4 presets
+d'`export_presets.cfg` embarquaient `scripts/src/<nom>/*.json` malgré lui : leur
+`include_filter="*.json, …"` est un glob qui matche n'importe quel `.json` du dépôt,
+`.gdignore` ou pas — objets et succès partaient donc deux fois dans l'APK, une fois écrits
+à la main, une fois compilés. `exclude_filter="scripts/*"` (todo 3.13, 2026-08-29) retire
+tout le dossier, `gen/` compris. **Non vérifié par un vrai export** dans cet environnement
+(pas de SDK Android/templates ici) — à confirmer par un build avant la prochaine sortie.
 
 ⚠️ **La distinction qui compte : écrit à la main, ou généré.** Deux fichiers *édités* au
 même titre finissent toujours par diverger — c'est ce que faisaient
@@ -292,9 +302,11 @@ Les points de contact à ne pas oublier, selon ce qu'on touche :
 | touchez à `condition_node.py` | vérifier contre `BookData._check_cond_rec()` : les deux moitiés du même langage, dans deux langages différents. Trois opérateurs, et trois seulement |
 | ajoutez une validation | n'importe où avant la fin de `ecrire_les_json()` : une seule écriture, à la fin, depuis le 2026-08-29 (todo 3.6) — plus besoin de doser son emplacement |
 | modifiez l'ordre d'`actes` dans `<nom>.livre.json` | c'est un **redécoupage du livre**, pas un détail de présentation (voir plus haut) |
+| ajoutez un fichier sous `scripts/` qui ne doit **jamais** partir dans l'APK | rien à faire : `exclude_filter="scripts/*"` (`export_presets.cfg`, todo 3.13) couvre tout le dossier. Vérifier après un vrai export si vous touchez ce filtre lui-même |
 
-Après toute modification : **recompiler les deux livres** et lire le `git diff` des
-`-compilated-*.json`. C'est la seule vérification qui existe — il n'y a pas de test.
+Après toute modification : **recompiler les deux livres** et lire le `git diff` de
+`books/<nom>/data/<nom>-compilated.json`. C'est la seule vérification qui existe — il n'y a
+pas de test.
 
 ### Dette connue
 

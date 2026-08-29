@@ -76,18 +76,17 @@ est sa propre fin, `<nom>.livre.json` vide) et ajoute l'entrée à la fin du reg
 compile pas — enchaîner avec `--book <nom>`. Refuse un nom déjà pris ou un dossier déjà là.
 Testé avec un livre jetable : crée, compile, recompile fdcn/cdsi sans diff.
 
-- [ ] **3.13** **Le pipeline visé : `src/` → `gen/` → `books/`.** La moitié est faite
-      (tout ce qui s'écrit à la main est dans `scripts/src/<nom>/`, et le compilateur y
-      recopie les objets et succès vers `books/`). Reste à écrire :
-      - le compilateur **produit dans `scripts/gen/<nom>/data/`**, puis **copie** vers
-        `books/<nom>/data/` — une étape de génération, une étape de livraison, chacune
-        vérifiable séparément ;
-      - `books/<nom>/data/` devient **entièrement généré**, donc jetable et regénérable ;
-      - ⚠️ à décider en même temps : `gen/` est-il commité, ou seulement `books/` ? Deux
-        copies commitées du même contenu se contrediraient à la première compilation
-        oubliée. Avis : `gen/` dans le `.gitignore`, `books/` commité — c'est lui que
-        l'app embarque.
-      → review §3.7
+✅ **3.13 fait (2026-08-29)** — le compilateur produit dans `scripts/gen/<nom>/data/`
+(gitignore, jetable) puis livre une copie dans `books/<nom>/data/` (commité, c'est lui que
+l'app lit) : deux étapes, chacune vérifiable séparément. Trouvé au passage : le vrai
+problème n'était pas qu'un doublon de dépôt, `.gdignore` ne protégeant que l'éditeur —
+`export_presets.cfg` embarquait `scripts/src/<nom>/*.json` dans l'APK malgré lui
+(`include_filter="*.json"` sur les 4 presets). Fixé par `exclude_filter="scripts/*"`.
+
+- [ ] **Vérifier par un vrai export** que `exclude_filter="scripts/*"` fonctionne comme
+      attendu (taille de l'APK en baisse, ou inspection de son contenu) — pas de SDK
+      Android/templates dans l'environnement qui a fait ce changement, donc **non testé en
+      conditions réelles**. → review §7
 
 ## 8 — Tests, angles morts
 

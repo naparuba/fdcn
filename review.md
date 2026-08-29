@@ -329,22 +329,28 @@ dossier `scripts/src/<nom>/` déjà là, plutôt que d'écraser. Ajouter un livr
 par quelque chose qui **compile déjà**, au lieu d'une page blanche et de sept champs à
 deviner.
 
-#### Où vit quoi
+#### Où vit quoi ✅ pipeline fait (2026-08-29, todo 3.13)
 
 | | contenu | statut |
 |---|---|---|
-| `scripts/src/<nom>/` | **tout ce qui s'écrit à la main** : `<nom>.json` (chapitres) + `<nom>.livre.json` (actes, sous-arcs, objets, succès, compteurs, ignorées — todo 3.8) | la **source**, unique, hors de l'APK |
-| `books/<nom>/data/` | `<nom>-compilated.json`, 7 clés (3 calculées + 4 recopiées — todo 3.6, 3.8) | une **sortie**, regénérable, à ne pas éditer |
+| `scripts/src/<nom>/` | **tout ce qui s'écrit à la main** : `<nom>.json` (chapitres) + `<nom>.livre.json` (actes, sous-arcs, objets, succès, compteurs, ignorées — todo 3.8) | la **source**, unique |
+| `scripts/gen/<nom>/data/` | `<nom>-compilated.json`, produit par la **génération** | jetable, **gitignore** — une recompilation le refait à l'identique |
+| `books/<nom>/data/` | la même chose, déposée par la **livraison** (copie depuis `gen/`) | commité, **c'est lui que l'app lit et que l'export embarque** |
 
 La distinction n'est pas « une fois chacun » mais **« édité, ou généré »**. Les objets et
-les succès existent des deux côtés : l'app les lit et ne peut pas aller les chercher dans
-`scripts/`, que Godot ignore — le compilateur les y dépose. Une copie générée ne diverge
-pas, elle se refait ; deux fichiers *édités* au même titre, si.
+les succès existent des deux côtés (source et compilé) : l'app les lit et ne peut pas aller
+les chercher dans `scripts/`, que Godot ignore **dans l'éditeur** — le compilateur les y
+dépose. Une copie générée ne diverge pas, elle se refait ; deux fichiers *édités* au même
+titre, si.
 
-Reste un doublon **non résolu** (todo 3.13, pipeline `src/` → `gen/` → `books/`) :
-`objets`/`succes` de `<nom>.livre.json` sont intégralement contenus dans le fichier compilé
-qui les enrichit, et pourtant les deux partent dans l'APK — avec le livre source
-lui-même.
+Le doublon qui restait non résolu était pire qu'un simple doublon de dépôt : `.gdignore` ne
+protège que l'éditeur, pas l'export. Les 4 presets d'`export_presets.cfg` ont un
+`include_filter="*.json, …"` qui matche n'importe quel `.json` du projet — `scripts/src/`
+et, depuis cette étape, `scripts/gen/` y compris. Sans un `exclude_filter` dédié,
+`scripts/src/<nom>/*.json` partait donc réellement en double dans l'APK. Fixé par
+`exclude_filter="scripts/*"` sur les 4 presets. ⚠️ **Non vérifié par un vrai export** (pas de
+SDK Android/templates dans cet environnement) — à confirmer par un build avant la prochaine
+sortie.
 
 #### Ce qu'il ne faut PAS toucher
 
@@ -530,7 +536,11 @@ serait un changement de comportement, pas une simplification.
 
 ## 7. Bugs et risques ouverts
 
-Aucun connu à ce jour — voir `git log` pour l'historique de ce qui a été trouvé et réglé.
+| | gravité | quoi |
+|---|---|---|
+| — | 🟡 | `export_presets.cfg` porte `exclude_filter="scripts/*"` depuis le 2026-08-29 (todo 3.13, §3.7) pour que `scripts/src/<nom>/*.json` n'aille plus en double dans l'APK. **Jamais vérifié par un vrai export** — pas de SDK Android/templates dans l'environnement qui a fait ce changement. À confirmer par un build (taille de l'APK, ou inspection de son contenu) avant la prochaine sortie |
+
+Sinon, rien de connu — voir `git log` pour l'historique de ce qui a été trouvé et réglé.
 
 ---
 
@@ -578,12 +588,6 @@ Numérotation **catégorie.rang**, reprise telle quelle dans `todo.md` en cases 
 | # | tag | action | réf |
 |---|---|---|---|
 | 2.3 | `[test]` | **Vérifier sur un téléphone** : le transport Android passe par le Storage Access Framework, sans aucune permission. Seul le comportement du chemin rendu par le système reste à constater | §5.3 |
-
-### 3 — Données de livre
-
-| # | tag | action | réf |
-|---|---|---|---|
-| 3.13 | `[refacto]` | **Le pipeline visé `src/` → `gen/` → `books/`** : moitié faite, reste à écrire dans `gen/` puis copier vers `books/`, et trancher si `gen/` est commité | §3.7 |
 
 ### 8 — Tests
 

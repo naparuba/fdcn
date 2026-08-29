@@ -5,6 +5,10 @@
 # Export/build output
 /builds/
 
+# Sortie intermediaire du compilateur de livre, jetable et regenerable
+# (scripts/README.md, todo 3.13) -- books/<nom>/data/ est la copie livree, commitee.
+scripts/gen/
+
 # IDE
 .idea/
 .vscode/

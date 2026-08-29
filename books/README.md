@@ -165,16 +165,19 @@ Plus rien d'autre : `compteurs.json` a quitté ce dossier le 2026-08-29 (todo 3.
 bas.
 
 ⚠️ **Ce dossier est une sortie, pas une source.** Tout ce qu'il contient est produit ou
-recopié par `python3 scripts/generator.py --book <nom>`, à partir de `scripts/src/<nom>/`. Les
-objets et les succès y sont **recopiés tels quels** — ils s'écrivent à la main, mais l'app
-ne peut pas aller les lire dans `scripts/`, que Godot ignore. **Ne rien éditer ici** : la
-prochaine compilation l'écraserait.
+recopié par `python3 scripts/generator.py --book <nom>`, à partir de
+`scripts/src/<nom>/` en passant par `scripts/gen/<nom>/data/` (jetable, gitignore — todo
+3.13). Les objets et les succès y sont **recopiés tels quels** — ils s'écrivent à la main,
+mais l'app ne peut pas aller les lire dans `scripts/`, que Godot ignore **dans l'éditeur
+seulement**. **Ne rien éditer ici** : la prochaine compilation l'écraserait.
 
 ⚠️ **Le livre lui-même n'est plus ici.** Chapitres, actes, sous-arcs, objets et succès
 s'écrivent dans **`scripts/src/<nom>/`** depuis le 2026-08-13. Les objets et les succès
-reviennent ici **par copie**, parce que l'app les lit et ne peut pas ouvrir `scripts/`, que
-Godot ignore ; les autres n'ont jamais servi qu'à compiler et partaient dans l'APK pour
-rien.
+reviennent ici **par copie**, parce que l'app les lit et ne peut pas ouvrir `scripts/` ; les
+autres n'ont jamais servi qu'à compiler. `.gdignore`, lui, ne protège que l'éditeur : sans
+`exclude_filter="scripts/*"` dans `export_presets.cfg` (todo 3.13, 2026-08-29),
+`scripts/src/<nom>/*.json` partait quand même dans l'APK, en double de ce dossier-ci — le
+`include_filter="*.json"` des 4 presets ne regarde pas `.gdignore`.
 
 ⚠️ **Une entrée compilée ne porte que ce qui n'est pas neutre.** Un chapitre sans combat n'a
 pas de clé `combat`, un chapitre sans objet pas d'`aquire` :
@@ -232,6 +235,19 @@ la main » plus haut. Le compilateur les recopie dans `<nom>-compilated.json`
 des chapitres. **`richesse` n'y figure pas** : commune à tous les livres, elle est câblée
 dans `PlayerStats`. Une clé de stat qui n'est ni connue du moteur ni déclarée ici est
 refusée à la compilation (todo 3.2) — c'est ce qui sépare `rancune` de `critique`.
+
+### Et encore le 2026-08-29 (todo 3.13)
+
+Deux changements, un dans le compilateur et un dans l'export :
+
+- `python3 scripts/generator.py --book <nom>` **génère** maintenant dans
+  `scripts/gen/<nom>/data/` (gitignore, jetable) avant de **livrer** une copie dans
+  `books/<nom>/data/` (commité) — deux étapes, chacune vérifiable seule ;
+- `export_presets.cfg` (les 4 presets) porte maintenant `exclude_filter="scripts/*"` : sans
+  lui, `scripts/src/<nom>/*.json` partait dans l'APK malgré `.gdignore`, qui ne protège que
+  l'éditeur — le `include_filter="*.json"` de l'export ne le regarde pas. ⚠️ **Non vérifié
+  par un vrai export** (pas de SDK Android dans cet environnement) : à confirmer par un
+  build avant la prochaine sortie.
 
 ### Les fins
 

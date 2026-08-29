@@ -355,13 +355,17 @@ def _verifier_les_secrets(node_graph: Graph, reverse_jumps: dict) -> None:
         logger.info('%s%3d <- %s' % (prefix, node_id, ', '.join(['%s' % i for i in froms])))
 
 
-def ecrire_les_json(book_name: str, data_dir: str, book_data: dict, livre: dict, node_graph: Graph,
+def ecrire_les_json(book_name: str, gen_dir: str, book_data: dict, livre: dict, node_graph: Graph,
                      display_graph) -> None:
     """Valide les donnees calculees puis ecrit tout ce que l'app ouvre, en UN SEUL fichier
     (todo 3.6) : les chapitres a plat, les deux tables recopiees telles quelles, et les deux
     index generes pour l'UI. Rien n'est ecrit avant que toutes les validations passent --
     contrairement aux 5 fichiers d'avant, une compilation refusee ne laisse plus le dossier
-    de sortie a moitie a jour."""
+    de sortie a moitie a jour.
+
+    Ecrit dans `gen_dir` (`scripts/gen/<nom>/data/`, todo 3.13), pas encore dans
+    `books/<nom>/data/` : `livrer()` fait la copie, separement -- deux etapes, chacune
+    verifiable seule."""
     logger.info('Conditions parsing:')
     for node_id_str in book_data.keys():
         node = node_graph.get_node(int(node_id_str))
@@ -439,14 +443,27 @@ def ecrire_les_json(book_name: str, data_dir: str, book_data: dict, livre: dict,
         'counters': livre.get('compteurs', []),
         'ignored': livre.get('ignorees', []),
     }
-    with codecs.open(f'{data_dir}/{book_name}-compilated.json', 'w', 'utf8') as f:
+    with codecs.open(f'{gen_dir}/{book_name}-compilated.json', 'w', 'utf8') as f:
         f.write(json.dumps(compiled, indent=4, ensure_ascii=False, sort_keys=True))
-    logger.info(' - %s-compilated.json = OK' % book_name)
+    logger.info(' - %s-compilated.json = OK (dans %s)' % (book_name, gen_dir))
 
     # Windows need too many deps, like dot.exe, so skip on it
     if os.name != 'nt':
         logger.info('Rendering')
         display_graph.render()
+
+
+def livrer(book_name: str, gen_dir: str, data_dir: str) -> None:
+    """Etape de LIVRAISON, separee de la generation (todo 3.13) : copie le fichier compile
+    de `gen_dir` (jetable, gitignore) vers `data_dir` (`books/<nom>/data/`, commite -- c'est
+    lui que l'app lit et que l'export embarque). Chacune des deux etapes se verifie a part :
+    `git diff books/` ne bouge que si la LIVRAISON a change quelque chose, un `diff` entre
+    `gen/` et `books/` verifie qu'elle n'a rien transforme au passage."""
+    with codecs.open(f'{gen_dir}/{book_name}-compilated.json', 'r', 'utf8') as source:
+        contenu = source.read()
+    with codecs.open(f'{data_dir}/{book_name}-compilated.json', 'w', 'utf8') as destination:
+        destination.write(contenu)
+    logger.info(' - %s-compilated.json = LIVRE (dans %s)' % (book_name, data_dir))
 
 
 def main():
@@ -466,22 +483,24 @@ def main():
 
     display_graph = new_display_graph(book_name)
 
-    # DEUX dossiers, et la separation est nette :
+    # TROIS dossiers, et la separation est nette :
     #
-    #   scripts/src/<nom>/   ce qu'un humain ECRIT, et que l'app n'ouvre jamais : le livre et
-    #                        son decoupage en actes. `scripts/` porte un `.gdignore`, donc rien
-    #                        de tout ca ne part dans l'application.
-    #   books/<nom>/data/    ce que l'app LIT : les sorties compilees, plus les objets et les
-    #                        succes -- ecrits a la main mais completes au chargement par
-    #                        `BookData`, donc de vrais fichiers d'application.
+    #   scripts/src/<nom>/     ce qu'un humain ECRIT : le livre et son decoupage en actes.
+    #   scripts/gen/<nom>/data/  ce que la GENERATION produit -- gitignore (todo 3.13),
+    #                        jetable, regenerable a tout instant par une recompilation.
+    #   books/<nom>/data/    ce que la LIVRAISON depose, commite -- c'est lui que l'app LIT
+    #                        et que l'export embarque (`export_presets.cfg`, `exclude_filter`
+    #                        retire `scripts/*` : ni `src/` ni `gen/` ne partent dans l'APK).
     #
     # Voir books/README.md et l'entete de ce README.
     src_dir = f'scripts/src/{book_name}'
-    book_dir = f'books/{book_name}'
-    data_dir = f'{book_dir}/data'
+    gen_dir = f'scripts/gen/{book_name}/data'
+    data_dir = f'books/{book_name}/data'
 
-    # Cree AVANT la premiere ecriture : un livre neuf n'a pas encore de dossier de sortie, et
-    # echouer au milieu du travail serait le pire moment.
+    # Crees AVANT la premiere ecriture : un livre neuf n'a ni l'un ni l'autre, et echouer au
+    # milieu du travail serait le pire moment.
+    if not os.path.isdir(gen_dir):
+        os.makedirs(gen_dir)
     if not os.path.isdir(data_dir):
         os.makedirs(data_dir)
 
@@ -502,7 +521,10 @@ def main():
     construire_le_graphe(node_graph, display_graph, arcs)
 
     print('Writing compilated data')
-    ecrire_les_json(book_name, data_dir, book_data, livre, node_graph, display_graph)
+    ecrire_les_json(book_name, gen_dir, book_data, livre, node_graph, display_graph)
+
+    print('Delivering to books/')
+    livrer(book_name, gen_dir, data_dir)
 
     print('Finish')
 
