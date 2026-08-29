@@ -3,15 +3,15 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://ca4iibdspc208"
-path="res://.godot/imported/mutra.jpg-cbccc86be0b6d1dec7dcf74f60d9b1e8.ctex"
+path="res://.godot/imported/mutra.jpg-5c448f3f959b7f2dd867c5d6ee5faf97.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://images/dieux/1/mutra.jpg"
-dest_files=["res://.godot/imported/mutra.jpg-cbccc86be0b6d1dec7dcf74f60d9b1e8.ctex"]
+source_file="res://images/dieux/fdcn/mutra.jpg"
+dest_files=["res://.godot/imported/mutra.jpg-5c448f3f959b7f2dd867c5d6ee5faf97.ctex"]
 
 [params]
 

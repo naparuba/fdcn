@@ -3,15 +3,15 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://ceggrxxa3ps8u"
-path="res://.godot/imported/iotos.jpg-4171e4b5812f4c56aeadd51c72bc0c4b.ctex"
+path="res://.godot/imported/iotos.jpg-c5c66a16488abb61ef45bdda8f14b90d.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://images/dieux/2/iotos.jpg"
-dest_files=["res://.godot/imported/iotos.jpg-4171e4b5812f4c56aeadd51c72bc0c4b.ctex"]
+source_file="res://images/dieux/cdsi/iotos.jpg"
+dest_files=["res://.godot/imported/iotos.jpg-c5c66a16488abb61ef45bdda8f14b90d.ctex"]
 
 [params]
 

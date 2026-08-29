@@ -3,15 +3,15 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://swlmio2scptm"
-path="res://.godot/imported/nyses.jpg-cbf7e14db934cfe687b8b41532641f1a.ctex"
+path="res://.godot/imported/nyses.jpg-8a43330d41d6af427504566c62423ea6.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://images/dieux/1/nyses.jpg"
-dest_files=["res://.godot/imported/nyses.jpg-cbf7e14db934cfe687b8b41532641f1a.ctex"]
+source_file="res://images/dieux/fdcn/nyses.jpg"
+dest_files=["res://.godot/imported/nyses.jpg-8a43330d41d6af427504566c62423ea6.ctex"]
 
 [params]
 

@@ -1,7 +1,7 @@
 import sys
 
 import logger
-from condition_node import ConditionNodeFactory
+from condition_node import ConditionNodeFactory, MalformedExpressionError
 
 class Node(object):
     def __init__(self, nid):
@@ -196,7 +196,11 @@ class Node(object):
                 print('[%s] The condition: %s is not in our sons %s' % (self.get_id(), k, ', '.join(sons_ids)))
                 sys.exit(2)
             facto = ConditionNodeFactory()
-            _condition = facto.parse_expr(expr)
+            try:
+                _condition = facto.parse_expr(expr)
+            except MalformedExpressionError as e:
+                print('ERROR: node %s, jump condition to %s: %s' % (self._id, k, e))
+                sys.exit(2)
             self._conditions_objs[k] = _condition
             r_tree[k] = _condition.to_json()
             r_txt[k] = expr.replace('(', '( ').replace(')', ' )').replace('&', ' et ').replace('|', ' ou ').strip()
@@ -244,7 +248,11 @@ class Node(object):
         r_objs = []
         for (expr, stats) in self._stats_cond_raw.items():
             facto = ConditionNodeFactory()
-            _condition = facto.parse_expr(expr)
+            try:
+                _condition = facto.parse_expr(expr)
+            except MalformedExpressionError as e:
+                print('ERROR: node %s, stats_cond %s: %s' % (self._id, expr, e))
+                sys.exit(2)
             j = _condition.to_json()
             txt = expr.replace('(', '( ').replace(')', ' )').replace('&', ' et ').replace('|', ' ou ').strip()
             r_lst.append({'condition': j, 'stats': stats, 'txt': txt})

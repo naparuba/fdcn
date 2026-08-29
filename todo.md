@@ -14,9 +14,13 @@ Suite de tests, à ne lancer que sur demande :
 ~/_Projects/godot/Godot_v4.7.1-stable_linux.x86_64 --headless -s test/all.gd --path .
 ```
 
-⚠️ **La suite n'a pas tourné depuis un moment** et le lanceur est devenu asynchrone
-(`await`) entre-temps : un passage complet est dû avant de continuer, surtout après le
-lot de nettoyage GDScript du 2026-08-23 (`review.md` §8).
+✅ **Suite relancée le 2026-08-29 : 760/760.** Le lanceur avait un vrai bug (`_appeler()`
+coupait "appeler" et "attendre" en deux lignes, ce que Godot 4 ne supporte pas pour un appel
+dynamique — corrigé). Deux bugs applicatifs trouvés au passage et corrigés : `BookData`/
+`chapter_data.gd` comparaient des identifiants JSON (`float`) à des listes d'entiers
+(`26.0 in [26]` vaut faux), ce qui pouvait geler une barre de progression d'acte à 0 % même
+visité — `get_acte_completion()`/`get_sons()`/`get_secret_jumps()` castent maintenant en
+`int()`.
 
 ⚠️ **Contrat à ne pas casser** : `Node.NEUTRES` (générateur) et les `.get(clé, défaut)` de
 `entities/chapter_data.gd` (app) doivent lister les **mêmes clés avec les mêmes valeurs**.
@@ -38,18 +42,14 @@ Une clé absente veut dire « rien à signaler ». `test_book_data.gd` le vérif
 
 ## 3 — Données de livre
 
-**Plan d'ensemble : review §3.7.** Les lignes ci-dessous sont ses étapes, dans l'ordre —
-la 3.2 d'abord, parce que c'est elle qui rend les suivantes sûres.
+**Plan d'ensemble : review §3.7.** Les lignes ci-dessous sont ses étapes, dans l'ordre.
 
-- [ ] **3.2** **Le générateur doit refuser ce qu'il ne comprend pas** — étape 1 du plan,
-      aucun changement de format :
-      - **clé de chapitre inconnue** → erreur (aurait attrapé le `cond` de cdsi) ;
-      - **clé de stat hors vocabulaire** → erreur : il les collecte et les **imprime déjà**,
-        il manque la liste de référence et un `sys.exit(2)` (aurait attrapé `critique`) ;
-      - **`success` inconnu** → erreur au lieu d'une trace Python ;
-      - **expression malformée** → message, au lieu du code 2 muet ;
-      - **`&` et `|` mélangés sans parenthèses** → refus, au lieu d'un arbre faux en silence.
-      → review §3.7
+✅ **3.2 fait (2026-08-29)** — étape 1 du plan, le générateur refuse maintenant ce qu'il ne
+comprend pas : clé de chapitre inconnue, clé de stat hors vocabulaire, `success` inconnu,
+expression malformée, `&`/`|` mélangés sans parenthèses. Les 4 fautes réelles du tableau
+§3.7 sont vérifiées rejetées (testé en les réinjectant une par une) ; les deux livres
+recompilent à l'identique (aucun diff dans `books/`). Détail dans `git log`.
+
 - [ ] **3.4** **`pv_gain`** : modificateur de gain dans la couche chapitres, **delta positif
       seulement** (un bonus de gain ne doit pas amortir les dégâts) et **jamais sur une
       affectation** (sinon « pv au plein » dépasse le plafond). → review §4.5

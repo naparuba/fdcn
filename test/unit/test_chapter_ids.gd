@@ -48,19 +48,25 @@ func test_did_billy_seen_accepte_un_float() -> void:
 func test_success_item_stocke_un_entier() -> void:
 	var item = preload("res://entities/SuccessItem.tscn").instantiate()
 	Engine.get_main_loop().root.add_child(item)
+	# fdcn 26 donne POLIR-LANCE : `update()` doit le reconnaître comme déjà obtenu.
+	item.set_success_id("POLIR-LANCE")
 	item.set_chapitre(26.0)
 	assert_eq(typeof(item.chap_number), TYPE_INT, "chap_number est un entier")
 	assert_eq(item.chap_number, 26, "valeur conservée")
 	item.update()
 	assert_true(item._get_polygon.color.is_equal_approx(Color('00c2aa')),
 		"le ruban est vert pour un succès acquis")
+	# `free()` et non `queue_free()` : celui-ci diffère à la fin de la frame, or le lanceur
+	# appelle `quit()` juste après le dernier test. Le nœud n'était donc jamais libéré et
+	# comptait comme une fuite dans le bilan de sortie.
+	# TROIE (fdcn 112) n'est pas dans les chapitres visités du before_each : gris.
+	# ⚠️ Le ruban regarde `success_id`, pas `chap_number` — changer `chap_number` seul,
+	# comme le faisait cette ligne avant, ne pouvait jamais faire passer le test.
+	item.set_success_id("TROIE")
 	item.set_chapitre(999.0)
 	item.update()
 	assert_false(item._get_polygon.color.is_equal_approx(Color('00c2aa')),
 		"le ruban reste gris pour un succès non acquis")
-	# `free()` et non `queue_free()` : celui-ci diffère à la fin de la frame, or le lanceur
-	# appelle `quit()` juste après le dernier test. Le nœud n'était donc jamais libéré et
-	# comptait comme une fuite dans le bilan de sortie.
 	item.free()
 
 

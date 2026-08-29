@@ -326,15 +326,23 @@ func test_un_de_plus_haut_est_toujours_meilleur() -> void:
 func _devenir_prudent() -> void:
 	AppParameters.set_billy_type('prudent')
 	PlayerStats.recompute()
+	# `recompute()` seul ne fait que remonter le plafond (chamax 3 -> 5) : changer de type
+	# ne soigne personne, la ressource courante reste où elle était (voir
+	# `_bound_resources_to_ceilings()`). Un PRUDENT qui **démarre** la partie, lui, part au
+	# plein — c'est ce que ces tests simulent.
+	PlayerStats.fill_resources()
 
 
 func test_fuir_coute_de_la_chance_selon_la_situation() -> void:
 	_devenir_prudent()
-	assert_eq(CombatEngine.get_fuite_cost(), 3, "coût de la situation")
+	# Le hab -1 du PRUDENT fait passer l'écart de -4 (pégu, `test_le_bonus_pyro_est_automatique`)
+	# à -5 : on change de tranche de la table (« Désavantage » -> « Désavantage lourd »),
+	# donc de coût de fuite (3 -> 5). Valeurs vérifiées contre `data/combat-table.json`.
+	assert_eq(CombatEngine.get_fuite_cost(), 5, "coût de la situation")
 	assert_eq(PlayerStats.get_cha(), 5, "un prudent neuf a 5 de chance")
-	assert_true(CombatEngine.can_fuir(), "5 de chance pour un coût de 3")
+	assert_true(CombatEngine.can_fuir(), "5 de chance pour un coût de 5")
 	assert_true(CombatEngine.fuir(), "la fuite aboutit")
-	assert_eq(PlayerStats.get_cha(), 2, "les 3 points sont dépensés")
+	assert_eq(PlayerStats.get_cha(), 0, "les 5 points sont dépensés")
 	assert_false(CombatEngine.is_running(), "le combat est terminé")
 
 
@@ -373,8 +381,10 @@ func test_seul_le_prudent_peut_fuir_avec_la_chance() -> void:
 #    Esquive à la chance du PRUDENT
 #
 
-## L'autre moitié de son pouvoir. Écart −3, dé 3 : 2 infligés, 4 reçus. L'esquive annule
-## les 4 reçus **sans** toucher aux 2 infligés — on esquive, on ne renonce pas à frapper.
+## L'autre moitié de son pouvoir. Le hab -1 du PRUDENT donne un écart de -5 (voir
+## `test_fuir_coute_de_la_chance_selon_la_situation`) : à ce dé, la table (§`assauts.-5.3`
+## de `data/combat-table.json`) rend 1 infligé / 5 reçus. L'esquive annule les 5 reçus
+## **sans** toucher à l'infligé — on esquive, on ne renonce pas à frapper.
 func test_le_prudent_esquive_une_attaque_en_payant_de_la_chance() -> void:
 	_devenir_prudent()
 	_forcer_des([3])
@@ -386,7 +396,7 @@ func test_le_prudent_esquive_une_attaque_en_payant_de_la_chance() -> void:
 	var r = CombatEngine.resolve()
 	assert_true(r["esquive_chance"], "le rapport le dit")
 	assert_eq(r["degats_recus"], 0, "rien d'encaissé")
-	assert_eq(r["degats_infliges"], 2, "les dégâts infligés sont intacts")
+	assert_eq(r["degats_infliges"], 1, "les dégâts infligés sont intacts")
 
 
 ## Sans l'esquive, le même assaut fait mal : c'est le témoin du test précédent.
@@ -396,7 +406,7 @@ func test_sans_esquive_le_meme_assaut_blesse() -> void:
 	CombatEngine.roll()
 	var r = CombatEngine.resolve()
 	assert_false(r["esquive_chance"], "aucune esquive payée")
-	assert_eq(r["degats_recus"], 4, "les 4 dégâts de la table passent")
+	assert_eq(r["degats_recus"], 5, "les 5 dégâts de la table passent")
 
 
 func test_seul_le_prudent_esquive_avec_la_chance() -> void:

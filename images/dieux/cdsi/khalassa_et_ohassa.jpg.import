@@ -3,15 +3,15 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://bnmbd2vpcmtkf"
-path="res://.godot/imported/khalassa_et_ohassa.jpg-45751265a96183e22bf465bf5a34e097.ctex"
+path="res://.godot/imported/khalassa_et_ohassa.jpg-326e0276e364e30177d24c9b811d2d30.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://images/dieux/2/khalassa_et_ohassa.jpg"
-dest_files=["res://.godot/imported/khalassa_et_ohassa.jpg-45751265a96183e22bf465bf5a34e097.ctex"]
+source_file="res://images/dieux/cdsi/khalassa_et_ohassa.jpg"
+dest_files=["res://.godot/imported/khalassa_et_ohassa.jpg-326e0276e364e30177d24c9b811d2d30.ctex"]
 
 [params]
 

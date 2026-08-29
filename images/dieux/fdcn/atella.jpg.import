@@ -3,15 +3,15 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://bywea2n2yd6ur"
-path="res://.godot/imported/atella.jpg-30dff8b5faa978a3246165d5eb2371c1.ctex"
+path="res://.godot/imported/atella.jpg-07a1fc09ead4aa079b7b097475c0bbee.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://images/dieux/1/atella.jpg"
-dest_files=["res://.godot/imported/atella.jpg-30dff8b5faa978a3246165d5eb2371c1.ctex"]
+source_file="res://images/dieux/fdcn/atella.jpg"
+dest_files=["res://.godot/imported/atella.jpg-07a1fc09ead4aa079b7b097475c0bbee.ctex"]
 
 [params]
 

@@ -3,12 +3,12 @@
 importer="mp3"
 type="AudioStreamMP3"
 uid="uid://bjlnapjc81l07"
-path="res://.godot/imported/phumtar.mp3-06c62436425c8ab818c9dbfa8c6cfbc5.mp3str"
+path="res://.godot/imported/phumtar.mp3-7235c9384a352582d75cc803d0876635.mp3str"
 
 [deps]
 
-source_file="res://sounds/dieux/1/phumtar.mp3"
-dest_files=["res://.godot/imported/phumtar.mp3-06c62436425c8ab818c9dbfa8c6cfbc5.mp3str"]
+source_file="res://sounds/dieux/fdcn/phumtar.mp3"
+dest_files=["res://.godot/imported/phumtar.mp3-7235c9384a352582d75cc803d0876635.mp3str"]
 
 [params]
 

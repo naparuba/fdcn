@@ -3,15 +3,15 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://dyfbn0gvgu1i0"
-path="res://.godot/imported/edire.jpg-4fbc8053b5b1d27305b5767208545f5d.ctex"
+path="res://.godot/imported/edire.jpg-950007e49517dd36dd2f7e2008de0519.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://images/dieux/1/edire.jpg"
-dest_files=["res://.godot/imported/edire.jpg-4fbc8053b5b1d27305b5767208545f5d.ctex"]
+source_file="res://images/dieux/fdcn/edire.jpg"
+dest_files=["res://.godot/imported/edire.jpg-950007e49517dd36dd2f7e2008de0519.ctex"]
 
 [params]
 

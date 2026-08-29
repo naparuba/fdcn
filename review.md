@@ -257,20 +257,23 @@ fautes trouvées jusqu'ici l'ont toutes été **à l'œil**, jamais par un outil
 | `pv_1_4_max` **et** `1_4_pv_max` (fdcn) | la même règle sous deux orthographes, aucune des deux gérée |
 | `goto: 608` + `book_number == 1` (fdcn) | **cdsi n'a jamais eu une seule fin compilée** |
 
-#### Étape 1 — le compilateur refuse ce qu'il ne comprend pas (todo 3.2)
+#### Étape 1 — le compilateur refuse ce qu'il ne comprend pas ✅ fait (2026-08-29, todo 3.2)
 
-**Aucun changement de format, et c'est ce qui rend les étapes suivantes sûres.** Le
-compilateur lit 14 clés de chapitre ; toute autre est aujourd'hui recopiée sans un mot.
+Aucun changement de format. `CHAPTER_ALLOWED_KEYS` (14 clés) et `ENGINE_STATS_VOCABULARY`
+dans `generator.py`, plus `MalformedExpressionError` dans `condition_node.py` :
 
-- **clé de chapitre inconnue → erreur.** Aurait attrapé `cond` le jour même ;
-- **clé de stat hors vocabulaire → erreur** : il les collecte et les imprime déjà, il
-  manque la liste de référence ;
+- **clé de chapitre inconnue → erreur.** Testé en réinjectant `cond` sur cdsi ch69 : rejeté ;
+- **clé de stat hors vocabulaire → erreur**, vocabulaire moteur + compteurs du livre
+  (`compteurs.json`). Testé avec `critique` : rejeté ;
 - **`success` inconnu → erreur** au lieu d'une trace Python ;
-- **expression malformée → message**, au lieu du code 2 muet d'aujourd'hui ;
-- **`&` et `|` mélangés sans parenthèses → refus**, au lieu d'un arbre faux en silence.
+- **expression malformée → message** (parenthèse non fermée/non ouverte) ;
+- **`&` et `|` mélangés sans parenthèses → refus**. Testé avec
+  `PAYSAN&FER A CHEVAL|GUERRIER` : rejeté ; les expressions parenthésées légitimes du livre
+  (`KIT DE SOIN&(PAYSAN|DEBROUILLARD)`, `(ARC&FLECHES EXPLOSIVES)|EXPLOSIFS`) compilent
+  toujours.
 
-Coût : une liste de clés autorisées et cinq `sys.exit(2)`. Bénéfice : les quatre fautes du
-tableau deviennent impossibles.
+Les deux livres recompilent à l'identique (aucun diff dans `books/`) avec ces cinq garde-fous
+actifs.
 
 #### Étape 2 — un seul fichier écrit à la main, en plus des chapitres (todo 3.8)
 
@@ -563,7 +566,6 @@ Numérotation **catégorie.rang**, reprise telle quelle dans `todo.md` en cases 
 
 | # | tag | action | réf |
 |---|---|---|---|
-| 3.2 | `[bug]` | **Le compilateur doit refuser ce qu'il ne comprend pas** : clé de chapitre inconnue, clé de stat hors vocabulaire, `success` inconnu, expression malformée, `&`/`|` mélangés — **étape 1 du plan** | §3.7 |
 | 3.4 | `[feature]` | **`pv_gain`** : modificateur de gain dans la couche chapitres, delta positif seulement, jamais sur une affectation | §4.5 |
 | 3.5 | `[refacto]` | **Compléter le vocabulaire par livre avec `ignorees`** — dépend de §4.3 | §4.6 |
 | 3.6 | `[refacto]` | **Réunir les 3 sorties calculées en une** — le poids est déjà réglé | §3.7 |

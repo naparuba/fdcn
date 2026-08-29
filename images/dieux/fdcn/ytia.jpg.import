@@ -3,15 +3,15 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://duew74re1b62r"
-path="res://.godot/imported/ytia.jpg-d7fa86807f7b20c26faed90fbb342fdc.ctex"
+path="res://.godot/imported/ytia.jpg-15df5635748603c6aa7867bb20e93d1f.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://images/dieux/1/ytia.jpg"
-dest_files=["res://.godot/imported/ytia.jpg-d7fa86807f7b20c26faed90fbb342fdc.ctex"]
+source_file="res://images/dieux/fdcn/ytia.jpg"
+dest_files=["res://.godot/imported/ytia.jpg-15df5635748603c6aa7867bb20e93d1f.ctex"]
 
 [params]
 

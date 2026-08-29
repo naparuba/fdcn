@@ -1,4 +1,10 @@
-import sys
+class MalformedExpressionError(ValueError):
+    """Une expression de condition (`ARC & (CORDE | PIOCHE)`) illisible : parenthèses non
+    équilibrées, ou `&`/`|` mélangés au même niveau sans parenthèses pour trancher l'ordre
+    (todo 3.2 -- avant cette classe, les deux cas sortaient en code 2 muet, ou pire :
+    l'arbre se construisait quand même, faux, en silence)."""
+    pass
+
 
 class ConditionNode(object):
     def __init__(self):
@@ -43,7 +49,7 @@ class ConditionNodeFactory(object):
     
     def parse_expr_complex(self, expr):
         n = ConditionNode()
-        
+
         stacked_par = 0  # level of parenthese
         stack = ''
         in_par = False
@@ -53,6 +59,11 @@ class ConditionNodeFactory(object):
                 if in_par:
                     stack += c
                 else:  # real cut
+                    # `&` et `|` mélangés sans parenthèses pour trancher l'ordre :
+                    # l'un des deux gagnerait en silence selon lequel est vu en dernier.
+                    if n.operator is not None and n.operator != 'or':
+                        raise MalformedExpressionError(
+                            "'&' et '|' mélangés sans parenthèses dans: %r" % expr)
                     n.operator = 'or'
                     stack = stack.strip()
                     if stack != '':
@@ -64,6 +75,9 @@ class ConditionNodeFactory(object):
                 if in_par:
                     stack += c
                 else:  # real cut
+                    if n.operator is not None and n.operator != 'and':
+                        raise MalformedExpressionError(
+                            "'&' et '|' mélangés sans parenthèses dans: %r" % expr)
                     n.operator = 'and'
                     stack = stack.strip()
                     if stack != '':
@@ -79,7 +93,8 @@ class ConditionNodeFactory(object):
                 # Maybe we just start a par, but we got some things in tmp
                 # that should not be good in fact !
                 if stacked_par == 1 and stack != '':
-                    sys.exit(2)
+                    raise MalformedExpressionError(
+                        "'(' inattendue après %r dans: %r" % (stack, expr))
 
                 # If we are already in a par, add this (
                 # but not if it's the first one so
@@ -92,7 +107,8 @@ class ConditionNodeFactory(object):
                 stacked_par -= 1
 
                 if stacked_par < 0:
-                    sys.exit(2)
+                    raise MalformedExpressionError(
+                        "')' sans '(' correspondante dans: %r" % expr)
 
                 if stacked_par == 0:
                     stack = stack.strip()
@@ -108,6 +124,9 @@ class ConditionNodeFactory(object):
             # Maybe it's a classic character, if so, continue
             else:
                 stack += c
+
+        if stacked_par != 0:
+            raise MalformedExpressionError("'(' jamais refermée dans: %r" % expr)
 
         stack = stack.strip()
         if stack:

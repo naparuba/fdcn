@@ -3,15 +3,15 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://q2qofi1nxb7g"
-path="res://.godot/imported/parodikos.jpg-27feae6293ea131699d1698e5b40086c.ctex"
+path="res://.godot/imported/parodikos.jpg-f4fc4c75085bdbfd87c18768b61d1ea4.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://images/dieux/1/parodikos.jpg"
-dest_files=["res://.godot/imported/parodikos.jpg-27feae6293ea131699d1698e5b40086c.ctex"]
+source_file="res://images/dieux/fdcn/parodikos.jpg"
+dest_files=["res://.godot/imported/parodikos.jpg-f4fc4c75085bdbfd87c18768b61d1ea4.ctex"]
 
 [params]
 

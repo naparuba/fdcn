@@ -139,14 +139,14 @@ func _run_file(file_name: String) -> void:
 
 ## Appelle une méthode du test, **qu'elle soit synchrone ou non**.
 ##
-## En Godot 4, une fonction qui contient un `await` ne rend pas sa valeur : elle rend le
-## signal de sa propre fin. Sans l'attendre, le lanceur relèverait les assertions d'un test
-## encore en cours — et les tests d'interface, qui doivent laisser passer une image pour
-## qu'un nœud soit prêt, seraient tous comptés vides.
+## `await` doit porter directement sur l'appel : en Godot 4, couper "appeler" et "attendre"
+## en deux lignes (`var resultat = instance.call(methode); if resultat is Signal: await
+## resultat`) fait planter la coroutine à sa première suspension — l'appel dynamique
+## déclenche "Trying to call an async function without await" et rend un état qui n'est pas
+## un `Signal`, donc jamais attendu. Le lanceur relevait alors les assertions d'un test
+## interrompu avant son premier `await`, systématiquement vide.
 func _appeler(instance, methode: String) -> void:
-	var resultat = instance.call(methode)
-	if resultat is Signal:
-		await resultat
+	await instance.call(methode)
 
 
 func _find_test_methods(instance) -> Array:

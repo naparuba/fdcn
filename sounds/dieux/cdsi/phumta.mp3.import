@@ -3,12 +3,12 @@
 importer="mp3"
 type="AudioStreamMP3"
 uid="uid://dxqlla3pamjtb"
-path="res://.godot/imported/phumta.mp3-1746fa8c2ac54615ef467274aa6d59db.mp3str"
+path="res://.godot/imported/phumta.mp3-efe400b3223a3e5caba4c17e077cf6b2.mp3str"
 
 [deps]
 
-source_file="res://sounds/dieux/2/phumta.mp3"
-dest_files=["res://.godot/imported/phumta.mp3-1746fa8c2ac54615ef467274aa6d59db.mp3str"]
+source_file="res://sounds/dieux/cdsi/phumta.mp3"
+dest_files=["res://.godot/imported/phumta.mp3-efe400b3223a3e5caba4c17e077cf6b2.mp3str"]
 
 [params]
 

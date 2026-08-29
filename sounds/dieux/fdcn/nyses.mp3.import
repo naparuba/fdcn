@@ -3,12 +3,12 @@
 importer="mp3"
 type="AudioStreamMP3"
 uid="uid://bcqm5v1vo2vqr"
-path="res://.godot/imported/nyses.mp3-41d3381bb4eb0d0c1765b54134fe0932.mp3str"
+path="res://.godot/imported/nyses.mp3-23e41103fa6a88f0b20419161a1eedad.mp3str"
 
 [deps]
 
-source_file="res://sounds/dieux/1/nyses.mp3"
-dest_files=["res://.godot/imported/nyses.mp3-41d3381bb4eb0d0c1765b54134fe0932.mp3str"]
+source_file="res://sounds/dieux/fdcn/nyses.mp3"
+dest_files=["res://.godot/imported/nyses.mp3-23e41103fa6a88f0b20419161a1eedad.mp3str"]
 
 [params]
 

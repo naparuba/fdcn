@@ -3,15 +3,15 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://gk7ydw6bh5d3"
-path="res://.godot/imported/nehdira.jpg-206bcd23bc66eb3e8d0735c3288ba32b.ctex"
+path="res://.godot/imported/nehdira.jpg-db9941a99c21ee2e3c96c3f56693e36c.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://images/dieux/2/nehdira.jpg"
-dest_files=["res://.godot/imported/nehdira.jpg-206bcd23bc66eb3e8d0735c3288ba32b.ctex"]
+source_file="res://images/dieux/cdsi/nehdira.jpg"
+dest_files=["res://.godot/imported/nehdira.jpg-db9941a99c21ee2e3c96c3f56693e36c.ctex"]
 
 [params]
 

@@ -3,15 +3,15 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://nwr7p8y7lf58"
-path="res://.godot/imported/virilus.jpg-e9637b971cbe2d6d7df1f1636b11cbf1.ctex"
+path="res://.godot/imported/virilus.jpg-aa1ca4ef3367dcd7a6eb9cd52a4462b9.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://images/dieux/1/virilus.jpg"
-dest_files=["res://.godot/imported/virilus.jpg-e9637b971cbe2d6d7df1f1636b11cbf1.ctex"]
+source_file="res://images/dieux/fdcn/virilus.jpg"
+dest_files=["res://.godot/imported/virilus.jpg-aa1ca4ef3367dcd7a6eb9cd52a4462b9.ctex"]
 
 [params]
 

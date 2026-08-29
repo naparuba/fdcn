@@ -17,6 +17,23 @@ from endings import ENDINGS
 
 REGISTRE = 'books/books.json'
 
+# Les 14 clés qu'un chapitre peut déclarer -- toute autre est une faute de saisie
+# (`cond` au lieu de `stats_cond`, par exemple) qui passait jusqu'ici sans un mot (todo 3.2).
+CHAPTER_ALLOWED_KEYS = {
+    'success', 'combat', 'secret', 'conditions', 'label', 'secret_jumps',
+    'aquire', 'remove', 'stats', 'stats_cond', 'goto', 'ending', 'ending_id', 'ending_txt',
+}
+
+# Vocabulaire de stats connu du MOTEUR (autoload/player_stats.gd) : les stats en couches
+# (`_CHAPTER_LAYERED_KEYS`), les deux ressources et leur plafond, le compteur commun aux
+# deux livres, et les deux clés "connues mais ignorées" (review §4.3, todo 3.4/3.5).
+ENGINE_STATS_VOCABULARY = {
+    'adr', 'arm', 'chance_max', 'crit', 'deg', 'end', 'hab',  # stats en couches
+    'chance', 'pv', 'pv_max',                                  # ressources
+    'richesse',                                                # compteur commun
+    'arc_et_couteau', 'pv_win_plus_1',                         # connues, ignorées exprès
+}
+
 
 def load_json_file(file_name: str):
     with codecs.open(file_name, 'r', 'utf8') as f:
@@ -59,6 +76,12 @@ def lire_les_noeuds(book_data: dict, node_graph: Graph) -> None:
     for idx, n in book_data.items():
         idx = int(idx)
         node = node_graph.get_node(idx)
+
+        clefs_inconnues = set(n.keys()) - CHAPTER_ALLOWED_KEYS
+        if clefs_inconnues:
+            print('ERROR: node %s uses unknown chapter key(s): %s (allowed: %s)' %
+                  (idx, sorted(clefs_inconnues), sorted(CHAPTER_ALLOWED_KEYS)))
+            sys.exit(2)
 
         success = n.get('success', None)
         if success:
@@ -251,6 +274,27 @@ def _valider_les_objets(book_data: dict, node_graph: Graph, all_objs: dict) -> N
         sys.exit(2)
 
 
+def _compteurs_du_livre(data_dir: str) -> set:
+    """Les compteurs propres au livre (`gloire`/`info` pour fdcn, `rancune`/`respect` pour
+    cdsi), declares a la main dans `compteurs.json` -- facultatif, comme cote app
+    (`BookData._load_counters`)."""
+    chemin = f'{data_dir}/compteurs.json'
+    if not os.path.isfile(chemin):
+        return set()
+    declares = load_json_file(chemin)
+    return {c['cle'] for c in declares.get('compteurs', []) if 'cle' in c}
+
+
+def _valider_les_stats(all_stats_keys: set, data_dir: str) -> None:
+    """Une cle de stat hors vocabulaire (`critique` au lieu de `crit`, par exemple) passait
+    jusqu'ici jusqu'a l'app, qui se contentait d'un `push_warning` (todo 3.2)."""
+    vocabulaire = ENGINE_STATS_VOCABULARY | _compteurs_du_livre(data_dir)
+    inconnues = all_stats_keys - vocabulaire
+    if inconnues:
+        print('ERROR: unknown stat key(s): %s (known: %s)' % (sorted(inconnues), sorted(vocabulaire)))
+        sys.exit(2)
+
+
 def _verifier_les_secrets(node_graph: Graph, reverse_jumps: dict) -> None:
     """Un secret ne doit avoir qu'un seul chemin d'acces, sauf a le dire explicitement via
     `secret_jumps` -- sinon ce n'en est plus vraiment un."""
@@ -295,7 +339,8 @@ def ecrire_les_json(book_name: str, src_dir: str, data_dir: str, book_data: dict
         for success in sucess_txt:
             if success['id'] == _id:
                 return success['label'], success['txt']
-        raise Exception('Success: %s not found' % _id)
+        print('ERROR: success %s is not declared in %s.all_success.json' % (_id, book_name))
+        sys.exit(2)
 
     reverse_jumps = {}
     nodes_by_chapter = {}
@@ -345,6 +390,7 @@ def ecrire_les_json(book_name: str, src_dir: str, data_dir: str, book_data: dict
     logger.info('Checking all stats keys: %d' % len(all_stats_keys))
     for stat_key in sorted(all_stats_keys):
         logger.info(' - %s' % stat_key)
+    _valider_les_stats(all_stats_keys, data_dir)
 
     # CE QUE L'APP OUVRE, ET RIEN D'AUTRE. Sept sorties ont disparu le 2026-08-13 :
     #

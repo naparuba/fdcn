@@ -3,12 +3,12 @@
 importer="mp3"
 type="AudioStreamMP3"
 uid="uid://b4gtuae7cabgp"
-path="res://.godot/imported/vetherr.mp3-1dcaa0994466810a888ca51ce7cec1bc.mp3str"
+path="res://.godot/imported/vetherr.mp3-8ba19ffaca0344d96e23f00d5366e3da.mp3str"
 
 [deps]
 
-source_file="res://sounds/dieux/2/vetherr.mp3"
-dest_files=["res://.godot/imported/vetherr.mp3-1dcaa0994466810a888ca51ce7cec1bc.mp3str"]
+source_file="res://sounds/dieux/cdsi/vetherr.mp3"
+dest_files=["res://.godot/imported/vetherr.mp3-8ba19ffaca0344d96e23f00d5366e3da.mp3str"]
 
 [params]
 

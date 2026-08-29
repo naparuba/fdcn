@@ -3,12 +3,12 @@
 importer="mp3"
 type="AudioStreamMP3"
 uid="uid://w2rkiyl4v1e"
-path="res://.godot/imported/khalassa_et_ohassa.mp3-90063b133a8cd23c39017341f38664f6.mp3str"
+path="res://.godot/imported/khalassa_et_ohassa.mp3-ae678daf2b721f8258179de3e87445da.mp3str"
 
 [deps]
 
-source_file="res://sounds/dieux/2/khalassa_et_ohassa.mp3"
-dest_files=["res://.godot/imported/khalassa_et_ohassa.mp3-90063b133a8cd23c39017341f38664f6.mp3str"]
+source_file="res://sounds/dieux/cdsi/khalassa_et_ohassa.mp3"
+dest_files=["res://.godot/imported/khalassa_et_ohassa.mp3-ae678daf2b721f8258179de3e87445da.mp3str"]
 
 [params]
 

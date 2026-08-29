@@ -81,11 +81,14 @@ func get_label():
 func get_secret():
 	return _book_data.get('secret', false)
 
-func get_sons():
-	return _book_data.get('sons', [])
+## `sons` liste des identifiants de chapitre (des int, malgré le json qui les rend en
+## float) : `choice_next_chapiter.gd` les compare aux chapitres visités, où `26.0 in [26]`
+## vaut faux (voir `test_chapter_ids.gd`).
+func get_sons() -> Array:
+	return _book_data.get('sons', []).map(func(id): return int(id))
 
-func get_secret_jumps():
-	return _book_data.get('secret_jumps', [])
+func get_secret_jumps() -> Array:
+	return _book_data.get('secret_jumps', []).map(func(id): return int(id))
 
 ## Dérivé : un chapitre de combat est un chapitre qui porte un adversaire.
 func is_combat():

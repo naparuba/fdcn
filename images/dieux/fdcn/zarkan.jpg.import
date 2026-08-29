@@ -3,15 +3,15 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://b1ai1jui7iwfm"
-path="res://.godot/imported/zarkan.jpg-a81325267762529d90b523e34c80b235.ctex"
+path="res://.godot/imported/zarkan.jpg-74c898b15d3d8b326f918765709e4312.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://images/dieux/1/zarkan.jpg"
-dest_files=["res://.godot/imported/zarkan.jpg-a81325267762529d90b523e34c80b235.ctex"]
+source_file="res://images/dieux/fdcn/zarkan.jpg"
+dest_files=["res://.godot/imported/zarkan.jpg-74c898b15d3d8b326f918765709e4312.ctex"]
 
 [params]
 

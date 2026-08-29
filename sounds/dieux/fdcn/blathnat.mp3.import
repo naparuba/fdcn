@@ -3,12 +3,12 @@
 importer="mp3"
 type="AudioStreamMP3"
 uid="uid://dvprsb6eexoce"
-path="res://.godot/imported/blathnat.mp3-05a3264d4f5a4faf27f42438d01d2528.mp3str"
+path="res://.godot/imported/blathnat.mp3-fdf5cee4a2b74a6baba2870bcd1976dd.mp3str"
 
 [deps]
 
-source_file="res://sounds/dieux/1/blathnat.mp3"
-dest_files=["res://.godot/imported/blathnat.mp3-05a3264d4f5a4faf27f42438d01d2528.mp3str"]
+source_file="res://sounds/dieux/fdcn/blathnat.mp3"
+dest_files=["res://.godot/imported/blathnat.mp3-fdf5cee4a2b74a6baba2870bcd1976dd.mp3str"]
 
 [params]
 

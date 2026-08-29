@@ -3,15 +3,15 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://chsvravrk3mky"
-path="res://.godot/imported/zarhkhan.jpg-cd37321624b5c31c497d6e40c918ab12.ctex"
+path="res://.godot/imported/zarhkhan.jpg-54d9640682eeb357ac0f2aa6e4ceedfc.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://images/dieux/2/zarhkhan.jpg"
-dest_files=["res://.godot/imported/zarhkhan.jpg-cd37321624b5c31c497d6e40c918ab12.ctex"]
+source_file="res://images/dieux/cdsi/zarhkhan.jpg"
+dest_files=["res://.godot/imported/zarhkhan.jpg-54d9640682eeb357ac0f2aa6e4ceedfc.ctex"]
 
 [params]
 

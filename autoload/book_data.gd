@@ -279,7 +279,9 @@ func _completion(chapters: Array, visited) -> int:
 		return 100
 	var nb_visited := 0
 	for chapter_id in chapters:
-		if chapter_id in visited:
+		# `chapters` vient du json (donc des float) ; `in` ne confond jamais un 26.0 avec un
+		# 26 de `visited` (des int) — voir `test_chapter_ids.gd`. D'où le cast.
+		if int(chapter_id) in visited:
 			nb_visited += 1
 	return int(100.0 * nb_visited / chapters.size())
 

@@ -3,12 +3,12 @@
 importer="mp3"
 type="AudioStreamMP3"
 uid="uid://bj5fmqftvdida"
-path="res://.godot/imported/edire.mp3-9cef935dfba914df21a0c16acf8b457c.mp3str"
+path="res://.godot/imported/edire.mp3-546a34176c5a08b7eeebc0b0a0f592db.mp3str"
 
 [deps]
 
-source_file="res://sounds/dieux/1/edire.mp3"
-dest_files=["res://.godot/imported/edire.mp3-9cef935dfba914df21a0c16acf8b457c.mp3str"]
+source_file="res://sounds/dieux/fdcn/edire.mp3"
+dest_files=["res://.godot/imported/edire.mp3-546a34176c5a08b7eeebc0b0a0f592db.mp3str"]
 
 [params]
 

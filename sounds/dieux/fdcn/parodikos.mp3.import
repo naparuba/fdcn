@@ -3,12 +3,12 @@
 importer="mp3"
 type="AudioStreamMP3"
 uid="uid://dbjd4khtga1b4"
-path="res://.godot/imported/parodikos.mp3-0eeecce8850624a71828496c504f5fe2.mp3str"
+path="res://.godot/imported/parodikos.mp3-cbec49e2717e7f22b2ae11ea248b9d7d.mp3str"
 
 [deps]
 
-source_file="res://sounds/dieux/1/parodikos.mp3"
-dest_files=["res://.godot/imported/parodikos.mp3-0eeecce8850624a71828496c504f5fe2.mp3str"]
+source_file="res://sounds/dieux/fdcn/parodikos.mp3"
+dest_files=["res://.godot/imported/parodikos.mp3-cbec49e2717e7f22b2ae11ea248b9d7d.mp3str"]
 
 [params]
 
