@@ -3,6 +3,15 @@ import sys
 import logger
 from condition_node import ConditionNodeFactory, MalformedExpressionError
 
+
+def _expr_to_txt(expr: str) -> str:
+    """`ARC&(CORDE|PIOCHE)` -> `ARC et ( CORDE ou PIOCHE )` : le texte affiche au lecteur,
+    a cote de l'arbre que `to_json()` produit pour le moteur. Meme conversion pour une
+    condition de saut (`parse_conditions`) et pour un `stats_cond` (`parse_stats_conditions`)
+    -- factorisee ici (review-code.md 6.2)."""
+    return expr.replace('(', '( ').replace(')', ' )').replace('&', ' et ').replace('|', ' ou ').strip()
+
+
 class Node(object):
     def __init__(self, nid):
         _id = int(nid)
@@ -149,7 +158,7 @@ class Node(object):
         self._ending_txt = ending_txt
 
 
-    def set_sucess(self, success):
+    def set_success(self, success):
         self._success = success
 
 
@@ -207,7 +216,7 @@ class Node(object):
                 sys.exit(2)
             self._conditions_objs[k] = _condition
             r_tree[k] = _condition.to_json()
-            r_txt[k] = expr.replace('(', '( ').replace(')', ' )').replace('&', ' et ').replace('|', ' ou ').strip()
+            r_txt[k] = _expr_to_txt(expr)
 
         self._conditions = r_tree
         self._conditions_txts = r_txt
@@ -258,7 +267,7 @@ class Node(object):
                 print('ERROR: node %s, stats_cond %s: %s' % (self._id, expr, e))
                 sys.exit(2)
             j = _condition.to_json()
-            txt = expr.replace('(', '( ').replace(')', ' )').replace('&', ' et ').replace('|', ' ou ').strip()
+            txt = _expr_to_txt(expr)
             r_lst.append({'condition': j, 'stats': stats, 'txt': txt})
             r_objs.append(_condition)
         self._stats_cond = r_lst

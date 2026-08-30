@@ -94,18 +94,18 @@ def add_node_to_display_graph(node, display_graph):
 
 
 def _get_graph_from_nodes(node, other, arc_graphs):
-    if node._arc is None or other.get_arc() is None:
+    if node.get_arc() is None or other.get_arc() is None:
         return arc_graphs[None]
-    if node._arc == other.get_arc():
-        return arc_graphs[node._arc]
+    if node.get_arc() == other.get_arc():
+        return arc_graphs[node.get_arc()]
     return arc_graphs[None]
 
 
 def add_edges_to_display_graph(node, arc_graphs):
-    node_string = '%s' % node._id
+    node_string = '%s' % node.get_id()
 
     if node._ending is not None:
-        end_node_string = "end-from-%s" % node._id
+        end_node_string = "end-from-%s" % node.get_id()
         _graph = _get_graph_from_nodes(node, node, arc_graphs)  # C'est nous-memes : on sera dans notre propre arc
         _graph.append((node_string, end_node_string))
     else:  # classic node

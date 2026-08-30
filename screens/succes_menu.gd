@@ -34,9 +34,14 @@ var _pool: VirtualListPool
 
 
 func _ready() -> void:
-	_pool = VirtualListPool.new(_row_scene, _content, self, ROW_HEIGHT, BUFFER_ROWS)
-	_scroll.get_v_scroll_bar().value_changed.connect(func(_v): _refresh_rows())
-	_scroll.resized.connect(_on_scroll_resized)
+	var update_row := func(row, index, refresh):
+		if refresh:
+			row.set_from_success_object(_successes[index])
+			row.update()
+	_pool = VirtualListPool.new(_row_scene, _content, _scroll, self, ROW_HEIGHT, BUFFER_ROWS,
+		func(): return _successes.size(), update_row)
+	_scroll.get_v_scroll_bar().value_changed.connect(func(_v): _pool.refresh_rows())
+	_scroll.resized.connect(_pool.on_scroll_resized)
 
 	Player.chapter_changed.connect(func(_id): _on_state_changed())
 	AppParameters.book_changed.connect(func(_name): _load_successes())
@@ -57,12 +62,12 @@ func _load_successes() -> void:
 	_content.custom_minimum_size.y = _successes.size() * ROW_HEIGHT
 	_scroll.scroll_vertical = 0
 	_pool.first_index = -1
-	_refresh_rows(true)
+	_pool.refresh_rows(true)
 	_update_counter()
 
 
 func _on_state_changed() -> void:
-	_refresh_rows(true)
+	_pool.refresh_rows(true)
 	_update_counter()
 
 
@@ -78,33 +83,6 @@ func _update_counter() -> void:
 		if BookData.is_success_obtenu(success['id']):
 			obtained += 1
 	_counter.text = "%d / %d" % [obtained, _successes.size()]
-
-
-#
-#    Virtualisation
-#
-
-func _on_scroll_resized() -> void:
-	_ensure_pool()
-	_refresh_rows(true)
-
-
-func _ensure_pool() -> void:
-	_pool.ensure_pool(_scroll.size.y, _successes.size())
-
-
-func _refresh_rows(force := false) -> void:
-	if _pool.rows.is_empty():
-		_ensure_pool()
-		if _pool.rows.is_empty():
-			return
-
-	var update_row := func(row, index, refresh):
-		if refresh:
-			row.set_from_success_object(_successes[index])
-			row.update()
-
-	_pool.refresh_rows(_scroll.scroll_vertical, _successes.size(), force, update_row)
 
 
 #

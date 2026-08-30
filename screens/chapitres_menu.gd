@@ -39,15 +39,23 @@ var _pool: VirtualListPool
 
 
 func _ready() -> void:
-	_pool = VirtualListPool.new(_row_scene, _content, self, ROW_HEIGHT, BUFFER_ROWS)
+	var update_row := func(row, index, refresh):
+		# On ne réalimente que si la ligne change de chapitre : inutile de
+		# refaire les lectures BookData à chaque pixel de défilement.
+		var chapter_id = _chapter_ids[index]
+		if refresh or row.get_chapter_id() != chapter_id:
+			row.set_chapitre(chapter_id)
+			row.update_when_in_all_chapters()
+	_pool = VirtualListPool.new(_row_scene, _content, _scroll, self, ROW_HEIGHT, BUFFER_ROWS,
+		func(): return _chapter_ids.size(), update_row)
 	_build_jump_buttons()
-	_scroll.get_v_scroll_bar().value_changed.connect(func(_v): _refresh_rows())
-	_scroll.resized.connect(_on_scroll_resized)
+	_scroll.get_v_scroll_bar().value_changed.connect(func(_v): _pool.refresh_rows())
+	_scroll.resized.connect(_pool.on_scroll_resized)
 
-	Player.chapter_changed.connect(func(_id): _refresh_rows(true))
+	Player.chapter_changed.connect(func(_id): _pool.refresh_rows(true))
 	AppParameters.book_changed.connect(func(_name): _load_chapters())
 	# Les spoils changent ce qu'une ligne a le droit d'afficher.
-	AppParameters.settings_changed.connect(func(): _refresh_rows(true))
+	AppParameters.settings_changed.connect(func(): _pool.refresh_rows(true))
 
 	_load_chapters()
 
@@ -67,41 +75,7 @@ func _load_chapters() -> void:
 	_content.custom_minimum_size.y = _chapter_ids.size() * ROW_HEIGHT
 	_scroll.scroll_vertical = 0
 	_pool.first_index = -1
-	_refresh_rows(true)
-
-
-#
-#    Virtualisation
-#
-
-func _on_scroll_resized() -> void:
-	_ensure_pool()
-	_refresh_rows(true)
-
-
-## Crée juste assez de lignes pour couvrir la hauteur visible (+ marge).
-func _ensure_pool() -> void:
-	_pool.ensure_pool(_scroll.size.y, _chapter_ids.size())
-
-
-## Replace et réalimente les lignes selon la position de défilement.
-## `force` réactualise même les lignes qui n'ont pas changé de chapitre (utile
-## quand c'est l'état du joueur, et non le défilement, qui a bougé).
-func _refresh_rows(force := false) -> void:
-	if _pool.rows.is_empty():
-		_ensure_pool()
-		if _pool.rows.is_empty():
-			return
-
-	var update_row := func(row, index, refresh):
-		# On ne réalimente que si la ligne change de chapitre : inutile de
-		# refaire les lectures BookData à chaque pixel de défilement.
-		var chapter_id = _chapter_ids[index]
-		if refresh or row.get_chapter_id() != chapter_id:
-			row.set_chapitre(chapter_id)
-			row.update_when_in_all_chapters()
-
-	_pool.refresh_rows(_scroll.scroll_vertical, _chapter_ids.size(), force, update_row)
+	_pool.refresh_rows(true)
 
 
 #
@@ -123,7 +97,7 @@ func _jump_to_chapter(chapter_number: int) -> void:
 	for i in _chapter_ids.size():
 		if _chapter_ids[i] >= chapter_number:
 			_scroll.scroll_vertical = int(i * ROW_HEIGHT)
-			_refresh_rows(true)
+			_pool.refresh_rows(true)
 			return
 
 

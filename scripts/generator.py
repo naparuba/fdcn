@@ -163,7 +163,7 @@ def lire_les_noeuds(book_data: dict, node_graph: Graph) -> None:
 
         success = n.get('success', None)
         if success:
-            node.set_sucess(success)
+            node.set_success(success)
 
         combat = n.get('combat', None)
         if combat is not None:
@@ -304,8 +304,11 @@ def _valider_les_objets(book_data: dict, node_graph: Graph, all_objs: dict) -> N
     """Un objet doit etre a la fois declare (`all_objects.json`) et utilise (aquire/remove/
     condition quelque part) -- dans un sens comme dans l'autre, une divergence est une faute
     de saisie et arrete la compilation."""
-    logger.trace('Compute all conditions')
+    # Les trois ensembles se lisent sur les memes noeuds : une seule passe (review-code.md
+    # 6.3), plutot que trois boucles identiques qui ne differaient que par le champ lu.
     all_conditions = set()
+    all_aquire = set()
+    all_remove = set()
     for node_id_str in book_data.keys():
         node = node_graph.get_node(int(node_id_str))
         all_conditions |= node.get_all_conditions_token()
@@ -313,21 +316,10 @@ def _valider_les_objets(book_data: dict, node_graph: Graph, all_objs: dict) -> N
         # saut) doit compter comme utilise : sans cette ligne, il ressort a tort en
         # « declare mais pas utilise » (todo 3.10).
         all_conditions |= node.get_all_stats_cond_tokens()
+        all_aquire |= set(node.get_aquire())
+        all_remove |= set(node.get_remove())
     logger.trace('All conditions:\n%s' % '\n'.join(sorted([' - %s' % s for s in all_conditions])))
-
-    logger.trace('Compute aquire objects')
-    all_aquire = set()
-    for node_id_str in book_data.keys():
-        node = node_graph.get_node(int(node_id_str))
-        for obj in node.get_aquire():
-            all_aquire.add(obj)
     logger.trace('All aquire:\n%s' % '\n'.join(sorted([' - %s' % s for s in all_aquire])))
-
-    all_remove = set()
-    for node_id_str in book_data.keys():
-        node = node_graph.get_node(int(node_id_str))
-        for obj in node.get_remove():
-            all_remove.add(obj)
     logger.trace('All remove:\n%s' % '\n'.join(sorted([' - %s' % s for s in all_remove])))
 
     logger.trace('Add without remove:\n%s' % '\n'.join(sorted([' - %s' % s for s in all_aquire - all_remove])))
