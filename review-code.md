@@ -128,20 +128,34 @@ Rien à signaler sur `book_data.gd`, `save_archive.gd`, `sounder.gd`, `utils.gd`
 
 ## 4 — Complexité / couplage
 
-### 4.1 `autoload/combat_engine.gd:resolve()` — la fonction la plus complexe du dépôt
+### 4.1 `autoload/combat_engine.gd:resolve()` — la fonction la plus complexe du dépôt — ✅ fait (2026-08-30, sur demande explicite)
 
-- Lignes 419-537 (~120 lignes) : calcule l'assaut, les deux formes d'esquive, le plafond du
-  PAYSAN, le coup fatal évité, le jet de survie du PRUDENT, et la transition vers l'ennemi
-  suivant, tout dans une seule fonction.
-- Déjà très commentée et couverte par les 33 tests de `test_combat.gd` — le risque actuel
-  est faible. Le coût apparaît le jour où une règle de plus s'ajoute (un 5ᵉ pouvoir de
-  CARACTÈRE, une 3ᵉ forme d'esquive) : la fonction devient alors difficile à faire évoluer
-  sans tout relire.
-- **Solution** (à faire seulement à ce moment-là, pas maintenant) : extraire les étapes
-  déjà nommées dans les commentaires (`_appliquer_esquive()`, `_appliquer_pouvoirs()`,
-  `_transition_ennemi_suivant()`) en fonctions privées séparées, chacune testable seule.
-- Effort : modéré à large — Valeur : accessoire pour l'instant, à revisiter à la prochaine
-  règle de combat ajoutée.
+- `resolve()` faisait ~120 lignes : calcul de l'assaut, les deux formes d'esquive, le
+  plafond du PAYSAN, le coup fatal évité, le jet de survie du PRUDENT, et la transition vers
+  l'ennemi suivant, tout dans une seule fonction. Cette entrée disait « à faire seulement à
+  la prochaine règle de combat ajoutée, pas maintenant » — l'utilisateur a explicitement
+  demandé de le faire quand même, pour préparer l'ajout de règles futures.
+- **Fait**, en **3 fichiers** plutôt qu'en fonctions privées dans le même fichier (au-delà de
+  la solution initialement envisagée ici) :
+  - `autoload/combat_engine.gd` reste le seul autoload et garde tout l'état (`_enemy`, `_de`,
+    `_tour`, ...) et toute l'API publique, **inchangée** — aucun appelant externe
+    (`combat.gd`, `resource_gauge.gd`, `test_combat.gd`) n'a dû bouger.
+  - `autoload/combat_table.gd` (`CombatTable`, `class_name`) — chargement/normalisation/
+    lecture de `data/combat-table.json`, donnée statique sans état de combat.
+  - `autoload/combat_assault_resolver.gd` (`CombatAssaultResolver`, `class_name`) — le
+    calcul d'UN assaut, en 6 étapes nommées et **ordonnées** (`_etape_esquive_adresse`,
+    `_etape_esquive_chance_prudent`, `_etape_armure`, `_etape_plafond_paysan`,
+    `_etape_coup_fatal_evite`, `_etape_survie_prudent`) sur un objet `Assaut` partagé —
+    l'en-tête du fichier explique où insérer un 5ᵉ pouvoir ou une 3ᵉ forme d'esquive, et
+    pourquoi l'ordre n'est pas arbitraire.
+- Suite `test_combat.gd` (40 tests) intégralement verte après coup, sans qu'aucun test
+  n'ait eu besoin d'être modifié — la sortie de `resolve()` est identique bit à bit.
+- ⚠️ **Piège rencontré, à connaître avant d'ajouter un autre fichier `class_name`** :
+  `CombatTable`/`CombatAssaultResolver` ne sont résolus par leur nom que via
+  `.godot/global_script_class_cache.cfg` (gitignoré), reconstruit par l'éditeur — **pas**
+  par `godot --headless -s test/all.gd`. Une compilation a échoué ("Identifier ... not
+  declared") jusqu'à un `godot --headless --editor --quit --path .` explicite. Documenté
+  dans `autoload/README.md`.
 
 ### 4.2 `screens/about_menu.gd` — page « À propos » + fonctionnalité export/import complète — ✅ fait (2026-08-30)
 
@@ -334,20 +348,23 @@ func jump_back(previous_id) -> bool:
 
 ## Résumé pour la prochaine session
 
-**2026-08-30 : le backlog entier de ce fichier est traité et commité**, sauf deux items que
-la review elle-même dit de ne PAS faire maintenant : **1.6** (`set_main` dupliqué×4, "pas
-une vraie duplication gênante", à ne factoriser qu'avec un 5ᵉ cas) et **4.1**
-(`combat_engine.gd::resolve()`, à découper seulement à la prochaine règle de combat ajoutée
-— déjà bien testé, le risque actuel est faible). Tout le reste — 1.1 à 1.5, 1.7, 2.1-2.6,
-3.1-3.5, 4.2, §5, 6.1-6.6, 7.1-7.3 — est ✅. Suite Godot à 783 assertions, les deux livres
-recompilent à l'identique après chaque changement côté générateur. 8 commits séparés au
-total, voir `git log` (à partir de `a46f842`) pour le détail par lot ; `about_menu.gd` et
-les deux écrans-listes, jamais couverts par la suite automatisée, ont chacun été vérifiés
-par un script de fumée jetable avant son commit.
+**2026-08-30 : le backlog entier de ce fichier est traité et commité**, y compris 4.1
+(`combat_engine.gd` séparé en 3 fichiers, demandé explicitement par l'utilisateur alors que
+cette entrée recommandait d'attendre). Seul **1.6** reste délibérément non fait
+(`set_main` dupliqué×4, "pas une vraie duplication gênante", à ne factoriser qu'avec un 5ᵉ
+cas). Tout le reste — 1.1 à 1.5, 1.7, 2.1-2.6, 3.1-3.5, 4.1, 4.2, §5, 6.1-6.6, 7.1-7.3 — est
+✅. Suite Godot à 783 assertions, les deux livres recompilent à l'identique après chaque
+changement côté générateur. 9 commits séparés au total, voir `git log` (à partir de
+`a46f842`) pour le détail par lot ; `about_menu.gd` et les deux écrans-listes, jamais
+couverts par la suite automatisée, ont chacun été vérifiés par un script de fumée jetable
+avant son commit.
 
-Une future session qui rouvre ce fichier n'a donc plus de backlog à piocher — seulement
-1.6/4.1 à surveiller (agir seulement si leur déclencheur arrive) et, comme toujours, une
-relecture de ce qui a changé depuis pour repérer de nouvelles pistes.
+Une future session qui rouvre ce fichier n'a donc plus de backlog à piocher — seulement 1.6
+à surveiller (agir seulement si un 5ᵉ setter du même genre apparaît) et, comme toujours, une
+relecture de ce qui a changé depuis pour repérer de nouvelles pistes. Si un futur changement
+touche `autoload/combat_engine.gd`, lire d'abord son en-tête et celui de
+`combat_assault_resolver.gd` : la séparation en 3 fichiers et le cache de classes
+(`.godot/global_script_class_cache.cfg`, voir `autoload/README.md`) y sont expliqués.
 
 Cette revue de qualité/refactor couvre désormais l'intégralité du dépôt (42 `.gd` + 7 `.py`,
 relus sans filtrer par date de modification, deux fois pour certains fichiers) — une future

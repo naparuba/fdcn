@@ -20,6 +20,18 @@ Cette table ne remplace pas l'en-tête de chaque fichier — chacun documente d�
 fonctionnement en détail (`## ...` en tête de script). Ce qui manquait, et que ce README
 couvre, c'est **comment ils s'articulent entre eux**.
 
+⚠️ **`class_name` et le cache de classes.** `CombatEngine` s'appuie sur deux classes
+utilitaires qui ne sont PAS des autoloads (`CombatTable`, `CombatAssaultResolver` — voir
+`combat_table.gd`/`combat_assault_resolver.gd`, `VirtualListPool` dans `ui/` suit le même
+principe) : chacune se déclare avec `class_name` et s'instancie normalement (`.new()`), sans
+entrée dans `project.godot`. Godot les résout par un cache (`.godot/
+global_script_class_cache.cfg`, gitignoré) reconstruit à l'ouverture de l'éditeur — **pas**
+par un simple `godot --headless -s ...`. Sur un dépôt tout juste cloné (`.godot/` absent ou
+périmé), un script qui référence l'une de ces classes échoue à la compilation
+("Identifier ... not declared") tant qu'un `godot --headless --editor --quit --path .` n'a
+pas tourné une fois — le même geste que pour régénérer les `.import` d'assets (voir
+`todo.md`/l'historique de `git log`).
+
 ## Pourquoi l'ordre compte
 
 Godot appelle les `_ready()` des autoloads dans l'ordre de la liste ci-dessus, et rien

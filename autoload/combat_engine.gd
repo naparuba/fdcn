@@ -26,6 +26,19 @@ extends Node
 ## Les combats à plusieurs adversaires **sont** gérés : ils se mènent **dans l'ordre du
 ## tableau**, un adversaire à la fois. Seul fdcn ch274 s'en sert (GUARDES CORROMPUS puis
 ## TROLESSE).
+##
+## TROIS FICHIERS, UN AUTOLOAD (review-code.md 4.1). `resolve()` était la fonction la plus
+## complexe du dépôt — ~120 lignes calculant l'assaut, les deux formes d'esquive, le plafond
+## du PAYSAN, le coup fatal évité et le jet de survie du PRUDENT, tout dans un seul bloc.
+## Ce fichier reste le SEUL autoload et garde tout l'état d'un combat en cours (`_enemy`,
+## `_de`, `_tour`, ...) ainsi que toute l'API publique — rien de ce qui suit n'a changé pour
+## `screens/aventure_menu/combat.gd`, `ui/resource_gauge.gd` ni les tests. Deux morceaux sans
+## état propre en sont sortis :
+##   - `CombatTable` (`autoload/combat_table.gd`) — la frise `data/combat-table.json` :
+##     chargement, normalisation, lectures. Donnée statique, ne dépend d'aucun combat en cours.
+##   - `CombatAssaultResolver` (`autoload/combat_assault_resolver.gd`) — le calcul d'UN
+##     assaut, en étapes nommées et ordonnées. C'est là qu'ajouter un 5ᵉ pouvoir de
+##     CARACTÈRE ou une 3ᵉ forme d'esquive : voir l'en-tête de ce fichier.
 
 ## Émis après chaque `resolve()`, avec le rapport détaillé de l'assaut.
 signal assault_resolved(rapport)
@@ -54,7 +67,8 @@ const _TABLE_PATH := "res://data/combat-table.json"
 ## Remplaçable dans les tests pour forcer les dés.
 var dice_roller: Callable = func() -> int: return Utils.roll_a_dice(1, 6)
 
-var _table := {}
+var _table := CombatTable.new()
+var _assault_resolver := CombatAssaultResolver.new()
 
 # État du combat en cours. `_chapter_id` à -1 = aucun combat.
 var _chapter_id := -1
@@ -77,36 +91,8 @@ var _esquive_chance := false
 
 
 func _ready() -> void:
-	_table = Utils.load_json_file(_TABLE_PATH)
-	if _table == null or not _table.has("assauts"):
+	if not _table.load_from(_TABLE_PATH):
 		push_error("CombatEngine: table de combat illisible: %s" % _TABLE_PATH)
-		_table = {}
-		return
-	_normalize_table()
-
-
-## Le json rend TOUS ses nombres en float, et en GDScript `-2 in [-2.0]` est **faux**.
-## Les listes d'écarts des situations arrivaient donc en `[-2.0, -1.0]` et aucune
-## recherche par écart entier ne pouvait aboutir : plus de nom de situation, coût de
-## fuite à 0, donc aucune chance consommée en fuyant. Trois symptômes, une seule cause.
-##
-## On convertit une fois pour toutes au chargement plutôt que de bricoler chaque
-## comparaison. C'est le même piège que celui documenté dans `review.md` pour les
-## identifiants de chapitre.
-func _normalize_table() -> void:
-	for situation in _table.get("situations", []):
-		var entiers := []
-		for ecart in situation.get("ecarts", []):
-			entiers.append(int(ecart))
-		situation["ecarts"] = entiers
-		situation["fuite_chance"] = int(situation.get("fuite_chance", 0))
-
-	for ligne in _table.get("assauts", {}).values():
-		for de in ligne.keys():
-			ligne[de] = [int(ligne[de][0]), int(ligne[de][1])]
-
-	_table["ecart_min"] = int(_table.get("ecart_min", -7))
-	_table["ecart_max"] = int(_table.get("ecart_max", 7))
 
 
 #
@@ -239,18 +225,18 @@ func get_ecart_brut() -> int:
 ## Écart réellement utilisé pour lire la table : borné au plancher de la table.
 ## Le plafond, lui, n'existe pas — au-delà on a déjà gagné (`is_auto_win()`).
 func get_ecart() -> int:
-	return maxi(get_ecart_brut(), _ecart_min())
+	return maxi(get_ecart_brut(), _table.ecart_min())
 
 
 ## Vrai quand l'écart dépasse la dernière ligne de la table : victoire sans un seul dé.
 func is_auto_win() -> bool:
-	return is_running() and get_ecart_brut() > _ecart_max()
+	return is_running() and get_ecart_brut() > _table.ecart_max()
 
 
 ## Vrai quand l'écart est si mauvais qu'on lit une ligne plus favorable que la
 ## réalité : l'interface doit le dire, sinon ça passe pour un bug.
 func is_ecart_plafonne() -> bool:
-	return get_ecart_brut() < _ecart_min()
+	return get_ecart_brut() < _table.ecart_min()
 
 
 ## Le nom de la situation ("Désavantage lourd", ...) pour l'écart courant.
@@ -260,13 +246,13 @@ func get_situation() -> String:
 
 ## Publique pour pouvoir vérifier la table sans démarrer de combat.
 func get_situation_for(ecart: int) -> String:
-	var situation = _situation_for(ecart)
+	var situation = _table.situation_for(ecart)
 	return situation.get("nom", "") if situation else ""
 
 
 ## Coût en chance pour passer le combat, selon la situation (review-combat.md §3.9).
 func get_fuite_cost() -> int:
-	var situation = _situation_for(get_ecart())
+	var situation = _table.situation_for(get_ecart())
 	return situation.get("fuite_chance", 0) if situation else 0
 
 
@@ -416,6 +402,10 @@ func roll_dodge() -> int:
 
 ## Résout l'assaut avec les dés mémorisés et applique les dégâts. Renvoie le
 ## rapport détaillé (voir `review-combat.md` §3.1) plutôt que de peindre quoi que ce soit.
+##
+## Le calcul lui-même — écart, esquives, armure, pouvoirs de CARACTÈRE — vit dans
+## `CombatAssaultResolver` (voir l'en-tête du fichier) ; cette fonction ne fait plus que
+## préparer ses entrées et appliquer son résultat à l'état du combat.
 func resolve() -> Dictionary:
 	var rapport = {
 		"de": _de,
@@ -438,65 +428,26 @@ func resolve() -> Dictionary:
 		return rapport
 
 	var ecart = get_ecart()
-	# Les chiffres de la frise sont une BASE : les dégâts supplémentaires s'ajoutent
-	# par-dessus, et l'armure se retire ensuite (review-combat.md §3.10 étape 5).
-	var base = _cell(ecart, _de)
-	var infliges = base[0] + PlayerStats.get_stat("deg")
-	var recus = base[1] + _enemy["deg"]
-	var ignore_armure = false
+	var a := CombatAssaultResolver.Assaut.new()
+	a.enemy = _enemy
+	a.enemy_pv_avant = _enemy_pv
+	a.de = _de
+	a.de_esquive = _de_esquive
+	a.ecart = ecart
+	a.esquive_chance_payee = _esquive_chance
+	a.billy_type = AppParameters.get_billy_type()
+	a.dice_roller = dice_roller
+	a.base = _cell(ecart, _de)
+	a.max_degats_ecart = get_max_degats(ecart)
+	a.rapport = rapport
+	rapport = _assault_resolver.resolve(a)
 
-	if _de_esquive != 0:
-		if _de_esquive == 1:
-			# Contre-attaque critique : dégâts maximaux de l'écart, armure ignorée,
-			# et rien d'encaissé (un 1 est forcément une esquive réussie).
-			rapport["critique"] = true
-			rapport["esquive_reussie"] = true
-			infliges = get_max_degats(ecart) + PlayerStats.get_stat("crit")
-			ignore_armure = true
-			recus = 0
-		elif _de_esquive <= PlayerStats.get_stat("adr"):
-			# Esquive réussie : seuls les dégâts reçus sont annulés.
-			rapport["esquive_reussie"] = true
-			recus = 0
-
-	# L'esquive à la chance du PRUDENT est payée d'avance et ne peut pas rater : elle annule
-	# ce qu'on encaisse, sans rien changer à ce qu'on infligera. Placée après le bloc
-	# d'esquive à l'adresse pour qu'une contre-attaque critique garde tous ses effets.
-	if _esquive_chance:
-		rapport["esquive_chance"] = true
-		rapport["pouvoirs"].append("prudent")
-		recus = 0
-
-	if not ignore_armure:
-		infliges -= _enemy["arm"]
-	if recus > 0:
-		recus -= PlayerStats.get_stat("arm")
-
-	infliges = maxi(infliges, 0)
-	recus = maxi(recus, 0)
-
-	if recus > PAYSAN_DEGATS_MAX and AppParameters.get_billy_type() == "paysan":
-		recus = PAYSAN_DEGATS_MAX
-		rapport["pouvoirs"].append("paysan")
-
-	# Coups simultanés : si l'ennemi tombe sur cet assaut, ses derniers dégâts ne
-	# comptent pas — on l'a tué avant qu'ils ne portent. Testé AVANT le PRUDENT, pour
-	# ne pas dépenser un jet de survie sur un coup qui n'arrivera jamais.
-	if recus > 0 and _enemy_pv - infliges <= 0:
-		recus = 0
-		rapport["coup_fatal_evite"] = true
-
-	if recus > 0 and recus >= PlayerStats.get_pv():
-		recus = _test_survie_prudent(recus, rapport)
-
-	_enemy_pv = maxi(_enemy_pv - infliges, 0)
-	if recus > 0:
-		PlayerStats.del_pv(recus)
+	_enemy_pv = maxi(_enemy_pv - rapport["degats_infliges"], 0)
+	if rapport["degats_recus"] > 0:
+		PlayerStats.del_pv(rapport["degats_recus"])
 	_tour += 1
 	_clear_dice()
 
-	rapport["degats_infliges"] = infliges
-	rapport["degats_recus"] = recus
 	rapport["pv_ennemi_restant"] = _enemy_pv
 
 	# Un adversaire tombé n'est pas forcément la fin : fdcn ch274 en enchaîne deux. Le
@@ -520,70 +471,23 @@ func resolve() -> Dictionary:
 	return rapport
 
 
-## Le PRUDENT survit à un coup mortel : un lancer de dé « après la mort », réussi si le
-## dé ne dépasse pas la chance courante. Renvoie les dégâts à appliquer réellement —
-## survivre veut dire tomber à 1 pv, pas annuler le coup.
-##
-## ⚠️ Le jet ne **consomme pas** de chance : tu l'as décrit comme un simple lancer. Si
-## c'était un « tentez votre chance » classique (qui décrémente), c'est ici et nulle
-## part ailleurs qu'il faut ajouter `PlayerStats.del_chance(1)`.
-##
-## ⚠️⚠️ **À CONFIRMER (2026-08-12).** Cette règle vient de la question 14 de `review-combat.md`, où
-## elle a été décrite comme un jet après la mort. L'énoncé des quatre pouvoirs de Billy donné
-## depuis ne la mentionne pas : le PRUDENT y a « la chance pour esquiver une attaque ou le
-## combat », rien de plus. Elle est donc **conservée telle quelle** — supprimer une règle
-## demandée n'est pas à moi de le décider — mais elle donne aujourd'hui **trois** pouvoirs au
-## PRUDENT. Trois lectures possibles : elle reste (il est le survivant), elle disparaît, ou
-## elle devient générale (tout Billy tente de survivre). Un mot suffit.
-func _test_survie_prudent(recus: int, rapport: Dictionary) -> int:
-	if AppParameters.get_billy_type() != "prudent":
-		return recus
-	var de_survie = dice_roller.call()
-	rapport["de_survie"] = de_survie
-	if de_survie > PlayerStats.get_cha():
-		return recus
-	rapport["pouvoirs"].append("prudent")
-	return PlayerStats.get_pv() - 1
-
-
 #
 #    Table
 #
+# Le chargement, la normalisation et les lectures vivent dans `CombatTable`
+# (`autoload/combat_table.gd`) — les deux wrappers ci-dessous ne font que le relayer, pour
+# que les appelants existants (tests compris, `_cell()` est privée par convention mais un
+# test a le droit de la lire) n'aient rien à changer.
 
 ## Dégâts maximaux d'un écart : la table étant croissante en dé, c'est la valeur du
 ## dé 6 de la ligne. Sert à la contre-attaque critique.
 func get_max_degats(ecart: int) -> int:
-	return _cell(ecart, 6)[0]
+	return _table.max_degats(ecart)
 
 
 ## `[dégâts_infligés, dégâts_reçus]` de base pour un écart et un dé donnés.
 func _cell(ecart: int, de: int) -> Array:
-	var ligne = _table.get("assauts", {}).get(str(ecart))
-	if ligne == null:
-		push_error("CombatEngine: écart %s absent de la table" % ecart)
-		return [0, 0]
-	var cellule = ligne.get(str(de))
-	if cellule == null:
-		push_error("CombatEngine: dé %s absent de la ligne %s" % [de, ecart])
-		return [0, 0]
-	return cellule
-
-
-func _situation_for(ecart: int):
-	for situation in _table.get("situations", []):
-		if ecart in situation.get("ecarts", []):
-			return situation
-	return null
-
-
-## Les bornes de la table, converties une fois pour toutes par `_normalize_table()` — d'où
-## l'absence d'`int()` ici comme dans les autres lectures de la table.
-func _ecart_min() -> int:
-	return _table.get("ecart_min", -7)
-
-
-func _ecart_max() -> int:
-	return _table.get("ecart_max", 7)
+	return _table.cell(ecart, de)
 
 
 func _clear_dice() -> void:
