@@ -74,6 +74,10 @@ class Node(object):
 
         valeurs = {
             'sons':                 son_ids,
+            # PAS un copier-coller inversé : le JSON compilé et `entities/chapter_data.gd`
+            # appellent "chapter" ce que le Python et review.md appellent un ACTE (self._arc),
+            # et "arc" ce qu'ils appellent un SOUS-ARC (self._sub_arc). Les deux vocabulaires
+            # ne coïncident pas pour ce champ -- ne PAS "corriger" en échangeant les deux.
             'chapter':              self._arc,
             'arc':                  self._sub_arc,
             'combat':               self._combat,
@@ -225,8 +229,8 @@ class Node(object):
                 try:
                     k = int(k)
                 except ValueError:
-                    print('ERROR: invalid condition jump')
-                    continue
+                    print('ERROR: node %s, invalid condition jump key: %s' % (self._id, k))
+                    sys.exit(2)
                 goto.add(k)
 
         for k in self._secret_jumps:
