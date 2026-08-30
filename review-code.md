@@ -41,36 +41,29 @@ Rien à signaler sur `book_data.gd`, `save_archive.gd`, `sounder.gd`, `utils.gd`
   Texture2D = null) -> Texture2D`, qui fait le svg→png→repli une fois pour toutes. Les
   trois appelants passent de ~8 lignes à 1.
 
-### 1.2 `ShaderMaterial` gris construit à l'identique dans 2 fichiers
+### 1.2 `ShaderMaterial` gris construit à l'identique dans 2 fichiers — ✅ fait (2026-08-30)
 
 - `popups/sub/inventory.gd:52-54` et `popups/sub/book_selection.gd:103-105` : `ShaderMaterial.new()` + `.shader = _gray_shader` (`shaders/gray.gdshader`) + assignation à `.material`, 3 lignes identiques.
-- **Solution** : `Utils.make_gray_material() -> ShaderMaterial`.
-- Effort : rapide — Valeur : accessoire.
+- **Fait** : `Utils.make_gray_material() -> ShaderMaterial`.
 
-### 1.3 « Trouver l'ancêtre avec cette méthode, avertir et sortir sinon » dupliqué 7× (corrigé 2026-08-30, était compté 6×)
+### 1.3 « Trouver l'ancêtre avec cette méthode, avertir et sortir sinon » — ✅ fait (2026-08-30), et un correctif au passage
 
-- Sites : `screens/about_menu.gd:56,168,221` (avec `push_warning` si `null`),
-  `screens/about_menu.gd:68,183`, `screens/aventure_menu/choice_next_chapiter.gd:86` et
-  `ui/top_menu.gd:143` (variantes proches, ce dernier trouvé lors de la revue fraîche du
-  2026-08-30, absent du compte initial). Tous appellent
-  `Utils.find_ancestor_with_method(self, "confirm")` ou `"go_to_page"` puis testent `null`.
-- **Solution** : `Utils.find_ancestor_with_method_or_warn(node: Node, methode: String,
-  appelant: String) -> Node`, qui fait le `push_warning()` avec le nom de l'appelant et
-  renvoie `null` — les 3 sites avec avertissement (about_menu.gd) gagnent une ligne
-  chacun ; les 4 sans avertissement gardent `find_ancestor_with_method()` tel quel.
-- Effort : rapide — Valeur : accessoire.
+- Sites recensés : `screens/about_menu.gd:56,168,221`, `screens/about_menu.gd:68,183`,
+  `screens/aventure_menu/choice_next_chapiter.gd:86`, `ui/top_menu.gd:143`.
+- **Fait** : `Utils.find_ancestor_with_method_or_warn(node, methode, appelant)`, appliqué aux
+  2 sites qui font vraiment `push_warning()` + sortie (`about_menu.gd:56,168`). Le 3ᵉ site
+  annoncé comme « avec avertissement » (`about_menu.gd:221`, `_dire()`) s'est révélé, à la
+  relecture, faire `print(texte)` en repli — un comportement différent (afficher quand même
+  le message plutôt qu'avorter), donc **pas touché**. Les 4 sites sans avertissement gardent
+  `find_ancestor_with_method()` tel quel, comme prévu.
 
-### 1.4 Résolution du numéro de livre legacy → nom, codée deux fois
+### 1.4 Résolution du numéro de livre legacy → nom, codée deux fois — ✅ fait (2026-08-30)
 
-- `autoload/app_parameters.gd:_resoudre_livre_courant()` (ligne ~72) et
-  `autoload/save_manager.gd:_legacy_book_numbers()` (ligne 256) : les deux relisent
-  `BookData.get_books()`/`get_books()` et construisent une table rang→nom pour convertir
-  un ancien numéro de livre.
-- **Solution** : un seul helper (`BookData.get_book_name_for_legacy_number(n)` ou
-  équivalent) que les deux appellent — à vérifier d'abord que les deux tables sont
-  vraiment interchangeables (l'une est indexée à partir de 1, l'autre à partir de 0 côté
-  `app_parameters.gd`, à harmoniser en même temps).
-- Effort : rapide — Valeur : accessoire.
+- `autoload/app_parameters.gd:_resoudre_livre_courant()` et
+  `autoload/save_manager.gd:_legacy_book_numbers()` relisaient chacun `BookData.get_books()`
+  et reconstruisaient une table rang→nom, l'une indexée à partir de 1, l'autre de 0.
+- **Fait** : `BookData.get_book_name_for_legacy_number(numero: int) -> String`, 1-based, que
+  les deux appellent désormais.
 
 ### 1.5 Types de Billy en chaînes littérales, ~75 fois dans 9 fichiers — ✅ fait (2026-08-30)
 
@@ -98,17 +91,13 @@ Rien à signaler sur `book_data.gd`, `save_archive.gd`, `sounder.gd`, `utils.gd`
   gênante (une ligne, quatre fichiers sans rien d'autre en commun).
 - Effort : — — Valeur : spéculatif, ne pas faire sans un 5ᵉ cas qui change la donne.
 
-### 1.7 `book_data.gd` : deux passes séparées sur `all_nodes` pour deux cartes complémentaires
+### 1.7 `book_data.gd` : deux passes séparées sur `all_nodes` pour deux cartes complémentaires — ✅ fait (2026-08-30)
 
-- `autoload/book_data.gd::_completer_succes()` et `::_index_succes_par_chapitre()` (trouvé
-  le 2026-08-30) itèrent chacune sur tout `all_nodes` en appelant `get_success()` par nœud,
-  pour construire deux structures complémentaires : succès → [chapitres] d'un côté,
-  chapitre → succès de l'autre. Même donnée, deux passages.
-- **Solution** : construire les deux dans la boucle déjà présente dans `_completer_succes()`
-  (l'index se déduit directement de `par_succes` en l'aplatissant, ou se construit en
-  parallèle dans la même boucle), et supprimer la seconde fonction.
-- Effort : rapide — Valeur : accessoire (aucun souci de perf réel à ~700 nœuds), mais se lit
-  comme une seule étape plutôt que deux qui doivent rester synchronisées à la main.
+- `autoload/book_data.gd::_completer_succes()` et `::_index_succes_par_chapitre()` itéraient
+  chacune sur tout `all_nodes` en appelant `get_success()` par nœud, pour construire deux
+  structures complémentaires : succès → [chapitres] d'un côté, chapitre → succès de l'autre.
+- **Fait** : `_completer_succes()` construit désormais les deux dans sa boucle existante et
+  renvoie `{"succes": ..., "index": ...}` ; `_index_succes_par_chapitre()` a disparu.
 
 ---
 
@@ -125,17 +114,15 @@ Rien à signaler sur `book_data.gd`, `save_archive.gd`, `sounder.gd`, `utils.gd`
 
 ---
 
-## 3 — Nommage — 3.2 à 3.5 ✅ faits (2026-08-30), 3.1 restant
+## 3 — Nommage — ✅ tout fait (2026-08-30)
 
 | # | où | quoi | solution |
 |---|---|---|---|
-| 3.1 | `entities/ChapterChoice.gd:31` | `var COLOR_NOT_SET = Color('e0e2e5')` : nom ALL_CAPS sur une `var` alors qu'elle n'est jamais réassignée | `const COLOR_NOT_SET := Color('e0e2e5')` |
+| 3.1 | `entities/ChapterChoice.gd:31` | `var COLOR_NOT_SET = Color('e0e2e5')` : nom ALL_CAPS sur une `var` alors qu'elle n'est jamais réassignée | ✅ `const COLOR_NOT_SET := Color('e0e2e5')` |
 | 3.2 | `ui/nav_buton.gd:95,107` | `setDisabled()`/`setMirror()` : seules méthodes publiques camelCase de tout le dépôt hors tests | ✅ `set_disabled()`/`set_mirror()`, les 2 sites d'appel dans `ui/menu_page.gd` mis à jour |
 | 3.3 | `ui/nav_buton.gd:24` | `signal _on_nav_pressed()` : le préfixe `_on_` est réservé aux handlers privés partout ailleurs | ✅ `pressed_for_navigation`, les 2 `.connect()` mis à jour |
 | 3.4 | `ui/nav_buton.gd:115` | `emit_signal("_on_nav_pressed")` : seul appel par chaîne de caractères de tout le dépôt | ✅ `pressed_for_navigation.emit()` |
 | 3.5 | `entities/EndingChoice.gd:41-46` | `set_ending_type()` compare `ending_type == 1` (commentaire `# GOOD` à côté) : nombre magique | ✅ `const ENDING_TYPE_GOOD := 1` / `ENDING_TYPE_BAD := 2` |
-
-3.1 reste : effort rapide, valeur accessoire, pas dans le lot traité le 2026-08-30.
 
 ---
 
@@ -156,18 +143,16 @@ Rien à signaler sur `book_data.gd`, `save_archive.gd`, `sounder.gd`, `utils.gd`
 - Effort : modéré à large — Valeur : accessoire pour l'instant, à revisiter à la prochaine
   règle de combat ajoutée.
 
-### 4.2 `screens/about_menu.gd` — page « À propos » + fonctionnalité export/import complète
+### 4.2 `screens/about_menu.gd` — page « À propos » + fonctionnalité export/import complète — ✅ fait (2026-08-30)
 
-- Le fichier fait 225 lignes ; les lignes ~74-225 (~150 lignes) sont entièrement l'export/
-  import de sauvegarde en zip (dialogues, filtre MIME, confirmation, `_on_exporter()`/
-  `_on_importer()`/`_construire_boutons_sauvegarde()`...), greffées sur le contrôleur de la
-  page « À propos » qui n'a par ailleurs rien à voir avec la sauvegarde.
-- **Solution** : extraire en `screens/save_export_import.gd` (ou un composant dédié),
-  instancié par `about_menu.gd` — un futur changement du flux d'export n'aura plus besoin
-  de rouvrir un fichier nommé pour autre chose.
-- Effort : modéré — Valeur : accessoire, mais s'impose si l'export/import évolue encore
-  (la 2.3 du todo — test sur téléphone réel — pourrait bien faire remonter des ajustements
-  ici).
+- Le fichier faisait 225 lignes ; ~150 étaient entièrement l'export/import de sauvegarde en
+  zip (dialogues, filtre MIME, confirmation), greffées sur le contrôleur de la page
+  « À propos » qui n'a par ailleurs rien à voir avec la sauvegarde.
+- **Fait** : extrait en `screens/save_export_import.gd`, un `Node` simple (pas de scène à
+  lui, instancié en code) qu'`about_menu.gd` ajoute comme enfant et à qui il passe le
+  conteneur de ses boutons via `setup()`. `about_menu.gd` retombe à ~75 lignes. Ni l'un ni
+  l'autre n'est couvert par la suite automatisée — vérifié par un script de fumée
+  instanciant `AboutMenu.tscn` en isolation (voir le commit).
 
 ---
 
@@ -214,45 +199,34 @@ code mort (toute fonction/méthode non-dunder est appelée quelque part dans `sc
 - **Fait** : `sys.exit(2)` ajouté juste après le `print`, avec le numéro de chapitre et la
   clé fautive dans le message. Les deux livres recompilent à l'identique.
 
-### 6.2 Duplication : le même formatage de condition en texte, deux fois
+### 6.2 Duplication : le même formatage de condition en texte, deux fois — ✅ fait (2026-08-30)
 
 - `node.py:206` (`parse_conditions`) et `node.py:257` (`parse_stats_conditions`) : la même
-  ligne, caractère pour caractère —
-  `expr.replace('(', '( ').replace(')', ' )').replace('&', ' et ').replace('|', ' ou ').strip()`.
-- **Solution** : `_expr_to_txt(expr: str) -> str` en fonction de module, appelée aux deux
+  ligne, caractère pour caractère.
+- **Fait** : `_expr_to_txt(expr: str) -> str` en fonction de module, appelée aux deux
   endroits.
-- Effort : trivial — Valeur : à faire, un futur ajout au mini-langage (un opérateur `!`, par
-  exemple) ne se corrigerait sinon qu'à moitié.
 
-### 6.3 Trois boucles séparées sur les mêmes nœuds pour construire trois ensembles
+### 6.3 Trois boucles séparées sur les mêmes nœuds pour construire trois ensembles — ✅ fait (2026-08-30)
 
-- `generator.py:_valider_les_objets` (lignes 283-305) : trois boucles `for node_id_str in
-  book_data.keys(): node = node_graph.get_node(int(node_id_str))`, une par ensemble
-  (`all_conditions`, `all_aquire`, `all_remove`) — chacune refait le même lookup.
-- **Solution** : une seule boucle qui alimente les trois ensembles à la fois.
-- Effort : rapide — Valeur : accessoire (aucun souci de perf réel à ~700 nœuds), mais se lit
-  mieux d'un bloc et évite un lookup répété sans raison.
+- `generator.py:_valider_les_objets` : trois boucles `for node_id_str in book_data.keys():
+  node = node_graph.get_node(int(node_id_str))`, une par ensemble (`all_conditions`,
+  `all_aquire`, `all_remove`) — chacune refaisait le même lookup.
+- **Fait** : une seule boucle alimente les trois ensembles à la fois.
 
-### 6.4 Nommage : `set_sucess()` / `get_success()`
+### 6.4 Nommage : `set_sucess()` / `get_success()` — ✅ fait (2026-08-30)
 
-- `node.py:148` déclare `set_sucess()` (faute de frappe, un seul appelant :
-  `generator.py:141`), alors que le getter correspondant, `get_success()` (`node.py:152`),
-  est bien orthographié.
-- **Solution** : renommer en `set_success()`, mettre à jour l'unique appel.
-- Effort : trivial — Valeur : à faire, gratuit.
+- `node.py:148` déclarait `set_sucess()` (faute de frappe, un seul appelant), alors que le
+  getter correspondant, `get_success()`, est bien orthographié.
+- **Fait** : renommé en `set_success()`, l'unique appel mis à jour.
 
-### 6.5 `graph_render.py` : accès direct à l'attribut *et* accesseur public pour le même champ, dans la même fonction
+### 6.5 `graph_render.py` : accès direct à l'attribut *et* accesseur public pour le même champ — ✅ fait (2026-08-30)
 
-- `_get_graph_from_nodes` (lignes 96-101) lit `node._arc` en accès direct mais
-  `other.get_arc()` par l'accesseur — pour le **même champ**, sur deux `Node` différents,
-  à trois lignes d'écart. `add_edges_to_display_graph` fait pareil avec l'id
-  (`node._id` / `son.get_id()`, lignes 105-113).
-- Le commentaire d'en-tête du fichier justifie l'accès direct par « pas d'accesseur qui
-  n'existe que pour cet usage » — vrai pour `_label`/`_secret`/`_combat`/`_ending` (aucun
-  accesseur n'existe), mais `get_arc()` et `get_id()` existent déjà et sont utilisés ailleurs
-  dans ce même fichier : le mélange, ici, n'est pas justifié par cette règle.
-- **Solution** : utiliser l'accesseur existant des deux côtés de ces deux comparaisons.
-- Effort : trivial — Valeur : accessoire, mais lisible pour rien.
+- `_get_graph_from_nodes` lisait `node._arc` en accès direct mais `other.get_arc()` par
+  l'accesseur — pour le **même champ**, sur deux `Node` différents, à trois lignes d'écart.
+  `add_edges_to_display_graph` faisait pareil avec l'id.
+- **Fait** : les deux comparaisons utilisent l'accesseur des deux côtés
+  (`node._ending`, sans accesseur existant, reste en accès direct — cohérent avec le reste
+  du fichier).
 
 ### 6.6 Un swap silencieux mais correct — à épingler avant qu'on le "corrige" par erreur — ✅ fait (2026-08-30)
 
@@ -327,20 +301,18 @@ func jump_back(previous_id) -> bool:
   Les deux livres recompilent à l'identique — les 85 combats existants avaient déjà toutes
   les bonnes clés.
 
-### 7.3 `succes_menu.gd` / `chapitres_menu.gd` : le câblage autour de `VirtualListPool` reste dupliqué
+### 7.3 `succes_menu.gd` / `chapitres_menu.gd` : le câblage autour de `VirtualListPool` reste dupliqué — ✅ fait (2026-08-30)
 
-- `screens/chapitres_menu.gd:76-104` et `screens/succes_menu.gd:86-107` : `_on_scroll_resized()`
-  est identique caractère pour caractère dans les deux fichiers (`_ensure_pool();
-  _refresh_rows(true)`), et `_ensure_pool()`/`_refresh_rows(force)` ne diffèrent que par la
-  variable de comptage passée au pool (`_chapter_ids.size()` vs `_successes.size()`).
-  L'extraction de `ui/virtual_list_pool.gd` (déjà faite, todo 6.6 du 2026-08-23) a factorisé
-  le pool et le repositionnement, pas ce mince câblage autour — ~15-20 lignes quasi
-  identiques restent dans chaque écran.
-- **Solution** : donner à `VirtualListPool` un `item_count: Callable` au constructeur, et
-  lui faire porter directement `on_scroll_resized()`/`refresh_rows(force)` sans paramètre
-  de compte — les deux écrans n'auraient plus qu'à connecter le signal et fournir
-  `update_row`.
-- Effort : rapide — Valeur : accessoire, cohérent avec l'esprit de l'extraction déjà faite.
+- `_on_scroll_resized()`/`_ensure_pool()`/`_refresh_rows(force)` étaient quasi identiques
+  dans les deux écrans (~15-20 lignes chacun), ne différant que par la variable de comptage
+  passée au pool.
+- **Fait** : `VirtualListPool` prend `item_count`/`update_row` (deux `Callable`) au
+  constructeur, et porte lui-même `on_scroll_resized()`/`refresh_rows(force)` sans paramètre
+  de compte. Les 3 wrappers ont disparu des deux écrans, qui connectent directement leurs
+  signaux à `_pool.on_scroll_resized`/`_pool.refresh_rows`. Non couvert par la suite
+  automatisée (jamais testé) — vérifié par un script de fumée instanciant les deux scènes à
+  taille réelle et confirmant que le pool construit des lignes et survit à un défilement/
+  redimensionnement.
 
 ### Vérifié propre au passage (pas des findings)
 
@@ -362,18 +334,20 @@ func jump_back(previous_id) -> bool:
 
 ## Résumé pour la prochaine session
 
-**2026-08-30 : tout le lot "prioritaire" traité et commité** — GDScript 1.1, 1.5, 2.1-2.6,
-3.2-3.5, §5 ; Python 6.1, 6.6 ; revue fraîche 7.1, 7.2. Suite Godot à 783 assertions (+1),
-les deux livres recompilent à l'identique après chaque changement côté générateur. 4
-commits séparés, voir `git log` (à partir de `a46f842`) pour le détail par lot.
+**2026-08-30 : le backlog entier de ce fichier est traité et commité**, sauf deux items que
+la review elle-même dit de ne PAS faire maintenant : **1.6** (`set_main` dupliqué×4, "pas
+une vraie duplication gênante", à ne factoriser qu'avec un 5ᵉ cas) et **4.1**
+(`combat_engine.gd::resolve()`, à découper seulement à la prochaine règle de combat ajoutée
+— déjà bien testé, le risque actuel est faible). Tout le reste — 1.1 à 1.5, 1.7, 2.1-2.6,
+3.1-3.5, 4.2, §5, 6.1-6.6, 7.1-7.3 — est ✅. Suite Godot à 783 assertions, les deux livres
+recompilent à l'identique après chaque changement côté générateur. 8 commits séparés au
+total, voir `git log` (à partir de `a46f842`) pour le détail par lot ; `about_menu.gd` et
+les deux écrans-listes, jamais couverts par la suite automatisée, ont chacun été vérifiés
+par un script de fumée jetable avant son commit.
 
-Ce qui reste, tout **accessoire** — pas urgent, à ne faire qu'au moment où un changement
-fonctionnel touche déjà ces zones :
-- GDScript : 1.2 à 1.4, 1.6, **1.7** (nouveau, trouvé le 2026-08-30 dans `book_data.gd` —
-  deux passes sur `all_nodes` pour deux cartes complémentaires de succès), 3.1, 4.1, 4.2.
-- Python : 6.2 à 6.5.
-- Revue fraîche : 7.3 (câblage `VirtualListPool` encore dupliqué dans
-  `chapitres_menu.gd`/`succes_menu.gd`).
+Une future session qui rouvre ce fichier n'a donc plus de backlog à piocher — seulement
+1.6/4.1 à surveiller (agir seulement si leur déclencheur arrive) et, comme toujours, une
+relecture de ce qui a changé depuis pour repérer de nouvelles pistes.
 
 Cette revue de qualité/refactor couvre désormais l'intégralité du dépôt (42 `.gd` + 7 `.py`,
 relus sans filtrer par date de modification, deux fois pour certains fichiers) — une future
