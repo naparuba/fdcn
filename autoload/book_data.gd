@@ -408,12 +408,18 @@ func match_chapter_conditions(node_from_id, node_to_id) -> bool:
 ## Le libellé de la condition (« ARC et COUTEAU »), ou "" si le saut est libre.
 func get_condition_txt(node_from_id, node_to_id) -> String:
 	var txts = get_chapter_node(node_from_id).get_jump_conditions_txts()
-	return txts.get('%s' % node_to_id, '')
+	return txts.get('%d' % int(node_to_id), '')
 
 
 func _jump_condition(node_from_id, node_to_id):
 	var conditions = get_chapter_node(node_from_id).get_jump_conditions()
-	return conditions.get('%s' % node_to_id)
+	# `node_to_id` vient souvent de `chapter_data.gd::get_id()`, qui rend le json tel quel
+	# (un float) : sans le cast, '%s' % 415.0 donne "415.0", qui ne correspond jamais à la
+	# clé "415" du livre compilé — la condition de saut n'était donc jamais trouvée, ni
+	# `have_chapter_conditions()` ni `match_chapter_conditions()` (ChapterChoice.gd ne
+	# coloriait donc jamais un saut spécial en vert ni en rouge). Même famille de bug que
+	# `test_chapter_ids.gd`.
+	return conditions.get('%d' % int(node_to_id))
 
 
 ## Évalue un arbre de condition de saut contre les faits du joueur — `facts` étant

@@ -89,3 +89,15 @@ func test_position_affiche_un_entier() -> void:
 	position.set_chapter_number(26.0)
 	assert_eq(position._numero_chapitre.text, "26", "pas de \".0\" affiché")
 	position.free()
+
+
+## `ChapterChoice.gd::update_from_son_node()` appelle `BookData.have_chapter_conditions()`/
+## `match_chapter_conditions()`/`get_condition_txt()` avec `son.get_id()`, un float comme
+## tout `chapter_data.gd::get_id()`. Sans cast côté `BookData._jump_condition()`, la clé de
+## condition ("11.0") ne correspondait jamais à celle du livre compilé ("11") : le saut
+## spécial ne se coloriait donc JAMAIS, ni en vert ni en rouge, sur aucun chapitre.
+func test_condition_de_saut_accepte_un_float() -> void:
+	Inventory.force_billy_type('guerrier')
+	assert_true(BookData.have_chapter_conditions(2, 11.0), "2 -> 11.0 a une condition")
+	assert_true(BookData.match_chapter_conditions(2, 11.0), "le GUERRIER passe par 11.0")
+	assert_eq(BookData.get_condition_txt(2, 11.0), "GUERRIER", "texte trouvé avec un float")
