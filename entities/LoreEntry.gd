@@ -6,7 +6,7 @@ extends Panel
 ## qui ne diffèrent que par leurs trois propriétés exportées, et sans ça elles seraient
 ## impossibles à distinguer en la composant.
 ##
-## MISE EN PAGE — reconstruite en conteneurs (review §6.1). Trois points valent d'être sus :
+## MISE EN PAGE — reconstruite en conteneurs (review §1.2). Trois points valent d'être sus :
 ##
 ## 1. **Les trois `Sprite2D` sont devenus des `TextureRect`.** Un `Sprite2D` est un `Node2D` :
 ##    il n'a pas de `size`, donc aucun conteneur ne sait le placer. C'était le vrai blocage
@@ -15,7 +15,7 @@ extends Panel
 ##    `ImageTexture` construite sur un `Image` de 320×435 sérialisé en base64 — soit une
 ##    copie exacte de `images/billys/guerrier.png`, que la scène référence maintenant. Elle
 ##    ne servait que d'aperçu d'éditeur : `_ready()` remplace la texture à l'exécution.
-##    C'était **99 % du poids des scènes du dépôt** (review §11.1).
+##    C'était **99 % du poids des scènes du dépôt**.
 ## 3. **Le titre et le portrait ne se chevauchent plus.** Le libellé occupait toute la
 ##    largeur en absolu, donc il passait par-dessus le haut du portrait. Il est maintenant
 ##    au-dessus, dans un `VBoxContainer` : le portrait prend la hauteur qui reste et se

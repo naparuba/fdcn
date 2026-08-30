@@ -1,6 +1,6 @@
 extends Panel
 
-@export var content = "" # (String, MULTILINE)
+@export_multiline var content := ""
 @export var accept_button: String = "Accepter"
 @export var cancel_button: String = "Annuler"
 

@@ -27,11 +27,6 @@ var _item_data = {}
 
 var _item_icon = null
 
-# Called when the node enters the scene tree for the first time.
-func _ready():
-	pass # Replace with function body.
-
-
 
 func load_item_data(item_name, item_data):
 	_item_name = item_name
@@ -41,16 +36,9 @@ func load_item_data(item_name, item_data):
 	var new_style = StyleBoxFlat.new()
 	set('theme_override_styles/panel', new_style)
 	# svg d'abord, png ensuite, « ? » sinon : la plupart des objets ont un svg dessiné,
-	# quelques-uns n'ont qu'un png de récupération, et 14 (review §5.5) n'ont ni l'un ni
-	# l'autre — le repli n'est donc pas une erreur à corriger, il est attendu.
-	var svg_path = 'res://images/items/%s.svg' % _item_name
-	var png_path = 'res://images/items/%s.png' % _item_name
-	if Utils.is_file_exists(svg_path):
-		_item_icon = Utils.load_external_texture(svg_path)
-	elif Utils.is_file_exists(png_path):
-		_item_icon = Utils.load_external_texture(png_path)
-	else:
-		_item_icon = _ICONE_INCONNUE
+	# quelques-uns n'ont qu'un png de récupération, et 14 n'ont ni l'un ni l'autre — le
+	# repli n'est donc pas une erreur à corriger, il est attendu.
+	_item_icon = Utils.load_icon_with_fallback('res://images/items/', _item_name, _ICONE_INCONNUE)
 	refresh()
 
 
@@ -71,15 +59,6 @@ func is_enabled():
 
 func get_category():
 	return _item_data['category']
-
-
-## La catégorie `BILLY` ne contient pas des objets à afficher, mais les marqueurs de type
-## de Billy eux-mêmes (voir `Inventory.compute_billy_for_option()`) : une ligne d'inventaire
-## n'a rien à en montrer.
-func is_ok_to_be_shown():
-	if get_category() == 'BILLY':
-		return false
-	return true
 
 
 ## Trois façons indépendantes d'avoir le droit de voir le vrai nom/icône plutôt que le

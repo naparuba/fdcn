@@ -186,10 +186,6 @@ func did_all_times_seen(chapter_id) -> bool:
 	return int(chapter_id) in visited_nodes_all_times
 
 
-func have_previous_chapters() -> bool:
-	return session_visited_nodes.size() > 1
-
-
 ## La fin du fil d'Ariane, du plus ancien au plus récent.
 func get_last_visited_nodes(nb_chapters: int = 5) -> Array:
 	var nb_previous = session_visited_nodes.size()

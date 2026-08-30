@@ -14,7 +14,7 @@ extends Panel
 ## 3. **Deux polices mortes** (`FontFile` avec `size`/`font_data`, noms Godot 3). Le `40`
 ##    voulu pour « > » et « Oups » est redevenu réel via `theme_override_font_sizes`.
 ##
-## Le ruban reste un **atome de taille fixe** (review §6.3) : ses points et la rotation de
+## Le ruban reste un **atome de taille fixe** (review §1.2) : ses points et la rotation de
 ## son libellé sont intacts, dans un `Control` de 75×260.
 
 

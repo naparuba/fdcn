@@ -1,7 +1,7 @@
 extends Control
 ## Un chevron du fil d'Ariane : le numéro d'un chapitre visité, cliquable pour y revenir.
 ##
-## **Atome de taille fixe** (review §6.3) : les deux `Polygon2D` gardent leurs points, le
+## **Atome de taille fixe** (review §1.2) : les deux `Polygon2D` gardent leurs points, le
 ## conteneur ne place que la boîte.
 ##
 ## ⚠️ La largeur minimale (70) est plus PETITE que le dessin (91) — et c'est voulu : c'est
@@ -36,11 +36,6 @@ func _update_label():
 func _set_color(color):
 	$poly_for_first.color = color
 	$Polygon2D.color = color
-
-# Called when the node enters the scene tree for the first time.
-func _ready():
-	#_set_color()
-	pass
 
 
 func set_first():

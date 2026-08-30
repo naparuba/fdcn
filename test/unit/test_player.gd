@@ -55,7 +55,7 @@ func test_on_ne_porte_jamais_plus_de_trois_objets() -> void:
 
 
 # Le type imposé depuis le menu du haut passe par `force_billy_type()`, qui doit
-# émettre `billy_changed` (c'est ce signal qui rafraîchit l'interface, review §2.4)
+# émettre `billy_changed` (c'est ce signal qui rafraîchit l'interface)
 # et recalculer les stats, puisque le type donne des modificateurs.
 func test_forcer_le_type_emet_le_signal_et_recalcule_les_stats() -> void:
 	var recus := []

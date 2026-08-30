@@ -19,11 +19,6 @@ var _item_data = {}
 
 var _item_icon = null
 
-# Called when the node enters the scene tree for the first time.
-func _ready():
-	pass # Replace with function body.
-
-
 
 func load_item_data(item_name, item_data):
 	_item_name = item_name
@@ -36,14 +31,7 @@ func load_item_data(item_name, item_data):
 	set('theme_override_styles/panel', new_style)
 	# Repli svg -> png, comme `entities/Item.gd` : sans lui, tout objet dont l'icône est un
 	# PNG s'affichait sans image dans cette popup alors qu'il en a une dans l'inventaire.
-	var svg_path = 'res://images/items/%s.svg' % _item_name
-	var png_path = 'res://images/items/%s.png' % _item_name
-	if Utils.is_file_exists(svg_path):
-		_item_icon = Utils.load_external_texture(svg_path)
-	elif Utils.is_file_exists(png_path):
-		_item_icon = Utils.load_external_texture(png_path)
-	else:
-		_item_icon = _ICONE_INCONNUE
+	_item_icon = Utils.load_icon_with_fallback('res://images/items/', _item_name, _ICONE_INCONNUE)
 
 
 	

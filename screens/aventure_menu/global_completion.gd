@@ -3,7 +3,7 @@ extends PanelContainer
 ## confondues (`Player.get_nb_all_time_seen()`), sur le total du livre courant.
 ##
 ## Plus de `GaugeSizer` entre les deux : la jauge est passée de `Node2D` à `Control`, un
-## conteneur sait donc la placer lui-même (review §6.1).
+## conteneur sait donc la placer lui-même (review §1.2).
 @onready var _gauge = $VBoxContainer/GaugeWrap/Gauge
 @onready var _footnode = $VBoxContainer/footnode
 

@@ -130,14 +130,7 @@ func set_from_success_object(success_object):
 
 func set_success_id(new_success_id):
 	success_id = new_success_id
-	var png_path = "res://images/success/%s.png" % new_success_id
-	var svg_path = "res://images/success/%s.svg" % new_success_id
-	var texture = null
-	if Utils.is_file_exists(svg_path):
-		texture = Utils.load_external_texture(svg_path)
-	elif Utils.is_file_exists(png_path):
-		texture = Utils.load_external_texture(png_path)
-	_sprite.texture = texture
+	_sprite.texture = Utils.load_icon_with_fallback('res://images/success/', new_success_id)
 
 
 func set_chapitre(chapitre):

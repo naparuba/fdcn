@@ -3,7 +3,7 @@ extends Panel
 ##
 ## La barre est un `Polygon2D` dont les coordonnées ont été dessinées à la main
 ## pour un écran de 960 px de haut. Depuis que l'app s'étire réellement
-## (`stretch/mode = canvas_items`, voir review §2.6), la hauteur du viewport peut
+## (`stretch/mode = canvas_items`), la hauteur du viewport peut
 ## dépasser 960 sur les écrans allongés (un 20:9 donne 1200) : le polygone est
 ## donc **redimensionné à l'exécution** pour couvrir toute la hauteur, sinon il
 ## s'arrête en cours de route et laisse un trou en bas.

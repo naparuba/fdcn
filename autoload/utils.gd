@@ -70,6 +70,20 @@ func is_file_exists(path) -> bool:
 	return ResourceLoader.exists(path)
 
 
+## svg d'abord, png ensuite, `repli` sinon : le motif répété à l'identique par les 3
+## apparences d'objet/succès (`entities/Item.gd`, `popups/ItemPopup.gd`,
+## `entities/success_item.gd`) avant qu'il ne soit factorisé ici — un seul endroit à
+## corriger si l'ordre de repli change un jour.
+func load_icon_with_fallback(dossier: String, nom: String, repli: Texture2D = null) -> Texture2D:
+	var svg_path = '%s%s.svg' % [dossier, nom]
+	var png_path = '%s%s.png' % [dossier, nom]
+	if is_file_exists(svg_path):
+		return load_external_texture(svg_path)
+	if is_file_exists(png_path):
+		return load_external_texture(png_path)
+	return repli
+
+
 ## La version de l'application, et **le seul endroit d'où la lire**.
 ##
 ## Source unique : `application/config/version` dans `project.godot` — le réglage standard de
