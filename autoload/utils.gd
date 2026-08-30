@@ -84,6 +84,18 @@ func load_icon_with_fallback(dossier: String, nom: String, repli: Texture2D = nu
 	return repli
 
 
+const _GRAY_SHADER: Shader = preload('res://shaders/gray.gdshader')
+
+## Un matériau par appelant, jamais partagé : `grayscale` est un paramètre du matériau, un
+## seul partagé griserait tous les nœuds qui le porteraient d'un coup. Même construction
+## reprise à l'identique dans `popups/sub/inventory.gd` (un par portrait de Billy) et
+## `popups/sub/book_selection.gd` (un par couverture) avant ce helper.
+func make_gray_material() -> ShaderMaterial:
+	var material := ShaderMaterial.new()
+	material.shader = _GRAY_SHADER
+	return material
+
+
 ## La version de l'application, et **le seul endroit d'où la lire**.
 ##
 ## Source unique : `application/config/version` dans `project.godot` — le réglage standard de
@@ -119,3 +131,12 @@ func find_ancestor_with_method(node: Node, method_name: String) -> Node:
 			return current
 		current = current.get_parent()
 	return null
+
+
+## Même chose, mais pour un appelant qui a besoin de savoir *pourquoi* l'action n'a rien
+## fait plutôt que d'échouer en silence : `appelant` identifie l'appelant dans le message.
+func find_ancestor_with_method_or_warn(node: Node, method_name: String, appelant: String) -> Node:
+	var found = find_ancestor_with_method(node, method_name)
+	if found == null:
+		push_warning("%s: pas de conteneur avec %s()" % [appelant, method_name])
+	return found

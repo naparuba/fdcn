@@ -16,8 +16,6 @@ extends Panel
 ## visuel qui dit lequel est en cours : sans lui, les couvertures sont identiquement
 ## colorées et rien ne distingue le livre actif.
 
-var _gray_shader: Shader = preload('res://shaders/gray.gdshader')
-
 ## Où trouver la couverture d'un livre. ⚠️ Convention de nommage, pas un chemin déclaré :
 ## un livre sans image reste sélectionnable — son bouton porte alors son titre en texte,
 ## pour qu'un livre tout neuf soit jouable avant d'avoir son illustration.
@@ -100,9 +98,7 @@ func _construire_couverture(livre: Dictionary) -> Control:
 
 	# Un matériau par couverture : `grayscale` est un paramètre du matériau, un seul
 	# partagé griserait toutes les couvertures d'un coup.
-	var gray_material := ShaderMaterial.new()
-	gray_material.shader = _gray_shader
-	bouton.material = gray_material
+	bouton.material = Utils.make_gray_material()
 
 	_grille.add_child(bouton)
 	return bouton

@@ -28,7 +28,7 @@ extends Panel
 @onready var _click_special: Panel = $Row/click/special
 @onready var _click_special_wrong: Panel = $Row/click/special_wrong
 
-var COLOR_NOT_SET = Color('e0e2e5')  # very light grey
+const COLOR_NOT_SET := Color('e0e2e5')  # very light grey
 
 var chap_number
 var spoil_enabled = false

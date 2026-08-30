@@ -29,7 +29,6 @@ const _LOT_PAR_FRAME := 10
 @onready var items_panel = $ItemsCont/Items
 
 var _item_scene: PackedScene = preload('res://entities/Item.tscn')
-var _gray_shader: Shader = preload('res://shaders/gray.gdshader')
 
 ## Type de Billy -> son portrait dans le HBoxContainer.
 var _billy_blocks := {}
@@ -49,9 +48,7 @@ func _ready() -> void:
 	# Un matériau par portrait : un seul partagé griserait les quatre d'un coup,
 	# `grayscale` étant un paramètre du matériau et non du nœud.
 	for block in _billy_blocks.values():
-		var gray_material := ShaderMaterial.new()
-		gray_material.shader = _gray_shader
-		block.material = gray_material
+		block.material = Utils.make_gray_material()
 
 	Inventory.items_changed.connect(_on_items_changed)
 	Inventory.billy_changed.connect(_on_billy_changed)

@@ -53,9 +53,8 @@ func _afficher_version() -> void:
 ## navigation le temps de la question. Sans conteneur trouvé, **on ne fait rien** plutôt
 ## que d'effacer en silence.
 func _on_nouveau_billy() -> void:
-	var menu_page = Utils.find_ancestor_with_method(self, "confirm")
+	var menu_page = Utils.find_ancestor_with_method_or_warn(self, "confirm", "AboutMenu")
 	if menu_page == null:
-		push_warning("AboutMenu: pas de conteneur de popup, nouveau Billy annulé")
 		return
 	menu_page.confirm(_NOUVEAU_BILLY_TEXTE, _do_nouveau_billy, "Nouveau Billy")
 
@@ -165,9 +164,8 @@ func _demander_confirmation_import(chemin: String) -> void:
 		_dire("Archive refusée :\n%s" % description["erreur"])
 		return
 
-	var menu_page = Utils.find_ancestor_with_method(self, "confirm")
+	var menu_page = Utils.find_ancestor_with_method_or_warn(self, "confirm", "AboutMenu")
 	if menu_page == null:
-		push_warning("AboutMenu: pas de conteneur de popup, import annulé")
 		return
 	var texte = "Remplacer la partie en cours par celle du %s (%s) ?\n\nUne sauvegarde de secours sera écrite avant." % [
 		description["date"], ", ".join(description["livres"])]

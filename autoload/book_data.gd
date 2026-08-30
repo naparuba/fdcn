@@ -110,6 +110,17 @@ func get_default_book_name() -> String:
 	return books[0].get("nom", "")
 
 
+## Convertit un numéro de livre d'avant 2026 (1-based, le rang dans le registre à
+## l'époque) en son nom, ou "" hors registre. `AppParameters` (le livre courant d'une
+## vieille sauvegarde) et `SaveManager` (les fichiers `-N.json` restants à migrer)
+## refaisaient chacun cette conversion, l'une indexée à partir de 0, l'autre de 1.
+func get_book_name_for_legacy_number(numero: int) -> String:
+	var rang = numero - 1
+	if rang < 0 or rang >= books.size():
+		return ''
+	return books[rang].get('nom', '')
+
+
 #
 #    Chargement d'un livre
 #
@@ -147,8 +158,9 @@ func do_load_book(book_name) -> void:
 	# Le compilateur en produisait des copies enrichies : les mêmes libellés, catégories et
 	# textes écrits deux fois dans le dépôt, pour deux champs ajoutés.
 	all_objects = _completer_objets(compiled["objects"])
-	all_success = _completer_succes(compiled["success"])
-	all_success_chapters = _index_succes_par_chapitre()
+	var succes_et_index = _completer_succes(compiled["success"])
+	all_success = succes_et_index["succes"]
+	all_success_chapters = succes_et_index["index"]
 	counters = _parse_counters(compiled.get("counters", []))
 	_ignorees = compiled.get("ignored", [])
 
@@ -202,19 +214,26 @@ func _completer_objets(objets) -> Dictionary:
 	return objets
 
 
-## Les succès du livre, complétés du chapitre qui les donne.
+## Les succès du livre (complétés du chapitre qui les donne) ET l'index chapitre ->
+## identifiant de succès, construits dans la même passe sur `all_nodes` : les deux se
+## déduisent de la même chose (quel chapitre donne quel succès), inutile de la relire deux
+## fois (review-code.md 1.7).
 ##
 ## ⚠️ **Un succès par identifiant, même s'il se gagne à deux endroits.** Le fichier compilé
 ## était une liste de paires (succès × chapitre) : `PHOBIE-ADMINISTRATIVE` de cdsi, déclaré
 ## par les chapitres 98 et 498, y figurait **deux fois** — et l'écran des succès affichait
 ## donc deux lignes identiques. `chapter` garde le premier chapitre, pour l'afficher ;
 ## savoir si le succès est obtenu passe par `is_success_obtenu()`, qui les regarde tous.
-func _completer_succes(succes) -> Array:
+##
+## Renvoie `{"succes": Array, "index": Dictionary}` — `do_load_book()` les distribue vers
+## `all_success`/`all_success_chapters`.
+func _completer_succes(succes) -> Dictionary:
 	if not succes is Array:
 		push_error("BookData: succès illisibles pour %s" % _current_book_name)
-		return []
+		return {"succes": [], "index": {}}
 
 	var par_succes := {}
+	var index := {}
 	for node_id_str in all_nodes:
 		var success_id = all_nodes[node_id_str].get_success()
 		if success_id == null:
@@ -222,6 +241,7 @@ func _completer_succes(succes) -> Array:
 		if not par_succes.has(success_id):
 			par_succes[success_id] = []
 		par_succes[success_id].append(int(node_id_str))
+		index['%d' % int(node_id_str)] = success_id
 
 	var complets := []
 	for success in succes:
@@ -230,18 +250,7 @@ func _completer_succes(succes) -> Array:
 		var complet = success.duplicate()
 		complet['chapter'] = chapitres[0] if not chapitres.is_empty() else 1
 		complets.append(complet)
-	return complets
-
-
-## Chapitre -> identifiant de succès. Tous les chapitres qui donnent un succès y sont, y
-## compris quand deux en donnent le même.
-func _index_succes_par_chapitre() -> Dictionary:
-	var index := {}
-	for node_id_str in all_nodes:
-		var success_id = all_nodes[node_id_str].get_success()
-		if success_id != null:
-			index['%d' % int(node_id_str)] = success_id
-	return index
+	return {"succes": complets, "index": index}
 
 
 ## Vrai si le joueur a traversé **l'un** des chapitres qui donnent ce succès.

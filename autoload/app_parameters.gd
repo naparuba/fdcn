@@ -82,9 +82,7 @@ func _resoudre_livre_courant() -> bool:
 	var courant = parameters['current_book']
 
 	if typeof(courant) != TYPE_STRING:
-		var rang = int(courant) - 1
-		var livres = BookData.get_books()
-		var nom = livres[rang].get('nom', '') if rang >= 0 and rang < livres.size() else ''
+		var nom = BookData.get_book_name_for_legacy_number(int(courant))
 		parameters['current_book'] = nom if nom != '' else BookData.get_default_book_name()
 		print('PARAM: conversion current_book %s => %s' % [courant, parameters['current_book']])
 		return true

@@ -255,9 +255,8 @@ func _migrate(from_version: int) -> int:
 ## un livre est identifié par son nom.
 func _legacy_book_numbers() -> Dictionary:
 	var table := {}
-	var livres = BookData.get_books()
-	for rang in livres.size():
-		table[rang + 1] = livres[rang].get("nom", "")
+	for rang in BookData.get_books().size():
+		table[rang + 1] = BookData.get_book_name_for_legacy_number(rang + 1)
 	return table
 
 
