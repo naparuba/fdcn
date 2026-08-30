@@ -1,7 +1,7 @@
 extends Control
 ## Un chevron du fil d'Ariane : le numéro d'un chapitre visité, cliquable pour y revenir.
 ##
-## **Atome de taille fixe** (review §1.2) : les deux `Polygon2D` gardent leurs points, le
+## **Atome de taille fixe** : les deux `Polygon2D` gardent leurs points, le
 ## conteneur ne place que la boîte.
 ##
 ## ⚠️ La largeur minimale (70) est plus PETITE que le dessin (91) — et c'est voulu : c'est

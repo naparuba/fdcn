@@ -1,7 +1,7 @@
 extends Node
-## Export/import d'une sauvegarde en zip. Extrait de `screens/about_menu.gd` (review-code.md
-## 4.2) : c'était ~150 des 225 lignes de ce fichier, greffées sur le contrôleur de la page
-## « À propos » qui n'a par ailleurs rien à voir avec la sauvegarde.
+## Export/import d'une sauvegarde en zip. Extrait de `screens/about_menu.gd` : c'était ~150
+## des 225 lignes de ce fichier, greffées sur le contrôleur de la page « À propos » qui n'a
+## par ailleurs rien à voir avec la sauvegarde.
 ##
 ## Instancié en code (`.new()` + `add_child()`, pas de scène propre) par `about_menu.gd`, qui
 ## lui passe le conteneur où poser sa rangée de boutons via `setup()`.

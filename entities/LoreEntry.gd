@@ -6,7 +6,7 @@ extends Panel
 ## qui ne diffèrent que par leurs trois propriétés exportées, et sans ça elles seraient
 ## impossibles à distinguer en la composant.
 ##
-## MISE EN PAGE — reconstruite en conteneurs (review §1.2). Trois points valent d'être sus :
+## MISE EN PAGE — reconstruite en conteneurs. Trois points valent d'être sus :
 ##
 ## 1. **Les trois `Sprite2D` sont devenus des `TextureRect`.** Un `Sprite2D` est un `Node2D` :
 ##    il n'a pas de `size`, donc aucun conteneur ne sait le placer. C'était le vrai blocage

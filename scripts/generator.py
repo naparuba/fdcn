@@ -27,7 +27,7 @@ CHAPTER_ALLOWED_KEYS = {
 # Vocabulaire de stats connu du MOTEUR (autoload/player_stats.gd) : les stats en couches
 # (`_CHAPTER_LAYERED_KEYS`), les deux ressources et leurs modificateurs (plafond, gain), et
 # le compteur commun aux deux livres. Les compteurs et clés ignorées PROPRES a un livre
-# (`gloire`, `arc_et_couteau`, ...) viennent de son `compteurs.json` (todo 3.5, review §4.6),
+# (`gloire`, `arc_et_couteau`, ...) viennent de son `compteurs.json` (todo 3.5),
 # pas d'ici.
 ENGINE_STATS_VOCABULARY = {
     'adr', 'arm', 'chance_max', 'crit', 'deg', 'end', 'hab',  # stats en couches
@@ -39,7 +39,7 @@ ENGINE_STATS_VOCABULARY = {
 # les indexe directement (`brut['hab']`, ...), sans `.get()` ni valeur par defaut : un bloc
 # `combat` incomplet ou mal orthographie ne se decouvrirait qu'a l'execution, au chapitre
 # precis ou un joueur le declenche, plutot qu'a la compilation (todo 3.2 n'avait valide que
-# les autres cles de chapitre, pas celle-ci -- review-code.md 7.2).
+# les autres cles de chapitre, pas celle-ci).
 COMBAT_REQUIRED_KEYS = {'nom', 'hab', 'pv', 'arm', 'deg', 'pyro'}
 
 
@@ -116,7 +116,7 @@ def creer_nouveau_livre(nom: str) -> None:
         f.write(json.dumps(livre, indent=4, ensure_ascii=False, sort_keys=True))
 
     # A la fin, jamais ailleurs : une sauvegarde d'avant 2026 range le livre courant par
-    # RANG dans cette liste (review §3.6 / books/README.md) -- s'insérer plus tot decalerait
+    # RANG dans cette liste (books/README.md) -- s'insérer plus tot decalerait
     # les livres suivants.
     registre['livres'].append({'nom': nom, 'titre': nom})
     with codecs.open(REGISTRE, 'w', 'utf8') as f:
@@ -304,8 +304,8 @@ def _valider_les_objets(book_data: dict, node_graph: Graph, all_objs: dict) -> N
     """Un objet doit etre a la fois declare (`all_objects.json`) et utilise (aquire/remove/
     condition quelque part) -- dans un sens comme dans l'autre, une divergence est une faute
     de saisie et arrete la compilation."""
-    # Les trois ensembles se lisent sur les memes noeuds : une seule passe (review-code.md
-    # 6.3), plutot que trois boucles identiques qui ne differaient que par le champ lu.
+    # Les trois ensembles se lisent sur les memes noeuds : une seule passe, plutot que
+    # trois boucles identiques qui ne differaient que par le champ lu.
     all_conditions = set()
     all_aquire = set()
     all_remove = set()
@@ -349,7 +349,7 @@ def _valider_les_stats(all_stats_keys: set, livre: dict) -> None:
     """Une cle de stat hors vocabulaire (`critique` au lieu de `crit`, par exemple) passait
     jusqu'ici jusqu'a l'app, qui se contentait d'un `push_warning` (todo 3.2). Le vocabulaire
     PROPRE au livre (ses compteurs, ex. `gloire`/`info`, et ses clefs sans effet comme
-    `arc_et_couteau` -- todo 3.5, review §4.6) vient de `<nom>.livre.json`, pas d'ici."""
+    `arc_et_couteau` -- todo 3.5) vient de `<nom>.livre.json`, pas d'ici."""
     compteurs = {c['cle'] for c in livre.get('compteurs', []) if 'cle' in c}
     vocabulaire = ENGINE_STATS_VOCABULARY | compteurs | set(livre.get('ignorees', []))
     inconnues = all_stats_keys - vocabulaire

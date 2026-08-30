@@ -1,8 +1,7 @@
 extends Node
 ## CombatEngine — les règles d'un affrontement, sans aucune interface.
 ##
-## Spec complète et raisonnement dans `review-combat.md` (§3.10 pour l'algorithme d'un
-## assaut). Les règles viennent du marque-page « table des situations », normalisé
+## Les règles viennent du marque-page « table des situations », normalisé
 ## dans `data/combat-table.json`.
 ##
 ## POURQUOI UN AUTOLOAD ET PAS LA SCÈNE : l'état d'un combat doit survivre à un
@@ -20,14 +19,15 @@ extends Node
 ## Les dés sont injectables (`dice_roller`) : sans ça les tests seraient non
 ## déterministes. Ne JAMAIS appeler `Utils.roll_a_dice()` directement d'ici.
 ##
-## PAS ENCORE FAIT (voir `review-combat.md` §4) : la persistance de l'état en sauvegarde
-## (étape 7) et le pouvoir du PRUDENT (Q14 ouverte).
+## PAS ENCORE FAIT : la persistance de l'état de combat en sauvegarde (fermer l'app pendant
+## un affrontement le perd) et une question encore ouverte sur le pouvoir du PRUDENT — voir
+## `_etape_survie_prudent()` dans `combat_assault_resolver.gd`.
 ##
 ## Les combats à plusieurs adversaires **sont** gérés : ils se mènent **dans l'ordre du
 ## tableau**, un adversaire à la fois. Seul fdcn ch274 s'en sert (GUARDES CORROMPUS puis
 ## TROLESSE).
 ##
-## TROIS FICHIERS, UN AUTOLOAD (review-code.md 4.1). `resolve()` était la fonction la plus
+## TROIS FICHIERS, UN AUTOLOAD. `resolve()` était la fonction la plus
 ## complexe du dépôt — ~120 lignes calculant l'assaut, les deux formes d'esquive, le plafond
 ## du PAYSAN, le coup fatal évité et le jet de survie du PRUDENT, tout dans un seul bloc.
 ## Ce fichier reste le SEUL autoload et garde tout l'état d'un combat en cours (`_enemy`,
@@ -140,8 +140,7 @@ func is_automatable(chapter_id) -> bool:
 
 
 ## Démarre le combat du chapitre. Renvoie false si le moteur ne sait pas le mener —
-## l'interface reste alors en mode manuel, elle **ne déclare jamais une défaite**
-## (voir `review-combat.md` §3.11).
+## l'interface reste alors en mode manuel, elle **ne déclare jamais une défaite**.
 func start(chapter_id) -> bool:
 	if not is_automatable(chapter_id):
 		return false
@@ -204,8 +203,8 @@ func get_tour() -> int:
 	return _tour
 
 
-## La règle spéciale du combat, saisie à la main par le joueur (review-combat.md §1.2) :
-## les données du livre ne la contiennent pas.
+## La règle spéciale du combat, saisie à la main par le joueur : les données du livre ne
+## la contiennent pas.
 func set_hab_modifier(v: int) -> void:
 	_hab_modifier = v
 
@@ -250,7 +249,7 @@ func get_situation_for(ecart: int) -> String:
 	return situation.get("nom", "") if situation else ""
 
 
-## Coût en chance pour passer le combat, selon la situation (review-combat.md §3.9).
+## Coût en chance pour passer le combat, selon la situation.
 func get_fuite_cost() -> int:
 	var situation = _table.situation_for(get_ecart())
 	return situation.get("fuite_chance", 0) if situation else 0
@@ -401,7 +400,7 @@ func roll_dodge() -> int:
 
 
 ## Résout l'assaut avec les dés mémorisés et applique les dégâts. Renvoie le
-## rapport détaillé (voir `review-combat.md` §3.1) plutôt que de peindre quoi que ce soit.
+## rapport détaillé plutôt que de peindre quoi que ce soit.
 ##
 ## Le calcul lui-même — écart, esquives, armure, pouvoirs de CARACTÈRE — vit dans
 ## `CombatAssaultResolver` (voir l'en-tête du fichier) ; cette fonction ne fait plus que

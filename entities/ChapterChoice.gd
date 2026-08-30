@@ -8,7 +8,7 @@ extends Panel
 ##     lignes **recyclées** qui servent tour à tour à des centaines de chapitres.
 ##
 ## MISE EN PAGE — les rubans sont des `Polygon2D` aux points écrits en dur. Politique
-## tranchée le 2026-08-12 (review §1.2) : **atome de taille fixe**. Ils vivent donc tous
+## tranchée le 2026-08-12 : **atome de taille fixe**. Ils vivent donc tous
 ## les six dans `Row/Rubans`, un `Control` de 158×75 que le conteneur place comme un bloc
 ## indéformable ; à l'intérieur, aucun point n'a bougé. Étirer un polygone biaiserait
 ## l'angle et l'échelle se transmettrait aux `Label` enfants.

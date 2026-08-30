@@ -14,7 +14,7 @@ extends Panel
 ## peut pas descendre sous leur taille minimale, alors qu'on les positionne, elle,
 ## tous les ROW_HEIGHT pixels.
 ##
-## Mesuré à la largeur d'écran la plus étroite possible (416 px, cf. review §3.5 — la
+## Mesuré à la largeur d'écran la plus étroite possible (416 px — la
 ## largeur logique ne descend jamais sous 540) : 45 succès tiennent en 80 px, les
 ## 6 plus bavards réclament 86 px. D'où 88, qui couvre tout avec un peu de marge.
 ## À revérifier si on change la police ou le gabarit de `SuccessItem.tscn`.

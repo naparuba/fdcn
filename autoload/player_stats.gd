@@ -82,7 +82,7 @@ var pv_max_bonus := 0
 var cha := 0
 var richesse := 0
 
-## Majoration d'un GAIN de ressource (todo 3.4, review §4.5) : `pv_gain`/`chance_gain`
+## Majoration d'un GAIN de ressource : `pv_gain`/`chance_gain`
 ## viennent d'un chapitre, donc remis à zéro par `reset_chapter_layer()` et reconstruits
 ## par le rejeu, exactement comme `pv_max_bonus`. Appliqués dans `add_pv()`/`add_chance()`,
 ## jamais dans `_apply_effect()` : une affectation (`"= max"`) ne doit pas dépasser le
@@ -212,8 +212,7 @@ func reset_chapter_layer() -> void:
 #    chapitres, les boutons + / − de l'onglet ressources, et un jour le combat.
 
 ## `pv_gain_bonus` majore un GAIN, jamais une perte : un bonus de gain n'a pas à amortir
-## les dégâts (review §4.5). D'où le garde sur `x > 0`, pas sur le signe de `pv_gain_bonus`
-## lui-même.
+## les dégâts. D'où le garde sur `x > 0`, pas sur le signe de `pv_gain_bonus` lui-même.
 func add_pv(x := 1) -> void:
 	if x > 0:
 		x += pv_gain_bonus
@@ -453,8 +452,8 @@ func apply_chapter_stat(k: String, v, with_resources := true) -> void:
 	if _CHAPTER_LAYERED_KEYS.has(k):
 		_add_chapter_stat(_CHAPTER_LAYERED_KEYS[k], v)
 		return
-	# Déclarée par le livre lui-même comme sans effet (todo 3.5, review §4.6) : un trou de
-	# saisie connu (`arc_et_couteau`), pas une faute qu'il faudrait signaler.
+	# Déclarée par le livre lui-même comme sans effet : un trou de saisie connu
+	# (`arc_et_couteau`), pas une faute qu'il faudrait signaler.
 	if BookData.is_ignored(k):
 		return
 	# Compteur propre au livre courant : gloire/info dans fdcn, rancune/respect dans

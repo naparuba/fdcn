@@ -86,11 +86,11 @@ Exemples réels, tirés de `fdcn.json` :
 | `stats_cond` | `35: {"stats_cond": {"PRUDENT": {"gloire": 1}}}` | même chose, mais **conditionnel** : ici, +1 gloire seulement si le joueur est Prudent |
 | `label` | `10: {"label": "Tour nord"}` | nom affiché sur le nœud, dans le graphe de relecture uniquement |
 
-⚠️ **`combat` n'est pas relu par le compilateur** : ni les six champs, ni leurs valeurs, il
-recopie tel quel. C'est le seul endroit du livre où une faute de saisie ne peut être
-attrapée que par une relecture humaine contre le livre papier — deux fautes y ont été
-trouvées le 2026-08-13 en ne vérifiant qu'un seul des 85 combats des deux livres (`todo.md`
-1.4).
+⚠️ **`combat` : les six champs sont vérifiés, pas leurs valeurs.** Le compilateur refuse un
+bloc qui n'a pas exactement `nom`/`hab`/`pv`/`arm`/`deg`/`pyro`, mais recopie les valeurs
+telles quelles sans les relire contre le livre papier — une valeur juste orthographiée mais
+fausse (un `pv` recopié à côté, par exemple) ne peut être attrapée que par une relecture
+humaine.
 
 ### Le langage des conditions
 

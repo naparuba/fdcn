@@ -29,8 +29,8 @@ global_script_class_cache.cfg`, gitignoré) reconstruit à l'ouverture de l'édi
 par un simple `godot --headless -s ...`. Sur un dépôt tout juste cloné (`.godot/` absent ou
 périmé), un script qui référence l'une de ces classes échoue à la compilation
 ("Identifier ... not declared") tant qu'un `godot --headless --editor --quit --path .` n'a
-pas tourné une fois — le même geste que pour régénérer les `.import` d'assets (voir
-`todo.md`/l'historique de `git log`).
+pas tourné une fois — le même geste que pour régénérer les `.import` d'assets périmés (voir
+l'historique de `git log`).
 
 ## Pourquoi l'ordre compte
 
@@ -78,7 +78,8 @@ SaveArchive.import_from()
 
 `CombatEngine` est la seule exception délibérée à ce schéma : c'est un moteur de règles pur,
 sans dépendance aux autres autoloads ni bouton d'orchestration — `screens/aventure_menu/
-Combat.tscn` l'interroge, il ne pousse rien vers personne. Spec complète dans `review-combat.md`.
+Combat.tscn` l'interroge, il ne pousse rien vers personne. Voir son propre en-tête et celui
+de `combat_assault_resolver.gd` pour le détail des règles.
 
 ## Signaux à connaître avant d'en ajouter un
 

@@ -14,7 +14,7 @@ extends Panel
 ## libellé finissait à y ≈ 1000 pour une zone d'environ 870) et rien ne permettait d'y accéder.
 ##
 ## L'export/import de sauvegarde vit dans `screens/save_export_import.gd`, un sous-composant
-## à part (review-code.md 4.2) : cette page n'a par ailleurs rien à voir avec la sauvegarde.
+## à part : cette page n'a par ailleurs rien à voir avec la sauvegarde.
 
 ## Le texte de confirmation vient de `choice_next_chapiter`, qui offre le même bouton :
 ## une seule formulation pour une seule conséquence.

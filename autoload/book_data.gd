@@ -217,7 +217,7 @@ func _completer_objets(objets) -> Dictionary:
 ## Les succès du livre (complétés du chapitre qui les donne) ET l'index chapitre ->
 ## identifiant de succès, construits dans la même passe sur `all_nodes` : les deux se
 ## déduisent de la même chose (quel chapitre donne quel succès), inutile de la relire deux
-## fois (review-code.md 1.7).
+## fois.
 ##
 ## ⚠️ **Un succès par identifiant, même s'il se gagne à deux endroits.** Le fichier compilé
 ## était une liste de paires (succès × chapitre) : `PHOBIE-ADMINISTRATIVE` de cdsi, déclaré

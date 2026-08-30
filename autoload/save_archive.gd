@@ -24,10 +24,9 @@ extends Node
 ##   3. seulement alors, écrire ;
 ##   4. recharger l'app.
 ##
-## ⚠️ L'étape 1 lit en mémoire au lieu de décompresser dans `user://import_tmp/` comme le
-## prévoyait la review §5.4 : une quinzaine de fichiers de quelques kilo-octets tiennent
-## sans peine, et **rien ne touche le disque avant que tout soit validé** — c'est
-## exactement ce que le dossier temporaire cherchait à garantir, en une étape de moins.
+## ⚠️ L'étape 1 lit en mémoire plutôt que de décompresser dans un dossier temporaire :
+## une quinzaine de fichiers de quelques kilo-octets tiennent sans peine, et **rien ne
+## touche le disque avant que tout soit validé** — en une étape de moins.
 
 ## Version du FORMAT d'archive, pas de l'app. À incrémenter le jour où la disposition des
 ## fichiers change ; une archive d'une version supérieure est refusée.

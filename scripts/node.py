@@ -8,7 +8,7 @@ def _expr_to_txt(expr: str) -> str:
     """`ARC&(CORDE|PIOCHE)` -> `ARC et ( CORDE ou PIOCHE )` : le texte affiche au lecteur,
     a cote de l'arbre que `to_json()` produit pour le moteur. Meme conversion pour une
     condition de saut (`parse_conditions`) et pour un `stats_cond` (`parse_stats_conditions`)
-    -- factorisee ici (review-code.md 6.2)."""
+    -- factorisee ici."""
     return expr.replace('(', '( ').replace(')', ' )').replace('&', ' et ').replace('|', ' ou ').strip()
 
 
@@ -84,7 +84,7 @@ class Node(object):
         valeurs = {
             'sons':                 son_ids,
             # PAS un copier-coller inversé : le JSON compilé et `entities/chapter_data.gd`
-            # appellent "chapter" ce que le Python et review.md appellent un ACTE (self._arc),
+            # appellent "chapter" ce que le code Python appelle un ACTE (self._arc),
             # et "arc" ce qu'ils appellent un SOUS-ARC (self._sub_arc). Les deux vocabulaires
             # ne coïncident pas pour ce champ -- ne PAS "corriger" en échangeant les deux.
             'chapter':              self._arc,

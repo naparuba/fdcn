@@ -20,7 +20,7 @@ const MAX_CARRIED := 3
 const BILLY_CATEGORIES := ["ARME", "EQUIPEMENT", "OUTIL"]
 
 ## Les 5 types de Billy, source de vérité unique. Écrits en dur ~75 fois dans 9 fichiers
-## avant ce const (review-code.md 1.5) — rien n'empêchait une faute de frappe dans l'une
+## avant ce const — rien n'empêchait une faute de frappe dans l'une
 ## des chaînes de compiler et de casser silencieusement une comparaison. Pas remplacé
 ## partout : la plupart des sites sont des clés de dictionnaire ou des littéraux d'un
 ## `if`/`elif` où une indirection par tableau nuirait à la lisibilité pour un gain nul —

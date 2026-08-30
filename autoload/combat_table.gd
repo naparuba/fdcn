@@ -1,9 +1,9 @@
 class_name CombatTable
 extends RefCounted
 ## La table des situations de combat (`data/combat-table.json`) : chargement, normalisation
-## des types, et les lectures qui s'en servent. Extraite de `CombatEngine` (review-code.md
-## 4.1) : c'est de la donnée statique, sans aucun état de combat en cours — rien ici ne
-## change d'un assaut à l'autre, contrairement au reste de l'autoload.
+## des types, et les lectures qui s'en servent. Extraite de `CombatEngine` : c'est de la
+## donnée statique, sans aucun état de combat en cours — rien ici ne change d'un assaut à
+## l'autre, contrairement au reste de l'autoload.
 ##
 ## Instanciée par `CombatEngine` (`CombatTable.new()`), pas un autoload elle-même : rien ici
 ## n'a besoin d'être unique ou de survivre seul.
@@ -29,8 +29,8 @@ func load_from(path: String) -> bool:
 ## fuite à 0, donc aucune chance consommée en fuyant. Trois symptômes, une seule cause.
 ##
 ## On convertit une fois pour toutes au chargement plutôt que de bricoler chaque
-## comparaison. C'est le même piège que celui documenté dans `review.md` pour les
-## identifiants de chapitre.
+## comparaison. C'est le même piège que pour les identifiants de chapitre côté
+## `entities/chapter_data.gd` : le JSON ne distingue pas int et float.
 func _normalize() -> void:
 	for situation in _table.get("situations", []):
 		var entiers := []

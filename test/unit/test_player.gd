@@ -116,7 +116,7 @@ func test_les_conditions_contiennent_objets_et_type_de_billy() -> void:
 		"le type de Billy est une condition")
 
 
-## `Inventory.BILLY_TYPES` (review-code.md 1.5) et `PlayerStats.BILLY_MODIFIERS` sont deux
+## `Inventory.BILLY_TYPES` et `PlayerStats.BILLY_MODIFIERS` sont deux
 ## tables indépendantes des 5 mêmes types : un typo dans l'une divergerait silencieusement
 ## de l'autre sans ce test.
 func test_billy_modifiers_couvre_exactement_billy_types() -> void:

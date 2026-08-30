@@ -3,8 +3,8 @@ extends RefCounted
 ## Calcule le résultat d'UN assaut, à partir des dés déjà mémorisés par `CombatEngine` et de
 ## la ligne de frise qui correspond à l'écart — sans rien écrire nulle part : `CombatEngine.
 ## resolve()` applique le résultat (pv de l'ennemi, tour, adversaire suivant, pv du joueur)
-## une fois ce calcul terminé. Extrait de `CombatEngine::resolve()` (review-code.md 4.1) pour
-## se lire comme une fonction pure plutôt que noyé dans l'orchestration d'un autoload.
+## une fois ce calcul terminé. Extrait de `CombatEngine::resolve()` pour se lire comme une
+## fonction pure plutôt que noyé dans l'orchestration d'un autoload.
 ##
 ## POUR AJOUTER UNE RÈGLE (un 5ᵉ pouvoir de CARACTÈRE, une 3ᵉ forme d'esquive) : écrire une
 ## méthode `_etape_xxx(a: Assaut) -> void` qui lit/écrit les champs d'`Assaut` qui la
@@ -48,7 +48,7 @@ class Assaut:
 ## `coup_fatal_evite`, `de_survie`, `pouvoirs`).
 func resolve(a: Assaut) -> Dictionary:
 	# Les chiffres de la frise sont une BASE : les dégâts supplémentaires s'ajoutent
-	# par-dessus, et l'armure se retire ensuite (review-combat.md §3.10 étape 5).
+	# par-dessus, et l'armure se retire ensuite (voir _etape_armure()).
 	a.infliges = a.base[0] + PlayerStats.get_stat("deg")
 	a.recus = a.base[1] + a.enemy["deg"]
 
@@ -133,10 +133,10 @@ func _etape_coup_fatal_evite(a: Assaut) -> void:
 ## c'était un « tentez votre chance » classique (qui décrémente), c'est ici et nulle
 ## part ailleurs qu'il faudrait ajouter `PlayerStats.del_chance(1)`.
 ##
-## ⚠️⚠️ **À CONFIRMER (2026-08-12).** Cette règle vient de la question 14 de
-## `review-combat.md`, où elle a été décrite comme un jet après la mort. L'énoncé des quatre
-## pouvoirs de Billy donné depuis ne la mentionne pas : le PRUDENT y a « la chance pour
-## esquiver une attaque ou le combat », rien de plus. Elle est donc **conservée telle
+## ⚠️⚠️ **À CONFIRMER (2026-08-12).** Cette règle a été décrite à l'origine comme un jet
+## après la mort. L'énoncé des quatre pouvoirs de Billy donné depuis ne la mentionne pas :
+## le PRUDENT y a « la chance pour esquiver une attaque ou le combat », rien de plus. Elle
+## est donc **conservée telle
 ## quelle** — supprimer une règle demandée n'est pas à moi de le décider — mais elle donne
 ## aujourd'hui **trois** pouvoirs au PRUDENT. Trois lectures possibles : elle reste (il est
 ## le survivant), elle disparaît, ou elle devient générale (tout Billy tente de survivre).

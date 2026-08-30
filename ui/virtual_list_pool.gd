@@ -4,7 +4,7 @@ extends RefCounted
 ## `screens/chapitres_menu.gd` partageaient ~90 lignes identiques (pool + repositionnement
 ## au défilement) qui n'avaient divergé qu'à force de copier-coller.
 ##
-## Porte aussi le câblage commun autour du pool (review-code.md 7.3), pas seulement le pool
+## Porte aussi le câblage commun autour du pool, pas seulement le pool
 ## lui-même : `item_count`/`update_row`, fournis une fois au constructeur, laissent
 ## `on_scroll_resized()`/`refresh_rows(force)` ne prendre plus aucun paramètre — chaque écran
 ## n'a donc plus qu'à connecter ses deux signaux ici, sans réécrire de wrapper.

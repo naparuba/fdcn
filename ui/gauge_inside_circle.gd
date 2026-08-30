@@ -8,7 +8,7 @@ extends Control
 ## calculé à la main. Le rayon se déduit maintenant de la boîte, et le contournement a
 ## disparu.
 ##
-## Politique des widgets à polygones (review §1.2, tranchée le 2026-08-12) : **atome de
+## Politique des widgets à polygones, tranchée le 2026-08-12 : **atome de
 ## taille fixe**. Ici le dessin est déjà paramétrique, donc la jauge fait mieux que le
 ## contrat — elle suit sa boîte — mais elle garde une taille minimale pour ne jamais être
 ## écrasée par un conteneur trop serré.

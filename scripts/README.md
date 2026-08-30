@@ -310,11 +310,12 @@ pas de test.
 
 ### Dette connue
 
-Recensée dans [`review.md`](../review.md) et [`todo.md`](../todo.md), à ne pas
-redécouvrir. Rien d'ouvert ici à ce jour — voir `todo.md` pour ce qui reste côté livre
-(3.9, 3.13).
+Rien d'ouvert dans le générateur à ce jour — l'historique complet de ce qui a été trouvé et
+réglé est dans `git log`. Le seul point encore à vérifier : `exclude_filter="scripts/*"`
+dans `export_presets.cfg` (todo 3.13) n'a jamais été confirmé par un vrai build Android,
+faute de SDK/templates dans l'environnement qui l'a écrit.
 
-✅ **Section 4 de `todo.md` réglée (2026-08-22)** : `generator.py` est découpé en fonctions
+✅ **Découpage de `generator.py` (2026-08-22)** : le fichier est découpé en fonctions
 (`lire_les_noeuds` / `taguer_les_arcs` / `construire_le_graphe` / `ecrire_les_json`) plutôt
 que 476 lignes à plat ; `--verbose` sépare la trace par nœud/arc (silencieuse par défaut) des
 validations qui comptent ; la présentation graphviz (`get_label()` et les méthodes

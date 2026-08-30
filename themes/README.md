@@ -96,8 +96,13 @@ conteneurs qui n'en déclarent aucune, sans rien gagner. Les 85 `separation` et 
 qui restent dans les scènes sont de la **mise en page**, pas du style : elles ne partiront
 jamais ici.
 
-**Les 18 styleboxes que six scripts mutent en place.** Voir `review.md` §1.2 — les retirer
-casserait la coloration des onglets, des blocs de Billy et de l'issue de combat.
+**Les 18 styleboxes que six scripts mutent en place.** Les 8 blocs du menu du haut, les 3
+onglets de la popup d'options, la ligne d'objet, le bandeau de toast, « Gagner » et
+`IssuePanel` du combat lisent leur stylebox par `get('theme_override_styles/panel')` et le
+mutent en place — sans surcharge ce `get()` renvoie `null`, et un stylebox venu du thème
+serait partagé entre tous les nœuds du même type, donc le muter les repeindrait tous. Les
+retirer d'ici casserait donc la coloration des onglets, des blocs de Billy et de l'issue de
+combat.
 
 ## ⚠️ Pourquoi le thème pointe sur le `.ttf`, et pas sur un `.tres`
 

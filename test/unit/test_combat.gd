@@ -539,7 +539,7 @@ func test_les_degats_de_lennemi_sajoutent_a_ce_quon_encaisse() -> void:
 
 func test_un_combat_non_automatisable_nest_ni_gagne_ni_perdu() -> void:
 	# Le moteur refuse de le mener, et surtout n'émet aucune issue : c'est à
-	# l'interface de passer en mode manuel (review-combat.md §3.11).
+	# l'interface de passer en mode manuel.
 	var issues = []
 	var perdu := func(): issues.append("perdu")
 	var gagne := func(): issues.append("gagne")
