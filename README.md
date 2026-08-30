@@ -19,7 +19,8 @@ Voir `scripts/README.md` pour le compilateur et `books/README.md` pour ajouter u
 
 Elle ressemble à ça :
 
+![image](docs/images/preview.png)
+
 ### Confidentialité / Privacy
 L'application ne récupère ni n'envoie d'informations des utilisateurs.
 
-![image](docs/images/preview.png)
