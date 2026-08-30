@@ -1,0 +1,203 @@
+[gd_resource type="Theme" format=3 uid="uid://bllk6dj6mrufn"]
+
+[ext_resource type="FontFile" uid="uid://c4uf1h6831ei2" path="res://fonts/RobotoCondensed-Regular.ttf" id="1_font"]
+
+[sub_resource type="StyleBoxFlat" id="BoutonInactif"]
+content_margin_left = 12.0
+content_margin_top = 6.0
+content_margin_right = 12.0
+content_margin_bottom = 6.0
+bg_color = Color(0.92549, 0.929412, 0.94902, 1)
+corner_radius_top_left = 3
+corner_radius_top_right = 3
+corner_radius_bottom_right = 3
+corner_radius_bottom_left = 3
+
+[sub_resource type="StyleBoxFlat" id="BoutonFocus"]
+content_margin_left = 12.0
+content_margin_top = 6.0
+content_margin_right = 12.0
+content_margin_bottom = 6.0
+draw_center = false
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(0, 0.760784, 0.666667, 1)
+corner_radius_top_left = 3
+corner_radius_top_right = 3
+corner_radius_bottom_right = 3
+corner_radius_bottom_left = 3
+
+[sub_resource type="StyleBoxFlat" id="BoutonSurvol"]
+content_margin_left = 12.0
+content_margin_top = 6.0
+content_margin_right = 12.0
+content_margin_bottom = 6.0
+bg_color = Color(1, 1, 1, 1)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(0.192157, 0.231373, 0.278431, 1)
+corner_radius_top_left = 3
+corner_radius_top_right = 3
+corner_radius_bottom_right = 3
+corner_radius_bottom_left = 3
+
+[sub_resource type="StyleBoxFlat" id="BoutonEnfonce"]
+content_margin_left = 12.0
+content_margin_top = 6.0
+content_margin_right = 12.0
+content_margin_bottom = 6.0
+bg_color = Color(0.878431, 0.886275, 0.898039, 1)
+corner_radius_top_left = 3
+corner_radius_top_right = 3
+corner_radius_bottom_right = 3
+corner_radius_bottom_left = 3
+
+[sub_resource type="StyleBoxFlat" id="BoutonNormal"]
+content_margin_left = 12.0
+content_margin_top = 6.0
+content_margin_right = 12.0
+content_margin_bottom = 6.0
+bg_color = Color(0.913725, 0.917647, 0.92549, 1)
+corner_radius_top_left = 3
+corner_radius_top_right = 3
+corner_radius_bottom_right = 3
+corner_radius_bottom_left = 3
+
+[sub_resource type="StyleBoxFlat" id="Carte"]
+bg_color = Color(1, 1, 1, 1)
+
+[sub_resource type="StyleBoxFlat" id="EnTete"]
+bg_color = Color(0.192157, 0.231373, 0.278431, 1)
+
+[sub_resource type="StyleBoxFlat" id="Encart"]
+bg_color = Color(0.913725, 0.917647, 0.92549, 1)
+corner_radius_top_left = 2
+corner_radius_top_right = 2
+corner_radius_bottom_right = 2
+corner_radius_bottom_left = 2
+
+[sub_resource type="StyleBoxFlat" id="EncartPlat"]
+bg_color = Color(0.913725, 0.917647, 0.92549, 1)
+
+[sub_resource type="StyleBoxFlat" id="Fond"]
+bg_color = Color(0.92549, 0.929412, 0.94902, 1)
+
+[sub_resource type="StyleBoxFlat" id="Ligne"]
+bg_color = Color(1, 1, 1, 1)
+border_width_bottom = 2
+
+[sub_resource type="StyleBoxFlat" id="Pastille"]
+bg_color = Color(0.92549, 0.929412, 0.94902, 1)
+corner_radius_top_left = 2
+corner_radius_top_right = 2
+corner_radius_bottom_right = 2
+corner_radius_bottom_left = 2
+
+[sub_resource type="StyleBoxFlat" id="SwitchNon"]
+content_margin_left = 10.0
+content_margin_top = 4.0
+content_margin_right = 10.0
+content_margin_bottom = 4.0
+bg_color = Color(0.956863, 0.345098, 0.345098, 1)
+corner_radius_top_left = 3
+corner_radius_top_right = 3
+corner_radius_bottom_right = 3
+corner_radius_bottom_left = 3
+
+[sub_resource type="StyleBoxFlat" id="SwitchOui"]
+content_margin_left = 10.0
+content_margin_top = 4.0
+content_margin_right = 10.0
+content_margin_bottom = 4.0
+bg_color = Color(0, 0.760784, 0.666667, 1)
+corner_radius_top_left = 3
+corner_radius_top_right = 3
+corner_radius_bottom_right = 3
+corner_radius_bottom_left = 3
+
+[sub_resource type="StyleBoxFlat" id="Voile"]
+bg_color = Color(0.117647, 0.141176, 0.170588, 0.588235)
+
+[resource]
+default_font = ExtResource("1_font")
+default_font_size = 16
+Button/colors/font_color = Color(0, 0, 0, 1)
+Button/colors/font_disabled_color = Color(0.6, 0.62, 0.64, 1)
+Button/colors/font_hover_color = Color(0, 0, 0, 1)
+Button/colors/font_hover_pressed_color = Color(0, 0, 0, 1)
+Button/colors/font_pressed_color = Color(0, 0, 0, 1)
+Button/styles/disabled = SubResource("BoutonInactif")
+Button/styles/focus = SubResource("BoutonFocus")
+Button/styles/hover = SubResource("BoutonSurvol")
+Button/styles/hover_pressed = SubResource("BoutonEnfonce")
+Button/styles/normal = SubResource("BoutonNormal")
+Button/styles/pressed = SubResource("BoutonEnfonce")
+Carte/base_type = &"Panel"
+Carte/styles/panel = SubResource("Carte")
+EnTete/base_type = &"Panel"
+EnTete/styles/panel = SubResource("EnTete")
+Encart/base_type = &"Panel"
+Encart/styles/panel = SubResource("Encart")
+EncartPlat/base_type = &"Panel"
+EncartPlat/styles/panel = SubResource("EncartPlat")
+Fond/base_type = &"Panel"
+Fond/styles/panel = SubResource("Fond")
+Label/colors/font_color = Color(0, 0, 0, 1)
+Label/colors/font_shadow_color = Color(0, 0, 0, 0)
+Ligne/base_type = &"Panel"
+Ligne/styles/panel = SubResource("Ligne")
+LinkButton/colors/font_color = Color(0, 0.760784, 0.666667, 1)
+LinkButton/colors/font_hover_color = Color(0, 0.6, 0.45, 1)
+MenuPage/constants/inset_nav = 50
+MenuPage/constants/inset_top = 48
+PanelContainer/styles/panel = SubResource("Carte")
+Pastille/base_type = &"Panel"
+Pastille/styles/panel = SubResource("Pastille")
+PopupPanel/styles/panel = SubResource("Carte")
+RichTextLabel/colors/default_color = Color(0, 0, 0, 1)
+SwitchNon/base_type = &"CheckButton"
+SwitchNon/colors/font_color = Color(1, 1, 1, 1)
+SwitchNon/colors/font_disabled_color = Color(0.6, 0.62, 0.64, 1)
+SwitchNon/colors/font_focus_color = Color(1, 1, 1, 1)
+SwitchNon/colors/font_hover_color = Color(1, 1, 1, 1)
+SwitchNon/colors/font_hover_pressed_color = Color(1, 1, 1, 1)
+SwitchNon/colors/font_pressed_color = Color(1, 1, 1, 1)
+SwitchNon/styles/disabled = SubResource("BoutonInactif")
+SwitchNon/styles/hover = SubResource("SwitchNon")
+SwitchNon/styles/hover_pressed = SubResource("SwitchNon")
+SwitchNon/styles/normal = SubResource("SwitchNon")
+SwitchNon/styles/pressed = SubResource("SwitchNon")
+SwitchOui/base_type = &"CheckButton"
+SwitchOui/colors/font_color = Color(1, 1, 1, 1)
+SwitchOui/colors/font_disabled_color = Color(0.6, 0.62, 0.64, 1)
+SwitchOui/colors/font_focus_color = Color(1, 1, 1, 1)
+SwitchOui/colors/font_hover_color = Color(1, 1, 1, 1)
+SwitchOui/colors/font_hover_pressed_color = Color(1, 1, 1, 1)
+SwitchOui/colors/font_pressed_color = Color(1, 1, 1, 1)
+SwitchOui/styles/disabled = SubResource("BoutonInactif")
+SwitchOui/styles/hover = SubResource("SwitchOui")
+SwitchOui/styles/hover_pressed = SubResource("SwitchOui")
+SwitchOui/styles/normal = SubResource("SwitchOui")
+SwitchOui/styles/pressed = SubResource("SwitchOui")
+TexteAccent/base_type = &"Label"
+TexteAccent/colors/font_color = Color(0, 0.760784, 0.666667, 1)
+TexteAccent/colors/font_shadow_color = Color(0, 0, 0, 0)
+TexteAlerte/base_type = &"Label"
+TexteAlerte/colors/font_color = Color(1, 0.419608, 0, 1)
+TexteAlerte/colors/font_shadow_color = Color(0, 0, 0, 0)
+TexteAppuye/base_type = &"Label"
+TexteAppuye/colors/font_color = Color(0.290196, 0.309804, 0.329412, 1)
+TexteAppuye/colors/font_shadow_color = Color(0, 0, 0, 0)
+TexteAtenue/base_type = &"Label"
+TexteAtenue/colors/font_color = Color(0.4, 0.42, 0.44, 1)
+TexteAtenue/colors/font_shadow_color = Color(0, 0, 0, 0)
+TitreHeader/base_type = &"Label"
+TitreHeader/colors/font_color = Color(1, 1, 1, 1)
+TitreHeader/colors/font_shadow_color = Color(0, 0, 0, 0)
+Voile/base_type = &"Panel"
+Voile/styles/panel = SubResource("Voile")
+metadata/doc = "Palette et parti pris : voir themes/README.md"

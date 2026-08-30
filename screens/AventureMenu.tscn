@@ -1,0 +1,48 @@
+[gd_scene load_steps=7 format=3 uid="uid://dbcjbrs57uov0"]
+
+[ext_resource type="PackedScene" path="res://screens/aventure_menu/GlobalCompletion.tscn" id="1"]
+[ext_resource type="Script" uid="uid://cimbnvgc3pw6a" path="res://screens/aventure_menu.gd" id="1_iepgy"]
+[ext_resource type="PackedScene" path="res://screens/aventure_menu/Position.tscn" id="2"]
+[ext_resource type="PackedScene" path="res://screens/aventure_menu/Breadcrumb.tscn" id="3"]
+[ext_resource type="PackedScene" uid="uid://dmy0vxuelkna" path="res://screens/aventure_menu/ChoiceNextChapiter.tscn" id="4"]
+[ext_resource type="PackedScene" uid="uid://drwkdrf2idtp5" path="res://screens/aventure_menu/Combat.tscn" id="5"]
+
+[node name="AventureMenu" type="Panel" unique_id=475443025]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_type_variation = &"Fond"
+script = ExtResource("1_iepgy")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="." unique_id=1656897926]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 12
+
+[node name="TopRow" type="HBoxContainer" parent="VBoxContainer" unique_id=261068687]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/separation = 12
+
+[node name="GlobalCompletion" parent="VBoxContainer/TopRow" unique_id=539087596 instance=ExtResource("1")]
+layout_mode = 2
+
+[node name="Position" parent="VBoxContainer/TopRow" unique_id=1311992418 instance=ExtResource("2")]
+layout_mode = 2
+
+[node name="Breadcrumb" parent="VBoxContainer" unique_id=762755794 instance=ExtResource("3")]
+layout_mode = 2
+
+[node name="ChoiceNextChapiter" parent="VBoxContainer" unique_id=1739008958 instance=ExtResource("4")]
+custom_minimum_size = Vector2(0, 400)
+layout_mode = 2
+
+[node name="Combat" parent="VBoxContainer" unique_id=2034540712 instance=ExtResource("5")]
+visible = false
+layout_mode = 2

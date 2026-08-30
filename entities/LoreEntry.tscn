@@ -1,0 +1,116 @@
+[gd_scene load_steps=5 format=3 uid="uid://cfkcs1clvo2in"]
+
+[ext_resource type="Script" uid="uid://d2bomvpcnvyur" path="res://entities/LoreEntry.gd" id="1"]
+[ext_resource type="Texture2D" uid="uid://chucbf4ebtaa8" path="res://images/play.png" id="2"]
+[ext_resource type="Texture2D" uid="uid://b8b67v4m5bcf3" path="res://images/icon_stop.png" id="4"]
+[ext_resource type="Texture2D" uid="uid://dpfh3vylax3qp" path="res://images/billys/guerrier.png" id="5"]
+
+[node name="LoreEntry" type="Panel" unique_id=178221869]
+custom_minimum_size = Vector2(0, 185)
+anchors_preset = 10
+anchor_right = 1.0
+grow_horizontal = 2
+size_flags_horizontal = 3
+mouse_filter = 1
+theme_type_variation = &"Ligne"
+script = ExtResource("1")
+
+[node name="Marge" type="MarginContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 6
+theme_override_constants/margin_right = 10
+theme_override_constants/margin_bottom = 8
+
+[node name="Contenu" type="VBoxContainer" parent="Marge"]
+layout_mode = 2
+mouse_filter = 2
+theme_override_constants/separation = 6
+
+[node name="Titre" type="Label" parent="Marge/Contenu"]
+custom_minimum_size = Vector2(0, 32)
+layout_mode = 2
+mouse_filter = 2
+theme_type_variation = &"TexteAccent"
+text = "XXXX"
+horizontal_alignment = 1
+vertical_alignment = 1
+autowrap_mode = 3
+
+[node name="Corps" type="HBoxContainer" parent="Marge/Contenu"]
+layout_mode = 2
+size_flags_vertical = 3
+mouse_filter = 2
+theme_override_constants/separation = 10
+
+[node name="Image" type="TextureRect" parent="Marge/Contenu/Corps"]
+custom_minimum_size = Vector2(100, 0)
+layout_mode = 2
+size_flags_vertical = 3
+mouse_filter = 2
+texture = ExtResource("5")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="Spacer" type="Control" parent="Marge/Contenu/Corps"]
+layout_mode = 2
+size_flags_horizontal = 3
+mouse_filter = 2
+
+[node name="click" type="Panel" parent="Marge/Contenu/Corps"]
+custom_minimum_size = Vector2(90, 90)
+layout_mode = 2
+size_flags_vertical = 4
+theme_type_variation = &"Pastille"
+
+[node name="sprite_play" type="TextureRect" parent="Marge/Contenu/Corps/click"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 7.0
+offset_top = 7.0
+offset_right = -7.0
+offset_bottom = -7.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+texture = ExtResource("2")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="sprite_stop" type="TextureRect" parent="Marge/Contenu/Corps/click"]
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 7.0
+offset_top = 7.0
+offset_right = -7.0
+offset_bottom = -7.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+texture = ExtResource("4")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="Button" type="TextureButton" parent="Marge/Contenu/Corps/click"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+
+[connection signal="pressed" from="Marge/Contenu/Corps/click/Button" to="." method="_on_play_pressed"]
+[connection signal="finished" from="AudioStreamPlayer" to="." method="_on_AudioStreamPlayer_finished"]

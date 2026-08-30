@@ -1,0 +1,74 @@
+[gd_scene load_steps=3 format=3 uid="uid://cths5b65co8yv"]
+
+[ext_resource type="Script" uid="uid://b1axcpefx4hly" path="res://popups/GenericConfirmationPopup.gd" id="1"]
+
+[sub_resource type="StyleBoxFlat" id="boite"]
+bg_color = Color(1, 1, 1, 1)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.192157, 0.231373, 0.278431, 1)
+corner_radius_top_left = 4
+corner_radius_top_right = 4
+corner_radius_bottom_right = 4
+corner_radius_bottom_left = 4
+
+[node name="GenericTextPopup" type="Panel"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 1
+theme_type_variation = &"Voile"
+script = ExtResource("1")
+
+[node name="Center" type="CenterContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Boite" type="PanelContainer" parent="Center"]
+custom_minimum_size = Vector2(300, 0)
+layout_mode = 2
+theme_override_styles/panel = SubResource("boite")
+
+[node name="Margin" type="MarginContainer" parent="Center/Boite"]
+layout_mode = 2
+theme_override_constants/margin_left = 16
+theme_override_constants/margin_top = 16
+theme_override_constants/margin_right = 16
+theme_override_constants/margin_bottom = 16
+
+[node name="Contenu" type="VBoxContainer" parent="Center/Boite/Margin"]
+layout_mode = 2
+theme_override_constants/separation = 16
+
+[node name="RichTextLabel" type="RichTextLabel" parent="Center/Boite/Margin/Contenu"]
+custom_minimum_size = Vector2(0, 120)
+layout_mode = 2
+size_flags_vertical = 3
+fit_content = true
+
+[node name="Boutons" type="HBoxContainer" parent="Center/Boite/Margin/Contenu"]
+layout_mode = 2
+theme_override_constants/separation = 12
+
+[node name="PopupButtonCancel" type="Button" parent="Center/Boite/Margin/Contenu/Boutons"]
+custom_minimum_size = Vector2(0, 48)
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Annuler"
+
+[node name="PopupButtonAccept" type="Button" parent="Center/Boite/Margin/Contenu/Boutons"]
+custom_minimum_size = Vector2(0, 48)
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Accepter"
+
+[connection signal="pressed" from="Center/Boite/Margin/Contenu/Boutons/PopupButtonCancel" to="." method="_on_PopupButtonCancel_pressed"]
+[connection signal="pressed" from="Center/Boite/Margin/Contenu/Boutons/PopupButtonAccept" to="." method="_on_PopupButtonAccept_pressed"]

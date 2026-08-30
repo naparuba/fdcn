@@ -1,0 +1,321 @@
+[gd_scene format=3 uid="uid://b5ropk16ihd1s"]
+
+[ext_resource type="Texture2D" uid="uid://c32ss1seos6no" path="res://images/new_player.png" id="4_l61gx"]
+[ext_resource type="Texture2D" uid="uid://cfhgpll5nsjlr" path="res://images/bug.png" id="5_4xf6i"]
+[ext_resource type="Texture2D" uid="uid://b28rwcgl58n5y" path="res://images/twitter.png" id="6_bkxrd"]
+[ext_resource type="Texture2D" uid="uid://clclwast44cj4" path="res://images/anim-phumtar-1.png" id="7_qhs7w"]
+[ext_resource type="Texture2D" uid="uid://0ke5c6xjavoi" path="res://images/anim-phumtar-2.png" id="8_8stdj"]
+[ext_resource type="Script" uid="uid://bne7abxir6e5j" path="res://screens/about_menu.gd" id="12_about"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_kwb3n"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("7_qhs7w")
+}, {
+"duration": 1.0,
+"texture": ExtResource("8_8stdj")
+}],
+"loop": 1,
+"name": &"default",
+"speed": 16.0
+}]
+
+[node name="About" type="Panel" unique_id=1404104064]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 1
+theme_type_variation = &"Fond"
+script = ExtResource("12_about")
+
+[node name="VBox" type="VBoxContainer" parent="." unique_id=474554706]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 8
+
+[node name="Actions" type="PanelContainer" parent="VBox" unique_id=502303943]
+layout_mode = 2
+mouse_filter = 1
+theme_type_variation = &"Carte"
+
+[node name="Colonne" type="VBoxContainer" parent="VBox/Actions" unique_id=1748973886]
+layout_mode = 2
+theme_override_constants/separation = 0
+
+[node name="Header" type="PanelContainer" parent="VBox/Actions/Colonne" unique_id=2001763736]
+custom_minimum_size = Vector2(0, 40)
+layout_mode = 2
+mouse_filter = 1
+theme_type_variation = &"EnTete"
+
+[node name="Label" type="Label" parent="VBox/Actions/Colonne/Header" unique_id=2018540282]
+layout_mode = 2
+theme_type_variation = &"TitreHeader"
+text = "Actions"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Marge" type="MarginContainer" parent="VBox/Actions/Colonne" unique_id=1697433847]
+layout_mode = 2
+theme_override_constants/margin_left = 12
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 12
+theme_override_constants/margin_bottom = 10
+
+[node name="Boutons" type="HBoxContainer" parent="VBox/Actions/Colonne/Marge" unique_id=1644932608]
+layout_mode = 2
+theme_override_constants/separation = 12
+
+[node name="NouveauBilly" type="Panel" parent="VBox/Actions/Colonne/Marge/Boutons" unique_id=18220374]
+custom_minimum_size = Vector2(0, 87)
+layout_mode = 2
+size_flags_horizontal = 3
+mouse_filter = 1
+theme_type_variation = &"Pastille"
+
+[node name="sprite" type="TextureRect" parent="VBox/Actions/Colonne/Marge/Boutons/NouveauBilly" unique_id=965822535]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -25.0
+offset_top = 3.0
+offset_right = 25.0
+offset_bottom = 53.0
+grow_horizontal = 2
+mouse_filter = 2
+texture = ExtResource("4_l61gx")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="Label" type="Label" parent="VBox/Actions/Colonne/Marge/Boutons/NouveauBilly" unique_id=817956260]
+layout_mode = 1
+anchors_preset = 12
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = -32.0
+grow_horizontal = 2
+grow_vertical = 0
+text = "Nouveau Billy"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Button" type="TextureButton" parent="VBox/Actions/Colonne/Marge/Boutons/NouveauBilly" unique_id=223652840]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="NewBug" type="Panel" parent="VBox/Actions/Colonne/Marge/Boutons" unique_id=173097041]
+custom_minimum_size = Vector2(0, 87)
+layout_mode = 2
+size_flags_horizontal = 3
+mouse_filter = 1
+theme_type_variation = &"Pastille"
+
+[node name="sprite" type="TextureRect" parent="VBox/Actions/Colonne/Marge/Boutons/NewBug" unique_id=1210348281]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -25.0
+offset_top = 3.0
+offset_right = 25.0
+offset_bottom = 53.0
+grow_horizontal = 2
+mouse_filter = 2
+texture = ExtResource("5_4xf6i")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="Label" type="Label" parent="VBox/Actions/Colonne/Marge/Boutons/NewBug" unique_id=1118766470]
+layout_mode = 1
+anchors_preset = 12
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = -32.0
+grow_horizontal = 2
+grow_vertical = 0
+text = "J'ai un bug"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Button" type="TextureButton" parent="VBox/Actions/Colonne/Marge/Boutons/NewBug" unique_id=1567220055]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Apropos" type="PanelContainer" parent="VBox" unique_id=1620071726]
+layout_mode = 2
+size_flags_vertical = 3
+mouse_filter = 1
+theme_type_variation = &"Carte"
+
+[node name="Colonne" type="VBoxContainer" parent="VBox/Apropos" unique_id=299968834]
+layout_mode = 2
+theme_override_constants/separation = 0
+
+[node name="Header" type="PanelContainer" parent="VBox/Apropos/Colonne" unique_id=856611618]
+custom_minimum_size = Vector2(0, 40)
+layout_mode = 2
+mouse_filter = 1
+theme_type_variation = &"EnTete"
+
+[node name="HeaderRow" type="HBoxContainer" parent="VBox/Apropos/Colonne/Header" unique_id=945008242]
+layout_mode = 2
+theme_override_constants/separation = 8
+
+[node name="Label" type="Label" parent="VBox/Apropos/Colonne/Header/HeaderRow" unique_id=261114877]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_type_variation = &"TitreHeader"
+text = "A propos"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="MarginContainer" type="MarginContainer" parent="VBox/Apropos/Colonne/Header/HeaderRow" unique_id=1483730092]
+layout_mode = 2
+theme_override_constants/margin_right = 19
+
+[node name="twitter" type="Panel" parent="VBox/Apropos/Colonne/Header/HeaderRow/MarginContainer" unique_id=1492452704]
+custom_minimum_size = Vector2(30, 30)
+layout_mode = 2
+size_flags_vertical = 4
+mouse_filter = 1
+theme_type_variation = &"Pastille"
+
+[node name="sprite" type="TextureRect" parent="VBox/Apropos/Colonne/Header/HeaderRow/MarginContainer/twitter" unique_id=640768817]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 3.0
+offset_top = 3.0
+offset_right = -3.0
+offset_bottom = -3.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+texture = ExtResource("6_bkxrd")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="Button" type="TextureButton" parent="VBox/Apropos/Colonne/Header/HeaderRow/MarginContainer/twitter" unique_id=1649901418]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Scroll" type="ScrollContainer" parent="VBox/Apropos/Colonne" unique_id=1445613298]
+layout_mode = 2
+size_flags_vertical = 3
+horizontal_scroll_mode = 0
+
+[node name="Marge" type="MarginContainer" parent="VBox/Apropos/Colonne/Scroll" unique_id=410866654]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/margin_left = 12
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 12
+theme_override_constants/margin_bottom = 10
+
+[node name="PhumtarBox" type="Control" parent="VBox/Apropos/Colonne/Scroll/Marge" unique_id=77441253]
+custom_minimum_size = Vector2(60, 24)
+layout_mode = 2
+size_flags_horizontal = 8
+size_flags_vertical = 0
+mouse_filter = 2
+
+[node name="phumtar" type="AnimatedSprite2D" parent="VBox/Apropos/Colonne/Scroll/Marge/PhumtarBox" unique_id=1606359349]
+position = Vector2(-43.899208, 41.530006)
+scale = Vector2(0.41678393, 0.41678396)
+sprite_frames = SubResource("SpriteFrames_kwb3n")
+autoplay = "default"
+
+[node name="Infos" type="VBoxContainer" parent="VBox/Apropos/Colonne/Scroll/Marge" unique_id=1925382595]
+layout_mode = 2
+theme_override_constants/separation = 2
+
+[node name="DevLabel" type="Label" parent="VBox/Apropos/Colonne/Scroll/Marge/Infos" unique_id=1575558366]
+layout_mode = 2
+text = "Développeur"
+
+[node name="DevTxt" type="Label" parent="VBox/Apropos/Colonne/Scroll/Marge/Infos" unique_id=938274773]
+layout_mode = 2
+theme_type_variation = &"TexteAccent"
+text = "Jean Gabès
+naparuba@gmail.com"
+autowrap_mode = 3
+
+[node name="VersionLabel" type="Label" parent="VBox/Apropos/Colonne/Scroll/Marge/Infos" unique_id=1482180165]
+layout_mode = 2
+text = "Version"
+
+[node name="VersionTxt" type="Label" parent="VBox/Apropos/Colonne/Scroll/Marge/Infos" unique_id=1826152361]
+layout_mode = 2
+theme_type_variation = &"TexteAccent"
+text = "-"
+
+[node name="SrcLabel" type="Label" parent="VBox/Apropos/Colonne/Scroll/Marge/Infos" unique_id=52041698]
+layout_mode = 2
+text = "Sources"
+
+[node name="SrcTxt" type="Label" parent="VBox/Apropos/Colonne/Scroll/Marge/Infos" unique_id=768746950]
+layout_mode = 2
+theme_type_variation = &"TexteAccent"
+text = "https://github.com/naparuba/fdcn"
+autowrap_mode = 3
+
+[node name="ThnksLabel" type="Label" parent="VBox/Apropos/Colonne/Scroll/Marge/Infos" unique_id=812849265]
+layout_mode = 2
+text = "Remerciements"
+
+[node name="ThnksTxt" type="Label" parent="VBox/Apropos/Colonne/Scroll/Marge/Infos" unique_id=697333199]
+layout_mode = 2
+theme_type_variation = &"TexteAccent"
+text = "- Bob pour cette super oeuvre
+- Les dev de \"Godot\" qui ont
+permis à cette application d'exister
+- Pour leur patchs: Anael Closson & Linklinsse
+- Report de bug: Mystorage09, Polurax & Holorim"
+autowrap_mode = 3
+
+[node name="NotesLabel" type="Label" parent="VBox/Apropos/Colonne/Scroll/Marge/Infos" unique_id=2140429598]
+layout_mode = 2
+text = "Notes"
+
+[node name="NotesTxt" type="Label" parent="VBox/Apropos/Colonne/Scroll/Marge/Infos" unique_id=1906854206]
+layout_mode = 2
+theme_type_variation = &"TexteAccent"
+text = "Toute aide pour dev ou debugguer
+est la bienvenue ^^"
+autowrap_mode = 3
+
+[node name="Disclaimer" type="Label" parent="VBox/Apropos/Colonne/Scroll/Marge/Infos" unique_id=1556285065]
+custom_minimum_size = Vector2(0, 40)
+layout_mode = 2
+theme_type_variation = &"TexteAlerte"
+text = "IMPORTANT:
+Ceci est une application
+FAN MADE, NON OFFICIELLE
+
+Tous les droits sont à Bob Lennon
+et LinkDigitalSpirit."
+vertical_alignment = 2
+autowrap_mode = 3

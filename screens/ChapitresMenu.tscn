@@ -1,0 +1,62 @@
+[gd_scene load_steps=2 format=3 uid="uid://6brl0np1vj8q"]
+
+[ext_resource type="Script" path="res://screens/chapitres_menu.gd" id="3_script"]
+
+[node name="Chapitres" type="Panel" unique_id=1167040183]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 1
+theme_type_variation = &"Fond"
+script = ExtResource("3_script")
+
+[node name="VBox" type="VBoxContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 0
+
+[node name="Header" type="PanelContainer" parent="VBox"]
+custom_minimum_size = Vector2(0, 40)
+layout_mode = 2
+mouse_filter = 1
+theme_type_variation = &"EnTete"
+
+[node name="Label" type="Label" parent="VBox/Header"]
+theme_type_variation = &"TitreHeader"
+layout_mode = 2
+text = "Tous les Chapitres"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="JumpBar" type="HBoxContainer" parent="VBox"]
+custom_minimum_size = Vector2(0, 52)
+layout_mode = 2
+theme_override_constants/separation = 6
+
+[node name="SautLabel" type="Label" parent="VBox/JumpBar"]
+layout_mode = 2
+size_flags_vertical = 4
+text = "Saut"
+
+[node name="Buttons" type="HBoxContainer" parent="VBox/JumpBar"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 4
+theme_override_constants/separation = 6
+alignment = 1
+
+[node name="Scroll" type="ScrollContainer" parent="VBox"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+horizontal_scroll_mode = 0
+
+[node name="Content" type="Control" parent="VBox/Scroll"]
+layout_mode = 2
+size_flags_horizontal = 3

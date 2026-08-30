@@ -1,0 +1,264 @@
+[gd_scene load_steps=3 format=3 uid="uid://c454b8i052jaq"]
+
+[ext_resource type="Script" uid="uid://cgadnncp6suto" path="res://popups/sub/stats.gd" id="1_h4pf3"]
+[ext_resource type="PackedScene" path="res://ui/ResourceGauge.tscn" id="3_gauge"]
+
+[node name="Stats" type="Panel" unique_id=1078769074]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 1
+theme_type_variation = &"Carte"
+script = ExtResource("1_h4pf3")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="." unique_id=1994566425]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 80.0
+offset_right = -80.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 35
+
+[node name="WarningText" type="Label" parent="VBoxContainer" unique_id=1815592670]
+layout_mode = 2
+theme_type_variation = &"TexteAlerte"
+text = "Attention: fonctionalité non finie, bugs possibles :)"
+horizontal_alignment = 1
+
+[node name="PvBlock" type="VBoxContainer" parent="VBoxContainer"]
+layout_mode = 2
+theme_override_constants/separation = 6
+
+[node name="PlayerPv" type="HBoxContainer" parent="VBoxContainer/PvBlock" unique_id=1970331329]
+layout_mode = 2
+
+[node name="PlayerPvLabel" type="Label" parent="VBoxContainer/PvBlock/PlayerPv" unique_id=389803614]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "PV:"
+horizontal_alignment = 1
+
+[node name="PlayerPvValueDetail" type="Label" parent="VBoxContainer/PvBlock/PlayerPv" unique_id=1813322417]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "XXX"
+horizontal_alignment = 1
+
+[node name="PvControls" type="HBoxContainer" parent="VBoxContainer/PvBlock"]
+layout_mode = 2
+theme_override_constants/separation = 8
+
+[node name="Moins" type="Button" parent="VBoxContainer/PvBlock/PvControls"]
+custom_minimum_size = Vector2(44, 44)
+layout_mode = 2
+size_flags_vertical = 4
+theme_override_font_sizes/font_size = 24
+text = "-"
+
+[node name="Gauge" parent="VBoxContainer/PvBlock/PvControls" instance=ExtResource("3_gauge")]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 4
+show_title = false
+
+[node name="Plus" type="Button" parent="VBoxContainer/PvBlock/PvControls"]
+custom_minimum_size = Vector2(44, 44)
+layout_mode = 2
+size_flags_vertical = 4
+theme_override_font_sizes/font_size = 24
+text = "+"
+
+[node name="PlayerEnd" type="HBoxContainer" parent="VBoxContainer" unique_id=2062299718]
+layout_mode = 2
+
+[node name="PlayerEndLabel" type="Label" parent="VBoxContainer/PlayerEnd" unique_id=1304494928]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Endurance:"
+horizontal_alignment = 1
+
+[node name="PlayerEndValue" type="Label" parent="VBoxContainer/PlayerEnd" unique_id=1057740307]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "XXX"
+horizontal_alignment = 1
+
+[node name="PlayerEndValueDetail" type="Label" parent="VBoxContainer/PlayerEnd" unique_id=1345076317]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "XXX"
+horizontal_alignment = 1
+
+[node name="PlayerHab" type="HBoxContainer" parent="VBoxContainer" unique_id=1409783003]
+layout_mode = 2
+
+[node name="PlayerHabLabel" type="Label" parent="VBoxContainer/PlayerHab" unique_id=1416068723]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Habilité:"
+horizontal_alignment = 1
+
+[node name="PlayerHabValue" type="Label" parent="VBoxContainer/PlayerHab" unique_id=770360765]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "XXX"
+horizontal_alignment = 1
+
+[node name="PlayerHabValueDetail" type="Label" parent="VBoxContainer/PlayerHab" unique_id=623811551]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "XXX"
+horizontal_alignment = 1
+
+[node name="PlayerAdr" type="HBoxContainer" parent="VBoxContainer" unique_id=1862751619]
+layout_mode = 2
+
+[node name="PlayerAdrLabel" type="Label" parent="VBoxContainer/PlayerAdr" unique_id=960420059]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Adresse:"
+horizontal_alignment = 1
+
+[node name="PlayerAdrValue" type="Label" parent="VBoxContainer/PlayerAdr" unique_id=104778880]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "XXX"
+horizontal_alignment = 1
+
+[node name="PlayerAdrValueDetail" type="Label" parent="VBoxContainer/PlayerAdr" unique_id=165348262]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "XXX"
+horizontal_alignment = 1
+
+[node name="ChaBlock" type="VBoxContainer" parent="VBoxContainer"]
+layout_mode = 2
+theme_override_constants/separation = 6
+
+[node name="PlayerCha" type="HBoxContainer" parent="VBoxContainer/ChaBlock" unique_id=1348580601]
+layout_mode = 2
+
+[node name="PlayerChaLabel" type="Label" parent="VBoxContainer/ChaBlock/PlayerCha" unique_id=854466462]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Chance:"
+horizontal_alignment = 1
+
+[node name="PlayerChaValueDetail" type="Label" parent="VBoxContainer/ChaBlock/PlayerCha" unique_id=1160686796]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "XXX"
+horizontal_alignment = 1
+
+[node name="ChaControls" type="HBoxContainer" parent="VBoxContainer/ChaBlock"]
+layout_mode = 2
+theme_override_constants/separation = 8
+
+[node name="Moins" type="Button" parent="VBoxContainer/ChaBlock/ChaControls"]
+custom_minimum_size = Vector2(44, 44)
+layout_mode = 2
+size_flags_vertical = 4
+theme_override_font_sizes/font_size = 24
+text = "-"
+
+[node name="Gauge" parent="VBoxContainer/ChaBlock/ChaControls" instance=ExtResource("3_gauge")]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 4
+kind = 1
+show_title = false
+
+[node name="Plus" type="Button" parent="VBoxContainer/ChaBlock/ChaControls"]
+custom_minimum_size = Vector2(44, 44)
+layout_mode = 2
+size_flags_vertical = 4
+theme_override_font_sizes/font_size = 24
+text = "+"
+
+[node name="PlayerCrit" type="HBoxContainer" parent="VBoxContainer" unique_id=2017964688]
+layout_mode = 2
+
+[node name="PlayerCritLabel" type="Label" parent="VBoxContainer/PlayerCrit" unique_id=363331720]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Critique:"
+horizontal_alignment = 1
+
+[node name="PlayerCritValue" type="Label" parent="VBoxContainer/PlayerCrit" unique_id=1857849190]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "XXX"
+horizontal_alignment = 1
+
+[node name="PlayerCritValueDetail" type="Label" parent="VBoxContainer/PlayerCrit" unique_id=19883977]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "XXX"
+horizontal_alignment = 1
+
+[node name="PlayerDeg" type="HBoxContainer" parent="VBoxContainer" unique_id=280062786]
+layout_mode = 2
+
+[node name="PlayerDegLabel" type="Label" parent="VBoxContainer/PlayerDeg" unique_id=1509018729]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Dégâts:"
+horizontal_alignment = 1
+
+[node name="PlayerDegValue" type="Label" parent="VBoxContainer/PlayerDeg" unique_id=1607784566]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "XXX"
+horizontal_alignment = 1
+
+[node name="PlayerDegValueDetail" type="Label" parent="VBoxContainer/PlayerDeg" unique_id=1780393205]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "XXX"
+horizontal_alignment = 1
+
+[node name="PlayerArm" type="HBoxContainer" parent="VBoxContainer" unique_id=1139856777]
+layout_mode = 2
+
+[node name="PlayerArmLabel" type="Label" parent="VBoxContainer/PlayerArm" unique_id=669686413]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Armure:"
+horizontal_alignment = 1
+
+[node name="PlayerArmValue" type="Label" parent="VBoxContainer/PlayerArm" unique_id=168665170]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "XXX"
+horizontal_alignment = 1
+
+[node name="PlayerArmValueDetail" type="Label" parent="VBoxContainer/PlayerArm" unique_id=1848212021]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "XXX"
+horizontal_alignment = 1
+
+[node name="PlayerRichesse" type="HBoxContainer" parent="VBoxContainer"]
+layout_mode = 2
+
+[node name="PlayerRichesseLabel" type="Label" parent="VBoxContainer/PlayerRichesse"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Richesse:"
+horizontal_alignment = 1
+
+[node name="PlayerRichesseValue" type="Label" parent="VBoxContainer/PlayerRichesse"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "XXX"
+horizontal_alignment = 1
+
+[node name="PlayerRichesseValueDetail" type="Label" parent="VBoxContainer/PlayerRichesse"]
+layout_mode = 2
+size_flags_horizontal = 3
+horizontal_alignment = 1

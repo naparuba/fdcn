@@ -1,0 +1,198 @@
+[gd_scene load_steps=4 format=3 uid="uid://1qa310lgsyuq"]
+
+[ext_resource type="Script" uid="uid://ddhgjah52ljdj" path="res://entities/ChapterChoice.gd" id="1"]
+
+[sub_resource type="StyleBoxFlat" id="5"]
+bg_color = Color(0, 0.760784, 0.666667, 1)
+corner_radius_top_left = 2
+corner_radius_top_right = 2
+corner_radius_bottom_right = 2
+corner_radius_bottom_left = 2
+
+[sub_resource type="StyleBoxFlat" id="8"]
+bg_color = Color(0.956863, 0.345098, 0.345098, 1)
+corner_radius_top_left = 2
+corner_radius_top_right = 2
+corner_radius_bottom_right = 2
+corner_radius_bottom_left = 2
+
+[node name="ChapterChoice" type="Panel" unique_id=871095938]
+custom_minimum_size = Vector2(0, 75)
+anchors_preset = 10
+anchor_right = 1.0
+grow_horizontal = 2
+size_flags_horizontal = 3
+size_flags_vertical = 4
+mouse_filter = 1
+theme_type_variation = &"Ligne"
+script = ExtResource("1")
+
+[node name="Row" type="HBoxContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+theme_override_constants/separation = 5
+
+[node name="Rubans" type="Control" parent="Row"]
+custom_minimum_size = Vector2(158, 75)
+layout_mode = 2
+mouse_filter = 2
+
+[node name="AlreadySeenPolygon" type="Polygon2D" parent="Row/Rubans" unique_id=26799199]
+position = Vector2(-22.5136, 0.529732)
+color = Color(0.878431, 0.886275, 0.898039, 1)
+polygon = PackedVector2Array(22.4823, 72.5328, 37.1073, 72.564, 58.1034, -0.244655, 41.6874, -0.262193, 22.5453, 67.939)
+
+[node name="Label" type="Label" parent="Row/Rubans/AlreadySeenPolygon" unique_id=874936500]
+offset_left = 26.3216
+offset_top = 57.7255
+offset_right = 75.3216
+offset_bottom = 71.7255
+rotation = -1.27883
+text = "Déjà Vu"
+
+[node name="SessionSeenPolygon" type="Polygon2D" parent="Row/Rubans" unique_id=932445065]
+position = Vector2(2.07602, 0.578602)
+color = Color(0.878431, 0.886275, 0.898039, 1)
+polygon = PackedVector2Array(21.4577, 72.3413, 41.6251, -0.0815163, 58.0468, -0.0815163, 37.1673, 72.4201)
+
+[node name="Label" type="Label" parent="Row/Rubans/SessionSeenPolygon" unique_id=663816798]
+offset_left = 25.6534
+offset_top = 57.5028
+offset_right = 74.6534
+offset_bottom = 71.5028
+rotation = -1.27883
+text = "Ce Billy"
+
+[node name="CombatPolygon" type="Polygon2D" parent="Row/Rubans" unique_id=924856178]
+position = Vector2(25.5788, 0.544044)
+color = Color(0.878431, 0.886275, 0.898039, 1)
+polygon = PackedVector2Array(21.2241, 72.4153, 41.6251, -0.0815163, 58.0468, -0.0815163, 37.17, 72.494)
+
+[node name="Label" type="Label" parent="Row/Rubans/CombatPolygon" unique_id=156713008]
+offset_left = 25.4307
+offset_top = 57.2801
+offset_right = 74.4307
+offset_bottom = 71.2801
+rotation = -1.27883
+text = "Combat"
+
+[node name="EndPolygon" type="Polygon2D" parent="Row/Rubans" unique_id=1562643046]
+position = Vector2(50.2198, 0.531052)
+color = Color(0.878431, 0.886275, 0.898039, 1)
+polygon = PackedVector2Array(21.2697, 72.5464, 41.6251, -0.0815163, 58.0468, -0.0815163, 37.2155, 72.507)
+
+[node name="Label" type="Label" parent="Row/Rubans/EndPolygon" unique_id=764870263]
+offset_left = 25.6534
+offset_top = 58.6164
+offset_right = 74.6534
+offset_bottom = 72.6164
+rotation = -1.27883
+text = "    Fin"
+
+[node name="SuccessPolygon" type="Polygon2D" parent="Row/Rubans" unique_id=496455846]
+position = Vector2(74.9835, 0.592384)
+color = Color(0.878431, 0.886275, 0.898039, 1)
+polygon = PackedVector2Array(21.2713, 72.3275, 41.6251, -0.0815163, 58.0468, -0.0815163, 37.2565, 72.3669)
+
+[node name="Label" type="Label" parent="Row/Rubans/SuccessPolygon" unique_id=2134009557]
+offset_left = 26.3216
+offset_top = 56.6119
+offset_right = 75.3216
+offset_bottom = 70.6119
+rotation = -1.27883
+text = "Succès"
+
+[node name="SecretPolygon" type="Polygon2D" parent="Row/Rubans" unique_id=2078740505]
+position = Vector2(99.7867, 0.448215)
+color = Color(0.878431, 0.886275, 0.898039, 1)
+polygon = PackedVector2Array(20.902, 72.4675, 41.6251, -0.0815163, 58.0468, -0.0815163, 37.2723, 72.4675)
+
+[node name="Label" type="Label" parent="Row/Rubans/SecretPolygon" unique_id=1978447478]
+offset_left = 26.3805
+offset_top = 57.0445
+offset_right = 75.3805
+offset_bottom = 71.0445
+rotation = -1.27883
+text = "Secret"
+
+[node name="Textes" type="VBoxContainer" parent="Row"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 4
+mouse_filter = 2
+theme_override_constants/separation = 8
+
+[node name="Label" type="Label" parent="Row/Textes" unique_id=1626292863]
+layout_mode = 2
+size_flags_vertical = 3
+theme_type_variation = &"TexteAccent"
+autowrap_mode = 3
+clip_text = true
+
+[node name="special" type="Label" parent="Row/Textes" unique_id=68858494]
+visible = false
+layout_mode = 2
+theme_type_variation = &"TexteAccent"
+text = "XXX"
+horizontal_alignment = 2
+clip_text = true
+
+[node name="NBChapitre" type="Label" parent="Row" unique_id=744243784]
+custom_minimum_size = Vector2(42, 0)
+layout_mode = 2
+size_flags_vertical = 4
+text = "XXX"
+horizontal_alignment = 2
+
+[node name="click" type="Panel" parent="Row" unique_id=711607573]
+custom_minimum_size = Vector2(57, 57)
+layout_mode = 2
+size_flags_vertical = 4
+theme_type_variation = &"Pastille"
+
+[node name="special" type="Panel" parent="Row/click" unique_id=637216756]
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("5")
+
+[node name="special_wrong" type="Panel" parent="Row/click" unique_id=645543674]
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("8")
+
+[node name="Label" type="Label" parent="Row/click" unique_id=1918206571]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+text = ">"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Button" type="TextureButton" parent="Row/click" unique_id=1052563699]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[connection signal="pressed" from="Row/click/Button" to="." method="_on_Button_pressed"]

@@ -1,0 +1,58 @@
+[gd_scene load_steps=4 format=3]
+
+[ext_resource type="Script" path="res://popups/ItemPopup.gd" id="2"]
+[ext_resource type="Texture2D" path="res://images/items/question.svg" id="3"]
+
+[sub_resource type="StyleBoxFlat" id="1"]
+bg_color = Color(0.752941, 1, 0.929412, 1)
+corner_radius_top_left = 2
+corner_radius_top_right = 2
+corner_radius_bottom_right = 2
+corner_radius_bottom_left = 2
+
+[node name="ItemPopup" type="Panel"]
+custom_minimum_size = Vector2(250, 50)
+offset_right = 250.0
+offset_bottom = 50.0
+mouse_filter = 1
+theme_override_styles/panel = SubResource("1")
+script = ExtResource("2")
+
+[node name="Row" type="HBoxContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+theme_override_constants/separation = 8
+
+[node name="Marge" type="Control" parent="Row"]
+custom_minimum_size = Vector2(4, 0)
+layout_mode = 2
+mouse_filter = 2
+
+[node name="sprite" type="TextureRect" parent="Row"]
+custom_minimum_size = Vector2(36, 36)
+layout_mode = 2
+size_flags_vertical = 4
+mouse_filter = 2
+texture = ExtResource("3")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="Nom" type="Label" parent="Row"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 4
+mouse_filter = 2
+text = "NOM DE L'OBJET"
+vertical_alignment = 1
+clip_text = true
+
+[node name="Timer" type="Timer" parent="."]
+wait_time = 3.0
+autostart = true
+
+[connection signal="timeout" from="Timer" to="." method="_on_Timer_timeout"]

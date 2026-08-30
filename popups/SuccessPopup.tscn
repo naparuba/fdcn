@@ -1,0 +1,197 @@
+[gd_scene load_steps=10 format=3 uid="uid://ddlukhraoy51l"]
+
+[ext_resource type="PackedScene" uid="uid://cyu1whyusreqt" path="res://entities/SuccessItem.tscn" id="1"]
+[ext_resource type="Script" uid="uid://bupbh0rrxdfca" path="res://popups/SuccessPopup.gd" id="2"]
+[ext_resource type="Texture2D" uid="uid://rjth6k0i6ryj" path="res://images/particule.png" id="3"]
+
+[sub_resource type="Animation" id="1"]
+resource_name = "hide"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("wholebackground/PanelBorder:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 1), Color(1, 1, 1, 0)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:visible")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(1),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath(".:modulate")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 1), Color(1, 1, 1, 0)]
+}
+
+[sub_resource type="Animation" id="2"]
+resource_name = "show"
+length = 5.0
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("wholebackground/PanelBorder:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 2),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 0), Color(1, 1, 1, 1)]
+}
+tracks/1/type = "method"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("wholebackground/PanelBorder/Success")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(2.4),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [],
+"method": &"set_already_seen"
+}]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath(".:modulate")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 0.4),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 0), Color(1, 1, 1, 1)]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("wholebackground/PanelBorder:scale")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0, 2),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(0.1, 0.1), Vector2(1, 1)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_44g1u"]
+_data = {
+&"hide": SubResource("1"),
+&"show": SubResource("2")
+}
+
+[sub_resource type="Curve" id="3"]
+_limits = [-360.0, 360.0, 0.0, 1.0]
+_data = [Vector2(0.0290698, 260.325), 0.0, 0.0, 0, 0, Vector2(1, -263.311), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="Gradient" id="4"]
+colors = PackedColorArray(0, 0.686275, 1, 1, 0.388235, 0.6, 0.815686, 1)
+
+[sub_resource type="StyleBoxFlat" id="5"]
+bg_color = Color(0, 0, 0, 1)
+
+[node name="SuccessPopup" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+script = ExtResource("2")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries/ = SubResource("AnimationLibrary_44g1u")
+
+[node name="wholebackground" type="Panel" parent="."]
+modulate = Color(1, 1, 1, 0.862745)
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+theme_type_variation = &"Voile"
+
+[node name="CPUParticles2D" type="CPUParticles2D" parent="wholebackground"]
+position = Vector2(269.051, 481.303)
+amount = 48
+lifetime = 2.5
+explosiveness = 0.35
+randomness = 0.5
+texture = ExtResource("3")
+emission_shape = 1
+emission_sphere_radius = 120.0
+direction = Vector2(0, -1)
+spread = 60.0
+gravity = Vector2(0, 220)
+initial_velocity_min = 160.0
+initial_velocity_max = 340.0
+angular_velocity_min = -220.0
+angular_velocity_max = 220.0
+angular_velocity_curve = SubResource("3")
+scale_amount_min = 0.6
+scale_amount_max = 1.4
+color_ramp = SubResource("4")
+
+[node name="PanelBorder" type="Panel" parent="wholebackground"]
+modulate = Color(1, 1, 1, 0)
+self_modulate = Color(1, 1, 1, 0.792157)
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -232.0
+offset_top = -55.0
+offset_right = 232.0
+offset_bottom = 55.0
+grow_horizontal = 2
+grow_vertical = 2
+pivot_offset = Vector2(232, 55)
+scale = Vector2(0.1, 0.1)
+mouse_filter = 2
+theme_override_styles/panel = SubResource("5")
+
+[node name="Success" parent="wholebackground/PanelBorder" instance=ExtResource("1")]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 8.0
+offset_top = 12.0
+offset_right = -8.0
+offset_bottom = -12.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_type_variation = &"Ligne"
+
+[node name="AudioPlayer" type="AudioStreamPlayer" parent="."]
+
+[connection signal="animation_finished" from="AnimationPlayer" to="." method="_on_AnimationPlayer_animation_finished"]

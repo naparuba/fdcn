@@ -1,0 +1,949 @@
+{
+    "actes": [
+        {
+            "depart": 1,
+            "nom": "Nouvelle-Nouvelle-Azur"
+        },
+        {
+            "depart": 100,
+            "nom": "L'Exode"
+        },
+        {
+            "depart": 200,
+            "nom": "La cité des Reflets"
+        },
+        {
+            "depart": 310,
+            "nom": "Justice Juste"
+        },
+        {
+            "depart": 340,
+            "nom": "Violence Vraie"
+        },
+        {
+            "depart": 388,
+            "nom": "Le Palais"
+        },
+        {
+            "depart": 400,
+            "nom": "La Larme"
+        },
+        {
+            "depart": 500,
+            "nom": "Le Guide"
+        },
+        {
+            "depart": 600,
+            "nom": "Les Sables d'Ivoire"
+        },
+        {
+            "depart": 659,
+            "nom": "La Fin"
+        }
+    ],
+    "compteurs": [
+        {
+            "cle": "rancune",
+            "libelle": "Rancune"
+        },
+        {
+            "cle": "respect",
+            "libelle": "Respect"
+        }
+    ],
+    "ignorees": [],
+    "objets": {
+        "AILERON AERODYNAMIQUE": {
+            "category": "OBJET"
+        },
+        "AILERON AERODYNAMIQUE INSTALLE": {
+            "category": "OBJET",
+            "stats": {
+                "arm": 1
+            }
+        },
+        "APPEAU": {
+            "category": "OBJET"
+        },
+        "ARC": {
+            "category": "ARME",
+            "stats": {
+                "adr": 1,
+                "crit": 4,
+                "hab": 3
+            }
+        },
+        "AUTORISATION SPECIALE": {
+            "category": "OBJET"
+        },
+        "AVIS DE RECHERCHE": {
+            "category": "OBJET"
+        },
+        "BOITE DE CRAYONS": {
+            "category": "EQUIPEMENT",
+            "stats": {
+                "cha": 2,
+                "crit": 1
+            }
+        },
+        "BON POUR DE L'ARGENT": {
+            "category": "OBJET"
+        },
+        "BOUCLIER A PLUMES": {
+            "category": "OBJET"
+        },
+        "BOUTEILLE DE VIN": {
+            "category": "OBJET"
+        },
+        "BRACELET A POINTES": {
+            "category": "OBJET"
+        },
+        "BRACELET IOTOS": {
+            "category": "OBJET"
+        },
+        "BROCHE DOREE": {
+            "category": "OBJET"
+        },
+        "CARTE GOLD": {
+            "category": "OBJET"
+        },
+        "CHLOROGLYCERINE": {
+            "category": "OBJET"
+        },
+        "CONSEIL DE CUSHOM DERRIERE": {
+            "category": "EVENEMENT"
+        },
+        "CONSEIL NE PAS BAISSER LES YEUX": {
+            "category": "EVENEMENT"
+        },
+        "CORNE DES SABLES D'IVOIRE": {
+            "category": "OBJET"
+        },
+        "COTTE DE MAILLES": {
+            "category": "EQUIPEMENT",
+            "stats": {
+                "adr": -1,
+                "arm": 2,
+                "end": 1,
+                "hab": -1
+            }
+        },
+        "COUTEAU CEREMONIAL": {
+            "category": "OUTIL",
+            "stats": {
+                "crit": 5,
+                "hab": 1,
+                "richesse": 1
+            }
+        },
+        "CREME SOLAIRE": {
+            "category": "OBJET"
+        },
+        "DEBRIDAGE DE SCORPIONS": {
+            "category": "EVENEMENT"
+        },
+        "DEBROUILLARD": {
+            "category": "BILLY",
+            "stats": {
+                "adr": 2,
+                "end": -1
+            }
+        },
+        "DEUX REUSSITES": {
+            "category": "EVENEMENT"
+        },
+        "DISQUES CLOUTES": {
+            "category": "OBJET"
+        },
+        "DISQUES CLOUTES INSTALLES": {
+            "category": "OBJET",
+            "stats": {
+                "deg": 1,
+                "hab": 1
+            }
+        },
+        "FDCN LU": {
+            "category": "EVENEMENT"
+        },
+        "FILET DE PECHE": {
+            "category": "OUTIL",
+            "stats": {
+                "adr": 1,
+                "end": 1
+            }
+        },
+        "FLASQUE D'HUILE": {
+            "category": "OBJET"
+        },
+        "FLEAU A GRAINS": {
+            "category": "OUTIL",
+            "stats": {
+                "end": 2,
+                "hab": 1,
+                "pv_max": 2
+            }
+        },
+        "FLUTE": {
+            "category": "OBJET"
+        },
+        "FORMULAIRE DE NATIONALITE": {
+            "category": "OBJET"
+        },
+        "FUSEE ECLAIRANTE": {
+            "category": "OBJET"
+        },
+        "GOURDE SCELLEE": {
+            "category": "OBJET"
+        },
+        "GRI-GRI": {
+            "category": "OBJET"
+        },
+        "GUERRIER": {
+            "category": "BILLY",
+            "stats": {
+                "cha": -1,
+                "deg": 1,
+                "hab": 2
+            }
+        },
+        "GUIDE TOURISTIQUE": {
+            "category": "EQUIPEMENT",
+            "stats": {
+                "cha": 3
+            }
+        },
+        "HALISTAIR SAMRAAT REGISTAAN": {
+            "category": "OBJET"
+        },
+        "KHAZIN": {
+            "category": "OBJET"
+        },
+        "LANCE": {
+            "category": "ARME",
+            "stats": {
+                "adr": 1,
+                "hab": 3
+            }
+        },
+        "LOI-120": {
+            "category": "EVENEMENT"
+        },
+        "LOI-188": {
+            "category": "EVENEMENT"
+        },
+        "LOI-19": {
+            "category": "EVENEMENT"
+        },
+        "LOI-22": {
+            "category": "EVENEMENT"
+        },
+        "LOI-234": {
+            "category": "EVENEMENT"
+        },
+        "LOI-269": {
+            "category": "EVENEMENT"
+        },
+        "LOI-299": {
+            "category": "EVENEMENT"
+        },
+        "LOI-49-3": {
+            "category": "EVENEMENT"
+        },
+        "LOI-521": {
+            "category": "EVENEMENT"
+        },
+        "LUCIOLES": {
+            "category": "OBJET"
+        },
+        "MECANISME DEESSE DEUX FOIS": {
+            "category": "EVENEMENT"
+        },
+        "MIROIR DE NADEE": {
+            "category": "OBJET"
+        },
+        "MIROIR FERME": {
+            "category": "OBJET"
+        },
+        "NADEE": {
+            "category": "OBJET"
+        },
+        "OEUFS DE SCORPYDRE": {
+            "category": "OBJET"
+        },
+        "PARI GAGNE": {
+            "category": "EVENEMENT"
+        },
+        "PAYSAN": {
+            "category": "BILLY",
+            "stats": {
+                "adr": -1,
+                "end": 2
+            }
+        },
+        "PELUCHE BON MARCHE": {
+            "category": "OBJET"
+        },
+        "PIOCHE": {
+            "category": "ARME",
+            "stats": {
+                "deg": 1,
+                "hab": 2,
+                "pv_max": 2
+            }
+        },
+        "PLOUF": {
+            "category": "OBJET"
+        },
+        "PRUDENT": {
+            "category": "BILLY",
+            "stats": {
+                "cha": 2,
+                "hab": -1
+            }
+        },
+        "RETROVISEUR": {
+            "category": "OBJET"
+        },
+        "RETROVISEUR INSTALLE": {
+            "category": "OBJET"
+        },
+        "SA'PANNA": {
+            "category": "OBJET"
+        },
+        "SABLIER PERPETUEL": {
+            "category": "OBJET"
+        },
+        "SABRE": {
+            "category": "ARME",
+            "stats": {
+                "crit": 2,
+                "hab": 3
+            }
+        },
+        "SAC DE GRAINS": {
+            "category": "OUTIL",
+            "stats": {
+                "cha": 2,
+                "end": 2
+            }
+        },
+        "SCORPIODROME": {
+            "category": "EVENEMENT"
+        },
+        "SCORPION DORE": {
+            "category": "OBJET"
+        },
+        "SCORPYDE DE SA'PANNA": {
+            "category": "OBJET",
+            "stats": {
+                "hab": 2
+            }
+        },
+        "SEAU": {
+            "category": "EQUIPEMENT",
+            "stats": {
+                "arm": 1,
+                "end": 1,
+                "pv_max": 2
+            }
+        },
+        "SECRET DU DOUBLE INFINI": {
+            "category": "OBJET"
+        },
+        "SECRET SULTAN SUR SA FILLE": {
+            "category": "EVENEMENT"
+        },
+        "SOUFFLE DANS LA CORNE": {
+            "category": "EVENEMENT"
+        },
+        "SUCRE": {
+            "category": "OBJET"
+        },
+        "TAMPON JAUNE": {
+            "category": "EVENEMENT"
+        },
+        "TAMPON ROUGE": {
+            "category": "EVENEMENT"
+        },
+        "TAMPON VERT": {
+            "category": "EVENEMENT"
+        },
+        "TONIQUE MYSTERIEUX": {
+            "category": "OBJET"
+        },
+        "TRIBUNAL": {
+            "category": "EVENEMENT"
+        },
+        "TROIS COUPS DE FOUET": {
+            "category": "EVENEMENT"
+        },
+        "TROIS REUSSITES": {
+            "category": "EVENEMENT"
+        },
+        "TROMBONE": {
+            "category": "OBJET"
+        },
+        "TURBAN POUR KHAZIN": {
+            "category": "OBJET"
+        },
+        "UN ECHEC": {
+            "category": "EVENEMENT"
+        },
+        "UNE REUSSITE": {
+            "category": "EVENEMENT"
+        }
+    },
+    "sous_arcs": [
+        {
+            "acte": "L'Exode",
+            "depart": 131,
+            "fins": [
+                181
+            ],
+            "nom": "Prieuré"
+        },
+        {
+            "acte": "L'Exode",
+            "depart": 45,
+            "fins": [
+                181
+            ],
+            "nom": "Jungle"
+        },
+        {
+            "acte": "L'Exode",
+            "depart": 105,
+            "fins": [
+                127
+            ],
+            "nom": "Fêtes"
+        },
+        {
+            "acte": "L'Exode",
+            "depart": 501,
+            "fins": [
+                127
+            ],
+            "nom": "Oasis Détente"
+        },
+        {
+            "acte": "La Larme",
+            "depart": 460,
+            "fins": [
+                596
+            ],
+            "nom": "Nécropole Halistair"
+        },
+        {
+            "acte": "La cité des Reflets",
+            "depart": 215,
+            "fins": [
+                226
+            ],
+            "nom": "Grand Bazaar"
+        },
+        {
+            "acte": "La cité des Reflets",
+            "depart": 240,
+            "fins": [
+                226
+            ],
+            "nom": "Rues de Jehal"
+        },
+        {
+            "acte": "La cité des Reflets",
+            "depart": 223,
+            "fins": [
+                116
+            ],
+            "nom": "Les Thermes"
+        },
+        {
+            "acte": "La cité des Reflets",
+            "depart": 220,
+            "fins": [
+                116
+            ],
+            "nom": "Palais des 1001 mains"
+        },
+        {
+            "acte": "La cité des Reflets",
+            "depart": 259,
+            "fins": [
+                116
+            ],
+            "nom": "Les écuries"
+        },
+        {
+            "acte": "La cité des Reflets",
+            "depart": 434,
+            "fins": [
+                116
+            ],
+            "nom": "Le ministère des Taxes"
+        },
+        {
+            "acte": "La cité des Reflets",
+            "depart": 380,
+            "fins": [
+                289
+            ],
+            "nom": "Le temple de Phûmta"
+        },
+        {
+            "acte": "La cité des Reflets",
+            "depart": 295,
+            "fins": [
+                289
+            ],
+            "nom": "La taverne"
+        },
+        {
+            "acte": "La Larme",
+            "depart": 416,
+            "fins": [
+                460
+            ],
+            "nom": "Avec Sa'panna"
+        },
+        {
+            "acte": "La Larme",
+            "depart": 407,
+            "fins": [
+                460
+            ],
+            "nom": "Avec Nadee"
+        },
+        {
+            "acte": "Violence Vraie",
+            "depart": 320,
+            "fins": [
+                83,
+                182
+            ],
+            "nom": "Le départ"
+        },
+        {
+            "acte": "Violence Vraie",
+            "depart": 83,
+            "fins": [
+                182,
+                466
+            ],
+            "nom": "La Poigne Filante"
+        },
+        {
+            "acte": "Violence Vraie",
+            "depart": 182,
+            "fins": [
+                466
+            ],
+            "nom": "La Torche Dardante"
+        },
+        {
+            "acte": "Violence Vraie",
+            "depart": 466,
+            "fins": [
+                313
+            ],
+            "nom": "Mimine!!!"
+        },
+        {
+            "acte": "Violence Vraie",
+            "depart": 313,
+            "fins": [
+                583
+            ],
+            "nom": "Dernier tour"
+        },
+        {
+            "acte": "Justice Juste",
+            "depart": 10,
+            "fins": [
+                101
+            ],
+            "nom": "Debut procès"
+        },
+        {
+            "acte": "Justice Juste",
+            "depart": 101,
+            "fins": [
+                202,
+                303
+            ],
+            "nom": "Accusation 1"
+        },
+        {
+            "acte": "Justice Juste",
+            "depart": 202,
+            "fins": [
+                303
+            ],
+            "nom": "Accusation 2"
+        },
+        {
+            "acte": "Justice Juste",
+            "depart": 303,
+            "fins": [
+                330
+            ],
+            "nom": "Accusation 3"
+        },
+        {
+            "acte": "Le Palais",
+            "depart": 469,
+            "fins": [
+                366,
+                384
+            ],
+            "nom": "Le Harem"
+        },
+        {
+            "acte": "Le Palais",
+            "depart": 196,
+            "fins": [
+                366
+            ],
+            "nom": "Les cuisines"
+        },
+        {
+            "acte": "Le Palais",
+            "depart": 159,
+            "fins": [
+                366
+            ],
+            "nom": "La suite"
+        },
+        {
+            "acte": "Le Guide",
+            "depart": 456,
+            "fins": [
+                496,
+                570
+            ],
+            "nom": "Le ministère des Taxes"
+        },
+        {
+            "acte": "Le Guide",
+            "depart": 222,
+            "fins": [
+                496,
+                570
+            ],
+            "nom": "Les sourcières"
+        },
+        {
+            "acte": "Le Guide",
+            "depart": 539,
+            "fins": [
+                496,
+                570
+            ],
+            "nom": "Les écuries"
+        },
+        {
+            "acte": "Le Guide",
+            "depart": 396,
+            "fins": [
+                496,
+                570
+            ],
+            "nom": "La caserne"
+        },
+        {
+            "acte": "Le Guide",
+            "depart": 570,
+            "fins": [
+                483
+            ],
+            "nom": "Le Tribunal"
+        },
+        {
+            "acte": "Le Guide",
+            "depart": 496,
+            "fins": [
+                483
+            ],
+            "nom": "Le scorpidrome"
+        },
+        {
+            "acte": "Le Guide",
+            "depart": 590,
+            "fins": [
+                525
+            ],
+            "nom": "La prison"
+        },
+        {
+            "acte": "Le Guide",
+            "depart": 606,
+            "fins": [
+                568
+            ],
+            "nom": "Le palais"
+        }
+    ],
+    "sous_arcs_manuels": {},
+    "succes": [
+        {
+            "id": "CEST-REPARTI",
+            "label": "Oh oh... Et c'est reparti",
+            "txt": "Vous avez choisi de rempiler"
+        },
+        {
+            "id": "PUNISHED-BOULI",
+            "label": "Punished Bouli",
+            "txt": "Vous avez refusé l'existence d'un bonhomme de neige"
+        },
+        {
+            "id": "BESOIN-AIDE",
+            "label": "Avez-vous besoin de mon aide?",
+            "txt": "Vous avez tout prévu, naturellement"
+        },
+        {
+            "id": "GRAND-FAN",
+            "label": "A mon plus grand fan: Billy!",
+            "txt": "Vous avez obtenu une édition collector"
+        },
+        {
+            "id": "YAMEROOO",
+            "label": "YAMEROOO!!",
+            "txt": "Vous avez été extirpé d'un enfer personnel"
+        },
+        {
+            "id": "A38",
+            "label": "Laissez-passer A38",
+            "txt": "Vous avez fait les choses jusqu'au bout"
+        },
+        {
+            "id": "COUDE",
+            "label": "Le coude de Billy",
+            "txt": "Vous n'avez pas su tirer votre épingle du jeu"
+        },
+        {
+            "id": "ARGUMENT-POINTE",
+            "label": "Argument de pointe",
+            "txt": "Vous n'avez pas l'habitude d'y aller par quatre chemins"
+        },
+        {
+            "id": "GALAXY-BRAIN",
+            "label": "Galaxy brain",
+            "txt": "Vous avez trouvé la réponse que le facteur attendait"
+        },
+        {
+            "id": "GET-OVER-HERE",
+            "label": "GET OVER HERE!",
+            "txt": "Vous n'avez pas été du genre à lâcher prise"
+        },
+        {
+            "id": "PHOBIE-ADMINISTRATIVE",
+            "label": "Phobie administrative",
+            "txt": "Vous avez été méthodique,ou très chanceux"
+        },
+        {
+            "id": "BIG-DEAL",
+            "label": "Le Big Dead",
+            "txt": "Vous avez cédé face au maitre du commerce"
+        },
+        {
+            "id": "NOT-GUILTY",
+            "label": "Not guilty!",
+            "txt": "Vous avez été un peu trop honnête"
+        },
+        {
+            "id": "GLISSE-CHEF",
+            "label": "J'ai glissé chef",
+            "txt": "Vous n'avez même pas commencé"
+        },
+        {
+            "id": "CA-COMPTE-POUR-UN",
+            "label": "Ca compte quand même que pour un!",
+            "txt": "Vous avez refusé de vous laisser intimider"
+        },
+        {
+            "id": "PARKOUR",
+            "label": "Parkour? Parkour!",
+            "txt": "Vous êtes parfaitement inconscient, mais vivant"
+        },
+        {
+            "id": "SIXIEME-SENS",
+            "label": "Sixième sens",
+            "txt": "Vous avez aidé une vieille à traverser sa dernière route"
+        },
+        {
+            "id": "NENETTE",
+            "label": "Nenette bat tout",
+            "txt": "Vous avez eu la chance du débutant"
+        },
+        {
+            "id": "XILLY",
+            "label": "Les aventures de Xilly",
+            "txt": "Vous avez adapté votre histoire à votre public"
+        },
+        {
+            "id": "TROUVE-LE-TITRE",
+            "label": "J'ai trouvé lé Titre™",
+            "txt": "Vous l'avez enfin récupéré"
+        },
+        {
+            "id": "ORGIE-SYNDICALE",
+            "label": "Orgie syndicale",
+            "txt": "Vous avez rendu es naines extra-lucides"
+        },
+        {
+            "id": "MAISON-GAGNE-TOUJOURS",
+            "label": "La maison gagne toujours",
+            "txt": "Vous avez prouvé ne pas être n'importe qui"
+        },
+        {
+            "id": "GUNDAAAM",
+            "label": "GUNDAAAAAAAAAAM!",
+            "txt": "Vous avez usé de stratégies alternatives"
+        },
+        {
+            "id": "PEU-POUR-ETRE-HEUREUX",
+            "label": "Il en faut peu pour être heureux",
+            "txt": "Vous avez cherché un autre sens à votre vie"
+        },
+        {
+            "id": "COUVERT-GUERRE",
+            "label": "J'ai couvert des guerres vous savez?",
+            "txt": "Vous avez fait étalage de votre ténacité"
+        },
+        {
+            "id": "VENTRE-PLUS-GROS",
+            "label": "Un ventre plus gros que vos yeux",
+            "txt": "Vous avez nourri Mimine"
+        },
+        {
+            "id": "MENTIR",
+            "label": "Technique secrête: Mentir!",
+            "txt": "Vous avez excellé dans la pratique d l'art judiciaire"
+        },
+        {
+            "id": "ZIGMAA-MALE",
+            "label": "Zigmaâ Male",
+            "txt": "Vous avez rendu le PB à son état naturel"
+        },
+        {
+            "id": "VERY-BAD-TRIP",
+            "label": "Very bad trip",
+            "txt": "Vous avez vu des choses"
+        },
+        {
+            "id": "POTION-EXPLOSION",
+            "label": "POTION D'EXPLOSION!",
+            "txt": "Vous avez opté pour une solution détonante"
+        },
+        {
+            "id": "ETALS-LIEUX",
+            "label": "Etal des lieux",
+            "txt": "Vous avez découvert meilleur explorateur que vous"
+        },
+        {
+            "id": "IZALLGOUD",
+            "label": "Izallgoud",
+            "txt": "Vous avez invoqué le Sultanétat d'urgence"
+        },
+        {
+            "id": "NO-WAY-PAN",
+            "label": "No way pan",
+            "txt": "Vous avez refusé les heures suplémentaires"
+        },
+        {
+            "id": "PIPAUTAGE-PROFESSIONNEL",
+            "label": "Pipautage professionnel",
+            "txt": "Vous avez bâti une défense imparable"
+        },
+        {
+            "id": "JE-SUIS-DONC-JE-SUIS",
+            "label": "JE suis, donc je suis",
+            "txt": "Vous avez nié votre inexistence"
+        },
+        {
+            "id": "APPROPRIATION-CULTURELLE",
+            "label": "Appropriation culturelle",
+            "txt": "Vous avez déposé quelqu'un à la mauvaise adresse"
+        },
+        {
+            "id": "FULL-THROTTLE",
+            "label": "Full throttle",
+            "txt": "Terminez le jeu avec la fin alternative GUERRIER"
+        },
+        {
+            "id": "ME-TOO",
+            "label": "#MeToo",
+            "txt": "Vous avez brisé le silence avec le Pyro Barbare"
+        },
+        {
+            "id": "FUSIL-TCHEKHOV",
+            "label": "Fusil de Tchekhov",
+            "txt": "Vous aviez gardé ça pour le boss de fin"
+        },
+        {
+            "id": "RUISSELLEMENT",
+            "label": "Théorie du ruissellement",
+            "txt": "Vous avez atteint la fin RICHESSE MAX"
+        },
+        {
+            "id": "ORDRE-CHOSES",
+            "label": "L'ordre des choses",
+            "txt": "Vous avez libéré Khazin du poids de ses regrets"
+        },
+        {
+            "id": "MILLES-ET-UNE-NEIGE",
+            "label": "Les Mille et Une Neiges",
+            "txt": "Vous avez rejoint les personnages de conte"
+        },
+        {
+            "id": "POSTERITE-ADMINISTRATIVE",
+            "label": "Postériété administrative",
+            "txt": "Vous avez élevé Plouf au rang d'archiviste"
+        },
+        {
+            "id": "BONNE-CHANCE",
+            "label": "Bonne chance au prochain",
+            "txt": "Terminez le jeu avec un Billy DEBROUILLARD"
+        },
+        {
+            "id": "ELEVAGE-ARRANGE",
+            "label": "Elevage Arrangé",
+            "txt": "Terminez le jeu avec la fin alternative PAYSAN"
+        },
+        {
+            "id": "AIME-PAS-LE-SABLE",
+            "label": "Je n'aime pas le sable",
+            "txt": "Vous avez atteint le fin RANCUNE MAX"
+        },
+        {
+            "id": "CITOYEN-ORDINAIRE",
+            "label": "Je t'aime aussi, citoyen ordinaire",
+            "txt": "Vous avez obtenu la fin RESPECT MAX"
+        },
+        {
+            "id": "PYRO-MONTANA",
+            "label": "Pyro-Montana",
+            "txt": "Terminez le jeu avec la fin alternative DEBROUILLARD"
+        },
+        {
+            "id": "ACE-ATTORNEY",
+            "label": "Ace Attorney",
+            "txt": "Terminez le jeu avec la fin alternative PRUDENT"
+        },
+        {
+            "id": "BON-TUTEUR",
+            "label": "Un bon tuteur",
+            "txt": "Terminez le jeu avec un Billy PAYSAN"
+        },
+        {
+            "id": "PLACE-MUSEE",
+            "label": "Sa place est dans un musée",
+            "txt": "Terminez le jeu avec un Billy PRUDENT"
+        },
+        {
+            "id": "NI-GUIDE",
+            "label": "Ni guide, ni maitre",
+            "txt": "Terminez le jeu avec un Billy GUERRIER"
+        }
+    ]
+}

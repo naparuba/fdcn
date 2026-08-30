@@ -1,0 +1,163 @@
+[gd_scene load_steps=4 format=3]
+
+[ext_resource type="Script" path="res://entities/EndingChoice.gd" id="1"]
+[ext_resource type="Texture2D" path="res://images/new_player.png" id="4"]
+[ext_resource type="Texture2D" path="res://images/endings/SOUFLE.png" id="5"]
+
+[node name="EndingChoice" type="Panel"]
+custom_minimum_size = Vector2(0, 260)
+anchors_preset = 10
+anchor_right = 1.0
+grow_horizontal = 2
+size_flags_horizontal = 3
+mouse_filter = 1
+theme_type_variation = &"Ligne"
+script = ExtResource("1")
+
+[node name="Row" type="HBoxContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+theme_override_constants/separation = 8
+
+[node name="Ruban" type="Control" parent="Row"]
+custom_minimum_size = Vector2(75, 260)
+layout_mode = 2
+mouse_filter = 2
+
+[node name="EndingType" type="Polygon2D" parent="Row/Ruban"]
+position = Vector2(-22.5136, 0.529732)
+color = Color(0.878431, 0.886275, 0.898039, 1)
+polygon = PackedVector2Array(23.0571, 254.36, 35.7994, 254.36, 96.6792, -0.0140231, 80.1615, -0.485962, 23.0571, 241.146)
+
+[node name="Label" type="Label" parent="Row/Ruban/EndingType"]
+offset_left = 47.0868
+offset_top = 145.034
+offset_right = 96.0868
+offset_bottom = 159.034
+rotation = -1.33737
+text = "Bonne fin"
+
+[node name="Contenu" type="VBoxContainer" parent="Row"]
+layout_mode = 2
+size_flags_horizontal = 3
+mouse_filter = 2
+theme_override_constants/separation = 8
+
+[node name="Haut" type="HBoxContainer" parent="Row/Contenu"]
+layout_mode = 2
+size_flags_vertical = 3
+mouse_filter = 2
+theme_override_constants/separation = 8
+
+[node name="Label" type="Label" parent="Row/Contenu/Haut"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_type_variation = &"TexteAccent"
+text = "On ne fait pas de bixous à un dragon"
+autowrap_mode = 3
+
+[node name="Icone" type="TextureRect" parent="Row/Contenu/Haut"]
+custom_minimum_size = Vector2(128, 128)
+layout_mode = 2
+size_flags_vertical = 4
+mouse_filter = 2
+texture = ExtResource("5")
+expand_mode = 1
+stretch_mode = 4
+
+[node name="Bas" type="HBoxContainer" parent="Row/Contenu"]
+layout_mode = 2
+mouse_filter = 2
+theme_override_constants/separation = 8
+
+[node name="click" type="Panel" parent="Row/Contenu/Bas"]
+custom_minimum_size = Vector2(92, 83)
+layout_mode = 2
+size_flags_vertical = 4
+theme_type_variation = &"Pastille"
+
+[node name="Label" type="Label" parent="Row/Contenu/Bas/click"]
+layout_mode = 0
+offset_left = 50.2754
+offset_top = 46.8071
+offset_right = 90.2754
+offset_bottom = 94.8072
+rotation = -3.1288
+mouse_filter = 2
+theme_override_font_sizes/font_size = 40
+text = ">"
+
+[node name="Oups" type="Label" parent="Row/Contenu/Bas/click"]
+layout_mode = 0
+offset_left = 6.86934
+offset_top = 31.9421
+offset_right = 87.8693
+offset_bottom = 79.9421
+rotation = 0.0122
+mouse_filter = 2
+theme_override_font_sizes/font_size = 40
+text = "Oups"
+
+[node name="Button" type="TextureButton" parent="Row/Contenu/Bas/click"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Spacer" type="Control" parent="Row/Contenu/Bas"]
+layout_mode = 2
+size_flags_horizontal = 3
+mouse_filter = 2
+
+[node name="nouveau_billy" type="Panel" parent="Row/Contenu/Bas"]
+custom_minimum_size = Vector2(145, 87)
+layout_mode = 2
+size_flags_vertical = 4
+theme_type_variation = &"Pastille"
+
+[node name="sprite" type="TextureRect" parent="Row/Contenu/Bas/nouveau_billy"]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -25.5
+offset_top = 2.0
+offset_right = 25.5
+offset_bottom = 53.0
+grow_horizontal = 2
+mouse_filter = 2
+texture = ExtResource("4")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="Label" type="Label" parent="Row/Contenu/Bas/nouveau_billy"]
+layout_mode = 1
+anchors_preset = 12
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = -31.0
+grow_horizontal = 2
+grow_vertical = 0
+mouse_filter = 2
+text = "Nouveau Billy"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Button" type="TextureButton" parent="Row/Contenu/Bas/nouveau_billy"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[connection signal="pressed" from="Row/Contenu/Bas/click/Button" to="." method="_on_oups_pressed"]
+[connection signal="pressed" from="Row/Contenu/Bas/nouveau_billy/Button" to="." method="_on_bouton_billy_pressed"]
