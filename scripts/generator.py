@@ -35,6 +35,13 @@ ENGINE_STATS_VOCABULARY = {
     'richesse',                                                # compteur commun
 }
 
+# Les SIX champs qu'un adversaire doit porter -- `autoload/combat_engine.gd::read_enemies()`
+# les indexe directement (`brut['hab']`, ...), sans `.get()` ni valeur par defaut : un bloc
+# `combat` incomplet ou mal orthographie ne se decouvrirait qu'a l'execution, au chapitre
+# precis ou un joueur le declenche, plutot qu'a la compilation (todo 3.2 n'avait valide que
+# les autres cles de chapitre, pas celle-ci -- review-code.md 7.2).
+COMBAT_REQUIRED_KEYS = {'nom', 'hab', 'pv', 'arm', 'deg', 'pyro'}
+
 
 def load_json_file(file_name: str):
     with codecs.open(file_name, 'r', 'utf8') as f:
@@ -120,6 +127,24 @@ def creer_nouveau_livre(nom: str) -> None:
           'python3 scripts/generator.py --book %s' % (nom, nom, nom))
 
 
+def _valider_le_combat(idx, combat) -> None:
+    """Un chapitre `combat` peut declarer UN adversaire (dict) ou PLUSIEURS (liste de dicts,
+    fdcn ch274 est le seul cas) -- dans les deux cas, chaque adversaire doit porter
+    EXACTEMENT les 6 champs que `read_enemies()` cote app lit sans `.get()`."""
+    adversaires = combat if isinstance(combat, list) else [combat]
+    for adversaire in adversaires:
+        if not isinstance(adversaire, dict):
+            print('ERROR: node %s, combat entry is not an object: %r' % (idx, adversaire))
+            sys.exit(2)
+        clefs = set(adversaire.keys())
+        if clefs != COMBAT_REQUIRED_KEYS:
+            manquantes = sorted(COMBAT_REQUIRED_KEYS - clefs)
+            en_trop = sorted(clefs - COMBAT_REQUIRED_KEYS)
+            print('ERROR: node %s, combat entry has wrong keys (missing: %s, unexpected: %s, '
+                  'required: %s)' % (idx, manquantes, en_trop, sorted(COMBAT_REQUIRED_KEYS)))
+            sys.exit(2)
+
+
 def lire_les_noeuds(book_data: dict, node_graph: Graph) -> None:
     """Cree tous les noeuds puis remplit chacun depuis son bloc JSON : deux passes, car un
     noeud peut sauter vers un chapitre pas encore cree en premiere passe."""
@@ -142,6 +167,7 @@ def lire_les_noeuds(book_data: dict, node_graph: Graph) -> None:
 
         combat = n.get('combat', None)
         if combat is not None:
+            _valider_le_combat(idx, combat)
             node.set_combat(combat)
 
         secret = n.get('secret', False)

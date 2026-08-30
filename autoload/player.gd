@@ -289,13 +289,18 @@ func jump_back(previous_id) -> bool:
 	if session_visited_nodes.size() == 1:
 		return false
 
-	while not session_visited_nodes.is_empty():
-		if session_visited_nodes.pop_back() == previous_id:
-			return true
-	# Le fil d'Ariane est vidé et on n'a rien trouvé : l'appelant demandait un retour vers
-	# un chapitre que ce Billy n'a jamais traversé.
-	push_warning("Player: chapitre de retour introuvable dans l'historique: %s" % previous_id)
-	return false
+	var index = session_visited_nodes.rfind(previous_id)
+	if index == -1:
+		# L'appelant demandait un retour vers un chapitre que ce Billy n'a jamais traversé :
+		# on le dit et on NE TOUCHE À RIEN — contrairement à un dépilage en direct
+		# (`pop_back()` en boucle), qui aurait vidé le fil d'Ariane avant de renvoyer false.
+		push_warning("Player: chapitre de retour introuvable dans l'historique: %s" % previous_id)
+		return false
+	# `previous_id` lui-même est retiré, pas seulement ce qui suit : c'est
+	# `go_to_node(previous_id)`, juste après dans `go_back_to()`, qui le rajoute — et c'est
+	# de le voir absent en queue de liste qui déclenche son `append()` + sa sauvegarde.
+	session_visited_nodes.resize(index)
+	return true
 
 
 ## On repart avec un Billy tout neuf : on efface le fil d'Ariane, les objets et
