@@ -18,6 +18,10 @@ extends Panel
 ## son libellé sont intacts, dans un `Control` de 75×260.
 
 
+## Mêmes valeurs que `ENDINGS.GOOD`/`ENDINGS.BAD` côté générateur (`scripts/endings.py`).
+const ENDING_TYPE_GOOD := 1
+const ENDING_TYPE_BAD := 2
+
 var ending_type = 0
 var main
 
@@ -40,7 +44,7 @@ func set_label(label):
 
 func set_ending_type(new_ending_type):
 	ending_type = new_ending_type
-	if ending_type == 1:  # GOOD
+	if ending_type == ENDING_TYPE_GOOD:
 		_ruban.color = Color('00c2aa')
 	else:  # bad one
 		_ruban.color = Color('ff6f04')

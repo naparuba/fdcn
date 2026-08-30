@@ -79,6 +79,3 @@ func _jouer(chemin: String) -> void:
 		Sounder.play_path(chemin)
 
 
-## Rejoue la narration du chapitre courant, si elle existe.
-func replay_narration() -> void:
-	_on_chapter_changed(Player.get_current_node_id())

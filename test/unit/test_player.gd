@@ -114,3 +114,14 @@ func test_les_conditions_contiennent_objets_et_type_de_billy() -> void:
 	assert_true('EPEE' in conditions, "l'objet porté est une condition")
 	assert_true(AppParameters.get_billy_type().to_upper() in conditions,
 		"le type de Billy est une condition")
+
+
+## `Inventory.BILLY_TYPES` (review-code.md 1.5) et `PlayerStats.BILLY_MODIFIERS` sont deux
+## tables indépendantes des 5 mêmes types : un typo dans l'une divergerait silencieusement
+## de l'autre sans ce test.
+func test_billy_modifiers_couvre_exactement_billy_types() -> void:
+	var types = Inventory.BILLY_TYPES.duplicate()
+	types.sort()
+	var modifiers = PlayerStats.BILLY_MODIFIERS.keys()
+	modifiers.sort()
+	assert_eq(modifiers, types, "PlayerStats.BILLY_MODIFIERS et Inventory.BILLY_TYPES doivent lister exactement les mêmes types")

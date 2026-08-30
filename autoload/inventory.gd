@@ -19,6 +19,15 @@ const MAX_CARRIED := 3
 ## catégorie "BILLY", qui contient les marqueurs de type eux-mêmes) est ignoré.
 const BILLY_CATEGORIES := ["ARME", "EQUIPEMENT", "OUTIL"]
 
+## Les 5 types de Billy, source de vérité unique. Écrits en dur ~75 fois dans 9 fichiers
+## avant ce const (review-code.md 1.5) — rien n'empêchait une faute de frappe dans l'une
+## des chaînes de compiler et de casser silencieusement une comparaison. Pas remplacé
+## partout : la plupart des sites sont des clés de dictionnaire ou des littéraux d'un
+## `if`/`elif` où une indirection par tableau nuirait à la lisibilité pour un gain nul —
+## `test_player.gd::test_billy_modifiers_couvre_exactement_billy_types` vérifie à la place
+## que la table qui compte vraiment (`PlayerStats.BILLY_MODIFIERS`) reste alignée.
+const BILLY_TYPES := ["guerrier", "paysan", "prudent", "debrouillard", "pegu"]
+
 ## Ce que porte le Billy, dans l'ordre où il l'a ramassé. Sauvegardé tel quel.
 var possessed_items := []
 

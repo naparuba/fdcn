@@ -68,8 +68,8 @@ const _TYPE_THEME := "MenuPage"
 func _ready():
 	_apply_insets()
 	_load_scene(current_index)
-	_nav_left._on_nav_pressed.connect(func(): _change_page(-1))
-	_nav_right._on_nav_pressed.connect(func(): _change_page(1))
+	_nav_left.pressed_for_navigation.connect(func(): _change_page(-1))
+	_nav_right.pressed_for_navigation.connect(func(): _change_page(1))
 
 	# On suit l'ouverture/fermeture des popups pour griser les flèches.
 	popup_container.child_entered_tree.connect(func(_n): _update_nav_state())
@@ -206,8 +206,8 @@ func is_popup_open() -> bool:
 
 func _update_nav_state() -> void:
 	var blocked = is_popup_open()
-	_nav_left.setDisabled(blocked)
-	_nav_right.setDisabled(blocked)
+	_nav_left.set_disabled(blocked)
+	_nav_right.set_disabled(blocked)
 
 
 #

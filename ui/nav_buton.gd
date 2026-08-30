@@ -21,7 +21,7 @@ extends Panel
 @export var is_disabled: bool = false
 @export var is_mirror: bool = false
 
-signal _on_nav_pressed()
+signal pressed_for_navigation()
 
 ## Demi-longueur du polygone dans son repère local, mesurée une fois au départ.
 ## Le polygone est tourné de 90°, donc son axe X local devient la verticale.
@@ -32,9 +32,9 @@ func _ready():
 	$txt.text = txt
 	_measure_poly()
 	if is_mirror:
-		setMirror(true)
+		set_mirror(true)
 	if is_disabled:
-		setDisabled(true)
+		set_disabled(true)
 	resized.connect(_on_resized)
 	_on_resized()
 
@@ -90,9 +90,9 @@ func _fit_poly_to_height() -> void:
 
 
 ## Met à jour l'ÉTAT autant que la couleur. `is_disabled` était un `@export` lu une seule
-## fois au `_ready()` : appeler `setDisabled()` repeignait le chevron sans jamais le tenir à
+## fois au `_ready()` : appeler `set_disabled()` repeignait le chevron sans jamais le tenir à
 ## jour, donc rien — pas même un test — ne pouvait demander si la flèche était active.
-func setDisabled(newValue: bool):
+func set_disabled(newValue: bool):
 	is_disabled = newValue
 	$poly.color = Color('9ea8b4') if newValue else Color('313b47')
 
@@ -104,7 +104,7 @@ func set_txt(value: String) -> void:
 	$txt.text = value
 
 
-func setMirror(newValue: bool):
+func set_mirror(newValue: bool):
 	if (newValue == true):
 		set_rotation(PI)
 	else:
@@ -112,4 +112,4 @@ func setMirror(newValue: bool):
 
 
 func _on_button_button_down() -> void:
-	emit_signal("_on_nav_pressed")
+	pressed_for_navigation.emit()
