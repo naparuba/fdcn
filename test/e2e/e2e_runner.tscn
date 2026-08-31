@@ -1,0 +1,6 @@
+[gd_scene format=3]
+
+[ext_resource type="Script" path="res://test/e2e/e2e_runner.gd" id="1"]
+
+[node name="E2ERunner" type="Node"]
+script = ExtResource("1")

@@ -1,0 +1,20 @@
+{
+	"_comment": "Table des Situations officielle (cf combat.gd, en-tete) -- une entree par difference d'Habilete Billy-adversaire, plafonnee a [-7, 7] par combat.gd::clamp_diff(). 'table' est indexe par jet de d6 (position 0 = jet de 1, position 5 = jet de 6), chaque paire = [degats_billy, degats_adversaire]. 'fuite_cost' est en Points de Chance. Valeurs verifiees chiffre par chiffre le 2026-07-10 contre la fiche officielle -- cf PR16_RECOVERY_PLAN.md #10-11 (confirmees par l'utilisateur contre la source, ne pas remplacer par une autre transcription).",
+	"situations": [
+		{"diff": -7, "tier": "DESAVANTAGE_LOURD", "fuite_cost": 5, "table": [[0, 12], [0, 9], [1, 8], [2, 6], [2, 5], [3, 4]]},
+		{"diff": -6, "tier": "DESAVANTAGE_LOURD", "fuite_cost": 5, "table": [[1, 8], [1, 7], [1, 6], [2, 5], [2, 5], [3, 4]]},
+		{"diff": -5, "tier": "DESAVANTAGE_LOURD", "fuite_cost": 5, "table": [[1, 7], [1, 6], [1, 5], [2, 5], [3, 4], [4, 4]]},
+		{"diff": -4, "tier": "DESAVANTAGE", "fuite_cost": 3, "table": [[1, 6], [2, 6], [2, 5], [2, 4], [3, 3], [4, 3]]},
+		{"diff": -3, "tier": "DESAVANTAGE", "fuite_cost": 3, "table": [[2, 6], [2, 5], [2, 4], [3, 4], [3, 3], [4, 3]]},
+		{"diff": -2, "tier": "DESAVANTAGE_LEGER", "fuite_cost": 2, "table": [[2, 6], [2, 5], [2, 4], [3, 3], [4, 3], [5, 3]]},
+		{"diff": -1, "tier": "DESAVANTAGE_LEGER", "fuite_cost": 2, "table": [[3, 6], [3, 5], [3, 4], [3, 3], [4, 3], [5, 3]]},
+		{"diff": 0, "tier": "EGALITE", "fuite_cost": 1, "table": [[3, 5], [3, 4], [3, 3], [3, 3], [4, 3], [5, 3]]},
+		{"diff": 1, "tier": "AVANTAGE_LEGER", "fuite_cost": 1, "table": [[3, 5], [3, 4], [3, 3], [4, 3], [5, 3], [6, 3]]},
+		{"diff": 2, "tier": "AVANTAGE_LEGER", "fuite_cost": 1, "table": [[3, 5], [3, 4], [3, 3], [4, 2], [5, 2], [6, 2]]},
+		{"diff": 3, "tier": "AVANTAGE", "fuite_cost": 1, "table": [[3, 4], [3, 3], [4, 3], [4, 2], [5, 2], [6, 2]]},
+		{"diff": 4, "tier": "AVANTAGE", "fuite_cost": 1, "table": [[3, 4], [3, 3], [4, 2], [5, 2], [6, 2], [6, 1]]},
+		{"diff": 5, "tier": "AVANTAGE_LOURD", "fuite_cost": 0, "table": [[4, 4], [4, 3], [5, 2], [5, 1], [6, 1], [7, 1]]},
+		{"diff": 6, "tier": "AVANTAGE_LOURD", "fuite_cost": 0, "table": [[4, 3], [5, 2], [5, 2], [6, 1], [7, 1], [8, 1]]},
+		{"diff": 7, "tier": "AVANTAGE_LOURD", "fuite_cost": 0, "table": [[4, 3], [5, 2], [6, 2], [8, 1], [9, 0], [12, 0]]}
+	]
+}

@@ -1,55 +1,70 @@
-[gd_scene load_steps=7 format=2]
+[gd_scene format=3]
 
-[ext_resource path="res://fonts/amon_font.tres" type="DynamicFont" id=1]
-[ext_resource path="res://Item.gd" type="Script" id=2]
-[ext_resource path="res://images/items/question.svg" type="Texture" id=3]
-[ext_resource path="res://fonts/RobotoCondensed-Regular.ttf" type="DynamicFontData" id=4]
+[ext_resource type="FontFile" path="res://fonts/amon_font.tres" id="1"]
+[ext_resource type="Script" path="res://Item.gd" id="2"]
+[ext_resource type="Texture2D" path="res://images/items/question.svg" id="3"]
+[ext_resource type="FontFile" path="res://fonts/RobotoCondensed-Regular.ttf" id="4"]
 
-[sub_resource type="StyleBoxFlat" id=1]
-bg_color = Color( 0.752941, 1, 0.929412, 1 )
+[sub_resource type="StyleBoxFlat" id="1"]
+bg_color = Color(0.752941, 1, 0.929412, 1)
 
-[sub_resource type="DynamicFont" id=2]
-size = 15
-font_data = ExtResource( 4 )
+[sub_resource type="FontFile" id="2"]
+fallbacks = Array[Font]([ExtResource("4")])
+cache/0/variation_coordinates = {}
+cache/0/face_index = 0
+cache/0/embolden = 0.0
+cache/0/transform = Transform2D(1, 0, 0, 1, 0, 0)
+cache/0/spacing_top = 0
+cache/0/spacing_bottom = 0
+cache/0/spacing_space = 0
+cache/0/spacing_glyph = 0
+cache/0/baseline_offset = 0.0
+cache/0/16/0/ascent = 0.0
+cache/0/16/0/descent = 0.0
+cache/0/16/0/underline_position = 0.0
+cache/0/16/0/underline_thickness = 0.0
+cache/0/16/0/scale = 1.0
 
 [node name="Item" type="Panel"]
-margin_right = 450.0
-margin_bottom = 50.0
-rect_min_size = Vector2( 450, 50 )
+offset_right = 450.0
+offset_bottom = 50.0
+custom_minimum_size = Vector2(450, 50)
 mouse_filter = 1
-custom_styles/panel = SubResource( 1 )
-script = ExtResource( 2 )
+theme_override_styles/panel = SubResource("1")
+script = ExtResource("2")
 
-[node name="sprite" type="Sprite" parent="."]
-position = Vector2( 19.5874, 24.3156 )
-scale = Vector2( 0.0483685, 0.0483685 )
-texture = ExtResource( 3 )
+[node name="sprite" type="Sprite2D" parent="."]
+position = Vector2(19.5874, 24.3156)
+scale = Vector2(0.0483685, 0.0483685)
+texture = ExtResource("3")
 
 [node name="Nom" type="Label" parent="."]
-margin_left = 39.0828
-margin_top = 0.037941
-margin_right = 208.083
-margin_bottom = 31.0379
-custom_colors/font_color = Color( 0, 0, 0, 1 )
-custom_fonts/font = ExtResource( 1 )
+offset_left = 39.0828
+offset_top = 0.037941
+offset_right = 208.083
+offset_bottom = 31.0379
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_fonts/font = ExtResource("1")
+theme_override_font_sizes/font_size = 25
 text = "NOM DE L'OBJET"
 
 [node name="Stats" type="Label" parent="."]
-margin_left = 40.1305
-margin_top = 28.6346
-margin_right = 209.13
-margin_bottom = 59.6346
-custom_colors/font_color = Color( 0.466667, 0.423529, 0.423529, 1 )
-custom_fonts/font = SubResource( 2 )
+offset_left = 40.1305
+offset_top = 28.6346
+offset_right = 209.13
+offset_bottom = 59.6346
+theme_override_colors/font_color = Color(0.466667, 0.423529, 0.423529, 1)
+theme_override_fonts/font = SubResource("2")
+theme_override_font_sizes/font_size = 15
 text = "STATS"
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
 [node name="button" type="CheckButton" parent="."]
-margin_left = 375.0
-margin_top = 4.0
-margin_right = 451.0
-margin_bottom = 44.0
+offset_left = 375.0
+offset_top = 4.0
+offset_right = 451.0
+offset_bottom = 44.0
 
 [connection signal="toggled" from="button" to="." method="_on_button_toggled"]

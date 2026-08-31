@@ -1,12 +1,12 @@
-tool
+@tool
 
 extends Panel
 
 
-export var type_entry = 'billys'
-export var entry_name = 'guerrier'
-export var titre = 'XXXX'
-export var book_number = 1
+@export var type_entry = 'billys'
+@export var entry_name = 'guerrier'
+@export var titre = 'XXXX'
+@export var book_number = 1
 
 
 var is_playing = false
@@ -26,7 +26,7 @@ func _ready():
 	pth += '.%s' % ext
 
 	var texture = Utils.load_external_texture(pth, null)
-	$Sprite.texture = texture
+	$Sprite2D.texture = texture
 
 
 

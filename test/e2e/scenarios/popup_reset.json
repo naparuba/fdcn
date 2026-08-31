@@ -1,0 +1,14 @@
+[
+  {"action": "launch_new_billy"},
+  {"action": "wait_frames", "n": 5},
+  {"action": "go_to_node", "id": 10},
+  {"action": "wait_frames", "n": 5},
+  {"action": "focus_page", "page": "about"},
+  {"action": "wait_frames", "n": 10},
+  {"action": "open_new_billy_popup"},
+  {"action": "wait_frames", "n": 10},
+  {"action": "screenshot", "name": "E7_popup_confirmation_reset"},
+  {"action": "accept_new_billy_popup"},
+  {"action": "wait_frames", "n": 10},
+  {"action": "screenshot", "name": "E7_apres_acceptation_reset"}
+]

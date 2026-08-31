@@ -1,0 +1,10 @@
+[
+  {"action": "launch_new_billy"},
+  {"action": "wait_frames", "n": 5},
+  {"action": "show_options_stats"},
+  {"action": "wait_frames", "n": 10},
+  {"action": "screenshot", "name": "E14_stats_avant_glisse"},
+  {"action": "stats_drag_scroll", "dy": 350},
+  {"action": "wait_frames", "n": 10},
+  {"action": "screenshot", "name": "E14_stats_apres_glisse"}
+]
