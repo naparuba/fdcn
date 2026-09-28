@@ -4,17 +4,19 @@ extends Node2D
 var current_lines = []
 
 
-onready var Bread = preload('res://bread.tscn')
-onready var Choice = preload('res://ChapterChoice.tscn')
-onready var EndingChoice = preload('res://EndingChoice.tscn')
-onready var Success = preload('res://Success.tscn')
-onready var LoreEntry = preload('res://LoreEntry.tscn')
-onready var Item = preload('res://Item.tscn')
-onready var ItemPopup = preload('res://ItemPopup.tscn')
+@onready var Bread = preload('res://bread.tscn')
+@onready var Choice = preload('res://ChapterChoice.tscn')
+@onready var EndingChoice = preload('res://EndingChoice.tscn')
+@onready var Success = preload('res://Success.tscn')
+@onready var LoreEntry = preload('res://LoreEntry.tscn')
+@onready var Item = preload('res://Item.tscn')
+@onready var ItemPopup = preload('res://ItemPopup.tscn')
 
-onready var gauge = $Background/GlobalCompletion/Gauge
+const CombatModificateursParNode = preload('res://combat_modificateurs_par_node.gd')
 
-onready var camera = $Camera
+@onready var gauge = $Background/GlobalCompletion/Gauge
+
+@onready var camera = $Camera3D
 
 var current_page = 'main'
 
@@ -30,12 +32,22 @@ func _ready():
 
 	# Register top_menus so they can call us back
 	self._register_top_menus()
-	
+
 	# Load the nodes ids we did already visited in the past
 	self._reload_all_player()
-	
+
 	self._do_load_book_context()
-	
+
+	# ScrollContainer ne defile pas au glisse-doigt/souris tout seul en
+	# Godot 4 -- une seule fois ici (les 4 ScrollContainer sont permanents,
+	# seul leur contenu est reconstruit a chaque insert_all_*/
+	# display_all_objects(), cf Utils.make_non_interactive_passthrough
+	# appele dans chacune de ces fonctions a la place).
+	Utils.enable_drag_scroll($Chapitres/AllChapters/VScrollBar)
+	Utils.enable_drag_scroll($Succes/Success/VScrollBar)
+	Utils.enable_drag_scroll($Lore/Lore/VScrollBar)
+	Utils.enable_drag_scroll($Options/Equipement/ItemsCont)
+
 
 func _reload_all_player():
 	# Load the nodes ids we did already visited in the past
@@ -82,11 +94,20 @@ func go_to_node(node_id):
 	# We did change node, so important to see it
 	Swiper.focus_to_main()
 	
-	# If we are in a special node, play sound
-	self._play_node_sound()
-
+	# Le jingle de succes (_check_new_success -> SuccessPopup) et la
+	# narration dediee d'un chapitre special (_play_node_sound) passent
+	# desormais tous les deux par le meme Sounder partage (cf
+	# PR16_RECOVERY_PLAN.md §22) -- si un chapitre est A LA FOIS un succes
+	# ET special (ex: noeud 338 "CHUT"/backstory Virilus), le dernier a
+	# appeler Sounder.play() ecrase l'autre. Le succes en premier : sa
+	# popup visuelle porte l'essentiel de la celebration, le jingle est
+	# court et generique -- la narration specifique au chapitre doit rester
+	# ce qui joue une fois la page affichee, pas l'inverse.
 	if is_new_node:
 		self._check_new_success(Player.get_current_node_id())
+
+	# If we are in a special node, play sound
+	self._play_node_sound()
 	
 	# Show popups about new/remove items ^^
 	# NOTE: auto disapears after 3s
@@ -96,35 +117,27 @@ func go_to_node(node_id):
 		self.popup_remove_item(item_name)
 	
 	# If it's a combat, show it
-	var node = BookData.get_node(node_id)
+	var node = BookData.get_chapter_data(node_id)
 	if node.is_combat():
-		$Combat/Nom.text = node.get_combat_name()
-		$Combat/EnnemiPvValue.text = '%s' % node.get_combat_pv()
-		$Combat/EnnemiArmValue.text = '%s' % node.get_combat_armure()
-		$Combat/EnnemiHabValue.text = '%s' % node.get_combat_hab()
-		$Combat/EnnemiDegValue.text = '%s' % node.get_combat_degat()
-		# We display the Pyro only if he help us
-		var hab_pyro = node.get_combat_pyro()
-		if hab_pyro != 0:
-			$Combat/SpritePyro.visible = true
-			$Combat/PyroHab.visible = true
-			$Combat/PyroHab.text = '+%s' % hab_pyro
-		else:  # he is not helping us
-			$Combat/SpritePyro.visible = false
-			$Combat/PyroHab.visible = false
-		# Update the billy stats
-		self._update_billy_in_combat()
-		# Display the whole combat panel
-		$Combat.visible = true
+		# get_combat_list() couvre aussi bien le cas courant (un seul
+		# adversaire) que les noeuds a adversaires successifs (ex: 276,
+		# "GUARDES CORROMPUS" puis "TROLESSE") -- start_combat_multi()
+		# enchaine seul, Billy gardant ses PV restants entre deux.
+		$Combat.start_combat_multi(
+			node.get_combat_list(),
+			Player.get_hab(), Player.get_pv(),
+			{
+				"pv_billy_max": Player.pv_max,
+				"armure_billy": Player.get_arm(),
+				"deg_billy": Player.get_deg(),
+				"adresse_billy": Player.get_adr(), "critique_billy": Player.get_crit(),
+				"peut_relancer_attaque": AppParameters.get_billy_type() == 'debrouillard',
+				"plafond_degats_subis_billy": 3 if AppParameters.get_billy_type() == 'paysan' else null,
+				"modificateurs": CombatModificateursParNode.for_node(AppParameters.get_book_number(), node_id),
+			}
+		)
 	else:
 		$Combat.visible = false
-
-
-func _update_billy_in_combat():
-	$Combat/PlayerPvValue.text = '%s' % Player.get_pv()
-	$Combat/PlayerHabValue.text = '%s' % Player.get_hab()
-	$Combat/PlayerArmValue.text = '%s' % Player.get_arm()
-	$Combat/PlayerDegValue.text = '%s' % Player.get_deg()
 
 
 # We are in a new node, check if it's a success.
@@ -147,9 +160,6 @@ func _play_intro():
 
 
 func _play_node_sound():
-	var player = $AudioPlayer
-	# In all cases, stop the player
-	player.stop()
 	var book_number = AppParameters.get_book_number()
 	
 	var node_sound_fnames = {
@@ -195,13 +205,44 @@ func display_all_objects():
 	print('Insert all objects')
 	for item in Player.all_items:
 		item_stack.add_child(item)
-	
+	self._filter_items($Options/Equipement/SearchBar/Box/Field.text)
+	Utils.make_non_interactive_passthrough($Options/Equipement/ItemsCont)
+
 
 func refresh_all_objects():
 	var item_stack = $Options/Equipement/ItemsCont/Items
 	for item in item_stack.get_children():
 		item.refresh()
-		
+
+
+# Filtre la liste d'objets par nom (recherche "contient", insensible a la casse).
+# Rejoue automatiquement apres un display_all_objects() (rebuild complet) pour
+# ne pas perdre la recherche en cours.
+func _filter_items(query):
+	var q = query.strip_edges().to_lower()
+	var item_stack = $Options/Equipement/ItemsCont/Items
+	var shown = 0
+	for item in item_stack.get_children():
+		var do_match = q == '' or item.get_item_name().to_lower().find(q) != -1
+		item.visible = do_match
+		if do_match:
+			shown += 1
+	$Options/Equipement/SearchBar/Box/Clear.visible = q != ''
+	if q == '':
+		$Options/Equipement/SearchBar/Count.text = ''
+	else:
+		$Options/Equipement/SearchBar/Count.text = '%d objet(s) trouvé(s)' % shown
+
+
+func _on_item_search_text_changed(new_text):
+	self._filter_items(new_text)
+
+
+func _on_item_search_clear_pressed():
+	$Options/Equipement/SearchBar/Box/Field.text = ''
+	self._filter_items('')
+	$Options/Equipement/SearchBar/Box/Field.grab_focus()
+
 
 func jump_to_chapter_100aine(centaine):
 	var all_choices = $Chapitres/AllChapters/VScrollBar/Choices
@@ -212,8 +253,8 @@ func jump_to_chapter_100aine(centaine):
 		# We are not sure the choice is visible, so take the first one that match "at least
 		if chapter_id >= centaine:
 			print('found chapter: %s ' % chapter_id, '%s' % choice)
-			print('Jump to :%s' % choice.rect_position.y)
-			scroll_bar.scroll_vertical = choice.rect_position.y
+			print('Jump to :%s' % choice.position.y)
+			scroll_bar.scroll_vertical = choice.position.y
 			return
 
 
@@ -229,15 +270,17 @@ func insert_all_chapters():
 	Utils.delete_children(all_choices)
 	
 	var chapter_ids = BookData.get_all_nodes().keys()
-	chapter_ids.sort_custom(self, '_sort_all_chapters')
+	chapter_ids.sort_custom(Callable(self, '_sort_all_chapters'))
 	
 	for chapter_id in chapter_ids:
-		var chapter_data = BookData.get_node(chapter_id)
+		var chapter_data = BookData.get_chapter_data(chapter_id)
 		
-		var choice = Choice.instance()
+		var choice = Choice.instantiate()
 		choice.set_main(self)
 		choice.set_chapitre(chapter_data.get_id())
 		all_choices.add_child(choice)
+
+	Utils.make_non_interactive_passthrough($Chapitres/AllChapters/VScrollBar)
 
 
 func _update_all_chapters():
@@ -251,11 +294,13 @@ func insert_all_success():
 	var all_success = $Succes/Success/VScrollBar/Success
 	Utils.delete_children(all_success)
 	
-	for success in BookData.get_all_success():
-		var s = Success.instance()
+	for success in BookData.get_deduped_success():
+		var s = Success.instantiate()
 		s.set_main(self)
 		s.set_from_success_object(success)
 		all_success.add_child(s)
+
+	Utils.make_non_interactive_passthrough($Succes/Success/VScrollBar)
 
 func insert_all_lore():
 	var all_lore = $Lore/Lore/VScrollBar/persos
@@ -304,7 +349,7 @@ func insert_all_lore():
 	var lst = refs.get(book_number)
 	
 	for _def in lst:
-		var s = LoreEntry.instance()
+		var s = LoreEntry.instantiate()
 		s.type_entry = _def['type']
 		s.entry_name = _def['name']
 		s.titre = _def['title']
@@ -312,6 +357,7 @@ func insert_all_lore():
 		
 		all_lore.add_child(s)
 
+	Utils.make_non_interactive_passthrough($Lore/Lore/VScrollBar)
 
 
 func _update_all_success():
@@ -349,11 +395,11 @@ func _refresh_options():
 
 
 func __set_sprite_to_grey(sprite):
-	sprite.material.set_shader_param("grayscale", true)
+	sprite.material.set_shader_parameter("grayscale", true)
 	
 	
 func __set_sprite_to_not_grey(sprite):
-	sprite.material.set_shader_param("grayscale", false)
+	sprite.material.set_shader_parameter("grayscale", false)
 
 
 func _refresh_options_book_select_display():
@@ -375,8 +421,7 @@ func refresh():
 	
 	# Update the top menu with parameters
 	for top_menu in self.top_menus:
-		top_menu.set_spoils()	
-		top_menu.set_billy()
+		top_menu.set_spoils()
 		top_menu.set_sound()
 		top_menu.set_book_context()
 		
@@ -403,7 +448,7 @@ func refresh():
 	gauge.set_value(_nb_visited / float(_nb_all_nodes))
 	
 	# Now print my current node
-	var my_node = BookData.get_node(Player.get_current_node_id())
+	var my_node = BookData.get_chapter_data(Player.get_current_node_id())
 	
 	# The act in progress
 	var _acte_label = $Background/Position/Acte
@@ -463,7 +508,7 @@ func refresh():
 	var _nb_lasts = len(last_previous)
 	var _i = 0
 	for previous in last_previous:
-		var bread = Bread.instance()
+		var bread = Bread.instantiate()
 		bread.set_chap_number(previous)
 		bread.set_main(self)
 		if _i == 0:
@@ -493,8 +538,8 @@ func refresh():
 		if !BookData.is_node_id_freely_showable(son_id, secret_jumps):
 			continue
 		
-		var son = BookData.get_node(son_id)
-		var choice = Choice.instance()
+		var son = BookData.get_chapter_data(son_id)
+		var choice = Choice.instantiate()
 		choice.set_main(self)
 		choice.update_from_son_node(son)
 		# Display it
@@ -503,7 +548,7 @@ func refresh():
 				
 	# Maybe we are an ending, then stack a EndingChoice with data
 	if my_node.get_ending():
-		var choice = EndingChoice.instance()
+		var choice = EndingChoice.instantiate()
 		choice.set_main(self)
 		# Need an id for display:
 		# * is a success: take it
@@ -535,6 +580,25 @@ func jump_to_previous_chapter():
 func jump_back(previous_id):
 	var can_jump_back = Player.jump_back(previous_id)
 	self.go_to_node(previous_id)
+
+
+# Abandon total du combat (§9, PR16_RECOVERY_PLAN.md) : revient au chapitre
+# quitte pour entrer dans ce combat, ET restaure exactement l'etat d'avant
+# (PV/chance/objets) via Player.arrival_snapshot -- pris avant que le
+# chapitre du combat n'applique quoi que ce soit (cf player.gd::go_to_node).
+# L'ORDRE COMPTE : la restauration vient APRES jump_back()/go_to_node(),
+# qui peuvent eux-memes toucher pv/cha/possessed_items -- elle doit avoir
+# le dernier mot.
+func _on_combat_abandonne():
+	var snapshot = Player.arrival_snapshot
+	var retour = snapshot.get("retour", -1)
+	if retour == -1:
+		return
+	self.jump_back(retour)
+	Player.pv = snapshot.get("pv", Player.pv)
+	Player.cha = snapshot.get("cha", Player.cha)
+	Player.possessed_items = snapshot.get("items", Player.possessed_items).duplicate()
+	self.refresh()
 	
 
 func change_spoils(b):
@@ -641,13 +705,28 @@ func show_options():
 
 func _on_options_validate_button_pressed():
 	print('BUTTON: validate')
+	# Un Billy tout juste cree a PV/Chance courants a 0 -- jamais initialises
+	# par le livre lui-meme (seuls quelques evenements MILIEU de partie,
+	# "max_pv"/"max_chance", les remettent a fond). Sans ca, le tout premier
+	# combat rencontre (souvent tres tot dans le livre, cf noeud 14) trouve
+	# Billy deja "mort" avant le premier jet de de -- "lancer le de" ne fait
+	# alors plus rien, silencieusement (is_over() coupe court avant tout).
+	# pv<=0 ne peut normalement survenir QUE dans ce cas precis : un Billy
+	# reellement vaincu en cours de partie est deja route vers une fin, pas
+	# laisse libre de rouvrir les Options -- sert donc de signal fiable
+	# "creation de personnage en cours" sans nouveau flag dedie. A ce stade
+	# pv_max/chamax refletent deja tous les objets choisis (chaque
+	# add_item_from_options() a deja appele _recompute_stats()).
+	if Player.pv <= 0:
+		Player.pv = Player.pv_max
+		Player.cha = Player.chamax
 	self.refresh()
 	$Options.visible = false
 	$ItemPopups.visible = true  # so we can show new popups
 	
 	
 func _create_popup_item(item_name):
-	var popup = ItemPopup.instance()
+	var popup = ItemPopup.instantiate()
 	var item_data = BookData.get_item_data(item_name)
 	popup.load_item_data(item_name, item_data)
 	return popup
@@ -665,102 +744,95 @@ func popup_remove_item(item_name):
 	$ItemPopups/ScrollContainer/ItemPopupsCont.add_child(popup)
 
 
-func _on_dice_pressed():
-	var res = Utils.roll_a_dice(1, 6)
-	print('Dice roll %s' % res)
-	$Combat/dice/sprite.texture = Utils.load_external_texture('res://images/dice/%s-b.svg' % res, null)
-	
+# Le bandeau "objet acquis" ne doit JAMAIS recouvrir les cartes Complete/
+# Position -- mais il ne doit pas non plus laisser un trou permanent quand
+# il n'y a rien a afficher. Donc : les cartes ne descendent que pendant que
+# la pile de popups (ItemPopupsCont) contient au moins un enfant, et
+# reviennent a leur place sinon. Les 2 signaux (entree ET sortie d'enfant)
+# sont necessaires : chaque ItemPopup se libere lui-meme via son Timer
+# (cf ItemPopup.gd::_on_Timer_timeout), main.gd n'est jamais notifie
+# autrement de sa disparition.
+const ITEM_POPUP_BANNER_SHIFT = 36.0
+const ITEM_POPUP_ANIM_DURATION = 0.22  # rapide, mais jamais un saut brutal
+const ITEM_POPUP_SHIFTED_PANELS = [
+	"Background/GlobalCompletion",
+	"Background/Position",
+	"Background/Dreadcumb",
+	"Background/Next",
+]
+var _item_popups_layout_shifted = false
+var item_popups_layout_tween: Tween = null  # expose pour l'E2E (attendre la fin avant une capture)
+
+
+func _on_item_popups_stack_changed(_node = null):
+	call_deferred("_recompute_item_popups_layout")
+
+
+func _recompute_item_popups_layout():
+	var cont = $ItemPopups/ScrollContainer/ItemPopupsCont
+	self._shift_item_popups_layout(cont.get_child_count() > 0)
+
+
+func _shift_item_popups_layout(shifted):
+	if shifted == self._item_popups_layout_shifted:
+		return
+	self._item_popups_layout_shifted = shifted
+	var delta = ITEM_POPUP_BANNER_SHIFT if shifted else -ITEM_POPUP_BANNER_SHIFT
+	var tween = create_tween()
+	tween.set_trans(Tween.TRANS_CUBIC)
+	tween.set_ease(Tween.EASE_OUT)
+	tween.set_parallel(true)
+	for panel_path in ITEM_POPUP_SHIFTED_PANELS:
+		var panel = self.get_node(panel_path)
+		tween.tween_property(panel, "offset_top", panel.offset_top + delta, ITEM_POPUP_ANIM_DURATION)
+		tween.tween_property(panel, "offset_bottom", panel.offset_bottom + delta, ITEM_POPUP_ANIM_DURATION)
+	self.item_popups_layout_tween = tween
+
 
 
 func __set_tab_not_selected(tab):
-	var _style = tab.get('custom_styles/panel')
+	var _style = tab.get('theme_override_styles/panel')
 	_style.set_bg_color(Color('999999'))  # set to dark blue
 	print('__set_tab_not_selected', tab)
 
 
 func __set_tab_selected(tab):
-	var _style = tab.get('custom_styles/panel')
+	var _style = tab.get('theme_override_styles/panel')
 	_style.set_bg_color(Color('e0e2e5'))  # set to light
 	print('__set_tab_selected', tab)
 
 ##################### Options
 
-# Change colors of the tab, and hide/show real divs
+# Un seul point de branchement pour le changement d'onglet -- pilote clic
+# ET coloration ET visibilite depuis la meme table {onglet_header: panneau},
+# pour ne plus risquer d'oublier un onglet d'un cote comme le faisaient les
+# 3 fonctions dupliquees precedentes.
+func _show_options_tab(selected_tab):
+	var tabs = {
+		$Options/Header/TabEquipement: $Options/Equipement,
+		$Options/Header/TabStats: $Options/Stats,
+		$Options/Header/TabSelectBook: $Options/BookSelect,
+	}
+	for tab in tabs:
+		var is_selected = tab == selected_tab
+		if is_selected:
+			self.__set_tab_selected(tab)
+		else:
+			self.__set_tab_not_selected(tab)
+		tabs[tab].visible = is_selected
+
+
 func _options_show_equipement():
-	# In the options, we are showing the equipement tab, so hide
-	# the stats one
-	self.__set_tab_selected($Options/Header/TabEquipement)
-	self.__set_tab_not_selected($Options/Header/TabStats)
-	self.__set_tab_not_selected($Options/Header/TabSelectBook)
-	
-	# Now all is changed, we can display them
-	$Options/Equipement.visible = true
-	$Options/BookSelect.visible = false
-	$Options/Stats.visible = false
-	
+	self._show_options_tab($Options/Header/TabEquipement)
+
 
 func _options_show_stats():
-	# In the options, we are showing the equipement tab, so hide
-	# the stats one
-	
-	# Change the headers part
-	self.__set_tab_not_selected($Options/Header/TabEquipement)
-	#var tab_equipement = $Options/Header/TabEquipement
-	#var _style = tab_equipement.get('custom_styles/panel')
-	#_style.set_bg_color(Color('e0e2e5'))  # set to dark blue
-	
-	self.__set_tab_not_selected($Options/Header/TabSelectBook)
-	#var tab_select_book = $Options/Header/TabSelectBook
-	#_style = tab_select_book.get('custom_styles/panel')
-	#_style.set_bg_color(Color('e0e2e5'))  # set to dark blue
-	#var v_label = $Options/Header/TabEquipement/v
-	#v_label.visible = false
-	# Switch the color of the tab label
-	#$Options/Header/TabEquipement/Label.set("custom_colors/font_color",Color('000000'))
-	
-	self.__set_tab_selected($Options/Header/TabStats)
-	# And hide the other
-	#var tab_stats = $Options/Header/TabStats
-	#_style = tab_stats.get('custom_styles/panel')
-	#_style.set_bg_color(Color('313b47'))  # set to light
-	#v_label = $Options/Header/TabStats/v
-	#v_label.visible = true
-	#$Options/Header/TabStats/Label.set("custom_colors/font_color",Color('ffffff'))
-	
-	
-	# Now all is changed, we can display them
-	$Options/Equipement.visible = false
-	$Options/BookSelect.visible = false
-	$Options/Stats.visible = true
-	
+	self._show_options_tab($Options/Header/TabStats)
 
 
 func _options_show_book_select():
-	# In the options, light up book select, hide others
-	
-	self.__set_tab_not_selected($Options/Header/TabEquipement)
-	# Hide equipement
-	#var tab_equipement = $Options/Header/TabEquipement
-	#var _style = tab_equipement.get('custom_styles/panel')
-	#_style.set_bg_color(Color('e0e2e5'))  # set to dark blue
-	
-	self.__set_tab_selected($Options/Header/TabSelectBook)
-	# Show select book
-	#var tab_select_book = $Options/Header/TabSelectBook
-	#_style = tab_select_book.get('custom_styles/panel')
-	#_style.set_bg_color(Color('313b47'))  # set to dark blue
+	self._show_options_tab($Options/Header/TabSelectBook)
 
-	self.__set_tab_not_selected($Options/Header/TabStats)
-	#var tab_stats = $Options/Header/TabStats
-	#_style = tab_stats.get('custom_styles/panel')
-	#_style.set_bg_color(Color('e0e2e5'))  # set to dark blue
-	
-	
-	# Now all is changed, we can display them
-	$Options/Equipement.visible = false
-	$Options/BookSelect.visible = true
-	$Options/Stats.visible = false
-	
 
 
 func _on_button_show_equipement():
@@ -776,53 +848,37 @@ func _on_button_show_book_select():
 func _on_button_show_stats():
 	print('_on_button_show_stats')
 	self._options_show_stats()
-
-
-# The user ask to close the combat dialog
-func _on_combat_validate_button_pressed():
-	$Combat.visible = false
+	# Rafraichit explicitement ici (pas seulement via refresh() global,
+	# appele a des moments trop eloignes pour garantir que le drapeau
+	# Player.in_combat affiche soit le plus recent) : le joueur peut ouvrir
+	# Options EN PLEIN COMBAT (verifie -- rien ne bloque ce clic), il faut
+	# que le verrouillage d'edition soit a jour au moment ou l'onglet Stats
+	# s'affiche reellement, pas a la traine d'un refresh plus ancien.
+	$Options/Stats.refresh()
 
 
 func _refresh_options_stats():
-	$Options/Stats/PlayerPvValue.text = '%s' % Player.get_pv()
-	
-	$Options/Stats/PlayerEndValue.text = '%s' % Player.get_end()
-	$Options/Stats/PlayerEndValueDetail.text = '(base:2, item/billy:%s' % Player.get_end_items() + ', chapitres:%s)' % Player.get_end_chapters()
-	
-	$Options/Stats/PlayerHabValue.text = '%s' % Player.get_hab()
-	$Options/Stats/PlayerHabValueDetail.text = '(base:2, item/billy:%s' % Player.get_hab_items() + ', chapitres:%s)' % Player.get_hab_chapters()
-	
-	$Options/Stats/PlayerAdrValue.text = '%s' % Player.get_adr()
-	$Options/Stats/PlayerAdrValueDetail.text = '(base:1, item/billy:%s' % Player.get_adr_items() + ', chapitres:%s)' % Player.get_adr_chapters()
-	
-	$Options/Stats/PlayerChaValue.text = ('%s' % Player.get_cha()) + ('/%s' % Player.get_chamax())
-	$Options/Stats/PlayerChaValueDetail.text = '(base:3, item/billy:%s' % Player.get_chamax_items() + ', chapitres:%s)' % Player.get_chamax_chapters()
-	
-	$Options/Stats/PlayerCritValue.text = '%s' % Player.get_crit()
-	$Options/Stats/PlayerCritValueDetail.text = '(item/billy:%s' % Player.get_crit_items() + ', chapitres:%s)' % Player.get_crit_chapters()
-	
-	$Options/Stats/PlayerDegValue.text = '%s' % Player.get_deg()
-	$Options/Stats/PlayerDegValueDetail.text = '(item/billy:%s' % Player.get_deg_items() + ', chapitres:%s)' % Player.get_deg_chapters()
-	
-	$Options/Stats/PlayerArmValue.text = '%s' % Player.get_arm()
-	$Options/Stats/PlayerArmValueDetail.text = '(item/billy:%s' % Player.get_arm_items() + ', chapitres:%s)' % Player.get_arm_chapters()
+	# La fiche de personnage (StatsScreen.gd) gere entierement son propre
+	# affichage -- y compris l'edition directe des stats (cf retour
+	# explicite "on sera toujours en mode triche").
+	$Options/Stats.refresh()
 
 
 func _switch_to_book_fcdn():
 	print('SWITCH TO FCDN BOOK')
 	var sprite1 = $Options/BookSelect/BoolSelectFcdn/sprite
-	sprite1.material.set_shader_param("grayscale", false)
+	sprite1.material.set_shader_parameter("grayscale", false)
 	var sprite2 = $Options/BookSelect/BoolSelectCdsi/sprite
-	sprite2.material.set_shader_param("grayscale", true)
+	sprite2.material.set_shader_parameter("grayscale", true)
 	self._change_book_number(1)
 
 
 func _switch_to_book_cdsi():
 	print('SWITCH TO CDSI BOOK ')
 	var sprite1 = $Options/BookSelect/BoolSelectFcdn/sprite
-	sprite1.material.set_shader_param("grayscale", true)
+	sprite1.material.set_shader_parameter("grayscale", true)
 	var sprite2 = $Options/BookSelect/BoolSelectCdsi/sprite
-	sprite2.material.set_shader_param("grayscale", false)
+	sprite2.material.set_shader_parameter("grayscale", false)
 	self._change_book_number(2)
 
 
@@ -832,4 +888,3 @@ func _on_morelore_button_pressed():
 
 func _on_image_author_button_pressed():
 	OS.shell_open("https://twitter.com/DrazielUnicorn");
-

@@ -1,0 +1,70 @@
+name: Test Android Build
+
+# Garde en reference, declenchement manuel uniquement (pas de "on: push") --
+# c'etait un essai (branche test-android-ci-build) pour valider l'export
+# Android en CI via l'image Docker barichello/godot-ci. Reprend l'approche
+# de https://github.com/abarichello/godot-ci (image qui embarque Godot +
+# templates d'export + SDK Android + JDK deja configures). Corrige un bug
+# repere dans un essai precedent sur un autre projet : le chemin du JDK
+# avait ete ecrit dans le reglage android_sdk_path (qui attend le SDK
+# Android, pas Java) -- avec cette image, aucun des deux n'est a configurer
+# manuellement.
+#
+# --export-debug utilise le keystore de debug integre par defaut de Godot
+# si aucun n'est configure -- pas besoin de generer/fournir un keystore
+# pour ce test.
+
+on:
+  workflow_dispatch:
+
+jobs:
+  android-debug:
+    name: Export Android (debug)
+    runs-on: ubuntu-latest
+    container:
+      image: barichello/godot-ci:4.7
+    # L'image barichello/godot-ci:4.7 baker templates d'export, JDK et SDK
+    # Android sous /root (godot_export_templates, editor_settings-4.7.tres
+    # avec java_sdk_path/android_sdk_path deja renseignes). Mais le job
+    # "container:" de GitHub Actions remappe HOME sur /github/home, donc
+    # Godot regarde au mauvais endroit ("No export template found",
+    # "A valid Java SDK path is required"). Confirme par diagnostic (find/env
+    # dans le conteneur) avant ce fix -- forcer HOME=/root fait pointer Godot
+    # exactement la ou l'image a tout prepare, sans rien deplacer/recopier.
+    env:
+      HOME: /root
+
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v7
+
+      - name: Export APK Android (debug)
+        run: |
+          mkdir -v -p build/android
+          godot --headless --verbose --export-debug "Android apk" build/android/fdcn-debug.apk
+
+      - name: Export AAB Android (debug)
+        # Le preset "Android" (contrairement a "Android apk") passe par un
+        # vrai build Gradle (gradle_build/use_gradle_build=true, requis pour
+        # produire un .aab) -- --install-android-build-template genere le
+        # projet Gradle (android/build/) avant l'export. Teste localement :
+        # ce flag ne se termine jamais seul en headless (bloque en boucle
+        # d'evenements), il doit etre combine avec --export-debug dans la
+        # meme invocation.
+        run: |
+          godot --headless --verbose --install-android-build-template --export-debug "Android" build/android/fdcn-debug.aab
+
+      - name: Liste des fichiers produits
+        run: ls -la build/android/
+
+      - name: Upload de l'APK en artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: fdcn-android-debug-apk
+          path: build/android/*.apk*
+
+      - name: Upload de l'AAB en artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: fdcn-android-debug-aab
+          path: build/android/*.aab*

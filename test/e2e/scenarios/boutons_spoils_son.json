@@ -1,0 +1,16 @@
+[
+  {"action": "launch_new_billy"},
+  {"action": "wait_frames", "n": 5},
+  {"action": "show_options"},
+  {"action": "add_item", "name": "EPEE"},
+  {"action": "validate_options"},
+  {"action": "focus_page", "page": "chapitres"},
+  {"action": "screenshot", "name": "E8_chapitres_spoils_on"},
+  {"action": "toggle_spoils", "on": false},
+  {"action": "screenshot", "name": "E8_chapitres_spoils_off"},
+  {"action": "toggle_spoils", "on": true},
+  {"action": "toggle_sound", "on": false},
+  {"action": "screenshot", "name": "E8_bouton_son_off"},
+  {"action": "toggle_sound", "on": true},
+  {"action": "screenshot", "name": "E8_bouton_son_on"}
+]

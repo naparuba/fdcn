@@ -1,10 +1,30 @@
 extends Node
 
-onready var Item = preload('res://Item.tscn')
+@onready var Item = preload('res://Item.tscn')
+const Godot3VariantDecoder = preload('res://godot3_variant_decoder.gd')
 
 var _main = null
 var need_force_display_options = false   # if we did guess, show options to show it
 var type_billy = 'guerrier'
+
+# Vrai tant que l'ecran de combat est ouvert (cf CombatScreen.gd::start_combat/
+# _on_continue_pressed) -- un combat en cours tourne sur un instantane fige
+# de Billy pris au premier tour, il ne relit jamais ces stats apres coup.
+# Tricher pendant un combat n'aurait donc aucun effet visible sur le combat
+# affiche (verifie a l'ecran), seulement sur le suivant -- source de
+# confusion reelle. StatsScreen.gd bloque donc l'edition tant que ce drapeau
+# est vrai, plutot que de re-synchroniser un combat deja lance.
+var in_combat = false
+
+# Photo prise en tete de go_to_node(), AVANT que le chapitre n'applique
+# quoi que ce soit (items/stats) -- sert a "abandonner tout le combat"
+# (cf CombatScreen.gd::can_cancel()/l'annulation via main.gd) : retourner
+# au chapitre precedent en remettant pv/chance/objets exactement comme ils
+# etaient en y arrivant, pas juste re-jouer le chapitre precedent (qui
+# pourrait reappliquer un "pv":"=max" et fausser la restauration).
+# "retour" = -1 tant qu'aucun chapitre precedent n'existe (tout premier
+# noeud de la partie) -- ecrase a CHAQUE navigation, jamais un historique.
+var arrival_snapshot = {"retour": -1, "pv": 0, "cha": 0, "items": []}
 
 var current_node_id = 1
 
@@ -61,10 +81,11 @@ var nb_infos = 0
 var end_user = 0
 var adr_user = 0
 var hab_user = 0
-var cha_user = 0
+var chamax_user = 0
 var deg_user = 0
 var arm_user = 0
 var crit_user = 0
+var pv_max_bonus_user = 0
 
 
 # Winable on levels
@@ -78,26 +99,54 @@ var cha = 0
 
 
 func _save_var(pth, data):
-	var f = File.new()
-	f.open(pth, File.WRITE)
-	f.store_var(data)
-	f.close()
 	var json_pth = pth.replace(".save", ".json")
-	f.open(json_pth, File.WRITE)
-	f.store_string(to_json(data))
+	var f = FileAccess.open(json_pth, FileAccess.WRITE)
+	f.store_string(JSON.stringify(data))
 	f.close()
+
+
+# JSON primaire (depuis le 2026-07-09). Si le miroir JSON n'existe pas
+# encore -- joueur dont la derniere sauvegarde est anterieure a son
+# introduction (commit af5c081, 2026-05-03), donc PAS garanti present pour
+# tout joueur actuel -- on relit une derniere fois l'ancien binaire
+# (File.store_var d'origine) puis on migre immediatement vers JSON pour la
+# suite. Retourne null si ni l'un ni l'autre n'existe.
+#
+# ATTENTION : la lecture de l'ancien binaire NE PEUT PAS passer par
+# FileAccess.get_var() -- verifie en testant une vraie sauvegarde Godot
+# 3.6.2 sous Godot 4 (cf test/fixtures/save_formats_godot3/README.md),
+# get_var() lit ARRAY/DICTIONARY comme des PROJECTION/TRANSFORM3D (les
+# identifiants numeriques de Variant::Type ont ete decales entre les deux
+# versions du moteur) -- soit une erreur ERR_INVALID_DATA, soit, pire, un
+# decodage SILENCIEUX en valeurs absurdes. D'ou Godot3VariantDecoder, un
+# decodeur manuel du format Godot 3.6.2 (cf ce fichier pour le detail du
+# format, verifie octet par octet sur de vraies fixtures).
+func _load_var(pth):
+	var json_pth = pth.replace(".save", ".json")
+	if FileAccess.file_exists(json_pth):
+		var f = FileAccess.open(json_pth, FileAccess.READ)
+		var text = f.get_as_text()
+		f.close()
+		return Utils.ints_from_json(JSON.parse_string(text))
+	if FileAccess.file_exists(pth):
+		print('_load_var:: pas de miroir JSON, fallback lecture binaire unique puis migration: %s' % pth)
+		var f = FileAccess.open(pth, FileAccess.READ)
+		var bytes = f.get_buffer(f.get_length())
+		f.close()
+		var data = Godot3VariantDecoder.decode(bytes)
+		self._save_var(pth, data)
+		return data
+	return null
 
 
 # Be sure to migrate old files from before managing numerous books
 func _assert_migrate_file(old_path, new_path):
-	var directory = Directory.new()
-	var f = File.new()
-	if !f.file_exists(old_path):
+	if !FileAccess.file_exists(old_path):
 		return
 	# Oups, migration needed!
 	print('Migrating ', old_path, 'to', new_path)
-	directory.rename(old_path, new_path)
-		
+	DirAccess.rename_absolute(old_path, new_path)
+
 
 func _get_all_times_already_visited_file():
 	var book_number = AppParameters.get_book_number()
@@ -109,14 +158,8 @@ func load_all_times_already_visited():
 	self._assert_bug_book_2_preload_is_fixed()
 	var pth = self._get_all_times_already_visited_file()
 	self._assert_migrate_file(OLD_ALL_TIMES_ALREADY_VISITED_FILE, pth)
-	var f = File.new()
-	if f.file_exists(pth):
-		print('load_all_times_already_visited:: loading file %s' % pth)
-		f.open(pth, File.READ)
-		self.visited_nodes_all_times = f.get_var()
-		f.close()
-	else:
-		self.visited_nodes_all_times = []
+	var data = self._load_var(pth)
+	self.visited_nodes_all_times = data if data != null else []
 	# Seems that the chapter 1 is not stack at the beging of the play, so add it
 	# to be sure we have it
 	if !(1 in self.visited_nodes_all_times):
@@ -129,18 +172,13 @@ func save_all_times_already_visited():
 
 
 func _assert_bug_book_2_preload_is_fixed():
-	var f = File.new()
 	print("Looking to clean old book2 data that make bugs")
-	if !f.file_exists(TO_CLEAN_ONE_TIME_BOOK_2_FLAG):
+	if !FileAccess.file_exists(TO_CLEAN_ONE_TIME_BOOK_2_FLAG):
 		for to_clean in TO_CLEAN_ONE_TIME_BOOK_2:
-			var dir = Directory.new()
 			print('REMOVING: ', to_clean)
-			dir.remove(to_clean)
-		f.open(TO_CLEAN_ONE_TIME_BOOK_2_FLAG, File.WRITE)
-		f.store_var(true)
-		f.close()	
-			
-	
+			DirAccess.remove_absolute(to_clean)
+		self._save_var(TO_CLEAN_ONE_TIME_BOOK_2_FLAG, true)
+
 
 ############### CURRENT NODE ID
 func _get_current_node_id_file():
@@ -150,15 +188,10 @@ func _get_current_node_id_file():
 
 func load_current_node_id():
 	self._assert_bug_book_2_preload_is_fixed()
-	var f = File.new()
 	var pth = self._get_current_node_id_file()
 	self._assert_migrate_file(OLD_CURRENT_NODE_ID_FILE, pth)
-	if f.file_exists(pth):
-		f.open(pth, File.READ)
-		current_node_id = f.get_var()
-		f.close()
-	else:
-		current_node_id = 1
+	var data = self._load_var(pth)
+	current_node_id = data if data != null else 1
 
 
 func save_current_node_id():
@@ -171,18 +204,13 @@ func _get_session_visited_nodes_file():
 	var book_number = AppParameters.get_book_number()
 	var pth = "user://session_visited_nodes-%s.save" % book_number
 	return pth
-	
+
 func load_session_visited_nodes():
 	self._assert_bug_book_2_preload_is_fixed()
 	var pth = self._get_session_visited_nodes_file()
 	self._assert_migrate_file(OLD_SESSION_VISITED_NODES_FILE, pth)
-	var f = File.new()
-	if f.file_exists(pth):
-		f.open(pth, File.READ)
-		session_visited_nodes = f.get_var()
-		f.close()
-	else:
-		session_visited_nodes = []
+	var data = self._load_var(pth)
+	session_visited_nodes = data if data != null else []
 
 
 func save_session_visited_nodes():
@@ -202,11 +230,9 @@ func load_possessed_items():
 	self.possessed_items = []
 	var pth = self._get_possessed_items_file()
 	self._assert_migrate_file(OLD_POSSESSED_ITEM_FILE, pth)
-	var f = File.new()
-	if f.file_exists(pth):
-		f.open(pth, File.READ)
-		self.possessed_items = f.get_var()
-		f.close()
+	var data = self._load_var(pth)
+	if data != null:
+		self.possessed_items = data
 	else:
 		self.guess_after_migration()
 	self._clean_not_existing_items()  # between version migration, don't keep item that don't exits anymore
@@ -275,18 +301,39 @@ func do_load():
 
 func insert_all_objects():
 	print('Insert all objects')
+	if !is_instance_valid(self._main):
+		# When there is a (living) main UI, the previous batch is still
+		# owned by $Options/Equipement/ItemsCont/Items and gets freed right
+		# below by display_all_objects() -> Utils.delete_children(). But
+		# without one (tests, or a main that was freed since it registered
+		# itself), nobody will ever free them, and Node isn't refcounted in
+		# Godot 3.x, so they would leak forever. NOTE: a freed Node
+		# reference stays "truthy" (`!self._main` alone would miss this),
+		# only is_instance_valid() correctly detects it.
+		# ATTENTION : si self._main a deja ete libere (ex: _main.free() d'un
+		# fichier de test precedent), ses enfants -- dont potentiellement
+		# ces memes items, reparentes sous Options/.../Items -- sont DEJA
+		# liberes par cette liberation recursive. Un double .free() sur un
+		# Node deja libere ne plantait pas en Godot 3, mais provoque un
+		# crash memoire reel ("double free or corruption") en Godot 4 :
+		# il faut donc aussi verifier chaque item individuellement.
+		for old_item in self.all_items:
+			if is_instance_valid(old_item):
+				old_item.free()
 	self.all_items = []  # Always reset the list
 	var all_objects = BookData.get_all_objects()
 	for obj_name in all_objects.keys():
 		var item_data = all_objects[obj_name]
-		var item = Item.instance()
+		var item = Item.instantiate()
 		item.load_item_data(obj_name, item_data)
 		var is_ok_to_be_shown = item.is_ok_to_be_shown()
 		if is_ok_to_be_shown:
 			# Also let the Player know it does exists
 			#print('KNOWN ITEM: %s' % item)
 			self.add_in_all_items(item)
-	if self._main:  # not in tests
+		else:
+			item.free()  # never kept anywhere else, free it right away
+	if is_instance_valid(self._main):  # not in tests
 		self._main.display_all_objects()
 
 
@@ -303,6 +350,14 @@ func have_previous_chapters():
 
 
 func go_to_node(node_id):
+	# Avant tout -- meme avant current_node_id lui-meme -- pour que "retour"
+	# soit bien le noeud dont on arrive, pas celui qu'on vient de quitter.
+	self.arrival_snapshot = {
+		"retour": self.current_node_id if len(self.session_visited_nodes) > 0 else -1,
+		"pv": self.pv,
+		"cha": self.cha,
+		"items": self.possessed_items.duplicate(),
+	}
 	self.current_node_id = node_id
 	self.save_current_node_id()
 	
@@ -376,6 +431,13 @@ func launch_new_billy():
 	self.possessed_items = []
 	self.save_possessed_items()
 	self._fully_reset_our_stats()  # clean ALL stats, even chapters one
+	# PV/Chance restent a 0 (pas encore "pleins") jusqu'a la validation de
+	# la creation du personnage (cf main.gd::_on_options_validate_button_pressed,
+	# le seul endroit qui les initialise a leur max une fois pv_max/chamax
+	# connus -- objets/type de Billy pas encore choisis a cet instant).
+	self.pv = 0
+	self.cha = 0
+	self.in_combat = false
 
 
 
@@ -409,7 +471,7 @@ func get_visited_nodes_all_times():
 
 
 func apply_chapter_items(chapter_id):
-	var node = BookData.get_node(chapter_id)
+	var node = BookData.get_chapter_data(chapter_id)
 	# Apply new items
 	var _really_aquires = []  # Mayve we already have some items
 	var aquires = node.get_aquire()
@@ -456,14 +518,28 @@ func _reset_our_stats():
 	
 func _fully_reset_our_stats():
 	self._reset_our_stats()
-	
+
 	# And chapters ones
+	self.end_chapters = 0
 	self.adr_chapters = 0
 	self.hab_chapters = 0
 	self.chamax_chapters = 0
 	self.deg_chapters = 0
 	self.arm_chapters = 0
 	self.crit_chapters = 0
+	self.pv_max_bonus = 0
+	self.nb_infos = 0
+
+	# Et les ajustements manuels (fiche de personnage) -- un nouveau Billy ne
+	# doit jamais heriter des triches du precedent.
+	self.end_user = 0
+	self.adr_user = 0
+	self.hab_user = 0
+	self.chamax_user = 0
+	self.deg_user = 0
+	self.arm_user = 0
+	self.crit_user = 0
+	self.pv_max_bonus_user = 0
 
 
 func get_end():
@@ -514,6 +590,25 @@ func get_arm_items():
 	return self.arm_items
 func get_crit_items():
 	return self.crit_items
+
+
+# Ajustement manuel (fiche de personnage, cf StatsScreen.gd) -- dernier
+# etage applique dans _recompute_stats(), au-dessus de base/billy/objets/
+# chapitres. Jamais ecrit par le moteur lui-meme, seulement par l'utilisateur.
+func get_end_user():
+	return self.end_user
+func get_adr_user():
+	return self.adr_user
+func get_hab_user():
+	return self.hab_user
+func get_chamax_user():
+	return self.chamax_user
+func get_deg_user():
+	return self.deg_user
+func get_arm_user():
+	return self.arm_user
+func get_crit_user():
+	return self.crit_user
 
 
 # Based on our billy, we have different stats changes
@@ -597,8 +692,10 @@ func _recompute_stats():
 	self._apply_all_chapters_stats()
 	print('Billy stats after chapter update: end=%s' % self.end, ' hab=%s' % self.hab, ' adr=%s'%self.adr, ' chamax=%s' % self.chamax,
 	' deg=%s' % self.deg,' arm=%s' % self.arm, ' crit=%s'%self.crit)
-	
-	
+
+	self._apply_user_stats()
+
+
 func _apply_all_chapters_stats():
 	# Now we have the stats from our items, we can apply the ones from the past chapters
 	self.end += self.end_chapters
@@ -610,8 +707,22 @@ func _apply_all_chapters_stats():
 	self.crit += self.crit_chapters
 	# Now we can compute pv max based on end + pv_max_bonus
 	self.pv_max = self.end * 3 + self.pv_max_bonus
-	
-	
+
+
+func _apply_user_stats():
+	# Dernier etage : l'ajustement manuel (fiche de personnage) s'applique
+	# APRES tout le reste, jamais mele aux vrais chapitres (cf commentaire
+	# de tete des champs *_user). Recalcule pv_max, l'Endurance ayant pu
+	# changer.
+	self.end += self.end_user
+	self.adr += self.adr_user
+	self.hab += self.hab_user
+	self.chamax += self.chamax_user
+	self.deg += self.deg_user
+	self.arm += self.arm_user
+	self.crit += self.crit_user
+	self.pv_max = self.end * 3 + self.pv_max_bonus + self.pv_max_bonus_user
+
 
 func get_all_matched_conditions():
 	return self.all_matched_conditions
@@ -640,7 +751,7 @@ func add_item_from_options(item_name):
 		self.save_possessed_items()
 		self._recompute_matched_conditions()
 		self._recompute_stats()
-		if self._main:  # miss in test
+		if is_instance_valid(self._main):  # miss in test (or freed by a previous one)
 			self._main.refresh()  # we need to update all items and the billy
 		
 
@@ -669,7 +780,7 @@ func remove_item_from_options(item_name):
 		self.save_possessed_items()
 		self._recompute_matched_conditions()
 		self._recompute_stats()
-		if self._main:  # miss in test
+		if is_instance_valid(self._main):  # miss in test (or freed by a previous one)
 			self._main.refresh()  # we need to update all items and the billy
 
 
@@ -683,7 +794,7 @@ func _raw_remove(item_name):
 func _compute_item_by_categories():
 	var items_by_category = {'ARME': [], 'EQUIPEMENT':[], 'OUTIL':[]}
 	for item in self.all_items:
-		var item_name = item.get_name()
+		var item_name = item.get_item_name()
 		if !item_name in self.possessed_items:#.is_enabled():
 			continue
 		var cat = item.get_category()
@@ -734,7 +845,7 @@ func clean_billy_overload(new_option):
 	print('  - ITEM IN CAT: %s' % items_by_category)
 	for cat in categories:
 		for i in items_by_category[cat]:
-			all_billy_equip.append(i.get_name())
+			all_billy_equip.append(i.get_item_name())
 	# Rules:
 	# * Can take 3 max
 	# * if >= 2 in a cat => is this CAT
@@ -756,31 +867,10 @@ func _switch_to_billy(billy_type):
 	if current_billy == billy_type:  # no need to warn
 		return
 	AppParameters.set_billy_type(billy_type)
-	if self._main:  # miss in test
+	if is_instance_valid(self._main):  # miss in test (or freed by a previous one)
 		self._main.billy_type_is_changed()
 	
 
-
-#func switch_to_guerrier():
-#	if self._main:  # miss in test
-#		self._main._switch_to_guerrier()
-	
-#func switch_to_prudent():
-#	if self._main:  # miss in test	
-#		self._main._switch_to_prudent()
-
-#func switch_to_paysan():
-#	if self._main:  # miss in test
-#		self._main._switch_to_paysan()
-
-#func switch_to_debrouillard():
-#	if self._main:  # miss in test
-#		self._main._switch_to_debrouillard()
-
-#func switch_to_pegu():
-#	if self._main:  # miss in test	
-#		self._main._switch_to_pegu()
-	
 
 # We just did an option change, so if we need to remove one, not this one ^^
 func compute_my_billy_for_option(new_option):

@@ -2,14 +2,18 @@
 
 importer="mp3"
 type="AudioStreamMP3"
-path="res://.import/mutra.mp3-c98c8acfc2dac202c7af10448050cbdb.mp3str"
+uid="uid://buvd5xpx06624"
+path="res://.godot/imported/mutra.mp3-c98c8acfc2dac202c7af10448050cbdb.mp3str"
 
 [deps]
 
 source_file="res://sounds/dieux/1/mutra.mp3"
-dest_files=[ "res://.import/mutra.mp3-c98c8acfc2dac202c7af10448050cbdb.mp3str" ]
+dest_files=["res://.godot/imported/mutra.mp3-c98c8acfc2dac202c7af10448050cbdb.mp3str"]
 
 [params]
 
 loop=false
 loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4

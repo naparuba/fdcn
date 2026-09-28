@@ -1,0 +1,9 @@
+[
+  {"action": "launch_new_billy"},
+  {"action": "wait_frames", "n": 5},
+  {"action": "validate_options"},
+  {"action": "focus_page", "page": "chapitres"},
+  {"action": "screenshot", "name": "E11_avant_swipe_chapitres"},
+  {"action": "real_swipe", "from_x": 50, "to_x": 508},
+  {"action": "screenshot", "name": "E11_apres_swipe_main"}
+]

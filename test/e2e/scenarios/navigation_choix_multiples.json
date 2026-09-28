@@ -1,0 +1,8 @@
+[
+  {"action": "launch_new_billy"},
+  {"action": "wait_frames", "n": 5},
+  {"action": "validate_options"},
+  {"action": "go_to_node", "id": 10},
+  {"action": "wait_frames", "n": 10},
+  {"action": "screenshot", "name": "E2_chapitre_10_choix_multiples"}
+]

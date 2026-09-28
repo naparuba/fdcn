@@ -2,14 +2,18 @@
 
 importer="mp3"
 type="AudioStreamMP3"
-path="res://.import/runir.mp3-03c989ebf2b824a5f15fad0db3b1c42f.mp3str"
+uid="uid://325fus0xarij"
+path="res://.godot/imported/runir.mp3-03c989ebf2b824a5f15fad0db3b1c42f.mp3str"
 
 [deps]
 
 source_file="res://sounds/dieux/1/runir.mp3"
-dest_files=[ "res://.import/runir.mp3-03c989ebf2b824a5f15fad0db3b1c42f.mp3str" ]
+dest_files=["res://.godot/imported/runir.mp3-03c989ebf2b824a5f15fad0db3b1c42f.mp3str"]
 
 [params]
 
 loop=false
 loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4

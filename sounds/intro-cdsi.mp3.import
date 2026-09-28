@@ -2,14 +2,18 @@
 
 importer="mp3"
 type="AudioStreamMP3"
-path="res://.import/intro-cdsi.mp3-8e46fd36f49423809d8b02bc83df3201.mp3str"
+uid="uid://bkata0icc8d4m"
+path="res://.godot/imported/intro-cdsi.mp3-8e46fd36f49423809d8b02bc83df3201.mp3str"
 
 [deps]
 
 source_file="res://sounds/intro-cdsi.mp3"
-dest_files=[ "res://.import/intro-cdsi.mp3-8e46fd36f49423809d8b02bc83df3201.mp3str" ]
+dest_files=["res://.godot/imported/intro-cdsi.mp3-8e46fd36f49423809d8b02bc83df3201.mp3str"]
 
 [params]
 
 loop=false
 loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4

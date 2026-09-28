@@ -2,14 +2,18 @@
 
 importer="mp3"
 type="AudioStreamMP3"
-path="res://.import/billy-debrouillard.mp3-da06c8289565c0b340bad0f3d6d9f960.mp3str"
+uid="uid://ckf4txy5532wt"
+path="res://.godot/imported/billy-debrouillard.mp3-da06c8289565c0b340bad0f3d6d9f960.mp3str"
 
 [deps]
 
 source_file="res://sounds/billy-debrouillard.mp3"
-dest_files=[ "res://.import/billy-debrouillard.mp3-da06c8289565c0b340bad0f3d6d9f960.mp3str" ]
+dest_files=["res://.godot/imported/billy-debrouillard.mp3-da06c8289565c0b340bad0f3d6d9f960.mp3str"]
 
 [params]
 
 loop=false
 loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4

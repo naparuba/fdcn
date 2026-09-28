@@ -2,7 +2,7 @@
 
 importer="font_data_dynamic"
 type="FontFile"
-uid="uid://ce1rohd6ynuug"
+uid="uid://msst1l2s2s"
 path="res://.godot/imported/AnonymousPro-BoldItalic.ttf-4274bf704d3d6b9cd32c4f0754d8c83d.fontdata"
 
 [deps]
@@ -15,13 +15,16 @@ dest_files=["res://.godot/imported/AnonymousPro-BoldItalic.ttf-4274bf704d3d6b9cd
 Rendering=null
 antialiasing=1
 generate_mipmaps=false
+disable_embedded_bitmaps=true
 multichannel_signed_distance_field=false
 msdf_pixel_range=8
 msdf_size=48
 allow_system_fallback=true
 force_autohinter=false
+modulate_color_glyphs=false
 hinting=1
 subpixel_positioning=1
+keep_rounding_remainders=true
 oversampling=0.0
 Fallbacks=null
 fallbacks=[]
