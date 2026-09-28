@@ -1,0 +1,71 @@
+name: Tests
+
+on:
+  push:
+    branches: [migration-godot4]
+  pull_request:
+    branches: [migration-godot4]
+
+env:
+  GODOT_VERSION: 4.7-stable
+  GODOT_BIN: /opt/godot/Godot_v4.7-stable_linux.x86_64
+
+jobs:
+  python:
+    name: Python (pipeline fdcn.py)
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+
+      - uses: actions/setup-python@v6
+        with:
+          python-version: "3.11"
+
+      # Le paquet pip "graphviz" n'est qu'un wrapper autour du binaire
+      # systeme "dot" (fdcn.py appelle display_graph.render()) -- absent
+      # par defaut sur les runners GitHub, present sur les postes de dev.
+      - name: Installe Graphviz (binaire systeme "dot")
+        run: sudo apt-get update && sudo apt-get install -y graphviz
+
+      - name: Installe les dependances Python
+        run: pip install pytest -r requirements.txt
+
+      - name: Lance les tests Python
+        run: python -m pytest tests/ -v
+
+  godot:
+    name: GDScript (unitaires + integration + E2E golden)
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v7
+
+      - name: Installe Xvfb + rendu logiciel Mesa
+        run: sudo apt-get update && sudo apt-get install -y xvfb unzip libgl1-mesa-dri libglu1-mesa
+
+      - name: Cache Godot
+        id: cache-godot
+        uses: actions/cache@v6
+        with:
+          path: /opt/godot
+          key: godot-${{ env.GODOT_VERSION }}-linux-x86_64
+
+      - name: Telecharge Godot ${{ env.GODOT_VERSION }}
+        if: steps.cache-godot.outputs.cache-hit != 'true'
+        run: |
+          sudo mkdir -p /opt/godot
+          curl -L -o /tmp/godot.zip "https://github.com/godotengine/godot/releases/download/${{ env.GODOT_VERSION }}/Godot_v${{ env.GODOT_VERSION }}_linux.x86_64.zip"
+          sudo unzip -o /tmp/godot.zip -d /opt/godot
+          sudo chmod +x "$GODOT_BIN"
+
+      # GUT charge test/unit et test/integration en une seule passe -- le
+      # golden E2E (test_e2e_golden_screenshots.gd) vit dans test/integration
+      # et relance Godot lui-meme via GODOT_BIN pour chaque scenario, avec un
+      # XDG_DATA_HOME isole (cf commentaire de tete de ce fichier de test).
+      # --headless est exclu ici : il utilise le driver "dummy", incapable de
+      # produire une texture pour les captures d'ecran E2E -- xvfb-run fournit
+      # un vrai serveur X virtuel a la place, sans fenetre ni vol de focus.
+      - name: Lance GUT (unitaires + integration + E2E golden)
+        run: |
+          XDG_DATA_HOME=$(mktemp -d) xvfb-run --auto-servernum --server-args="-screen 0 1920x1080x24" \
+            "$GODOT_BIN" --path . -s addons/gut/gut_cmdln.gd -gdir=res://test/unit,res://test/integration -gexit

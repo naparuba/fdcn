@@ -23,7 +23,7 @@ func load_item_data(item_name, item_data):
 	$Nom.text = self._item_name
 	self._display_stats()
 	var new_style = StyleBoxFlat.new()
-	self.set('custom_styles/panel', new_style)
+	self.set('theme_override_styles/panel', new_style)
 	var svg_path = 'res://images/items/%s.svg' % self._item_name
 	var png_path = 'res://images/items/%s.png' % self._item_name
 	if Utils.is_file_exists(svg_path):
@@ -44,7 +44,7 @@ func _display_stats():
 		s += ('%s=' % k.to_upper()) + str(v) + '    '
 	$Stats.text = s
 
-func get_name():
+func get_item_name():
 	return self._item_name
 
 func is_enabled():
@@ -73,18 +73,12 @@ func is_ok_to_be_shown():
 # * we already did see it's chapter in the past plays
 func _can_item_be_shown():
 	if self._is_enabled:
-		print('ITEM:: ', self._item_name, 'SHOW :: _is_enabled' )
 		return true
 	if AppParameters.are_spoils_ok():
-		print('ITEM:: ', self._item_name, 'SHOW :: spoils are ok' )
 		return true
-	#print('Can item: %s be shown ' % self._item_name, '%s' % self._item_data)
 	for chapter_id in self._item_data['in_chapters']:
 		if Player.did_all_times_seen(chapter_id):
-			print('Item %s can be seens thanks to chapter' % self._item_name, '%s' % chapter_id)
 			return true
-		#else:
-		#	print('Item %s is not ok with chapter' % self._item_name, '%s' % chapter_id)
 	return false
 
 
@@ -95,35 +89,28 @@ func refresh():
 	#	return
 	self._is_enabled = do_have_item
 	
-	var _style = self.get('custom_styles/panel')
-	
-	print('ITEM:: ', self._item_name, 'do have item? ',do_have_item )
-	
+	var _style = self.get('theme_override_styles/panel')
+
 	if self._can_item_be_shown():
-		print('ITEM:: ', self._item_name, 'SHOW\n' )
 		$Nom.text = self._item_name
 		$sprite.scale[0] = self._sprite_scale
 		$sprite.scale[1] = self._sprite_scale
 		$sprite.texture = self._item_icon
 	else:
-		print('ITEM:: ', self._item_name, 'HIDE\n' )
 		$Nom.text = ''  # We already have the ? icon
 		$sprite.texture = self._unkown_icon
 		$sprite.scale[0] = 0.048
 		$sprite.scale[1] = 0.048
 
-	#print('STYLE: %s' % _style)
 	if do_have_item:
 		_style.set_bg_color(Color('c0ffed'))  # set to light grey
-		#print('HAVE item: %s' % self._item_name)
 	else:
 		_style.set_bg_color(Color('ffffff'))  # set to light grey
 	# Update the button in the good state
-	$button.pressed = do_have_item
+	$button.button_pressed = do_have_item
 
 
 func _on_button_toggled(button_pressed):
-	print('ITEM: %s goes' % self._item_name, '%s' % button_pressed)
 	if button_pressed:
 		Player.add_item_from_options(self._item_name)
 	else:  # remove it
