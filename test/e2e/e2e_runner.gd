@@ -168,7 +168,7 @@ func _run_next_step():
 		Player.pv = Player.pv_max
 		_run_next_step()
 	elif action == "combat_manual_win":
-		_main.get_node("Combat")._on_manual_win_pressed()
+		await _main.get_node("Combat")._on_manual_win_pressed()
 		_run_next_step()
 	elif action == "combat_continue":
 		_main.get_node("Combat")._on_continue_pressed()
