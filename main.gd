@@ -752,7 +752,7 @@ func popup_remove_item(item_name):
 # sont necessaires : chaque ItemPopup se libere lui-meme via son Timer
 # (cf ItemPopup.gd::_on_Timer_timeout), main.gd n'est jamais notifie
 # autrement de sa disparition.
-const ITEM_POPUP_BANNER_SHIFT = 36.0
+const ITEM_POPUP_BANNER_SHIFT = 50.0
 const ITEM_POPUP_ANIM_DURATION = 0.22  # rapide, mais jamais un saut brutal
 const ITEM_POPUP_SHIFTED_PANELS = [
 	"Background/GlobalCompletion",

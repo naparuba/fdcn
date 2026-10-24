@@ -381,6 +381,7 @@ func _build_ui():
 	dice_row.add_child(attack_die_box['root'])
 	var esquive_die_box = self._build_die_display("Esquive")
 	self._esquive_die_rect = esquive_die_box['die']
+	self._esquive_die_rect.self_modulate = Color(1, 1, 1)  # red SVG, pas de teinture
 	self._esquive_die_box = esquive_die_box['root']
 	dice_row.add_child(esquive_die_box['root'])
 
@@ -712,7 +713,8 @@ func _build_die_display(libelle: String) -> Dictionary:
 
 
 func _set_die_face(rect: TextureRect, face: int) -> void:
-	rect.texture = load("res://images/dice/%d-b.svg" % face)
+	var variant = "r" if rect == self._esquive_die_rect else "b"
+	rect.texture = load("res://images/dice/%d-%s.svg" % [face, variant])
 
 
 # "Roule" quelques faces au hasard avant de se figer sur le resultat reel
@@ -1315,3 +1317,4 @@ func _spawn_float(container: Control, texte: String, couleur: Color, taille: int
 	tween.tween_property(l, "modulate:a", 0.0, 0.9).set_delay(0.3)
 	tween.set_parallel(false)
 	tween.tween_callback(l.queue_free)
+
