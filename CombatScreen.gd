@@ -43,6 +43,10 @@ var _controller = null
 var _enemy_name := ""
 var _enemy_hab_base := 0
 var _resolved_manually := false
+var _win_button: Button
+const PHUMTAR_IMAGE = "res://images/dieux/1/phumtar.jpg"
+const GAVEL_SOUND = "hammer.mp3"
+const BRIBE_TEXT = "Phumtar a bien reçu votre pot de vin, la victoire est vôtre !"
 var _rolling := false
 # Desactive les tweens/attentes reelles (tests) -- la logique de resolution
 # est strictement identique, seul le rythme visuel change.
@@ -253,6 +257,7 @@ func _build_ui():
 	self._title_label = self.get_node("Header/Title")
 	self._manual_win_button = self.get_node("Header/ManualWinButton")
 	self._manual_win_button.pressed.connect(self._on_manual_win_pressed)
+	self._manual_win_button.visible = false  # remplace par _win_button (rangee d'actions)
 
 	var body = self.get_node("Body")
 
@@ -443,6 +448,29 @@ func _build_ui():
 	abandon_caption.add_theme_color_override("font_color", COL_INK_SOFT)
 	abandon_caption.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
 	abandon_label_box.add_child(abandon_caption)
+
+	self._win_button = Button.new()
+	self._win_button.custom_minimum_size = Vector2(60, 52)
+	self._style_solid_button(self._win_button, COL_CARD, Color(0.18, 0.62, 0.39))
+	self._win_button.pressed.connect(self._on_manual_win_pressed)
+	action_row.add_child(self._win_button)
+	var win_label_box = VBoxContainer.new()
+	win_label_box.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	win_label_box.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
+	win_label_box.alignment = BoxContainer.ALIGNMENT_CENTER
+	self._win_button.add_child(win_label_box)
+	var win_icon = Label.new()
+	win_icon.text = "✓"
+	win_icon.add_theme_font_size_override("font_size", 18)
+	win_icon.add_theme_color_override("font_color", Color(0.18, 0.62, 0.39))
+	win_icon.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
+	win_label_box.add_child(win_icon)
+	var win_caption = Label.new()
+	win_caption.text = "J'ai gagné !"
+	win_caption.add_theme_font_size_override("font_size", 9)
+	win_caption.add_theme_color_override("font_color", COL_INK_SOFT)
+	win_caption.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
+	win_label_box.add_child(win_caption)
 
 	self._roll_button = Button.new()
 	self._roll_button.size_flags_horizontal = Control.SIZE_EXPAND_FILL
@@ -1151,7 +1179,62 @@ func _on_manual_win_pressed():
 		return
 	self._resolved_manually = true
 	self._roll_button.disabled = true
+	await self._play_bribe_sequence()
 	self._show_resolution(true, true)
+
+
+# Bouton de triche assume : Phumtar (un dieu, pas l'adversaire) "recoit un pot
+# de vin", puis l'adversaire encaisse tout, Billy ne perd rien.
+func _play_bribe_sequence() -> void:
+	var etat = self._controller.etat_courant()
+	if not self.skip_animations:
+		var overlay = ColorRect.new()
+		overlay.color = Color(0, 0, 0, 1)
+		overlay.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
+		overlay.mouse_filter = Control.MOUSE_FILTER_STOP
+		overlay.modulate.a = 0.0
+		self.add_child(overlay)
+		var img = TextureRect.new()
+		img.texture = load(PHUMTAR_IMAGE)
+		img.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
+		img.expand_mode = TextureRect.EXPAND_IGNORE_SIZE
+		img.stretch_mode = TextureRect.STRETCH_KEEP_ASPECT_COVERED
+		img.mouse_filter = Control.MOUSE_FILTER_IGNORE
+		overlay.add_child(img)
+		var txt = Label.new()
+		txt.text = BRIBE_TEXT
+		txt.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
+		txt.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
+		txt.add_theme_font_size_override("font_size", 18)
+		txt.add_theme_color_override("font_color", Color(1, 1, 1))
+		txt.add_theme_color_override("font_outline_color", Color(0, 0, 0))
+		txt.add_theme_constant_override("outline_size", 6)
+		txt.set_anchors_and_offsets_preset(Control.PRESET_BOTTOM_WIDE)
+		txt.offset_left = 20
+		txt.offset_right = -20
+		txt.offset_top = -140
+		txt.offset_bottom = -40
+		txt.visible_ratio = 0.0
+		txt.mouse_filter = Control.MOUSE_FILTER_IGNORE
+		overlay.add_child(txt)
+		var fade_in = create_tween()
+		fade_in.tween_property(overlay, "modulate:a", 1.0, 0.3)
+		await fade_in.finished
+		var typing = create_tween()
+		typing.tween_property(txt, "visible_ratio", 1.0, 1.4)
+		await typing.finished
+		if ResourceLoader.exists("res://sounds/" + GAVEL_SOUND):
+			Sounder.play(GAVEL_SOUND)
+		await self._delay(0.9)
+		var fade_out = create_tween()
+		fade_out.tween_property(overlay, "modulate:a", 0.0, 0.3)
+		await fade_out.finished
+		overlay.queue_free()
+	self._resize_bar(self._enemy_hp_fill, 0.0)
+	self._enemy_hp_label.text = "0 / %d" % self._pv_adversaire_max
+	self._hit_panel(self._enemy_card, maxi(etat.adversaire.pv, 1))
+	self._spawn_float(self._enemy_floaters, "-%d" % maxi(etat.adversaire.pv, 0), COL_CORAIL, 22)
+	await self._delay(0.7)
 
 
 # Ferme tout le panneau (pas seulement la carte de resolution) : c'est
