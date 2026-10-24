@@ -352,8 +352,18 @@ func have_previous_chapters():
 func go_to_node(node_id):
 	# Avant tout -- meme avant current_node_id lui-meme -- pour que "retour"
 	# soit bien le noeud dont on arrive, pas celui qu'on vient de quitter.
+	# Cas particulier : au demarrage, main.gd rappelle go_to_node(current_node_id)
+	# apres do_load(), donc current_node_id == node_id et l'historique contient
+	# deja ce noeud -- "retour" doit pointer sur l'avant-dernier, pas sur soi.
+	var _retour: int
+	if len(self.session_visited_nodes) == 0:
+		_retour = -1
+	elif node_id == self.current_node_id and len(self.session_visited_nodes) >= 2:
+		_retour = self.session_visited_nodes[-2]
+	else:
+		_retour = self.current_node_id
 	self.arrival_snapshot = {
-		"retour": self.current_node_id if len(self.session_visited_nodes) > 0 else -1,
+		"retour": _retour,
 		"pv": self.pv,
 		"cha": self.cha,
 		"items": self.possessed_items.duplicate(),
