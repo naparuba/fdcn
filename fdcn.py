@@ -90,32 +90,38 @@ for idx, n in book_data.items():
     stats_cond = n.get('stats_cond', {})
     node.set_stats_cond(stats_cond)
     
-    goto = n.get('goto', [])
-    if isinstance(goto, int):
-        goto = [goto]
-    goto = node.get_all_possibles_goto(goto)
-    print(f' possible goto:{n.get("goto", [])} => {goto}')
-    # goto = n['goto']
-    
-    if isinstance(goto, int):
-        if goto == 608 and book_number == 1:
-            ending = n.get('ending', None)
-            if ending is None:
-                print('ERROR: node %s is an end without ending' % idx)
+    # A node is a book ending if it declares an "ending" key. This is
+    # independent from "goto": book 1 marks these with a "goto": 608
+    # sentinel (608 is not a real chapter id), while book 2/CDSI simply
+    # omits "goto" entirely on ending nodes. Detect this uniformly, before
+    # touching goto/sons at all, instead of branching on the shape of goto
+    # (which used to work only because "goto" stayed a raw int for these
+    # nodes; get_all_possibles_goto() below always returns a list, so that
+    # old check silently stopped matching for BOTH books).
+    ending = n.get('ending', None)
+    if ending is not None:
+        _ending = {'good': ENDINGS.GOOD, 'bad': ENDINGS.BAD}.get(ending, None)
+        if _ending is None:
+            print('ERROR: node %s have an unknown ending string: %s' % (idx, ending))
+            sys.exit(2)
+        node.set_ending(_ending)
+        ending_id = n.get('ending_id', None)
+        if ending_id:
+            node.set_ending_id(ending_id)
+            node.set_ending_txt(n.get('ending_txt'))
+    else:
+        goto = n.get('goto', [])
+        if isinstance(goto, int):
+            if goto == 608:
+                # 608 is not a real chapter id: it's only ever meaningful
+                # as the book-1 end-of-book sentinel, which requires an
+                # "ending" key (handled above). Getting here means the
+                # source data used the sentinel without declaring one.
+                print('ERROR: node %s uses the 608 end-of-book sentinel but has no "ending" key' % idx)
                 sys.exit(2)
-            _ending = {'good': ENDINGS.GOOD, 'bad': ENDINGS.BAD}.get(ending, None)
-            if _ending is None:
-                print('ERROR: node %s have an unknown ending string: %s' % (idx, ending))
-                sys.exit(2)
-            node.set_ending(_ending)
-            ending_id = n.get('ending_id', None)
-            if ending_id:
-                node.set_ending_id(ending_id)
-                node.set_ending_txt(n.get('ending_txt'))
-        else:
-            son = node_graph.get_node(goto)
-            node.add_son(son)
-    else:  # list
+            goto = [goto]
+        goto = node.get_all_possibles_goto(goto)
+        print(f' possible goto:{n.get("goto", [])} => {goto}')
         for dest_idx in goto:
             son = node_graph.get_node(dest_idx)
             node.add_son(son)

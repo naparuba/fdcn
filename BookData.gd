@@ -21,9 +21,20 @@ func _init():
 	print('BookData: init')
 	
 	
-func do_load_book(book_number):	
+func do_load_book(book_number):
 	print('BookData: switch to book:'+str(self._current_book_number))
 	self._current_book_number = book_number
+	# chapter_data.gd derive de Node (pas RefCounted) : chaque appel a
+	# do_load_book() (changement de livre, ou juste relance des tests, qui
+	# rappellent tous set_book_number()) ecrasait les anciennes instances
+	# dans self.all_nodes sans jamais les liberer -- fuite de Node orphelins
+	# qui s'accumule sur toute la suite de tests (des milliers apres 33
+	# fichiers), meme classe de bug que insert_all_objects() deja corrigee.
+	for old_node_id_str in self.all_nodes.keys():
+		var old_chapter_data = self.all_nodes[old_node_id_str]
+		if is_instance_valid(old_chapter_data):
+			old_chapter_data.free()
+	self.all_nodes = {}
 	# Load chapter data in chapter_data class
 	var all_nodes_json = Utils.load_json_file("res://fdcn-"+str(self._current_book_number)+"-compilated-data.json")
 	for node_id_str in all_nodes_json.keys():
@@ -73,12 +84,42 @@ func get_item_data(item_name):
 func get_all_success():
 	return self.all_success
 
-func get_node(node_id):
+
+# all_success est une liste (succes x chapitre) : un succes obtenable a
+# plusieurs chapitres (ex. cdsi "PHOBIE-ADMINISTRATIVE" via 98 ET 498) y
+# figure une fois par chapitre. Sans dedup, l'ecran "Tous les Succes"
+# affiche une ligne par occurrence -- deux lignes identiques pour ce cas.
+# Garde la PREMIERE occurrence de chaque id (son 'chapter' ne sert plus
+# qu'a l'affichage/la navigation d'une ligne, jamais a decider si le
+# succes est obtenu -- cf is_success_obtenu()).
+func get_deduped_success():
+	var seen_ids = {}
+	var deduped = []
+	for success in self.all_success:
+		var success_id = success['id']
+		if success_id in seen_ids:
+			continue
+		seen_ids[success_id] = true
+		deduped.append(success)
+	return deduped
+
+
+# Un succes est obtenu si AU MOINS UN des chapitres qui le declenchent a
+# ete vu -- jamais seulement celui affiche sur la ligne courante (bug reel
+# trouve sur cdsi "PHOBIE-ADMINISTRATIVE": obtenu via 498 uniquement
+# laissait la ligne "chapitre 98" grisee "non obtenu").
+func is_success_obtenu(success_id) -> bool:
+	for node_id_str in self.all_success_chapters:
+		if self.all_success_chapters[node_id_str] == success_id and Player.did_all_times_seen(int(node_id_str)):
+			return true
+	return false
+
+func get_chapter_data(node_id):
 	return self.all_nodes['%s' % node_id]
 	
 
 func get_all_nodes_in_the_same_chapter(node_id):
-	var chapter_data = self.get_node(node_id)
+	var chapter_data = self.get_chapter_data(node_id)
 	var chapter = chapter_data.get_chapter()
 	if chapter == null:
 		return []
@@ -100,7 +141,7 @@ func get_acte_completion(node_id, visited_nodes_all_times):
 
 
 func get_all_nodes_in_the_same_sub_arc(node_id):
-	var chapter_data = self.get_node(node_id)
+	var chapter_data = self.get_chapter_data(node_id)
 	var sub_arc = chapter_data.get_arc()
 	if sub_arc == null:
 		return []
@@ -149,7 +190,7 @@ func get_success_from_chapter(node_id):
 
 
 func get_chapter_stats(node_id):
-	var chapter_data = self.get_node(node_id)
+	var chapter_data = self.get_chapter_data(node_id)
 	var stats = chapter_data.get_stats()
 	var stats_cond_raw = chapter_data.get_stats_cond()
 	var stats_conds = []
@@ -168,7 +209,7 @@ func get_chapter_stats(node_id):
 
 
 func have_chapter_conditions(node_from_id, node_to_id):
-	var chapter_data = self.get_node(node_from_id)
+	var chapter_data = self.get_chapter_data(node_from_id)
 	var node_to_id_str = '%s' % node_to_id
 	var all_jump_conditions = chapter_data.get_jump_conditions()
 	var jump_condition = all_jump_conditions.get(node_to_id_str)
@@ -178,7 +219,7 @@ func have_chapter_conditions(node_from_id, node_to_id):
 	
 
 func match_chapter_conditions(node_from_id, node_to_id):
-	var chapter_data = self.get_node(node_from_id)
+	var chapter_data = self.get_chapter_data(node_from_id)
 	var node_to_id_str = '%s' % node_to_id
 	var all_jump_conditions = chapter_data.get_jump_conditions()
 	var jump_condition = all_jump_conditions.get(node_to_id_str)
@@ -219,7 +260,7 @@ func _check_cond_rec(jump_condition, facts):
  
 
 func get_condition_txt(node_from_id, node_to_id):
-	var chapter_data = self.get_node(node_from_id)
+	var chapter_data = self.get_chapter_data(node_from_id)
 	var node_to_id_str = '%s' % node_to_id
 	var all_txts = chapter_data.get_jump_conditions_txts()
 	var txt = all_txts.get(node_to_id_str)
@@ -234,7 +275,7 @@ func is_node_id_freely_full_on_all_chapters(node_id):
 	if AppParameters.are_spoils_ok():
 			return true
 	# spoils are not known
-	var node = self.get_node(node_id)
+	var node = self.get_chapter_data(node_id)
 	# node is a secret, last hope is if we already see it in the past (not a spoil if already see ^^)
 	if Player.did_all_times_seen(node_id):
 		return true
@@ -252,7 +293,7 @@ func is_node_id_freely_showable(node_id, secret_jumps):
 		return true
 	
 	# spoils are not known
-	var node = BookData.get_node(node_id)
+	var node = BookData.get_chapter_data(node_id)
 	
 	var is_in_secret_jump = node_id in secret_jumps
 	

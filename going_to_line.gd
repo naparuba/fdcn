@@ -4,7 +4,7 @@ var father = null
 
 var node = {'id':''}
 
-onready var my_button = $MarginContainer/my_button
+@onready var my_button = $MarginContainer/my_button
 
 # Declare member variables here. Examples:
 # var a = 2

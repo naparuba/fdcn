@@ -1,0 +1,9 @@
+[
+  {"action": "launch_new_billy"},
+  {"action": "wait_frames", "n": 5},
+  {"action": "change_book", "book_number": 2},
+  {"action": "wait_frames", "n": 10},
+  {"action": "focus_page", "page": "success"},
+  {"action": "wait_frames", "n": 10},
+  {"action": "screenshot", "name": "E15_succes_cdsi_sans_doublon"}
+]

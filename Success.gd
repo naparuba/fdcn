@@ -1,11 +1,12 @@
 extends Panel
 
 
-onready var already_seen_polygon = $GetPolygon
+@onready var already_seen_polygon = $GetPolygon
 
 var chap_number
 var spoil_enabled = false
 var main
+var _success_id = null
 
 
 # Called when the node enters the scene tree for the first time.
@@ -25,15 +26,18 @@ func set_spoil_enabled(b):
 
 func update():
 	var chapter_id = self.get_chapter_id()
-	var chapter_data = BookData.get_node(chapter_id)
+	var chapter_data = BookData.get_chapter_data(chapter_id)
 		
 	# Update if spoils need to be shown (or not), can depend if we already seen this node
 	if BookData.is_node_id_freely_full_on_all_chapters(chapter_id):
 		self.set_spoil_enabled(true)
 	else:  # only follow the parameter
 		self.set_spoil_enabled(false)
-	# All time seen
-	if Player.did_all_times_seen(chapter_id):
+	# Obtenu si AU MOINS UN des chapitres qui declenchent ce succes a ete
+	# vu -- jamais seulement celui affiche sur cette ligne (cf
+	# BookData.is_success_obtenu(), un succes peut se gagner a plusieurs
+	# chapitres).
+	if BookData.is_success_obtenu(self._success_id):
 		self.set_already_seen()
 	else:
 		self.set_not_already_seen()
@@ -51,6 +55,7 @@ func set_from_success_object(success_object):
 	
 
 func set_success_id(success_id):
+	self._success_id = success_id
 	var png_path = "res://images/success/%s.png" % success_id
 	var svg_path ="res://images/success/%s.svg" % success_id
 	var texture = null

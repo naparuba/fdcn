@@ -1,0 +1,7 @@
+[
+  {"action": "wait_frames", "n": 5},
+  {"action": "assert_current_node_id", "id": 106},
+  {"action": "assert_has_item", "name": "EPEE"},
+  {"action": "assert_has_item", "name": "BROCHE DOREE"},
+  {"action": "screenshot", "name": "E9_persistence_apres_redemarrage"}
+]

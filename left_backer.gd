@@ -1,12 +1,12 @@
-tool
+@tool
 
 extends Panel
 
 
 
-export var txt = 'unset'
-export var dest = 'UNSET'
-export var is_disabled = false
+@export var txt = 'unset'
+@export var dest = 'UNSET'
+@export var is_disabled = false
 
 # Called when the node enters the scene tree for the first time.
 func _ready():

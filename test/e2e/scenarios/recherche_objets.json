@@ -1,0 +1,15 @@
+[
+  {"action": "launch_new_billy"},
+  {"action": "wait_frames", "n": 5},
+  {"action": "show_options"},
+  {"action": "toggle_spoils", "on": true},
+  {"action": "wait_frames", "n": 5},
+  {"action": "screenshot", "name": "E13_equipement_sans_recherche"},
+  {"action": "search_items", "query": "epee"},
+  {"action": "wait_frames", "n": 5},
+  {"action": "screenshot", "name": "E13_equipement_recherche_epee"},
+  {"action": "assert_visible_items_count", "count": 1},
+  {"action": "clear_item_search"},
+  {"action": "wait_frames", "n": 5},
+  {"action": "screenshot", "name": "E13_equipement_apres_clear"}
+]
