@@ -173,7 +173,11 @@ func save_all_times_already_visited():
 
 func _assert_bug_book_2_preload_is_fixed():
 	print("Looking to clean old book2 data that make bugs")
-	if !FileAccess.file_exists(TO_CLEAN_ONE_TIME_BOOK_2_FLAG):
+	# Le flag est ecrit par _save_var() en .json, mais les joueurs venus de
+	# l'ere Godot 3 ont un flag en .save : accepter les deux. Ne tester que le
+	# .save (ancien code) faisait supprimer les *-2.save a CHAQUE lancement.
+	var flag_json = TO_CLEAN_ONE_TIME_BOOK_2_FLAG.replace(".save", ".json")
+	if !FileAccess.file_exists(TO_CLEAN_ONE_TIME_BOOK_2_FLAG) and !FileAccess.file_exists(flag_json):
 		for to_clean in TO_CLEAN_ONE_TIME_BOOK_2:
 			print('REMOVING: ', to_clean)
 			DirAccess.remove_absolute(to_clean)

@@ -183,3 +183,33 @@ func test_book2_one_time_cleanup_is_a_noop_on_second_call():
 	# fichiers a nettoyer n'existent plus
 	Player._assert_bug_book_2_preload_is_fixed()
 	assert_true(FileAccess.file_exists(Player.TO_CLEAN_ONE_TIME_BOOK_2_FLAG.replace(".save", ".json")))
+
+
+func test_book2_cleanup_does_not_delete_files_once_flag_is_set():
+	# Regression : le flag etait teste en .save mais ecrit en .json, donc le
+	# nettoyage supprimait les *-2.save a CHAQUE lancement.
+	_delete_book2_cleanup_fixtures()
+	Player._assert_bug_book_2_preload_is_fixed()  # premier appel: pose le flag
+
+	for pth in Player.TO_CLEAN_ONE_TIME_BOOK_2:
+		_save_old_format_binary(pth, true)
+	Player._assert_bug_book_2_preload_is_fixed()  # flag deja pose: ne touche a rien
+
+	for pth in Player.TO_CLEAN_ONE_TIME_BOOK_2:
+		assert_true(FileAccess.file_exists(pth), "ne doit pas etre supprime une fois le flag pose: %s" % pth)
+	_delete_book2_cleanup_fixtures()
+
+
+func test_book2_cleanup_respects_legacy_save_flag_from_godot3():
+	# Un joueur venu de l'ere Godot 3 a un flag en .save (pas de .json) :
+	# le nettoyage a deja eu lieu pour lui, il ne doit pas etre refait.
+	_delete_book2_cleanup_fixtures()
+	_save_old_format_binary(Player.TO_CLEAN_ONE_TIME_BOOK_2_FLAG, true)
+	for pth in Player.TO_CLEAN_ONE_TIME_BOOK_2:
+		_save_old_format_binary(pth, true)
+
+	Player._assert_bug_book_2_preload_is_fixed()
+
+	for pth in Player.TO_CLEAN_ONE_TIME_BOOK_2:
+		assert_true(FileAccess.file_exists(pth), "flag .save present : ne rien supprimer: %s" % pth)
+	_delete_book2_cleanup_fixtures()
