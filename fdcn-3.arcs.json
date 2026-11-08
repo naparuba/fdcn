@@ -1,0 +1,46 @@
+{
+ "mode": "nearest",
+ "clusters": false,
+ "arcs": [
+  [
+   1,
+   "Atemashra",
+   "#c8e6c9"
+  ],
+  [
+   100,
+   "La boucle",
+   "#d1c4e9"
+  ],
+  [
+   200,
+   "Plume et acier",
+   "#cfd8dc"
+  ],
+  [
+   300,
+   "Chants et Vergers",
+   "#ffcc80"
+  ],
+  [
+   400,
+   "Soie et Joyaux",
+   "#d7ccc8"
+  ],
+  [
+   500,
+   "Larmes d'un Cerf",
+   "#80cbc4"
+  ],
+  [
+   600,
+   "L'Ame d'Ecureuil",
+   "#e6b0aa"
+  ],
+  [
+   700,
+   "L'arme du Renard",
+   "#90caf9"
+  ]
+ ]
+}

@@ -1,0 +1,205 @@
+
+301: +1 IMPULSION, -CANNE, +SUCCES "L'intention qui compte",go (OUVRIER)191, (BECHE)72, (MARTEAU)91,18,62
+
+302: go 310
+
+303: +1 LUCIDITE, go 475
+
+304: +2 PV, go 172, 203
+
+305: go 836
+
+306: go 236
+
+307: go 392
+
+308: go 389
+
+309: go 605
+
+310: go 597, 240, 203,302,126
+
+311: go 475
+
+312: go 745
+
+313: +FLEURET, go 496
+
+314: go 347,436
+
+315: go 399
+
+316: go 259
+
+317: go 351,293
+
+318: +POTION DE DISCORDANCE ETHNIQUE, go 234
+
+319: go 130
+
+320: +LANCE MEDIOCRE, go 468
+
+321: go 713, 803
+
+322: go (MEDAILLONS DE CERFS)845, 856
+
+323: +SUCESS"Bouh-clier", go 601
+
+324: go 100, 71, 25, 46
+
+325: go 626
+
+326: +PORTE-CLEF, go 128
+
+327: go 477
+
+328: +SUCCESS "Billy ou la Vie sauvage", go 333
+
+329: go 388,589
+
+330: go 2, 123
+
+331: go 387
+
+332: go 284
+
+333: go 6,69,396,609
+
+334: go 621,648
+
+335: go 244,617,578,603
+
+336: go 448
+
+337: go 290
+
+338: +2 CHANCE, go 363
+
+339: go 539
+
+340: go 579
+
+341: go 585
+
+342: go 241,230
+
+343: go 657, 528,533
+
+344: go 353
+
+345: go 247, 340, 364
+
+346: go 718
+
+347: +LONGUE-VUE, go 476
+
+348: go 446
+
+349: go 659
+
+350: go (OR DE FARFADET)280,(IMPULSION>=3)173,(BOUCLIER)45,236
+
+351: go 243, 234
+
+352: +1 PV MAX, go 89
+
+353: go (HERBES DES FEES)255, (BOUTEILLE HUILE UNIVERSELLE)398,513,566
+
+354: go 227
+
+355: go 455, 578
+
+356: +1 LUCIDITE, go 294
+
+357: go (BELICITE)115, (OUVRIER)359, (FONCTIONNAIRE)73, (ELISIF)403
+
+358: go 589
+
+359: +3PV, go 215
+
+360: go 496
+
+361: go 466
+
+362: go 448
+
+363: go 562, 467,414
+
+364: go 360
+
+365: go 799
+
+366: go 480
+
+367: go 498
+
+368: +1 HABILETE, go 407
+
+369: +SUCCESS "It's free real estate", go 333
+
+370: +1 RICHESSE, +ECUSSON ECUREUIL, +SUCCESS "Gnolocauste Nucleaire",go 240
+
+371: go 773
+
+372: go 527, 593, 607
+
+373: go 387
+
+374: go 553
+
+375: +SUCCESS "Random bullshit go",go 371
+
+376: go 582, 640
+
+377: go 475
+
+378: go 391, 539, 240, 90, 234
+
+379: go 9,162
+
+380: +1 HABILETE, go 225
+
+381: +1 CHANCE, go 539
+
+382: go 283, 597
+
+383: go 376
+
+384: go 452
+
+385: go 234
+
+386: go 585
+
+387: +PLUME DE SIMURGH, go 234
+
+388: -3 PV, go 459, 589
+
+389: go (BELICISTE)411, (FONCTIONNAIRE)577, (ELUSIF)499, (OUVRIER)442
+
+390: go (LUCIDITE>=5)237, 262
+
+391: go (GUIDE TOURISTIQUE)471, 282, 537
+
+392: go (GUID TOURISTIQUE)239,85,291,(OUVRIER)299
+
+393: go (LUCIDITE>=2)194, 539
+
+394: go 600
+
+395: go 446
+
+396: go 341, secret 321
+
+397: go 520, 654, 547
+
+398: go 266
+
+399: go 574
+
+400: go 451, 615
+
+
+
+
+

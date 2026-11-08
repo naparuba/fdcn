@@ -1,0 +1,205 @@
+
+701: +2 RICHESSE, +1 CHANCE MAX, go 523
+
+702: go 810
+
+703: +ARC PHASMIQUE, go 737, 687, 749
+
+704: go (SIFFLET ETRANGE)762, (POTION DE DISCORDANCE ETHNIQUE)650, 715
+
+705: go 738
+
+706: go 789
+
+707: go 651
+
+708: +SUCCESS "Par-delà l'armure", go (BELLICISTE)711,(OUVRIER)719,(FONCTIONNAIRE)771,(ELUSIF)744
+
+709: go 877
+
+710: go 810
+
+711: go 333
+
+712: +RAPIERE-ARBALETE, go 592, 755
+
+713: go 443
+
+714: go 632
+
+715: go (OUVIER)693, (LUCIDITE>=4)786, 736
+
+716: go 447
+
+717: go 877
+
+718: go (PORTRAIT ANCIEN)739, (TABLEAU DE TRIANGLE VOLANT)790, (BRIQUET IMPOSSIBLE)781, 602
+
+719: go 333
+
+720: go 756
+
+721: +MEDAILLON DE CERF, go 229
+
+722: go 764
+
+723: +SUCCESS "La deuxième est offerte ❤", go 829
+
+724: go 815
+
+725: +FAVEUR DE SERVILE, go 449
+
+726: go (OUVRIER)697, (IMPULSION>=4)765, (EDEELWEISS)791, 768
+
+727: +BROCHE DOREE, go (FONCTIONNAIRE)734, (IMPULSION>=4)743, (CAPE INVISIBILITE)93, 766
+
+728: go 371
+
+729: go 792
+
+730: +SUCCESS "BOOM! Headshot!", go 333
+
+731: +SUCCESS "Enfermés ici avec moi", go 64
+
+732: go 827
+
+733: go 64
+
+734: go 815
+
+735: go 704
+
+736: go 235
+
+737: +EPEE EN ACIER ARKADIE, go 759, 785
+
+738: go (MASQUE DISSIDENT)872, 712, 760, 797
+
+739: -TABLEAU ANCIEN, +1 CHANCE MAX, +1 RICHESSE, go 420
+
+740: go 784
+
+741: go 870
+
+742: +SUCCESS "Expension du domaine", go 333
+
+743: +LANCE MEDIOCRE, go 815
+
+744: go 333
+
+745: go 774
+
+746: go 754, 875
+
+747: +SUCCESS "Ca plane pour moi", go 64
+
+748: go (BELLICISTE)751, (IMPULSION>=4)823, (LONGUE-VUE)857, 796
+
+749: +BOMBES AVEUGLANTES, go 759, 785
+
+750: go 720
+
+751: +SUCCESS "Passage de permis", go 829
+
+752: go 333
+
+753: go 692
+
+754: +SUCCESS "La meilleure timeline", go 875
+
+755: go 793, 854, 835
+
+756: go 814
+
+757: go 778, 689
+
+758: go 371
+
+759: go 747, (PLUME DE SIMURGH)733, 794
+
+760: +BOUCLIER EN DIAMANT, go 592, 755
+
+761: go 656
+
+762: go 235
+
+763: go 840
+
+764: go 783
+
+765: go 732
+
+766: go 815
+
+767: go 729
+
+768: go 732
+
+769: +SUCCESS "Flambee aux champignons", go 732
+
+770: go 779
+
+771: go 333
+
+772: go 825
+
+773: go 795
+
+774: go 729
+
+775: go (IMPULSION>=1)637, 822
+
+776: go 333
+
+777: go 767
+
+778: go 689, 730
+
+779: go (IMPULSION>=2)406, (IMPULSION>=6 & SIFFLET ETRANGE)488, (ACTE DE PROPRIETE)742, 789
+
+780: go 604
+
+781: +2 RICHESSE, go 420
+
+782: go 64
+
+783: go 842
+
+784: go 814
+
+785: go (PLUME DE SIMURGH)769, 726
+
+786: +SUCCESS "Manisfestement pacifiste", go 235
+
+787: +SUCCESS "Thérapie cabardienne", go 877
+
+788: go 64
+
+789: go 696
+
+790: +1 CHANCE MAX, go 420, (BRIQUET IMPOSSIBLE)781
+
+791: +SUCCESS "Paradis perdu", go 732
+
+792: go (IMPULSION>=10)349, 659
+
+793: +SUCCESS "Prométhée irresponsable", go 371
+
+794: go (BELLICISTE)731, (LUCIDITE>=4)788, 828
+
+795: go 842
+
+796: go 829
+
+797: +PIECE ENSORCELEE, go 592, 755
+
+798: go 333
+
+799: go 750
+
+800: go 821, 837, 848, 863
+
+
+
+
+

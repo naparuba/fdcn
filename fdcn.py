@@ -6,6 +6,7 @@ import sys
 import codecs
 import os
 import argparse
+from collections import deque
 
 # NOTE: I don't want a real package name for just a couple of files, so keep like this currently
 my_dir = os.path.dirname(__file__)
@@ -15,7 +16,7 @@ from graph import Graph
 from endings import ENDINGS
 
 parser = argparse.ArgumentParser(description="Compile all .json for the UI app")
-parser.add_argument("--book", type=int, choices=[1, 2], help="Number of the book to compile")
+parser.add_argument("--book", type=int, choices=[1, 2, 3], help="Number of the book to compile")
 
 args = parser.parse_args()
 
@@ -39,6 +40,18 @@ def load_json_file(file_name):
 book_data = load_json_file(f'fdcn-{book_number}.json')
 
 node_created = set()
+
+def draw_edges(graph, edges):
+    # An edge is (start, end) or (start, end, attributes) for a styled one (secret jump)
+    for e in edges:
+        graph.edge(e[0], e[1], **(e[2] if len(e) > 2 else {}))
+
+
+# Optional: node ids NOT drawn in the graph (drawing only, data is untouched)
+hidden_file = f'fdcn-{book_number}.graph_hidden.json'
+hidden_nodes = set(load_json_file(hidden_file)) if os.path.exists(hidden_file) else set()
+if hidden_nodes:
+    print('Hidden in the drawing: %s' % sorted(hidden_nodes))
 
 node_graph = Graph()
 for node_id_str in book_data.keys():
@@ -129,16 +142,48 @@ for idx, n in book_data.items():
 # [1, "Plante-Citrouille"]
 arcs = load_json_file(f'fdcn-{book_number}.arcs.json')
 
+# Arcs can also be computed with {"mode": "nearest", "arcs": [[1, "name"], [100, "name"], ...]}:
+# every chapter belongs to the arc whose start is the closest along the links (breadth first
+# from all the starts at once). Needed when the book loops back a lot (book 3): the default
+# propagation below lets the last arc swallow almost everything.
+#   optional: "clusters": false  => no grey frames, only one color per arc
+#   optional: a 3rd value per arc = its color:  [1, "name", "#c8e6c9"]
+arcs_nearest = isinstance(arcs, dict) and arcs.get('mode') == 'nearest'
+arcs_clusters = True
+arc_colors = {}
+if arcs_nearest:
+    arcs_clusters = arcs.get('clusters', True)
+    arc_colors = {a[1]: a[2] for a in arcs['arcs'] if len(a) > 2}
+    arcs = [[a[0], a[1]] for a in arcs['arcs']]
+
 # (arc_name, Start of sub, name, stops)
 sub_arcs = load_json_file(f'fdcn-{book_number}.sub_arcs.json')
 
 manual_sub_arcs = load_json_file(f'fdcn-{book_number}.manual_sub_arcs.json')
 
 # Tag nodes with arc, from lower to higher so we don't rewrite them
-for arc_start, arc_name in reversed(arcs):
-    print('Tagging arc: %s (%s)' % (arc_start, arc_name))
-    arc_node_start = node_graph.get_node(arc_start)  # type: Node
-    arc_node_start.set_in_arc(arc_name)
+if arcs_nearest:
+    _tagged = set()
+    _queue = deque()
+    for arc_start, arc_name in sorted(arcs):  # on a tie, the earliest arc wins
+        print('Tagging arc: %s (%s)' % (arc_start, arc_name))
+        _start_node = node_graph.get_node(arc_start)
+        if arc_start not in _tagged:
+            _start_node.set_arc_direct(arc_name)
+            _tagged.add(arc_start)
+            _queue.append(_start_node)
+    while _queue:
+        _node = _queue.popleft()
+        for _son in _node.get_sons():
+            if _son.get_id() not in _tagged:
+                _son.set_arc_direct(_node.get_arc())
+                _tagged.add(_son.get_id())
+                _queue.append(_son)
+else:
+    for arc_start, arc_name in reversed(arcs):
+        print('Tagging arc: %s (%s)' % (arc_start, arc_name))
+        arc_node_start = node_graph.get_node(arc_start)  # type: Node
+        arc_node_start.set_in_arc(arc_name)
 
 for arc_name, sub_arc_start, sub_arc_name, sub_arc_stops in sub_arcs:
     node_start = node_graph.get_node(sub_arc_start)
@@ -154,17 +199,41 @@ arc_graphs = {None: []}
 for _, arc_name in arcs:
     arc_graphs[arc_name] = []
 
+# Chapters NOT reachable from chapter 1 (drawn in yellow)
+_reachable = {1}
+_stack = [1]
+while _stack:
+    for _son in node_graph.get_node(_stack.pop()).get_sons():
+        if _son.get_id() not in _reachable:
+            _reachable.add(_son.get_id())
+            _stack.append(_son.get_id())
+unreachable_nodes = {int(k) for k in book_data.keys()} - _reachable
+print('Not reachable from chapter 1: %d' % len(unreachable_nodes))
+
 print('Adding nodes to display graph:')
-node_graph.add_nodes_to_display_graph(display_graph)
+node_graph.add_nodes_to_display_graph(display_graph, hidden_nodes, unreachable_nodes, arc_colors,
+                                      {start for start, _ in arcs})
 print('Adding edges to display graph:')
-node_graph.add_edges_to_display_graph(arc_graphs)
+node_graph.add_edges_to_display_graph(arc_graphs, hidden_nodes)
+if not arcs_clusters:  # no frames: every edge goes in the main graph
+    arc_graphs = {None: [e for edges in arc_graphs.values() for e in edges]}
+
+if arc_colors:  # legend at the top of the picture
+    import html
+    cells = ''.join('<TD BGCOLOR="%s">%s</TD>' % (color, html.escape(name)) for name, color in arc_colors.items())
+    marks = ('<TD BGCOLOR="lightgoldenrod1">pas atteignable depuis le 1</TD>'
+             '<TD BGCOLOR="mistyrose">mene a un chapitre cache</TD>'
+             '<TD BGCOLOR="lightblue">atteint depuis un chapitre cache</TD>'
+             '<TD>fleche orange pointillee = saut secret</TD>')
+    display_graph.attr(label='<<TABLE BORDER="0" CELLBORDER="1" CELLSPACING="0" CELLPADDING="12">'
+                             '<TR>%s</TR><TR>%s</TR></TABLE>>' % (cells, marks),
+                       labelloc='t', fontsize='40')
 
 # Now put nodes into graphs and clusters
 for arc_name, arc_edges in arc_graphs.items():
     print('Arc %s => size=%s' % (arc_name, len(arc_edges)))
     if arc_name is None:
-        for start, end in arc_edges:
-            display_graph.edge(start, end)
+        draw_edges(display_graph, arc_edges)
     else:
         with display_graph.subgraph(name='cluster_%s' % arc_name) as cluster:
             sub_arc_edges = {}
@@ -192,13 +261,13 @@ for arc_name, arc_edges in arc_graphs.items():
                     print('SUB-ARC=[%s] nb jumps:%s' % (sub_arc_name, len(sub_arc_edges)))
                     # Now put the edges in the global cluster, not in a sub arcs
                     sub_cluster.attr(style='filled', color='grey')
-                    sub_cluster.edges(sub_arc_edges)
+                    draw_edges(sub_cluster, sub_arc_edges)
                     sub_cluster.attr(label=sub_arc_name)
                     sub_cluster.attr(fontsize="72", fontcolor='red')
             
             # Now put the edges in the global cluster, not in a sub arcs
             cluster.attr(style='filled', color='lightgrey')
-            cluster.edges(arc_edges)
+            draw_edges(cluster, arc_edges)
             cluster.attr(label=arc_name)
             cluster.attr(fontsize="72", fontcolor='red')
 
@@ -399,10 +468,14 @@ for (k, v) in to_dump_as_json.items():
         f.write(json.dumps(v, indent=4, ensure_ascii=False, sort_keys=True))
         print(' - %s = OK' % k)
 
-# Windows need too many deps, like dot.exe, so skip on it
+# Windows need too many deps, like dot.exe, so skip on it (but keep the .gv
+# source so it can be rendered elsewhere with: dot -Tpng graph/fdcn_full-N -o ...)
 if os.name != 'nt':
     print('Rendering')
     # display_graph.render(filename='hello.gv', view=True)#format='json')
     display_graph.render()  # format='png')
+else:
+    print('Windows: no rendering, writing the .gv source only')
+    display_graph.save()
 
 print('Finish')

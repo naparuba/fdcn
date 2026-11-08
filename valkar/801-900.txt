@@ -1,0 +1,160 @@
+
+801: +SUCCESS "Mémoire musculaire", go 859
+
+802: go 671
+
+803: +SUCCESS "Le petit prince", FIN
+
+804: +SUCCESS "Souvenirs en trop", go 859
+
+805: go 853
+
+806: go 800
+
+807: +SUCCESS "Devoir de mémoire", go 859
+
+808: go 833
+
+809: +SUCCESS "Souvenirs d'avenir", go 859
+
+810: go 780
+
+811: go 851, 839
+
+812: go 868
+
+813: go 868
+
+814: go 864
+
+815: go 838
+
+816: go 830
+
+817: go 746, 869
+
+818: go 309
+
+819: go 853
+
+820: go 802
+
+821: go 818
+
+822: go (ELUSIF|SIFFLET ETRANGE|LUCIDITE>=6) 584, 753
+
+823: go 829
+
+824: go 122
+
+825: go 671
+
+826: go 853
+
+827: go 365
+
+828: go 798, 782
+
+829: go 461
+
+830: go 816, 852, 841, 861
+
+831: go 868
+
+832: go 868
+
+833: go 850
+
+834: go 868
+
+835: go (FONCTIONNAIRE)375,(LUCIDITE>=4)758, 728
+
+836: go 830
+
+837: go 818
+
+838: go 757
+
+839: go 708
+
+840: go 833
+
+841: go 853
+
+842: go 292
+
+843: go (TALISMAN TRIBAL)35, 322, 714
+
+844: go 853
+
+845: go 425
+
+846: go 868
+
+847: go 868
+
+848: go 818
+
+849: go 53
+
+850: go 858
+
+851: go 822
+
+852: go 830
+
+853: go 866, 805, 865, 826, 844, 819, 874
+
+854: go 371
+
+855: go (BELLICISTE)801, (OUVRIER)809, (FONCTIONNAIRE)807, (ELUSIF)804
+
+856: go 714
+
+857: go 829
+
+858: go 871
+
+859: go 594, 876
+
+860: go 808
+
+861: go 830
+
+862: go 746, 869
+
+863: go 818
+
+864: go (IMPULSION>=8)136, 824
+
+865: go 853
+
+866: go 868
+
+867: go 234
+
+868: go 831, 847, 813, 834, 846, 812, 832, 806
+
+869: go 875
+
+870: go 604
+
+871: go 873
+
+872: +ACTE DE PROPRIETE, go 712, 760, 797
+
+873: go 855
+
+874: go 853
+
+875: go 709, (RICHESSE>=4)717, (RICHESSE>=8)787
+
+876: go 817, 862
+
+877: go 878
+
+878: FIN
+
+
+
+

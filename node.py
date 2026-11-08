@@ -290,17 +290,32 @@ class Node(object):
         return self._sons
     
     
-    def add_node_to_display_graph(self, display_graph):
+    def add_node_to_display_graph(self, display_graph, to_hidden=False, from_hidden=False, unreachable=False,
+                                  arc_fill=None, big=False):
         graph = display_graph
         
         border_color = self._get_border_color()
         penwidth = self._get_penwidth()
         
+        # Drawing only: a node that links to a hidden node is pink, one that is
+        # reached from a hidden node is light blue (the hidden node itself is not drawn).
+        node_style, node_fill = 'solid', 'white'
+        if arc_fill:  # one color per arc (when the book asks for it)
+            node_style, node_fill = 'filled', arc_fill
+        if to_hidden:
+            node_style, node_fill = 'filled', 'mistyrose'
+        elif from_hidden:
+            node_style, node_fill = 'filled', 'lightblue'
+        # Arc start nodes are drawn twice as big, to spot them easily
+        size = {'width': '1.5', 'height': '1.0', 'fontsize': '28'} if big else {}
+        if unreachable:  # not reachable from the first chapter: always visible, wins over the others
+            node_style, node_fill = 'filled', 'lightgoldenrod1'
+        
         if self._ending is not None:
             # First myself
             node_id_string = '%s' % self._id
-            graph.node(node_id_string, shape='ellipse', style='solid', color=border_color, penwidth=penwidth,
-                       fillcolor='white', label=self.get_label())
+            graph.node(node_id_string, shape='ellipse', style=node_style, color=border_color, penwidth=penwidth,
+                       fillcolor=node_fill, label=self.get_label(), **size)
             
             # And also add the visual ending node
             node_id_string = "end-from-%s" % self._id
@@ -308,8 +323,8 @@ class Node(object):
                        fillcolor=self._get_ending_color(), label='End (%s)' % self._id)
         else:  # classic node
             node_id_string = '%s' % self._id
-            graph.node(node_id_string, color=border_color, penwidth=penwidth, shape='ellipse', style='solid',
-                       fillcolor='white', label=self.get_label())
+            graph.node(node_id_string, color=border_color, penwidth=penwidth, shape='ellipse', style=node_style,
+                       fillcolor=node_fill, label=self.get_label(), **size)
     
     
     def _get_graph_from_nodes(self, other, arc_graphs):
@@ -323,7 +338,7 @@ class Node(object):
         return arc_graphs[None]
     
     
-    def add_edges_to_display_graph(self, arc_graphs):
+    def add_edges_to_display_graph(self, arc_graphs, hidden=()):
         node_string = '%s' % self._id
         
         if self._ending is not None:
@@ -333,9 +348,18 @@ class Node(object):
             _graph.append((node_string, end_node_string))
         else:  # classic node
             for son in self._sons:
+                if son.get_id() in hidden:  # drawing only
+                    continue
                 son_string = '%s' % son.get_id()
                 _graph = self._get_graph_from_nodes(son, arc_graphs)
-                _graph.append((node_string, son_string))
+                if son.get_id() in self._secret_jumps:  # secret jump: dashed orange edge
+                    _graph.append((node_string, son_string, {'style': 'dashed', 'color': 'darkorange'}))
+                else:
+                    _graph.append((node_string, son_string))
+    
+    
+    def set_arc_direct(self, arc_name):
+        self._arc = arc_name
     
     
     def set_in_arc(self, arc_name):

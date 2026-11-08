@@ -1,0 +1,415 @@
+{
+  "ACTE DE PROPRIETE": {
+    "category": "OBJET"
+  },
+  "AMULETTE TRIBALE": {
+    "category": "OBJET"
+  },
+  "ARC": {
+    "category": "ARME",
+    "stats": {
+      "hab": 3,
+      "adr": 1,
+      "crit": 5
+    }
+  },
+  "ARC PHASMIQUE": {
+    "category": "OBJET",
+    "stats": {
+      "hab": 5,
+      "adr": 1,
+      "crit": 7
+    }
+  },
+  "ARKADIE": {
+    "category": "OBJET"
+  },
+  "ARMURE COMPOSITE": {
+    "category": "OBJET",
+    "stats": {
+      "arm": 1,
+      "end": 2
+    }
+  },
+  "BECHE": {
+    "category": "OUTIL",
+    "stats": {
+      "hab": 2,
+      "end": 2
+    }
+  },
+  "BELLICISTE": {
+    "category": "EVENEMENT"
+  },
+  "BOMBES AVEUGLANTES": {
+    "category": "OBJET"
+  },
+  "BOUCLIER": {
+    "category": "EQUIPEMENT",
+    "stats": {
+      "end": 2,
+      "arm": 1,
+      "adr": -1
+    }
+  },
+  "BOUCLIER EN DIAMANT": {
+    "category": "OBJET",
+    "stats": {
+      "arm": 4
+    }
+  },
+  "BRASSARDS": {
+    "category": "OBJET",
+    "stats": {
+      "arm": 1,
+      "hab": 1
+    }
+  },
+  "BRIQUET IMPOSSIBLE": {
+    "category": "OBJET"
+  },
+  "BROCHE DOREE": {
+    "category": "OBJET"
+  },
+  "CANNE": {
+    "category": "OBJET"
+  },
+  "CAPE INVISIBILITE": {
+    "category": "OBJET"
+  },
+  "CASSEROLE ORNEE": {
+    "category": "EQUIPEMENT",
+    "stats": {
+      "arm": 1,
+      "richesse": 1,
+      "crit": 2,
+      "pv_max": 2
+    }
+  },
+  "CENTAURESSE": {
+    "category": "OBJET"
+  },
+  "CHAINE METALLIQUE": {
+    "category": "OUTIL",
+    "stats": {
+      "adr": 1,
+      "arm": 1
+    }
+  },
+  "DAGUE A ROUELLES": {
+    "category": "OUTIL",
+    "stats": {
+      "crit": 8
+    }
+  },
+  "DEBROUILLARD": {
+    "category": "BILLY",
+    "stats": {
+      "adr": 2,
+      "end": -1
+    }
+  },
+  "ECUSSON ECUREUIL": {
+    "category": "OBJET"
+  },
+  "EDELWEISS": {
+    "category": "OBJET"
+  },
+  "ELUSIF": {
+    "category": "EVENEMENT"
+  },
+  "EPEE BATARDE 1 MAIN": {
+    "category": "ARME",
+    "stats": {
+      "hab": 3,
+      "end": 1
+    }
+  },
+  "EPEE BATARDE 2 MAINS": {
+    "category": "ARME",
+    "stats": {
+      "hab": 5,
+      "end": 1
+    }
+  },
+  "EPEE EN ACIER ARKADIE": {
+    "category": "OBJET",
+    "stats": {
+      "hab": 6,
+      "adr": 1,
+      "end": 1
+    }
+  },
+  "ESSENCE DE GLUCOSIUM": {
+    "category": "OBJET"
+  },
+  "FAVEUR DE SERVILLE": {
+    "category": "OBJET"
+  },
+  "FLECHES EN ACIER ARKADIE": {
+    "category": "OBJET",
+    "stats": {
+      "deg": 3
+    }
+  },
+  "FLEURET": {
+    "category": "OBJET"
+  },
+  "FLUTE RIGOLOTE": {
+    "category": "OBJET"
+  },
+  "FONCTIONNAIRE": {
+    "category": "EVENEMENT"
+  },
+  "GRAPPE D'AMETHYSTES": {
+    "category": "OBJET"
+  },
+  "GUERRIER": {
+    "category": "BILLY",
+    "stats": {
+      "hab": 2,
+      "deg": 1,
+      "cha": -1
+    }
+  },
+  "GUIDE TOURISTIQUE": {
+    "category": "EQUIPEMENT",
+    "stats": {
+      "cha": 3
+    }
+  },
+  "HERBE DES FEES": {
+    "category": "OBJET"
+  },
+  "HUILLE UNIVERSELLE": {
+    "category": "OUTIL",
+    "stats": {
+      "end": 2,
+      "cha": 3
+    }
+  },
+  "IMPULSION>=1": {
+    "category": "OBJET"
+  },
+  "IMPULSION>=10": {
+    "category": "OBJET"
+  },
+  "IMPULSION>=2": {
+    "category": "OBJET"
+  },
+  "IMPULSION>=3": {
+    "category": "OBJET"
+  },
+  "IMPULSION>=4": {
+    "category": "OBJET"
+  },
+  "IMPULSION>=6": {
+    "category": "OBJET"
+  },
+  "IMPULSION>=8": {
+    "category": "OBJET"
+  },
+  "KIT DE CALLIGRAPHIE": {
+    "category": "EQUIPEMENT",
+    "stats": {
+      "adr": 1,
+      "cha": 3
+    }
+  },
+  "LAME CLE A MOLETTE": {
+    "category": "OBJET",
+    "stats": {
+      "hab": 3,
+      "end": 1,
+      "deg": 2
+    }
+  },
+  "LANCE": {
+    "category": "OBJET"
+  },
+  "LANCE DE JOUTE": {
+    "category": "ARME",
+    "stats": {
+      "hab": 3,
+      "crit": 3
+    }
+  },
+  "LANCE MEDIOCRE": {
+    "category": "OBJET",
+    "stats": {
+      "hab": 2,
+      "crit": 1
+    }
+  },
+  "LETTRE DE RECOMMANDATION": {
+    "category": "OBJET"
+  },
+  "LONGUE-VUE": {
+    "category": "OBJET"
+  },
+  "LUCIDITE>=2": {
+    "category": "OBJET"
+  },
+  "LUCIDITE>=3": {
+    "category": "OBJET"
+  },
+  "LUCIDITE>=4": {
+    "category": "OBJET"
+  },
+  "LUCIDITE>=5": {
+    "category": "OBJET"
+  },
+  "LUCIDITE>=6": {
+    "category": "OBJET"
+  },
+  "LUCIDITE>=7": {
+    "category": "OBJET"
+  },
+  "LUCIDITE>=8": {
+    "category": "OBJET"
+  },
+  "MARTEAU": {
+    "category": "OBJET"
+  },
+  "MASQUE DISSIDENT": {
+    "category": "OBJET"
+  },
+  "MEDAILLON DE CERF": {
+    "category": "OBJET"
+  },
+  "OR DE FARFADET": {
+    "category": "OBJET"
+  },
+  "OUVRIER": {
+    "category": "EVENEMENT"
+  },
+  "PAIRE DE CHAUSSETTES": {
+    "category": "OBJET"
+  },
+  "PAYSAN": {
+    "category": "BILLY",
+    "stats": {
+      "end": 2,
+      "adr": -1
+    }
+  },
+  "PEAUFINAGE DE VOTRE ARME": {
+    "category": "OBJET",
+    "stats": {
+      "deg": 1,
+      "crit": 2
+    }
+  },
+  "PETIT MARTEAU": {
+    "category": "ARME",
+    "stats": {
+      "hab": 1,
+      "deg": 1,
+      "adr": 1
+    }
+  },
+  "PIECE ENSORCELEE": {
+    "category": "OBJET"
+  },
+  "PLAQUES MEMORIELLES": {
+    "category": "OBJET"
+  },
+  "PLUME COLOREE": {
+    "category": "OBJET"
+  },
+  "PLUME DE SIMURGH": {
+    "category": "OBJET"
+  },
+  "POMME OR": {
+    "category": "OBJET"
+  },
+  "PORTE-CLEF": {
+    "category": "OBJET"
+  },
+  "PORTRAIT ANCIEN": {
+    "category": "OBJET"
+  },
+  "POTION DE DISCORDANCE ETHNIQUE": {
+    "category": "OBJET"
+  },
+  "POUDRE DE DEINTEGRATION": {
+    "category": "OBJET"
+  },
+  "POUSSIERE DE DIAMANT": {
+    "category": "OBJET"
+  },
+  "PROTEGE-GENOUX": {
+    "category": "OBJET",
+    "stats": {
+      "arm": 1,
+      "end": 1
+    }
+  },
+  "PRUDENT": {
+    "category": "BILLY",
+    "stats": {
+      "hab": -1,
+      "cha": 2
+    }
+  },
+  "RAPIERE-ARBALETE": {
+    "category": "OBJET",
+    "stats": {
+      "hab": 4,
+      "adr": 1,
+      "deg": 1
+    }
+  },
+  "RAPPORT DE STAGE": {
+    "category": "OBJET"
+  },
+  "RAT BEAUFORT": {
+    "category": "OBJET"
+  },
+  "REGIME RICHE EN PRETEINES": {
+    "category": "OBJET",
+    "stats": {
+      "hab": 2,
+      "end": 2
+    }
+  },
+  "RICHESSE>=4": {
+    "category": "OBJET"
+  },
+  "RICHESSE>=8": {
+    "category": "OBJET"
+  },
+  "SIFFLET ETRANGE": {
+    "category": "OBJET"
+  },
+  "SOLIA AIDE": {
+    "category": "OBJET"
+  },
+  "SOLIA PERDUE": {
+    "category": "OBJET"
+  },
+  "SOLQUARDIE": {
+    "category": "OBJET"
+  },
+  "SOUVENIR PRECIEUX": {
+    "category": "OBJET"
+  },
+  "TABLEAU DE TRIANGLE VOLANT": {
+    "category": "OBJET"
+  },
+  "TALISMAN TRIBAL": {
+    "category": "OBJET"
+  },
+  "TROPHEE DE PHASME": {
+    "category": "OBJET"
+  },
+  "TROUSSEAU DE CLES ASYMETRIQUES": {
+    "category": "OBJET"
+  },
+  "VALOISIE": {
+    "category": "OBJET"
+  },
+  "VICTIMUS": {
+    "category": "OBJET"
+  }
+}

@@ -1,0 +1,228 @@
+
+1: go 12
+
+2: +EDELWEISS, CHANCE_MAX+2, go 225
+
+3: go 30
+
+4: + 1 HABILETE, , +5 PV, go 94
+
+5: si ARME: + 2 CRITIQUES, go 3
+
+6: go 66
+
+7: PV MAX +2, go 3
+
+8: -1 ENDURANCE, +8 PV MAX, go 300
+
+9: +1 IMPULSION, +1 CHANCE, go 128, succes:"C'est culturel"
+
+10: + PLUME COLOREE, go 127
+
+11: +1 HABILETE, MOD: si PV<50% PV MAX => +1 POINT ADDRESSE, go 200
+
+12: go 42,21
+
+13: -3PV,go 468
+
+14: + 1 RICHESSE, go 3
+
+15: go 51, 145, 32, 103
+
+16: +1 HABILETE, go 142
+
+17: go 75, 19, 109, 103
+
+18: go 208
+
+19: go 17, 75, 109, 103
+
+20: go 181
+
+21: -1 CHANCE, +1 CHANCE MAX, go 26
+
+22: go 201
+
+23: go (BELLICISTE)114, 4
+
+24: go 496
+
+25: go 15, 51, 145, 103
+
+26:go 102, 92
+
+27: go 100
+
+28: +2 PV MAX, +1 CHANCE MAX, go 3
+
+29: go 216, (BOUCLIER)207,246
+
+30: go 88
+
+31: +1 CHANCE, go 33
+
+32: +2 PV, go 22
+
+33: go 108
+
+34: go (SOLIA_AIDE)36, (SOLIA_PERDUE)104
+
+35: go 328, 714
+
+36: go 52
+
+37: go 297
+
+38: go 208
+
+39: go 305
+
+40: +2 PV, go 77
+
+41: go 241, 342, 230
+
+42: -1PV, +1 PV MAX, go 26 
+
+43: go 52
+
+44: +ELUSIF, JET ADDRESSE: OK=67, BAD=76
+
+45: +1 LUCIDITE, go 476
+
+46: go 68, 96, 148, 103
+
+47: go (EPEE BATARDE 1 MAIN|EPEE BATARDE 2 MAINS|LANCE_JOUTE|CANNE|BECHE|BOUCLIER)151, 217
+
+48: go 63
+
+49: go 23,58
+
+50: go 138
+
+51: go 145, 15, 32, 103
+
+52: go 28,5,14,7
+
+53: go (CENTAURESSE)34, 43
+
+54: -GRAPPES AMETHISTHES, go 424
+
+55: go (ELUSIF)74, (OUVRIER)97, 78,70
+
+56: go 469
+
+57: go 389
+
+58: go (MEDAILLON_CERF)189,84
+
+59: go 142
+
+60: go (GUIDE_TOURISTIQUE)31, 33
+
+61: +1 IMPULSION, go 409
+
+62: go 37
+
+63: go 196
+
+64: go 634
+
+65: JET ADDRESSE: ok=go176, ko=61
+
+66: go 223
+
+67: +1 RICHESSE, go 53
+
+68: go 96, 148, 40, 103
+
+69: go 163
+
+70: +1 LUCIDITE, go 307
+
+71: go 17, 75, 19, 103
+
+72: +1 HABILETE, go 181
+
+73: go 215
+
+74: +1 LUCIDITE, go 70
+
+75: go 17,19,109,103
+
+76: go 53
+
+77: go 156
+
+78: (JET ADRESSE: ok=147,ko=214)|(JRET ENDURANCE: ok=157,ko=214)|(go (CASSEROLE ORNEE)179)|(go (PETIT MARTEAU)197)|go 167
+
+79: + SUCCESS "Demain c'était hier!", go 496
+
+80: go 469
+
+81: go 127
+
+82: go 304
+
+83: go (GUIDE TOURISTIQUE)278,13
+
+84:  si ARMURE==0 => ARMURE +1, sinon +1 ENDURANCE, + PAIRE CHAUSSETTE, + 3PV, go 94
+
+85: go 125
+
+86: +1 EGO, +1 CHANCE MAX, go 165, 264, 160
+
+87: go 464
+
+88: go 101
+
+89: go 57, 185, 308
+
+90: go 378
+
+91: go 37
+
+92: + SUCCESS "Oh non ça recommence!",go 60
+
+93: +SUCESS "Billy la racaille", go 815
+
+94: go 140
+
+95: go (CANNE)301, (OUVRIER)191, (BECHE)72, (PETIT MARTEAU)91, 18, 62
+
+96: go 68, 148, 40, 103
+
+97: go 78
+
+98: +1 IMPULSION, +RAT(BEAUFORT), go 225
+
+99: go 55
+
+100: go 71,25,46
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

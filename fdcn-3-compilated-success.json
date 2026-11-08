@@ -1,0 +1,308 @@
+[
+    {
+        "chapter": 9,
+        "id": "C-EST-CULTUREL",
+        "label": "C'est culturel",
+        "txt": ""
+    },
+    {
+        "chapter": 79,
+        "id": "DEMAIN-C-ETAIT-HIER",
+        "label": "Demain c'était hier!",
+        "txt": ""
+    },
+    {
+        "chapter": 92,
+        "id": "OH-NON-CA-RECOMMENCE",
+        "label": "Oh non ça recommence!",
+        "txt": ""
+    },
+    {
+        "chapter": 93,
+        "id": "BILLY-LA-RACAILLE",
+        "label": "Billy la racaille",
+        "txt": ""
+    },
+    {
+        "chapter": 136,
+        "id": "JE-PREND-LA-SUCCESSION-PERE",
+        "label": "Je prend la succession père",
+        "txt": ""
+    },
+    {
+        "chapter": 173,
+        "id": "PETER-PAN",
+        "label": "Peter pan",
+        "txt": ""
+    },
+    {
+        "chapter": 178,
+        "id": "LA-CHIMIE-AMUSANTE",
+        "label": "La chimie amusante",
+        "txt": ""
+    },
+    {
+        "chapter": 184,
+        "id": "YO-HO-VIVE-LA-PIRATERIE",
+        "label": "Yo-ho, vive la piraterie!",
+        "txt": ""
+    },
+    {
+        "chapter": 197,
+        "id": "NOUVEAU-RECORD",
+        "label": "NOuveau record!",
+        "txt": ""
+    },
+    {
+        "chapter": 222,
+        "id": "RAM-INSUFFISANTE",
+        "label": "Ram insuffisante",
+        "txt": ""
+    },
+    {
+        "chapter": 237,
+        "id": "DEUX-LONGUERS-D-AVANCE",
+        "label": "Deux longuers d'avance",
+        "txt": ""
+    },
+    {
+        "chapter": 276,
+        "id": "DOCTEUR-MABOULE",
+        "label": "Docteur maboule",
+        "txt": ""
+    },
+    {
+        "chapter": 288,
+        "id": "SKIP-SKIP-SKIP",
+        "label": "Skip, skip, skip",
+        "txt": ""
+    },
+    {
+        "chapter": 289,
+        "id": "MAXXIMUM-OVERDRIVE",
+        "label": "Maxximum overdrive",
+        "txt": ""
+    },
+    {
+        "chapter": 301,
+        "id": "L-INTENTION-QUI-COMPTE",
+        "label": "L'intention qui compte",
+        "txt": ""
+    },
+    {
+        "chapter": 323,
+        "id": "BOUH-CLIER",
+        "label": "Bouh-clier",
+        "txt": ""
+    },
+    {
+        "chapter": 328,
+        "id": "BILLY-OU-LA-VIE-SAUVAGE",
+        "label": "Billy ou la Vie sauvage",
+        "txt": ""
+    },
+    {
+        "chapter": 369,
+        "id": "IT-S-FREE-REAL-ESTATE",
+        "label": "It's free real estate",
+        "txt": ""
+    },
+    {
+        "chapter": 370,
+        "id": "GNOLOCAUSTE-NUCLEAIRE",
+        "label": "Gnolocauste Nucleaire",
+        "txt": ""
+    },
+    {
+        "chapter": 375,
+        "id": "RANDOM-BULLSHIT-GO",
+        "label": "Random bullshit go",
+        "txt": ""
+    },
+    {
+        "chapter": 425,
+        "id": "FONTE-DES-GLACES",
+        "label": "Fonte des glaces",
+        "txt": ""
+    },
+    {
+        "chapter": 441,
+        "id": "QUESTION-DE-TIMING",
+        "label": "Question de timing",
+        "txt": ""
+    },
+    {
+        "chapter": 459,
+        "id": "MISTER-FREEZE",
+        "label": "Mister Freeze",
+        "txt": ""
+    },
+    {
+        "chapter": 501,
+        "id": "PEDAGOGIE-TRADITIONAELLE",
+        "label": "Pédagogie traditionaelle!",
+        "txt": ""
+    },
+    {
+        "chapter": 504,
+        "id": "NOPE",
+        "label": "Nope",
+        "txt": ""
+    },
+    {
+        "chapter": 515,
+        "id": "NIER-NIER-ET-TOUJOURS-NIER",
+        "label": "Nier, nier et toujours nier",
+        "txt": ""
+    },
+    {
+        "chapter": 550,
+        "id": "THE-ART-OF-THE-DEAL",
+        "label": "The art of the Deal",
+        "txt": ""
+    },
+    {
+        "chapter": 570,
+        "id": "RULES-OF-NATURE",
+        "label": "RULES OF NATURE!!",
+        "txt": ""
+    },
+    {
+        "chapter": 598,
+        "id": "UNIVERSSAL-BUZZ",
+        "label": "Universsal Buzz",
+        "txt": ""
+    },
+    {
+        "chapter": 606,
+        "id": "REPOUSSER-L-INELUCTABLE",
+        "label": "Repousser l'inéluctable",
+        "txt": ""
+    },
+    {
+        "chapter": 619,
+        "id": "DE-L-AUTRE-COTE-DU-MIRROIR",
+        "label": "De l'autre côté du mirroir",
+        "txt": ""
+    },
+    {
+        "chapter": 643,
+        "id": "TOILE-DE-MAITRE",
+        "label": "Toile de maître",
+        "txt": ""
+    },
+    {
+        "chapter": 650,
+        "id": "POTION-DE-DETRITUS",
+        "label": "Potion de Detritus",
+        "txt": ""
+    },
+    {
+        "chapter": 708,
+        "id": "PAR-DELA-L-ARMURE",
+        "label": "Par-delà l'armure",
+        "txt": ""
+    },
+    {
+        "chapter": 723,
+        "id": "LA-DEUXIEME-EST-OFFERTE",
+        "label": "La deuxième est offerte ❤",
+        "txt": ""
+    },
+    {
+        "chapter": 730,
+        "id": "BOOM-HEADSHOT",
+        "label": "BOOM! Headshot!",
+        "txt": ""
+    },
+    {
+        "chapter": 731,
+        "id": "ENFERMES-ICI-AVEC-MOI",
+        "label": "Enfermés ici avec moi",
+        "txt": ""
+    },
+    {
+        "chapter": 742,
+        "id": "EXPENSION-DU-DOMAINE",
+        "label": "Expension du domaine",
+        "txt": ""
+    },
+    {
+        "chapter": 747,
+        "id": "CA-PLANE-POUR-MOI",
+        "label": "Ca plane pour moi",
+        "txt": ""
+    },
+    {
+        "chapter": 751,
+        "id": "PASSAGE-DE-PERMIS",
+        "label": "Passage de permis",
+        "txt": ""
+    },
+    {
+        "chapter": 754,
+        "id": "LA-MEILLEURE-TIMELINE",
+        "label": "La meilleure timeline",
+        "txt": ""
+    },
+    {
+        "chapter": 769,
+        "id": "FLAMBEE-AUX-CHAMPIGNONS",
+        "label": "Flambee aux champignons",
+        "txt": ""
+    },
+    {
+        "chapter": 786,
+        "id": "MANISFESTEMENT-PACIFISTE",
+        "label": "Manisfestement pacifiste",
+        "txt": ""
+    },
+    {
+        "chapter": 787,
+        "id": "THERAPIE-CABARDIENNE",
+        "label": "Thérapie cabardienne",
+        "txt": ""
+    },
+    {
+        "chapter": 791,
+        "id": "PARADIS-PERDU",
+        "label": "Paradis perdu",
+        "txt": ""
+    },
+    {
+        "chapter": 793,
+        "id": "PROMETHEE-IRRESPONSABLE",
+        "label": "Prométhée irresponsable",
+        "txt": ""
+    },
+    {
+        "chapter": 801,
+        "id": "MEMOIRE-MUSCULAIRE",
+        "label": "Mémoire musculaire",
+        "txt": ""
+    },
+    {
+        "chapter": 803,
+        "id": "LE-PETIT-PRINCE",
+        "label": "Le petit prince",
+        "txt": ""
+    },
+    {
+        "chapter": 804,
+        "id": "SOUVENIRS-EN-TROP",
+        "label": "Souvenirs en trop",
+        "txt": ""
+    },
+    {
+        "chapter": 807,
+        "id": "DEVOIR-DE-MEMOIRE",
+        "label": "Devoir de mémoire",
+        "txt": ""
+    },
+    {
+        "chapter": 809,
+        "id": "SOUVENIRS-D-AVENIR",
+        "label": "Souvenirs d'avenir",
+        "txt": ""
+    }
+]

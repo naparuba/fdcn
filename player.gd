@@ -77,6 +77,12 @@ var crit_chapters = 0
 var pv_max_bonus = 0
 var nb_infos = 0
 
+# Bonus de PV max / richesse portes par les OBJETS (ex: SEAU, CASSEROLE ORNEE).
+# Recalcules a chaque _recompute_stats() (remis a zero dans _reset_our_stats()),
+# contrairement a pv_max_bonus qui cumule les chapitres.
+var pv_max_items = 0
+var richesse_items = 0
+
 # Set by user for debug or cheat, save on change
 var end_user = 0
 var adr_user = 0
@@ -525,6 +531,8 @@ func _reset_our_stats():
 	self.deg_items = 0
 	self.arm_items = 0
 	self.crit_items = 0
+	self.pv_max_items = 0
+	self.richesse_items = 0
 	
 func _fully_reset_our_stats():
 	self._reset_our_stats()
@@ -692,6 +700,12 @@ func _recompute_stats():
 			elif k == 'crit':
 				self.crit += v
 				self.crit_items += v
+			elif k == 'pv_max':
+				self.pv_max_items += v
+			elif k == 'richesse':
+				# Pas (encore) de somme richesse chapitres + objets : on garde
+				# juste la part des objets, lisible via richesse_items.
+				self.richesse_items += v
 			else:
 				print('ERROR: STATS INCONNUE DANS OBJET: %s' % k)
 				
@@ -716,7 +730,7 @@ func _apply_all_chapters_stats():
 	self.arm += self.arm_chapters
 	self.crit += self.crit_chapters
 	# Now we can compute pv max based on end + pv_max_bonus
-	self.pv_max = self.end * 3 + self.pv_max_bonus
+	self.pv_max = self.end * 3 + self.pv_max_bonus + self.pv_max_items
 
 
 func _apply_user_stats():
@@ -731,7 +745,7 @@ func _apply_user_stats():
 	self.deg += self.deg_user
 	self.arm += self.arm_user
 	self.crit += self.crit_user
-	self.pv_max = self.end * 3 + self.pv_max_bonus + self.pv_max_bonus_user
+	self.pv_max = self.end * 3 + self.pv_max_bonus + self.pv_max_items + self.pv_max_bonus_user
 
 
 func get_all_matched_conditions():

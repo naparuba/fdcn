@@ -59,6 +59,26 @@ func test_item_stats_are_added_to_totals():
 	assert_eq(Player.get_crit(), crit_before + 4)
 
 
+func test_item_pv_max_bonus_is_added_to_pv_max():
+	# SEAU : stats {'end':1, 'arm':1, 'pv_max':2} -- le pv_max de l'objet etait
+	# ignore ("STATS INCONNUE DANS OBJET") avant d'etre gere par player.gd.
+	var pv_max_before = Player.pv_max
+	Player.add_item_from_options('SEAU')
+	assert_eq(Player.pv_max_items, 2)
+	assert_eq(Player.pv_max, pv_max_before + 3 * 1 + 2)  # +1 END (x3) et +2 PV MAX
+
+
+func test_item_pv_max_bonus_is_not_cumulated_by_recompute_and_reverts_on_remove():
+	var pv_max_before = Player.pv_max
+	Player.add_item_from_options('SEAU')
+	Player._recompute_stats()
+	Player._recompute_stats()
+	assert_eq(Player.pv_max_items, 2)
+	Player.remove_item_from_options('SEAU')
+	assert_eq(Player.pv_max_items, 0)
+	assert_eq(Player.pv_max, pv_max_before)
+
+
 func test_removing_item_reverts_its_stats():
 	var hab_before = Player.get_hab()
 	Player.add_item_from_options('ARC')
