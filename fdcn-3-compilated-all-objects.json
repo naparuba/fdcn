@@ -331,49 +331,49 @@
         }
     },
     "IMPULSION>=1": {
-        "category": "OBJET",
+        "category": "SEUIL",
         "in_chapters": [
             1
         ],
         "stats": {}
     },
     "IMPULSION>=10": {
-        "category": "OBJET",
+        "category": "SEUIL",
         "in_chapters": [
             1
         ],
         "stats": {}
     },
     "IMPULSION>=2": {
-        "category": "OBJET",
+        "category": "SEUIL",
         "in_chapters": [
             1
         ],
         "stats": {}
     },
     "IMPULSION>=3": {
-        "category": "OBJET",
+        "category": "SEUIL",
         "in_chapters": [
             1
         ],
         "stats": {}
     },
     "IMPULSION>=4": {
-        "category": "OBJET",
+        "category": "SEUIL",
         "in_chapters": [
             1
         ],
         "stats": {}
     },
     "IMPULSION>=6": {
-        "category": "OBJET",
+        "category": "SEUIL",
         "in_chapters": [
             1
         ],
         "stats": {}
     },
     "IMPULSION>=8": {
-        "category": "OBJET",
+        "category": "SEUIL",
         "in_chapters": [
             1
         ],
@@ -445,49 +445,49 @@
         "stats": {}
     },
     "LUCIDITE>=2": {
-        "category": "OBJET",
+        "category": "SEUIL",
         "in_chapters": [
             1
         ],
         "stats": {}
     },
     "LUCIDITE>=3": {
-        "category": "OBJET",
+        "category": "SEUIL",
         "in_chapters": [
             1
         ],
         "stats": {}
     },
     "LUCIDITE>=4": {
-        "category": "OBJET",
+        "category": "SEUIL",
         "in_chapters": [
             1
         ],
         "stats": {}
     },
     "LUCIDITE>=5": {
-        "category": "OBJET",
+        "category": "SEUIL",
         "in_chapters": [
             1
         ],
         "stats": {}
     },
     "LUCIDITE>=6": {
-        "category": "OBJET",
+        "category": "SEUIL",
         "in_chapters": [
             1
         ],
         "stats": {}
     },
     "LUCIDITE>=7": {
-        "category": "OBJET",
+        "category": "SEUIL",
         "in_chapters": [
             1
         ],
         "stats": {}
     },
     "LUCIDITE>=8": {
-        "category": "OBJET",
+        "category": "SEUIL",
         "in_chapters": [
             1
         ],
@@ -703,14 +703,14 @@
         }
     },
     "RICHESSE>=4": {
-        "category": "OBJET",
+        "category": "SEUIL",
         "in_chapters": [
             1
         ],
         "stats": {}
     },
     "RICHESSE>=8": {
-        "category": "OBJET",
+        "category": "SEUIL",
         "in_chapters": [
             1
         ],

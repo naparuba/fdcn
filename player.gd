@@ -77,6 +77,11 @@ var crit_chapters = 0
 var pv_max_bonus = 0
 var nb_infos = 0
 
+# Stats du livre 3 (La lance de Valkar), cumulees par les chapitres comme nb_infos.
+var lucidite = 0
+var impulsion = 0
+var ego = 0
+
 # Bonus de PV max / richesse portes par les OBJETS (ex: SEAU, CASSEROLE ORNEE).
 # Recalcules a chaque _recompute_stats() (remis a zero dans _reset_our_stats()),
 # contrairement a pv_max_bonus qui cumule les chapitres.
@@ -274,6 +279,14 @@ func guess_after_migration():
 		'prudent': ['SEAU', 'COTTE DE MAILLES','GUIDE TOURISTIQUE'],
 		'paysan': ['FLEAU A GRAINS', "FILET DE PECHE",'SAC DE GRAINS'],
 		'debrouillard': ['SABRE', 'COTTE DE MAILLES','SAC DE GRAINS'],
+		'pegu': [],
+		},
+		# Livre 3 : pas de table de migration (aucune ancienne sauvegarde).
+		3:{
+		'guerrier': [],
+		'prudent': [],
+		'paysan': [],
+		'debrouillard': [],
 		'pegu': [],
 		}
 	}
@@ -511,6 +524,28 @@ func _recompute_matched_conditions():
 	for item_name in self.possessed_items:
 		self.all_matched_conditions.append(item_name)
 	self.all_matched_conditions.append(AppParameters.get_billy_type().to_upper())
+	# Seuils de stats (livre 3) : un jeton "LUCIDITE>=6" des conditions de saut est
+	# vrai quand la stat du joueur atteint le seuil.
+	for token in BookData.get_all_objects().keys():
+		if !('>=' in token):
+			continue
+		var parts = token.split('>=')
+		var stat_value = self._get_threshold_stat_value(parts[0])
+		if stat_value != null and stat_value >= int(parts[1]):
+			self.all_matched_conditions.append(token)
+
+
+func _get_threshold_stat_value(stat_name):
+	match stat_name:
+		'LUCIDITE':
+			return self.lucidite
+		'IMPULSION':
+			return self.impulsion
+		'EGO':
+			return self.ego
+		'RICHESSE':
+			return self.richesse + self.richesse_items
+	return null
 
 
 # We reset stats on a raw billy one
@@ -547,6 +582,10 @@ func _fully_reset_our_stats():
 	self.crit_chapters = 0
 	self.pv_max_bonus = 0
 	self.nb_infos = 0
+	self.lucidite = 0
+	self.impulsion = 0
+	self.ego = 0
+	self.richesse = 0
 
 	# Et les ajustements manuels (fiche de personnage) -- un nouveau Billy ne
 	# doit jamais heriter des triches du precedent.
@@ -978,6 +1017,12 @@ func _apply_chapter_stat(k, v):
 		print('_apply_chapter_stat:: %s IS NOT CURRENTLY MANAGED :( )' % k)
 	elif k == 'richesse':
 		self.richesse += v
+	elif k == 'lucidite':
+		self.lucidite += v
+	elif k == 'impulsion':
+		self.impulsion += v
+	elif k == 'ego':
+		self.ego += v
 	else:
 		print('THE STATS KEY %s is NOT managed ' % k)
 

@@ -154,6 +154,7 @@ func _play_intro():
 	var intro_sound = {
 		1: 'intro-fdcn.mp3',
 		2: 'intro-cdsi.mp3',
+		3: 'intro-cdsi.mp3',  # pas d'intro dediee : repris du livre 2
 	}
 	var book_number = AppParameters.get_book_number()
 	Sounder.play(intro_sound.get(book_number))
@@ -172,6 +173,10 @@ func _play_node_sound():
 		},
 		# CDSI
 		2 : {
+			
+		},
+		# LLDV (La lance de Valkar)
+		3 : {
 			
 		},
 	}
@@ -346,6 +351,10 @@ func insert_all_lore():
 			
 		],
 	}
+	# Le livre 3 n'a pas (encore) son propre lore : repris du livre 2 (memes
+	# entrees, memes images et sons dans images|sounds/dieux/2).
+	refs[3] = refs[2]
+	var lore_book_number = 2 if book_number == 3 else book_number
 	var lst = refs.get(book_number)
 	
 	for _def in lst:
@@ -353,7 +362,7 @@ func insert_all_lore():
 		s.type_entry = _def['type']
 		s.entry_name = _def['name']
 		s.titre = _def['title']
-		s.book_number = book_number
+		s.book_number = lore_book_number
 		
 		all_lore.add_child(s)
 
@@ -404,12 +413,16 @@ func __set_sprite_to_not_grey(sprite):
 
 func _refresh_options_book_select_display():
 	var book_number = AppParameters.get_book_number()
-	if book_number == 1:
-		self.__set_sprite_to_not_grey($Options/BookSelect/BoolSelectFcdn/sprite)
-		self.__set_sprite_to_grey($Options/BookSelect/BoolSelectCdsi/sprite)
-	else:
-		self.__set_sprite_to_grey($Options/BookSelect/BoolSelectFcdn/sprite)
-		self.__set_sprite_to_not_grey($Options/BookSelect/BoolSelectCdsi/sprite)
+	var sprites = {
+		1: $Options/BookSelect/BoolSelectFcdn/sprite,
+		2: $Options/BookSelect/BoolSelectCdsi/sprite,
+		3: $Options/BookSelect/BoolSelectLldv/sprite,
+	}
+	for sprite_book_number in sprites:
+		if sprite_book_number == book_number:
+			self.__set_sprite_to_not_grey(sprites[sprite_book_number])
+		else:
+			self.__set_sprite_to_grey(sprites[sprite_book_number])
 	
 
 	
@@ -866,20 +879,20 @@ func _refresh_options_stats():
 
 func _switch_to_book_fcdn():
 	print('SWITCH TO FCDN BOOK')
-	var sprite1 = $Options/BookSelect/BoolSelectFcdn/sprite
-	sprite1.material.set_shader_parameter("grayscale", false)
-	var sprite2 = $Options/BookSelect/BoolSelectCdsi/sprite
-	sprite2.material.set_shader_parameter("grayscale", true)
 	self._change_book_number(1)
+	self._refresh_options_book_select_display()
 
 
 func _switch_to_book_cdsi():
 	print('SWITCH TO CDSI BOOK ')
-	var sprite1 = $Options/BookSelect/BoolSelectFcdn/sprite
-	sprite1.material.set_shader_parameter("grayscale", true)
-	var sprite2 = $Options/BookSelect/BoolSelectCdsi/sprite
-	sprite2.material.set_shader_parameter("grayscale", false)
 	self._change_book_number(2)
+	self._refresh_options_book_select_display()
+
+
+func _switch_to_book_lldv():
+	print('SWITCH TO LLDV BOOK ')
+	self._change_book_number(3)
+	self._refresh_options_book_select_display()
 
 
 func _on_morelore_button_pressed():

@@ -62,7 +62,9 @@ func get_category():
 
 # Depends on the item category, some won't be display: the BILLY one
 func is_ok_to_be_shown():
-	if self.get_category() == 'BILLY':
+	# BILLY : choisi via les options ; SEUIL : jeton de condition "LUCIDITE>=6"
+	# (livre 3), pas un vrai objet.
+	if self.get_category() in ['BILLY', 'SEUIL']:
 		return false
 	return true
 	

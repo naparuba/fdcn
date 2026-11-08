@@ -30,6 +30,7 @@ extends Node
 #   show_options  {}             bascule vers l'ecran Options
 #   set_billy_type {type}         AppParameters.set_billy_type -- pour des scenarios deterministes
 #   show_options_stats {}        bascule vers l'ecran Options, onglet "Stats"
+#   show_options_book_select {}  bascule vers l'ecran Options, onglet de choix du livre
 #   validate_options  {}         valide l'ecran Options (equivalent bouton "Valider" -- rend
 #                                 $ItemPopups visible, comme un vrai joueur qui a choisi son equipement)
 #   focus_page    {page}         bascule vers "main"|"chapitres"|"success"|"lore"|"about"
@@ -39,7 +40,7 @@ extends Node
 #                                 vrai pipeline d'input, pas un appel direct a Swiper
 #   toggle_spoils {on}            equivalent du bouton "Spoils" du bandeau superieur
 #   toggle_sound  {on}            equivalent du bouton "Son" du bandeau superieur
-#   change_book   {book_number}  bascule FDCN (1) <-> CDSI (2)
+#   change_book   {book_number}  bascule FDCN (1) / CDSI (2) / LLDV (3)
 #   open_new_billy_popup    {}   ouvre le popup de confirmation reset
 #   accept_new_billy_popup  {}   simule le clic "Accepter" du popup reset
 #   screenshot    {name}         capture d'ecran -> <out_dir>/<name>.png
@@ -195,6 +196,10 @@ func _run_next_step():
 	elif action == "show_options_stats":
 		_main.show_options()
 		_main._on_button_show_stats()
+		_run_next_step()
+	elif action == "show_options_book_select":
+		_main.show_options()
+		_main._options_show_book_select()
 		_run_next_step()
 	elif action == "validate_options":
 		_main._on_options_validate_button_pressed()

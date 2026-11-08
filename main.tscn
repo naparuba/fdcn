@@ -39,6 +39,7 @@
 [ext_resource type="Texture2D" path="res://images/book_select.png" id="37"]
 [ext_resource type="Texture2D" path="res://images/cdsi_book.jpg" id="38"]
 [ext_resource type="Texture2D" path="res://images/fdcn_book.jpg" id="39"]
+[ext_resource type="Texture2D" path="res://images/lldv_book.jpg" id="Lldv_book"]
 [ext_resource type="PackedScene" path="res://Combat.tscn" id="Combat_scene"]
 [ext_resource type="Script" path="res://StatsScreen.gd" id="StatsScreen_script"]
 
@@ -280,6 +281,10 @@ shader = ExtResource("28")
 shader_parameter/grayscale = false
 
 [sub_resource type="ShaderMaterial" id="38"]
+shader = ExtResource("28")
+shader_parameter/grayscale = false
+
+[sub_resource type="ShaderMaterial" id="Lldv_gray"]
 shader = ExtResource("28")
 shader_parameter/grayscale = false
 
@@ -2042,11 +2047,11 @@ mouse_filter = 1
 theme_override_styles/panel = SubResource("34")
 
 [node name="BoolSelectFcdn" type="Panel" parent="Options/BookSelect"]
-offset_left = 74.0
-offset_top = 89.0
-offset_right = 505.0
-offset_bottom = 630.0
-scale = Vector2(0.7, 0.7)
+offset_left = 120.0
+offset_top = 40.0
+offset_right = 551.0
+offset_bottom = 581.0
+scale = Vector2(0.5, 0.5)
 theme_override_styles/panel = SubResource("36")
 
 [node name="sprite" type="Sprite2D" parent="Options/BookSelect/BoolSelectFcdn"]
@@ -2062,11 +2067,11 @@ offset_right = 400.0
 offset_bottom = 560.0
 
 [node name="BoolSelectCdsi" type="Panel" parent="Options/BookSelect"]
-offset_left = 72.0
-offset_top = 508.0
-offset_right = 503.0
-offset_bottom = 1049.0
-scale = Vector2(0.7, 0.7)
+offset_left = 120.0
+offset_top = 340.0
+offset_right = 551.0
+offset_bottom = 881.0
+scale = Vector2(0.5, 0.5)
 theme_override_styles/panel = SubResource("36")
 
 [node name="sprite" type="Sprite2D" parent="Options/BookSelect/BoolSelectCdsi"]
@@ -2076,6 +2081,26 @@ scale = Vector2(0.742878, 0.856293)
 texture = ExtResource("38")
 
 [node name="button" type="TextureButton" parent="Options/BookSelect/BoolSelectCdsi"]
+offset_left = 33.0
+offset_top = 21.0
+offset_right = 406.0
+offset_bottom = 573.0
+
+[node name="BoolSelectLldv" type="Panel" parent="Options/BookSelect"]
+offset_left = 120.0
+offset_top = 640.0
+offset_right = 551.0
+offset_bottom = 1181.0
+scale = Vector2(0.5, 0.5)
+theme_override_styles/panel = SubResource("36")
+
+[node name="sprite" type="Sprite2D" parent="Options/BookSelect/BoolSelectLldv"]
+material = SubResource("Lldv_gray")
+position = Vector2(215.5, 270.5)
+scale = Vector2(0.4513, 0.4409)
+texture = ExtResource("Lldv_book")
+
+[node name="button" type="TextureButton" parent="Options/BookSelect/BoolSelectLldv"]
 offset_left = 33.0
 offset_top = 21.0
 offset_right = 406.0
@@ -2126,3 +2151,4 @@ theme_override_constants/separation = 6
 [connection signal="pressed" from="Options/Header/TabSelectBook/button" to="." method="_on_button_show_book_select"]
 [connection signal="pressed" from="Options/BookSelect/BoolSelectFcdn/button" to="." method="_switch_to_book_fcdn"]
 [connection signal="pressed" from="Options/BookSelect/BoolSelectCdsi/button" to="." method="_switch_to_book_cdsi"]
+[connection signal="pressed" from="Options/BookSelect/BoolSelectLldv/button" to="." method="_switch_to_book_lldv"]

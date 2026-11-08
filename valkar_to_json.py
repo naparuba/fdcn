@@ -326,7 +326,7 @@ def main():
     objs = {}
     for t in sorted(tokens | used_items | set(obj_defs)):
         if re.search(r'[<>=]', t):
-            objs[t] = {'category': 'OBJET'}  # seuil de stat, comme avant
+            objs[t] = {'category': 'SEUIL'}  # seuil de stat (ex: LUCIDITE>=6), pas un vrai objet
             continue
         if t in CLASSES:
             objs[t] = {'category': 'EVENEMENT'}

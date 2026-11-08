@@ -189,25 +189,25 @@
     }
   },
   "IMPULSION>=1": {
-    "category": "OBJET"
+    "category": "SEUIL"
   },
   "IMPULSION>=10": {
-    "category": "OBJET"
+    "category": "SEUIL"
   },
   "IMPULSION>=2": {
-    "category": "OBJET"
+    "category": "SEUIL"
   },
   "IMPULSION>=3": {
-    "category": "OBJET"
+    "category": "SEUIL"
   },
   "IMPULSION>=4": {
-    "category": "OBJET"
+    "category": "SEUIL"
   },
   "IMPULSION>=6": {
-    "category": "OBJET"
+    "category": "SEUIL"
   },
   "IMPULSION>=8": {
-    "category": "OBJET"
+    "category": "SEUIL"
   },
   "KIT DE CALLIGRAPHIE": {
     "category": "EQUIPEMENT",
@@ -248,25 +248,25 @@
     "category": "OBJET"
   },
   "LUCIDITE>=2": {
-    "category": "OBJET"
+    "category": "SEUIL"
   },
   "LUCIDITE>=3": {
-    "category": "OBJET"
+    "category": "SEUIL"
   },
   "LUCIDITE>=4": {
-    "category": "OBJET"
+    "category": "SEUIL"
   },
   "LUCIDITE>=5": {
-    "category": "OBJET"
+    "category": "SEUIL"
   },
   "LUCIDITE>=6": {
-    "category": "OBJET"
+    "category": "SEUIL"
   },
   "LUCIDITE>=7": {
-    "category": "OBJET"
+    "category": "SEUIL"
   },
   "LUCIDITE>=8": {
-    "category": "OBJET"
+    "category": "SEUIL"
   },
   "MARTEAU": {
     "category": "OBJET"
@@ -374,10 +374,10 @@
     }
   },
   "RICHESSE>=4": {
-    "category": "OBJET"
+    "category": "SEUIL"
   },
   "RICHESSE>=8": {
-    "category": "OBJET"
+    "category": "SEUIL"
   },
   "SIFFLET ETRANGE": {
     "category": "OBJET"

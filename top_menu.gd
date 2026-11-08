@@ -56,13 +56,10 @@ func set_book_context():
 	var book_panels = {
 		1: $BookSelection/BookDisplayFdcn,
 		2: $BookSelection/BookDisplayCdsi,
+		3: $BookSelection/BookDisplayLldv,
 	}
-	if book_number == 1:
-		book_panels[1].visible = true
-		book_panels[2].visible = false
-	else:
-		book_panels[1].visible = false
-		book_panels[2].visible = true
+	for panel_book_number in book_panels:
+		book_panels[panel_book_number].visible = (panel_book_number == book_number)
 
 
 func focus_to_main():

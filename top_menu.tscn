@@ -16,6 +16,8 @@
 [ext_resource type="Texture2D" path="res://images/fdcn_icon.png" id="14"]
 [ext_resource type="Texture2D" path="res://images/cdsi_logo.png" id="15"]
 [ext_resource type="Texture2D" path="res://images/cdsi_title.png" id="16"]
+[ext_resource type="Texture2D" path="res://images/lldv_logo.png" id="Lldv_logo"]
+[ext_resource type="Texture2D" path="res://images/lldv_title.jpg" id="Lldv_title"]
 [ext_resource type="Texture2D" path="res://images/fdcn_title.png" id="17"]
 
 [sub_resource type="StyleBoxFlat" id="1"]
@@ -132,6 +134,24 @@ texture = ExtResource("15")
 position = Vector2(70.7305, 18.3244)
 scale = Vector2(0.20995, 0.209877)
 texture = ExtResource("16")
+
+[node name="BookDisplayLldv" type="Panel" parent="BookSelection"]
+visible = false
+offset_left = -3.0
+offset_top = 1.0
+offset_right = 104.0
+offset_bottom = 38.0
+theme_override_styles/panel = SubResource("6")
+
+[node name="logo" type="Sprite2D" parent="BookSelection/BookDisplayLldv"]
+position = Vector2(15.7305, 18.3244)
+scale = Vector2(0.073, 0.073)
+texture = ExtResource("Lldv_logo")
+
+[node name="title" type="Sprite2D" parent="BookSelection/BookDisplayLldv"]
+position = Vector2(66.0, 18.3244)
+scale = Vector2(0.085, 0.085)
+texture = ExtResource("Lldv_title")
 
 [node name="Pages" type="Panel" parent="."]
 visible = false
