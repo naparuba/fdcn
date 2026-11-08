@@ -352,6 +352,12 @@
       "cha": 2
     }
   },
+  "PYROBARBARE-BOOSTE": {
+    "category": "OBJET",
+    "stats": {
+      "hab": 2
+    }
+  },
   "RAPIERE-ARBALETE": {
     "category": "OBJET",
     "stats": {

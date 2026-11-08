@@ -3397,7 +3397,10 @@
     ],
     "stats": {
       "chance": 2
-    }
+    },
+    "aquire": [
+      "PYROBARBARE-BOOSTE"
+    ]
   },
   "480": {
     "goto": [

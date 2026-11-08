@@ -667,6 +667,15 @@
             "hab": -1
         }
     },
+    "PYROBARBARE-BOOSTE": {
+        "category": "OBJET",
+        "in_chapters": [
+            479
+        ],
+        "stats": {
+            "hab": 2
+        }
+    },
     "RAPIERE-ARBALETE": {
         "category": "OBJET",
         "in_chapters": [

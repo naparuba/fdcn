@@ -14123,8 +14123,13 @@
         }
     },
     "479": {
+        "aquire": [
+            "PYROBARBARE-BOOSTE"
+        ],
         "computed": {
-            "aquire": [],
+            "aquire": [
+                "PYROBARBARE-BOOSTE"
+            ],
             "arc": null,
             "chapter": "La boucle",
             "combat": null,

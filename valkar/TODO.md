@@ -3,8 +3,6 @@
 Choses volontairement ignorees par `valkar_to_json.py` pour l'instant.
 
 ## A traiter plus tard
-- **479** : `+2 PYRO-BARBARE` -- stat qui n'existe nulle part ailleurs dans le livre,
-  a clarifier avec l'auteur (nouvelle stat ? erreur ?).
 - **Fins 803 et 878** : mises `good` par defaut, a revalider (good / bad).
 - **Objets de objets.txt** (BRASSARD, PROTEGE-GENOUX, PEAUFINAGE DE VOTRE ARME,
   FLECHES EN ACIER ARKADIE, REGIME RICHE EN PRETEINES, RAPIERE-ARBALETE) : "definis en 633",
