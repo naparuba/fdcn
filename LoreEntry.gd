@@ -9,6 +9,10 @@ extends Panel
 @export var book_number = 1
 
 
+# Hauteur d'affichage d'une image de lore (454 px de haut x echelle 0.390438 des images
+# historiques) : toute image, quelle que soit sa resolution, est ramenee a cette hauteur.
+const DISPLAY_HEIGHT = 177.26
+
 var is_playing = false
 
 # Called when the node enters the scene tree for the first time.
@@ -17,7 +21,7 @@ func _ready():
 
 	var dir = type_entry
 	var ext = 'png'  # default for billy
-	if type_entry == 'dieux':
+	if type_entry == 'dieux' or type_entry == 'pays':
 		ext = 'jpg'
 	var pth = 'res://images/%s/'%type_entry
 	if type_entry == 'dieux':
@@ -27,6 +31,8 @@ func _ready():
 
 	var texture = Utils.load_external_texture(pth, null)
 	$Sprite2D.texture = texture
+	if texture != null:
+		$Sprite2D.scale = Vector2.ONE * (DISPLAY_HEIGHT / texture.get_height())
 
 
 

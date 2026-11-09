@@ -154,7 +154,7 @@ func _play_intro():
 	var intro_sound = {
 		1: 'intro-fdcn.mp3',
 		2: 'intro-cdsi.mp3',
-		3: 'intro-cdsi.mp3',  # pas d'intro dediee : repris du livre 2
+		3: 'intro-lldv.mp3',
 	}
 	var book_number = AppParameters.get_book_number()
 	Sounder.play(intro_sound.get(book_number))
@@ -351,10 +351,26 @@ func insert_all_lore():
 			
 		],
 	}
-	# Le livre 3 n'a pas (encore) son propre lore : repris du livre 2 (memes
-	# entrees, memes images et sons dans images|sounds/dieux/2).
-	refs[3] = refs[2]
-	var lore_book_number = 2 if book_number == 3 else book_number
+	# Livre 3 : lore du livre 1 sans Virilus (memes images et sons, dans
+	# images|sounds/dieux/1), plus les classes de Billy et les pays.
+	var dieux_livre_1 = refs[1].filter(func(d): return d['type'] == 'dieux' and d['name'] != 'virilus')
+	refs[3] = [
+		{'type': 'billys', 'name': 'guerrier', 'title':'Billy Guerrier'},
+		{'type': 'billys', 'name': 'paysan', 'title':'Billy Paysan'},
+		{'type': 'billys', 'name': 'prudent', 'title':'Billy Prudent'},
+		{'type': 'billys', 'name': 'debrouillard', 'title':'Billy Debrouillard'},
+		{'type': 'billys', 'name': 'belliciste', 'title':'Billy Belliciste'},
+		{'type': 'billys', 'name': 'elusif', 'title':'Billy Elusif'},
+		{'type': 'billys', 'name': 'fonctionnaire', 'title':'Billy Fonctionnaire'},
+		{'type': 'billys', 'name': 'ouvrier', 'title':'Billy Ouvrier'},
+		# Pays
+		{'type': 'pays', 'name': 'arkadie', 'title':'Arkadie'},
+		{'type': 'pays', 'name': 'cabardie', 'title':'Cabardie'},
+		{'type': 'pays', 'name': 'solquardie', 'title':'Solquardie'},
+		{'type': 'pays', 'name': 'valkardie', 'title':'Valkardie'},
+		{'type': 'pays', 'name': 'valoisie', 'title':'Valoisie'},
+	] + dieux_livre_1
+	var lore_book_number = 1 if book_number == 3 else book_number
 	var lst = refs.get(book_number)
 	
 	for _def in lst:

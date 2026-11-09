@@ -28,6 +28,22 @@ func test_ready_loads_a_real_dieu_image_with_book_number_subdir():
 	assert_not_null(entry.get_node('Sprite2D').texture)
 
 
+func test_ready_loads_a_real_pays_image_without_book_subdir():
+	var entry = _make_entry('pays', 'arkadie', 'Arkadie', 3)
+	assert_not_null(entry.get_node('Sprite2D').texture)
+
+
+func test_image_of_any_resolution_is_displayed_at_the_same_height():
+	# valkardie.jpg est en 651x906 (double des autres) : sans mise a l'echelle
+	# elle s'afficherait deux fois plus grande que les images en 324x454.
+	var petite = _make_entry('dieux', 'atella', 'Atella', 1)
+	var grande = _make_entry('pays', 'valkardie', 'Valkardie', 3)
+	var h_petite = petite.get_node('Sprite2D').texture.get_height() * petite.get_node('Sprite2D').scale.y
+	var h_grande = grande.get_node('Sprite2D').texture.get_height() * grande.get_node('Sprite2D').scale.y
+	assert_almost_eq(h_petite, 177.26, 0.5)
+	assert_almost_eq(h_grande, 177.26, 0.5)
+
+
 func test_play_pressed_toggles_playing_state_when_sound_enabled():
 	Sounder.set_enabled(true)
 	var entry = _make_entry('billys', 'guerrier', 'Le Guerrier')
