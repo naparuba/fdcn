@@ -155,7 +155,7 @@
 
 78: (JET ADRESSE: ok=147,ko=214)|(JRET ENDURANCE: ok=157,ko=214)|(go (CASSEROLE ORNEE)179)|(go (PETIT MARTEAU)197)|go 167
 
-79: + SUCCESS "Demain c'était hier!", go 496
+79: + SUCCESS "Demain, c'était hier", go 496
 
 80: go 469
 
@@ -181,9 +181,9 @@
 
 91: go 37
 
-92: + SUCCESS "Oh non ça recommence!",go 60
+92: + SUCCESS "Oh non... ça recommence!",go 60
 
-93: +SUCESS "Billy la racaille", go 815
+93: +SUCESS "Billy la Racaille", go 815
 
 94: go 140
 

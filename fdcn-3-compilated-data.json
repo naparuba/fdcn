@@ -1453,12 +1453,12 @@
             ],
             "stats": {},
             "stats_cond": [],
-            "success": "JE-PREND-LA-SUCCESSION-PERE"
+            "success": "JE-PRENDS-LA-SUCCESSION-PERE"
         },
         "goto": [
             333
         ],
-        "success": "JE-PREND-LA-SUCCESSION-PERE"
+        "success": "JE-PRENDS-LA-SUCCESSION-PERE"
     },
     "137": {
         "computed": {
@@ -5254,7 +5254,7 @@
             ],
             "stats": {},
             "stats_cond": [],
-            "success": "DEUX-LONGUERS-D-AVANCE"
+            "success": "DEUX-LONGUEURS-D-AVANCES"
         },
         "conditions": {
             "464": "VALOISIE",
@@ -5264,7 +5264,7 @@
             464,
             47
         ],
-        "success": "DEUX-LONGUERS-D-AVANCE"
+        "success": "DEUX-LONGUEURS-D-AVANCES"
     },
     "238": {
         "computed": {
@@ -15015,7 +15015,7 @@
                 "hab": 1
             },
             "stats_cond": [],
-            "success": "PEDAGOGIE-TRADITIONAELLE"
+            "success": "PEDAGOGIE-TRADITIONNELLE"
         },
         "goto": [
             539
@@ -15023,7 +15023,7 @@
         "stats": {
             "hab": 1
         },
-        "success": "PEDAGOGIE-TRADITIONAELLE"
+        "success": "PEDAGOGIE-TRADITIONNELLE"
     },
     "502": {
         "computed": {
@@ -18711,12 +18711,12 @@
             ],
             "stats": {},
             "stats_cond": [],
-            "success": "UNIVERSSAL-BUZZ"
+            "success": "UNIVERSAL-BUZZ"
         },
         "goto": [
             527
         ],
-        "success": "UNIVERSSAL-BUZZ"
+        "success": "UNIVERSAL-BUZZ"
     },
     "599": {
         "computed": {
@@ -24100,12 +24100,12 @@
             ],
             "stats": {},
             "stats_cond": [],
-            "success": "EXPENSION-DU-DOMAINE"
+            "success": "EXPANSION-DU-DOMAINE"
         },
         "goto": [
             333
         ],
-        "success": "EXPENSION-DU-DOMAINE"
+        "success": "EXPANSION-DU-DOMAINE"
     },
     "743": {
         "aquire": [
@@ -25016,12 +25016,12 @@
             ],
             "stats": {},
             "stats_cond": [],
-            "success": "FLAMBEE-AUX-CHAMPIGNONS"
+            "success": "FLAMBEE-DE-CHAMPIGNONS"
         },
         "goto": [
             732
         ],
-        "success": "FLAMBEE-AUX-CHAMPIGNONS"
+        "success": "FLAMBEE-DE-CHAMPIGNONS"
     },
     "77": {
         "computed": {
@@ -25653,12 +25653,12 @@
             ],
             "stats": {},
             "stats_cond": [],
-            "success": "MANISFESTEMENT-PACIFISTE"
+            "success": "MANIFESTEMENT-PACIFISTE"
         },
         "goto": [
             235
         ],
-        "success": "MANISFESTEMENT-PACIFISTE"
+        "success": "MANIFESTEMENT-PACIFISTE"
     },
     "787": {
         "computed": {

@@ -69,7 +69,7 @@
 
 135: go 668
 
-136: +SUCCESS "Je prend la succession père",go 333
+136: +SUCCESS "Je prends la succession, Père",go 333
 
 137: +1 HABILETE, +1 CHANCE MAX, go 300
 
@@ -143,7 +143,7 @@
 
 172: go (PLAQUES MEMORIELLES)107,203
 
-173: +2 CRITIQUES, +SUCCESS "Peter pan", go 476
+173: +2 CRITIQUES, +SUCCESS "Peter Pan", go 476
 
 174: +1 IMPULSION, go 29
 
@@ -153,7 +153,7 @@
 
 177: + FONCTIONNAIRE, go 53
 
-178: + LETTRE DE RECOMMANDATION, + SUCCESS "La chimie amusante",go 124 
+178: + LETTRE DE RECOMMANDATION, + SUCCESS "La Chimie Amusante",go 124 
 
 179: + OR FARFADET, go 307
 
@@ -191,7 +191,7 @@
 
 196: + LETTRE DE RECOMMANDATION, go 124
 
-197: +1 HABILETE, +SUCCESS "NOuveau record!", go 307
+197: +1 HABILETE, +SUCCESS "Nouveau record!", go 307
 
 198: go 186, 95
 

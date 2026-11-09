@@ -137,7 +137,7 @@
 
 369: +SUCCESS "It's free real estate", go 333
 
-370: +1 RICHESSE, +ECUSSON ECUREUIL, +SUCCESS "Gnolocauste Nucleaire",go 240
+370: +1 RICHESSE, +ECUSSON ECUREUIL, +SUCCESS "Gnolocauste Nucléaire",go 240
 
 371: go 773
 

@@ -986,7 +986,7 @@
     "goto": [
       333
     ],
-    "success": "JE-PREND-LA-SUCCESSION-PERE"
+    "success": "JE-PRENDS-LA-SUCCESSION-PERE"
   },
   "137": {
     "goto": [
@@ -1744,7 +1744,7 @@
       "464": "VALOISIE",
       "47": "SOLQUARDIE"
     },
-    "success": "DEUX-LONGUERS-D-AVANCE"
+    "success": "DEUX-LONGUEURS-D-AVANCES"
   },
   "238": {
     "goto": [
@@ -3556,7 +3556,7 @@
     "stats": {
       "hab": 1
     },
-    "success": "PEDAGOGIE-TRADITIONAELLE"
+    "success": "PEDAGOGIE-TRADITIONNELLE"
   },
   "502": {
     "goto": [
@@ -4296,7 +4296,7 @@
     "goto": [
       527
     ],
-    "success": "UNIVERSSAL-BUZZ"
+    "success": "UNIVERSAL-BUZZ"
   },
   "599": {
     "goto": [
@@ -5286,7 +5286,7 @@
     "goto": [
       333
     ],
-    "success": "EXPENSION-DU-DOMAINE"
+    "success": "EXPANSION-DU-DOMAINE"
   },
   "743": {
     "goto": [
@@ -5453,7 +5453,7 @@
     "goto": [
       732
     ],
-    "success": "FLAMBEE-AUX-CHAMPIGNONS"
+    "success": "FLAMBEE-DE-CHAMPIGNONS"
   },
   "770": {
     "goto": [
@@ -5559,7 +5559,7 @@
     "goto": [
       235
     ],
-    "success": "MANISFESTEMENT-PACIFISTE"
+    "success": "MANIFESTEMENT-PACIFISTE"
   },
   "787": {
     "goto": [

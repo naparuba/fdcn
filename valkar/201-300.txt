@@ -41,7 +41,7 @@
 
 221: go 475
 
-222: -POUSSIERE DE DIAMAND, +SUCCESS "Ram insuffisante", go 480
+222: -POUSSIERE DE DIAMAND, +SUCCESS "RAM insuffisante", go 480
 
 223: go 100, 71, 25, 46
 
@@ -71,7 +71,7 @@
 
 236: go 476
 
-237: +SUCCESS "Deux longuers d'avance", go (VALOISIE)464,(VALQUARDIE)47
+237: +SUCCESS "Deux longueurs d'avances", go (VALOISIE)464,(VALQUARDIE)47
 
 238: go 370
 
@@ -149,7 +149,7 @@
 
 275: go 415, 133
 
-276: +1 CHANCE MAX, +1 HABILETE, +SUCCESS "Docteur maboule", go 407
+276: +1 CHANCE MAX, +1 HABILETE, +SUCCESS "Docteur Maboule", go 407
 
 277: go 230, 342
 
@@ -173,9 +173,9 @@
 
 287: go 353
 
-288: +SUCESS "Skip, skip, skip",go 432
+288: +SUCESS "Skip skip skip",go 432
 
-289: +1 HABILETE, +SUCCESS "Maxximum overdrive", go 376
+289: +1 HABILETE, +SUCCESS "Maxximum Overdrive", go 376
 
 290: go 128
 

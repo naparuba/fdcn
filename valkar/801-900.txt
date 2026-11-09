@@ -3,7 +3,7 @@
 
 802: go 671
 
-803: +SUCCESS "Le petit prince", FIN
+803: +SUCCESS "Le petit Prince", FIN
 
 804: +SUCCESS "Souvenirs en trop", go 859
 

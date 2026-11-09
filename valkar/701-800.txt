@@ -57,7 +57,7 @@
 
 729: go 792
 
-730: +SUCCESS "BOOM! Headshot!", go 333
+730: +SUCCESS "BOOM! HeadShot!", go 333
 
 731: +SUCCESS "Enfermés ici avec moi", go 64
 
@@ -81,7 +81,7 @@
 
 741: go 870
 
-742: +SUCCESS "Expension du domaine", go 333
+742: +SUCCESS "Expansion du domaine", go 333
 
 743: +LANCE MEDIOCRE, go 815
 
@@ -135,7 +135,7 @@
 
 768: go 732
 
-769: +SUCCESS "Flambee aux champignons", go 732
+769: +SUCCESS "Flambée de champignons", go 732
 
 770: go 779
 
@@ -169,7 +169,7 @@
 
 785: go (PLUME DE SIMURGH)769, 726
 
-786: +SUCCESS "Manisfestement pacifiste", go 235
+786: +SUCCESS "Manifestement pacifiste", go 235
 
 787: +SUCCESS "Thérapie cabardienne", go 877
 

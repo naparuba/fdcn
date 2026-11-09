@@ -1,5 +1,5 @@
 
-501: +SUCCESS "Pédagogie traditionaelle!", +1 HABILETE, go 539
+501: +SUCCESS "Pédagogie traditionnelle!", +1 HABILETE, go 539
 
 502: go 234
 
@@ -27,7 +27,7 @@
 
 514: go 446
 
-515: +SUCCESS "Nier, nier et toujours nier", go 390
+515: +SUCCESS "Nier, nier et toujours nier!", go 390
 
 516: go 480
 
@@ -97,7 +97,7 @@
 
 549: go 353
 
-550:-OR DE FARDADET, +POUDRE DE DEINTEGRATION, +SUCCESS "The art of the Deal", go 475
+550:-OR DE FARDADET, +POUDRE DE DEINTEGRATION, +SUCCESS "The Art of the Deal", go 475
 
 551: go 578, 617, 603
 
@@ -193,7 +193,7 @@
 
 597: go 382, 240, 378
 
-598: +SUCCESS "Universsal Buzz", go 527
+598: +SUCCESS "Universal Buzz", go 527
 
 599: go 475
 

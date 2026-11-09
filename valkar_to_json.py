@@ -142,6 +142,22 @@ def parse_effects(body):
     return stats, aquire, remove, success, unhandled
 
 
+def read_success_texts():
+    """succes.txt -> {slug(titre): texte}. Format : "Titre: texte" (premier ': ' de la ligne)."""
+    out = {}
+    path = os.path.join(SRC_DIR, 'succes.txt')
+    if not os.path.exists(path):
+        return out
+    with codecs.open(path, 'r', 'utf8') as f:
+        for line in f:
+            line = line.strip()
+            if not line or line.startswith('#') or ': ' not in line:
+                continue
+            title, txt = line.split(': ', 1)
+            out[slug(title)] = txt.strip()
+    return out
+
+
 def read_objects():
     """objets.txt -> {NOM: (categorie ou None, {stat: valeur})}
 
@@ -286,6 +302,7 @@ def cond_tokens(cond):
 def main():
     raw = read_chapters()
     obj_defs = read_objects()
+    success_texts = read_success_texts()
     book = {}
     tokens = set()
     used_items = set()
@@ -315,7 +332,7 @@ def main():
         if success:
             sid = slug(success)
             entry['success'] = sid
-            successes[sid] = {'id': sid, 'label': success, 'txt': ''}
+            successes[sid] = {'id': sid, 'label': success, 'txt': success_texts.get(sid, '')}
         if unhandled:
             unhandled_all[n] = unhandled
         book[str(n)] = entry
@@ -346,6 +363,11 @@ def main():
         sum('stats' in e for e in book.values()), sum('aquire' in e for e in book.values()),
         sum('remove' in e for e in book.values()), len(successes), len(objs),
         sum('stats' in o for o in objs.values())))
+    orphan_texts = sorted(set(success_texts) - set(successes))
+    no_text = sorted(s['label'] for s in successes.values() if not s['txt'])
+    print('succes: %d avec texte, %d sans texte' % (len(successes) - len(no_text), len(no_text)))
+    if orphan_texts:
+        print('ATTENTION textes de succes sans chapitre correspondant:', orphan_texts)
     comp = sorted(t for t in tokens if re.search(r'[<>=]', t))
     print('jetons de type comparaison (stats, pas des objets):', comp)
     ends = [n for n, e in book.items() if 'ending' in e]
