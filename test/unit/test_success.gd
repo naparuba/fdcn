@@ -31,6 +31,16 @@ func test_set_success_id_loads_a_real_image():
 	s.free()
 
 
+func test_icon_is_displayed_at_40px_whatever_its_resolution():
+	# POLIR-LANCE est un png 40x40 ; BOUH-CLIER (livre 3) est un svg 120x120.
+	for success_id in ['POLIR-LANCE', 'BOUH-CLIER']:
+		var s = SuccessScene.instantiate()
+		s.set_success_id(success_id)
+		var sprite = s.get_node('sprite')
+		assert_almost_eq(sprite.texture.get_width() * sprite.scale.x, 40.0, 0.5, success_id)
+		s.free()
+
+
 func test_set_success_id_unknown_gives_null_texture():
 	var s = SuccessScene.instantiate()
 	s.set_success_id('CECI_NEXISTE_PAS')

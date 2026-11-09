@@ -149,7 +149,7 @@
 
 175: go 333
 
-176: +1 IMPULSION, go 409
+176: +1 IMPULSION, +SUCCESS "Redressage de manche", go 409
 
 177: + FONCTIONNAIRE, go 53
 

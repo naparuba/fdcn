@@ -384,7 +384,8 @@
     ],
     "remove": [
       "GRAPPE D'AMETHYSTES"
-    ]
+    ],
+    "success": "YEET-LE-YETI"
   },
   "55": {
     "goto": [
@@ -1309,7 +1310,8 @@
     ],
     "stats": {
       "impulsion": 1
-    }
+    },
+    "success": "REDRESSAGE-DE-MANCHE"
   },
   "177": {
     "goto": [

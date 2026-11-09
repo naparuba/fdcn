@@ -1,5 +1,8 @@
 extends Panel
 
+# Taille d'affichage de l'icone d'un succes (plus grand cote, en pixels).
+const ICON_SIZE = 40.0
+
 
 @onready var already_seen_polygon = $GetPolygon
 
@@ -65,6 +68,11 @@ func set_success_id(success_id):
 		texture = Utils.load_external_texture(png_path, null)
 	
 	$sprite.texture = texture
+	# Toute icone (png 40x40 historiques, svg 120x120 du livre 3...) est affichee a la
+	# meme taille : ICON_SIZE px sur son plus grand cote.
+	if texture != null:
+		var largest_side = maxi(texture.get_width(), texture.get_height())
+		$sprite.scale = Vector2.ONE * (ICON_SIZE / float(largest_side))
 	#print('SPRITE LOADED: %s' % success_id)
 
 

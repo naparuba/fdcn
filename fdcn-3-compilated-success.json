@@ -6,6 +6,12 @@
         "txt": "Vous avez apparemment été un amant très convaincant"
     },
     {
+        "chapter": 54,
+        "id": "YEET-LE-YETI",
+        "label": "Yeet le Yéti",
+        "txt": "Vous l'avez contenté de viser dans le trou"
+    },
+    {
         "chapter": 79,
         "id": "DEMAIN-C-ETAIT-HIER",
         "label": "Demain, c'était hier",
@@ -34,6 +40,12 @@
         "id": "PETER-PAN",
         "label": "Peter Pan",
         "txt": "Vous avez incarné un héros insupportablement insaisissable"
+    },
+    {
+        "chapter": 176,
+        "id": "REDRESSAGE-DE-MANCHE",
+        "label": "Redressage de manche",
+        "txt": "Vous avez fait ce que vous aviez à faire"
     },
     {
         "chapter": 178,
@@ -153,7 +165,7 @@
         "chapter": 515,
         "id": "NIER-NIER-ET-TOUJOURS-NIER",
         "label": "Nier, nier et toujours nier!",
-        "txt": "Vous avez effectué un retour vers le futur"
+        "txt": "Vous avez tenté d'inverser la psychologie inversée"
     },
     {
         "chapter": 550,

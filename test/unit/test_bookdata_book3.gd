@@ -99,6 +99,13 @@ func test_casserole_ornee_adds_its_pv_max_and_richesse_bonus():
 	assert_eq(Player.richesse_items, 1)
 
 
+func test_every_book3_success_has_an_icon():
+	for success in BookData.get_all_success():
+		var base = 'res://images/success/%s' % success['id']
+		assert_true(FileAccess.file_exists(base + '.svg') or FileAccess.file_exists(base + '.png'),
+			'pas d icone pour %s' % success['id'])
+
+
 func test_book3_has_successes_and_endings():
-	assert_eq(len(BookData.get_deduped_success()), 51)
+	assert_eq(len(BookData.get_deduped_success()), 53)
 	assert_eq_deep(BookData.good_endings, [803, 878])

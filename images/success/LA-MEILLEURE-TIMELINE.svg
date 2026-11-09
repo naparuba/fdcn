@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="120" height="120" viewBox="0 0 120 120">
+<defs><mask id="m" maskUnits="userSpaceOnUse" x="0" y="0" width="120" height="120"><rect width="120" height="120" fill="#fff" stroke="none"/><g fill="#000" stroke="#000" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"></g></mask></defs>
+<g fill="#000" stroke="#000" stroke-width="4" stroke-linecap="round" stroke-linejoin="round">
+<g mask="url(#m)"><path d="M8 70 H46 L84 38" fill="none" stroke-width="7"/><path d="M46 70 L84 102" fill="none" stroke-width="7"/><polygon points="98.0,13.0 102.4,23.9 114.2,24.7 105.1,32.3 108.0,43.8 98.0,37.5 88.0,43.8 90.9,32.3 81.8,24.7 93.6,23.9"/><circle cx="96" cy="104" r="8"/></g>
+
+</g>
+</svg>

@@ -3010,14 +3010,15 @@
                 "impulsion": 1
             },
             "stats_cond": [],
-            "success": null
+            "success": "REDRESSAGE-DE-MANCHE"
         },
         "goto": [
             409
         ],
         "stats": {
             "impulsion": 1
-        }
+        },
+        "success": "REDRESSAGE-DE-MANCHE"
     },
     "177": {
         "aquire": [
@@ -16515,14 +16516,15 @@
             ],
             "stats": {},
             "stats_cond": [],
-            "success": null
+            "success": "YEET-LE-YETI"
         },
         "goto": [
             424
         ],
         "remove": [
             "GRAPPE D'AMETHYSTES"
-        ]
+        ],
+        "success": "YEET-LE-YETI"
     },
     "540": {
         "computed": {
