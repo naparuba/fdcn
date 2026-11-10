@@ -741,38 +741,13 @@ func _recompute_stats():
 		var item_data = BookData.get_item_data(item_name)
 		var stats = item_data['stats']
 		for k in stats.keys():
-			var v = stats[k]
-			if k == 'end':
-				self.end += v
-				self.end_items += v
-			elif k == 'hab':
-				self.hab += v
-				self.hab_items += v
-			elif k == 'adr':
-				self.adr += v
-				self.adr_items += v
-			elif k == 'cha':
-				self.chamax += v
-				self.chamax_items += v
-			elif k == 'deg':
-				self.deg += v
-				self.deg_items += v
-			elif k == 'arm':
-				self.arm += v
-				self.arm_items += v
-			elif k == 'crit':
-				self.crit += v
-				self.crit_items += v
-			elif k == 'pv_max':
-				self.pv_max_items += v
-			elif k == 'richesse':
-				# Pas (encore) de somme richesse chapitres + objets : on garde
-				# juste la part des objets, lisible via richesse_items.
-				self.richesse_items += v
-			else:
-				print('ERROR: STATS INCONNUE DANS OBJET: %s' % k)
+			self._apply_item_stat(k, stats[k])
 				
 		print('Item:%s' % item_name, 'stats: %s' % item_data)
+	# Bonus propres au livre (livre 2 : ecart Respect/Rancune), comptes comme les objets.
+	var book_bonuses = self.get_book_bonuses()
+	for k in book_bonuses.keys():
+		self._apply_item_stat(k, book_bonuses[k])
 	print('Billy stats by objects: end=%s' % self.end, ' hab=%s' % self.hab, ' adr=%s'%self.adr, ' chamax=%s' % self.chamax,
 	' deg=%s' % self.deg,' arm=%s' % self.arm, ' crit=%s'%self.crit)
 	
@@ -781,6 +756,63 @@ func _recompute_stats():
 	' deg=%s' % self.deg,' arm=%s' % self.arm, ' crit=%s'%self.crit)
 
 	self._apply_user_stats()
+
+
+# Applique une stat venant d'un objet (ou d'un bonus de livre) : meme table que
+# pour les stats de chapitre, mais cote "items" (lecture seule sur la fiche de perso).
+func _apply_item_stat(k, v):
+	if k == 'end':
+		self.end += v
+		self.end_items += v
+	elif k == 'hab':
+		self.hab += v
+		self.hab_items += v
+	elif k == 'adr':
+		self.adr += v
+		self.adr_items += v
+	elif k == 'cha':
+		self.chamax += v
+		self.chamax_items += v
+	elif k == 'deg':
+		self.deg += v
+		self.deg_items += v
+	elif k == 'arm':
+		self.arm += v
+		self.arm_items += v
+	elif k == 'crit':
+		self.crit += v
+		self.crit_items += v
+	elif k == 'pv_max':
+		self.pv_max_items += v
+	elif k == 'richesse':
+		# Pas (encore) de somme richesse chapitres + objets : on garde
+		# juste la part des objets, lisible via richesse_items.
+		self.richesse_items += v
+	else:
+		print('ERROR: STATS INCONNUE DANS OBJET: %s' % k)
+
+
+# Bonus automatiques propres a un livre, recalcules a chaque _recompute_stats().
+# Livre 2 : l'ecart entre Respect et Rancune (totaux, ajustements manuels inclus) donne
+# des bonus CUMULATIFS :
+#   Respect >= Rancune + 2 : +2 Endurance      Respect >= Rancune + 4 : +2 Chance max
+#   Rancune >= Respect + 2 : +2 Critique       Rancune >= Respect + 4 : +2 Habilete
+# -> {cle de stat d'objet: valeur}, cles 'end' / 'cha' (= Chance max) / 'crit' / 'hab'.
+func get_book_bonuses() -> Dictionary:
+	var bonuses = {}
+	if AppParameters.get_book_number() != 2:
+		return bonuses
+	var respect_total = self.get_respect()
+	var rancune_total = self.get_rancune()
+	if respect_total >= rancune_total + 2:
+		bonuses['end'] = 2
+	if respect_total >= rancune_total + 4:
+		bonuses['cha'] = 2
+	if rancune_total >= respect_total + 2:
+		bonuses['crit'] = 2
+	if rancune_total >= respect_total + 4:
+		bonuses['hab'] = 2
+	return bonuses
 
 
 func _apply_all_chapters_stats():
@@ -813,53 +845,53 @@ func _apply_user_stats():
 
 # Compteurs propres a un livre (rancune/respect : livre 2 ; lucidite/impulsion/ego :
 # livre 3 ; richesse : tous) : get_X() = ce que donnent les chapitres + l'ajustement
-# manuel (+ les objets, pour la richesse). Memes noms que pour les stats de base :
+# manuel (+ les objets, pour la richesse), jamais negatif. Memes noms que pour les stats de base :
 # la fiche de personnage (StatsScreen.gd) les appelle de facon generique.
 func get_rancune():
-	return self.rancune + self.rancune_user
+	return maxi(0, self.rancune + self.rancune_user)
 func get_rancune_chapters():
 	return self.rancune
 func get_rancune_user():
 	return self.rancune_user
 func get_respect():
-	return self.respect + self.respect_user
+	return maxi(0, self.respect + self.respect_user)
 func get_respect_chapters():
 	return self.respect
 func get_respect_user():
 	return self.respect_user
 func get_lucidite():
-	return self.lucidite + self.lucidite_user
+	return maxi(0, self.lucidite + self.lucidite_user)
 func get_lucidite_chapters():
 	return self.lucidite
 func get_lucidite_user():
 	return self.lucidite_user
 func get_impulsion():
-	return self.impulsion + self.impulsion_user
+	return maxi(0, self.impulsion + self.impulsion_user)
 func get_impulsion_chapters():
 	return self.impulsion
 func get_impulsion_user():
 	return self.impulsion_user
 func get_ego():
-	return self.ego + self.ego_user
+	return maxi(0, self.ego + self.ego_user)
 func get_ego_chapters():
 	return self.ego
 func get_ego_user():
 	return self.ego_user
 func get_richesse():
-	return self.richesse + self.richesse_items + self.richesse_user
+	return maxi(0, self.richesse + self.richesse_items + self.richesse_user)
 func get_richesse_chapters():
 	return self.richesse
 func get_richesse_user():
 	return self.richesse_user
 # Livre 1 : gloire et informations (les chapitres donnent la cle 'info', stockee dans nb_infos).
 func get_gloire():
-	return self.gloire + self.gloire_user
+	return maxi(0, self.gloire + self.gloire_user)
 func get_gloire_chapters():
 	return self.gloire
 func get_gloire_user():
 	return self.gloire_user
 func get_info():
-	return self.nb_infos + self.info_user
+	return maxi(0, self.nb_infos + self.info_user)
 func get_info_chapters():
 	return self.nb_infos
 func get_info_user():

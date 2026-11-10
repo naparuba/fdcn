@@ -87,6 +87,21 @@ func test_book1_info_counter_uses_the_info_chapter_stat():
 	assert_eq(Player.get_gloire(), 0)
 
 
+func test_counters_never_go_negative():
+	var screen = _make_screen(2)
+	screen._step_chapitres_autre('rancune', -1)  # deja a 0 : rien ne bouge
+	assert_eq(Player.get_rancune(), 0)
+	assert_eq(Player.get_rancune_user(), 0)
+	screen._set_chapitres_autre('respect', -4)  # valeur tapee negative : ramenee a 0
+	assert_eq(Player.get_respect(), 0)
+	assert_eq(Player.get_respect_user(), 0)
+	screen.refresh()
+	assert_true(screen._counter_widgets['rancune']['minus'].disabled)
+	screen._step_chapitres_autre('rancune', 1)
+	screen.refresh()
+	assert_false(screen._counter_widgets['rancune']['minus'].disabled)
+
+
 func test_a_new_billy_resets_counters_and_adjustments():
 	var screen = _make_screen(3)
 	Player._apply_chapter_stat('ego', 1)

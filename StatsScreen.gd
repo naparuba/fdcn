@@ -49,8 +49,8 @@ const STAT_DEFS = [
 const COUNTER_DEFS = [
 	{"key": "gloire", "label": "Gloire", "role": "Compteur du livre 1 : la gloire gagnée au fil de l'aventure."},
 	{"key": "info", "label": "Informations", "role": "Compteur du livre 1 : les informations récoltées en chemin."},
-	{"key": "rancune", "label": "Rancune", "role": "Compteur du livre 2 : la rancune accumulée au fil de vos choix."},
-	{"key": "respect", "label": "Respect", "role": "Compteur du livre 2 : le respect gagné au fil de vos choix."},
+	{"key": "rancune", "label": "Rancune", "role": "Compteur du livre 2. Rancune ≥ Respect +2 : +2 Critique ; ≥ Respect +4 : +2 Habileté en plus."},
+	{"key": "respect", "label": "Respect", "role": "Compteur du livre 2. Respect ≥ Rancune +2 : +2 Endurance ; ≥ Rancune +4 : +2 Chance max en plus."},
 	{"key": "lucidite", "label": "Lucidité", "role": "Compteur du livre 3 : certains choix demandent un minimum de Lucidité (ex. 6)."},
 	{"key": "impulsion", "label": "Impulsion", "role": "Compteur du livre 3 : certains choix demandent un minimum d'Impulsion."},
 	{"key": "ego", "label": "Ego", "role": "Compteur du livre 3, gagné au fil de l'aventure ^^"},
@@ -119,9 +119,19 @@ func _chapitres_autre(key: String) -> int:
 	return Player.call("get_%s_chapters" % key) + Player.call("get_%s_user" % key)
 
 
+# Un compteur de livre (rancune, richesse...) ne peut jamais etre negatif.
+func _is_counter(key: String) -> bool:
+	for counter_def in COUNTER_DEFS:
+		if counter_def["key"] == key:
+			return true
+	return false
+
+
 func _set_chapitres_autre(key: String, nouveau_total: int) -> void:
 	if self._en_combat():
 		return
+	if self._is_counter(key):
+		nouveau_total = maxi(nouveau_total, 0)
 	var part_chapitres = Player.call("get_%s_chapters" % key)
 	Player.set("%s_user" % key, nouveau_total - part_chapitres)
 	self._recompute_and_refresh()
@@ -129,6 +139,8 @@ func _set_chapitres_autre(key: String, nouveau_total: int) -> void:
 
 func _step_chapitres_autre(key: String, delta: int) -> void:
 	if self._en_combat():
+		return
+	if self._is_counter(key) and self._chapitres_autre(key) + delta < 0:
 		return
 	Player.set("%s_user" % key, Player.get("%s_user" % key) + delta)
 	self._recompute_and_refresh()
@@ -539,6 +551,21 @@ func _build_stat_card(stat_def: Dictionary) -> PanelContainer:
 	return card
 
 
+const BONUS_LABELS = {"end": "Endurance", "cha": "Chance max", "crit": "Critique", "hab": "Habileté"}
+
+
+# Bonus Respect/Rancune actifs (livre 2), en clair.
+func _bonus_text() -> String:
+	var bonuses = Player.get_book_bonuses()
+	if bonuses.is_empty():
+		return "Aucun bonus actif (Respect − Rancune = %+d)" % (Player.get_respect() - Player.get_rancune())
+	var parts = []
+	for key in ["end", "cha", "crit", "hab"]:
+		if bonuses.has(key):
+			parts.append("+%d %s" % [bonuses[key], BONUS_LABELS[key]])
+	return "Bonus actifs : " + ", ".join(parts)
+
+
 func _build_counter_card(counter_def: Dictionary) -> PanelContainer:
 	var key = counter_def["key"]
 	var card = PanelContainer.new()
@@ -601,7 +628,15 @@ func _build_counter_card(counter_def: Dictionary) -> PanelContainer:
 	autre_plus.pressed.connect(self._step_chapitres_autre.bind(key, 1))
 	autre_h.add_child(autre_plus)
 
-	self._counter_widgets[key] = {"card": card, "total_label": total_label, "autre_field": autre_field}
+	var widgets = {"card": card, "total_label": total_label, "autre_field": autre_field, "minus": autre_minus}
+	if key == "rancune" or key == "respect":
+		var bonus_label = Label.new()
+		bonus_label.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
+		bonus_label.add_theme_font_size_override("font_size", 10)
+		bonus_label.add_theme_color_override("font_color", COL_CYAN)
+		v.add_child(bonus_label)
+		widgets["bonus_label"] = bonus_label
+	self._counter_widgets[key] = widgets
 	return card
 
 
@@ -792,6 +827,10 @@ func refresh() -> void:
 		counter_widgets["total_label"].text = str(self._total(counter_key))
 		var counter_autre = self._chapitres_autre(counter_key)
 		counter_widgets["autre_field"].text = ("+%d" % counter_autre) if counter_autre > 0 else str(counter_autre)
+		if counter_widgets.has("bonus_label"):
+			counter_widgets["bonus_label"].text = self._bonus_text()
+		# Jamais negatif : le "-" est grise a zero (en plus du verrou combat de plus haut).
+		counter_widgets["minus"].disabled = counter_widgets["minus"].disabled or counter_autre <= 0
 
 
 func _resize_bar(fill: ColorRect, pct: float):
