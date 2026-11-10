@@ -51,6 +51,7 @@ extends Node
 #   combat_rewind_to_turn {turn} equivalent d'un tap sur une pastille de tour (Combat._on_turn_chip_pressed)
 #   assert_combat_next_turn {turn}  echoue si Combat._controller.prochain_tour() != turn
 #   stats_step_chapitres_autre {stat,delta}  +/- sur "Chapitres & Autre" d'une stat (fiche de perso)
+#   stats_scroll_to_bottom {}    fait defiler la fiche de personnage tout en bas (cartes de compteurs)
 #   stats_step_pv_max_bonus {delta}  +/- sur le bonus de PV max (fiche de perso)
 #   stats_step_pv {delta}        +/- sur les PV courants (fiche de perso)
 #   stats_step_cha {delta}       +/- sur la Chance courante (fiche de perso)
@@ -292,6 +293,9 @@ func _run_next_step():
 		# fiche de personnage reelle -- jamais en touchant le vrai vecu
 		# narratif (*_chapters), cf StatsScreen.gd::_step_chapitres_autre.
 		_main.get_node("Options/Stats")._step_chapitres_autre(step["stat"], int(step["delta"]))
+		_run_next_step()
+	elif action == "stats_scroll_to_bottom":
+		_main.get_node("Options/Stats")._scroll_container.scroll_vertical = 100000
 		_run_next_step()
 	elif action == "stats_step_pv_max_bonus":
 		_main.get_node("Options/Stats")._step_pv_max_bonus(int(step["delta"]))

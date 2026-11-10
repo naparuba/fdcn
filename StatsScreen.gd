@@ -44,9 +44,30 @@ const STAT_DEFS = [
 	{"key": "arm", "label": "Armure", "role": "Réduction plate des dégâts subis par Billy, avant tout autre effet."},
 ]
 
+# Compteurs propres a un livre, affiches (et modifiables, comme les autres stats) seulement
+# quand on est dans le bon livre -- ils n'entrent pas dans les regles de combat.
+const COUNTER_DEFS = [
+	{"key": "gloire", "label": "Gloire", "role": "Compteur du livre 1 : la gloire gagnée au fil de l'aventure."},
+	{"key": "info", "label": "Informations", "role": "Compteur du livre 1 : les informations récoltées en chemin."},
+	{"key": "rancune", "label": "Rancune", "role": "Compteur du livre 2 : la rancune accumulée au fil de vos choix."},
+	{"key": "respect", "label": "Respect", "role": "Compteur du livre 2 : le respect gagné au fil de vos choix."},
+	{"key": "lucidite", "label": "Lucidité", "role": "Compteur du livre 3 : certains choix demandent un minimum de Lucidité (ex. 6)."},
+	{"key": "impulsion", "label": "Impulsion", "role": "Compteur du livre 3 : certains choix demandent un minimum d'Impulsion."},
+	{"key": "ego", "label": "Ego", "role": "Compteur du livre 3, gagné au fil de l'aventure ^^"},
+	{"key": "richesse", "label": "Richesse", "role": "Certains choix dépendent d'un seuil de Richesse (ex. 4 ou 8). Les objets peuvent en ajouter."},
+]
+
+# Livre -> clefs de COUNTER_DEFS visibles.
+const COUNTERS_BY_BOOK = {
+	1: ["gloire", "info", "richesse"],
+	2: ["rancune", "respect", "richesse"],
+	3: ["lucidite", "impulsion", "ego", "richesse"],
+}
+
 var _scroll_container: ScrollContainer
 var _type_badge: Label
 var _combat_warning: Label
+var _counter_widgets := {}  # key -> Dictionary{card, total_label, autre_field}
 var _pv_bar_fill: ColorRect
 var _pv_value_field: LineEdit
 var _pv_minus_button: Button
@@ -133,6 +154,8 @@ func _step_pv_max_bonus(delta: int) -> void:
 
 func _recompute_and_refresh() -> void:
 	Player._recompute_stats()
+	# Les seuils de saut (LUCIDITE>=6...) dependent des compteurs modifies ici.
+	Player._recompute_matched_conditions()
 	# L'Endurance ne doit jamais tomber a 0 ou moins : PV max deviendrait
 	# nul ou negatif, un etat que le reste du jeu ne gere pas.
 	if Player.get_end() < 1:
@@ -244,6 +267,10 @@ func _build_ui():
 
 	for stat_def in STAT_DEFS:
 		layout.add_child(self._build_stat_card(stat_def))
+
+	for counter_def in COUNTER_DEFS:
+		var counter_card = self._build_counter_card(counter_def)
+		layout.add_child(counter_card)
 
 	var footer = HBoxContainer.new()
 	footer.alignment = BoxContainer.ALIGNMENT_END
@@ -512,6 +539,72 @@ func _build_stat_card(stat_def: Dictionary) -> PanelContainer:
 	return card
 
 
+func _build_counter_card(counter_def: Dictionary) -> PanelContainer:
+	var key = counter_def["key"]
+	var card = PanelContainer.new()
+	card.add_theme_stylebox_override("panel", self._card_style())
+	var v = VBoxContainer.new()
+	v.add_theme_constant_override("separation", 4)
+	card.add_child(v)
+
+	var top = HBoxContainer.new()
+	top.add_theme_constant_override("separation", 8)
+	v.add_child(top)
+	var label = Label.new()
+	label.text = counter_def["label"]
+	label.add_theme_font_size_override("font_size", 14)
+	label.add_theme_color_override("font_color", COL_INK)
+	label.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+	top.add_child(label)
+	var total_label = Label.new()
+	total_label.add_theme_font_size_override("font_size", 19)
+	total_label.add_theme_color_override("font_color", COL_NAVY)
+	top.add_child(total_label)
+
+	var role = Label.new()
+	role.text = counter_def["role"]
+	role.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
+	role.add_theme_font_size_override("font_size", 10)
+	role.add_theme_color_override("font_color", COL_INK_SOFT)
+	v.add_child(role)
+
+	var pill_row = HBoxContainer.new()
+	pill_row.add_theme_constant_override("separation", 6)
+	v.add_child(pill_row)
+	var autre_pill = PanelContainer.new()
+	var autre_style = StyleBoxFlat.new()
+	autre_style.bg_color = COL_CARD_ALT
+	autre_style.set_corner_radius_all(6)
+	autre_style.content_margin_left = 3
+	autre_style.content_margin_right = 3
+	autre_style.content_margin_top = 1
+	autre_style.content_margin_bottom = 1
+	autre_pill.add_theme_stylebox_override("panel", autre_style)
+	pill_row.add_child(autre_pill)
+	var autre_h = HBoxContainer.new()
+	autre_h.add_theme_constant_override("separation", 2)
+	autre_pill.add_child(autre_h)
+	var autre_lbl = Label.new()
+	autre_lbl.text = "Chapitres & Autre "
+	autre_lbl.add_theme_font_size_override("font_size", 10)
+	autre_lbl.add_theme_color_override("font_color", COL_INK_SOFT)
+	autre_h.add_child(autre_lbl)
+	var autre_minus = self._make_step_button("−", true)
+	autre_minus.custom_minimum_size = Vector2(18, 18)
+	autre_minus.pressed.connect(self._step_chapitres_autre.bind(key, -1))
+	autre_h.add_child(autre_minus)
+	var autre_field = self._make_number_field(func(v): self._set_chapitres_autre(key, v))
+	autre_field.custom_minimum_size = Vector2(28, 0)
+	autre_h.add_child(autre_field)
+	var autre_plus = self._make_step_button("+", false)
+	autre_plus.custom_minimum_size = Vector2(18, 18)
+	autre_plus.pressed.connect(self._step_chapitres_autre.bind(key, 1))
+	autre_h.add_child(autre_plus)
+
+	self._counter_widgets[key] = {"card": card, "total_label": total_label, "autre_field": autre_field}
+	return card
+
+
 func _build_pv_formula_strip() -> VBoxContainer:
 	# Jamais melanger un Label autowrap avec des boutons a taille fixe dans
 	# le MEME HBoxContainer : le Label ecrase alors sa largeur disponible a
@@ -688,6 +781,17 @@ func refresh() -> void:
 				var style = cell.get_theme_stylebox("normal").duplicate()
 				style.bg_color = COL_CYAN if on else COL_CARD_ALT
 				cell.add_theme_stylebox_override("normal", style)
+
+
+	# Compteurs propres a un livre : visibles seulement dans le bon livre.
+	var visibles = COUNTERS_BY_BOOK.get(AppParameters.get_book_number(), [])
+	for counter_def in COUNTER_DEFS:
+		var counter_key = counter_def["key"]
+		var counter_widgets = self._counter_widgets[counter_key]
+		counter_widgets["card"].visible = counter_key in visibles
+		counter_widgets["total_label"].text = str(self._total(counter_key))
+		var counter_autre = self._chapitres_autre(counter_key)
+		counter_widgets["autre_field"].text = ("+%d" % counter_autre) if counter_autre > 0 else str(counter_autre)
 
 
 func _resize_bar(fill: ColorRect, pct: float):

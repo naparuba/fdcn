@@ -81,6 +81,9 @@ var nb_infos = 0
 var lucidite = 0
 var impulsion = 0
 var ego = 0
+# Livre 2 (Les Cornes des Sables d'Ivoire)
+var rancune = 0
+var respect = 0
 
 # Bonus de PV max / richesse portes par les OBJETS (ex: SEAU, CASSEROLE ORNEE).
 # Recalcules a chaque _recompute_stats() (remis a zero dans _reset_our_stats()),
@@ -97,6 +100,16 @@ var deg_user = 0
 var arm_user = 0
 var crit_user = 0
 var pv_max_bonus_user = 0
+# Ajustements manuels des compteurs de livre (fiche de personnage) : meme principe que
+# les *_user ci-dessus, jamais melanges a ce que les chapitres ont reellement donne.
+var rancune_user = 0
+var respect_user = 0
+var lucidite_user = 0
+var impulsion_user = 0
+var ego_user = 0
+var richesse_user = 0
+var gloire_user = 0
+var info_user = 0
 
 
 # Winable on levels
@@ -538,13 +551,13 @@ func _recompute_matched_conditions():
 func _get_threshold_stat_value(stat_name):
 	match stat_name:
 		'LUCIDITE':
-			return self.lucidite
+			return self.get_lucidite()
 		'IMPULSION':
-			return self.impulsion
+			return self.get_impulsion()
 		'EGO':
-			return self.ego
+			return self.get_ego()
 		'RICHESSE':
-			return self.richesse + self.richesse_items
+			return self.get_richesse()
 	return null
 
 
@@ -586,6 +599,9 @@ func _fully_reset_our_stats():
 	self.impulsion = 0
 	self.ego = 0
 	self.richesse = 0
+	self.rancune = 0
+	self.respect = 0
+	self.gloire = 0
 
 	# Et les ajustements manuels (fiche de personnage) -- un nouveau Billy ne
 	# doit jamais heriter des triches du precedent.
@@ -597,6 +613,14 @@ func _fully_reset_our_stats():
 	self.arm_user = 0
 	self.crit_user = 0
 	self.pv_max_bonus_user = 0
+	self.rancune_user = 0
+	self.respect_user = 0
+	self.lucidite_user = 0
+	self.impulsion_user = 0
+	self.ego_user = 0
+	self.richesse_user = 0
+	self.gloire_user = 0
+	self.info_user = 0
 
 
 func get_end():
@@ -785,6 +809,61 @@ func _apply_user_stats():
 	self.arm += self.arm_user
 	self.crit += self.crit_user
 	self.pv_max = self.end * 3 + self.pv_max_bonus + self.pv_max_items + self.pv_max_bonus_user
+
+
+# Compteurs propres a un livre (rancune/respect : livre 2 ; lucidite/impulsion/ego :
+# livre 3 ; richesse : tous) : get_X() = ce que donnent les chapitres + l'ajustement
+# manuel (+ les objets, pour la richesse). Memes noms que pour les stats de base :
+# la fiche de personnage (StatsScreen.gd) les appelle de facon generique.
+func get_rancune():
+	return self.rancune + self.rancune_user
+func get_rancune_chapters():
+	return self.rancune
+func get_rancune_user():
+	return self.rancune_user
+func get_respect():
+	return self.respect + self.respect_user
+func get_respect_chapters():
+	return self.respect
+func get_respect_user():
+	return self.respect_user
+func get_lucidite():
+	return self.lucidite + self.lucidite_user
+func get_lucidite_chapters():
+	return self.lucidite
+func get_lucidite_user():
+	return self.lucidite_user
+func get_impulsion():
+	return self.impulsion + self.impulsion_user
+func get_impulsion_chapters():
+	return self.impulsion
+func get_impulsion_user():
+	return self.impulsion_user
+func get_ego():
+	return self.ego + self.ego_user
+func get_ego_chapters():
+	return self.ego
+func get_ego_user():
+	return self.ego_user
+func get_richesse():
+	return self.richesse + self.richesse_items + self.richesse_user
+func get_richesse_chapters():
+	return self.richesse
+func get_richesse_user():
+	return self.richesse_user
+# Livre 1 : gloire et informations (les chapitres donnent la cle 'info', stockee dans nb_infos).
+func get_gloire():
+	return self.gloire + self.gloire_user
+func get_gloire_chapters():
+	return self.gloire
+func get_gloire_user():
+	return self.gloire_user
+func get_info():
+	return self.nb_infos + self.info_user
+func get_info_chapters():
+	return self.nb_infos
+func get_info_user():
+	return self.info_user
 
 
 func get_all_matched_conditions():
@@ -1023,6 +1102,10 @@ func _apply_chapter_stat(k, v):
 		self.impulsion += v
 	elif k == 'ego':
 		self.ego += v
+	elif k == 'rancune':
+		self.rancune += v
+	elif k == 'respect':
+		self.respect += v
 	else:
 		print('THE STATS KEY %s is NOT managed ' % k)
 
