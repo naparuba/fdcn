@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="120" height="120" viewBox="0 0 120 120">
+<defs><mask id="m" maskUnits="userSpaceOnUse" x="0" y="0" width="120" height="120"><rect width="120" height="120" fill="#fff" stroke="none"/><g fill="#000" stroke="#000" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"><g transform="translate(10 0) scale(1)"><g transform="rotate(12 27 59)"><line x1="16" y1="36" x2="38" y2="36" fill="none" stroke-width="4"/><line x1="14" y1="58" x2="40" y2="58" fill="none" stroke-width="4"/><line x1="12" y1="80" x2="42" y2="80" fill="none" stroke-width="4"/></g></g><g transform="translate(-10 0) scale(1)"><g transform="rotate(-12 93 59)"><line x1="82" y1="36" x2="104" y2="36" fill="none" stroke-width="4"/><line x1="80" y1="58" x2="106" y2="58" fill="none" stroke-width="4"/><line x1="78" y1="80" x2="108" y2="80" fill="none" stroke-width="4"/></g></g></g></mask></defs>
+<g fill="#000" stroke="#000" stroke-width="4" stroke-linecap="round" stroke-linejoin="round">
+<g mask="url(#m)"><g transform="translate(10 0) scale(1)"><g transform="rotate(12 27 59)"><path d="M14 14 H40 L46 104 H8 Z"/></g></g><g transform="translate(-10 0) scale(1)"><g transform="rotate(-12 93 59)"><path d="M80 14 H106 L112 104 H74 Z"/></g></g></g>
+
+</g>
+</svg>

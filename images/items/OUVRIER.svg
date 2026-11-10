@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="120" height="120" viewBox="0 0 120 120">
+<defs><mask id="m" maskUnits="userSpaceOnUse" x="0" y="0" width="120" height="120"><rect width="120" height="120" fill="#fff" stroke="none"/><g fill="#000" stroke="#000" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"><circle cx="60" cy="60" r="13"/></g></mask></defs>
+<g fill="#000" stroke="#000" stroke-width="4" stroke-linecap="round" stroke-linejoin="round">
+<g mask="url(#m)"><circle cx="60" cy="60" r="32"/><g transform="rotate(0 60 60)"><rect x="52" y="10" width="16" height="22" rx="3"/></g><g transform="rotate(45 60 60)"><rect x="52" y="10" width="16" height="22" rx="3"/></g><g transform="rotate(90 60 60)"><rect x="52" y="10" width="16" height="22" rx="3"/></g><g transform="rotate(135 60 60)"><rect x="52" y="10" width="16" height="22" rx="3"/></g><g transform="rotate(180 60 60)"><rect x="52" y="10" width="16" height="22" rx="3"/></g><g transform="rotate(225 60 60)"><rect x="52" y="10" width="16" height="22" rx="3"/></g><g transform="rotate(270 60 60)"><rect x="52" y="10" width="16" height="22" rx="3"/></g><g transform="rotate(315 60 60)"><rect x="52" y="10" width="16" height="22" rx="3"/></g></g>
+
+</g>
+</svg>

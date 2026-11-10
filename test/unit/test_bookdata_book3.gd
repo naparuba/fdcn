@@ -106,6 +106,18 @@ func test_every_book3_success_has_an_icon():
 			'pas d icone pour %s' % success['id'])
 
 
+func test_every_displayable_book3_object_has_an_icon():
+	# BILLY (choisi dans les options) et SEUIL (jeton de condition) ne sont pas affiches.
+	var sans_icone = []
+	for item_name in BookData.get_all_objects():
+		var category = BookData.get_item_data(item_name)['category']
+		if category == 'BILLY' or category == 'SEUIL':
+			continue
+		if not Utils.is_file_exists('res://images/items/%s.svg' % item_name):
+			sans_icone.append(item_name)
+	assert_eq_deep(sans_icone, [])
+
+
 func test_book3_has_successes_and_endings():
 	assert_eq(len(BookData.get_deduped_success()), 53)
 	assert_eq_deep(BookData.good_endings, [803, 878])

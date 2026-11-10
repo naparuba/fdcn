@@ -28,6 +28,21 @@ func _make_item(item_name):
 	return item
 
 
+func test_svg_icons_are_displayed_at_the_same_size_whatever_their_resolution():
+	# CAPE INVISIBILITE (livre 3) est un svg 120 px ; ARC (livre 1) un svg 800 px.
+	var item_800 = ItemScene.instantiate()
+	item_800.load_item_data('ARC', {'category': 'ARME', 'stats': {}, 'in_chapters': [1]})
+	var item_120 = ItemScene.instantiate()
+	item_120.load_item_data('CAPE INVISIBILITE', {'category': 'OBJET', 'stats': {}, 'in_chapters': [1]})
+	assert_not_null(item_800._item_icon)
+	assert_not_null(item_120._item_icon)
+	for item in [item_800, item_120]:
+		var size_px = maxi(item._item_icon.get_width(), item._item_icon.get_height()) * item._sprite_scale
+		assert_almost_eq(size_px, 38.4, 0.5)
+	item_800.free()
+	item_120.free()
+
+
 func test_is_ok_to_be_shown_false_for_billy_category():
 	var item = _make_item('GUERRIER')  # categorie BILLY (pseudo-item de type)
 	assert_eq(item.get_category(), 'BILLY')

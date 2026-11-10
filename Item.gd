@@ -10,6 +10,11 @@ var _unkown_icon = null
 var _item_icon = null
 var _sprite_scale = 0.048
 
+# Taille d'affichage d'une icone d'objet svg (plus grand cote, en pixels) : 800 px x 0.048,
+# l'echelle historique des icones de 800 px. Toute icone svg (800 px, 120 px du livre 3...)
+# est ramenee a cette taille.
+const ICON_DISPLAY_SIZE = 38.4
+
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	pass # Replace with function body.
@@ -28,6 +33,8 @@ func load_item_data(item_name, item_data):
 	var png_path = 'res://images/items/%s.png' % self._item_name
 	if Utils.is_file_exists(svg_path):
 		self._item_icon = Utils.load_external_texture(svg_path, null)
+		if self._item_icon != null:
+			self._sprite_scale = ICON_DISPLAY_SIZE / float(maxi(self._item_icon.get_width(), self._item_icon.get_height()))
 	elif Utils.is_file_exists(png_path):
 		self._item_icon = Utils.load_external_texture(png_path, null)
 		self._sprite_scale = 1.0
