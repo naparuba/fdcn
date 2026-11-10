@@ -224,9 +224,16 @@ func test_edition_bloquee_pendant_un_combat_avec_message_explicite():
 	Player.in_combat = false
 	stats_screen.refresh()
 	assert_false(stats_screen._combat_warning.visible, "le message disparait une fois le combat termine")
+	# Le "-" d'un compteur de livre (rancune, richesse...) a 0 reste grise hors combat : un
+	# compteur ne peut pas etre negatif. Il n'est donc pas inclus dans cette verification.
+	var boutons_moins_des_compteurs = []
+	for counter_key in stats_screen._counter_widgets:
+		boutons_moins_des_compteurs.append(stats_screen._counter_widgets[counter_key]["minus"])
 	for control in stats_screen._editable_controls:
 		if control is LineEdit:
 			assert_true(control.editable, "l'edition redevient possible hors combat")
+		elif control in boutons_moins_des_compteurs:
+			assert_true(control.disabled, "un compteur a 0 ne peut pas descendre")
 		else:
 			assert_false(control.disabled)
 	stats_screen._step_chapitres_autre("hab", 5)
