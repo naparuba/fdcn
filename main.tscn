@@ -1620,8 +1620,8 @@ texture = ExtResource("22")
 [node name="phumtar" type="AnimatedSprite2D" parent="About/About"]
 position = Vector2(392.257, 88.6701)
 scale = Vector2(0.342538, 0.342538)
-frames = SubResource("7")
-playing = true
+sprite_frames = SubResource("7")
+autoplay = "default"
 
 [node name="DevLabel" type="Label" parent="About/About"]
 offset_left = 12.7327
@@ -1683,7 +1683,7 @@ theme_override_constants/shadow_offset_y = 0
 theme_override_constants/shadow_outline_size = 0
 theme_override_fonts/font = ExtResource("2")
 theme_override_font_sizes/font_size = 25
-text = "0.19"
+text = "29.0"
 
 [node name="SrcLabel" type="Label" parent="About/About"]
 offset_left = 15.593
