@@ -78,8 +78,14 @@ func roll_a_dice(minimum, maximum):
 	return roll
 
 
+# Dans un build exporte (Android...), les images/sons importes n'existent plus que sous
+# forme de ressources remappees (.import + .godot/imported/*.ctex) : le fichier source
+# (res://images/x.png) n'est PAS dans le paquet, donc FileAccess.file_exists() renvoie false
+# alors que load() fonctionne. Seul ResourceLoader.exists() voit ces ressources ; on garde
+# FileAccess pour les fichiers bruts (ex: les *.json de include_filter). Verifie sur un
+# vrai export (--export-pack) : png/svg -> FileAccess false / ResourceLoader true.
 func is_file_exists(path):
-	return FileAccess.file_exists(path)
+	return FileAccess.file_exists(path) or ResourceLoader.exists(path)
 
 
 # Un ScrollContainer Godot 4 ne defile PAS au glisse-doigt/souris tout seul

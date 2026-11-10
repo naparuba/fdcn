@@ -5,6 +5,18 @@ func test_is_file_exists_true_for_real_file():
 	assert_true(Utils.is_file_exists('res://fdcn-1.json'))
 
 
+func test_is_file_exists_true_for_an_imported_resource():
+	# Icone de succes : en export Android, seul ResourceLoader.exists() la voit (cf utils.gd).
+	assert_true(Utils.is_file_exists('res://images/success/POLIR-LANCE.png'))
+	assert_true(Utils.is_file_exists('res://images/success/BOUH-CLIER.svg'))
+	assert_true(Utils.is_file_exists('res://images/items/question.svg'))
+
+
+func test_is_file_exists_false_for_a_missing_image():
+	assert_false(Utils.is_file_exists('res://images/success/CECI_NEXISTE_PAS.svg'))
+	assert_false(Utils.is_file_exists('res://images/success/CECI_NEXISTE_PAS.png'))
+
+
 func test_is_file_exists_false_for_missing_file():
 	assert_false(Utils.is_file_exists('res://ceci_nexiste_pas.json'))
 
