@@ -271,7 +271,10 @@
     "category": "OBJET"
   },
   "BOUCLIER A PLUMES": {
-    "category": "OBJET"
+    "category": "OBJET",
+    "stats": {
+      "arm": 1
+    }
   },
   "CORNE DES SABLES D'IVOIRE": {
     "category": "OBJET"

@@ -84,7 +84,9 @@
             406,
             517
         ],
-        "stats": {}
+        "stats": {
+            "arm": 1
+        }
     },
     "BOUTEILLE DE VIN": {
         "category": "OBJET",
