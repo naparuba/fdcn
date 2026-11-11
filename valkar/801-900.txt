@@ -17,7 +17,7 @@
 
 809: +SUCCESS "Souvenirs d'avenir", go 859
 
-810: go 780
+810: COMBAT "Victimus l'évidé" HAB 27 PV 31 ARM 4 PYRO 6, go 780
 
 811: go 851, 839
 
@@ -37,7 +37,7 @@
 
 819: go 853
 
-820: go 802
+820: COMBAT "Servile, l'évidée" HAB 21 PV 28 ARM 1 DEG 2 PYRO 11, go 802
 
 821: go 818
 
@@ -117,7 +117,7 @@
 
 859: go 594, 876
 
-860: go 808
+860: COMBAT "Cadence, l'évidée" HAB 22 PV 29 ARM 2 DEG 1 PYRO 10, go 808
 
 861: go 830
 

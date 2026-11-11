@@ -63,6 +63,10 @@ ALIASES = {
 }
 CLASSES = {'BELLICISTE', 'OUVRIER', 'FONCTIONNAIRE', 'ELUSIF'}
 
+# Combat : COMBAT "Nom" HAB 16 PV 12 ARM 2 DEG 2 PYRO 10  (stats absentes = 0)
+COMBAT_RE = re.compile(r'COMBAT\s+"([^"]*)"((?:\s+[A-Za-z]+\s*:?\s*-?\d+)*)', re.I)
+COMBAT_KEYS = {'HAB': 'hab', 'PV': 'pv', 'ARM': 'arm', 'DEG': 'deg', 'DEGAT': 'deg', 'DEGATS': 'deg', 'PYRO': 'pyro'}
+
 SUCCESS_RE = re.compile(r'\+?\s*(?:SUCC?ES+S?|succes)\s*:?\s*"([^"]*)"', re.I)
 
 
@@ -94,9 +98,19 @@ def split_top(body):
 
 
 def parse_effects(body):
-    """-> (stats, aquire, remove, success_txt, non_convertis)."""
+    """-> (stats, aquire, remove, success_txt, non_convertis, combat)."""
     stats, aquire, remove, unhandled = {}, [], [], []
     success = None
+    combat = None
+    mc = COMBAT_RE.search(body)
+    if mc:
+        combat = {'nom': mc.group(1), 'hab': 0, 'pv': 0, 'arm': 0, 'deg': 0, 'pyro': 0}
+        for key, val in re.findall(r'([A-Za-z]+)\s*:?\s*(-?\d+)', mc.group(2)):
+            if key.upper() not in COMBAT_KEYS:
+                unhandled.append('COMBAT: stat inconnue %s' % key)
+                continue
+            combat[COMBAT_KEYS[key.upper()]] = int(val)
+        body = body[:mc.start()] + body[mc.end():]
     m = SUCCESS_RE.search(body)
     if m:
         success = m.group(1)
@@ -139,7 +153,7 @@ def parse_effects(body):
                 lst.append(name)
             continue
         unhandled.append(cl)
-    return stats, aquire, remove, success, unhandled
+    return stats, aquire, remove, success, unhandled, combat
 
 
 def read_success_texts():
@@ -310,7 +324,7 @@ def main():
     unhandled_all = {}
     for n in sorted(raw):
         dests, conds, est_fin, secrets = parse_chapter(raw[n])
-        stats, aquire, remove, success, unhandled = parse_effects(raw[n])
+        stats, aquire, remove, success, unhandled, combat = parse_effects(raw[n])
         entry = {}
         if est_fin:
             entry['ending'] = 'good'  # provisoire : a revalider avec l'auteur
@@ -324,6 +338,8 @@ def main():
                 tokens |= cond_tokens(c)
         if stats:
             entry['stats'] = stats
+        if combat:
+            entry['combat'] = combat
         if aquire:
             entry['aquire'] = aquire
         if remove:
@@ -365,6 +381,7 @@ def main():
         sum('stats' in o for o in objs.values())))
     orphan_texts = sorted(set(success_texts) - set(successes))
     no_text = sorted(s['label'] for s in successes.values() if not s['txt'])
+    print('combats: %d chapitres' % sum('combat' in e for e in book.values()))
     print('succes: %d avec texte, %d sans texte' % (len(successes) - len(no_text), len(no_text)))
     if orphan_texts:
         print('ATTENTION textes de succes sans chapitre correspondant:', orphan_texts)

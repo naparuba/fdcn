@@ -438,17 +438,41 @@
     ],
     "stats": {
       "impulsion": 1
+    },
+    "combat": {
+      "nom": "Sanglier d'Acier",
+      "hab": 16,
+      "pv": 12,
+      "arm": 2,
+      "deg": 2,
+      "pyro": 10
     }
   },
   "62": {
     "goto": [
       37
-    ]
+    ],
+    "combat": {
+      "nom": "Deux ratel-gloutons-loutres",
+      "hab": 7,
+      "pv": 10,
+      "arm": 0,
+      "deg": 1,
+      "pyro": 0
+    }
   },
   "63": {
     "goto": [
       196
-    ]
+    ],
+    "combat": {
+      "nom": "Vers géant de métal",
+      "hab": 11,
+      "pv": 25,
+      "arm": 1,
+      "deg": 2,
+      "pyro": 7
+    }
   },
   "64": {
     "goto": [
@@ -840,6 +864,14 @@
       113,
       849
     ],
+    "combat": {
+      "nom": "Petaille Erennoise",
+      "hab": 6,
+      "pv": 12,
+      "arm": 1,
+      "deg": 0,
+      "pyro": 0
+    },
     "aquire": [
       "BELLICISTE"
     ]
@@ -1231,6 +1263,14 @@
     "goto": [
       307
     ],
+    "combat": {
+      "nom": "Nuée de farfadets",
+      "hab": 3,
+      "pv": 8,
+      "arm": 0,
+      "deg": 0,
+      "pyro": 0
+    },
     "aquire": [
       "OR DE FARFADET"
     ]
@@ -1735,7 +1775,15 @@
   "236": {
     "goto": [
       476
-    ]
+    ],
+    "combat": {
+      "nom": "Bande de pirates",
+      "hab": 12,
+      "pv": 20,
+      "arm": 0,
+      "deg": 0,
+      "pyro": 4
+    }
   },
   "237": {
     "goto": [
@@ -1935,6 +1983,14 @@
     "goto": [
       378
     ],
+    "combat": {
+      "nom": "Phasme géant",
+      "hab": 13,
+      "pv": 7,
+      "arm": -1,
+      "deg": 3,
+      "pyro": 7
+    },
     "aquire": [
       "TROPHEE DE PHASME"
     ]
@@ -1973,6 +2029,14 @@
     "goto": [
       234
     ],
+    "combat": {
+      "nom": "Creux hérissé",
+      "hab": 16,
+      "pv": 18,
+      "arm": 1,
+      "deg": 1,
+      "pyro": 10
+    },
     "aquire": [
       "POTION DE DISCORDANCE ETHNIQUE"
     ]
@@ -2030,7 +2094,15 @@
   "274": {
     "goto": [
       507
-    ]
+    ],
+    "combat": {
+      "nom": "Simurgh hostile",
+      "hab": 12,
+      "pv": 24,
+      "arm": 0,
+      "deg": 1,
+      "pyro": 4
+    }
   },
   "275": {
     "goto": [
@@ -2171,7 +2243,15 @@
   "296": {
     "goto": [
       370
-    ]
+    ],
+    "combat": {
+      "nom": "Tribu des gnomes",
+      "hab": 5,
+      "pv": 6,
+      "arm": 0,
+      "deg": -2,
+      "pyro": 7
+    }
   },
   "297": {
     "goto": [
@@ -2448,7 +2528,15 @@
   "336": {
     "goto": [
       448
-    ]
+    ],
+    "combat": {
+      "nom": "Monstre invisible",
+      "hab": 13,
+      "pv": 15,
+      "arm": 0,
+      "deg": 0,
+      "pyro": 6
+    }
   },
   "337": {
     "goto": [
@@ -2641,7 +2729,15 @@
   "365": {
     "goto": [
       799
-    ]
+    ],
+    "combat": {
+      "nom": "Automne, princesse de Solquardie",
+      "hab": 16,
+      "pv": 6,
+      "arm": 0,
+      "deg": 2,
+      "pyro": 5
+    }
   },
   "366": {
     "goto": [
@@ -2659,6 +2755,14 @@
     ],
     "stats": {
       "hab": 1
+    },
+    "combat": {
+      "nom": "Abomination intestine",
+      "hab": 10,
+      "pv": 20,
+      "arm": 0,
+      "deg": 1,
+      "pyro": 5
     }
   },
   "369": {
@@ -2682,7 +2786,15 @@
   "371": {
     "goto": [
       773
-    ]
+    ],
+    "combat": {
+      "nom": "Chevalier d'Argent",
+      "hab": 20,
+      "pv": 24,
+      "arm": 2,
+      "deg": 2,
+      "pyro": 9
+    }
   },
   "372": {
     "goto": [
@@ -2959,6 +3071,14 @@
     ],
     "stats": {
       "impulsion": 1
+    },
+    "combat": {
+      "nom": "Sorcière des bois",
+      "hab": 17,
+      "pv": 18,
+      "arm": 0,
+      "deg": 1,
+      "pyro": 8
     }
   },
   "414": {
@@ -3218,7 +3338,15 @@
   "450": {
     "goto": [
       270
-    ]
+    ],
+    "combat": {
+      "nom": "Hutte vivante",
+      "hab": 10,
+      "pv": 12,
+      "arm": 0,
+      "deg": 0,
+      "pyro": 5
+    }
   },
   "451": {
     "goto": [
@@ -3229,7 +3357,15 @@
   "452": {
     "goto": [
       445
-    ]
+    ],
+    "combat": {
+      "nom": "Roi de la forêt",
+      "hab": 16,
+      "pv": 25,
+      "arm": 0,
+      "deg": 1,
+      "pyro": 7
+    }
   },
   "453": {
     "goto": [
@@ -3239,7 +3375,15 @@
   "454": {
     "goto": [
       424
-    ]
+    ],
+    "combat": {
+      "nom": "Yéti du pont",
+      "hab": 14,
+      "pv": 18,
+      "arm": 1,
+      "deg": 2,
+      "pyro": 8
+    }
   },
   "455": {
     "goto": [
@@ -3279,12 +3423,28 @@
     ],
     "stats": {
       "chance_max": -1
+    },
+    "combat": {
+      "nom": "Votre mère (creuse)",
+      "hab": 2,
+      "pv": 2,
+      "arm": 1,
+      "deg": 0,
+      "pyro": 0
     }
   },
   "461": {
     "goto": [
       722
-    ]
+    ],
+    "combat": {
+      "nom": "Austère, Duc d'Arkadie",
+      "hab": 15,
+      "pv": 20,
+      "arm": 1,
+      "deg": 1,
+      "pyro": 5
+    }
   },
   "462": {
     "goto": [
@@ -3324,7 +3484,15 @@
   "468": {
     "goto": [
       460
-    ]
+    ],
+    "combat": {
+      "nom": "Aberration du marais noir",
+      "hab": 10,
+      "pv": 20,
+      "arm": 0,
+      "deg": 1,
+      "pyro": 5
+    }
   },
   "469": {
     "goto": [
@@ -4033,7 +4201,15 @@
   "562": {
     "goto": [
       502
-    ]
+    ],
+    "combat": {
+      "nom": "Sorcière monstrueuse",
+      "hab": 13,
+      "pv": 15,
+      "arm": 0,
+      "deg": 1,
+      "pyro": 4
+    }
   },
   "563": {
     "goto": [
@@ -4041,6 +4217,14 @@
     ],
     "stats": {
       "end": 1
+    },
+    "combat": {
+      "nom": "Coq à trois têtes",
+      "hab": 8,
+      "pv": 11,
+      "arm": 0,
+      "deg": 0,
+      "pyro": 0
     }
   },
   "564": {
@@ -4076,6 +4260,14 @@
     "goto": [
       635
     ],
+    "combat": {
+      "nom": "Salle de creux",
+      "hab": 12,
+      "pv": 12,
+      "arm": 1,
+      "deg": 0,
+      "pyro": 4
+    },
     "aquire": [
       "TABLEAU DE TRIANGLE VOLANT"
     ]
@@ -4409,6 +4601,14 @@
     "conditions": {
       "464": "VALOISIE",
       "47": "SOLQUARDIE"
+    },
+    "combat": {
+      "nom": "Armée de creux corsaires",
+      "hab": 15,
+      "pv": 35,
+      "arm": 2,
+      "deg": 0,
+      "pyro": 8
     }
   },
   "614": {
@@ -4425,7 +4625,15 @@
   "616": {
     "goto": [
       506
-    ]
+    ],
+    "combat": {
+      "nom": "Wendigo creux",
+      "hab": 20,
+      "pv": 20,
+      "arm": 0,
+      "deg": 0,
+      "pyro": 6
+    }
   },
   "617": {
     "goto": [
@@ -4494,7 +4702,15 @@
   "626": {
     "goto": [
       745
-    ]
+    ],
+    "combat": {
+      "nom": "Secrétaire assassine",
+      "hab": 13,
+      "pv": 20,
+      "arm": 1,
+      "deg": 2,
+      "pyro": 5
+    }
   },
   "627": {
     "goto": [
@@ -4520,7 +4736,15 @@
   "631": {
     "goto": [
       447
-    ]
+    ],
+    "combat": {
+      "nom": "Statues creuses",
+      "hab": 11,
+      "pv": 22,
+      "arm": 1,
+      "deg": 0,
+      "pyro": 6
+    }
   },
   "632": {
     "goto": [
@@ -4543,7 +4767,15 @@
   "634": {
     "goto": [
       740
-    ]
+    ],
+    "combat": {
+      "nom": "Ménestresse araignée",
+      "hab": 16,
+      "pv": 23,
+      "arm": 2,
+      "deg": 1,
+      "pyro": 5
+    }
   },
   "635": {
     "goto": [
@@ -4590,7 +4822,15 @@
   "641": {
     "goto": [
       628
-    ]
+    ],
+    "combat": {
+      "nom": "Mutante difforme",
+      "hab": 10,
+      "pv": 13,
+      "arm": 0,
+      "deg": 1,
+      "pyro": 4
+    }
   },
   "642": {
     "goto": [
@@ -4772,7 +5012,15 @@
   "666": {
     "goto": [
       606
-    ]
+    ],
+    "combat": {
+      "nom": "Mimine l'invincible",
+      "hab": 666,
+      "pv": 666,
+      "arm": 666,
+      "deg": 666,
+      "pyro": 10
+    }
   },
   "667": {
     "goto": [
@@ -4897,12 +5145,28 @@
     "goto": [
       674,
       559
-    ]
+    ],
+    "combat": {
+      "nom": "Générateur de boites",
+      "hab": 0,
+      "pv": 30,
+      "arm": 2,
+      "deg": 0,
+      "pyro": 0
+    }
   },
   "686": {
     "goto": [
       596
-    ]
+    ],
+    "combat": {
+      "nom": "Le Bazaamalgame",
+      "hab": 12,
+      "pv": 16,
+      "arm": 1,
+      "deg": 1,
+      "pyro": 4
+    }
   },
   "687": {
     "goto": [
@@ -4922,7 +5186,15 @@
   "689": {
     "goto": [
       777
-    ]
+    ],
+    "combat": {
+      "nom": "Audace, Baron de Valoisie",
+      "hab": 14,
+      "pv": 18,
+      "arm": 1,
+      "deg": 1,
+      "pyro": 0
+    }
   },
   "690": {
     "goto": [
@@ -5145,7 +5417,15 @@
   "722": {
     "goto": [
       764
-    ]
+    ],
+    "combat": {
+      "nom": "Avatar d'Atella",
+      "hab": 22,
+      "pv": 33,
+      "arm": 2,
+      "deg": 2,
+      "pyro": 6
+    }
   },
   "723": {
     "goto": [
@@ -5198,7 +5478,15 @@
   "728": {
     "goto": [
       371
-    ]
+    ],
+    "combat": {
+      "nom": "Mêlée Solquardienne",
+      "hab": 3,
+      "pv": 15,
+      "arm": 0,
+      "deg": 0,
+      "pyro": 4
+    }
   },
   "729": {
     "goto": [
@@ -5215,6 +5503,14 @@
     "goto": [
       64
     ],
+    "combat": {
+      "nom": "Sentinelles paniquées",
+      "hab": 8,
+      "pv": 13,
+      "arm": 1,
+      "deg": -1,
+      "pyro": 0
+    },
     "success": "ENFERMES-ICI-AVEC-MOI"
   },
   "732": {
@@ -5240,7 +5536,15 @@
   "736": {
     "goto": [
       235
-    ]
+    ],
+    "combat": {
+      "nom": "Manifestation dégénérée",
+      "hab": 4,
+      "pv": 40,
+      "arm": 2,
+      "deg": 0,
+      "pyro": 0
+    }
   },
   "737": {
     "goto": [
@@ -5439,7 +5743,15 @@
   "766": {
     "goto": [
       815
-    ]
+    ],
+    "combat": {
+      "nom": "Mercenaires d'Elite",
+      "hab": 11,
+      "pv": 9,
+      "arm": 1,
+      "deg": 1,
+      "pyro": 7
+    }
   },
   "767": {
     "goto": [
@@ -5449,7 +5761,15 @@
   "768": {
     "goto": [
       732
-    ]
+    ],
+    "combat": {
+      "nom": "Civils Solquardiens",
+      "hab": 10,
+      "pv": 15,
+      "arm": 0,
+      "deg": 1,
+      "pyro": 5
+    }
   },
   "769": {
     "goto": [
@@ -5499,7 +5819,15 @@
   "777": {
     "goto": [
       767
-    ]
+    ],
+    "combat": {
+      "nom": "Avatar de Parodikos",
+      "hab": 7,
+      "pv": 37,
+      "arm": 0,
+      "deg": 2,
+      "pyro": 2
+    }
   },
   "778": {
     "goto": [
@@ -5631,7 +5959,15 @@
   "796": {
     "goto": [
       829
-    ]
+    ],
+    "combat": {
+      "nom": "Gardes Arkadiens",
+      "hab": 10,
+      "pv": 12,
+      "arm": 1,
+      "deg": 0,
+      "pyro": 7
+    }
   },
   "797": {
     "goto": [
@@ -5650,7 +5986,15 @@
   "799": {
     "goto": [
       750
-    ]
+    ],
+    "combat": {
+      "nom": "Avatar de Runier",
+      "hab": 20,
+      "pv": 29,
+      "arm": 0,
+      "deg": 3,
+      "pyro": 6
+    }
   },
   "800": {
     "goto": [
@@ -5711,7 +6055,15 @@
   "810": {
     "goto": [
       780
-    ]
+    ],
+    "combat": {
+      "nom": "Victimus l'évidé",
+      "hab": 27,
+      "pv": 31,
+      "arm": 4,
+      "deg": 0,
+      "pyro": 6
+    }
   },
   "811": {
     "goto": [
@@ -5763,7 +6115,15 @@
   "820": {
     "goto": [
       802
-    ]
+    ],
+    "combat": {
+      "nom": "Servile, l'évidée",
+      "hab": 21,
+      "pv": 28,
+      "arm": 1,
+      "deg": 2,
+      "pyro": 11
+    }
   },
   "821": {
     "goto": [
@@ -5998,7 +6358,15 @@
   "860": {
     "goto": [
       808
-    ]
+    ],
+    "combat": {
+      "nom": "Cadence, l'évidée",
+      "hab": 22,
+      "pv": 29,
+      "arm": 2,
+      "deg": 1,
+      "pyro": 10
+    }
   },
   "861": {
     "goto": [

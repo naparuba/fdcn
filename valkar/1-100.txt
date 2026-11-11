@@ -119,11 +119,11 @@
 
 60: go (GUIDE_TOURISTIQUE)31, 33
 
-61: +1 IMPULSION, go 409
+61: COMBAT "Sanglier d'Acier" HAB 16 PV 12 ARM 2 DEG 2 PYRO 10, +1 IMPULSION, go 409
 
-62: go 37
+62: COMBAT "Deux ratel-gloutons-loutres" HAB 7 PV 10 DEG 1, go 37
 
-63: go 196
+63: COMBAT "Vers géant de métal" HAB 11 PV 25 ARM 1 DEG 2 PYRO 7, go 196
 
 64: go 634
 

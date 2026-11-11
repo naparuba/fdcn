@@ -69,7 +69,7 @@
 
 335: go 244,617,578,603
 
-336: go 448
+336: COMBAT "Monstre invisible" HAB 13 PV 15 PYRO 6, go 448
 
 337: go 290
 
@@ -127,19 +127,19 @@
 
 364: go 360
 
-365: go 799
+365: COMBAT "Automne, princesse de Solquardie" HAB 16 PV 6 DEG 2 PYRO 5, go 799
 
 366: go 480
 
 367: go 498
 
-368: +1 HABILETE, go 407
+368: COMBAT "Abomination intestine" HAB 10 PV 20 DEG 1 PYRO 5, +1 HABILETE, go 407
 
 369: +SUCCESS "It's free real estate", go 333
 
 370: +1 RICHESSE, +ECUSSON ECUREUIL, +SUCCESS "Gnolocauste Nucléaire",go 240
 
-371: go 773
+371: COMBAT "Chevalier d'Argent" HAB 20 PV 24 ARM 2 DEG 2 PYRO 9, go 773
 
 372: go 527, 593, 607
 

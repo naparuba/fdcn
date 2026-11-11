@@ -23,13 +23,13 @@
 
 612: go 503, 512
 
-613: go (VALOISIE)464, (SOLQUARDIE)47
+613: COMBAT "Armée de creux corsaires" HAB 15 PV 35 ARM 2 PYRO 8, go (VALOISIE)464, (SOLQUARDIE)47
 
 614: go 333
 
 615: go 183, 451
 
-616: go 506
+616: COMBAT "Wendigo creux" HAB 20 PV 20 PYRO 6, go 506
 
 617: go 422, 281, 335, 551, 603
 
@@ -49,7 +49,7 @@
 
 625: go 699, 655, 611, (GUIDE TOURISTIQUE)505
 
-626: go 745
+626: COMBAT "Secrétaire assassine" HAB 13 PV 20 ARM 1 DEG 2 PYRO 5, go 745
 
 627: go 681
 
@@ -59,13 +59,13 @@
 
 630: go 681
 
-631: go 447
+631: COMBAT "Statues creuses" HAB 11 PV 22 ARM 1 PYRO 6, go 447
 
 632: go 333
 
 633: +BRASSARDS, +PROTEGE-GENOUX, +PEAUFINAGE DE VOTRE ARME, +FLECHES EN ACIER ARKADIE, +REGIME RICHE EN PRETEINES, go 721, 229
 
-634: go 740
+634: COMBAT "Ménestresse araignée" HAB 16 PV 23 ARM 2 DEG 1 PYRO 5, go 740
 
 635: go 582, 640
 
@@ -79,7 +79,7 @@
 
 640: go (LANCE|DAGUE A ROUELLES)517, 685, 672
 
-641: go 628
+641: COMBAT "Mutante difforme" HAB 10 PV 13 DEG 1 PYRO 4, go 628
 
 642: go 446
 
@@ -129,7 +129,7 @@
 
 665: go 698, 541
 
-666: go 606
+666: COMBAT "Mimine l'invincible" HAB 666 PV 666 ARM 666 DEG 666 PYRO 10, go 606
 
 667: -2 CHANCE, go 681
 
@@ -167,15 +167,15 @@
 
 684: go 860
 
-685: go 674, 559
+685: COMBAT "Générateur de boites" HAB 0 PV 30 ARM 2, go 674, 559
 
-686:  go 596
+686: COMBAT "Le Bazaamalgame" HAB 12 PV 16 ARM 1 DEG 1 PYRO 4, go 596
 
 687: +ARMURE COMPOSITE, go 759, 785
 
 688: go 588, 645
 
-689: go 777
+689: COMBAT "Audace, Baron de Valoisie" HAB 14 PV 18 ARM 1 DEG 1, go 777
 
 690: go 106
 

@@ -41,7 +41,7 @@
 
 721: +MEDAILLON DE CERF, go 229
 
-722: go 764
+722: COMBAT "Avatar d'Atella" HAB 22 PV 33 ARM 2 DEG 2 PYRO 6, go 764
 
 723: +SUCCESS "La deuxième est offerte ❤", go 829
 
@@ -53,13 +53,13 @@
 
 727: +BROCHE DOREE, go (FONCTIONNAIRE)734, (IMPULSION>=4)743, (CAPE INVISIBILITE)93, 766
 
-728: go 371
+728: COMBAT "Mêlée Solquardienne" HAB 3 PV 15 PYRO 4, go 371
 
 729: go 792
 
 730: +SUCCESS "BOOM! HeadShot!", go 333
 
-731: +SUCCESS "Enfermés ici avec moi", go 64
+731: COMBAT "Sentinelles paniquées" HAB 8 PV 13 ARM 1 DEG -1, +SUCCESS "Enfermés ici avec moi", go 64
 
 732: go 827
 
@@ -69,7 +69,7 @@
 
 735: go 704
 
-736: go 235
+736: COMBAT "Manifestation dégénérée" HAB 4 PV 40 ARM 2, go 235
 
 737: +EPEE EN ACIER ARKADIE, go 759, 785
 
@@ -129,11 +129,11 @@
 
 765: go 732
 
-766: go 815
+766: COMBAT "Mercenaires d'Elite" HAB 11 PV 9 ARM 1 DEG 1 PYRO 7, go 815
 
 767: go 729
 
-768: go 732
+768: COMBAT "Civils Solquardiens" HAB 10 PV 15 DEG 1 PYRO 5, go 732
 
 769: +SUCCESS "Flambée de champignons", go 732
 
@@ -151,7 +151,7 @@
 
 776: go 333
 
-777: go 767
+777: COMBAT "Avatar de Parodikos" HAB 7 PV 37 DEG 2 PYRO 2, go 767
 
 778: go 689, 730
 
@@ -189,13 +189,13 @@
 
 795: go 842
 
-796: go 829
+796: COMBAT "Gardes Arkadiens" HAB 10 PV 12 ARM 1 PYRO 7, go 829
 
 797: +PIECE ENSORCELEE, go 592, 755
 
 798: go 333
 
-799: go 750
+799: COMBAT "Avatar de Runier" HAB 20 PV 29 DEG 3 PYRO 6, go 750
 
 800: go 821, 837, 848, 863
 

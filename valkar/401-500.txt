@@ -21,7 +21,7 @@
 
 412: go (GUIDE TOURISTIQUE)254, 269
 
-413: +1 IMPULSION, go 318
+413: COMBAT "Sorcière des bois" HAB 17 PV 18 DEG 1 PYRO 8, +1 IMPULSION, go 318
 
 414: go 639, 413
 
@@ -95,15 +95,15 @@
 
 449: go 678
 
-450: go 270
+450: COMBAT "Hutte vivante" HAB 10 PV 12 PYRO 5, go 270
 
 451: go 183, 615
 
-452: go 445
+452: COMBAT "Roi de la forêt" HAB 16 PV 25 DEG 1 PYRO 7, go 445
 
 453: go 473
 
-454: go 424
+454: COMBAT "Yéti du pont" HAB 14 PV 18 ARM 1 DEG 2 PYRO 8, go 424
 
 455: go 355, 578
 
@@ -115,9 +115,9 @@
 
 459: +SUCCESS "Mister Freeze", go 333
 
-460: -1 CHANCE MAX, go 407
+460: COMBAT "Votre mère (creuse)" HAB 2 PV 2 ARM 1, -1 CHANCE MAX, go 407
 
-461: go 722
+461: COMBAT "Austère, Duc d'Arkadie" HAB 15 PV 20 ARM 1 DEG 1 PYRO 5, go 722
 
 462: go 304
 
@@ -131,7 +131,7 @@
 
 467: go 413
 
-468: go 460
+468: COMBAT "Aberration du marais noir" HAB 10 PV 20 DEG 1 PYRO 5, go 460
 
 469: go 457, 139, 202
 

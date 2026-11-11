@@ -722,19 +722,34 @@
         "aquire": [
             "BELLICISTE"
         ],
+        "combat": {
+            "arm": 1,
+            "deg": 0,
+            "hab": 6,
+            "nom": "Petaille Erennoise",
+            "pv": 12,
+            "pyro": 0
+        },
         "computed": {
             "aquire": [
                 "BELLICISTE"
             ],
             "arc": null,
             "chapter": "Atemashra",
-            "combat": null,
+            "combat": {
+                "arm": 1,
+                "deg": 0,
+                "hab": 6,
+                "nom": "Petaille Erennoise",
+                "pv": 12,
+                "pyro": 0
+            },
             "ending": false,
             "ending_id": null,
             "ending_txt": null,
             "ending_type": null,
             "id": 118,
-            "is_combat": false,
+            "is_combat": true,
             "jump_conditions": {},
             "jump_conditions_txts": {},
             "label": null,
@@ -2619,19 +2634,34 @@
         "aquire": [
             "OR DE FARFADET"
         ],
+        "combat": {
+            "arm": 0,
+            "deg": 0,
+            "hab": 3,
+            "nom": "Nuée de farfadets",
+            "pv": 8,
+            "pyro": 0
+        },
         "computed": {
             "aquire": [
                 "OR DE FARFADET"
             ],
             "arc": null,
             "chapter": "La boucle",
-            "combat": null,
+            "combat": {
+                "arm": 0,
+                "deg": 0,
+                "hab": 3,
+                "nom": "Nuée de farfadets",
+                "pv": 8,
+                "pyro": 0
+            },
             "ending": false,
             "ending_id": null,
             "ending_txt": null,
             "ending_type": null,
             "id": 167,
-            "is_combat": false,
+            "is_combat": true,
             "jump_conditions": {},
             "jump_conditions_txts": {},
             "label": null,
@@ -5193,17 +5223,32 @@
         ]
     },
     "236": {
+        "combat": {
+            "arm": 0,
+            "deg": 0,
+            "hab": 12,
+            "nom": "Bande de pirates",
+            "pv": 20,
+            "pyro": 4
+        },
         "computed": {
             "aquire": [],
             "arc": null,
             "chapter": "Chants et Vergers",
-            "combat": null,
+            "combat": {
+                "arm": 0,
+                "deg": 0,
+                "hab": 12,
+                "nom": "Bande de pirates",
+                "pv": 20,
+                "pyro": 4
+            },
             "ending": false,
             "ending_id": null,
             "ending_txt": null,
             "ending_type": null,
             "id": 236,
-            "is_combat": false,
+            "is_combat": true,
             "jump_conditions": {},
             "jump_conditions_txts": {},
             "label": null,
@@ -6198,19 +6243,34 @@
         "aquire": [
             "TROPHEE DE PHASME"
         ],
+        "combat": {
+            "arm": -1,
+            "deg": 3,
+            "hab": 13,
+            "nom": "Phasme géant",
+            "pv": 7,
+            "pyro": 7
+        },
         "computed": {
             "aquire": [
                 "TROPHEE DE PHASME"
             ],
             "arc": null,
             "chapter": "Plume et acier",
-            "combat": null,
+            "combat": {
+                "arm": -1,
+                "deg": 3,
+                "hab": 13,
+                "nom": "Phasme géant",
+                "pv": 7,
+                "pyro": 7
+            },
             "ending": false,
             "ending_id": null,
             "ending_txt": null,
             "ending_type": null,
             "id": 261,
-            "is_combat": false,
+            "is_combat": true,
             "jump_conditions": {},
             "jump_conditions_txts": {},
             "label": null,
@@ -6377,19 +6437,34 @@
         "aquire": [
             "POTION DE DISCORDANCE ETHNIQUE"
         ],
+        "combat": {
+            "arm": 1,
+            "deg": 1,
+            "hab": 16,
+            "nom": "Creux hérissé",
+            "pv": 18,
+            "pyro": 10
+        },
         "computed": {
             "aquire": [
                 "POTION DE DISCORDANCE ETHNIQUE"
             ],
             "arc": null,
             "chapter": null,
-            "combat": null,
+            "combat": {
+                "arm": 1,
+                "deg": 1,
+                "hab": 16,
+                "nom": "Creux hérissé",
+                "pv": 18,
+                "pyro": 10
+            },
             "ending": false,
             "ending_id": null,
             "ending_txt": null,
             "ending_type": null,
             "id": 266,
-            "is_combat": false,
+            "is_combat": true,
             "jump_conditions": {},
             "jump_conditions_txts": {},
             "label": null,
@@ -6678,17 +6753,32 @@
         ]
     },
     "274": {
+        "combat": {
+            "arm": 0,
+            "deg": 1,
+            "hab": 12,
+            "nom": "Simurgh hostile",
+            "pv": 24,
+            "pyro": 4
+        },
         "computed": {
             "aquire": [],
             "arc": null,
             "chapter": null,
-            "combat": null,
+            "combat": {
+                "arm": 0,
+                "deg": 1,
+                "hab": 12,
+                "nom": "Simurgh hostile",
+                "pv": 24,
+                "pyro": 4
+            },
             "ending": false,
             "ending_id": null,
             "ending_txt": null,
             "ending_type": null,
             "id": 274,
-            "is_combat": false,
+            "is_combat": true,
             "jump_conditions": {},
             "jump_conditions_txts": {},
             "label": null,
@@ -7455,17 +7545,32 @@
         ]
     },
     "296": {
+        "combat": {
+            "arm": 0,
+            "deg": -2,
+            "hab": 5,
+            "nom": "Tribu des gnomes",
+            "pv": 6,
+            "pyro": 7
+        },
         "computed": {
             "aquire": [],
             "arc": null,
             "chapter": "Plume et acier",
-            "combat": null,
+            "combat": {
+                "arm": 0,
+                "deg": -2,
+                "hab": 5,
+                "nom": "Tribu des gnomes",
+                "pv": 6,
+                "pyro": 7
+            },
             "ending": false,
             "ending_id": null,
             "ending_txt": null,
             "ending_type": null,
             "id": 296,
-            "is_combat": false,
+            "is_combat": true,
             "jump_conditions": {},
             "jump_conditions_txts": {},
             "label": null,
@@ -8925,17 +9030,32 @@
         ]
     },
     "336": {
+        "combat": {
+            "arm": 0,
+            "deg": 0,
+            "hab": 13,
+            "nom": "Monstre invisible",
+            "pv": 15,
+            "pyro": 6
+        },
         "computed": {
             "aquire": [],
             "arc": null,
             "chapter": "Plume et acier",
-            "combat": null,
+            "combat": {
+                "arm": 0,
+                "deg": 0,
+                "hab": 13,
+                "nom": "Monstre invisible",
+                "pv": 15,
+                "pyro": 6
+            },
             "ending": false,
             "ending_id": null,
             "ending_txt": null,
             "ending_type": null,
             "id": 336,
-            "is_combat": false,
+            "is_combat": true,
             "jump_conditions": {},
             "jump_conditions_txts": {},
             "label": null,
@@ -9989,17 +10109,32 @@
         ]
     },
     "365": {
+        "combat": {
+            "arm": 0,
+            "deg": 2,
+            "hab": 16,
+            "nom": "Automne, princesse de Solquardie",
+            "pv": 6,
+            "pyro": 5
+        },
         "computed": {
             "aquire": [],
             "arc": null,
             "chapter": "Larmes d'un Cerf",
-            "combat": null,
+            "combat": {
+                "arm": 0,
+                "deg": 2,
+                "hab": 16,
+                "nom": "Automne, princesse de Solquardie",
+                "pv": 6,
+                "pyro": 5
+            },
             "ending": false,
             "ending_id": null,
             "ending_txt": null,
             "ending_type": null,
             "id": 365,
-            "is_combat": false,
+            "is_combat": true,
             "jump_conditions": {},
             "jump_conditions_txts": {},
             "label": null,
@@ -10076,17 +10211,32 @@
         ]
     },
     "368": {
+        "combat": {
+            "arm": 0,
+            "deg": 1,
+            "hab": 10,
+            "nom": "Abomination intestine",
+            "pv": 20,
+            "pyro": 5
+        },
         "computed": {
             "aquire": [],
             "arc": null,
             "chapter": "La boucle",
-            "combat": null,
+            "combat": {
+                "arm": 0,
+                "deg": 1,
+                "hab": 10,
+                "nom": "Abomination intestine",
+                "pv": 20,
+                "pyro": 5
+            },
             "ending": false,
             "ending_id": null,
             "ending_txt": null,
             "ending_type": null,
             "id": 368,
-            "is_combat": false,
+            "is_combat": true,
             "jump_conditions": {},
             "jump_conditions_txts": {},
             "label": null,
@@ -10209,17 +10359,32 @@
         "success": "GNOLOCAUSTE-NUCLEAIRE"
     },
     "371": {
+        "combat": {
+            "arm": 2,
+            "deg": 2,
+            "hab": 20,
+            "nom": "Chevalier d'Argent",
+            "pv": 24,
+            "pyro": 9
+        },
         "computed": {
             "aquire": [],
             "arc": null,
             "chapter": "L'arme du Renard",
-            "combat": null,
+            "combat": {
+                "arm": 2,
+                "deg": 2,
+                "hab": 20,
+                "nom": "Chevalier d'Argent",
+                "pv": 24,
+                "pyro": 9
+            },
             "ending": false,
             "ending_id": null,
             "ending_txt": null,
             "ending_type": null,
             "id": 371,
-            "is_combat": false,
+            "is_combat": true,
             "jump_conditions": {},
             "jump_conditions_txts": {},
             "label": null,
@@ -11720,17 +11885,32 @@
         ]
     },
     "413": {
+        "combat": {
+            "arm": 0,
+            "deg": 1,
+            "hab": 17,
+            "nom": "Sorcière des bois",
+            "pv": 18,
+            "pyro": 8
+        },
         "computed": {
             "aquire": [],
             "arc": null,
             "chapter": null,
-            "combat": null,
+            "combat": {
+                "arm": 0,
+                "deg": 1,
+                "hab": 17,
+                "nom": "Sorcière des bois",
+                "pv": 18,
+                "pyro": 8
+            },
             "ending": false,
             "ending_id": null,
             "ending_txt": null,
             "ending_type": null,
             "id": 413,
-            "is_combat": false,
+            "is_combat": true,
             "jump_conditions": {},
             "jump_conditions_txts": {},
             "label": null,
@@ -13111,17 +13291,32 @@
         }
     },
     "450": {
+        "combat": {
+            "arm": 0,
+            "deg": 0,
+            "hab": 10,
+            "nom": "Hutte vivante",
+            "pv": 12,
+            "pyro": 5
+        },
         "computed": {
             "aquire": [],
             "arc": null,
             "chapter": null,
-            "combat": null,
+            "combat": {
+                "arm": 0,
+                "deg": 0,
+                "hab": 10,
+                "nom": "Hutte vivante",
+                "pv": 12,
+                "pyro": 5
+            },
             "ending": false,
             "ending_id": null,
             "ending_txt": null,
             "ending_type": null,
             "id": 450,
-            "is_combat": false,
+            "is_combat": true,
             "jump_conditions": {},
             "jump_conditions_txts": {},
             "label": null,
@@ -13171,17 +13366,32 @@
         ]
     },
     "452": {
+        "combat": {
+            "arm": 0,
+            "deg": 1,
+            "hab": 16,
+            "nom": "Roi de la forêt",
+            "pv": 25,
+            "pyro": 7
+        },
         "computed": {
             "aquire": [],
             "arc": null,
             "chapter": null,
-            "combat": null,
+            "combat": {
+                "arm": 0,
+                "deg": 1,
+                "hab": 16,
+                "nom": "Roi de la forêt",
+                "pv": 25,
+                "pyro": 7
+            },
             "ending": false,
             "ending_id": null,
             "ending_txt": null,
             "ending_type": null,
             "id": 452,
-            "is_combat": false,
+            "is_combat": true,
             "jump_conditions": {},
             "jump_conditions_txts": {},
             "label": null,
@@ -13229,17 +13439,32 @@
         ]
     },
     "454": {
+        "combat": {
+            "arm": 1,
+            "deg": 2,
+            "hab": 14,
+            "nom": "Yéti du pont",
+            "pv": 18,
+            "pyro": 8
+        },
         "computed": {
             "aquire": [],
             "arc": null,
             "chapter": "La boucle",
-            "combat": null,
+            "combat": {
+                "arm": 1,
+                "deg": 2,
+                "hab": 14,
+                "nom": "Yéti du pont",
+                "pv": 18,
+                "pyro": 8
+            },
             "ending": false,
             "ending_id": null,
             "ending_txt": null,
             "ending_type": null,
             "id": 454,
-            "is_combat": false,
+            "is_combat": true,
             "jump_conditions": {},
             "jump_conditions_txts": {},
             "label": null,
@@ -13454,17 +13679,32 @@
         ]
     },
     "460": {
+        "combat": {
+            "arm": 1,
+            "deg": 0,
+            "hab": 2,
+            "nom": "Votre mère (creuse)",
+            "pv": 2,
+            "pyro": 0
+        },
         "computed": {
             "aquire": [],
             "arc": null,
             "chapter": "La boucle",
-            "combat": null,
+            "combat": {
+                "arm": 1,
+                "deg": 0,
+                "hab": 2,
+                "nom": "Votre mère (creuse)",
+                "pv": 2,
+                "pyro": 0
+            },
             "ending": false,
             "ending_id": null,
             "ending_txt": null,
             "ending_type": null,
             "id": 460,
-            "is_combat": false,
+            "is_combat": true,
             "jump_conditions": {},
             "jump_conditions_txts": {},
             "label": null,
@@ -13488,17 +13728,32 @@
         }
     },
     "461": {
+        "combat": {
+            "arm": 1,
+            "deg": 1,
+            "hab": 15,
+            "nom": "Austère, Duc d'Arkadie",
+            "pv": 20,
+            "pyro": 5
+        },
         "computed": {
             "aquire": [],
             "arc": null,
             "chapter": "L'arme du Renard",
-            "combat": null,
+            "combat": {
+                "arm": 1,
+                "deg": 1,
+                "hab": 15,
+                "nom": "Austère, Duc d'Arkadie",
+                "pv": 20,
+                "pyro": 5
+            },
             "ending": false,
             "ending_id": null,
             "ending_txt": null,
             "ending_type": null,
             "id": 461,
-            "is_combat": false,
+            "is_combat": true,
             "jump_conditions": {},
             "jump_conditions_txts": {},
             "label": null,
@@ -13704,17 +13959,32 @@
         ]
     },
     "468": {
+        "combat": {
+            "arm": 0,
+            "deg": 1,
+            "hab": 10,
+            "nom": "Aberration du marais noir",
+            "pv": 20,
+            "pyro": 5
+        },
         "computed": {
             "aquire": [],
             "arc": null,
             "chapter": "La boucle",
-            "combat": null,
+            "combat": {
+                "arm": 0,
+                "deg": 1,
+                "hab": 10,
+                "nom": "Aberration du marais noir",
+                "pv": 20,
+                "pyro": 5
+            },
             "ending": false,
             "ending_id": null,
             "ending_txt": null,
             "ending_type": null,
             "id": 468,
-            "is_combat": false,
+            "is_combat": true,
             "jump_conditions": {},
             "jump_conditions_txts": {},
             "label": null,
@@ -17381,17 +17651,32 @@
         ]
     },
     "562": {
+        "combat": {
+            "arm": 0,
+            "deg": 1,
+            "hab": 13,
+            "nom": "Sorcière monstrueuse",
+            "pv": 15,
+            "pyro": 4
+        },
         "computed": {
             "aquire": [],
             "arc": null,
             "chapter": null,
-            "combat": null,
+            "combat": {
+                "arm": 0,
+                "deg": 1,
+                "hab": 13,
+                "nom": "Sorcière monstrueuse",
+                "pv": 15,
+                "pyro": 4
+            },
             "ending": false,
             "ending_id": null,
             "ending_txt": null,
             "ending_type": null,
             "id": 562,
-            "is_combat": false,
+            "is_combat": true,
             "jump_conditions": {},
             "jump_conditions_txts": {},
             "label": null,
@@ -17410,17 +17695,32 @@
         ]
     },
     "563": {
+        "combat": {
+            "arm": 0,
+            "deg": 0,
+            "hab": 8,
+            "nom": "Coq à trois têtes",
+            "pv": 11,
+            "pyro": 0
+        },
         "computed": {
             "aquire": [],
             "arc": null,
             "chapter": "Plume et acier",
-            "combat": null,
+            "combat": {
+                "arm": 0,
+                "deg": 0,
+                "hab": 8,
+                "nom": "Coq à trois têtes",
+                "pv": 11,
+                "pyro": 0
+            },
             "ending": false,
             "ending_id": null,
             "ending_txt": null,
             "ending_type": null,
             "id": 563,
-            "is_combat": false,
+            "is_combat": true,
             "jump_conditions": {},
             "jump_conditions_txts": {},
             "label": null,
@@ -17583,19 +17883,34 @@
         "aquire": [
             "TABLEAU DE TRIANGLE VOLANT"
         ],
+        "combat": {
+            "arm": 1,
+            "deg": 0,
+            "hab": 12,
+            "nom": "Salle de creux",
+            "pv": 12,
+            "pyro": 4
+        },
         "computed": {
             "aquire": [
                 "TABLEAU DE TRIANGLE VOLANT"
             ],
             "arc": null,
             "chapter": null,
-            "combat": null,
+            "combat": {
+                "arm": 1,
+                "deg": 0,
+                "hab": 12,
+                "nom": "Salle de creux",
+                "pv": 12,
+                "pyro": 4
+            },
             "ending": false,
             "ending_id": null,
             "ending_txt": null,
             "ending_type": null,
             "id": 568,
-            "is_combat": false,
+            "is_combat": true,
             "jump_conditions": {},
             "jump_conditions_txts": {},
             "label": null,
@@ -19181,17 +19496,32 @@
         ]
     },
     "61": {
+        "combat": {
+            "arm": 2,
+            "deg": 2,
+            "hab": 16,
+            "nom": "Sanglier d'Acier",
+            "pv": 12,
+            "pyro": 10
+        },
         "computed": {
             "aquire": [],
             "arc": null,
             "chapter": "La boucle",
-            "combat": null,
+            "combat": {
+                "arm": 2,
+                "deg": 2,
+                "hab": 16,
+                "nom": "Sanglier d'Acier",
+                "pv": 12,
+                "pyro": 10
+            },
             "ending": false,
             "ending_id": null,
             "ending_txt": null,
             "ending_type": null,
             "id": 61,
-            "is_combat": false,
+            "is_combat": true,
             "jump_conditions": {},
             "jump_conditions_txts": {},
             "label": null,
@@ -19310,17 +19640,32 @@
         ]
     },
     "613": {
+        "combat": {
+            "arm": 2,
+            "deg": 0,
+            "hab": 15,
+            "nom": "Armée de creux corsaires",
+            "pv": 35,
+            "pyro": 8
+        },
         "computed": {
             "aquire": [],
             "arc": null,
             "chapter": "Chants et Vergers",
-            "combat": null,
+            "combat": {
+                "arm": 2,
+                "deg": 0,
+                "hab": 15,
+                "nom": "Armée de creux corsaires",
+                "pv": 35,
+                "pyro": 8
+            },
             "ending": false,
             "ending_id": null,
             "ending_txt": null,
             "ending_type": null,
             "id": 613,
-            "is_combat": false,
+            "is_combat": true,
             "jump_conditions": {
                 "464": {
                     "$end": "VALOISIE"
@@ -19415,17 +19760,32 @@
         ]
     },
     "616": {
+        "combat": {
+            "arm": 0,
+            "deg": 0,
+            "hab": 20,
+            "nom": "Wendigo creux",
+            "pv": 20,
+            "pyro": 6
+        },
         "computed": {
             "aquire": [],
             "arc": null,
             "chapter": "Plume et acier",
-            "combat": null,
+            "combat": {
+                "arm": 0,
+                "deg": 0,
+                "hab": 20,
+                "nom": "Wendigo creux",
+                "pv": 20,
+                "pyro": 6
+            },
             "ending": false,
             "ending_id": null,
             "ending_txt": null,
             "ending_type": null,
             "id": 616,
-            "is_combat": false,
+            "is_combat": true,
             "jump_conditions": {},
             "jump_conditions_txts": {},
             "label": null,
@@ -19540,17 +19900,32 @@
         "success": "DE-L-AUTRE-COTE-DU-MIRROIR"
     },
     "62": {
+        "combat": {
+            "arm": 0,
+            "deg": 1,
+            "hab": 7,
+            "nom": "Deux ratel-gloutons-loutres",
+            "pv": 10,
+            "pyro": 0
+        },
         "computed": {
             "aquire": [],
             "arc": null,
             "chapter": "La boucle",
-            "combat": null,
+            "combat": {
+                "arm": 0,
+                "deg": 1,
+                "hab": 7,
+                "nom": "Deux ratel-gloutons-loutres",
+                "pv": 10,
+                "pyro": 0
+            },
             "ending": false,
             "ending_id": null,
             "ending_txt": null,
             "ending_type": null,
             "id": 62,
-            "is_combat": false,
+            "is_combat": true,
             "jump_conditions": {},
             "jump_conditions_txts": {},
             "label": null,
@@ -19772,17 +20147,32 @@
         ]
     },
     "626": {
+        "combat": {
+            "arm": 1,
+            "deg": 2,
+            "hab": 13,
+            "nom": "Secrétaire assassine",
+            "pv": 20,
+            "pyro": 5
+        },
         "computed": {
             "aquire": [],
             "arc": null,
             "chapter": "L'Ame d'Ecureuil",
-            "combat": null,
+            "combat": {
+                "arm": 1,
+                "deg": 2,
+                "hab": 13,
+                "nom": "Secrétaire assassine",
+                "pv": 20,
+                "pyro": 5
+            },
             "ending": false,
             "ending_id": null,
             "ending_txt": null,
             "ending_type": null,
             "id": 626,
-            "is_combat": false,
+            "is_combat": true,
             "jump_conditions": {},
             "jump_conditions_txts": {},
             "label": null,
@@ -19890,17 +20280,32 @@
         ]
     },
     "63": {
+        "combat": {
+            "arm": 1,
+            "deg": 2,
+            "hab": 11,
+            "nom": "Vers géant de métal",
+            "pv": 25,
+            "pyro": 7
+        },
         "computed": {
             "aquire": [],
             "arc": null,
             "chapter": "La boucle",
-            "combat": null,
+            "combat": {
+                "arm": 1,
+                "deg": 2,
+                "hab": 11,
+                "nom": "Vers géant de métal",
+                "pv": 25,
+                "pyro": 7
+            },
             "ending": false,
             "ending_id": null,
             "ending_txt": null,
             "ending_type": null,
             "id": 63,
-            "is_combat": false,
+            "is_combat": true,
             "jump_conditions": {},
             "jump_conditions_txts": {},
             "label": null,
@@ -19948,17 +20353,32 @@
         ]
     },
     "631": {
+        "combat": {
+            "arm": 1,
+            "deg": 0,
+            "hab": 11,
+            "nom": "Statues creuses",
+            "pv": 22,
+            "pyro": 6
+        },
         "computed": {
             "aquire": [],
             "arc": null,
             "chapter": "Plume et acier",
-            "combat": null,
+            "combat": {
+                "arm": 1,
+                "deg": 0,
+                "hab": 11,
+                "nom": "Statues creuses",
+                "pv": 22,
+                "pyro": 6
+            },
             "ending": false,
             "ending_id": null,
             "ending_txt": null,
             "ending_type": null,
             "id": 631,
-            "is_combat": false,
+            "is_combat": true,
             "jump_conditions": {},
             "jump_conditions_txts": {},
             "label": null,
@@ -20050,17 +20470,32 @@
         ]
     },
     "634": {
+        "combat": {
+            "arm": 2,
+            "deg": 1,
+            "hab": 16,
+            "nom": "Ménestresse araignée",
+            "pv": 23,
+            "pyro": 5
+        },
         "computed": {
             "aquire": [],
             "arc": null,
             "chapter": "Larmes d'un Cerf",
-            "combat": null,
+            "combat": {
+                "arm": 2,
+                "deg": 1,
+                "hab": 16,
+                "nom": "Ménestresse araignée",
+                "pv": 23,
+                "pyro": 5
+            },
             "ending": false,
             "ending_id": null,
             "ending_txt": null,
             "ending_type": null,
             "id": 634,
-            "is_combat": false,
+            "is_combat": true,
             "jump_conditions": {},
             "jump_conditions_txts": {},
             "label": null,
@@ -20319,17 +20754,32 @@
         ]
     },
     "641": {
+        "combat": {
+            "arm": 0,
+            "deg": 1,
+            "hab": 10,
+            "nom": "Mutante difforme",
+            "pv": 13,
+            "pyro": 4
+        },
         "computed": {
             "aquire": [],
             "arc": null,
             "chapter": "Plume et acier",
-            "combat": null,
+            "combat": {
+                "arm": 0,
+                "deg": 1,
+                "hab": 10,
+                "nom": "Mutante difforme",
+                "pv": 13,
+                "pyro": 4
+            },
             "ending": false,
             "ending_id": null,
             "ending_txt": null,
             "ending_type": null,
             "id": 641,
-            "is_combat": false,
+            "is_combat": true,
             "jump_conditions": {},
             "jump_conditions_txts": {},
             "label": null,
@@ -21247,17 +21697,32 @@
         ]
     },
     "666": {
+        "combat": {
+            "arm": 666,
+            "deg": 666,
+            "hab": 666,
+            "nom": "Mimine l'invincible",
+            "pv": 666,
+            "pyro": 10
+        },
         "computed": {
             "aquire": [],
             "arc": null,
             "chapter": null,
-            "combat": null,
+            "combat": {
+                "arm": 666,
+                "deg": 666,
+                "hab": 666,
+                "nom": "Mimine l'invincible",
+                "pv": 666,
+                "pyro": 10
+            },
             "ending": false,
             "ending_id": null,
             "ending_txt": null,
             "ending_type": null,
             "id": 666,
-            "is_combat": false,
+            "is_combat": true,
             "jump_conditions": {},
             "jump_conditions_txts": {},
             "label": null,
@@ -21937,17 +22402,32 @@
         ]
     },
     "685": {
+        "combat": {
+            "arm": 2,
+            "deg": 0,
+            "hab": 0,
+            "nom": "Générateur de boites",
+            "pv": 30,
+            "pyro": 0
+        },
         "computed": {
             "aquire": [],
             "arc": null,
             "chapter": "Plume et acier",
-            "combat": null,
+            "combat": {
+                "arm": 2,
+                "deg": 0,
+                "hab": 0,
+                "nom": "Générateur de boites",
+                "pv": 30,
+                "pyro": 0
+            },
             "ending": false,
             "ending_id": null,
             "ending_txt": null,
             "ending_type": null,
             "id": 685,
-            "is_combat": false,
+            "is_combat": true,
             "jump_conditions": {},
             "jump_conditions_txts": {},
             "label": null,
@@ -21968,17 +22448,32 @@
         ]
     },
     "686": {
+        "combat": {
+            "arm": 1,
+            "deg": 1,
+            "hab": 12,
+            "nom": "Le Bazaamalgame",
+            "pv": 16,
+            "pyro": 4
+        },
         "computed": {
             "aquire": [],
             "arc": null,
             "chapter": "Plume et acier",
-            "combat": null,
+            "combat": {
+                "arm": 1,
+                "deg": 1,
+                "hab": 12,
+                "nom": "Le Bazaamalgame",
+                "pv": 16,
+                "pyro": 4
+            },
             "ending": false,
             "ending_id": null,
             "ending_txt": null,
             "ending_type": null,
             "id": 686,
-            "is_combat": false,
+            "is_combat": true,
             "jump_conditions": {},
             "jump_conditions_txts": {},
             "label": null,
@@ -22064,17 +22559,32 @@
         ]
     },
     "689": {
+        "combat": {
+            "arm": 1,
+            "deg": 1,
+            "hab": 14,
+            "nom": "Audace, Baron de Valoisie",
+            "pv": 18,
+            "pyro": 0
+        },
         "computed": {
             "aquire": [],
             "arc": null,
             "chapter": "L'Ame d'Ecureuil",
-            "combat": null,
+            "combat": {
+                "arm": 1,
+                "deg": 1,
+                "hab": 14,
+                "nom": "Audace, Baron de Valoisie",
+                "pv": 18,
+                "pyro": 0
+            },
             "ending": false,
             "ending_id": null,
             "ending_txt": null,
             "ending_type": null,
             "id": 689,
-            "is_combat": false,
+            "is_combat": true,
             "jump_conditions": {},
             "jump_conditions_txts": {},
             "label": null,
@@ -23340,17 +23850,32 @@
         ]
     },
     "722": {
+        "combat": {
+            "arm": 2,
+            "deg": 2,
+            "hab": 22,
+            "nom": "Avatar d'Atella",
+            "pv": 33,
+            "pyro": 6
+        },
         "computed": {
             "aquire": [],
             "arc": null,
             "chapter": "L'arme du Renard",
-            "combat": null,
+            "combat": {
+                "arm": 2,
+                "deg": 2,
+                "hab": 22,
+                "nom": "Avatar d'Atella",
+                "pv": 33,
+                "pyro": 6
+            },
             "ending": false,
             "ending_id": null,
             "ending_txt": null,
             "ending_type": null,
             "id": 722,
-            "is_combat": false,
+            "is_combat": true,
             "jump_conditions": {},
             "jump_conditions_txts": {},
             "label": null,
@@ -23575,17 +24100,32 @@
         ]
     },
     "728": {
+        "combat": {
+            "arm": 0,
+            "deg": 0,
+            "hab": 3,
+            "nom": "Mêlée Solquardienne",
+            "pv": 15,
+            "pyro": 4
+        },
         "computed": {
             "aquire": [],
             "arc": null,
             "chapter": "L'arme du Renard",
-            "combat": null,
+            "combat": {
+                "arm": 0,
+                "deg": 0,
+                "hab": 3,
+                "nom": "Mêlée Solquardienne",
+                "pv": 15,
+                "pyro": 4
+            },
             "ending": false,
             "ending_id": null,
             "ending_txt": null,
             "ending_type": null,
             "id": 728,
-            "is_combat": false,
+            "is_combat": true,
             "jump_conditions": {},
             "jump_conditions_txts": {},
             "label": null,
@@ -23692,17 +24232,32 @@
         "success": "BOOM-HEADSHOT"
     },
     "731": {
+        "combat": {
+            "arm": 1,
+            "deg": -1,
+            "hab": 8,
+            "nom": "Sentinelles paniquées",
+            "pv": 13,
+            "pyro": 0
+        },
         "computed": {
             "aquire": [],
             "arc": null,
             "chapter": "Larmes d'un Cerf",
-            "combat": null,
+            "combat": {
+                "arm": 1,
+                "deg": -1,
+                "hab": 8,
+                "nom": "Sentinelles paniquées",
+                "pv": 13,
+                "pyro": 0
+            },
             "ending": false,
             "ending_id": null,
             "ending_txt": null,
             "ending_type": null,
             "id": 731,
-            "is_combat": false,
+            "is_combat": true,
             "jump_conditions": {},
             "jump_conditions_txts": {},
             "label": null,
@@ -23838,17 +24393,32 @@
         ]
     },
     "736": {
+        "combat": {
+            "arm": 2,
+            "deg": 0,
+            "hab": 4,
+            "nom": "Manifestation dégénérée",
+            "pv": 40,
+            "pyro": 0
+        },
         "computed": {
             "aquire": [],
             "arc": null,
             "chapter": "L'Ame d'Ecureuil",
-            "combat": null,
+            "combat": {
+                "arm": 2,
+                "deg": 0,
+                "hab": 4,
+                "nom": "Manifestation dégénérée",
+                "pv": 40,
+                "pyro": 0
+            },
             "ending": false,
             "ending_id": null,
             "ending_txt": null,
             "ending_type": null,
             "id": 736,
-            "is_combat": false,
+            "is_combat": true,
             "jump_conditions": {},
             "jump_conditions_txts": {},
             "label": null,
@@ -24909,17 +25479,32 @@
         ]
     },
     "766": {
+        "combat": {
+            "arm": 1,
+            "deg": 1,
+            "hab": 11,
+            "nom": "Mercenaires d'Elite",
+            "pv": 9,
+            "pyro": 7
+        },
         "computed": {
             "aquire": [],
             "arc": null,
             "chapter": "L'Ame d'Ecureuil",
-            "combat": null,
+            "combat": {
+                "arm": 1,
+                "deg": 1,
+                "hab": 11,
+                "nom": "Mercenaires d'Elite",
+                "pv": 9,
+                "pyro": 7
+            },
             "ending": false,
             "ending_id": null,
             "ending_txt": null,
             "ending_type": null,
             "id": 766,
-            "is_combat": false,
+            "is_combat": true,
             "jump_conditions": {},
             "jump_conditions_txts": {},
             "label": null,
@@ -24967,17 +25552,32 @@
         ]
     },
     "768": {
+        "combat": {
+            "arm": 0,
+            "deg": 1,
+            "hab": 10,
+            "nom": "Civils Solquardiens",
+            "pv": 15,
+            "pyro": 5
+        },
         "computed": {
             "aquire": [],
             "arc": null,
             "chapter": "Larmes d'un Cerf",
-            "combat": null,
+            "combat": {
+                "arm": 0,
+                "deg": 1,
+                "hab": 10,
+                "nom": "Civils Solquardiens",
+                "pv": 15,
+                "pyro": 5
+            },
             "ending": false,
             "ending_id": null,
             "ending_txt": null,
             "ending_type": null,
             "id": 768,
-            "is_combat": false,
+            "is_combat": true,
             "jump_conditions": {},
             "jump_conditions_txts": {},
             "label": null,
@@ -25269,17 +25869,32 @@
         ]
     },
     "777": {
+        "combat": {
+            "arm": 0,
+            "deg": 2,
+            "hab": 7,
+            "nom": "Avatar de Parodikos",
+            "pv": 37,
+            "pyro": 2
+        },
         "computed": {
             "aquire": [],
             "arc": null,
             "chapter": "L'Ame d'Ecureuil",
-            "combat": null,
+            "combat": {
+                "arm": 0,
+                "deg": 2,
+                "hab": 7,
+                "nom": "Avatar de Parodikos",
+                "pv": 37,
+                "pyro": 2
+            },
             "ending": false,
             "ending_id": null,
             "ending_txt": null,
             "ending_type": null,
             "id": 777,
-            "is_combat": false,
+            "is_combat": true,
             "jump_conditions": {},
             "jump_conditions_txts": {},
             "label": null,
@@ -26002,17 +26617,32 @@
         ]
     },
     "796": {
+        "combat": {
+            "arm": 1,
+            "deg": 0,
+            "hab": 10,
+            "nom": "Gardes Arkadiens",
+            "pv": 12,
+            "pyro": 7
+        },
         "computed": {
             "aquire": [],
             "arc": null,
             "chapter": "L'arme du Renard",
-            "combat": null,
+            "combat": {
+                "arm": 1,
+                "deg": 0,
+                "hab": 10,
+                "nom": "Gardes Arkadiens",
+                "pv": 12,
+                "pyro": 7
+            },
             "ending": false,
             "ending_id": null,
             "ending_txt": null,
             "ending_type": null,
             "id": 796,
-            "is_combat": false,
+            "is_combat": true,
             "jump_conditions": {},
             "jump_conditions_txts": {},
             "label": null,
@@ -26096,17 +26726,32 @@
         ]
     },
     "799": {
+        "combat": {
+            "arm": 0,
+            "deg": 3,
+            "hab": 20,
+            "nom": "Avatar de Runier",
+            "pv": 29,
+            "pyro": 6
+        },
         "computed": {
             "aquire": [],
             "arc": null,
             "chapter": "Larmes d'un Cerf",
-            "combat": null,
+            "combat": {
+                "arm": 0,
+                "deg": 3,
+                "hab": 20,
+                "nom": "Avatar de Runier",
+                "pv": 29,
+                "pyro": 6
+            },
             "ending": false,
             "ending_id": null,
             "ending_txt": null,
             "ending_type": null,
             "id": 799,
-            "is_combat": false,
+            "is_combat": true,
             "jump_conditions": {},
             "jump_conditions_txts": {},
             "label": null,
@@ -26516,17 +27161,32 @@
         ]
     },
     "810": {
+        "combat": {
+            "arm": 4,
+            "deg": 0,
+            "hab": 27,
+            "nom": "Victimus l'évidé",
+            "pv": 31,
+            "pyro": 6
+        },
         "computed": {
             "aquire": [],
             "arc": null,
             "chapter": "Larmes d'un Cerf",
-            "combat": null,
+            "combat": {
+                "arm": 4,
+                "deg": 0,
+                "hab": 27,
+                "nom": "Victimus l'évidé",
+                "pv": 31,
+                "pyro": 6
+            },
             "ending": false,
             "ending_id": null,
             "ending_txt": null,
             "ending_type": null,
             "id": 810,
-            "is_combat": false,
+            "is_combat": true,
             "jump_conditions": {},
             "jump_conditions_txts": {},
             "label": null,
@@ -26839,17 +27499,32 @@
         ]
     },
     "820": {
+        "combat": {
+            "arm": 1,
+            "deg": 2,
+            "hab": 21,
+            "nom": "Servile, l'évidée",
+            "pv": 28,
+            "pyro": 11
+        },
         "computed": {
             "aquire": [],
             "arc": null,
             "chapter": "Larmes d'un Cerf",
-            "combat": null,
+            "combat": {
+                "arm": 1,
+                "deg": 2,
+                "hab": 21,
+                "nom": "Servile, l'évidée",
+                "pv": 28,
+                "pyro": 11
+            },
             "ending": false,
             "ending_id": null,
             "ending_txt": null,
             "ending_type": null,
             "id": 820,
-            "is_combat": false,
+            "is_combat": true,
             "jump_conditions": {},
             "jump_conditions_txts": {},
             "label": null,
@@ -28251,17 +28926,32 @@
         }
     },
     "860": {
+        "combat": {
+            "arm": 2,
+            "deg": 1,
+            "hab": 22,
+            "nom": "Cadence, l'évidée",
+            "pv": 29,
+            "pyro": 10
+        },
         "computed": {
             "aquire": [],
             "arc": null,
             "chapter": "Larmes d'un Cerf",
-            "combat": null,
+            "combat": {
+                "arm": 2,
+                "deg": 1,
+                "hab": 22,
+                "nom": "Cadence, l'évidée",
+                "pv": 29,
+                "pyro": 10
+            },
             "ending": false,
             "ending_id": null,
             "ending_txt": null,
             "ending_type": null,
             "id": 860,
-            "is_combat": false,
+            "is_combat": true,
             "jump_conditions": {},
             "jump_conditions_txts": {},
             "label": null,
